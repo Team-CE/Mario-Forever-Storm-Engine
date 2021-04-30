@@ -48,7 +48,7 @@ extents = Vector2( 10, 5 )
 extents = Vector2( 7, 2 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 2, 11 )
+extents = Vector2( 2, 10 )
 
 [node name="Mario" type="Area2D"]
 script = ExtResource( 2 )
@@ -106,13 +106,13 @@ shape = SubResource( 6 )
 [node name="RightDetector" type="Area2D" parent="."]
 
 [node name="CollisionRight" type="CollisionShape2D" parent="RightDetector"]
-position = Vector2( 16, -15 )
+position = Vector2( 16, -14 )
 shape = SubResource( 7 )
 
 [node name="LeftDetector" type="Area2D" parent="."]
 
 [node name="CollisionLeft" type="CollisionShape2D" parent="LeftDetector"]
-position = Vector2( -16, -15 )
+position = Vector2( -16, -14 )
 shape = SubResource( 7 )
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]

@@ -6,7 +6,7 @@
 [node name="Main" type="Node2D"]
 
 [node name="Mario" parent="." instance=ExtResource( 1 )]
-position = Vector2( 128, 176 )
+position = Vector2( 176, 224 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )

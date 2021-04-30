@@ -46,7 +46,7 @@ func _process(delta):
 	if is_over_backdrop($TopDetector) and y_speed < 0:
 		y_speed = 0
 	
-	if (is_over_backdrop($RightDetector) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector) and x_speed <= -0.08):
+	if not is_over_backdrop($TopDetector) and ((is_over_backdrop($RightDetector) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector) and x_speed <= -0.08)):
 		x_speed = 0
 	
 	position.y += y_speed * get_delta(delta)
