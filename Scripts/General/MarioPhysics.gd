@@ -8,6 +8,14 @@ export var jump_counter = 0
 func get_delta(delta):
 	return 60 / (1 / (delta if not delta == 0 else 0.0001))
 
+func is_over_backdrop(obj):
+	var overlaps = obj.get_overlapping_bodies()
+	if overlaps.size() > 0:
+		for i in range(overlaps.size()):
+			if overlaps[0] is TileMap:
+				return true
+	return false
+
 
 func _process(delta):
 	if y_speed < 11:
@@ -28,20 +36,24 @@ func _process(delta):
 	if x_speed >= -0.08 and x_speed <= 0.08:
 		x_speed = 0
 	
-	var bottom_overlaps = $BottomDetector.get_overlapping_bodies()
-	if bottom_overlaps.size() > 0:
-		for i in range(bottom_overlaps.size()):
-			if bottom_overlaps[0] is TileMap and y_speed > 0:
-				y_speed = 0
-				jump_counter = 0
-				
-				# while get_overlapping_bodies().size() == 0:
-				# 	position.y += 1
+	if is_over_backdrop($BottomDetector) and y_speed > 0:
+		if is_over_backdrop($InsideDetector):
+			position.y -= 16
+		y_speed = 0
+		jump_counter = 0
+		position.y = round(position.y / 32) * 32
+	
+	if is_over_backdrop($TopDetector) and y_speed < 0:
+		y_speed = 0
+	
+	if (is_over_backdrop($RightDetector) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector) and x_speed <= -0.08):
+		x_speed = 0
 	
 	position.y += y_speed * get_delta(delta)
 	position.x += x_speed * get_delta(delta)
 	
 	animate()
+	debug()
 
 
 func controls(delta):
@@ -68,7 +80,22 @@ func controls(delta):
 
 
 func animate():
-	if not (y_speed >= 0 and y_speed <= 0.1):
+	if not y_speed == 0:
 		$SmallMario.set_animation('Jumping')
-	else:
+	elif abs(x_speed) < 0.8:
 		$SmallMario.set_animation('Stopped')
+	
+	if x_speed <= -0.8:
+		$SmallMario.flip_h = true
+		if not $SmallMario.animation == 'Walking' and y_speed == 0:
+			$SmallMario.set_animation('Walking')
+	if x_speed >= 0.8:
+		$SmallMario.flip_h = false
+		if not $SmallMario.animation == 'Walking' and y_speed == 0:
+			$SmallMario.set_animation('Walking')
+	
+	if $SmallMario.animation == 'Walking':
+		$SmallMario.speed_scale = abs(x_speed) * 3.5
+
+func debug():
+	$DebugLayer/DebugText.text = 'X Speed = ' + str(x_speed) + '\nY Speed = ' + str(y_speed) + '\nAnimation: ' + str($SmallMario.animation)

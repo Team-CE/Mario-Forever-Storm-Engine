@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://GFX/Mario/Walk.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/General/MarioPhysics.gd" type="Script" id=2]
@@ -22,45 +22,98 @@ region = Rect2( 60, 0, 30, 31 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "Walking",
-"speed": 5.0
+"speed": 1.0
 }, {
 "frames": [ SubResource( 3 ) ],
 "loop": true,
 "name": "Stopped",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Jumping",
 "speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 10, 14 )
 
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 10, 5 )
+
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 7, 2 )
 
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 2, 11 )
+
 [node name="Mario" type="Area2D"]
 script = ExtResource( 2 )
+
+[node name="Camera" type="Camera2D" parent="."]
+current = true
+limit_left = 0
+limit_top = 0
+limit_bottom = 480
+smoothing_speed = 8.0
+editor_draw_limits = true
+
+[node name="DebugLayer" type="CanvasLayer" parent="."]
+
+[node name="DebugText" type="Label" parent="DebugLayer"]
+margin_left = 9.0
+margin_top = 11.0
+margin_right = 97.0
+margin_bottom = 50.0
+text = "huina"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SmallMario" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -15 )
 frames = SubResource( 4 )
 animation = "Jumping"
+playing = true
 
-[node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( -1, -13 )
+[node name="PrimaryDetector" type="Area2D" parent="."]
+
+[node name="CollisionPrimary" type="CollisionShape2D" parent="PrimaryDetector"]
+position = Vector2( 0, -13 )
 shape = SubResource( 5 )
+
+[node name="InsideDetector" type="Area2D" parent="."]
+
+[node name="CollisionInside" type="CollisionShape2D" parent="InsideDetector"]
+position = Vector2( 0, -9 )
+shape = SubResource( 8 )
 
 [node name="BottomDetector" type="Area2D" parent="."]
 
 [node name="CollisionBottom" type="CollisionShape2D" parent="BottomDetector"]
-position = Vector2( -1, 15 )
+position = Vector2( 0, 12 )
 shape = SubResource( 6 )
+
+[node name="TopDetector" type="Area2D" parent="."]
+
+[node name="CollisionTop" type="CollisionShape2D" parent="TopDetector"]
+position = Vector2( 0, -30 )
+shape = SubResource( 6 )
+
+[node name="RightDetector" type="Area2D" parent="."]
+
+[node name="CollisionRight" type="CollisionShape2D" parent="RightDetector"]
+position = Vector2( 16, -15 )
+shape = SubResource( 7 )
+
+[node name="LeftDetector" type="Area2D" parent="."]
+
+[node name="CollisionLeft" type="CollisionShape2D" parent="LeftDetector"]
+position = Vector2( -16, -15 )
+shape = SubResource( 7 )
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
