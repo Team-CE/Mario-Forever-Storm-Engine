@@ -19,3 +19,8 @@ mono_crash.*.json
 # System/tool-specific ignores
 .directory
 *~
+
+godot-cpp/
+**.o
+**.obj
+**libgodot-cpp.linux.debug.64.a

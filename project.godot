@@ -8,8 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "FLMusicLib",
+"language": "NativeScript",
+"path": "res://FLMusicLib/FLMusic.gdns"
+} ]
 _global_script_class_icons={
+"FLMusicLib": ""
 }
 
 [application]
@@ -17,6 +23,10 @@ _global_script_class_icons={
 config/name="mf"
 run/main_scene="res://Stages/Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+global="*res://Scripts/global.gd"
 
 [debug]
 

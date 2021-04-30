@@ -3,6 +3,7 @@ extends Area2D
 export var x_speed = 0
 export var y_speed = 0
 export var jump_counter = 0
+export var can_jump = true
 
 
 func get_delta(delta):
@@ -46,7 +47,7 @@ func _process(delta):
 	if is_over_backdrop($TopDetector) and y_speed < 0:
 		y_speed = 0
 	
-	if not is_over_backdrop($TopDetector) and ((is_over_backdrop($RightDetector) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector) and x_speed <= -0.08)):
+	if not (is_over_backdrop($TopDetector) and not is_over_backdrop($BottomDetector)) and ((is_over_backdrop($RightDetector) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector) and x_speed <= -0.08)):
 		x_speed = 0
 	
 	position.y += y_speed * get_delta(delta)
