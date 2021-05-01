@@ -6,7 +6,7 @@ signal TimeTick
 signal OnPlayerLoseLife
 
 var lives : int = 3
-var time : int = 360
+var time : int = 110
 var score : int = 0
 
 var debug : bool = true
