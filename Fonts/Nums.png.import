@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Jump.png-cb1aed7c8ec85a3bbd16427690ced0ed.stex"
+path="res://.import/Nums.png-2dc12f321fcc14db95a38209b9911cae.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Mario/Jump.png"
-dest_files=[ "res://.import/Jump.png-cb1aed7c8ec85a3bbd16427690ced0ed.stex" ]
+source_file="res://Fonts/Nums.png"
+dest_files=[ "res://.import/Nums.png-2dc12f321fcc14db95a38209b9911cae.stex" ]
 
 [params]
 

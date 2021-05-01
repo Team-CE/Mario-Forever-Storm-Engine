@@ -5,7 +5,6 @@ export var y_speed = 0
 export var jump_counter = 0
 export var can_jump = true
 
-
 func get_delta(delta):
 	return 50 / (1 / (delta if not delta == 0 else 0.0001))
 
@@ -16,7 +15,6 @@ func is_over_backdrop(obj):
 			if overlaps[0] is TileMap:
 				return true
 	return false
-
 
 func _process(delta):
 	if y_speed < 11:
@@ -56,7 +54,6 @@ func _process(delta):
 	animate()
 	debug()
 
-
 func controls(delta):
 	if Input.is_action_pressed('mario_jump') and jump_counter == 0:
 		y_speed = -11
@@ -78,7 +75,6 @@ func controls(delta):
 			x_speed -= 0.23 * get_delta(delta)
 		elif x_speed > -7 and Input.is_action_pressed('mario_fire'):
 			x_speed -= 0.23 * get_delta(delta)
-
 
 func animate():
 	if not y_speed == 0:

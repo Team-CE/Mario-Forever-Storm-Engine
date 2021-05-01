@@ -26,7 +26,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-global="*res://Scripts/MusicEngine.gd"
+music_eng="*res://Scripts/MusicEngine.gd"
+Global="*res://Scripts/Global.gd"
 
 [debug]
 
