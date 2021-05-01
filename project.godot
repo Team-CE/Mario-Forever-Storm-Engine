@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "EnemyBase",
+"language": "GDScript",
+"path": "res://Scripts/General/EnemyBase.gd"
+}, {
 "base": "Node",
 "class": "FLMusicLib",
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
 } ]
 _global_script_class_icons={
+"EnemyBase": "",
 "FLMusicLib": ""
 }
 

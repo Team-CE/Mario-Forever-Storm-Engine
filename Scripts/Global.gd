@@ -1,13 +1,20 @@
 extends Node
 
+var gravity : float = 10
+
 signal TimeTick
 signal OnPlayerLoseLife
 
 var lives : int = 3
-var time : int = 10
+var time : int = 360
 var score : int = 0
 
+var debug : bool = true
+
 onready var timer : Timer = Timer.new() 
+
+static func get_delta(delta) -> float:
+	return 50 / (1 / (delta if not delta == 0 else 0.0001))
 
 func _ready() -> void:
 	timer.wait_time = 1.45
