@@ -41,13 +41,13 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 10, 14 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 10, 5 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 7, 2 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 2, 10 )
 
 [node name="Mario" type="Area2D"]
@@ -89,31 +89,31 @@ shape = SubResource( 5 )
 
 [node name="CollisionInside" type="CollisionShape2D" parent="InsideDetector"]
 position = Vector2( 0, -9 )
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 
 [node name="BottomDetector" type="Area2D" parent="."]
 
 [node name="CollisionBottom" type="CollisionShape2D" parent="BottomDetector"]
 position = Vector2( 0, 12 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="TopDetector" type="Area2D" parent="."]
 
 [node name="CollisionTop" type="CollisionShape2D" parent="TopDetector"]
 position = Vector2( 0, -30 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="RightDetector" type="Area2D" parent="."]
 
 [node name="CollisionRight" type="CollisionShape2D" parent="RightDetector"]
 position = Vector2( 16, -14 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="LeftDetector" type="Area2D" parent="."]
 
 [node name="CollisionLeft" type="CollisionShape2D" parent="LeftDetector"]
 position = Vector2( -16, -14 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
