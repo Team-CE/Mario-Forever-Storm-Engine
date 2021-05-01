@@ -1,13 +1,14 @@
 extends Node
 
-var gravity : float = 10
+var gravity: float = 10
 
 signal TimeTick
 signal OnPlayerLoseLife
 
-var lives : int = 3
-var time : int = 360
-var score : int = 0
+var lives: int = 3
+var time: int = 360
+var score: int = 0
+var coins: int = 0
 
 var debug : bool = true
 
@@ -20,17 +21,16 @@ func _ready() -> void:
 	timer.wait_time = 1.45
 	add_child(timer)
 
-func _reset(time:int = time,lives:int = lives,score:int = score) -> void:
+func _reset(time: int = time, lives: int = lives) -> void:
 	self.time = time
 	self.lives = lives
-	self.score = score
 
 func _physics_process(delta) -> void:
 	if timer.time_left <= 1 && time != -1:
 		_delay()
 		timer.start()
 
-func _add_score(score:int) -> void:
+func _add_score(score: int) -> void:
 	self.score += abs(score)
 
 func _delay() -> void:

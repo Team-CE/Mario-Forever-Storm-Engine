@@ -21,6 +21,7 @@ tile_data = PoolIntArray( -655361, 0, 1, -589825, 0, 1, -524289, 0, 1, -458753, 
 
 [node name="Music Controller" type="Node" parent="."]
 script = ExtResource( 3 )
+path = "11 TenguMan Stage.ssf"
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
