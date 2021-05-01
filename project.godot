@@ -26,7 +26,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="mf"
+config/name="Mario Forever Cloud Engine"
 run/main_scene="res://Stages/Main.tscn"
 config/icon="res://icon.png"
 
