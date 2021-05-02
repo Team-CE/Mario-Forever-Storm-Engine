@@ -190,7 +190,7 @@ layer = 5
 script = ExtResource( 4 )
 
 [node name="TimeSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 561, 24 )
+position = Vector2( 560, 24 )
 frames = SubResource( 38 )
 
 [node name="Player" type="Sprite" parent="."]
@@ -243,9 +243,9 @@ __meta__ = {
 }
 
 [node name="Time" type="Label" parent="."]
-margin_left = 546.0
+margin_left = 545.0
 margin_top = 35.0
-margin_right = 594.0
+margin_right = 593.0
 margin_bottom = 51.0
 grow_horizontal = 0
 custom_fonts/font = ExtResource( 3 )

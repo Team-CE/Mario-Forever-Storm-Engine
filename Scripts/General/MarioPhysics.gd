@@ -45,6 +45,15 @@ func _process(delta):
 	if not (is_over_backdrop($TopDetector) and not is_over_backdrop($BottomDetector)) and ((is_over_backdrop($RightDetector) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector) and x_speed <= -0.08)):
 		x_speed = 0
 	
+	if is_over_backdrop($SmallRightDetector):
+		position.x -= 1 * Global.get_delta(delta)
+	
+	if is_over_backdrop($SmallLeftDetector):
+		position.x += 1 * Global.get_delta(delta)
+	
+	if is_over_backdrop($SmallRightDetector) and is_over_backdrop($SmallLeftDetector):
+		position.x += (1 if $SmallMario.flip_h else -1) * Global.get_delta(delta)
+	
 	position.y += y_speed * Global.get_delta(delta)
 	position.x += x_speed * Global.get_delta(delta)
 	
