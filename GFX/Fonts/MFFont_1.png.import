@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/DODELAINAHUI.png-53ef80c3d78cfdd2816b5fe1e78149d1.stex"
+path="res://.import/MFFont_1.png-fe87e266980e29dc3addef73fbd7208b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Fonts/DODELAINAHUI.png"
-dest_files=[ "res://.import/DODELAINAHUI.png-53ef80c3d78cfdd2816b5fe1e78149d1.stex" ]
+source_file="res://Fonts/MFFont_1.png"
+dest_files=[ "res://.import/MFFont_1.png-fe87e266980e29dc3addef73fbd7208b.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

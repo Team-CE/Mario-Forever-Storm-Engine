@@ -1,0 +1,1 @@
+GODOT didnt see folders with .
