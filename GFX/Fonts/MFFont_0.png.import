@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/MFFont_0.png-7274afffe89bb6e92bd363ec732d584b.stex"
+path="res://.import/MFFont_0.png-519a156b4dd92c2f8b899646ea6db084.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Fonts/MFFont_0.png"
-dest_files=[ "res://.import/MFFont_0.png-7274afffe89bb6e92bd363ec732d584b.stex" ]
+source_file="res://GFX/Fonts/MFFont_0.png"
+dest_files=[ "res://.import/MFFont_0.png-519a156b4dd92c2f8b899646ea6db084.stex" ]
 
 [params]
 

@@ -18,6 +18,8 @@ static func get_delta(delta) -> float:
 	return 50 / (1 / (delta if not delta == 0 else 0.0001))
 
 func _ready() -> void:
+	if debug:
+		add_child(preload("res://Objects/Core/Inspector.tscn").instance())
 	timer.wait_time = 1.45
 	add_child(timer)
 

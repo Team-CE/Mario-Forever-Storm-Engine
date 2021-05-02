@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://GFX/Fonts/MFFont.fnt" type="BitmapFont" id=1]
+[ext_resource path="res://Scripts/InspectLabel.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[node name="Inspector" type="Area2D"]
+z_index = 20
+script = ExtResource( 2 )
+
+[node name="InspectLabel" type="Label" parent="."]
+margin_right = 64.0
+margin_bottom = 22.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 1 )
+text = "test"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[connection signal="area_entered" from="." to="." method="_on_Inspector_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Inspector_body_entered"]

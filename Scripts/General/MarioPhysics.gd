@@ -101,4 +101,4 @@ func animate():
 		$SmallMario.speed_scale = abs(x_speed) * 2.5 + 4
 
 func debug():
-	$DebugLayer/DebugText.text = 'X Speed = ' + str(x_speed) + '\nY Speed = ' + str(y_speed) + '\nAnimation: ' + str($SmallMario.animation)
+	$DebugLayer/DebugText.text = 'x speed = ' + str(x_speed) + '\ny speed = ' + str(y_speed) + '\nanimation: ' + str($SmallMario.animation).to_lower()

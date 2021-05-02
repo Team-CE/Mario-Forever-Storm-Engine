@@ -9,10 +9,11 @@ enum AI_TYPE {
 	FREE
 }
 
+var vis : VisibilityEnabler2D = VisibilityEnabler2D.new()
+var onScreen : bool
+
 var velocity : Vector2
 var dir : float = 1
-
-onready var DebugText : Label = Label.new()
 
 signal on_stomp
 
@@ -21,24 +22,25 @@ export var smart_turn : bool
 export var no_gravity : bool
 export var can_be_stomped : bool
 
+export var sin_height : float = 20
+export var sin_speed : float = 150
+
 export(AI_TYPE) var ai : int = AI_TYPE.IDLE
 
 func _ready():
+	vis.process_parent = true
+	vis.physics_process_parent = true
+	vis.connect("screen_entered",self,"_on_screen_entered")
+	vis.connect("screen_exited",self,"_on_screen_exited")
+	
+	add_child(vis)
+	
+	
 	var feets = preload("res://Objects/Enemies/Core/Feets.tscn").instance()
-	if smart_turn:
+	if smart_turn and ai == AI_TYPE.WALK:
 		feets.connect("on_cliff",self,'_turn')
 	
 	self.add_child(feets)
-	
-	if !Global.debug:
-		DebugText.queue_free()
-	else:
-		DebugText.align = Label.ALIGN_CENTER
-		DebugText.valign = Label.VALIGN_CENTER
-		DebugText.grow_horizontal = Control.GROW_DIRECTION_BOTH
-		DebugText.grow_vertical = Control.GROW_DIRECTION_BEGIN
-		DebugText.rect_position = Vector2(0,-62)
-		add_child(DebugText)
 
 #_AI() function redirect to other AI functions
 func _AI(delta : float) -> void:
@@ -55,12 +57,9 @@ func _AI(delta : float) -> void:
 func _process(delta : float) -> void:
 	_AI(delta)
 	
-	if Global.debug:
-		Debug()
-	
 	#Gravity
-	if !is_on_floor():
-		velocity.y += Global.gravity * Global.get_delta(delta)
+	if !is_on_floor() && ai != AI_TYPE.FLY:
+		velocity.y += Global.gravity
 	
 	velocity = move_and_slide(velocity,Vector2.UP)
 
@@ -70,13 +69,16 @@ func IDLE_AI(delta : float) -> void:
 
 #Walking AI
 func WALK_AI(delta : float) -> void:
-	velocity.x = speed * dir * Global.get_delta(delta)
+	velocity.x = speed * dir
 	if is_on_wall():
 		_turn()
 
 #Flying AI
 func FLY_AI(delta : float) -> void:
-	velocity.y = sin(position.x)# * Global.get_delta(delta)
+	velocity.x = speed * dir
+	velocity.y = (sin(position.x/sin_height)*sin_speed)
+	if is_on_wall():
+		_turn()
 
 #Free move AI
 func FREE_AI(delta : float) -> void:
@@ -87,5 +89,11 @@ func _turn() -> void:
 	velocity.x = -dir * speed * 2
 	dir = -dir
 
-func Debug() -> void:
-	DebugText.text = 'Vel:{Vel}\nDir:{Dir}\nSm_T:{Sm_T}'.format({'Vel':velocity, 'Dir':dir,'Sm_T':smart_turn})
+func getInfo() -> String:
+	return "{self}\nvel:{velocity}\nspeed:{speed}\nSmart:{smart_turn}\nCan stmpd:{can_be_stomped}\nDir:{dir}\nOn screen:{onScreen}".format({"self":name,"velocity":velocity,"speed":speed,"smart_turn":smart_turn,"can_be_stomped":can_be_stomped,"dir":dir,"onScreen":onScreen}).to_lower()
+
+func _on_screen_entered():
+	onScreen = true
+
+func _on_screen_exited():
+	onScreen = false

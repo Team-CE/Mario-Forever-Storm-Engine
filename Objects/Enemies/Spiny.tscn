@@ -3,23 +3,23 @@
 [ext_resource path="res://Scripts/General/EnemyBase.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Enemies/Spiny.png" type="Texture" id=2]
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 33, 31 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
 region = Rect2( 33, 0, 33, 31 )
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
 "loop": true,
 "name": "default",
 "speed": 6.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 17, 15 )
 
 [node name="Spiny" type="KinematicBody2D"]
@@ -29,10 +29,9 @@ ai = 1
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
-frames = SubResource( 4 )
-frame = 1
+frames = SubResource( 3 )
 playing = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -15 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )

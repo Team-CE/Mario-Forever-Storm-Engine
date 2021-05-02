@@ -1,11 +1,10 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://GFX/HUD/anim.png" type="Texture" id=1]
 [ext_resource path="res://GFX/HUD/Mario.png" type="Texture" id=2]
-[ext_resource path="res://Fonts/Nums.fnt" type="BitmapFont" id=3]
 [ext_resource path="res://Scripts/General/HUD.gd" type="Script" id=4]
 [ext_resource path="res://GFX/HUD/Coins.png" type="Texture" id=5]
-[ext_resource path="res://Fonts/MFFont.fnt" type="BitmapFont" id=6]
+[ext_resource path="res://GFX/Fonts/MFFont.fnt" type="BitmapFont" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -203,24 +202,24 @@ playing = true
 
 [node name="Lives" type="Label" parent="."]
 margin_left = 150.0
-margin_top = 16.0
+margin_top = 12.0
 margin_right = 166.0
-margin_bottom = 32.0
+margin_bottom = 34.0
 rect_pivot_offset = Vector2( 8, 8 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 7 )
 text = "3"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Score" type="Label" parent="."]
-margin_left = 150.0
+margin_left = 149.0
 margin_top = 32.0
-margin_right = 166.0
+margin_right = 165.0
 margin_bottom = 54.0
 grow_horizontal = 0
 rect_pivot_offset = Vector2( 8, 8 )
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 text = "0"
 align = 2
 __meta__ = {
@@ -228,13 +227,13 @@ __meta__ = {
 }
 
 [node name="Coins" type="Label" parent="."]
-margin_left = 275.0
-margin_top = 35.0
-margin_right = 307.0
-margin_bottom = 51.0
+margin_left = 273.0
+margin_top = 32.0
+margin_right = 305.0
+margin_bottom = 54.0
 grow_horizontal = 0
 rect_pivot_offset = Vector2( 8, 8 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 7 )
 text = "0"
 align = 2
 __meta__ = {
@@ -247,7 +246,7 @@ margin_top = 32.0
 margin_right = 593.0
 margin_bottom = 54.0
 grow_horizontal = 0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 text = "999"
 align = 2
 __meta__ = {
