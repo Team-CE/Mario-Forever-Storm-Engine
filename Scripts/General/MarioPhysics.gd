@@ -34,6 +34,9 @@ func _process(delta):
 	if x_speed >= -0.08 and x_speed <= 0.08:
 		x_speed = 0
 	
+	if y_speed > 0:
+		jump_counter = 1
+	
 	if is_over_backdrop($BottomDetector) and y_speed > 0:
 		if is_over_backdrop($InsideDetector):
 			position.y -= 16
