@@ -11,6 +11,11 @@ func is_over_backdrop(obj):
 		for i in range(overlaps.size()):
 			if overlaps[0] is TileMap:
 				return true
+	overlaps = obj.get_overlapping_areas()
+	if overlaps.size() > 0:
+		for i in range(overlaps.size()):
+			if overlaps[0].is_in_group('Solid'):
+				return true
 	return false
 
 func _process(delta):

@@ -4,11 +4,13 @@ var gravity: float = 10
 
 signal TimeTick
 signal OnPlayerLoseLife
+signal OnScoreChange
+signal OnCoinCollected
 
-var lives: int = 3
+var lives: int = 4
 var time: int = 360
 var score: int = 0
-var coins: int = 0
+var coins: int = 95
 
 var debug : bool = true
 
@@ -34,6 +36,11 @@ func _physics_process(delta) -> void:
 
 func _add_score(score: int) -> void:
 	self.score += abs(score)
+	emit_signal('OnScoreChange')
+
+func _add_coin(coins: int) -> void:
+	self.coins += abs(coins)
+	emit_signal('OnCoinCollected')
 
 func _delay() -> void:
 	emit_signal('TimeTick')

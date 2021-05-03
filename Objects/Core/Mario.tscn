@@ -87,7 +87,9 @@ frames = SubResource( 4 )
 animation = "Jumping"
 playing = true
 
-[node name="PrimaryDetector" type="Area2D" parent="."]
+[node name="PrimaryDetector" type="Area2D" parent="." groups=[
+"Mario",
+]]
 
 [node name="CollisionPrimary" type="CollisionShape2D" parent="PrimaryDetector"]
 position = Vector2( 0, -13 )
