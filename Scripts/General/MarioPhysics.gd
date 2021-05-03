@@ -1,24 +1,28 @@
 extends Node2D
 
-export var x_speed = 0
-export var y_speed = 0
-export var jump_counter = 0
-var can_jump = false
+export var x_speed: float = 0
+export var y_speed: float = 0
+export var jump_counter: int = 0
+var can_jump: bool = false
 
-func is_over_backdrop(obj):
+func is_over_backdrop(obj) -> bool:
 	var overlaps = obj.get_overlapping_bodies()
+
 	if overlaps.size() > 0:
 		for i in range(overlaps.size()):
 			if overlaps[0] is TileMap:
 				return true
+
 	overlaps = obj.get_overlapping_areas()
+
 	if overlaps.size() > 0:
 		for i in range(overlaps.size()):
 			if overlaps[0].is_in_group('Solid'):
 				return true
+
 	return false
 
-func _process(delta):
+func _process(delta) -> void:
 	if y_speed < 11:
 		if Input.is_action_pressed('mario_jump') and y_speed < 0:
 			if abs(x_speed) < 1:
@@ -71,7 +75,7 @@ func _process(delta):
 	animate()
 	debug()
 
-func controls(delta):
+func controls(delta) -> void:
 	if Input.is_action_just_pressed('mario_jump') and y_speed >= 0:
 		can_jump = true
 
@@ -101,7 +105,7 @@ func controls(delta):
 		elif x_speed > -7 and Input.is_action_pressed('mario_fire'):
 			x_speed -= 0.25 * Global.get_delta(delta)
 
-func animate():
+func animate() -> void:
 	if not y_speed == 0:
 		$SmallMario.set_animation('Jumping')
 	elif abs(x_speed) < 0.8:
@@ -119,5 +123,5 @@ func animate():
 	if $SmallMario.animation == 'Walking':
 		$SmallMario.speed_scale = abs(x_speed) * 2.5 + 4
 
-func debug():
+func debug() -> void:
 	$DebugLayer/DebugText.text = 'x speed = ' + str(x_speed) + '\ny speed = ' + str(y_speed) + '\nanimation: ' + str($SmallMario.animation).to_lower()

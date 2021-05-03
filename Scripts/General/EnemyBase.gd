@@ -9,25 +9,25 @@ enum AI_TYPE {
 	FREE
 }
 
-var vis : VisibilityEnabler2D = VisibilityEnabler2D.new()
-var onScreen : bool
+var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
+var onScreen: bool
 
-var velocity : Vector2
-var dir : float = 1
+var velocity: Vector2
+var dir: float = 1
 
 signal on_stomp
 
-export var speed : float = 70
-export var smart_turn : bool
-export var no_gravity : bool
-export var can_be_stomped : bool
+export var speed: float = 70
+export var smart_turn: bool
+export var no_gravity: bool
+export var can_be_stomped: bool
 
-export var sin_height : float = 20
-export var sin_speed : float = 150
+export var sin_height: float = 20
+export var sin_speed: float = 150
 
-export(AI_TYPE) var ai : int = AI_TYPE.IDLE
+export(AI_TYPE) var ai: int = AI_TYPE.IDLE
 
-func _ready():
+func _ready() -> void:
 	vis.process_parent = true
 	vis.physics_process_parent = true
 	vis.connect("screen_entered",self,"_on_screen_entered")
@@ -92,8 +92,8 @@ func _turn() -> void:
 func getInfo() -> String:
 	return "{self}\nvel:{velocity}\nspeed:{speed}\nSmart:{smart_turn}\nCan stmpd:{can_be_stomped}\nDir:{dir}\nOn screen:{onScreen}".format({"self":name,"velocity":velocity,"speed":speed,"smart_turn":smart_turn,"can_be_stomped":can_be_stomped,"dir":dir,"onScreen":onScreen}).to_lower()
 
-func _on_screen_entered():
+func _on_screen_entered() -> void:
 	onScreen = true
 
-func _on_screen_exited():
+func _on_screen_exited() -> void:
 	onScreen = false
