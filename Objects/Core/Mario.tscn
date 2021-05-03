@@ -7,14 +7,17 @@
 [ext_resource path="res://GFX/Fonts/MFFont.fnt" type="BitmapFont" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 30, 31 )
 
 [sub_resource type="AtlasTexture" id=2]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 30, 0, 30, 31 )
 
 [sub_resource type="AtlasTexture" id=3]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 60, 0, 30, 31 )
 
@@ -25,14 +28,14 @@ animations = [ {
 "name": "Walking",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 3 ) ],
-"loop": true,
-"name": "Stopped",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "Jumping",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 3 ) ],
+"loop": true,
+"name": "Stopped",
 "speed": 5.0
 } ]
 
@@ -46,13 +49,13 @@ extents = Vector2( 10, 5 )
 extents = Vector2( 7, 2 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 2, 10 )
+extents = Vector2( 2, 8 )
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 1, 9 )
+extents = Vector2( 1, 6 )
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 1, 9 )
+extents = Vector2( 1, 6 )
 
 [node name="Mario" type="Node2D"]
 script = ExtResource( 2 )
@@ -105,7 +108,7 @@ shape = SubResource( 7 )
 [node name="TopDetector" type="Area2D" parent="."]
 
 [node name="CollisionTop" type="CollisionShape2D" parent="TopDetector"]
-position = Vector2( 0, -30 )
+position = Vector2( 0, -37 )
 shape = SubResource( 7 )
 
 [node name="RightDetector" type="Area2D" parent="."]

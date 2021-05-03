@@ -3,7 +3,7 @@ extends Node2D
 export var x_speed = 0
 export var y_speed = 0
 export var jump_counter = 0
-export var can_jump = true
+var can_jump = false
 
 func is_over_backdrop(obj):
 	var overlaps = obj.get_overlapping_bodies()
@@ -15,10 +15,12 @@ func is_over_backdrop(obj):
 
 func _process(delta):
 	if y_speed < 11:
-		if Input.is_action_pressed('mario_jump') and y_speed < -1.5:
-			y_speed += 0.3125 * Global.get_delta(delta)
-		else:
-			y_speed += 1 * Global.get_delta(delta)
+		if Input.is_action_pressed('mario_jump') and y_speed < 0:
+			if abs(x_speed) < 1:
+				y_speed -= 0.4 * Global.get_delta(delta)
+			else:
+				y_speed -= 0.5 * Global.get_delta(delta)
+		y_speed += 1 * Global.get_delta(delta)
 	if y_speed > 10:
 		y_speed = 10
 		
@@ -39,10 +41,11 @@ func _process(delta):
 		jump_counter = 0
 		position.y = round(position.y / 32) * 32
 	
-	if is_over_backdrop($TopDetector) and y_speed < 0:
+	if is_over_backdrop($TopDetector) and y_speed < 0 and y_speed > -13:
 		y_speed = 0
+		position.y = round(position.y / 8) * 8
 	
-	if not (is_over_backdrop($TopDetector) and not is_over_backdrop($BottomDetector)) and ((is_over_backdrop($RightDetector) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector) and x_speed <= -0.08)):
+	if not (is_over_backdrop($TopDetector) and not is_over_backdrop($PrimaryDetector)) and ((is_over_backdrop($RightDetector) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector) and x_speed <= -0.08)):
 		x_speed = 0
 	
 	if is_over_backdrop($SmallRightDetector):
@@ -61,26 +64,34 @@ func _process(delta):
 	debug()
 
 func controls(delta):
-	if Input.is_action_pressed('mario_jump') and jump_counter == 0:
-		y_speed = -11
+	if Input.is_action_just_pressed('mario_jump') and y_speed >= 0:
+		can_jump = true
+
+	if jump_counter == 0 and can_jump:
+		y_speed = -13
 		jump_counter = 1
+		can_jump = false
 		$JumpSound.play()
 	
 	if Input.is_action_pressed('mario_right'):
 		if x_speed > -0.4 and x_speed < 0.4:
 			x_speed = 0.8
+		elif x_speed <= -0.4:
+			x_speed += 0.4 * Global.get_delta(delta)
 		elif x_speed < 3.5 and not Input.is_action_pressed('mario_fire'):
-			x_speed += 0.23 * Global.get_delta(delta)
+			x_speed += 0.25 * Global.get_delta(delta)
 		elif x_speed < 7 and Input.is_action_pressed('mario_fire'):
-			x_speed += 0.23 * Global.get_delta(delta)
+			x_speed += 0.25 * Global.get_delta(delta)
 	
 	if Input.is_action_pressed('mario_left'):
 		if x_speed > -0.4 and x_speed < 0.4:
 			x_speed = -0.8
+		elif x_speed >= 0.4:
+			x_speed -= 0.4 * Global.get_delta(delta)
 		elif x_speed > -3.5 and not Input.is_action_pressed('mario_fire'):
-			x_speed -= 0.23 * Global.get_delta(delta)
+			x_speed -= 0.25 * Global.get_delta(delta)
 		elif x_speed > -7 and Input.is_action_pressed('mario_fire'):
-			x_speed -= 0.23 * Global.get_delta(delta)
+			x_speed -= 0.25 * Global.get_delta(delta)
 
 func animate():
 	if not y_speed == 0:
