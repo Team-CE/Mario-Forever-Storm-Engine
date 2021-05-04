@@ -33,6 +33,8 @@ enum DEAD_TYPE {
 export(AI_TYPE) var ai: int = AI_TYPE.IDLE
 export(DEAD_TYPE) var dead: int = DEAD_TYPE.BASIC
 
+var dead_complete: bool = false
+
 func _ready() -> void:
 	vis.process_parent = true
 	vis.physics_process_parent = true
@@ -71,7 +73,9 @@ func _process(delta) -> void:
 	if alive:
 		_process_alive(delta)
 	else:
-		_process_dead(delta)
+		if not dead_complete:
+			_process_dead(delta)
+		dead_complete = true
 
 func _process_alive(delta: float) -> void:
 	_AI(delta)
@@ -79,7 +83,7 @@ func _process_alive(delta: float) -> void:
 	# Stomping
 	var mario = get_parent().get_node('Mario')
 	var mario_bd = mario.get_node('BottomDetector')
-	var mario_pd = mario.get_node('PrimaryDetector')
+	var mario_pd = mario.get_node('InsideDetector')
 	var pd_overlaps = mario_pd.get_overlapping_bodies()
 	var bd_overlaps = mario_bd.get_overlapping_bodies()
 
@@ -95,6 +99,9 @@ func _process_alive(delta: float) -> void:
 		score.frame = 1
 		score.position = position
 		get_parent().add_child(score)
+	
+	if pd_overlaps and pd_overlaps[0] == self:
+		Global._pll()
 
 func _process_dead(delta: float) -> void:
 	$Sprite.set_animation('Dead')

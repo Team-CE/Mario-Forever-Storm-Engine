@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Objects/Bonuses/Question Block.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Objects/Core/Level Controller.tscn" type="PackedScene" id=10]
 
 [node name="Main" type="Node2D"]
 
@@ -27,14 +28,12 @@ tile_data = PoolIntArray( -720897, 0, 3, -655361, 0, 65539, -589825, 0, 65539, -
 script = ExtResource( 3 )
 path = "mrdeath-silent_agony.xm"
 
+[node name="Level Controller" parent="." instance=ExtResource( 10 )]
+
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
-[node name="Spiny" parent="." instance=ExtResource( 5 )]
-position = Vector2( 4358, 201 )
-ai = 2
-
 [node name="Spiny3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1312, 448 )
+position = Vector2( 1200, 448 )
 
 [node name="Spiny4" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1897, 132 )
@@ -79,11 +78,8 @@ position = Vector2( 336, 208 )
 [node name="Coin8" parent="." instance=ExtResource( 8 )]
 position = Vector2( 368, 208 )
 
-[node name="Goomba2" parent="." instance=ExtResource( 9 )]
-position = Vector2( 496, 256 )
-
 [node name="Goomba3" parent="." instance=ExtResource( 9 )]
-position = Vector2( 528, 256 )
+position = Vector2( 320, 416 )
 
 [node name="Goomba4" parent="." instance=ExtResource( 9 )]
-position = Vector2( 560, 256 )
+position = Vector2( 528, 256 )

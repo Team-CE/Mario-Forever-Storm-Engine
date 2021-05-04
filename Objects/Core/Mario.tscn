@@ -8,17 +8,14 @@
 [ext_resource path="res://GFX/Mario/Dead.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 30, 31 )
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 30, 0, 30, 31 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 60, 0, 30, 31 )
 
@@ -88,6 +85,7 @@ __meta__ = {
 
 [node name="SmallMario" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -15 )
+z_index = 10
 frames = SubResource( 4 )
 animation = "Stopped"
 playing = true

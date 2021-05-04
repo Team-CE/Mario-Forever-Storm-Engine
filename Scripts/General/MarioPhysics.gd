@@ -5,6 +5,9 @@ export var y_speed: float = 0
 export var jump_counter: int = 0
 var can_jump: bool = false
 
+onready var dead = false
+onready var dead_counter = 0
+
 func is_over_backdrop(obj) -> bool:
 	var overlaps = obj.get_overlapping_bodies()
 
@@ -23,6 +26,15 @@ func is_over_backdrop(obj) -> bool:
 	return false
 
 func _process(delta) -> void:
+	if not dead:
+		_process_alive(delta)
+	else:
+		_process_dead(delta)
+	
+	position.y += y_speed * Global.get_delta(delta)
+	position.x += x_speed * Global.get_delta(delta)
+
+func _process_alive(delta) -> void:
 	if y_speed < 11:
 		if Input.is_action_pressed('mario_jump') and y_speed < 0:
 			if abs(x_speed) < 1:
@@ -69,11 +81,31 @@ func _process(delta) -> void:
 	if is_over_backdrop($SmallRightDetector) and is_over_backdrop($SmallLeftDetector):
 		position.x += (1 if $SmallMario.flip_h else -1) * Global.get_delta(delta)
 	
-	position.y += y_speed * Global.get_delta(delta)
-	position.x += x_speed * Global.get_delta(delta)
-	
 	animate()
 	debug()
+
+func _process_dead(delta) -> void:
+	dead_counter += 1 * Global.get_delta(delta)
+	$SmallMario.set_animation('Dead')
+	x_speed = 0
+
+	y_speed += 0.5 * Global.get_delta(delta)
+
+	if dead_counter < 28:
+		y_speed = 0
+	elif dead_counter >= 28 and dead_counter < 29:
+		y_speed = -11
+
+	$PrimaryDetector/CollisionPrimary.shape = null
+	$BottomDetector/CollisionBottom.shape = null
+
+	if dead_counter > 200:
+		if Global.lives > 0:
+			Global._reset()
+			get_tree().reload_current_scene()
+		elif dead_counter < 201:
+			get_parent().get_node('Music Controller').play_music('1-music-gameover.it')
+			get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
 
 func controls(delta) -> void:
 	if Input.is_action_just_pressed('mario_jump') and y_speed >= 0:
@@ -112,7 +144,7 @@ func animate() -> void:
 		$SmallMario.set_animation('Jumping')
 	elif abs(x_speed) < 0.8:
 		$SmallMario.set_animation('Stopped')
-	
+
 	if x_speed <= -0.8:
 		$SmallMario.flip_h = true
 		if not $SmallMario.animation == 'Walking' and y_speed == 0:
@@ -121,7 +153,7 @@ func animate() -> void:
 		$SmallMario.flip_h = false
 		if not $SmallMario.animation == 'Walking' and y_speed == 0:
 			$SmallMario.set_animation('Walking')
-	
+
 	if $SmallMario.animation == 'Walking':
 		$SmallMario.speed_scale = abs(x_speed) * 2.5 + 4
 
