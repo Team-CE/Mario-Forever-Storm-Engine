@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Goomba.png-baf9f9c2c4dc20ffdc15815b8ce40490.stex"
+path="res://.import/Dead.png-1f85b2bd71b07f269aa7be73b53a1907.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/Goomba.png"
-dest_files=[ "res://.import/Goomba.png-baf9f9c2c4dc20ffdc15815b8ce40490.stex" ]
+source_file="res://GFX/Mario/Dead.png"
+dest_files=[ "res://.import/Dead.png-1f85b2bd71b07f269aa7be73b53a1907.stex" ]
 
 [params]
 

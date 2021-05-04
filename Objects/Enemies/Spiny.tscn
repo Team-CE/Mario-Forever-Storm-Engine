@@ -30,6 +30,7 @@ ai = 1
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 frames = SubResource( 3 )
+animation = "New Anim"
 playing = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]

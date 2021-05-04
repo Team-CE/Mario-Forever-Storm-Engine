@@ -85,7 +85,7 @@ func controls(delta) -> void:
 		y_speed = -13
 		jump_counter = 1
 		can_jump = false
-		$JumpSound.play()
+		$BaseSounds/MAIN_Jump.play()
 	
 	if Input.is_action_pressed('mario_right'):
 		if x_speed > -0.4 and x_speed < 0.4:

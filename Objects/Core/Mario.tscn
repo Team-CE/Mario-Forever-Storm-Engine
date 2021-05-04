@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://GFX/Mario/Walk.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/General/MarioPhysics.gd" type="Script" id=2]
 [ext_resource path="res://GFX/Mario/Jump.png" type="Texture" id=3]
-[ext_resource path="res://Sounds/Main/jump.wav" type="AudioStream" id=4]
+[ext_resource path="res://Objects/Enemies/Core/BaseSounds.tscn" type="PackedScene" id=4]
 [ext_resource path="res://GFX/Fonts/MFFont.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://GFX/Mario/Dead.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -36,6 +37,11 @@ animations = [ {
 "frames": [ SubResource( 3 ) ],
 "loop": true,
 "name": "Stopped",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Dead",
 "speed": 5.0
 } ]
 
@@ -83,7 +89,7 @@ __meta__ = {
 [node name="SmallMario" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -15 )
 frames = SubResource( 4 )
-animation = "Jumping"
+animation = "Stopped"
 playing = true
 
 [node name="PrimaryDetector" type="Area2D" parent="." groups=[
@@ -136,5 +142,4 @@ shape = SubResource( 9 )
 position = Vector2( -12, -14 )
 shape = SubResource( 10 )
 
-[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 4 )
+[node name="BaseSounds" parent="." instance=ExtResource( 4 )]
