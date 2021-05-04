@@ -10,7 +10,8 @@ enum AI_TYPE {
 }
 
 enum DEAD_TYPE {
-	BASIC
+	BASIC,
+	HIT
 }
 
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
@@ -89,7 +90,7 @@ func _process_alive(delta: float) -> void:
 	var mario_pd = mario.get_node('InsideDetector')
 	var pd_overlaps = mario_pd.get_overlapping_bodies()
 	var bd_overlaps = mario_bd.get_overlapping_bodies()
-
+	#optimize this shit
 	if bd_overlaps and bd_overlaps[0] == self and not (pd_overlaps and pd_overlaps[0] == self) and is_stompable:
 		if Input.is_action_pressed('mario_jump'):
 			mario.y_speed = -13
@@ -100,7 +101,7 @@ func _process_alive(delta: float) -> void:
 		
 		var score_text = ScoreText.new(score,position)
 		get_parent().add_child(score_text)
-	
+	#optimize this shit
 	if pd_overlaps and pd_overlaps[0] == self:
 		Global._pll()
 

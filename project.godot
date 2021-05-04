@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
 }, {
+"base": "Node",
+"class": "Level",
+"language": "GDScript",
+"path": "res://Scripts/Level.gd"
+}, {
 "base": "Sprite",
 "class": "ScoreText",
 "language": "GDScript",
@@ -27,6 +32,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "EnemyBase": "",
 "FLMusicLib": "",
+"Level": "",
 "ScoreText": ""
 }
 
@@ -38,8 +44,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-music_eng="*res://Scripts/MusicEngine.gd"
 Global="*res://Scripts/Global.gd"
+MusicEngine="*res://Scripts/MusicEngine.gd"
 
 [debug]
 

@@ -1,45 +1,45 @@
 extends Node
 
-var gravity: float = 10
+var gravity: float = 10 #Global gravity
 
-var HUD : CanvasLayer
-var Mario : Node2D
+var HUD: CanvasLayer   #ref HUD
+var Mario: Node2D      #ref Mario
 
-signal TimeTick
-signal OnPlayerLoseLife
-signal OnScoreChange
-signal OnLivesChange
-signal OnCoinCollected
+signal TimeTick         #Called when time got lower
+signal OnPlayerLoseLife #Called when Player Die
+signal OnScoreChange    #Called when score get changed
+signal OnLivesAdded     #Called when Live added
+signal OnCoinCollected  #Called when coins collected
 
-var lives: int = 4
-var time: int = 999
-var score: int = 0
-var coins: int = 95
+var lives: int = 4      #Player lives
+var time: int = 999     #Time left
+var score: int = 0      #Score
+var coins: int = 95     #Player coind
 
-var debug: bool = true
-var player_dead: bool = false
+var debug: bool = true        #Debug
 
-onready var timer : Timer = Timer.new()
+var player_dead: bool = false #Player Dead?
 
-static func get_delta(delta) -> float:
+onready var timer : Timer = Timer.new()                     #Create a new timer for delay
+
+static func get_delta(delta) -> float: #Delta by 50 FPS
 	return 50 / (1 / (delta if not delta == 0 else 0.0001))
 
 func _ready() -> void:
 	if debug:
-		add_child(preload("res://Objects/Core/Inspector.tscn").instance())
-	timer.wait_time = 1.45
-	add_child(timer)
+		add_child(preload("res://Objects/Core/Inspector.tscn").instance()) #Adding a debug inspector
+	timer.wait_time = 1.45 #Setting delay
+	add_child(timer)       #Adding a Timer
 
-func _reset() -> void:
-	lives -= 1
-	player_dead = false
-	get_tree().reload_current_scene()
-	add_score(0)
+func _reset() -> void: #Level Restert
+	lives -= 1         #Player Lose life cuz he die
+	player_dead = false#Player not dead anymore
+	get_tree().reload_current_scene()#Rester a scene
 
-func _physics_process(delta) -> void:
-	if timer.time_left <= 1 && time != -1:
-		_delay()
-		timer.start()
+func _physics_process(delta: float) -> void:
+	if timer.time_left <= 1 && time != -1: #Wait for delaying
+		_delay()         #call delay function
+		timer.start()    #start timer again
 
 func add_score(score: int) -> void:
 	self.score += abs(score)
@@ -54,7 +54,7 @@ func add_lives(lives: int) -> void:
 	self.lives += abs(lives)
 	HUD.get_node('LifeSound').play()
 	HUD.get_node('Lives').text = str(self.lives)
-	emit_signal('OnLivesChange')
+	emit_signal('OnLivesAdded')
 
 func add_coins(coins: int) -> void:
 	self.coins += abs(coins)
@@ -69,8 +69,7 @@ func _pll() -> void: # Player Lose Life
 		return
 	player_dead = true
 	emit_signal('OnPlayerLoseLife')
-	var scene = get_tree().get_current_scene()
-	scene.get_node('Music Controller').play_music('1-music-die.it')
+	MusicEngine.play_music('1-music-die.it')
 	Mario.dead = true
 
 func _delay() -> void:

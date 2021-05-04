@@ -9,7 +9,6 @@ func _ready() -> void:
 	$Lives.text = str(Global.lives)
 	Global.connect('TimeTick', self, '_time')
 	Global.connect('OnPlayerLoseLife', self, '_life_lose')
-	Global.connect('OnCoinCollected', self, '_on_coin_collected')
 	$GameoverSprite.visible = false
 
 func _time() -> void:
@@ -20,9 +19,9 @@ func _time() -> void:
 
 func _life_lose() -> void:
 	print('Died!')
-	#$Lives.text = str(Global.lives)
 
 var AnimPlayed : int
+
 
 func _on_anim_finish() -> void:
 	if AnimPlayed < 5:

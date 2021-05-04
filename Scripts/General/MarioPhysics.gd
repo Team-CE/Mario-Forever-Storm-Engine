@@ -10,6 +10,7 @@ onready var dead_counter = 0
 
 func _ready() -> void:
 	Global.Mario = self
+	Global.connect("OnPlayerLoseLife",self,'kill')
 	$DebugText.visible = false
 
 func is_over_backdrop(obj) -> bool:
@@ -110,8 +111,9 @@ func _process_dead(delta) -> void:
 		if Global.lives > 0:
 			Global._reset()
 		elif dead_counter < 201:
-			get_parent().get_node('Music Controller').play_music('1-music-gameover.it')
+			MusicEngine.play_music('1-music-gameover.it')
 			get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
+	pass
 
 func controls(delta) -> void:
 	if Input.is_action_just_pressed('mario_jump') and y_speed >= 0:
@@ -134,7 +136,7 @@ func controls(delta) -> void:
 			x_speed += 0.25 * Global.get_delta(delta)
 		elif x_speed < 7 and Input.is_action_pressed('mario_fire'):
 			x_speed += 0.25 * Global.get_delta(delta)
-	
+		
 	if Input.is_action_pressed('mario_left'):
 		if x_speed > -0.4 and x_speed < 0.4:
 			x_speed = -0.8
@@ -150,22 +152,28 @@ func animate() -> void:
 		$SmallMario.set_animation('Jumping')
 	elif abs(x_speed) < 0.8:
 		$SmallMario.set_animation('Stopped')
-
+		
 	if x_speed <= -0.8:
 		$SmallMario.flip_h = true
 		if not $SmallMario.animation == 'Walking' and y_speed == 0:
 			$SmallMario.set_animation('Walking')
+			
 	if x_speed >= 0.8:
 		$SmallMario.flip_h = false
 		if not $SmallMario.animation == 'Walking' and y_speed == 0:
 			$SmallMario.set_animation('Walking')
-
+			
 	if $SmallMario.animation == 'Walking':
 		$SmallMario.speed_scale = abs(x_speed) * 2.5 + 4
 
+func kill() -> void:
+	dead = true
+	$PrimaryDetector/CollisionPrimary.shape = null
+	$BottomDetector/CollisionBottom.shape = null
 
 func debug() -> void:
 	if Input.is_action_just_pressed('mouse_middle'):
 		$DebugText.visible = !$DebugText.visible
+	
+	$DebugText.text = 'x speed = ' + str(x_speed) + '\ny speed = ' + str(y_speed) + '\nanimation: ' + str($SmallMario.animation).to_lower() + '\nfps: ' + str(Engine.get_frames_per_second())
 
-	$DebugText.text = 'x speed = ' + str(x_speed) + '\ny speed = ' + str(y_speed) + '\nanimation: ' + str($SmallMario.animation).to_lower()

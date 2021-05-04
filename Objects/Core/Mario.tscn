@@ -26,9 +26,9 @@ animations = [ {
 "name": "Walking",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ ExtResource( 6 ) ],
 "loop": true,
-"name": "Jumping",
+"name": "Dead",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 3 ) ],
@@ -36,9 +36,9 @@ animations = [ {
 "name": "Stopped",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "Dead",
+"name": "Jumping",
 "speed": 5.0
 } ]
 
@@ -72,10 +72,10 @@ smoothing_speed = 8.0
 editor_draw_limits = true
 
 [node name="DebugText" type="Label" parent="."]
-margin_left = -68.0
-margin_top = -124.0
-margin_right = 26.0
-margin_bottom = -102.0
+margin_left = -24.0
+margin_top = -91.0
+margin_right = 70.0
+margin_bottom = -69.0
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 5 )
 text = "hyina"
