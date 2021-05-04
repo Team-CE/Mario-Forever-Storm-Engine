@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Goomba.png-baf9f9c2c4dc20ffdc15815b8ce40490.stex"
+path="res://.import/goomba.png-215a5e513693a27825e06c1c56a8e713.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/Goomba.png"
-dest_files=[ "res://.import/Goomba.png-baf9f9c2c4dc20ffdc15815b8ce40490.stex" ]
+source_file="res://GFX/Enemies/goomba.png"
+dest_files=[ "res://.import/goomba.png-215a5e513693a27825e06c1c56a8e713.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

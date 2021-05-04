@@ -62,6 +62,8 @@ func _process(delta : float) -> void:
 		velocity.y += Global.gravity
 	
 	velocity = move_and_slide(velocity,Vector2.UP)
+	
+	get_parent().get_node()
 
 #Just standing AI
 func IDLE_AI(delta : float) -> void:
@@ -97,3 +99,4 @@ func _on_screen_entered() -> void:
 
 func _on_screen_exited() -> void:
 	onScreen = false
+
