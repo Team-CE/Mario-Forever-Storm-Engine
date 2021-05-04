@@ -78,6 +78,8 @@ func _process(delta) -> void:
 func controls(delta) -> void:
 	if Input.is_action_just_pressed('mario_jump') and y_speed >= 0:
 		can_jump = true
+	if not Input.is_action_pressed('mario_jump'):
+		can_jump = false
 
 	if jump_counter == 0 and can_jump:
 		y_speed = -13
