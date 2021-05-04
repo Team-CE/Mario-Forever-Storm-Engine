@@ -9,3 +9,4 @@ func _ready() -> void:
 
 func play_music(path) -> void:
 	mplayer.play_music('res://Music/' + path, 0, false, 0, 0, 0)
+	pass

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gameover.png-1fe858781a878b90db88b2586b954393.stex"
+path="res://.import/Start.png-9de4bf49f6f8e37126976526d369873d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/HUD/gameover.png"
-dest_files=[ "res://.import/gameover.png-1fe858781a878b90db88b2586b954393.stex" ]
+source_file="res://GFX/Menu/Start.png"
+dest_files=[ "res://.import/Start.png-9de4bf49f6f8e37126976526d369873d.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

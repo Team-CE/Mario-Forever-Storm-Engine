@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "FLMusicLib",
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
+}, {
+"base": "Sprite",
+"class": "ScoreText",
+"language": "GDScript",
+"path": "res://Scripts/General/ScoreText.gd"
 } ]
 _global_script_class_icons={
 "EnemyBase": "",
-"FLMusicLib": ""
+"FLMusicLib": "",
+"ScoreText": ""
 }
 
 [application]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gameover.png-1fe858781a878b90db88b2586b954393.stex"
+path="res://.import/PowBlow_V1.png-24a2d70639cf2d2711995fdd2bddf2a0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/HUD/gameover.png"
-dest_files=[ "res://.import/gameover.png-1fe858781a878b90db88b2586b954393.stex" ]
+source_file="res://GFX/Enemies/Experemental/PowBlow_V1.png"
+dest_files=[ "res://.import/PowBlow_V1.png-24a2d70639cf2d2711995fdd2bddf2a0.stex" ]
 
 [params]
 

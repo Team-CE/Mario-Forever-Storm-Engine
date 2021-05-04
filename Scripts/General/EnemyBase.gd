@@ -9,13 +9,18 @@ enum AI_TYPE {
 	FREE
 }
 
+enum DEAD_TYPE {
+	BASIC
+}
+
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
 var onScreen: bool
 
 var velocity: Vector2
-var dir: float = 1
 
 signal on_stomp
+
+export var dir: float = -1
 
 export var speed: float = 70
 export var smart_turn: bool
@@ -24,11 +29,9 @@ export var is_stompable: bool
 
 export var sin_height: float = 20
 export var sin_speed: float = 150
+export var score: int = 100
 
 export var alive: bool = true
-enum DEAD_TYPE {
-	BASIC
-}
 
 export(AI_TYPE) var ai: int = AI_TYPE.IDLE
 export(DEAD_TYPE) var dead: int = DEAD_TYPE.BASIC
@@ -95,10 +98,8 @@ func _process_alive(delta: float) -> void:
 		mario.get_node('BaseSounds').get_node('ENEMY_Stomp').play()
 		alive = false
 		
-		var score = load('res://Objects/Core/ScoreText.tscn').instance()
-		score.frame = 1
-		score.position = position
-		get_parent().add_child(score)
+		var score_text = ScoreText.new(score,position)
+		get_parent().add_child(score_text)
 	
 	if pd_overlaps and pd_overlaps[0] == self:
 		Global._pll()
@@ -108,6 +109,8 @@ func _process_dead(delta: float) -> void:
 	match dead:
 		DEAD_TYPE.BASIC:
 			velocity.x = 0
+			collision_layer = 2
+			collision_mask = 2
 			yield(get_tree().create_timer(2.0), 'timeout')
 			queue_free()
 

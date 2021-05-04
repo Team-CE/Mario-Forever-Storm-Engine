@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gameover.png-1fe858781a878b90db88b2586b954393.stex"
+path="res://.import/Score.png-4aa202888b5314e2930929dd7eff7426.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/HUD/gameover.png"
-dest_files=[ "res://.import/gameover.png-1fe858781a878b90db88b2586b954393.stex" ]
+source_file="res://GFX/Texts/Score.png"
+dest_files=[ "res://.import/Score.png-4aa202888b5314e2930929dd7eff7426.stex" ]
 
 [params]
 

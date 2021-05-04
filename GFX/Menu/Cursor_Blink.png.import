@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gameover.png-1fe858781a878b90db88b2586b954393.stex"
+path="res://.import/Cursor_Blink.png-47cc6039af875e8aadbb3ecc9e0124f5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/HUD/gameover.png"
-dest_files=[ "res://.import/gameover.png-1fe858781a878b90db88b2586b954393.stex" ]
+source_file="res://GFX/Menu/Cursor_Blink.png"
+dest_files=[ "res://.import/Cursor_Blink.png-47cc6039af875e8aadbb3ecc9e0124f5.stex" ]
 
 [params]
 

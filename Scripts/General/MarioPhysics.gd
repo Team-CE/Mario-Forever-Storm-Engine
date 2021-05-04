@@ -8,6 +8,10 @@ var can_jump: bool = false
 onready var dead = false
 onready var dead_counter = 0
 
+func _ready() -> void:
+	Global.Mario = self
+	$DebugText.visible = false
+
 func is_over_backdrop(obj) -> bool:
 	var overlaps = obj.get_overlapping_bodies()
 
@@ -81,6 +85,9 @@ func _process_alive(delta) -> void:
 	if is_over_backdrop($SmallRightDetector) and is_over_backdrop($SmallLeftDetector):
 		position.x += (1 if $SmallMario.flip_h else -1) * Global.get_delta(delta)
 	
+	if position.y > $Camera.limit_bottom + 64:
+		Global._pll()
+	
 	animate()
 	debug()
 
@@ -102,7 +109,6 @@ func _process_dead(delta) -> void:
 	if dead_counter > 200:
 		if Global.lives > 0:
 			Global._reset()
-			get_tree().reload_current_scene()
 		elif dead_counter < 201:
 			get_parent().get_node('Music Controller').play_music('1-music-gameover.it')
 			get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
@@ -157,8 +163,6 @@ func animate() -> void:
 	if $SmallMario.animation == 'Walking':
 		$SmallMario.speed_scale = abs(x_speed) * 2.5 + 4
 
-func _ready() -> void:
-	$DebugText.visible = false
 
 func debug() -> void:
 	if Input.is_action_just_pressed('mouse_middle'):
