@@ -2,7 +2,10 @@ extends Area2D
 
 var lastBody : Node2D
 
-func _process(delta):
+func _ready() -> void:
+	$InspectLabel.visible = false
+
+func _process(delta) -> void:
 	var newPos = get_global_mouse_position()
 	set_position(newPos)
 	newPos.y += 10
@@ -12,7 +15,7 @@ func _process(delta):
 		$InspectLabel.text = lastBody.getInfo()
 
 
-func _input(event : InputEvent):
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var ev :InputEventMouseButton = event
 		if ev.pressed:
@@ -20,6 +23,6 @@ func _input(event : InputEvent):
 				$InspectLabel.visible = !$InspectLabel.visible
 
 
-func _on_Inspector_body_entered(body:Node2D):
-	if body.has_method("getInfo"):
+func _on_Inspector_body_entered(body: Node2D) -> void:
+	if body.has_method('getInfo'):
 		lastBody = body

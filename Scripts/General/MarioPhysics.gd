@@ -125,5 +125,11 @@ func animate() -> void:
 	if $SmallMario.animation == 'Walking':
 		$SmallMario.speed_scale = abs(x_speed) * 2.5 + 4
 
+func _ready() -> void:
+	$DebugText.visible = false
+
 func debug() -> void:
-	$DebugLayer/DebugText.text = 'x speed = ' + str(x_speed) + '\ny speed = ' + str(y_speed) + '\nanimation: ' + str($SmallMario.animation).to_lower()
+	if Input.is_action_just_pressed('mouse_middle'):
+		$DebugText.visible = !$DebugText.visible
+
+	$DebugText.text = 'x speed = ' + str(x_speed) + '\ny speed = ' + str(y_speed) + '\nanimation: ' + str($SmallMario.animation).to_lower()

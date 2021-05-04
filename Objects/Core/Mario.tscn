@@ -68,13 +68,12 @@ limit_bottom = 480
 smoothing_speed = 8.0
 editor_draw_limits = true
 
-[node name="DebugLayer" type="CanvasLayer" parent="."]
-
-[node name="DebugText" type="Label" parent="DebugLayer"]
-margin_left = 47.0
-margin_top = 66.0
-margin_right = 135.0
-margin_bottom = 88.0
+[node name="DebugText" type="Label" parent="."]
+margin_left = -68.0
+margin_top = -124.0
+margin_right = 26.0
+margin_bottom = -102.0
+rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 5 )
 text = "hyina"
 __meta__ = {
