@@ -1,45 +1,45 @@
 extends Node
 
-var gravity: float = 10 #Global gravity
+var gravity: float = 10 # Global gravity
 
-var HUD: CanvasLayer   #ref HUD
-var Mario: Node2D      #ref Mario
+var HUD: CanvasLayer    # ref HUD
+var Mario: Node2D       # ref Mario
 
-signal TimeTick         #Called when time got lower
-signal OnPlayerLoseLife #Called when Player Die
-signal OnScoreChange    #Called when score get changed
-signal OnLivesAdded     #Called when Live added
-signal OnCoinCollected  #Called when coins collected
+signal TimeTick         # Called when time got lower
+signal OnPlayerLoseLife # Called when Player Die
+signal OnScoreChange    # Called when score get changed
+signal OnLivesAdded     # Called when Live added
+signal OnCoinCollected  # Called when coins collected
 
-var lives: int = 4      #Player lives
-var time: int = 999     #Time left
-var score: int = 0      #Score
-var coins: int = 95     #Player coind
+var lives: int = 4      # Player lives
+var time: int = 999     # Time left
+var score: int = 0      # Score
+var coins: int = 0      # Player coind
 
-var debug: bool = true        #Debug
+var debug: bool = true        # Debug
 
-var player_dead: bool = false #Player Dead?
+var player_dead: bool = false # Player Dead?
 
-onready var timer : Timer = Timer.new()                     #Create a new timer for delay
+onready var timer : Timer = Timer.new()      # Create a new timer for delay
 
-static func get_delta(delta) -> float: #Delta by 50 FPS
+static func get_delta(delta) -> float: # Delta by 50 FPS
 	return 50 / (1 / (delta if not delta == 0 else 0.0001))
 
 func _ready() -> void:
 	if debug:
-		add_child(preload("res://Objects/Core/Inspector.tscn").instance()) #Adding a debug inspector
-	timer.wait_time = 1.45 #Setting delay
-	add_child(timer)       #Adding a Timer
+		add_child(preload('res://Objects/Core/Inspector.tscn').instance()) # Adding a debug inspector
+	timer.wait_time = 1.45 # Setting delay
+	add_child(timer)       # Adding a Timer
 
-func _reset() -> void: #Level Restert
-	lives -= 1         #Player Lose life cuz he die
-	player_dead = false#Player not dead anymore
-	get_tree().reload_current_scene()#Rester a scene
+func _reset() -> void:  # Level Restert
+	lives -= 1          # Player Lose life cuz he die
+	player_dead = false # Player not dead anymore
+	get_tree().reload_current_scene()# Rester a scene
 
 func _physics_process(delta: float) -> void:
-	if timer.time_left <= 1 && time != -1: #Wait for delaying
-		_delay()         #call delay function
-		timer.start()    #start timer again
+	if timer.time_left <= 1 && time != -1: # Wait for delaying
+		_delay()         # call delay function
+		timer.start()    # start timer again
 
 func add_score(score: int) -> void:
 	self.score += abs(score)
@@ -49,7 +49,7 @@ func add_score(score: int) -> void:
 func add_lives(lives: int) -> void:
 	var scorePos = Mario.position
 	scorePos.y -= 32
-	var ScoreT = ScoreText.new(1,scorePos)
+	var ScoreT = ScoreText.new(1, scorePos)
 	Mario.get_parent().add_child(ScoreT)
 	self.lives += abs(lives)
 	HUD.get_node('LifeSound').play()
@@ -63,6 +63,9 @@ func add_coins(coins: int) -> void:
 		self.coins = 0
 	HUD.get_node('Coins').text = str(self.coins)
 	emit_signal('OnCoinCollected')
+
+func play_base_sound(sound: String) -> void:
+	Mario.get_node('BaseSounds').get_node(sound).play()
 
 func _pll() -> void: # Player Lose Life
 	if player_dead:

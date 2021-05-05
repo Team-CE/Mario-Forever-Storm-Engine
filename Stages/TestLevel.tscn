@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scripts/General/MarioPhysics.gd" type="Script" id=4]
+[ext_resource path="res://Objects/Bonuses/Question Block.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=6]
 
 [node name="Level" type="Node"]
 script = ExtResource( 1 )
@@ -16,12 +18,46 @@ cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( 851969, 0, 196611 )
+tile_data = PoolIntArray( 851968, 0, 196608, 851969, 0, 196609, 851970, 0, 196609, 851971, 0, 196609, 851972, 0, 196609, 851973, 0, 196609, 851974, 0, 196609, 851975, 0, 196609, 851976, 0, 196609, 851977, 0, 196609, 851978, 0, 196609, 851979, 0, 196609, 851980, 0, 196609, 851981, 0, 196609, 851982, 0, 196609, 851983, 0, 196609, 851984, 0, 196609, 851985, 0, 196609, 851986, 0, 196609, 851987, 0, 196610 )
 
-[node name="BonusSroup" type="Node" parent="."]
+[node name="BonusGroup" type="Node" parent="."]
 
 [node name="EnemyGroup" type="Node" parent="."]
 
-[node name="Mario" type="Node2D" parent="." instance=ExtResource( 3 )]
+[node name="Mario" parent="." instance=ExtResource( 3 )]
 position = Vector2( 48, 416 )
-script = ExtResource( 4 )
+
+[node name="HUD" parent="." instance=ExtResource( 6 )]
+
+[node name="Question Block" parent="." instance=ExtResource( 4 )]
+position = Vector2( 288, 320 )
+
+[node name="Question Block2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 320, 320 )
+
+[node name="Question Block3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 352, 320 )
+
+[node name="Question Block4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 384, 320 )
+
+[node name="Question Block5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 416, 320 )
+
+[node name="Question Block6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 288, 224 )
+
+[node name="Question Block7" parent="." instance=ExtResource( 4 )]
+position = Vector2( 320, 224 )
+
+[node name="Question Block8" parent="." instance=ExtResource( 4 )]
+position = Vector2( 352, 224 )
+
+[node name="Question Block9" parent="." instance=ExtResource( 4 )]
+position = Vector2( 384, 224 )
+
+[node name="Question Block10" parent="." instance=ExtResource( 4 )]
+position = Vector2( 416, 224 )
+
+[node name="Goomba" parent="." instance=ExtResource( 5 )]
+position = Vector2( 416, 64 )

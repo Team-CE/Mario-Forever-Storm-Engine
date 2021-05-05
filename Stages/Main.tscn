@@ -49,209 +49,25 @@ __meta__ = {
 }
 
 [node name="Question Block" parent="." instance=ExtResource( 7 )]
-position = Vector2( 240, 288 )
-
-[node name="Coin" parent="." instance=ExtResource( 8 )]
-position = Vector2( 320, 352 )
-
-[node name="Coin18" parent="." instance=ExtResource( 8 )]
-position = Vector2( 320, 320 )
-
-[node name="Coin19" parent="." instance=ExtResource( 8 )]
-position = Vector2( 320, 288 )
-
-[node name="Coin20" parent="." instance=ExtResource( 8 )]
-position = Vector2( 352, 288 )
-
-[node name="Coin21" parent="." instance=ExtResource( 8 )]
-position = Vector2( 352, 320 )
-
-[node name="Coin22" parent="." instance=ExtResource( 8 )]
-position = Vector2( 384, 320 )
-
-[node name="Coin23" parent="." instance=ExtResource( 8 )]
-position = Vector2( 384, 288 )
-
-[node name="Coin24" parent="." instance=ExtResource( 8 )]
-position = Vector2( 416, 288 )
-
-[node name="Coin25" parent="." instance=ExtResource( 8 )]
-position = Vector2( 416, 320 )
-
-[node name="Coin26" parent="." instance=ExtResource( 8 )]
-position = Vector2( 448, 320 )
-
-[node name="Coin27" parent="." instance=ExtResource( 8 )]
-position = Vector2( 448, 352 )
-
-[node name="Coin28" parent="." instance=ExtResource( 8 )]
-position = Vector2( 448, 384 )
-
-[node name="Coin29" parent="." instance=ExtResource( 8 )]
-position = Vector2( 448, 288 )
-
-[node name="Coin30" parent="." instance=ExtResource( 8 )]
-position = Vector2( 448, 256 )
-
-[node name="Coin31" parent="." instance=ExtResource( 8 )]
-position = Vector2( 416, 256 )
-
-[node name="Coin32" parent="." instance=ExtResource( 8 )]
-position = Vector2( 384, 256 )
-
-[node name="Coin33" parent="." instance=ExtResource( 8 )]
-position = Vector2( 352, 256 )
-
-[node name="Coin34" parent="." instance=ExtResource( 8 )]
-position = Vector2( 320, 256 )
-
-[node name="Coin35" parent="." instance=ExtResource( 8 )]
-position = Vector2( 320, 224 )
-
-[node name="Coin36" parent="." instance=ExtResource( 8 )]
-position = Vector2( 352, 224 )
-
-[node name="Coin37" parent="." instance=ExtResource( 8 )]
-position = Vector2( 384, 224 )
-
-[node name="Coin38" parent="." instance=ExtResource( 8 )]
-position = Vector2( 416, 224 )
-
-[node name="Coin39" parent="." instance=ExtResource( 8 )]
-position = Vector2( 448, 224 )
-
-[node name="Coin40" parent="." instance=ExtResource( 8 )]
-position = Vector2( 480, 224 )
-
-[node name="Coin41" parent="." instance=ExtResource( 8 )]
-position = Vector2( 480, 256 )
-
-[node name="Coin42" parent="." instance=ExtResource( 8 )]
-position = Vector2( 480, 288 )
-
-[node name="Coin43" parent="." instance=ExtResource( 8 )]
-position = Vector2( 480, 320 )
-
-[node name="Coin44" parent="." instance=ExtResource( 8 )]
-position = Vector2( 480, 352 )
-
-[node name="Coin45" parent="." instance=ExtResource( 8 )]
-position = Vector2( 480, 384 )
+position = Vector2( 208, 288 )
 
 [node name="Coin46" parent="." instance=ExtResource( 8 )]
-position = Vector2( 288, 384 )
-
-[node name="Coin47" parent="." instance=ExtResource( 8 )]
-position = Vector2( 288, 352 )
-
-[node name="Coin48" parent="." instance=ExtResource( 8 )]
-position = Vector2( 288, 320 )
-
-[node name="Coin49" parent="." instance=ExtResource( 8 )]
 position = Vector2( 288, 288 )
 
-[node name="Coin50" parent="." instance=ExtResource( 8 )]
+[node name="Coin47" parent="." instance=ExtResource( 8 )]
 position = Vector2( 288, 256 )
 
-[node name="Coin51" parent="." instance=ExtResource( 8 )]
+[node name="Coin48" parent="." instance=ExtResource( 8 )]
 position = Vector2( 288, 224 )
 
-[node name="Coin9" parent="." instance=ExtResource( 8 )]
-position = Vector2( 656, 528 )
+[node name="Coin49" parent="." instance=ExtResource( 8 )]
+position = Vector2( 288, 192 )
 
-[node name="Coin2" parent="." instance=ExtResource( 8 )]
-position = Vector2( 352, 352 )
+[node name="Coin50" parent="." instance=ExtResource( 8 )]
+position = Vector2( 288, 160 )
 
-[node name="Coin3" parent="." instance=ExtResource( 8 )]
-position = Vector2( 384, 352 )
-
-[node name="Coin4" parent="." instance=ExtResource( 8 )]
-position = Vector2( 416, 352 )
-
-[node name="Coin5" parent="." instance=ExtResource( 8 )]
-position = Vector2( 320, 384 )
-
-[node name="Coin6" parent="." instance=ExtResource( 8 )]
-position = Vector2( 352, 384 )
-
-[node name="Coin7" parent="." instance=ExtResource( 8 )]
-position = Vector2( 384, 384 )
-
-[node name="Coin8" parent="." instance=ExtResource( 8 )]
-position = Vector2( 416, 384 )
-
-[node name="Coin11" parent="." instance=ExtResource( 8 )]
-position = Vector2( 752, 528 )
-
-[node name="Coin12" parent="." instance=ExtResource( 8 )]
-position = Vector2( 720, 528 )
-
-[node name="Coin10" parent="." instance=ExtResource( 8 )]
-position = Vector2( 688, 528 )
-
-[node name="Coin13" parent="." instance=ExtResource( 8 )]
-position = Vector2( 784, 528 )
-
-[node name="Coin14" parent="." instance=ExtResource( 8 )]
-position = Vector2( 816, 528 )
-
-[node name="Coin15" parent="." instance=ExtResource( 8 )]
-position = Vector2( 848, 528 )
-
-[node name="Coin16" parent="." instance=ExtResource( 8 )]
-position = Vector2( 880, 528 )
-
-[node name="Coin17" parent="." instance=ExtResource( 8 )]
-position = Vector2( 912, 528 )
-
-[node name="Goomba" parent="." instance=ExtResource( 9 )]
-position = Vector2( 1040, 416 )
-ai = 0
-
-[node name="Goomba5" parent="." instance=ExtResource( 9 )]
-position = Vector2( 1008, 416 )
-ai = 0
-
-[node name="Goomba2" parent="." instance=ExtResource( 9 )]
-position = Vector2( 976, 416 )
-ai = 0
-
-[node name="Goomba3" parent="." instance=ExtResource( 9 )]
-position = Vector2( 944, 416 )
-ai = 0
-
-[node name="Goomba4" parent="." instance=ExtResource( 9 )]
-position = Vector2( 912, 416 )
-ai = 0
-
-[node name="Goomba6" parent="." instance=ExtResource( 9 )]
-position = Vector2( 880, 416 )
-ai = 0
-
-[node name="Goomba7" parent="." instance=ExtResource( 9 )]
-position = Vector2( 848, 416 )
-ai = 0
-
-[node name="Goomba8" parent="." instance=ExtResource( 9 )]
-position = Vector2( 816, 416 )
-ai = 0
-
-[node name="Goomba9" parent="." instance=ExtResource( 9 )]
-position = Vector2( 784, 416 )
-ai = 0
-
-[node name="Goomba10" parent="." instance=ExtResource( 9 )]
-position = Vector2( 752, 416 )
-ai = 0
-
-[node name="Goomba11" parent="." instance=ExtResource( 9 )]
-position = Vector2( 720, 416 )
-ai = 0
-
-[node name="Goomba12" parent="." instance=ExtResource( 9 )]
-position = Vector2( 688, 416 )
-ai = 0
+[node name="Coin51" parent="." instance=ExtResource( 8 )]
+position = Vector2( 288, 128 )
 
 [node name="Goomba13" parent="." instance=ExtResource( 9 )]
-position = Vector2( 656, 416 )
-ai = 0
+position = Vector2( 816, 416 )

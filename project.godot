@@ -39,7 +39,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Mario Forever Cloud Engine"
-run/main_scene="res://Stages/Main.tscn"
+run/main_scene="res://Stages/TestLevel.tscn"
 config/icon="res://icon.png"
 
 [autoload]

@@ -42,14 +42,14 @@ var dead_complete: bool = false
 func _ready() -> void:
 	vis.process_parent = true
 	vis.physics_process_parent = true
-	vis.connect("screen_entered",self,"_on_screen_entered")
-	vis.connect("screen_exited",self,"_on_screen_exited")
+	vis.connect('screen_entered', self, '_on_screen_entered')
+	vis.connect('screen_exited', self, '_on_screen_exited')
 	
 	add_child(vis)
 	
-	var feets = preload("res://Objects/Enemies/Core/Feets.tscn").instance()
+	var feets = preload('res://Objects/Enemies/Core/Feets.tscn').instance()
 	if smart_turn and ai == AI_TYPE.WALK:
-		feets.connect("on_cliff",self,'_turn')
+		feets.connect('on_cliff', self, '_turn')
 	
 	self.add_child(feets)
 	
@@ -142,7 +142,7 @@ func _turn() -> void:
 	dir = -dir
 
 func getInfo() -> String:
-	return "{self}\nvel:{velocity}\nspeed:{speed}\nSmart:{smart_turn}\nCan stmpd:{is_stompable}\nDir:{dir}\nOn screen:{onScreen}".format({"self":name,"velocity":velocity,"speed":speed,"smart_turn":smart_turn,"is_stompable":is_stompable,"dir":dir,"onScreen":onScreen}).to_lower()
+	return '{self}\nvel:{velocity}\nspeed:{speed}\nSmart:{smart_turn}\nCan stmpd:{is_stompable}\nDir:{dir}\nOn screen:{onScreen}'.format({ 'self': name, 'velocity': velocity,'speed': speed, 'smart_turn': smart_turn, 'is_stompable': is_stompable, 'dir': dir, 'onScreen': onScreen }).to_lower()
 
 func _on_screen_entered() -> void:
 	onScreen = true
