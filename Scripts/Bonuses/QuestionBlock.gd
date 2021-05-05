@@ -39,7 +39,5 @@ func _process_active(delta) -> void:
 func _process_trigger(delta) -> void:
 	t_counter += (t_counter < 200) * Global.get_delta(delta)
 	
-	if t_counter < 6:
-		position.y -= 1 * Global.get_delta(delta)
-	elif t_counter < 12:
-		position.y += 1 * Global.get_delta(delta)
+	if t_counter < 12:
+    		position.y += (-1 if t_counter < 6 else 1) * Global.get_delta(delta)
