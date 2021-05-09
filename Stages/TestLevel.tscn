@@ -32,16 +32,16 @@ bonus_type = 1
 visibility = 2
 
 [node name="Question Block2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 320, 320 )
+position = Vector2( 288, 320 )
 
 [node name="Question Block3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 352, 320 )
+position = Vector2( 320, 320 )
 
 [node name="Question Block4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 384, 320 )
+position = Vector2( 352, 320 )
 
 [node name="Question Block5" parent="." instance=ExtResource( 4 )]
-position = Vector2( 416, 320 )
+position = Vector2( 384, 320 )
 
 [node name="Question Block6" parent="." instance=ExtResource( 4 )]
 position = Vector2( 288, 192 )

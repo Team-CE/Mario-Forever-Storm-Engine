@@ -25,7 +25,7 @@ export var can_hurt: bool = true
 
 export var dir: float = -1
 
-export var speed: float = 70
+export var speed: float = 60
 export var smart_turn: bool
 export var no_gravity: bool
 export var is_stompable: bool

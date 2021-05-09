@@ -28,7 +28,7 @@ func _process(delta) -> void:
     $Collision.shape = null
   else:
     appearing = false
-    speed = 70
+    speed = 120
     ai = AI_TYPE.WALK
     dir = 1
     no_gravity = false
