@@ -14,20 +14,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/General/CoinEffect.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "EnemyBase",
-"language": "GDScript",
-"path": "res://Scripts/General/EnemyBase.gd"
-}, {
 "base": "Node",
 "class": "FLMusicLib",
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
 }, {
+"base": "KinematicBody2D",
+"class": "GenericEnemyMovement",
+"language": "GDScript",
+"path": "res://Scripts/General/GenericEnemyMovement.gd"
+}, {
 "base": "Node",
 "class": "Level",
 "language": "GDScript",
 "path": "res://Scripts/Level.gd"
+}, {
+"base": "GenericEnemyMovement",
+"class": "Powerup",
+"language": "GDScript",
+"path": "res://Scripts/Bonuses/Powerup.gd"
 }, {
 "base": "Sprite",
 "class": "ScoreText",
@@ -36,9 +41,10 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "CoinEffect": "",
-"EnemyBase": "",
 "FLMusicLib": "",
+"GenericEnemyMovement": "",
 "Level": "",
+"Powerup": "",
 "ScoreText": ""
 }
 

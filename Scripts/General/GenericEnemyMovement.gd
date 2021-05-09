@@ -1,5 +1,5 @@
 extends KinematicBody2D
-class_name EnemyBase
+class_name GenericEnemyMovement
 
 # AI Types
 enum AI_TYPE {
@@ -9,7 +9,7 @@ enum AI_TYPE {
   FREE
 }
 
-enum DEAD_TYPE {
+enum DEATH_TYPE {
   BASIC,
   FALL
 }
@@ -21,12 +21,15 @@ var velocity: Vector2
 
 signal on_stomp
 
+export var can_hurt: bool = true
+
 export var dir: float = -1
 
 export var speed: float = 70
 export var smart_turn: bool
 export var no_gravity: bool
 export var is_stompable: bool
+export var is_kickable: bool = true
 
 export var sin_height: float = 20
 export var sin_speed: float = 150
@@ -35,9 +38,9 @@ export var score: int = 100
 export var alive: bool = true
 
 export(AI_TYPE) var ai: int = AI_TYPE.IDLE
-export(DEAD_TYPE) var dead: int = DEAD_TYPE.BASIC
+export(DEATH_TYPE) var death: int = DEATH_TYPE.BASIC
 
-var dead_complete: bool = false
+var death_complete: bool = false
 
 func _ready() -> void:
   vis.process_parent = true
@@ -71,7 +74,7 @@ func _AI(delta: float) -> void:
 
 func _process(delta) -> void:
   # Gravity
-  if (!is_on_floor() and (dead == DEAD_TYPE.BASIC or alive) and ai != AI_TYPE.FLY) or (not dead == DEAD_TYPE.BASIC and not alive):
+  if (!is_on_floor() and (death == DEATH_TYPE.BASIC or alive) and ai != AI_TYPE.FLY) or (not death == DEATH_TYPE.BASIC and not alive):
     velocity.y += Global.gravity * (1 if alive else 0.4)
 
   velocity = move_and_slide(velocity, Vector2.UP)
@@ -79,10 +82,10 @@ func _process(delta) -> void:
   if alive:
     _process_alive(delta)
   else:
-    if dead == DEAD_TYPE.BASIC:
-      if not dead_complete:
-        _process_dead()
-      dead_complete = true
+    if death == DEATH_TYPE.BASIC:
+      if not death_complete:
+        _process_death()
+      death_complete = true
 
 func _process_alive(delta: float) -> void:
   _AI(delta)
@@ -105,16 +108,16 @@ func _process_alive(delta: float) -> void:
     var score_text = ScoreText.new(score, position)
     get_parent().add_child(score_text)
 
-  if pd_overlaps and pd_overlaps[0] == self:
+  if pd_overlaps and pd_overlaps[0] == self and can_hurt:
     Global._pll()
   
   # Kicking
   var g_overlaps = $Feets/Feet_M.get_overlapping_bodies()
-  if g_overlaps and g_overlaps[0] is StaticBody2D and g_overlaps[0].triggered and g_overlaps[0].t_counter < 12:
+  if g_overlaps and g_overlaps[0] is StaticBody2D and g_overlaps[0].triggered and g_overlaps[0].t_counter < 12 and is_kickable:
     kick()
 
 func kick() -> void:
-  dead = DEAD_TYPE.FALL
+  death = DEATH_TYPE.FALL
   alive = false
 
   var score_text = ScoreText.new(100, position)
@@ -127,10 +130,10 @@ func kick() -> void:
   $Sprite.set_animation('Falling')
   $Kick.play()
 
-func _process_dead() -> void:
+func _process_death() -> void:
   $Sprite.set_animation('Dead')
-  match dead:
-    DEAD_TYPE.BASIC:
+  match death:
+    DEATH_TYPE.BASIC:
       velocity.x = 0
       collision_layer = 2
       collision_mask = 2

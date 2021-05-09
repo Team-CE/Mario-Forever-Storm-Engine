@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CoinAnimation.png-da905ccd74c1d1920fdf1915e4d10c56.stex"
+path="res://.import/Mushroom.png-a15976a8d7e6b5f5ad9e1943114b1aa6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Bonuses/CoinAnimation.png"
-dest_files=[ "res://.import/CoinAnimation.png-da905ccd74c1d1920fdf1915e4d10c56.stex" ]
+source_file="res://GFX/Bonuses/Mushroom.png"
+dest_files=[ "res://.import/Mushroom.png-a15976a8d7e6b5f5ad9e1943114b1aa6.stex" ]
 
 [params]
 

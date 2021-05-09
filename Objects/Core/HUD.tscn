@@ -201,9 +201,11 @@ texture = ExtResource( 2 )
 [node name="CoinsSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 256, 43 )
 frames = SubResource( 42 )
+frame = 2
 playing = true
 
 [node name="GameoverSprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( 320, 240 )
 texture = ExtResource( 9 )
 

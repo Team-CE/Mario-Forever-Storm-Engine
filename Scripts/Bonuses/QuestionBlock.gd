@@ -41,17 +41,23 @@ func _process_active(delta) -> void:
   var td_overlaps = mario_td.get_overlapping_bodies()
 
   if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 0:
+    active = false
+    $Sprite.set_animation('Empty')
+    triggered = true
+    visible = true
     match bonus_type:
       BONUS_TYPE.COIN:
         Global.play_base_sound('MAIN_Coin')
-        active = false
-        $Sprite.set_animation('Empty')
-        triggered = true
         Global.add_coins(1)
-        visible = true
 
         var coin_effect = CoinEffect.new(position + Vector2(0, -32))
         get_parent().add_child(coin_effect)
+              
+      BONUS_TYPE.FLOWER:
+        var powerup = load('res://Objects/Bonuses/Powerup.tscn').instance()
+        powerup.position = position
+        get_parent().add_child(powerup)
+        Global.play_base_sound('MAIN_PowerupGrow')
 
 func _process_trigger(delta) -> void:
   t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)

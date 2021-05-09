@@ -14,7 +14,8 @@ signal OnCoinCollected  # Called when coins collected
 var lives: int = 4      # Player lives
 var time: int = 999     # Time left
 var score: int = 0      # Score
-var coins: int = 0      # Player coind
+var coins: int = 0      # Player coins
+var state: int = 0      # Player powerup state
 
 var debug: bool = true        # Debug
 
