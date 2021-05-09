@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "AnimatedSprite",
+"class": "CoinEffect",
+"language": "GDScript",
+"path": "res://Scripts/General/CoinEffect.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "EnemyBase",
 "language": "GDScript",
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://Scripts/General/ScoreText.gd"
 } ]
 _global_script_class_icons={
+"CoinEffect": "",
 "EnemyBase": "",
 "FLMusicLib": "",
 "Level": "",

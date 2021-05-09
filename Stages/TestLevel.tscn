@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Objects/Bonuses/Question Block.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Objects/Enemies/Spiny.tscn" type="PackedScene" id=7]
 
 [node name="Level" type="Node"]
 script = ExtResource( 1 )
@@ -45,7 +46,7 @@ position = Vector2( 384, 320 )
 position = Vector2( 416, 320 )
 
 [node name="Question Block6" parent="." instance=ExtResource( 4 )]
-position = Vector2( 288, 224 )
+position = Vector2( 288, 192 )
 
 [node name="Question Block7" parent="." instance=ExtResource( 4 )]
 position = Vector2( 320, 224 )
@@ -57,7 +58,10 @@ position = Vector2( 352, 224 )
 position = Vector2( 384, 224 )
 
 [node name="Question Block10" parent="." instance=ExtResource( 4 )]
-position = Vector2( 416, 224 )
+position = Vector2( 416, 192 )
 
 [node name="Goomba" parent="." instance=ExtResource( 5 )]
-position = Vector2( 416, 64 )
+position = Vector2( 224, 416 )
+
+[node name="Spiny" parent="." instance=ExtResource( 7 )]
+position = Vector2( 352, 192 )
