@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://GFX/Texts/Score.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/General/ScoreText.gd" type="Script" id=2]
-
-[node name="Sprite" type="Sprite"]
-texture = ExtResource( 1 )
-hframes = 8
-script = ExtResource( 2 )

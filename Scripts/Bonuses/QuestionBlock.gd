@@ -10,11 +10,23 @@ enum BONUS_TYPE {
   COIN_BRICK
 }
 
+enum VISIBILITY_TYPE {
+  VISIBLE,
+  INVIS_ONCE,
+  INVIS_ALWAYS
+}
+
 export(BONUS_TYPE) var bonus_type: int = BONUS_TYPE.COIN
+
+export(VISIBILITY_TYPE) var visibility: int = VISIBILITY_TYPE.VISIBLE
 
 var active: bool = true
 var triggered: bool = false
 var t_counter: float = 0
+
+func _ready() -> void:
+  if not visibility == VISIBILITY_TYPE.VISIBLE:
+    visible = false
 
 func _process(delta) -> void:
   if active:
@@ -36,12 +48,13 @@ func _process_active(delta) -> void:
         $Sprite.set_animation('Empty')
         triggered = true
         Global.add_coins(1)
+        visible = true
 
         var coin_effect = CoinEffect.new(position + Vector2(0, -32))
         get_parent().add_child(coin_effect)
 
 func _process_trigger(delta) -> void:
   t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)
-	
+  
   if t_counter < 12:
     position.y += (-1 if t_counter < 6 else 1) * Global.get_delta(delta)

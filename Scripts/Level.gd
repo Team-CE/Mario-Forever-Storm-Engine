@@ -16,7 +16,7 @@ func _ready():
     MusicEngine.play_music(music)
   elif not get_node('Mario'):
     tileMap = setup_tilemap()
-    setup_groups()
+    #setup_groups()
     var mario: Node2D = load('res://Objects/Core/Mario.tscn').instance()
     mario.position = Vector2(48, 416)
     add_child(mario)

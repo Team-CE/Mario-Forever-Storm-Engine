@@ -13,12 +13,12 @@ func _ready() -> void:
   Global.connect("OnPlayerLoseLife",self,'kill')
   $DebugText.visible = false
 
-func is_over_backdrop(obj) -> bool:
+func is_over_backdrop(obj, ignore_hidden) -> bool:
   var overlaps = obj.get_overlapping_bodies()
 
   if overlaps.size() > 0:
     for i in range(overlaps.size()):
-      if overlaps[0] is TileMap or overlaps[0].is_in_group('Solid'):
+      if (overlaps[0] is TileMap or overlaps[0].is_in_group('Solid')) and (overlaps[0].visible or ignore_hidden):
         return true
 
   return false
@@ -56,27 +56,27 @@ func _process_alive(delta) -> void:
   if y_speed > 0:
     jump_counter = 1
   
-  if is_over_backdrop($BottomDetector) and y_speed > 0:
-    if is_over_backdrop($InsideDetector):
+  if is_over_backdrop($BottomDetector, false) and y_speed > 0:
+    if is_over_backdrop($InsideDetector, false):
       position.y -= 16
     y_speed = 0
     jump_counter = 0
     position.y = round(position.y / 32) * 32
   
-  if is_over_backdrop($TopDetector) and y_speed < 0 and y_speed > -13:
+  if is_over_backdrop($TopDetector, true) and y_speed < 0 and y_speed > -13:
     y_speed = 0
     position.y = round(position.y / 8) * 8
   
-  if not (is_over_backdrop($TopDetector) and not is_over_backdrop($PrimaryDetector)) and ((is_over_backdrop($RightDetector) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector) and x_speed <= -0.08)):
+  if not (is_over_backdrop($TopDetector, false) and not is_over_backdrop($PrimaryDetector, false)) and ((is_over_backdrop($RightDetector, false) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector, false) and x_speed <= -0.08)):
     x_speed = 0
   
-  if is_over_backdrop($SmallRightDetector):
+  if is_over_backdrop($SmallRightDetector, false):
     position.x -= 1 * Global.get_delta(delta)
   
-  if is_over_backdrop($SmallLeftDetector):
+  if is_over_backdrop($SmallLeftDetector, false):
     position.x += 1 * Global.get_delta(delta)
   
-  if is_over_backdrop($SmallRightDetector) and is_over_backdrop($SmallLeftDetector):
+  if is_over_backdrop($SmallRightDetector, false) and is_over_backdrop($SmallLeftDetector, false):
     position.x += (1 if $SmallMario.flip_h else -1) * Global.get_delta(delta)
   
   if position.y > $Camera.limit_bottom + 64:
