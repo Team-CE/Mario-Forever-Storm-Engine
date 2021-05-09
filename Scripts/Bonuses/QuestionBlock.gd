@@ -35,13 +35,13 @@ func _process_active(delta) -> void:
         active = false
         $Sprite.set_animation('Empty')
         triggered = true
+        Global.add_coins(1)
 
-        var coin_effect = CoinEffect.new(position)
-        print(coin_effect)
+        var coin_effect = CoinEffect.new(position + Vector2(0, -32))
         get_parent().add_child(coin_effect)
 
 func _process_trigger(delta) -> void:
   t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)
-  
+	
   if t_counter < 12:
     position.y += (-1 if t_counter < 6 else 1) * Global.get_delta(delta)
