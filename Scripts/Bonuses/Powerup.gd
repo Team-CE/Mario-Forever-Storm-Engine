@@ -20,7 +20,7 @@ func _ready() -> void:
   z_index = -99
 
 func _process(delta) -> void:
-  if appearing and appear_counter < 44:
+  if appearing and appear_counter < 35:
     position.y -= 0.7 * Global.get_delta(delta)
     appear_counter += 0.7 * Global.get_delta(delta)
     no_gravity = true
