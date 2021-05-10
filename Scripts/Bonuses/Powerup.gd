@@ -43,4 +43,8 @@ func _process(delta) -> void:
     var score_text = ScoreText.new(1000, position)
     get_parent().add_child(score_text)
     queue_free()
+    mario.appear_counter = 50
+    match type:
+      POWERUP_TYPE.MUSHROOM:
+        Global.state = 1
 

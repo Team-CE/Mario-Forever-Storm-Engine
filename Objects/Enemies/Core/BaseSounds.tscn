@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=1]
 [ext_resource path="res://Sounds/Main/jump.wav" type="AudioStream" id=2]
 [ext_resource path="res://Sounds/Bonuses/coin.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sounds/Bonuses/appear.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sounds/Bonuses/powerup.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/Main/pipe.wav" type="AudioStream" id=6]
 
 [node name="BaseSounds" type="Node2D"]
 
@@ -22,3 +23,6 @@ stream = ExtResource( 4 )
 
 [node name="MAIN_Powerup" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+
+[node name="MAIN_Pipe" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )

@@ -68,6 +68,21 @@ func add_coins(coins: int) -> void:
 func play_base_sound(sound: String) -> void:
   Mario.get_node('BaseSounds').get_node(sound).play()
 
+func _ppd() -> void: # Player Powerdown
+  if Mario.shield_counter > 0:
+    return
+
+  if state == 0:
+    _pll()
+  else:
+    play_base_sound('MAIN_Pipe')
+    if state > 1:
+      state = 1
+    else:
+      state = 0
+    Mario.appear_counter = 50
+    Mario.shield_counter = 100
+
 func _pll() -> void: # Player Lose Life
   if player_dead:
     return

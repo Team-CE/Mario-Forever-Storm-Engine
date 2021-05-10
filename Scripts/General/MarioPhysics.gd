@@ -7,6 +7,8 @@ var can_jump: bool = false
 
 onready var dead = false
 onready var dead_counter = 0
+onready var appear_counter = 0
+onready var shield_counter = 0
 
 func _ready() -> void:
   Global.Mario = self
@@ -82,12 +84,16 @@ func _process_alive(delta) -> void:
   if position.y > $Camera.limit_bottom + 64:
     Global._pll()
   
-  animate()
+  animate(delta)
   debug()
 
 func _process_dead(delta) -> void:
+  if dead_counter == 0:
+    Global.state = 0
+    animate(delta)
+
   dead_counter += 1 * Global.get_delta(delta)
-  $SmallMario.set_animation('Dead')
+  animate_sprite('Dead')
   x_speed = 0
 
   y_speed += 0.5 * Global.get_delta(delta)
@@ -140,24 +146,63 @@ func controls(delta) -> void:
     elif x_speed > -7 and Input.is_action_pressed('mario_fire'):
       x_speed -= 0.25 * Global.get_delta(delta)
 
-func animate() -> void:
-  if not y_speed == 0:
-    $SmallMario.set_animation('Jumping')
-  elif abs(x_speed) < 0.8:
-    $SmallMario.set_animation('Stopped')
-    
+func animate(delta) -> void:
+  $SmallMario.visible = Global.state == 0
+  $BigMario.visible = Global.state == 1
+
   if x_speed <= -0.8:
     $SmallMario.flip_h = true
-    if not $SmallMario.animation == 'Walking' and y_speed == 0:
-      $SmallMario.set_animation('Walking')
-      
+    $BigMario.flip_h = true
+  
   if x_speed >= 0.8:
     $SmallMario.flip_h = false
+    $BigMario.flip_h = false
+
+  if appear_counter > 0:
+    if not $SmallMario.animation == 'Appearing':
+      print('anim set')
+      animate_sprite('Appearing')
+      $SmallMario.position.y -= 13
+    
+    speed_scale_sprite(1)
+    appear_counter -= 1.5 * Global.get_delta(delta)
+    return
+  if appear_counter < 0:
+    $SmallMario.position.y += 13
+    appear_counter = 0
+  
+  if shield_counter > 0:
+    shield_counter -= 1.5 * Global.get_delta(delta)
+    if appear_counter == 0:
+      var calculated_invis = int(shield_counter / 2) % 2 == 0
+      $SmallMario.visible = Global.state == 0 and calculated_invis
+      $BigMario.visible = Global.state == 1 and calculated_invis
+  if shield_counter < 0:
+    shield_counter = 0
+
+  if not y_speed == 0:
+    animate_sprite('Jumping')
+  elif abs(x_speed) < 0.8:
+    animate_sprite('Stopped')
+    
+  if x_speed <= -0.8:
     if not $SmallMario.animation == 'Walking' and y_speed == 0:
-      $SmallMario.set_animation('Walking')
+      animate_sprite('Walking')
+      
+  if x_speed >= 0.8:
+    if not $SmallMario.animation == 'Walking' and y_speed == 0:
+      animate_sprite('Walking')
       
   if $SmallMario.animation == 'Walking':
-    $SmallMario.speed_scale = abs(x_speed) * 2.5 + 4
+    speed_scale_sprite(abs(x_speed) * 2.5 + 4)
+
+func animate_sprite(anim_name) -> void:
+  $SmallMario.set_animation(anim_name)
+  $BigMario.set_animation(anim_name)
+
+func speed_scale_sprite(scale_num) -> void:
+  $SmallMario.speed_scale = scale_num
+  $BigMario.speed_scale = scale_num
 
 func kill() -> void:
   dead = true

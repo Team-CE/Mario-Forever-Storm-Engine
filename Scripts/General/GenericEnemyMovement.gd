@@ -75,7 +75,7 @@ func _AI(delta: float) -> void:
 func _process(delta) -> void:
   # Gravity
   if (!is_on_floor() and (death == DEATH_TYPE.BASIC or alive) and ai != AI_TYPE.FLY) or (not death == DEATH_TYPE.BASIC and not alive):
-    velocity.y += Global.gravity * (1 if alive else 0.4)
+    velocity.y += Global.gravity * (1 if alive else 0.75) * Global.get_delta(delta)
 
   velocity = move_and_slide(velocity, Vector2.UP)
 
@@ -109,7 +109,7 @@ func _process_alive(delta: float) -> void:
     get_parent().add_child(score_text)
 
   if pd_overlaps and pd_overlaps[0] == self and can_hurt:
-    Global._pll()
+    Global._ppd()
   
   # Kicking
   var g_overlaps = $Feets/Feet_M.get_overlapping_bodies()
@@ -123,7 +123,7 @@ func kick() -> void:
   var score_text = ScoreText.new(100, position)
   get_parent().add_child(score_text)
 
-  velocity.y = -140
+  velocity.y = -180
   velocity.x = 0
 
   $Collision.shape = null

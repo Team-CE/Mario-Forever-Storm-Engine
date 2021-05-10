@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BigWalk.png-19c2918a52a85ede6260cf9eed0277b4.stex"
+path="res://.import/BigCrouch.png-502712e14f81d71d133be3ea9a6e2885.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Mario/BigWalk.png"
-dest_files=[ "res://.import/BigWalk.png-19c2918a52a85ede6260cf9eed0277b4.stex" ]
+source_file="res://GFX/Mario/BigCrouch.png"
+dest_files=[ "res://.import/BigCrouch.png-502712e14f81d71d133be3ea9a6e2885.stex" ]
 
 [params]
 
