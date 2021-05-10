@@ -93,7 +93,7 @@ func _process_dead(delta) -> void:
     animate(delta)
 
   dead_counter += 1 * Global.get_delta(delta)
-  animate_sprite('Dead')
+  $SmallMario.set_animation('Dead')
   x_speed = 0
 
   y_speed += 0.5 * Global.get_delta(delta)
