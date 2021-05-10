@@ -97,7 +97,7 @@ func _process_alive(delta: float) -> void:
   var pd_overlaps = mario_pd.get_overlapping_bodies()
   var bd_overlaps = mario_bd.get_overlapping_bodies()
 
-  if bd_overlaps and bd_overlaps[0] == self and not (pd_overlaps and pd_overlaps[0] == self) and is_stompable:
+  if bd_overlaps and bd_overlaps.has(self) and not (pd_overlaps and pd_overlaps.has(self)) and is_stompable:
     if Input.is_action_pressed('mario_jump'):
       mario.y_speed = -13
     else:

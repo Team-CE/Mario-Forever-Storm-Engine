@@ -29,7 +29,6 @@ position = Vector2( 48, 416 )
 [node name="Question Block" parent="." instance=ExtResource( 4 )]
 position = Vector2( 256, 320 )
 bonus_type = 1
-visibility = 2
 
 [node name="Question Block2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 288, 320 )

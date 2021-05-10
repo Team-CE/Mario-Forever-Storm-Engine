@@ -32,5 +32,15 @@ func _process(delta) -> void:
     ai = AI_TYPE.WALK
     no_gravity = false
     $Collision.shape = old_col_shape
+    $CollisionCollectable.shape = null
     z_index = 0
+
+  var mario = get_parent().get_node('Mario')
+  var pd_overlaps = mario.get_node('PrimaryDetector').get_overlapping_bodies()
+
+  if pd_overlaps and pd_overlaps.has(self):
+    Global.play_base_sound('MAIN_Powerup')
+    var score_text = ScoreText.new(1000, position)
+    get_parent().add_child(score_text)
+    queue_free()
 
