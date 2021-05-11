@@ -4,6 +4,7 @@ export var x_speed: float = 0
 export var y_speed: float = 0
 export var jump_counter: int = 0
 var can_jump: bool = false
+var crouch: bool = false
 
 onready var dead = false
 onready var dead_counter = 0
@@ -85,6 +86,7 @@ func _process_alive(delta) -> void:
     Global._pll()
   
   animate(delta)
+  update_collisions()
   debug()
 
 func _process_dead(delta) -> void:
@@ -105,6 +107,7 @@ func _process_dead(delta) -> void:
 
   $PrimaryDetector/CollisionPrimary.shape = null
   $BottomDetector/CollisionBottom.shape = null
+  $TopDetector/CollisionTop.shape = null
 
   if dead_counter > 200:
     if Global.lives > 0:
@@ -115,7 +118,7 @@ func _process_dead(delta) -> void:
   pass
 
 func controls(delta) -> void:
-  if Input.is_action_just_pressed('mario_jump') and y_speed >= 0:
+  if Input.is_action_just_pressed('mario_jump') and y_speed >= 0 and not crouch:
     can_jump = true
   if not Input.is_action_pressed('mario_jump'):
     can_jump = false
@@ -126,7 +129,12 @@ func controls(delta) -> void:
     can_jump = false
     $BaseSounds/MAIN_Jump.play()
   
-  if Input.is_action_pressed('mario_right'):
+  if Input.is_action_pressed('mario_crouch') and is_over_backdrop($BottomDetector, false):
+    crouch = true
+  else:
+    crouch = false
+  
+  if Input.is_action_pressed('mario_right') and not crouch:
     if x_speed > -0.4 and x_speed < 0.4:
       x_speed = 0.8
     elif x_speed <= -0.4:
@@ -136,7 +144,7 @@ func controls(delta) -> void:
     elif x_speed < 7 and Input.is_action_pressed('mario_fire'):
       x_speed += 0.25 * Global.get_delta(delta)
     
-  if Input.is_action_pressed('mario_left'):
+  if Input.is_action_pressed('mario_left') and not crouch:
     if x_speed > -0.4 and x_speed < 0.4:
       x_speed = -0.8
     elif x_speed >= 0.4:
@@ -160,7 +168,6 @@ func animate(delta) -> void:
 
   if appear_counter > 0:
     if not $SmallMario.animation == 'Appearing':
-      print('anim set')
       animate_sprite('Appearing')
       $SmallMario.position.y -= 13
     
@@ -170,6 +177,10 @@ func animate(delta) -> void:
   if appear_counter < 0:
     $SmallMario.position.y += 13
     appear_counter = 0
+  
+  if crouch:
+    animate_sprite('Crouching')
+    return
   
   if shield_counter > 0:
     shield_counter -= 1.5 * Global.get_delta(delta)
@@ -203,6 +214,20 @@ func animate_sprite(anim_name) -> void:
 func speed_scale_sprite(scale_num) -> void:
   $SmallMario.speed_scale = scale_num
   $BigMario.speed_scale = scale_num
+
+func update_collisions() -> void:
+  $PrimaryDetector/CollisionPrimary.disabled = not (Global.state == 0 or crouch)
+  $TopDetector/CollisionTop.disabled = not (Global.state == 0 or crouch)
+  $RightDetector/CollisionRight.disabled = not (Global.state == 0 or crouch)
+  $LeftDetector/CollisionLeft.disabled = not (Global.state == 0 or crouch)
+
+  $PrimaryDetector/CollisionPrimaryBig.disabled = not (Global.state > 0 and not crouch)
+  $TopDetector/CollisionTopBig.disabled = not (Global.state > 0 and not crouch)
+  $RightDetector/CollisionRightBig.disabled = not (Global.state > 0 and not crouch)
+  $LeftDetector/CollisionLeftBig.disabled = not (Global.state > 0 and not crouch)
+
+  $BottomDetector/CollisionBottom.disabled = not y_speed > 4
+  $BottomDetector/CollisionBottomClose.disabled = not y_speed <= 4
 
 func kill() -> void:
   dead = true

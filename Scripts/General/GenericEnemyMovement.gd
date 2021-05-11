@@ -36,6 +36,7 @@ export var sin_speed: float = 150
 export var score: int = 100
 
 export var alive: bool = true
+export var active: bool = true
 
 export(AI_TYPE) var ai: int = AI_TYPE.IDLE
 export(DEATH_TYPE) var death: int = DEATH_TYPE.BASIC
@@ -73,9 +74,11 @@ func _AI(delta: float) -> void:
       FREE_AI()
 
 func _process(delta) -> void:
+  if not active:
+    return
   # Gravity
   if (!is_on_floor() and (death == DEATH_TYPE.BASIC or alive) and ai != AI_TYPE.FLY) or (not death == DEATH_TYPE.BASIC and not alive):
-    velocity.y += Global.gravity * (1 if alive else 0.75) * Global.get_delta(delta)
+    velocity.y += Global.gravity * (1 if alive else 0.325) * Global.get_delta(delta)
 
   velocity = move_and_slide(velocity, Vector2.UP)
 

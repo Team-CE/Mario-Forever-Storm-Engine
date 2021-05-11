@@ -1,6 +1,6 @@
 extends Node
 
-var gravity: float = 10 # Global gravity
+var gravity: float = 20 # Global gravity
 
 var HUD: CanvasLayer    # ref HUD
 var Mario: Node2D       # ref Mario

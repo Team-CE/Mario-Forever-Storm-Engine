@@ -20,13 +20,15 @@ func _ready() -> void:
   z_index = -99
 
 func _process(delta) -> void:
-  if appearing and appear_counter < 35:
-    position.y -= 0.7 * Global.get_delta(delta)
-    appear_counter += 0.7 * Global.get_delta(delta)
+  if appearing and appear_counter < 32:
+    active = false
+    position.y -= 0.4 * Global.get_delta(delta)
+    appear_counter += 0.4 * Global.get_delta(delta)
     no_gravity = true
     velocity.y = 0
     $Collision.shape = null
   else:
+    active = true
     appearing = false
     speed = 100
     ai = AI_TYPE.WALK
