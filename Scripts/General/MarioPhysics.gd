@@ -133,7 +133,11 @@ func controls(delta) -> void:
   
   if Input.is_action_pressed('mario_crouch') and is_over_backdrop($BottomDetector, false):
     crouch = true
-  else:
+    if x_speed > 0:
+      x_speed -= 0.1 * Global.get_delta(delta)
+    if x_speed < 0:
+      x_speed += 0.1 * Global.get_delta(delta)
+  if not Input.is_action_pressed('mario_crouch'):
     crouch = false
   
   if Input.is_action_pressed('mario_right') and not crouch:
