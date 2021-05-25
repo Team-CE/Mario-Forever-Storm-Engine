@@ -5,6 +5,7 @@ export var y_speed: float = 0
 export var jump_counter: int = 0
 var can_jump: bool = false
 var crouch: bool = false
+var standing: bool = false
 
 onready var dead = false
 onready var dead_counter = 0
@@ -63,6 +64,7 @@ func _process_alive(delta) -> void:
     if is_over_backdrop($InsideDetector, false):
       position.y -= 16
     y_speed = 0
+    standing = true
     jump_counter = 0
     position.y = round(position.y / 32) * 32
   
@@ -123,10 +125,14 @@ func controls(delta) -> void:
     can_jump = false
 
   if jump_counter == 0 and can_jump:
+    standing = false
     y_speed = -13
     jump_counter = 1
     can_jump = false
     $BaseSounds/MAIN_Jump.play()
+  
+  if y_speed > 0.01 and not is_over_backdrop($BottomDetector, false):
+    standing = false
   
   if Input.is_action_pressed('mario_crouch') and is_over_backdrop($BottomDetector, false):
     crouch = true

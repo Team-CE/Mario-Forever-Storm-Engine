@@ -40,7 +40,7 @@ func _process_active(delta) -> void:
   var mario_td = mario.get_node('TopDetector')
   var td_overlaps = mario_td.get_overlapping_bodies()
 
-  if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 0:
+  if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 0.01 and not mario.standing:
     active = false
     $Sprite.set_animation('Empty')
     triggered = true
