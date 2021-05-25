@@ -33,6 +33,15 @@ bonus_type = 1
 [node name="Question Block2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 288, 320 )
 
+[node name="Question Block11" parent="." instance=ExtResource( 4 )]
+position = Vector2( 432, 384 )
+
+[node name="Question Block12" parent="." instance=ExtResource( 4 )]
+position = Vector2( 464, 384 )
+
+[node name="Question Block13" parent="." instance=ExtResource( 4 )]
+position = Vector2( 496, 384 )
+
 [node name="Question Block3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 320, 320 )
 

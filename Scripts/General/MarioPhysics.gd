@@ -13,7 +13,7 @@ onready var shield_counter = 0
 
 func _ready() -> void:
   Global.Mario = self
-  Global.connect("OnPlayerLoseLife",self,'kill')
+  Global.connect("OnPlayerLoseLife", self, 'kill')
   $DebugText.visible = false
 
 func is_over_backdrop(obj, ignore_hidden) -> bool:
@@ -68,7 +68,6 @@ func _process_alive(delta) -> void:
   
   if is_over_backdrop($TopDetector, true) and y_speed < 0 and y_speed > -13:
     y_speed = 0
-    position.y = round(position.y / 8) * 8
   
   if not (is_over_backdrop($TopDetector, false) and not is_over_backdrop($PrimaryDetector, false)) and ((is_over_backdrop($RightDetector, false) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector, false) and x_speed <= -0.08)):
     x_speed = 0
@@ -78,6 +77,9 @@ func _process_alive(delta) -> void:
   
   if is_over_backdrop($SmallLeftDetector, false):
     position.x += 1 * Global.get_delta(delta)
+  
+  if is_over_backdrop($SmallLeftDetector, false) and is_over_backdrop($SmallRightDetector, false):
+    position.x += 1 * (-1 if $SmallMario.flip_h else 1) * Global.get_delta(delta)
   
   if is_over_backdrop($SmallRightDetector, false) and is_over_backdrop($SmallLeftDetector, false):
     position.x += (1 if $SmallMario.flip_h else -1) * Global.get_delta(delta)
@@ -191,17 +193,17 @@ func animate(delta) -> void:
   if shield_counter < 0:
     shield_counter = 0
 
-  if not y_speed == 0:
+  if not y_speed == 0 or not is_over_backdrop($BottomDetector, false):
     animate_sprite('Jumping')
   elif abs(x_speed) < 0.8:
     animate_sprite('Stopped')
     
   if x_speed <= -0.8:
-    if not $SmallMario.animation == 'Walking' and y_speed == 0:
+    if not $SmallMario.animation == 'Walking' and y_speed == 0 and is_over_backdrop($BottomDetector, false):
       animate_sprite('Walking')
       
   if x_speed >= 0.8:
-    if not $SmallMario.animation == 'Walking' and y_speed == 0:
+    if not $SmallMario.animation == 'Walking' and y_speed == 0 and is_over_backdrop($BottomDetector, false):
       animate_sprite('Walking')
       
   if $SmallMario.animation == 'Walking':
@@ -220,14 +222,18 @@ func update_collisions() -> void:
   $TopDetector/CollisionTop.disabled = not (Global.state == 0 or crouch)
   $RightDetector/CollisionRight.disabled = not (Global.state == 0 or crouch)
   $LeftDetector/CollisionLeft.disabled = not (Global.state == 0 or crouch)
+  $SmallRightDetector/CollisionSmallRight.disabled = not (Global.state == 0 or crouch)
+  $SmallLeftDetector/CollisionSmallLeft.disabled = not (Global.state == 0 or crouch)
 
   $PrimaryDetector/CollisionPrimaryBig.disabled = not (Global.state > 0 and not crouch)
   $TopDetector/CollisionTopBig.disabled = not (Global.state > 0 and not crouch)
   $RightDetector/CollisionRightBig.disabled = not (Global.state > 0 and not crouch)
   $LeftDetector/CollisionLeftBig.disabled = not (Global.state > 0 and not crouch)
+  $SmallRightDetector/CollisionSmallRightBig.disabled = not (Global.state > 0 and not crouch)
+  $SmallLeftDetector/CollisionSmallLeftBig.disabled = not (Global.state > 0 and not crouch)
 
-  $BottomDetector/CollisionBottom.disabled = not y_speed > 4
-  $BottomDetector/CollisionBottomClose.disabled = not y_speed <= 4
+  $BottomDetector/CollisionBottom.disabled = not y_speed > 2 and not y_speed <= 0
+  $BottomDetector/CollisionBottomClose.disabled = not y_speed <= 2
 
 func kill() -> void:
   dead = true
