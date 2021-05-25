@@ -72,14 +72,11 @@ func _process_alive(delta) -> void:
   if not (is_over_backdrop($TopDetector, false) and not is_over_backdrop($PrimaryDetector, false)) and ((is_over_backdrop($RightDetector, false) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector, false) and x_speed <= -0.08)):
     x_speed = 0
   
-  if is_over_backdrop($SmallRightDetector, false):
+  if is_over_backdrop($SmallRightDetector, false) and not is_over_backdrop($SmallLeftDetector, false):
     position.x -= 1 * Global.get_delta(delta)
   
-  if is_over_backdrop($SmallLeftDetector, false):
+  if is_over_backdrop($SmallLeftDetector, false) and not is_over_backdrop($SmallRightDetector, false):
     position.x += 1 * Global.get_delta(delta)
-  
-  if is_over_backdrop($SmallLeftDetector, false) and is_over_backdrop($SmallRightDetector, false):
-    position.x += 1 * (-1 if $SmallMario.flip_h else 1) * Global.get_delta(delta)
   
   if is_over_backdrop($SmallRightDetector, false) and is_over_backdrop($SmallLeftDetector, false):
     position.x += (1 if $SmallMario.flip_h else -1) * Global.get_delta(delta)
@@ -137,6 +134,8 @@ func controls(delta) -> void:
       x_speed -= 0.1 * Global.get_delta(delta)
     if x_speed < 0:
       x_speed += 0.1 * Global.get_delta(delta)
+  else:
+    crouch = false
   if not Input.is_action_pressed('mario_crouch'):
     crouch = false
   
