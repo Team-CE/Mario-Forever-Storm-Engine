@@ -24,11 +24,14 @@ var active: bool = true
 var triggered: bool = false
 var t_counter: float = 0
 
+var initial_position: Vector2
+
 func _ready() -> void:
   if not visibility == VISIBILITY_TYPE.VISIBLE:
     visible = false
   if bonus_type == BONUS_TYPE.BRICK:
     $Sprite.animation = 'Brick'
+  initial_position = position
 
 func _process(delta) -> void:
   if active:
@@ -86,7 +89,9 @@ func _process_trigger(delta) -> void:
   if t_counter < 12:
     position.y += (-1 if t_counter < 6 else 1) * Global.get_delta(delta)
   
-  if t_counter >= 12 and bonus_type == BONUS_TYPE.BRICK:
-    t_counter = 0
-    triggered = false
-    active = true
+  if t_counter >= 12:
+    position = initial_position
+    if bonus_type == BONUS_TYPE.BRICK:
+      t_counter = 0
+      triggered = false
+      active = true
