@@ -219,7 +219,7 @@ extents = Vector2( 2, 16 )
 [sub_resource type="RectangleShape2D" id=25]
 extents = Vector2( 1, 6 )
 
-[sub_resource type="RectangleShape2D" id=26]
+[sub_resource type="RectangleShape2D" id=38]
 extents = Vector2( 1, 12 )
 
 [sub_resource type="RectangleShape2D" id=27]
@@ -269,6 +269,7 @@ offset = Vector2( 0, -16 )
 [node name="FlowerMario" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 0, -29 )
+z_index = 10
 frames = SubResource( 30 )
 animation = "Stopped"
 playing = true
@@ -346,7 +347,7 @@ shape = SubResource( 25 )
 
 [node name="CollisionSmallRightBig" type="CollisionShape2D" parent="SmallRightDetector"]
 position = Vector2( 12, -23 )
-shape = SubResource( 26 )
+shape = SubResource( 38 )
 
 [node name="SmallLeftDetector" type="Area2D" parent="."]
 visible = false

@@ -9,10 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Sprite",
+"class": "BrickEffect",
+"language": "GDScript",
+"path": "res://Scripts/Effects/BrickEffect.gd"
+}, {
 "base": "AnimatedSprite",
 "class": "CoinEffect",
 "language": "GDScript",
-"path": "res://Scripts/General/CoinEffect.gd"
+"path": "res://Scripts/Effects/CoinEffect.gd"
 }, {
 "base": "Node",
 "class": "FLMusicLib",
@@ -40,6 +45,7 @@ _global_script_classes=[ {
 "path": "res://Scripts/General/ScoreText.gd"
 } ]
 _global_script_class_icons={
+"BrickEffect": "",
 "CoinEffect": "",
 "FLMusicLib": "",
 "GenericEnemyMovement": "",

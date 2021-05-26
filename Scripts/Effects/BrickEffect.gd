@@ -1,0 +1,24 @@
+extends Sprite
+class_name BrickEffect
+
+var y_accel: float = 0
+var accel: Vector2
+
+func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO):
+  texture = preload('res://GFX/Bonuses/BrickDebris.png')
+  position = pos
+  accel = acceleration
+
+func _process(delta):
+  y_accel += 0.4 * Global.get_delta(delta)
+  position.x += accel.x * Global.get_delta(delta)
+  position.y += (accel.y + y_accel) * Global.get_delta(delta)
+
+  if accel.x > 0:
+    rotation_degrees += 9 * Global.get_delta(delta)
+  else:
+    flip_h = true
+    rotation_degrees -= 9 * Global.get_delta(delta)
+  
+  if position.y > Global.Mario.position.y + 480:
+    queue_free()

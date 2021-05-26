@@ -48,11 +48,14 @@ func _process(delta) -> void:
     var score_text = ScoreText.new(1000, position)
     get_parent().add_child(score_text)
     queue_free()
-    mario.appear_counter = 50
     match type:
       POWERUP_TYPE.MUSHROOM:
-        Global.state = 1
+        if Global.state == 0:
+          Global.state = 1
+          mario.appear_counter = 50
       POWERUP_TYPE.FLOWER:
+        if Global.state != 2:
+          mario.appear_counter = 50
         if Global.state >= 1:
           Global.state = 2
         else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=1]
 [ext_resource path="res://Sounds/Main/jump.wav" type="AudioStream" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Sounds/Bonuses/powerup.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sounds/Main/pipe.wav" type="AudioStream" id=6]
 [ext_resource path="res://Sounds/Bonuses/bump.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/Bonuses/break.wav" type="AudioStream" id=8]
 
 [node name="BaseSounds" type="Node2D"]
 
@@ -30,3 +31,6 @@ stream = ExtResource( 6 )
 
 [node name="MAIN_Bump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
+
+[node name="MAIN_BrickBreak" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )

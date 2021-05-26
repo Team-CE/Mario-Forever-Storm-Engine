@@ -69,6 +69,16 @@ func _process_active(delta) -> void:
       BONUS_TYPE.BRICK:
         if Global.state == 0:
           Global.play_base_sound('MAIN_Bump')
+        else:
+          brick_break()
+
+func brick_break():
+  Global.play_base_sound('MAIN_BrickBreak')
+  var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
+  for i in range(4):
+    var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i])
+    get_parent().add_child(debris_effect)
+  queue_free()
 
 func _process_trigger(delta) -> void:
   t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)
