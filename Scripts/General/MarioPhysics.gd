@@ -168,14 +168,17 @@ func controls(delta) -> void:
 func animate(delta) -> void:
   $SmallMario.visible = Global.state == 0
   $BigMario.visible = Global.state == 1
+  $FlowerMario.visible = Global.state == 2
 
   if x_speed <= -0.8:
     $SmallMario.flip_h = true
     $BigMario.flip_h = true
+    $FlowerMario.flip_h = true
   
   if x_speed >= 0.8:
     $SmallMario.flip_h = false
     $BigMario.flip_h = false
+    $FlowerMario.flip_h = false
 
   if appear_counter > 0:
     if not $SmallMario.animation == 'Appearing':
@@ -199,6 +202,7 @@ func animate(delta) -> void:
       var calculated_invis = int(shield_counter / 2) % 2 == 0
       $SmallMario.visible = Global.state == 0 and calculated_invis
       $BigMario.visible = Global.state == 1 and calculated_invis
+      $FlowerMario.visible = Global.state == 2 and calculated_invis
   if shield_counter < 0:
     shield_counter = 0
 
@@ -221,10 +225,12 @@ func animate(delta) -> void:
 func animate_sprite(anim_name) -> void:
   $SmallMario.set_animation(anim_name)
   $BigMario.set_animation(anim_name)
+  $FlowerMario.set_animation(anim_name)
 
 func speed_scale_sprite(scale_num) -> void:
   $SmallMario.speed_scale = scale_num
   $BigMario.speed_scale = scale_num
+  $FlowerMario.speed_scale = scale_num
 
 func update_collisions() -> void:
   $PrimaryDetector/CollisionPrimary.disabled = not (Global.state == 0 or crouch)

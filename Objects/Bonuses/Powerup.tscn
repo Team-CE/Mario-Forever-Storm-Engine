@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Bonuses/Powerup.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Bonuses/Mushroom.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Bonuses/Flower.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -9,12 +10,33 @@ extents = Vector2( 16, 16 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 14, 1 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 33, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 33, 0, 33, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 66, 0, 33, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 99, 0, 33, 32 )
+
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "Mushroom",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "Flower",
+"speed": 10.0
 } ]
 
 [node name="Powerup" type="KinematicBody2D"]
@@ -34,5 +56,6 @@ shape = SubResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1, -16 )
-frames = SubResource( 3 )
+frames = SubResource( 7 )
 animation = "Mushroom"
+playing = true

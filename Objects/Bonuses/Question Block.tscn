@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://GFX/Bonuses/QuestionBlock.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Bonuses/QuestionBlock.gd" type="Script" id=2]
 [ext_resource path="res://GFX/Bonuses/EmptyBlock.png" type="Texture" id=3]
+[ext_resource path="res://GFX/Bonuses/Brick.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -29,6 +30,11 @@ animations = [ {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "Empty",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Brick",
 "speed": 5.0
 } ]
 

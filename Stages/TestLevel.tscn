@@ -30,6 +30,14 @@ position = Vector2( 64, 416 )
 position = Vector2( 256, 320 )
 bonus_type = 1
 
+[node name="Question Block14" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, 320 )
+bonus_type = 1
+
+[node name="Question Block15" parent="." instance=ExtResource( 4 )]
+position = Vector2( 192, 320 )
+bonus_type = 1
+
 [node name="Question Block2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 288, 320 )
 
@@ -50,6 +58,14 @@ position = Vector2( 352, 320 )
 
 [node name="Question Block5" parent="." instance=ExtResource( 4 )]
 position = Vector2( 384, 320 )
+
+[node name="Question Block16" parent="." instance=ExtResource( 4 )]
+position = Vector2( 96, 320 )
+bonus_type = 5
+
+[node name="Question Block17" parent="." instance=ExtResource( 4 )]
+position = Vector2( 128, 320 )
+bonus_type = 5
 
 [node name="Question Block6" parent="." instance=ExtResource( 4 )]
 position = Vector2( 288, 192 )

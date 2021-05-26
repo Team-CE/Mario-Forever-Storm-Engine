@@ -13,11 +13,11 @@ export var appearing: bool = true
 export(POWERUP_TYPE) var type: int = POWERUP_TYPE.MUSHROOM
 
 var appear_counter: float = 0
-var old_col_shape: RectangleShape2D
 
 func _ready() -> void:
-  old_col_shape = $Collision.shape
   z_index = -99
+  if type == POWERUP_TYPE.FLOWER:
+    $Sprite.animation = 'Flower'
 
 func _process(delta) -> void:
   if appearing and appear_counter < 32:
@@ -26,15 +26,18 @@ func _process(delta) -> void:
     appear_counter += 0.4 * Global.get_delta(delta)
     no_gravity = true
     velocity.y = 0
-    $Collision.shape = null
+    $Collision.disabled = true
+    if type != POWERUP_TYPE.MUSHROOM:
+      $CollisionCollectable.disabled = true
   else:
     active = true
     appearing = false
-    speed = 100
-    ai = AI_TYPE.WALK
-    no_gravity = false
-    $Collision.shape = old_col_shape
-    $CollisionCollectable.shape = null
+    if type == POWERUP_TYPE.MUSHROOM:
+      speed = 100
+      ai = AI_TYPE.WALK
+      no_gravity = false
+    $Collision.disabled = false
+    $CollisionCollectable.disabled = true
     z_index = 0
 
   var mario = get_parent().get_node('Mario')
@@ -49,4 +52,9 @@ func _process(delta) -> void:
     match type:
       POWERUP_TYPE.MUSHROOM:
         Global.state = 1
+      POWERUP_TYPE.FLOWER:
+        if Global.state >= 1:
+          Global.state = 2
+        else:
+          Global.state = 1
 
