@@ -17,6 +17,8 @@ var score: int = 0      # Score
 var coins: int = 0      # Player coins
 var state: int = 0      # Player powerup state
 
+var projectiles_count: int = 0 # Self explanable
+
 var debug: bool = true        # Debug
 
 var player_dead: bool = false # Player Dead?
@@ -41,6 +43,8 @@ func _physics_process(delta: float) -> void:
   if timer.time_left <= 1 && time != -1: # Wait for delaying
     _delay()         # call delay function
     timer.start()    # start timer again
+  if projectiles_count < 0:
+    projectiles_count = 0
 
 func add_score(score: int) -> void:
   self.score += abs(score)

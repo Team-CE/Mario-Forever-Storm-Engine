@@ -164,6 +164,16 @@ func controls(delta) -> void:
       x_speed -= 0.25 * Global.get_delta(delta)
     elif x_speed > -7 and Input.is_action_pressed('mario_fire'):
       x_speed -= 0.25 * Global.get_delta(delta)
+  
+  if Input.is_action_just_pressed('mario_fire') and Global.state > 1:
+    if Global.state == 2 and Global.projectiles_count < 2:
+      Global.play_base_sound('MAIN_Shoot')
+      var fireball = load('res://Objects/Projectiles/Fireball.tscn').instance()
+      fireball.dir = -1 if $SmallMario.flip_h else 1
+      fireball.position = Vector2(position.x, position.y - 32)
+      Global.projectiles_count += 1
+      get_parent().add_child(fireball)
+
 
 func animate(delta) -> void:
   $SmallMario.visible = Global.state == 0

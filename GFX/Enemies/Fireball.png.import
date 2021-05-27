@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fireball.png-8f67bc450a948699e3599d038784a113.stex"
+path="res://.import/Fireball.png-95b419cfd0c583b3681c58777a4e1866.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/fireball.png"
-dest_files=[ "res://.import/fireball.png-8f67bc450a948699e3599d038784a113.stex" ]
+source_file="res://GFX/Enemies/Fireball.png"
+dest_files=[ "res://.import/Fireball.png-95b419cfd0c583b3681c58777a4e1866.stex" ]
 
 [params]
 

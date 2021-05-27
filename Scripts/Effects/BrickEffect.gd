@@ -4,7 +4,7 @@ class_name BrickEffect
 var y_accel: float = 0
 var accel: Vector2
 
-func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO):
+func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO) -> void:
   texture = preload('res://GFX/Bonuses/BrickDebris.png')
   position = pos
   accel = acceleration
@@ -14,7 +14,7 @@ func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO):
   else:
     position.x += 6
 
-func _process(delta):
+func _process(delta) -> void:
   y_accel += 0.4 * Global.get_delta(delta)
   position.x += accel.x * Global.get_delta(delta)
   position.y += (accel.y + y_accel) * Global.get_delta(delta)

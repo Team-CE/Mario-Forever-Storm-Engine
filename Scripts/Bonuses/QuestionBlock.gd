@@ -36,7 +36,7 @@ func _ready() -> void:
 
 func _process(delta) -> void:
   if active:
-    _process_active(delta)
+    _process_active()
 
   if triggered:
     _process_trigger(delta)
@@ -44,7 +44,7 @@ func _process(delta) -> void:
   if coin_counter >= 1 and coin_counter <= 6:
     coin_counter += 0.02 * Global.get_delta(delta)
 
-func _process_active(delta) -> void:
+func _process_active() -> void:
   var mario = get_parent().get_node('Mario')
   var mario_td = mario.get_node('TopDetector')
   var td_overlaps = mario_td.get_overlapping_bodies()
