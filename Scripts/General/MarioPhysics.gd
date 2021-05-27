@@ -7,10 +7,11 @@ var can_jump: bool = false
 var crouch: bool = false
 var standing: bool = false
 
-onready var dead = false
-onready var dead_counter = 0
-onready var appear_counter = 0
-onready var shield_counter = 0
+onready var dead: bool = false
+onready var dead_counter: float = 0
+onready var appear_counter: float = 0
+onready var shield_counter: float = 0
+onready var launch_counter: float = 0
 
 func _ready() -> void:
   Global.Mario = self
@@ -172,6 +173,7 @@ func controls(delta) -> void:
       fireball.dir = -1 if $SmallMario.flip_h else 1
       fireball.position = Vector2(position.x, position.y - 32)
       Global.projectiles_count += 1
+      launch_counter = 2
       get_parent().add_child(fireball)
 
 
@@ -201,6 +203,11 @@ func animate(delta) -> void:
   if appear_counter < 0:
     $SmallMario.position.y += 13
     appear_counter = 0
+
+  if launch_counter > 0:
+    animate_sprite('Launching')
+    launch_counter -= 1 * Global.get_delta(delta)
+    return
   
   if crouch:
     animate_sprite('Crouching')
