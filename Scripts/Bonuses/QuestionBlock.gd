@@ -40,6 +40,9 @@ func _process(delta) -> void:
 
   if triggered:
     _process_trigger(delta)
+  
+  if coin_counter >= 1 and coin_counter <= 6:
+    coin_counter += 0.02 * Global.get_delta(delta)
 
 func _process_active(delta) -> void:
   var mario = get_parent().get_node('Mario')
@@ -48,7 +51,7 @@ func _process_active(delta) -> void:
 
   if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 0.01 and not mario.standing:
     active = false
-    if bonus_type != BONUS_TYPE.BRICK and (bonus_type != BONUS_TYPE.COIN_BRICK or coin_counter > 6):
+    if bonus_type != BONUS_TYPE.BRICK and bonus_type != BONUS_TYPE.COIN_BRICK:
       $Sprite.set_animation('Empty')
     triggered = true
     visible = true
@@ -79,15 +82,16 @@ func _process_active(delta) -> void:
       BONUS_TYPE.COIN_BRICK:
         if coin_counter == 0:
           coin_counter = 1
-        if coin_counter <= 6:
+        if coin_counter <= 100:
           Global.play_base_sound('MAIN_Coin')
           Global.add_coins(1)
 
           var coin_effect = CoinEffect.new(position + Vector2(0, -32))
           get_parent().add_child(coin_effect)
-  
-  if coin_counter >= 1 and coin_counter <= 6:
-    coin_counter += 0.02 * Global.get_delta(delta)
+
+          if coin_counter > 6:
+            $Sprite.set_animation('Empty')
+            coin_counter = 100
         
 
 func brick_break():
@@ -107,7 +111,7 @@ func _process_trigger(delta) -> void:
   
   if t_counter >= 12:
     position = initial_position
-    if bonus_type == BONUS_TYPE.BRICK or (bonus_type == BONUS_TYPE.COIN_BRICK and coin_counter <= 6):
+    if bonus_type == BONUS_TYPE.BRICK or (bonus_type == BONUS_TYPE.COIN_BRICK and $Sprite.animation == 'Brick'):
       t_counter = 0
       triggered = false
       active = true
