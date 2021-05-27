@@ -35,7 +35,7 @@ bonus_type = 1
 
 [node name="Question Block16" parent="." instance=ExtResource( 4 )]
 position = Vector2( 272, 320 )
-bonus_type = 5
+bonus_type = 6
 
 [node name="Question Block17" parent="." instance=ExtResource( 4 )]
 position = Vector2( 304, 320 )

@@ -23,13 +23,14 @@ export(VISIBILITY_TYPE) var visibility: int = VISIBILITY_TYPE.VISIBLE
 var active: bool = true
 var triggered: bool = false
 var t_counter: float = 0
+var coin_counter: float = 0
 
 var initial_position: Vector2
 
 func _ready() -> void:
   if not visibility == VISIBILITY_TYPE.VISIBLE:
     visible = false
-  if bonus_type == BONUS_TYPE.BRICK:
+  if bonus_type == BONUS_TYPE.BRICK or bonus_type == BONUS_TYPE.COIN_BRICK:
     $Sprite.animation = 'Brick'
   initial_position = position
 
@@ -47,7 +48,7 @@ func _process_active(delta) -> void:
 
   if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 0.01 and not mario.standing:
     active = false
-    if bonus_type != BONUS_TYPE.BRICK:
+    if bonus_type != BONUS_TYPE.BRICK and (bonus_type != BONUS_TYPE.COIN_BRICK or coin_counter > 6):
       $Sprite.set_animation('Empty')
     triggered = true
     visible = true
@@ -74,6 +75,20 @@ func _process_active(delta) -> void:
           Global.play_base_sound('MAIN_Bump')
         else:
           brick_break()
+      
+      BONUS_TYPE.COIN_BRICK:
+        if coin_counter == 0:
+          coin_counter = 1
+        if coin_counter <= 6:
+          Global.play_base_sound('MAIN_Coin')
+          Global.add_coins(1)
+
+          var coin_effect = CoinEffect.new(position + Vector2(0, -32))
+          get_parent().add_child(coin_effect)
+  
+  if coin_counter >= 1 and coin_counter <= 6:
+    coin_counter += 0.02 * Global.get_delta(delta)
+        
 
 func brick_break():
   Global.play_base_sound('MAIN_BrickBreak')
@@ -81,6 +96,7 @@ func brick_break():
   for i in range(4):
     var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i])
     get_parent().add_child(debris_effect)
+  Global.add_score(50)
   queue_free()
 
 func _process_trigger(delta) -> void:
@@ -91,7 +107,7 @@ func _process_trigger(delta) -> void:
   
   if t_counter >= 12:
     position = initial_position
-    if bonus_type == BONUS_TYPE.BRICK:
+    if bonus_type == BONUS_TYPE.BRICK or (bonus_type == BONUS_TYPE.COIN_BRICK and coin_counter <= 6):
       t_counter = 0
       triggered = false
       active = true
