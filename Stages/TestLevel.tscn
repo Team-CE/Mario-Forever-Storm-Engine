@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Objects/Bonuses/Question Block.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Objects/Enemies/Spiny.tscn" type="PackedScene" id=7]
 
 [node name="Level" type="Node"]
 script = ExtResource( 1 )
@@ -18,7 +19,7 @@ cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( 851968, 0, 196608, 851969, 0, 196609, 851970, 0, 196609, 851971, 0, 196609, 851972, 0, 196609, 851973, 0, 196609, 851974, 0, 196609, 851975, 0, 196609, 851976, 0, 196609, 851977, 0, 196609, 851978, 0, 196609, 851979, 0, 196609, 851980, 0, 196609, 851981, 0, 196609, 851982, 0, 196609, 851983, 0, 196609, 851984, 0, 196609, 851985, 0, 196609, 851986, 0, 196609, 851987, 0, 196610 )
+tile_data = PoolIntArray( 458765, 0, 196611, 458772, 0, 196611, 524302, 0, 196608, 524303, 0, 196609, 524304, 0, 196609, 524305, 0, 196609, 524306, 0, 196609, 524307, 0, 196610, 786437, 0, 3, 786445, 0, 3, 786451, 0, 3, 851968, 0, 196608, 851969, 0, 196609, 851970, 0, 196609, 851971, 0, 196609, 851972, 0, 196609, 851973, 0, 196611, 851974, 0, 196609, 851975, 0, 196609, 851976, 0, 196609, 851977, 0, 196609, 851978, 0, 196609, 851979, 0, 196609, 851980, 0, 196609, 851981, 0, 196611, 851982, 0, 196609, 851983, 0, 196609, 851984, 0, 196609, 851985, 0, 196609, 851986, 0, 196609, 851987, 0, 196611 )
 
 [node name="Mario" parent="." instance=ExtResource( 3 )]
 position = Vector2( 64, 416 )
@@ -41,5 +42,14 @@ bonus_type = 6
 position = Vector2( 304, 320 )
 bonus_type = 5
 
+[node name="Spiny" parent="." instance=ExtResource( 7 )]
+position = Vector2( 576, 256 )
+
 [node name="Goomba" parent="." instance=ExtResource( 5 )]
-position = Vector2( 224, 416 )
+position = Vector2( 320, 416 )
+
+[node name="Goomba2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 256, 416 )
+
+[node name="Goomba3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 544, 416 )

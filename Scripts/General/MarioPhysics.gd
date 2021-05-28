@@ -95,6 +95,10 @@ func _process_dead(delta) -> void:
   if dead_counter == 0:
     Global.state = 0
     animate(delta)
+  
+  $TopDetector/CollisionTop.disabled = true
+  $BottomDetector/CollisionBottom.disabled = true
+  $BottomDetector/CollisionBottomClose.disabled = true
 
   dead_counter += 1 * Global.get_delta(delta)
   $SmallMario.set_animation('Dead')
@@ -204,15 +208,6 @@ func animate(delta) -> void:
     $SmallMario.position.y += 13
     appear_counter = 0
 
-  if launch_counter > 0:
-    animate_sprite('Launching')
-    launch_counter -= 1 * Global.get_delta(delta)
-    return
-  
-  if crouch:
-    animate_sprite('Crouching')
-    return
-  
   if shield_counter > 0:
     shield_counter -= 1.5 * Global.get_delta(delta)
     if appear_counter == 0:
@@ -223,17 +218,26 @@ func animate(delta) -> void:
   if shield_counter < 0:
     shield_counter = 0
 
+  if launch_counter > 0:
+    animate_sprite('Launching')
+    launch_counter -= 1.01 * Global.get_delta(delta)
+    return
+  
+  if crouch:
+    animate_sprite('Crouching')
+    return
+
   if not y_speed == 0 or not is_over_backdrop($BottomDetector, false):
     animate_sprite('Jumping')
   elif abs(x_speed) < 0.8:
     animate_sprite('Stopped')
     
   if x_speed <= -0.8:
-    if not $SmallMario.animation == 'Walking' and y_speed == 0 and is_over_backdrop($BottomDetector, false):
+    if (not $SmallMario.animation == 'Walking' and y_speed == 0 and is_over_backdrop($BottomDetector, false)) or $SmallMario.animation == 'Launching':
       animate_sprite('Walking')
       
   if x_speed >= 0.8:
-    if not $SmallMario.animation == 'Walking' and y_speed == 0 and is_over_backdrop($BottomDetector, false):
+    if (not $SmallMario.animation == 'Walking' and y_speed == 0 and is_over_backdrop($BottomDetector, false)) or $SmallMario.animation == 'Launching':
       animate_sprite('Walking')
       
   if $SmallMario.animation == 'Walking':

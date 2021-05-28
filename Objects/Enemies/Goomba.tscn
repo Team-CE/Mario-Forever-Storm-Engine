@@ -24,18 +24,20 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "Falling",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "Dead",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Falling",
+"speed": 5.0
 } ]
 
-[node name="Goomba" type="KinematicBody2D"]
+[node name="Goomba" type="KinematicBody2D" groups=[
+"Enemy",
+]]
 script = ExtResource( 2 )
 is_stompable = true
 ai = 1
