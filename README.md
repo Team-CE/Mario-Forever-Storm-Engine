@@ -1,4 +1,6 @@
-![](https://cdn.discordapp.com/attachments/818109948490809347/847935718156402718/team_ce.png)
+<p align="center">
+  <img src="https://cdn.discordapp.com/attachments/818109948490809347/847935718156402718/team_ce.png">
+</p>
 
 ------------
 
