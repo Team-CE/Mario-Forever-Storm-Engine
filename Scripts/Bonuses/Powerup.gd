@@ -22,8 +22,8 @@ func _ready() -> void:
 func _process(delta) -> void:
   if appearing and appear_counter < 32:
     active = false
-    position.y -= 0.4 * Global.get_delta(delta)
-    appear_counter += 0.4 * Global.get_delta(delta)
+    position.y -= 0.5 * Global.get_delta(delta)
+    appear_counter += 0.5 * Global.get_delta(delta)
     no_gravity = true
     velocity.y = 0
     $Collision.disabled = true
