@@ -21,8 +21,16 @@ Unlike some other implementations of Mario Forever, it respects original mario p
 This engine is still very unfinished, so all contributions are welcome! Feel free to open pull requests.
 Please follow the original style of code while doing a contribution.
 
-
 #### [DISCLAIMER]
 All of the assets and GFX are all courtesy of Nintendo. This project is free
 and is not created for any sort of profit. We also do not condone the commercial use
 of our engine.
+
+#### [USING THIS ENGINE]
+##### YOU CAN:
+- Fork this repository and make your own Mario Forever game.
+- Fork this repository, modify the engine and make a pull request.
+
+##### YOU CANNOT:
+- Claim this engine or parts of it as your own work.
+- Use the code from this engine in your own engines / other stuff.
