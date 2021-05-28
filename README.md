@@ -15,6 +15,10 @@ Unlike some other implementations of Mario Forever, it respects original mario p
 - JUE13
 - LooPeR231
 
+#### [CONTRIBUTING TO THIS ENGINE]
+This engine is still very unfinished, so all contributions are welcome! Feel free to open pull requests.
+Please follow the original style of code while doing a contribution.
+
 
 #### [DISCLAIMER]
 All of the assets and GFX are all courtesy of Nintendo. This project is free
