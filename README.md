@@ -2,7 +2,8 @@
 
 ------------
 
-The most modern and powerful Mario Forever engine.
+The most modern and powerful Mario Forever engine. Created with intention to replace lots of engines made in Clickteam Fusion.
+Unlike some other implementations of Mario Forever, it respects original mario physics and player won't be able to notice any difference in them comparing to CTF version.
 
 #### VERSION : WIP
 
