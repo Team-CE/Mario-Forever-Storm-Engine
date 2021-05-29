@@ -4,8 +4,8 @@
 
 ------------
 
-The most modern and powerful Mario Forever engine. Created with intention to replace lots of engines made in Clickteam Fusion.
-Unlike some other implementations of Mario Forever, it respects original mario physics and player won't be able to notice any difference in them comparing to CTF version.
+The most modern and powerful Mario Forever engine. Created with the intention to replace lots of engines made in Clickteam Fusion.
+Unlike some other implementations of Mario Forever, it respects original Mario physics and players won't be able to notice any difference in them when comparing to the CTF version.
 
 #### VERSION : WIP
 
@@ -23,13 +23,13 @@ Please follow the original style of code while doing a contribution.
 
 #### [DISCLAIMER]
 All of the assets and GFX are all courtesy of Nintendo. This project is free
-and is not created for any sort of profit. We also do not condone the commercial use
+and is not created for any sort of profit. We also do not condone commercial use
 of our engine.
 
 #### [USING THIS ENGINE]
 ##### YOU CAN:
 - Fork this repository and make your own Mario Forever game.
-- Fork this repository, modify the engine and make a pull request.
+- Fork this repository, modify the engine and/or make a pull request.
 
 ##### YOU CANNOT:
 - Claim this engine or parts of it as your own work.
