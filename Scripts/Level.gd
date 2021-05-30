@@ -10,6 +10,7 @@ onready var BonusGroup: Node = Node.new()
 onready var EnemyGroup: Node = Node.new()
 
 func _ready():
+  print(get_path())
   if !Engine.editor_hint:
     Global.time = time
     print('[Level]: Ready!')

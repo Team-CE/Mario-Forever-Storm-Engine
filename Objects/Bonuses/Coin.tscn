@@ -29,13 +29,14 @@ extents = Vector2( 9.84201, 14.744 )
 [node name="Coin" type="Area2D"]
 script = ExtResource( 2 )
 
-[node name="CoinSprite" type="AnimatedSprite" parent="."]
+[node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
+modulate = Color( 1, 0.984314, 0, 1 )
 position = Vector2( -0.668175, 0 )
 shape = SubResource( 5 )
 

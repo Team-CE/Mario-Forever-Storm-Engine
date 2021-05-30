@@ -5,14 +5,16 @@ var lastBody : Node2D
 func _ready() -> void:
   $InspectLabel.visible = false
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
   var newPos = get_global_mouse_position()
   set_position(newPos)
   newPos.y += 10
   newPos.x += 10
   $InspectLabel.set_position(newPos - position)
-  if lastBody != null:
+  if is_instance_valid(lastBody):
     $InspectLabel.text = lastBody.getInfo()
+  else:
+    $InspectLabel.text = 'null'
 
 
 func _input(event: InputEvent) -> void:

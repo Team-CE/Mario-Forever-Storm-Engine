@@ -40,10 +40,10 @@ extents = Vector2( 320, 200 )
 
 [node name="Water" type="Area2D"]
 
-[node name="WaterSprite" type="AnimatedSprite" parent="."]
+[node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 320, 200 )
 frames = SubResource( 6 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]

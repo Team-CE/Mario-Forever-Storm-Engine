@@ -14,7 +14,7 @@ margin_right = 64.0
 margin_bottom = 22.0
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 1 )
-text = "test"
+text = "null"
 __meta__ = {
 "_edit_use_anchors_": false
 }

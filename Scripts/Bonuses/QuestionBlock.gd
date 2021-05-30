@@ -1,4 +1,5 @@
 extends StaticBody2D
+tool
 
 enum BONUS_TYPE {
   COIN,
@@ -28,13 +29,18 @@ var coin_counter: float = 0
 var initial_position: Vector2
 
 func _ready() -> void:
-  if not visibility == VISIBILITY_TYPE.VISIBLE:
+  if not visibility == VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
     visible = false
   if bonus_type == BONUS_TYPE.BRICK or bonus_type == BONUS_TYPE.COIN_BRICK:
     $Sprite.animation = 'Brick'
   initial_position = position
 
 func _process(delta) -> void:
+  if Engine.editor_hint:
+    if bonus_type == BONUS_TYPE.BRICK or bonus_type == BONUS_TYPE.COIN_BRICK:
+      $Sprite.animation = 'Brick'
+    return
+
   if active:
     _process_active()
 

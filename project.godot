@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/Explosion.gd"
 }, {
-"base": "Node",
+"base": "",
 "class": "FLMusicLib",
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Bonuses/Powerup.gd"
 }, {
+"base": "StaticBody2D",
+"class": "QBlock",
+"language": "GDScript",
+"path": "res://Experemental/QMarkBlock.gd"
+}, {
 "base": "Sprite",
 "class": "ScoreText",
 "language": "GDScript",
@@ -57,6 +62,7 @@ _global_script_class_icons={
 "GenericEnemyMovement": "",
 "Level": "",
 "Powerup": "",
+"QBlock": "",
 "ScoreText": ""
 }
 
@@ -70,6 +76,7 @@ config/icon="res://icon.png"
 
 Global="*res://Scripts/Global.gd"
 MusicEngine="*res://Scripts/MusicEngine.gd"
+GlobalEditor="*res://Scripts/GlobalEditor.gd"
 
 [debug]
 

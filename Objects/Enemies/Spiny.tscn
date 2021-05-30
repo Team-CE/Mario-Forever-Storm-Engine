@@ -43,6 +43,7 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 frames = SubResource( 4 )
+frame = 1
 playing = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
