@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Objects/Enemies/Spiny.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Objects/Bonuses/Powerups/Flower.tscn" type="PackedScene" id=9]
 
 [node name="Level" type="Node"]
 script = ExtResource( 1 )
@@ -46,6 +47,14 @@ position = Vector2( 816, 240 )
 "Breakable",
 "Solid",
 ]]
-position = Vector2( 1296, 320 )
+position = Vector2( 880, 288 )
 script = ExtResource( 4 )
-Result = ExtResource( 8 )
+Result = ExtResource( 9 )
+
+[node name="QBlock2" type="StaticBody2D" parent="." groups=[
+"Breakable",
+"Solid",
+]]
+position = Vector2( 912, 288 )
+script = ExtResource( 4 )
+Result = ExtResource( 9 )

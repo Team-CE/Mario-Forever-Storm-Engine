@@ -16,7 +16,7 @@ export(PackedScene) var Result: PackedScene
 var PrevFrames: SpriteFrames
 export(SpriteFrames) var Frames: SpriteFrames
 
-export(int,1,100) var Count: int = 1
+export(int, 1, 100) var Count: int = 1
 
 export(bool) var Empty: bool
 
@@ -26,6 +26,13 @@ var blockShape: Shape2D
 var collision: CollisionShape2D
 var preview: Sprite
 var body: AnimatedSprite
+
+var active: bool = true
+var triggered: bool = false
+var t_counter: float = 0
+var coin_counter: float = 0
+
+var initial_position: Vector2
   
 func _ready() -> void:
   #If alrady loaded
@@ -44,7 +51,7 @@ func _ready() -> void:
   
   #Collision
   blockShape = RectangleShape2D.new()
-  blockShape.extents = Vector2(16,16)
+  blockShape.extents = Vector2(16, 16)
   
   collision = CollisionShape2D.new()
   collision.name = 'Collision'
@@ -58,7 +65,7 @@ func _ready() -> void:
   #Animated sprite Sprite
   body = AnimatedSprite.new()
   body.name = 'Body'
-  body.offset = Vector2(0,-16)
+  body.offset = Vector2(0, -16)
   body.z_index = 20
   body.frames = preload('res://Prefabs/Blocks/Question Block.tres')
   body.playing = true
@@ -69,7 +76,7 @@ func _ready() -> void:
   #Preview Sprite
   preview = Sprite.new()
   preview.name= 'Preview'
-  preview.scale = Vector2(0.5,0.5)
+  preview.scale = Vector2(0.5, 0.5)
   preview.modulate.a = 0.8
   preview.position.x += 8
   preview.position.y -= 8
@@ -81,6 +88,10 @@ func _ready() -> void:
   
   if Empty:
     body.animation = 'empty'
+  if not Visible == VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
+    visible = false
+  
+  initial_position = position
 
 
 func editor() -> void:
@@ -109,7 +120,7 @@ func set_preview() -> StreamTexture:
   if preview == null || !is_instance_valid(sprite):
     return GlobalEditor.NULLTEXTURE as StreamTexture  
     
-  preview.scale = sprite.scale * Vector2(0.5,0.5)
+  preview.scale = sprite.scale * Vector2(0.5, 0.5)
   print(sprite)
   
   res = sprite.frames.get_frame(sprite.animation,0) if sprite is AnimatedSprite else sprite.texture if sprite is Sprite else GlobalEditor.NULLTEXTURE as StreamTexture
@@ -118,14 +129,56 @@ func set_preview() -> StreamTexture:
   print(res)
   return res
 
+func _process(delta) -> void:
+  if active:
+    _process_active()
 
-func _physics_process(_delta):
+  if triggered:
+    _process_trigger(delta)
+  
+  if coin_counter >= 1 and coin_counter <= 6:
+    coin_counter += 0.02 * Global.get_delta(delta)
+
+
+func _physics_process(_delta) -> void:
   preview.visible = Engine.editor_hint || Global.debug
 
   if Engine.editor_hint:
     editor()
     return
 
+func _process_active() -> void:
+  var mario = get_parent().get_node('Mario')
+  var mario_td = mario.get_node('TopDetector')
+  var td_overlaps = mario_td.get_overlapping_bodies()
+
+  if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 0.01 and not mario.standing:
+    active = false
+    if not Breakable:
+      $Body.set_animation('empty')
+    triggered = true
+    visible = true
+
+    var powerup = Result.instance()
+    powerup.position = position
+    powerup.appearing = true
+    get_parent().add_child(powerup)
+    
+    if powerup.appearing and powerup is KinematicBody2D:
+      Global.play_base_sound('MAIN_PowerupGrow')
+
+func _process_trigger(delta) -> void:
+  t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)
+  
+  if t_counter < 12:
+    position.y += (-1 if t_counter < 6 else 1) * Global.get_delta(delta)
+  
+  if t_counter >= 12:
+    position = initial_position
+    # if bonus_type == BONUS_TYPE.BRICK or (bonus_type == BONUS_TYPE.COIN_BRICK and $Sprite.animation == 'Brick'):
+    #   t_counter = 0
+    #   triggered = false
+    #   active = true
 
 func _on_hit():
   if Breakable:

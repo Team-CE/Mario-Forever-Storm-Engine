@@ -9,37 +9,25 @@ enum POWERUP_TYPE {
   POISON
 }
 
-export var appearing: bool = true
 export(POWERUP_TYPE) var type: int = POWERUP_TYPE.MUSHROOM
-
-var appear_counter: float = 0
 
 func _ready() -> void:
   z_index = -99
+  if Global.state == 0 and appearing:
+    $Sprite.animation = 'Mushroom'
+    speed = 100
+    type = POWERUP_TYPE.MUSHROOM
+
   if type == POWERUP_TYPE.FLOWER:
+    old_speed = 0
     $Sprite.animation = 'Flower'
 
 func _process(delta) -> void:
   if appearing and appear_counter < 32:
-    active = false
-    position.y -= 0.5 * Global.get_delta(delta)
-    appear_counter += 0.5 * Global.get_delta(delta)
-    no_gravity = true
-    velocity.y = 0
-    $Collision.disabled = true
     if type != POWERUP_TYPE.MUSHROOM:
       $CollisionCollectable.disabled = true
   else:
-    active = true
-    appearing = false
-    if type == POWERUP_TYPE.MUSHROOM:
-      speed = 100
-      ai = AI_TYPE.WALK
-      no_gravity = false
-    $Collision.disabled = false
     $CollisionCollectable.disabled = true
-    z_index = 0
-
   var mario = get_parent().get_node('Mario')
   var pd_overlaps = mario.get_node('PrimaryDetector').get_overlapping_bodies()
 

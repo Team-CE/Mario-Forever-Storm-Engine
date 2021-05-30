@@ -41,7 +41,12 @@ export var active: bool = true
 export(AI_TYPE) var ai: int = AI_TYPE.IDLE
 export(DEATH_TYPE) var death: int = DEATH_TYPE.BASIC
 
+export var appearing: bool = false
+var appear_counter: float = 0
+
 var death_complete: bool = false
+
+var old_speed: float
 
 func _ready() -> void:
   vis.process_parent = true
@@ -61,6 +66,8 @@ func _ready() -> void:
   
   self.add_to_group('Enemy')
 
+  old_speed = speed
+
 # _AI() function redirect to other AI functions
 func _AI(delta: float) -> void:
   match ai:
@@ -74,6 +81,24 @@ func _AI(delta: float) -> void:
       FREE_AI()
 
 func _process(delta) -> void:
+  if appearing and appear_counter < 32:
+    active = false
+    position.y -= 0.5 * Global.get_delta(delta)
+    appear_counter += 0.5 * Global.get_delta(delta)
+    no_gravity = true
+    velocity.y = 0
+    $Collision.disabled = true
+  else:
+    active = true
+    appearing = false
+    if old_speed != -99:
+      speed = old_speed
+      old_speed = -99
+    ai = AI_TYPE.WALK
+    no_gravity = false
+    $Collision.disabled = false
+    z_index = 0
+
   if not active:
     return
   # Gravity

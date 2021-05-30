@@ -43,8 +43,9 @@ animations = [ {
 script = ExtResource( 1 )
 can_hurt = false
 dir = 1.0
-speed = 0.0
+speed = 100.0
 is_kickable = false
+type = 1
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -16 )
@@ -57,5 +58,6 @@ shape = SubResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1, -16 )
 frames = SubResource( 7 )
-animation = "Mushroom"
+animation = "Flower"
+frame = 1
 playing = true

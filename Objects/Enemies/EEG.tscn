@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://GFX/unknown.png" type="Texture" id=1]
 [ext_resource path="res://GFX/magik.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/General/GenericEnemyMovement.gd" type="Script" id=3]
+[ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -23,8 +24,9 @@ animations = [ {
 [node name="EEG" type="KinematicBody2D"]
 script = ExtResource( 3 )
 smart_turn = true
+is_stompable = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
@@ -32,3 +34,6 @@ shape = SubResource( 1 )
 position = Vector2( 2.38419e-07, -16 )
 scale = Vector2( 0.107744, 0.110727 )
 frames = SubResource( 2 )
+
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
