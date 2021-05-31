@@ -6,6 +6,7 @@ var counter = 0
 func _init(score: int, pos: Vector2 = Vector2.ZERO):
   texture = preload('res://GFX/Texts/Score.png')
   position = pos
+  position.y -= 8
   hframes = 8
   match score:
     1:

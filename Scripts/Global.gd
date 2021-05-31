@@ -84,7 +84,7 @@ func _ppd() -> void: # Player Powerdown
       state = 1
     else:
       state = 0
-    Mario.appear_counter = 50
+    Mario.appear_counter = 60
     Mario.shield_counter = 100
 
 func _pll() -> void: # Player Lose Life

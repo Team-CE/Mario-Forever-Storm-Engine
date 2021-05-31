@@ -103,7 +103,7 @@ func _process(delta) -> void:
     return
   # Gravity
   if (!is_on_floor() and (death == DEATH_TYPE.BASIC or alive) and ai != AI_TYPE.FLY) or (not death == DEATH_TYPE.BASIC and not alive):
-    velocity.y += Global.gravity * (1 if alive else 0.325) * Global.get_delta(delta)
+    velocity.y += Global.gravity * (1 if alive else 0.4) * Global.get_delta(delta)
 
   velocity = move_and_slide(velocity, Vector2.UP)
 
@@ -191,7 +191,7 @@ func FREE_AI() -> void:
 
 func _turn() -> void:
   $Sprite.flip_h = dir > 0
-  velocity.x = -dir * speed * 2
+  velocity.x = -dir * speed
   dir = -dir
 
 func getInfo() -> String:

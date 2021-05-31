@@ -40,10 +40,10 @@ func _process(delta) -> void:
       POWERUP_TYPE.MUSHROOM:
         if Global.state == 0:
           Global.state = 1
-          mario.appear_counter = 50
+          mario.appear_counter = 60
       POWERUP_TYPE.FLOWER:
         if Global.state != 2:
-          mario.appear_counter = 50
+          mario.appear_counter = 60
         if Global.state >= 1:
           Global.state = 2
         else:

@@ -34,19 +34,20 @@ func _process(delta) -> void:
   else:
     _process_dead(delta)
   
+  if y_speed > 10:
+    y_speed = 10
+  
   position.y += y_speed * Global.get_delta(delta)
   position.x += x_speed * Global.get_delta(delta)
 
 func _process_alive(delta) -> void:
   if y_speed < 11:
-    if Input.is_action_pressed('mario_jump') and y_speed < 0:
+    if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and y_speed < 0:
       if abs(x_speed) < 1:
         y_speed -= 0.4 * Global.get_delta(delta)
       else:
         y_speed -= 0.5 * Global.get_delta(delta)
     y_speed += 1 * Global.get_delta(delta)
-  if y_speed > 10:
-    y_speed = 10
     
   controls(delta)
   
@@ -55,7 +56,7 @@ func _process_alive(delta) -> void:
   if x_speed < 0:
     x_speed += 0.1 * Global.get_delta(delta)
   
-  if x_speed >= -0.08 and x_speed <= 0.08:
+  if x_speed >= -0.1 and x_speed <= 0.1:
     x_speed = 0
   
   if y_speed > 0:
@@ -124,7 +125,7 @@ func _process_dead(delta) -> void:
   pass
 
 func controls(delta) -> void:
-  if Input.is_action_just_pressed('mario_jump') and y_speed >= 0 and not crouch:
+  if Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and y_speed >= 0 and not crouch:
     can_jump = true
   if not Input.is_action_pressed('mario_jump'):
     can_jump = false
@@ -170,7 +171,7 @@ func controls(delta) -> void:
     elif x_speed > -7 and Input.is_action_pressed('mario_fire'):
       x_speed -= 0.25 * Global.get_delta(delta)
   
-  if Input.is_action_just_pressed('mario_fire') and Global.state > 1:
+  if Input.is_action_just_pressed('mario_fire') and not crouch and Global.state > 1:
     if Global.state == 2 and Global.projectiles_count < 2:
       Global.play_base_sound('MAIN_Shoot')
       var fireball = load('res://Objects/Projectiles/Fireball.tscn').instance()
@@ -186,12 +187,12 @@ func animate(delta) -> void:
   $BigMario.visible = Global.state == 1
   $FlowerMario.visible = Global.state == 2
 
-  if x_speed <= -0.8:
+  if x_speed <= -0.08:
     $SmallMario.flip_h = true
     $BigMario.flip_h = true
     $FlowerMario.flip_h = true
   
-  if x_speed >= 0.8:
+  if x_speed >= 0.08:
     $SmallMario.flip_h = false
     $BigMario.flip_h = false
     $FlowerMario.flip_h = false
@@ -229,15 +230,15 @@ func animate(delta) -> void:
 
   if not y_speed == 0 or not is_over_backdrop($BottomDetector, false):
     animate_sprite('Jumping')
-  elif abs(x_speed) < 0.8:
+  elif abs(x_speed) < 0.08:
     animate_sprite('Stopped')
     
-  if x_speed <= -0.8:
-    if (not $SmallMario.animation == 'Walking' and y_speed == 0 and is_over_backdrop($BottomDetector, false)) or $SmallMario.animation == 'Launching':
+  if x_speed <= -0.08:
+    if (y_speed == 0 and is_over_backdrop($BottomDetector, false)) or $SmallMario.animation == 'Launching':
       animate_sprite('Walking')
       
-  if x_speed >= 0.8:
-    if (not $SmallMario.animation == 'Walking' and y_speed == 0 and is_over_backdrop($BottomDetector, false)) or $SmallMario.animation == 'Launching':
+  if x_speed >= 0.08:
+    if (y_speed == 0 and is_over_backdrop($BottomDetector, false)) or $SmallMario.animation == 'Launching':
       animate_sprite('Walking')
       
   if $SmallMario.animation == 'Walking':
@@ -245,7 +246,7 @@ func animate(delta) -> void:
 
 func animate_sprite(anim_name) -> void:
   if anim_name != 'Crouching':
-    $SmallMario.set_animation(anim_name)
+    $SmallMario.set_animation(anim_name);
   $BigMario.set_animation(anim_name)
   $FlowerMario.set_animation(anim_name)
 
@@ -281,5 +282,5 @@ func debug() -> void:
   if Input.is_action_just_pressed('mouse_middle'):
     $DebugText.visible = !$DebugText.visible
   
-  $DebugText.text = 'x speed = ' + str(x_speed) + '\ny speed = ' + str(y_speed) + '\nanimation: ' + str($SmallMario.animation).to_lower() + '\nfps: ' + str(Engine.get_frames_per_second())
+  $DebugText.text = 'x speed = ' + str(x_speed) + '\ny speed = ' + str(y_speed) + '\nanimation: ' + str($BigMario.animation).to_lower() + '\nfps: ' + str(Engine.get_frames_per_second())
 
