@@ -81,6 +81,7 @@ position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
 [node name="KillDetector" type="Area2D" parent="."]
+visible = false
 
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, -16 )
@@ -89,7 +90,6 @@ shape = SubResource( 11 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 frames = SubResource( 10 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 

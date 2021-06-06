@@ -132,7 +132,7 @@ func controls(delta) -> void:
 
   if jump_counter == 0 and can_jump:
     standing = false
-    y_speed = -13
+    y_speed = -14
     jump_counter = 1
     can_jump = false
     $BaseSounds/MAIN_Jump.play()

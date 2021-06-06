@@ -6,13 +6,15 @@ enum AI_TYPE {
   IDLE,
   WALK,
   FLY,
-  FREE
+  PIRANHA,
+  PIRANHA_UPSIDE_DOWN
 }
 
 enum DEATH_TYPE {
   BASIC,
   FALL,
-  SHELL            # Requires "Shell Stopped" and "Shell Moving" animations.
+  SHELL,            # Requires "Shell Stopped" and "Shell Moving" animations.
+  DISAPPEAR
 }
 
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
@@ -45,6 +47,7 @@ export(DEATH_TYPE) var death: int = DEATH_TYPE.BASIC
 
 export var appearing: bool = false
 var appear_counter: float = 0
+var appeared: bool = false
 
 var death_complete: bool = false
 
@@ -55,6 +58,10 @@ var shell_moving: bool = true
 var shell_counter: float = 0
 var skip_dir_change: bool = false
 var shell_score_multiplier: float = 0
+
+var initial_y: float = 0
+var piranha_counter: float = 0
+var no_velocity: bool = false
 
 func _ready() -> void:
   vis.process_parent = true
@@ -75,6 +82,7 @@ func _ready() -> void:
   self.add_to_group('Enemy')
 
   old_speed = speed
+  initial_y = position.y + 59
 
 # _AI() function redirect to other AI functions
 func _AI(delta: float) -> void:
@@ -85,6 +93,8 @@ func _AI(delta: float) -> void:
       WALK_AI()
     AI_TYPE.FLY:
       FLY_AI()
+    AI_TYPE.PIRANHA:
+      PIRANHA_AI(delta, false)
     AI_TYPE.FREE:
       FREE_AI()
 
@@ -101,7 +111,8 @@ func _physics_process(delta):
     no_gravity = true
     velocity.y = 0
     $Collision.disabled = true
-  else:
+    appeared = true
+  elif appeared:
     active = true
     appearing = false
     if old_speed != -99:
@@ -128,7 +139,8 @@ func _physics_process(delta):
   if (!is_on_floor() and (death == DEATH_TYPE.BASIC or alive) and ai != AI_TYPE.FLY) or (not death == DEATH_TYPE.BASIC and not alive):
     velocity.y += Global.gravity * (1 if alive else 0.4) * Global.get_delta(delta)
 
-  velocity = move_and_slide(velocity, Vector2.UP)
+  if not no_velocity:
+    velocity = move_and_slide(velocity, Vector2.UP)
 
 
 func _process(delta) -> void:
@@ -150,9 +162,9 @@ func _process_alive(delta: float) -> void:
   if ((not (is_shell and not shell_moving) and (bd_overlaps and bd_overlaps.has(self) and not (pd_overlaps and pd_overlaps.has(self)))) or ((is_shell and not shell_moving) and (pd_overlaps and pd_overlaps.has(self)))) and is_stompable and Global.Mario.y_speed >= 0 and shell_counter > 10:
     if death == DEATH_TYPE.BASIC or (death == DEATH_TYPE.SHELL and shell_moving) or (death == DEATH_TYPE.SHELL and not is_shell):
       if Input.is_action_pressed('mario_jump'):
-        Global.Mario.y_speed = -13
+        Global.Mario.y_speed = -14
       else:
-        Global.Mario.y_speed = -8
+        Global.Mario.y_speed = -9
       Global.play_base_sound('ENEMY_Stomp')
     elif is_shell and not shell_moving:
       $Kick.play()
@@ -182,8 +194,7 @@ func _process_alive(delta: float) -> void:
   if g_overlaps and g_overlaps[0] is StaticBody2D and g_overlaps[0].triggered and g_overlaps[0].t_counter < 12 and is_kickable:
     kick(0)
 
-func kick(score_multiplier) -> void:
-  death = DEATH_TYPE.FALL
+func kick(score_multiplier: float) -> void:
   alive = false
 
   var multiplier_scores = [100, 200, 500, 1000, 2000, 5000, 1]
@@ -200,6 +211,12 @@ func kick(score_multiplier) -> void:
   $Collision.shape = null
   $Sprite.set_animation('Falling')
   $Kick.play()
+  if death == DEATH_TYPE.DISAPPEAR:
+    print('pizdas')
+    $Sprite.visible = false
+    yield(get_tree().create_timer(2.0), 'timeout')
+    queue_free()
+
 
 func _process_death() -> void:
   $Sprite.set_animation('Dead')
@@ -248,6 +265,26 @@ func FLY_AI() -> void:
   if is_on_wall():
     _turn()
 
+func PIRANHA_AI(delta: float, reversed: bool) -> void:
+  active = true
+  no_gravity = true
+  no_velocity = true
+  velocity.y = 0
+
+  if piranha_counter == 0:
+    position.y = initial_y
+
+  piranha_counter += 1 * Global.get_delta(delta)
+
+  if piranha_counter < 60:
+    position.y -= 1 * (-1 if reversed else 1) * Global.get_delta(delta)
+  
+  if piranha_counter >= 130 and piranha_counter < 190:
+    position.y += 1 * (-1 if reversed else 1) * Global.get_delta(delta)
+  
+  if piranha_counter >= 260 and (Global.Mario.position.x < position.x - 80 or Global.Mario.position.x > position.x + 80):
+    piranha_counter = 0
+
 # Free move AI
 func FREE_AI() -> void:
   pass
@@ -266,5 +303,4 @@ func _on_screen_entered() -> void:
 func _on_screen_exited() -> void:
   if not alive:
     queue_free()
-  onScreen = false
 

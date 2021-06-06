@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Owerworld.png-b4fac4da0c86d5872f94a70611099acb.stex"
+path="res://.import/Green Pipe.png-d9560b8b256a2127c7ad02e87b859799.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Tilesets/Owerworld.png"
-dest_files=[ "res://.import/Owerworld.png-b4fac4da0c86d5872f94a70611099acb.stex" ]
+source_file="res://GFX/Tilesets/Green Pipe.png"
+dest_files=[ "res://.import/Green Pipe.png-d9560b8b256a2127c7ad02e87b859799.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
