@@ -51,11 +51,12 @@ func add_score(score: int) -> void:
   HUD.get_node('Score').text = str(self.score)
   emit_signal('OnScoreChange')
 
-func add_lives(lives: int) -> void:
+func add_lives(lives: int, create_scoretext: bool) -> void:
   var scorePos = Mario.position
   scorePos.y -= 32
-  var ScoreT = ScoreText.new(1, scorePos)
-  Mario.get_parent().add_child(ScoreT)
+  if create_scoretext:
+    var ScoreT = ScoreText.new(1, scorePos)
+    Mario.get_parent().add_child(ScoreT)
   self.lives += abs(lives)
   HUD.get_node('LifeSound').play()
   HUD.get_node('Lives').text = str(self.lives)
@@ -64,7 +65,7 @@ func add_lives(lives: int) -> void:
 func add_coins(coins: int) -> void:
   self.coins += abs(coins)
   if self.coins >= 100:
-    add_lives(1)
+    add_lives(1, true)
     self.coins = 0
   HUD.get_node('Coins').text = str(self.coins)
   emit_signal('OnCoinCollected')

@@ -39,8 +39,22 @@ animations = [ {
 "Enemy",
 ]]
 script = ExtResource( 2 )
+can_hurt = null
+dir = null
+speed = null
+shell_speed = null
+smart_turn = null
+no_gravity = null
 is_stompable = true
+is_kickable = null
+sin_height = null
+sin_speed = null
+score = null
+alive = null
+active = null
 ai = 1
+death = null
+appearing = null
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
@@ -49,6 +63,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 

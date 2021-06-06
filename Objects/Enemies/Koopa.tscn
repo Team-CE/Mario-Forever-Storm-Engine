@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://GFX/Enemies/Koopa.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/General/GenericEnemyMovement.gd" type="Script" id=2]
@@ -9,44 +9,42 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 32, 47 )
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 19, 16 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 32, 47 )
+region = Rect2( 0, 0, 32, 47 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 4 )
-region = Rect2( 99, 0, 33, 47 )
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 47 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 33, 47 )
+region = Rect2( 99, 0, 33, 47 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 4 )
-region = Rect2( 33, 0, 33, 47 )
+region = Rect2( 0, 0, 33, 47 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 4 )
-region = Rect2( 66, 0, 33, 47 )
+region = Rect2( 33, 0, 33, 47 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 4 )
+region = Rect2( 66, 0, 33, 47 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
 region = Rect2( 99, 0, 33, 47 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "default",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 4 ) ],
-"loop": true,
-"name": "Shell Stopped",
 "speed": 5.0
 }, {
 "frames": [  ],
@@ -59,7 +57,12 @@ animations = [ {
 "name": "Falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 5 ) ],
+"loop": true,
+"name": "Shell Stopped",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
 "name": "Shell Moving",
 "speed": 20.0
@@ -77,9 +80,16 @@ visible = false
 position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
+[node name="KillDetector" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="KillDetector"]
+position = Vector2( 0, -16 )
+shape = SubResource( 11 )
+
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
-frames = SubResource( 9 )
+frames = SubResource( 10 )
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 

@@ -53,6 +53,8 @@ var old_speed: float
 var is_shell: bool = false
 var shell_moving: bool = true
 var shell_counter: float = 0
+var skip_dir_change: bool = false
+var shell_score_multiplier: float = 0
 
 func _ready() -> void:
   vis.process_parent = true
@@ -87,6 +89,11 @@ func _AI(delta: float) -> void:
       FREE_AI()
 
 func _physics_process(delta):
+  skip_dir_change = false
+
+  if alive:
+    _AI(delta)
+
   if appearing and appear_counter < 32:
     active = false
     position.y -= 0.5 * Global.get_delta(delta)
@@ -133,8 +140,6 @@ func _process(delta) -> void:
       death_complete = true
 
 func _process_alive(delta: float) -> void:
-  _AI(delta)
-  
   # Stomping
   var mario_bd = Global.Mario.get_node('BottomDetector')
   var mario_pd = Global.Mario.get_node('InsideDetector')
@@ -161,7 +166,7 @@ func _process_alive(delta: float) -> void:
         dir = 1
     shell_counter = 0
     
-    if not shell_moving:
+    if not (shell_moving and is_shell):
       var score_text = ScoreText.new(score, position)
       get_parent().add_child(score_text)
 
@@ -174,14 +179,19 @@ func _process_alive(delta: float) -> void:
   # Kicking
   var g_overlaps = $Feets/Feet_M.get_overlapping_bodies()
   if g_overlaps and g_overlaps[0] is StaticBody2D and g_overlaps[0].triggered and g_overlaps[0].t_counter < 12 and is_kickable:
-    kick()
+    kick(0)
 
-func kick() -> void:
+func kick(score_multiplier) -> void:
   death = DEATH_TYPE.FALL
   alive = false
 
-  var score_text = ScoreText.new(100, position)
+  var multiplier_scores = [100, 200, 500, 1000, 2000, 5000, 1]
+
+  var score_text = ScoreText.new(multiplier_scores[score_multiplier], position)
   get_parent().add_child(score_text)
+
+  if score_multiplier == 6:
+    Global.add_lives(1, false)
 
   velocity.y = -180
   velocity.x = 0
@@ -206,8 +216,21 @@ func IDLE_AI() -> void:
 
 # Walking AI
 func WALK_AI() -> void:
+  # Moving shell
+  if shell_moving and is_shell:
+    var overlaps = get_node('KillDetector').get_overlapping_bodies()
+
+    if overlaps.size() > 0:
+      for i in range(overlaps.size()):
+        if overlaps[i].is_in_group('Enemy') and overlaps[i].is_kickable and not overlaps[i] == self:
+          overlaps[i].kick(shell_score_multiplier)
+          skip_dir_change = true
+          if shell_score_multiplier < 6:
+            shell_score_multiplier += 1
+  
+  # Direction change
   velocity.x = speed * dir
-  if is_on_wall():
+  if is_on_wall() and not skip_dir_change:
     _turn()
 
 # Flying AI

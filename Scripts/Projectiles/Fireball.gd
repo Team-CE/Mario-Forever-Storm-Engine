@@ -20,7 +20,7 @@ func _physics_process(delta) -> void:
   if overlaps.size() > 0:
     for i in range(overlaps.size()):
       if overlaps[i].is_in_group('Enemy') and overlaps[i].is_kickable:
-        overlaps[i].kick()
+        overlaps[i].kick(0)
         explode()
 
   if is_on_floor():
