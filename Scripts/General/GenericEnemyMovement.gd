@@ -86,7 +86,7 @@ func _AI(delta: float) -> void:
     AI_TYPE.FREE:
       FREE_AI()
 
-func _process(delta) -> void:
+func _physics_process(delta):
   if appearing and appear_counter < 32:
     active = false
     position.y -= 0.5 * Global.get_delta(delta)
@@ -122,6 +122,8 @@ func _process(delta) -> void:
 
   velocity = move_and_slide(velocity, Vector2.UP)
 
+
+func _process(delta) -> void:
   if alive:
     _process_alive(delta)
   else:
