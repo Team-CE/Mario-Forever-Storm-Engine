@@ -224,7 +224,13 @@ func WALK_AI() -> void:
     if overlaps.size() > 0:
       for i in range(overlaps.size()):
         if overlaps[i].is_in_group('Enemy') and overlaps[i].is_kickable and not overlaps[i] == self:
-          overlaps[i].kick(shell_score_multiplier)
+          if overlaps[i].death == DEATH_TYPE.SHELL and overlaps[i].shell_moving and overlaps[i].is_shell:
+            kick(0)
+            overlaps[i].kick(0)
+            shell_speed = 0
+            speed = 0
+          else:
+            overlaps[i].kick(shell_score_multiplier)
           skip_dir_change = true
           shell_score_multiplier += 1
           if shell_score_multiplier >= 7:

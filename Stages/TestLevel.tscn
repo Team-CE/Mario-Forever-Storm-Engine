@@ -98,91 +98,6 @@ active = null
 death = null
 appearing = null
 
-[node name="Goomba4" parent="." instance=ExtResource( 5 )]
-position = Vector2( 832, 416 )
-can_hurt = null
-dir = null
-speed = null
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
-death = null
-appearing = null
-
-[node name="Goomba5" parent="." instance=ExtResource( 5 )]
-position = Vector2( 944, 416 )
-can_hurt = null
-dir = null
-speed = null
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
-death = null
-appearing = null
-
-[node name="Goomba6" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1040, 416 )
-can_hurt = null
-dir = null
-speed = null
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
-death = null
-appearing = null
-
-[node name="Goomba7" parent="." instance=ExtResource( 5 )]
-position = Vector2( 800, 416 )
-can_hurt = null
-dir = null
-speed = null
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
-death = null
-appearing = null
-
-[node name="Goomba8" parent="." instance=ExtResource( 5 )]
-position = Vector2( 768, 416 )
-can_hurt = null
-dir = null
-speed = null
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
-death = null
-appearing = null
-
 [node name="Coin" parent="." instance=ExtResource( 8 )]
 position = Vector2( 816, 240 )
 
@@ -219,59 +134,8 @@ active = null
 death = 2
 appearing = null
 
-[node name="Koopa4" parent="." instance=ExtResource( 10 )]
-position = Vector2( 688, 416 )
-can_hurt = null
-dir = null
-speed = null
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
-death = 2
-appearing = null
-
 [node name="Koopa5" parent="." instance=ExtResource( 10 )]
-position = Vector2( 720, 416 )
-can_hurt = null
-dir = null
-speed = null
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
-death = 2
-appearing = null
-
-[node name="Koopa2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 896, 416 )
-can_hurt = null
-dir = null
-speed = null
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
-death = 2
-appearing = null
-
-[node name="Koopa3" parent="." instance=ExtResource( 10 )]
-position = Vector2( 992, 416 )
+position = Vector2( 944, 416 )
 can_hurt = null
 dir = null
 speed = null
