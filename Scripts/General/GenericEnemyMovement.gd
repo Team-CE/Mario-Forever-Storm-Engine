@@ -115,6 +115,7 @@ func _physics_process(delta):
   if is_shell and alive:
     old_speed = shell_speed
     if not shell_moving:
+      shell_score_multiplier = 0
       speed = 0
       $Sprite.set_animation('Shell Stopped')
     else:
@@ -225,8 +226,9 @@ func WALK_AI() -> void:
         if overlaps[i].is_in_group('Enemy') and overlaps[i].is_kickable and not overlaps[i] == self:
           overlaps[i].kick(shell_score_multiplier)
           skip_dir_change = true
-          if shell_score_multiplier < 6:
-            shell_score_multiplier += 1
+          shell_score_multiplier += 1
+          if shell_score_multiplier >= 7:
+            shell_score_multiplier = 0
   
   # Direction change
   velocity.x = speed * dir
