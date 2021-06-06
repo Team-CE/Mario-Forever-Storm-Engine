@@ -34,7 +34,7 @@ func _physics_process(delta) -> void:
   if skip_frame:
     explode()
 
-  if is_on_wall() and belongs == 0:
+  if (is_on_wall() or velocity.x == 0) and belongs == 0:
     skip_frame = true
   
   $Sprite.rotation_degrees += 12 * (-1 if velocity.x < 0 else 1) * Global.get_delta(delta)
