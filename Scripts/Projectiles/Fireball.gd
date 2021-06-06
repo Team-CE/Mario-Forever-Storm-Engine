@@ -14,7 +14,7 @@ func _ready() -> void:
 
   add_child(vis)
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
   var overlaps = $CollisionArea.get_overlapping_bodies()
 
   if overlaps.size() > 0:

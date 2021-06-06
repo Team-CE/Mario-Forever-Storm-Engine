@@ -11,7 +11,8 @@ enum AI_TYPE {
 
 enum DEATH_TYPE {
   BASIC,
-  FALL
+  FALL,
+  SHELL            # Requires "Shell Stopped" and "Shell Moving" animations.
 }
 
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
@@ -26,6 +27,7 @@ export var can_hurt: bool = true
 export var dir: float = -1
 
 export var speed: float = 50
+export var shell_speed: float = 250
 export var smart_turn: bool
 export var no_gravity: bool
 export var is_stompable: bool
@@ -47,6 +49,10 @@ var appear_counter: float = 0
 var death_complete: bool = false
 
 var old_speed: float
+
+var is_shell: bool = false
+var shell_moving: bool = true
+var shell_counter: float = 0
 
 func _ready() -> void:
   vis.process_parent = true
@@ -98,6 +104,15 @@ func _process(delta) -> void:
     no_gravity = false
     $Collision.disabled = false
     z_index = 0
+  
+  if is_shell and alive:
+    old_speed = shell_speed
+    if not shell_moving:
+      speed = 0
+      $Sprite.set_animation('Shell Stopped')
+    else:
+      speed = shell_speed
+      $Sprite.set_animation('Shell Moving')
 
   if not active:
     return
@@ -119,25 +134,40 @@ func _process_alive(delta: float) -> void:
   _AI(delta)
   
   # Stomping
-  var mario = get_parent().get_node('Mario')
-  var mario_bd = mario.get_node('BottomDetector')
-  var mario_pd = mario.get_node('InsideDetector')
+  var mario_bd = Global.Mario.get_node('BottomDetector')
+  var mario_pd = Global.Mario.get_node('InsideDetector')
   var pd_overlaps = mario_pd.get_overlapping_bodies()
   var bd_overlaps = mario_bd.get_overlapping_bodies()
 
-  if bd_overlaps and bd_overlaps.has(self) and not (pd_overlaps and pd_overlaps.has(self)) and is_stompable:
-    if Input.is_action_pressed('mario_jump'):
-      mario.y_speed = -13
+  if ((not (is_shell and not shell_moving) and (bd_overlaps and bd_overlaps.has(self) and not (pd_overlaps and pd_overlaps.has(self)))) or ((is_shell and not shell_moving) and (pd_overlaps and pd_overlaps.has(self)))) and is_stompable and Global.Mario.y_speed >= 0 and shell_counter > 10:
+    if death == DEATH_TYPE.BASIC or (death == DEATH_TYPE.SHELL and shell_moving) or (death == DEATH_TYPE.SHELL and not is_shell):
+      if Input.is_action_pressed('mario_jump'):
+        Global.Mario.y_speed = -13
+      else:
+        Global.Mario.y_speed = -8
+      Global.play_base_sound('ENEMY_Stomp')
+    elif is_shell and not shell_moving:
+      $Kick.play()
+    if death == DEATH_TYPE.BASIC:
+      alive = false
     else:
-      mario.y_speed = -8
-    mario.get_node('BaseSounds').get_node('ENEMY_Stomp').play()
-    alive = false
+      shell_moving = !shell_moving
+      is_shell = true
+      if Global.Mario.position.x > position.x:
+        dir = -1
+      else:
+        dir = 1
+    shell_counter = 0
     
-    var score_text = ScoreText.new(score, position)
-    get_parent().add_child(score_text)
+    if not shell_moving:
+      var score_text = ScoreText.new(score, position)
+      get_parent().add_child(score_text)
 
-  if pd_overlaps and pd_overlaps[0] == self and can_hurt:
+  if pd_overlaps and pd_overlaps[0] == self and can_hurt and shell_counter > 30 and not (is_shell and not shell_moving):
     Global._ppd()
+
+  if shell_counter < 31:
+    shell_counter += 1 * Global.get_delta(delta)
   
   # Kicking
   var g_overlaps = $Feets/Feet_M.get_overlapping_bodies()
@@ -168,7 +198,7 @@ func _process_death() -> void:
       yield(get_tree().create_timer(2.0), 'timeout')
       queue_free()
 
-# Just standing AI
+# Standing AI
 func IDLE_AI() -> void:
   velocity.x = 0
 
