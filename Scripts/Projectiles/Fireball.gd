@@ -14,6 +14,14 @@ func _ready() -> void:
 
   add_child(vis)
 
+func _process(delta):
+  if is_on_floor():
+    velocity.y = -350
+
+  velocity.y += 24 * Global.get_delta(delta)
+
+  velocity = move_and_slide(velocity, Vector2.UP)
+
 func _physics_process(delta) -> void:
   var overlaps = $CollisionArea.get_overlapping_bodies()
 
@@ -22,13 +30,6 @@ func _physics_process(delta) -> void:
       if overlaps[i].is_in_group('Enemy') and overlaps[i].is_kickable:
         overlaps[i].kick()
         explode()
-
-  if is_on_floor():
-    velocity.y = -350
-
-  velocity.y += 24 * Global.get_delta(delta)
-
-  velocity = move_and_slide(velocity, Vector2.UP)
 
   if skip_frame:
     explode()
