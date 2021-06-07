@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Experimental/QMarkBlock.gd" type="Script" id=1]
+
+[node name="QBlock" type="StaticBody2D" groups=[
+"Breakable",
+"Solid",
+]]
+script = ExtResource( 1 )

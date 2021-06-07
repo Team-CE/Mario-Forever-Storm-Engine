@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "AliveBody",
+"language": "GDScript",
+"path": "res://Experimental/AliveBody.gd"
+}, {
 "base": "Sprite",
 "class": "BrickEffect",
 "language": "GDScript",
@@ -24,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/Explosion.gd"
 }, {
-"base": "Node",
+"base": "",
 "class": "FLMusicLib",
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
@@ -47,7 +52,7 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "QBlock",
 "language": "GDScript",
-"path": "res://Experemental/QMarkBlock.gd"
+"path": "res://Experimental/QMarkBlock.gd"
 }, {
 "base": "Sprite",
 "class": "ScoreText",
@@ -55,6 +60,7 @@ _global_script_classes=[ {
 "path": "res://Scripts/General/ScoreText.gd"
 } ]
 _global_script_class_icons={
+"AliveBody": "",
 "BrickEffect": "",
 "CoinEffect": "",
 "Explosion": "",
@@ -62,7 +68,7 @@ _global_script_class_icons={
 "GenericEnemyMovement": "",
 "Level": "",
 "Powerup": "",
-"QBlock": "",
+"QBlock": "res://GFX/Editor/QBlock.png",
 "ScoreText": ""
 }
 

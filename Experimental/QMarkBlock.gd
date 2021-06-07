@@ -1,5 +1,5 @@
 extends StaticBody2D
-class_name QBlock
+class_name QBlock, "res://GFX/Editor/QBlock.png"
 tool
 
 enum VISIBILITY_TYPE {
@@ -33,8 +33,9 @@ var t_counter: float = 0
 var coin_counter: float = 0
 
 var initial_position: Vector2
-  
-func _ready() -> void:
+
+#TODO #1 Make nodes visible in editor node tree @reflexguru
+func _ready():
   #If alrady loaded
   if get_node_or_null('Body') != null:
     collision = $Collision
@@ -42,7 +43,6 @@ func _ready() -> void:
     preview = $Preview
     return
 
-    
   add_to_group('Solid', true)
   add_to_group('Breakable', true)
     
@@ -59,8 +59,8 @@ func _ready() -> void:
   collision.position.y -= 16
   collision.visible = false
   
-  collision.set_owner(self)
   add_child(collision)
+  collision.set_owner(self)
   
   #Animated sprite Sprite
   body = AnimatedSprite.new()
@@ -70,8 +70,8 @@ func _ready() -> void:
   body.frames = preload('res://Prefabs/Blocks/Question Block.tres')
   body.playing = true
   
-  body.set_owner(self)
   add_child(body)
+  body.set_owner(self)
   
   #Preview Sprite
   preview = Sprite.new()
@@ -83,8 +83,8 @@ func _ready() -> void:
   preview.z_index = 21
   preview.texture = set_preview()
   
-  preview.set_owner(self)
   add_child(preview)
+  preview.set_owner(self)
   
   if Empty:
     body.animation = 'empty'

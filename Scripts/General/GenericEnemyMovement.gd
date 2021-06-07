@@ -35,8 +35,6 @@ export var no_gravity: bool
 export var is_stompable: bool
 export var is_kickable: bool = true
 
-export var sin_height: float = 20
-export var sin_speed: float = 150
 export var score: int = 100
 
 export var alive: bool = true

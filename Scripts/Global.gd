@@ -19,7 +19,7 @@ var state: int = 0      # Player powerup state
 
 var projectiles_count: int = 0 # Self explanable
 
-var debug: bool = true        # Debug
+var debug: bool = false        # Debug
 
 var player_dead: bool = false # Player Dead?
 
