@@ -32,30 +32,51 @@ position = Vector2( 912, 416 )
 
 [node name="Spiny" parent="." instance=ExtResource( 7 )]
 position = Vector2( 544, 224 )
-can_hurt = null
-dir = null
-speed = null
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_stompable = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
-death = null
-appearing = null
 
 [node name="Goomba" parent="." instance=ExtResource( 5 )]
 position = Vector2( 320, 416 )
+can_hurt = true
+dir = -1.0
+speed = 50.0
+shell_speed = 250.0
+smart_turn = false
+no_gravity = false
+is_kickable = true
+score = 100
+alive = true
+active = true
+death = 0
+appearing = false
 
 [node name="Goomba2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 256, 416 )
+can_hurt = true
+dir = -1.0
+speed = 50.0
+shell_speed = 250.0
+smart_turn = false
+no_gravity = false
+is_kickable = true
+score = 100
+alive = true
+active = true
+death = 0
+appearing = false
 
 [node name="Goomba3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 544, 416 )
+can_hurt = true
+dir = -1.0
+speed = 50.0
+shell_speed = 250.0
+smart_turn = false
+no_gravity = false
+is_kickable = true
+score = 100
+alive = true
+active = true
+death = 0
+appearing = false
 
 [node name="Coin" parent="." instance=ExtResource( 8 )]
 position = Vector2( 912, 240 )
@@ -68,39 +89,13 @@ position = Vector2( 880, 208 )
 
 [node name="Koopa5" parent="." instance=ExtResource( 10 )]
 position = Vector2( 1168, 416 )
-can_hurt = null
-dir = null
-speed = null
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
 death = 2
-appearing = null
 
 [node name="Piranha" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1248, 256 )
-ai = 3
-can_hurt = null
-dir = null
 speed = 0.0
-shell_speed = null
-smart_turn = null
-no_gravity = null
-is_stompable = null
-is_kickable = null
-sin_height = null
-sin_speed = null
-score = null
-alive = null
-active = null
+ai = 3
 death = 3
-appearing = null
 
 [node name="QBlock" parent="." instance=ExtResource( 4 )]
 position = Vector2( 848, 288 )

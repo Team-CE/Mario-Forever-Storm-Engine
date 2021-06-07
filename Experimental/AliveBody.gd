@@ -24,33 +24,33 @@ signal on_collide_with_player
 signal on_death
 signal on_hit
 
-#Technical variables
-var death_type #SETS ONLY FROM SCRIPT
+# Technical variables
+var death_type # SETS ONLY FROM THE SCRIPT
 
-#Private variables
+# Private variables
 var velocity: Vector2 = Vector2.ZERO
 var gravity: float = Global.gravity
 var dead: bool = false
 
-#Enumerable variables
+# Enumerable variables
 export(DIRECTION) var DIR: int
 export(HIT_TYPE)  var HIT: int
 export(DEATH_TYPE) var kill_as: int = DEATH_TYPE.FALL
 
-#Public variables
+# Public variables
 export var speed: float = 50
 export var smart_turn: bool = false
-export var has_gravity:bool = true  
-export var revard: int = 100        #Gives a score for player after death
-export var jumping: bool = false    #For jumping enemies or power ups
+export var has_gravity: bool = true  
+export var reward: int = 100        # Gives specified score after death
+export var jumping: bool = false    # For jumping enemies or powerups
 
-#Built-in functions
+# Built-in functions
 func _ready()-> void:
-  if connect("on_death",Global,"add_score",[ ],CONNECT_ONESHOT) != OK:
+  if connect("on_death", Global, "add_score", [ ], CONNECT_ONESHOT) != OK:
     printerr("Can't connect signal to GLOBAL.add_score().")
   gravity *= float(has_gravity)
 
-func _physics_process(_delta:float) -> void:
+func _physics_process(_delta: float) -> void:
   if !is_on_floor():
     velocity.y += gravity
   
@@ -75,6 +75,6 @@ func _process_dead(_delta:float) -> void:
 
 func _kill(killer: Node2D):
   dead = true
-  emit_signal("on_death", revard)
+  emit_signal("on_death", reward)
 
 

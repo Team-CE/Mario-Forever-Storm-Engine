@@ -260,7 +260,7 @@ func WALK_AI() -> void:
 # Flying AI
 func FLY_AI() -> void:
   velocity.x = speed * dir
-  velocity.y = (sin(position.x / sin_height) * sin_speed)
+  #velocity.y = (sin(position.x / sin_height) * sin_speed)
   if is_on_wall():
     _turn()
 
