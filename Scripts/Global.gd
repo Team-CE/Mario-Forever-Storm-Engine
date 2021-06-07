@@ -25,6 +25,7 @@ var player_dead: bool = false # Player Dead?
 
 onready var timer : Timer = Timer.new()      # Create a new timer for delay
 
+
 static func get_delta(delta) -> float: # Delta by 50 FPS
   return 50 / (1 / (delta if not delta == 0 else 0.0001))
 
