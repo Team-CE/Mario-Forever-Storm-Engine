@@ -45,6 +45,12 @@ func _physics_process(delta: float) -> void:
     timer.start()    # start timer again
   if projectiles_count < 0:
     projectiles_count = 0
+  
+  # Hotkey for restarting current level
+  if Input.is_action_pressed('debug_shift') and debug:
+    if Input.is_action_just_pressed('debug_f2'):
+      lives += 1
+      _reset()
 
 func add_score(score: int) -> void:
   self.score += abs(score)

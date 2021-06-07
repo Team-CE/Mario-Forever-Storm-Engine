@@ -195,6 +195,8 @@ func _process_alive(delta: float) -> void:
     kick(0)
 
 func kick(score_multiplier: float) -> void:
+  if death == DEATH_TYPE.BASIC:
+    death = DEATH_TYPE.FALL
   alive = false
 
   var multiplier_scores = [100, 200, 500, 1000, 2000, 5000, 1]
@@ -212,7 +214,6 @@ func kick(score_multiplier: float) -> void:
   $Sprite.set_animation('Falling')
   $Kick.play()
   if death == DEATH_TYPE.DISAPPEAR:
-    print('pizdas')
     $Sprite.visible = false
     yield(get_tree().create_timer(2.0), 'timeout')
     queue_free()
