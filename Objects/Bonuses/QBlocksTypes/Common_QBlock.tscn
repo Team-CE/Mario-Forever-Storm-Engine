@@ -1,9 +1,32 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Experimental/QMarkBlock.gd" type="Script" id=1]
+[ext_resource path="res://GFX/NULLTEXTURE.png" type="Texture" id=2]
+[ext_resource path="res://Prefabs/Blocks/Question Block.tres" type="SpriteFrames" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
 
 [node name="QBlock" type="StaticBody2D" groups=[
 "Breakable",
 "Solid",
 ]]
 script = ExtResource( 1 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -16 )
+shape = SubResource( 1 )
+
+[node name="Body" type="AnimatedSprite" parent="."]
+z_index = 20
+frames = ExtResource( 3 )
+playing = true
+offset = Vector2( 0, -16 )
+
+[node name="Preview" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.8 )
+position = Vector2( 8, -8 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 21
+texture = ExtResource( 2 )

@@ -120,7 +120,7 @@ func set_preview() -> StreamTexture:
   if preview == null || !is_instance_valid(sprite):
     return GlobalEditor.NULLTEXTURE as StreamTexture  
     
-  preview.scale = sprite.scale * Vector2(0.5, 0.5)
+  preview.scale = sprite.scale * 0.5
   print(sprite)
   
   res = sprite.frames.get_frame(sprite.animation,0) if sprite is AnimatedSprite else sprite.texture if sprite is Sprite else GlobalEditor.NULLTEXTURE as StreamTexture
@@ -148,8 +148,10 @@ func _physics_process(_delta) -> void:
     return
 
 func _process_active() -> void:
-  var mario = get_parent().get_node('Mario')
-  var mario_td = mario.get_node('TopDetector')
+  if Engine.editor_hint:
+    return
+  var mario = Global.Mario
+  var mario_td = Global.Mario.get_node('TopDetector')
   var td_overlaps = mario_td.get_overlapping_bodies()
 
   if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 0.01 and not mario.standing:

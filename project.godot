@@ -24,12 +24,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/CoinEffect.gd"
 }, {
+"base": "AliveBody",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://Experimental/Enemy.gd"
+}, {
 "base": "AnimatedSprite",
 "class": "Explosion",
 "language": "GDScript",
 "path": "res://Scripts/Effects/Explosion.gd"
 }, {
-"base": "Node",
+"base": "",
 "class": "FLMusicLib",
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
@@ -43,6 +48,11 @@ _global_script_classes=[ {
 "class": "Level",
 "language": "GDScript",
 "path": "res://Scripts/Level.gd"
+}, {
+"base": "AliveBody",
+"class": "PowerUP",
+"language": "GDScript",
+"path": "res://Experimental/PowerUp.gd"
 }, {
 "base": "GenericEnemyMovement",
 "class": "Powerup",
@@ -60,13 +70,15 @@ _global_script_classes=[ {
 "path": "res://Scripts/General/ScoreText.gd"
 } ]
 _global_script_class_icons={
-"AliveBody": "",
+"AliveBody": "res://GFX/Editor/AliveBody.png",
 "BrickEffect": "",
 "CoinEffect": "",
+"Enemy": "res://GFX/Editor/Enemy.png",
 "Explosion": "",
 "FLMusicLib": "",
 "GenericEnemyMovement": "",
 "Level": "",
+"PowerUP": "res://GFX/Editor/PowerUp.png",
 "Powerup": "",
 "QBlock": "res://GFX/Editor/QBlock.png",
 "ScoreText": ""

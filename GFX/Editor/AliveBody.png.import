@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Green Pipe.png-d9560b8b256a2127c7ad02e87b859799.stex"
+path="res://.import/AliveBody.png-2313a946f6e1edd60106cf8055309a27.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Tilesets/Green Pipe.png"
-dest_files=[ "res://.import/Green Pipe.png-d9560b8b256a2127c7ad02e87b859799.stex" ]
+source_file="res://GFX/Editor/AliveBody.png"
+dest_files=[ "res://.import/AliveBody.png-2313a946f6e1edd60106cf8055309a27.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
