@@ -13,6 +13,12 @@ onready var appear_counter: float = 0
 onready var shield_counter: float = 0
 onready var launch_counter: float = 0
 
+signal top_detector_collide     #@reflexguru Implement these signals
+signal bottom_detector_collide
+
+signal left_detector_collide
+signal right_detector_collide
+
 func _ready() -> void:
   Global.Mario = self
   Global.connect("OnPlayerLoseLife", self, 'kill')
@@ -21,10 +27,8 @@ func _ready() -> void:
 func is_over_backdrop(obj, ignore_hidden) -> bool:
   var overlaps = obj.get_overlapping_bodies()
 
-  if overlaps.size() > 0:
-    for i in range(overlaps.size()):
-      if (overlaps[0] is TileMap or overlaps[0].is_in_group('Solid')) and (overlaps[0].visible or ignore_hidden):
-        return true
+  if overlaps.size() > 0 && (overlaps[0] is TileMap or overlaps[0].is_in_group('Solid')) and (overlaps[0].visible or ignore_hidden):
+    return true
 
   return false
 

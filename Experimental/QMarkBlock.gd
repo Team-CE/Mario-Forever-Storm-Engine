@@ -101,7 +101,7 @@ func editor() -> void:
     body.animation = 'default'
 
 
-  if Result != null && Result != PrevResult:
+  if (Result != null || PrevResult != null) && Result != PrevResult:
     preview.texture = set_preview()
   
   body.modulate.a = 0.5 if Visible != VISIBILITY_TYPE.VISIBLE else 1.0
@@ -118,15 +118,14 @@ func set_preview() -> StreamTexture:
   var res
   
   if preview == null || !is_instance_valid(sprite):
-    return GlobalEditor.NULLTEXTURE as StreamTexture  
-    
-  preview.scale = sprite.scale * 0.5
-  print(sprite)
+    return GlobalEditor.NULLTEXTURE as StreamTexture
   
-  res = sprite.frames.get_frame(sprite.animation,0) if sprite is AnimatedSprite else sprite.texture if sprite is Sprite else GlobalEditor.NULLTEXTURE as StreamTexture
-
+  res = sprite.texture if sprite is Sprite else sprite.frames.get_frame('default',0) if sprite is AnimatedSprite else null
+  
+  preview.scale = Vector2(16,16) / res.get_size()
   PrevResult = Result
-  print(res)
+  #print(res)
+  #print(Result)
   return res
 
 func _process(delta) -> void:
