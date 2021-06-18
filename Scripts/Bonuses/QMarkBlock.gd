@@ -34,9 +34,11 @@ var coin_counter: float = 0
 
 var initial_position: Vector2
 
-#TODO #1 Make nodes visible in editor node tree @reflexguru
+# TODO #1 Make nodes visible in editor node tree @reflexguru
 func _ready():
-  #If alrady loaded
+  initial_position = position
+  
+  # If alrady loaded
   if get_node_or_null('Body') != null:
     collision = $Collision
     body = $Body
@@ -49,7 +51,7 @@ func _ready():
   PrevResult = Result
   PrevFrames = Frames
   
-  #Collision
+  # Collision
   blockShape = RectangleShape2D.new()
   blockShape.extents = Vector2(16, 16)
   
@@ -62,7 +64,7 @@ func _ready():
   add_child(collision)
   collision.set_owner(self)
   
-  #Animated sprite Sprite
+  # Animated sprite Sprite
   body = AnimatedSprite.new()
   body.name = 'Body'
   body.offset = Vector2(0, -16)
@@ -73,7 +75,7 @@ func _ready():
   add_child(body)
   body.set_owner(self)
   
-  #Preview Sprite
+  # Preview Sprite
   preview = Sprite.new()
   preview.name= 'Preview'
   preview.scale = Vector2(0.5, 0.5)
@@ -90,8 +92,6 @@ func _ready():
     body.animation = 'empty'
   if not Visible == VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
     visible = false
-  
-  initial_position = position
 
 
 func editor() -> void:
@@ -114,13 +114,14 @@ func editor() -> void:
 
 
 func set_preview() -> StreamTexture:
-  var sprite = Result.instance().get_node_or_null('Sprite') if is_instance_valid(Result) else null
+  var result_inst = Result.instance()
+  var sprite = result_inst.get_node_or_null('Sprite') if is_instance_valid(Result) else null
   var res
   
   if preview == null || !is_instance_valid(sprite):
     return GlobalEditor.NULLTEXTURE as StreamTexture
   
-  res = sprite.texture if sprite is Sprite else sprite.frames.get_frame('default',0) if sprite is AnimatedSprite else null
+  res = sprite.texture if sprite is Sprite else sprite.frames.get_frame('default' if not 'type' in result_inst else result_inst.animation, 0) if sprite is AnimatedSprite else null
   
   preview.scale = Vector2(16,16) / res.get_size()
   PrevResult = Result

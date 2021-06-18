@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Experimental/QMarkBlock.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Bonuses/QMarkBlock.gd" type="Script" id=1]
 [ext_resource path="res://GFX/NULLTEXTURE.png" type="Texture" id=2]
 [ext_resource path="res://Prefabs/Blocks/Question Block.tres" type="SpriteFrames" id=3]
 
@@ -21,6 +21,7 @@ shape = SubResource( 1 )
 [node name="Body" type="AnimatedSprite" parent="."]
 z_index = 20
 frames = ExtResource( 3 )
+frame = 2
 playing = true
 offset = Vector2( 0, -16 )
 

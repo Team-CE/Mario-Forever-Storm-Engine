@@ -39,7 +39,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/Explosion.gd"
 }, {
-"base": "",
+"base": "Node",
 "class": "FLMusicLib",
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
@@ -67,7 +67,7 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "QBlock",
 "language": "GDScript",
-"path": "res://Experimental/QMarkBlock.gd"
+"path": "res://Scripts/Bonuses/QMarkBlock.gd"
 }, {
 "base": "Sprite",
 "class": "ScoreText",

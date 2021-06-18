@@ -31,8 +31,8 @@ position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 2.38419e-07, -16 )
-scale = Vector2( 0.107744, 0.110727 )
+position = Vector2( 0.0345127, -15.9715 )
+scale = Vector2( 0.0623652, 0.0623885 )
 frames = SubResource( 2 )
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]

@@ -2,42 +2,32 @@ tool
 extends KinematicBody2D
 class_name AliveBody, "res://GFX/Editor/AliveBody.png"
 
-enum DIRECTION{
+enum DIRECTION {
   LEFT  = -1,
   RIGHT = 1,
   UP    = -2,
   DOWN  = 2
 }
 
-enum HIT_TYPE{
+enum HIT_TYPE {
   STOMP,
   SHELL,
   DEATH
 }
 
 enum DEATH_TYPE {
-  STOMP,      #Stomp like goomba
-  FALL,       #Fall = Death from shell
-  DISAPPEAR   #Just Disappear
+  STOMP,
+  FALL,
+  DISAPPEAR
 }
 
-enum THROW_TYPE{
-  NONE = -1,  #Does not throw
-  SINGLE,     #Throw one project tile
-  SPAM,       #Throws a lot of projectiles
-  RARE        #Throw RareRareDaze
-}
-
-enum AI_TYPE{
+enum BEHAVIOR_TYPE {
   IDLE,
   WALK,
-  FLY,        
-  PIRANHA,    #Пиранха плент B
-  HAMMERBRO   #BRO
+  CUSTOM
 }
 
-signal on_collide_with_player # Call when player touch it / Звоните, когда игрок прикоснется к нему
-signal on_death               # Call when DEAD / Позвони, когда УМРЕШЬ
+signal on_death # Called when body dies
 
 # Private variables
 var velocity: Vector2 = Vector2.ZERO
@@ -45,27 +35,26 @@ var gravity: float = Global.gravity
 var dead: bool = false
 
 # Enumerable variables
-export(DIRECTION)  var DIR: int = DIRECTION.LEFT
-export(DEATH_TYPE) var KILL_AS: int = DEATH_TYPE.FALL
-export(THROW_TYPE) var PROJECTILE_THROW_TYPE: int = THROW_TYPE.NONE
-export(AI_TYPE)  var AI: int = AI_TYPE.WALK
+export(DIRECTION) var dir: int = DIRECTION.LEFT
+export(DEATH_TYPE) var death_type: int = DEATH_TYPE.FALL
+export(BEHAVIOR_TYPE) var BEHAVIOR: int = BEHAVIOR_TYPE.WALK
 
 # Public variables
-export var speed: float = 50                    # Gotta go fast
-export var alt_speed: float = 250               # Speed in shell (nut shell)
-export var smart_turn: bool = false             # Big brain 
-export var has_gravity: bool = true             # HASEGRAVITY
+export var speed: float = 50
+export var alt_speed: float = 250               # Shell speed
+export var smart_turn: bool = false             # Red koopa movement
+export var has_gravity: bool = true
 export var reward: int = 100                    # Gives specified score after death
 export var jumping: bool = false                # For jumping enemies or powerups
-export(PackedScene) var projectile: PackedScene # Project "Tile"
+export(PackedScene) var projectile: PackedScene
 
-#Technical variables
+# Technical variables
 
 
 # Built-in functions
-func _ready()-> void: # YOU CAN OVERWRITE IT
+func _ready() -> void: # YOU CAN OVERWRITE IT
   if is_instance_valid($Ray):
-    $Ray.position.x = $Ray.position.x * DIR
+    $Ray.position.x = $Ray.position.x * dir
   if connect("on_death", Global, "add_score", [ ], CONNECT_ONESHOT) != OK:
     printerr("[AliveBody]: Can't connect signal to GLOBAL.add_score()")
   gravity *= float(has_gravity)
@@ -80,24 +69,20 @@ func _physics_process(_delta: float) -> void: # DO NOT OVERWRITE IT
     if is_on_wall():
       _turn()
     
-    if smart_turn && is_instance_valid($Ray):
+    if smart_turn and is_instance_valid($Ray):
       if !$Ray.is_colliding():
         _turn()
 
-    match AI:                   # Call a _AI_ Functions
-      AI_TYPE.IDLE:
+    match BEHAVIOR:                   # Calls Behavior Functions
+      BEHAVIOR_TYPE.IDLE:
         pass
-      AI_TYPE.WALK:
-        _AI_Walk(_delta)
-      AI_TYPE.FLY:
-        _AI_Fly(_delta)
-      AI_TYPE.PIRANHA:
-        _AI_Piranha(_delta)
-      AI_TYPE.HAMMERBRO:
-        _AI_Hammerbro(_delta)
+      BEHAVIOR_TYPE.WALK:
+        _Behavior_Walk(_delta)
+      BEHAVIOR_TYPE.CUSTOM:
+        _Behavior_Custom(_delta)
 
     gravity *= float(has_gravity)
-    _process_alive(_delta)        # Call when alive
+    _process_alive(_delta)        # Called when alive
     if is_on_ceiling():
       velocity.y = 2
 
@@ -105,34 +90,29 @@ func _physics_process(_delta: float) -> void: # DO NOT OVERWRITE IT
     return
   _process_dead(_delta)
 
-func _process_alive(_delta:float) -> void:  # YOU CAN OVERWRITE IT
+func _process_alive(_delta: float) -> void:  # YOU CAN OVERWRITE IT
   pass
 
-func _process_dead(_delta:float) -> void:   # YOU CAN OVERWRITE IT
+func _process_dead(_delta: float) -> void:   # YOU CAN OVERWRITE IT
   pass
 
-# _AI_ functions
-func _AI_Walk(_delta:float) -> void:
-  velocity.x = speed * DIR
+# _BEHAVIOR_ functions
+func _Behavior_Walk(_delta: float) -> void:
+  velocity.x = speed * dir
   pass
 
-func _AI_Fly(_delta:float) -> void:
+# Empty custom behavior
+func _Behavior_Custom(_delta: float) -> void:
   pass
 
-func _AI_Piranha(_delta:float) -> void:
-  pass
-
-func _AI_Hammerbro(_delta:float) -> void:
-  pass
-
-func _kill(killer: Node2D,death_type: int) -> void: # DO NOT OVERWRITE IT
+func _kill(killer: Node2D, death_type: int) -> void: # DO NOT OVERWRITE IT
   dead = true
   emit_signal("on_death", reward)
   _on_death(killer,death_type)
 
 func _turn() -> void:
-  DIR = -DIR
-  velocity.y += 2 * DIR
+  dir = -dir
+  velocity.y += 2 * dir
   if is_instance_valid($Ray):
     $Ray.position.x = -$Ray.position.x
 

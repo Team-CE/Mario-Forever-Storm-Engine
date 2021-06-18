@@ -5,7 +5,6 @@ class_name GenericEnemyMovement
 enum AI_TYPE {
   IDLE,
   WALK,
-  FLY,
   PIRANHA,
   PIRANHA_UPSIDE_DOWN
 }
@@ -89,12 +88,12 @@ func _AI(delta: float) -> void:
       IDLE_AI()
     AI_TYPE.WALK:
       WALK_AI()
-    AI_TYPE.FLY:
-      FLY_AI()
     AI_TYPE.PIRANHA:
       PIRANHA_AI(delta, false)
-    AI_TYPE.FREE:
-      FREE_AI()
+    AI_TYPE.PIRANHA_UPSIDE_DOWN:
+      PIRANHA_AI(delta, true)
+    AI_TYPE.CUSTOM:
+      CUSTOM_AI()
 
 func _physics_process(delta):
   skip_dir_change = false
@@ -134,7 +133,7 @@ func _physics_process(delta):
   if not active:
     return
   # Gravity
-  if (!is_on_floor() and (death == DEATH_TYPE.BASIC or alive) and ai != AI_TYPE.FLY) or (not death == DEATH_TYPE.BASIC and not alive):
+  if (!is_on_floor() and (death == DEATH_TYPE.BASIC or alive)) or (not death == DEATH_TYPE.BASIC and not alive):
     velocity.y += Global.gravity * (1 if alive else 0.4) * Global.get_delta(delta)
 
   if not no_velocity:
@@ -189,7 +188,7 @@ func _process_alive(delta: float) -> void:
   
   # Kicking
   var g_overlaps = $Feets/Feet_M.get_overlapping_bodies()
-  if g_overlaps and g_overlaps[0] is StaticBody2D and g_overlaps[0].triggered and g_overlaps[0].t_counter < 12 and is_kickable:
+  if g_overlaps and g_overlaps[0] is StaticBody2D and g_overlaps[0].triggered and g_overlaps[0].t_counter < 12 and is_kickable and not appearing:
     kick(0)
 
 func kick(score_multiplier: float) -> void:
@@ -257,13 +256,6 @@ func WALK_AI() -> void:
   if is_on_wall() and not skip_dir_change:
     _turn()
 
-# Flying AI
-func FLY_AI() -> void:
-  velocity.x = speed * dir
-  #velocity.y = (sin(position.x / sin_height) * sin_speed)
-  if is_on_wall():
-    _turn()
-
 func PIRANHA_AI(delta: float, reversed: bool) -> void:
   active = true
   no_gravity = true
@@ -285,7 +277,7 @@ func PIRANHA_AI(delta: float, reversed: bool) -> void:
     piranha_counter = 0
 
 # Free move AI
-func FREE_AI() -> void:
+func CUSTOM_AI() -> void:
   pass
 
 func _turn() -> void:

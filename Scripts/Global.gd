@@ -1,30 +1,29 @@
 extends Node
 
-var gravity: float = 20 # Global gravity
+var gravity: float = 20                      # Global gravity
 
-var HUD: CanvasLayer    # ref HUD
-var Mario: Node2D       # ref Mario
+var HUD: CanvasLayer                         # ref HUD
+var Mario: Node2D                            # ref Mario
 
-signal TimeTick         # Called when time got lower
-signal OnPlayerLoseLife # Called when Player Die
-signal OnScoreChange    # Called when score get changed
-signal OnLivesAdded     # Called when Live added
-signal OnCoinCollected  # Called when coins collected
+signal TimeTick                              # Called when time got lower
+signal OnPlayerLoseLife                      # Called when Player Die
+signal OnScoreChange                         # Called when score get changed
+signal OnLivesAdded                          # Called when Live added
+signal OnCoinCollected                       # Called when coins collected
 
-var lives: int = 4      # Player lives
-var time: int = 999     # Time left
-var score: int = 0      # Score
-var coins: int = 0      # Player coins
-var state: int = 0      # Player powerup state
+var lives: int = 4                           # Player lives
+var time: int = 999                          # Time left
+var score: int = 0                           # Score
+var coins: int = 0                           # Player coins
+var state: int = 0                           # Player powerup state
 
-var projectiles_count: int = 0 # Self explanable
+var projectiles_count: int = 0               # Self explanable
 
-var debug: bool = false        # Debug
+var debug: bool = false                      # Debug
 
-var player_dead: bool = false # Player Dead?
+var player_dead: bool = false                # Player Dead?
 
-onready var timer : Timer = Timer.new()      # Create a new timer for delay
-
+onready var timer: Timer = Timer.new()      # Create a new timer for delay
 
 static func get_delta(delta) -> float: # Delta by 50 FPS
   return 50 / (1 / (delta if not delta == 0 else 0.0001))
@@ -32,18 +31,18 @@ static func get_delta(delta) -> float: # Delta by 50 FPS
 func _ready() -> void:
   if debug:
     add_child(preload('res://Objects/Core/Inspector.tscn').instance()) # Adding a debug inspector
-  timer.wait_time = 1.45 # Setting delay
-  add_child(timer)       # Adding a Timer
+  timer.wait_time = 1.45
+  add_child(timer)
 
-func _reset() -> void:  # Level Restert
-  lives -= 1          # Player Lose life cuz he die
-  player_dead = false # Player not dead anymore
-  get_tree().reload_current_scene()# Rester a scene
+func _reset() -> void:   # Level Restart
+  lives -= 1
+  player_dead = false
+  get_tree().reload_current_scene()
 
 func _physics_process(delta: float) -> void:
   if timer.time_left <= 1 && time != -1: # Wait for delaying
-    _delay()         # call delay function
-    timer.start()    # start timer again
+    _delay()
+    timer.start()
   if projectiles_count < 0:
     projectiles_count = 0
   
@@ -95,7 +94,7 @@ func _ppd() -> void: # Player Powerdown
     Mario.appear_counter = 60
     Mario.shield_counter = 100
 
-func _pll() -> void: # Player Lose Life
+func _pll() -> void: # Player Death
   if player_dead:
     return
   player_dead = true
