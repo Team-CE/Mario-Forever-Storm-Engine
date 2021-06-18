@@ -14,22 +14,22 @@ export(POWERUP_TYPE) var type: int = POWERUP_TYPE.MUSHROOM
 func _ready() -> void:
   z_index = -99
 
-func _process(delta) -> void:
   if Global.state == 0 and appearing:
     speed = 100
     type = POWERUP_TYPE.MUSHROOM
-    $Sprite.animation = 'Mushroom'
+    $Sprite.set_animation('Mushroom')
 
   if type == POWERUP_TYPE.FLOWER:
     old_speed = 0
-    $Sprite.animation = 'Flower'
+    $Sprite.set_animation('Flower')
 
+func _process(delta) -> void:
   if appearing and appear_counter < 32:
     if type != POWERUP_TYPE.MUSHROOM:
       $CollisionCollectable.disabled = true
   else:
     $CollisionCollectable.disabled = true
-    
+
   var mario = get_parent().get_node('Mario')
   var pd_overlaps = mario.get_node('PrimaryDetector').get_overlapping_bodies()
 
