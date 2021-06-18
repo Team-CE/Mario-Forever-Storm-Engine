@@ -79,7 +79,7 @@ func _ready() -> void:
   self.add_to_group('Enemy')
 
   old_speed = speed
-  initial_y = position.y + 59
+  initial_y = position.y + (59 * (-1 if ai == AI_TYPE.PIRANHA_UPSIDE_DOWN else 1))
 
 # _AI() function redirect to other AI functions
 func _AI(delta: float) -> void:

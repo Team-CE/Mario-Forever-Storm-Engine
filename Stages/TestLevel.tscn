@@ -1,13 +1,15 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Bonuses/Powerups/Flower.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Objects/Enemies/Spiny.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Objects/Enemies/new/Gooba.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Objects/Enemies/Piranha Upside Down.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Objects/Enemies/Piranha.tscn" type="PackedScene" id=12]
 
 [node name="Level" type="Node"]
@@ -46,14 +48,18 @@ position = Vector2( 848, 240 )
 [node name="Coin3" parent="." instance=ExtResource( 8 )]
 position = Vector2( 880, 208 )
 
+[node name="Piranha2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1344, 96 )
+
 [node name="Piranha" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1248, 256 )
 speed = 0.0
-ai = 2
 death = 3
 
-[node name="Gooba" parent="." instance=ExtResource( 9 )]
-position = Vector2( 2512, 400 )
+[node name="QBlock" parent="." instance=ExtResource( 10 )]
+position = Vector2( 848, 288 )
+Result = ExtResource( 4 )
 
-[node name="Gooba2" parent="." instance=ExtResource( 9 )]
-position = Vector2( 2544, 400 )
+[node name="QBlock2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 912, 288 )
+Result = ExtResource( 4 )
