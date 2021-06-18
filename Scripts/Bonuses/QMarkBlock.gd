@@ -37,7 +37,7 @@ var initial_position: Vector2
 # TODO #1 Make nodes visible in editor node tree @reflexguru
 func _ready():
   initial_position = position
-  
+
   # If alrady loaded
   if get_node_or_null('Body') != null:
     collision = $Collision
@@ -121,7 +121,7 @@ func set_preview() -> StreamTexture:
   if preview == null || !is_instance_valid(sprite):
     return GlobalEditor.NULLTEXTURE as StreamTexture
   
-  res = sprite.texture if sprite is Sprite else sprite.frames.get_frame('default' if not 'type' in result_inst else result_inst.animation, 0) if sprite is AnimatedSprite else null
+  res = sprite.texture if sprite is Sprite else sprite.frames.get_frame('default' if not 'type' in result_inst else sprite.animation, 0) if sprite is AnimatedSprite else null
   
   preview.scale = Vector2(16,16) / res.get_size()
   PrevResult = Result

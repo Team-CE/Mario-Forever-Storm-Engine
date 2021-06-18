@@ -1,16 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Objects/Enemies/Spiny.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Objects/Enemies/new/Gooba.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Objects/Enemies/Koopa.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Objects/Enemies/EEG.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Objects/Enemies/Piranha.tscn" type="PackedScene" id=12]
 
 [node name="Level" type="Node"]
@@ -49,10 +46,6 @@ position = Vector2( 848, 240 )
 [node name="Coin3" parent="." instance=ExtResource( 8 )]
 position = Vector2( 880, 208 )
 
-[node name="Koopa5" parent="." instance=ExtResource( 10 )]
-position = Vector2( 752, 416 )
-death = 2
-
 [node name="Piranha" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1248, 256 )
 speed = 0.0
@@ -64,25 +57,3 @@ position = Vector2( 2512, 400 )
 
 [node name="Gooba2" parent="." instance=ExtResource( 9 )]
 position = Vector2( 2544, 400 )
-
-[node name="EEG" parent="." instance=ExtResource( 11 )]
-position = Vector2( 880, 416 )
-
-[node name="EEG2" parent="." instance=ExtResource( 11 )]
-position = Vector2( 928, 416 )
-
-[node name="EEG3" parent="." instance=ExtResource( 11 )]
-position = Vector2( 976, 416 )
-
-[node name="EEG6" parent="." instance=ExtResource( 11 )]
-position = Vector2( 1024, 416 )
-
-[node name="EEG7" parent="." instance=ExtResource( 11 )]
-position = Vector2( 832, 416 )
-
-[node name="EEG8" parent="." instance=ExtResource( 11 )]
-position = Vector2( 784, 416 )
-
-[node name="QBlock" parent="." instance=ExtResource( 4 )]
-position = Vector2( 112, 288 )
-Result = ExtResource( 11 )
