@@ -1,5 +1,5 @@
 extends KinematicBody2D
-class_name GenericEnemyMovement
+class_name GenericEnemyMovement, "res://GFX/Editor/Enemy.png"
 
 # AI Types
 enum AI_TYPE {

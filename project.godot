@@ -9,16 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "KinematicBody2D",
-"class": "AliveBody",
-"language": "GDScript",
-"path": "res://Experimental/AliveBody.gd"
-}, {
-"base": "AliveBody",
-"class": "Boss",
-"language": "GDScript",
-"path": "res://Experimental/Boss.gd"
-}, {
 "base": "Sprite",
 "class": "BrickEffect",
 "language": "GDScript",
@@ -28,11 +18,6 @@ _global_script_classes=[ {
 "class": "CoinEffect",
 "language": "GDScript",
 "path": "res://Scripts/Effects/CoinEffect.gd"
-}, {
-"base": "AliveBody",
-"class": "Enemy",
-"language": "GDScript",
-"path": "res://Experimental/Enemy.gd"
 }, {
 "base": "AnimatedSprite",
 "class": "Explosion",
@@ -54,11 +39,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Level.gd"
 }, {
-"base": "AliveBody",
-"class": "PowerUP",
-"language": "GDScript",
-"path": "res://Experimental/PowerUp.gd"
-}, {
 "base": "GenericEnemyMovement",
 "class": "Powerup",
 "language": "GDScript",
@@ -75,17 +55,13 @@ _global_script_classes=[ {
 "path": "res://Scripts/General/ScoreText.gd"
 } ]
 _global_script_class_icons={
-"AliveBody": "res://GFX/Editor/AliveBody.png",
-"Boss": "res://GFX/Editor/Boss.png",
 "BrickEffect": "",
 "CoinEffect": "",
-"Enemy": "res://GFX/Editor/Enemy.png",
 "Explosion": "",
 "FLMusicLib": "",
-"GenericEnemyMovement": "",
+"GenericEnemyMovement": "res://GFX/Editor/Enemy.png",
 "Level": "",
-"PowerUP": "res://GFX/Editor/PowerUp.png",
-"Powerup": "",
+"Powerup": "res://GFX/Editor/Powerup.png",
 "QBlock": "res://GFX/Editor/QBlock.png",
 "ScoreText": ""
 }

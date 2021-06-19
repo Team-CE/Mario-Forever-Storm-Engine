@@ -1,5 +1,5 @@
 extends GenericEnemyMovement
-class_name Powerup
+class_name Powerup, "res://GFX/Editor/Powerup.png"
 
 enum POWERUP_TYPE {
   MUSHROOM,

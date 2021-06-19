@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PowerUp.png-cd7582980092dd35e47862de1411aee5.stex"
+path="res://.import/Powerup.png-f287611b6655809ef6e277466c7bbecf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Editor/PowerUp.png"
-dest_files=[ "res://.import/PowerUp.png-cd7582980092dd35e47862de1411aee5.stex" ]
+source_file="res://GFX/Editor/Powerup.png"
+dest_files=[ "res://.import/Powerup.png-f287611b6655809ef6e277466c7bbecf.stex" ]
 
 [params]
 
