@@ -100,9 +100,6 @@ func _ready():
     body.animation = 'empty'
   if not Visible == VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
     visible = false
-  
-  if qtype != BLOCK_TYPE.COMMON:
-    body.animation = 'brick'
 
 
 func editor() -> void:
@@ -144,12 +141,22 @@ func set_preview() -> StreamTexture:
 
 func _process(delta) -> void:
   if active:
-    _process_active()
+    _process_active(delta)
 
   if triggered:
     _process_trigger(delta)
   
   if coin_counter >= 1 and coin_counter <= 6:
+    coin_counter += 0.02 * Global.get_delta(delta)
+  
+  if qtype != BLOCK_TYPE.COMMON and not Empty:
+    body.animation = 'brick'
+  
+  if Empty:
+    $Body.set_animation('empty')
+
+  if coin_counter >= 1 and coin_counter <= 7:
+    print(coin_counter)
     coin_counter += 0.02 * Global.get_delta(delta)
 
 
@@ -160,7 +167,7 @@ func _physics_process(_delta) -> void:
     editor()
     return
 
-func _process_active() -> void:
+func _process_active(delta) -> void:
   if Engine.editor_hint:
     return
   var mario = Global.Mario
@@ -197,7 +204,9 @@ func _process_active() -> void:
         get_parent().add_child(coin_effect)
 
         if coin_counter > 6:
+          Empty = true
           $Body.set_animation('Empty')
+          qtype = BLOCK_TYPE.COMMON
           coin_counter = 100
 
 func brick_break():
