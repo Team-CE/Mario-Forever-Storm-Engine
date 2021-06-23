@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://GFX/HUD/anim.png" type="Texture" id=1]
 [ext_resource path="res://GFX/HUD/Mario.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://GFX/Fonts/MFFont.fnt" type="BitmapFont" id=7]
 [ext_resource path="res://Sounds/Bonuses/coin.wav" type="AudioStream" id=8]
 [ext_resource path="res://GFX/HUD/gameover.png" type="Texture" id=9]
+[ext_resource path="res://Sounds/Main/scoreing.wav" type="AudioStream" id=10]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -201,7 +202,6 @@ texture = ExtResource( 2 )
 [node name="CoinsSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 256, 43 )
 frames = SubResource( 42 )
-frame = 2
 playing = true
 
 [node name="GameoverSprite" type="Sprite" parent="."]
@@ -270,5 +270,8 @@ stream = ExtResource( 3 )
 
 [node name="CoinSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+
+[node name="ScoreSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
 
 [connection signal="animation_finished" from="TimeSprite" to="." method="_on_anim_finish"]

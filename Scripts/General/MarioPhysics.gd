@@ -12,6 +12,7 @@ onready var dead_counter: float = 0
 onready var appear_counter: float = 0
 onready var shield_counter: float = 0
 onready var launch_counter: float = 0
+onready var controls_enabled: bool = true
 
 signal top_detector_collide     #@reflexguru Implement these signals
 signal bottom_detector_collide
@@ -53,7 +54,8 @@ func _process_alive(delta) -> void:
         y_speed -= 0.5 * Global.get_delta(delta)
     y_speed += 1 * Global.get_delta(delta)
     
-  controls(delta)
+  if controls_enabled:
+    controls(delta)
   
   if x_speed > 0:
     x_speed -= 0.1 * Global.get_delta(delta)
@@ -89,7 +91,7 @@ func _process_alive(delta) -> void:
   if is_over_backdrop($SmallRightDetector, false) and is_over_backdrop($SmallLeftDetector, false):
     position.x += (1 if $SmallMario.flip_h else -1) * Global.get_delta(delta)
   
-  if position.y > $Camera.limit_bottom + 64:
+  if position.y > $Camera.limit_bottom + 64 and controls_enabled:
     Global._pll()
   
   animate(delta)

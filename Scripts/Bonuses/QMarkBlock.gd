@@ -8,6 +8,12 @@ enum VISIBILITY_TYPE {
   INVIS_ALWAYS
 }
 
+enum BLOCK_TYPE {
+  COMMON,
+  BRICK,
+  COIN_BRICK
+}
+
 export(VISIBILITY_TYPE) var Visible: int
 
 var PrevResult: Resource
@@ -16,11 +22,13 @@ export(PackedScene) var Result: PackedScene
 var PrevFrames: SpriteFrames
 export(SpriteFrames) var Frames: SpriteFrames
 
+var CoinPreview: StreamTexture = preload('res://GFX/Bonuses/CoinPreview.png')
+
 export(int, 1, 100) var Count: int = 1
 
 export(bool) var Empty: bool
 
-export(bool) var Breakable: bool
+export(BLOCK_TYPE) var qtype: int = BLOCK_TYPE.COMMON
 
 var blockShape: Shape2D
 var collision: CollisionShape2D
@@ -92,13 +100,18 @@ func _ready():
     body.animation = 'empty'
   if not Visible == VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
     visible = false
+  
+  if qtype != BLOCK_TYPE.COMMON:
+    body.animation = 'brick'
 
 
 func editor() -> void:
-  if body.animation != 'empty' && Empty:
+  if body.animation != 'empty' and Empty and qtype == BLOCK_TYPE.COMMON:
     body.animation = 'empty'
-  elif body.animation != 'default' && !Empty:
+  elif body.animation != 'default' and not Empty and qtype == BLOCK_TYPE.COMMON:
     body.animation = 'default'
+  if body.animation != 'brick' and qtype != BLOCK_TYPE.COMMON:
+    body.animation = 'brick'
 
 
   if (Result != null || PrevResult != null) && Result != PrevResult:
@@ -119,7 +132,7 @@ func set_preview() -> StreamTexture:
   var res
   
   if preview == null || !is_instance_valid(sprite):
-    return GlobalEditor.NULLTEXTURE as StreamTexture
+    return (GlobalEditor.NULLTEXTURE as StreamTexture) if qtype != BLOCK_TYPE.COIN_BRICK else CoinPreview as StreamTexture
   
   res = sprite.texture if sprite is Sprite else sprite.frames.get_frame('default' if not 'type' in result_inst else sprite.animation, 0) if sprite is AnimatedSprite else null
   
@@ -154,20 +167,47 @@ func _process_active() -> void:
   var mario_td = Global.Mario.get_node('TopDetector')
   var td_overlaps = mario_td.get_overlapping_bodies()
 
-  if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 0.01 and not mario.standing:
+  if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 3 and not mario.standing:
     active = false
-    if not Breakable:
+    if qtype == BLOCK_TYPE.COMMON:
       $Body.set_animation('empty')
     triggered = true
     visible = true
 
-    var powerup = Result.instance()
-    powerup.position = position
-    powerup.appearing = true
-    get_parent().add_child(powerup)
-    
-    if powerup.appearing and powerup is KinematicBody2D:
-      Global.play_base_sound('MAIN_PowerupGrow')
+    if qtype == BLOCK_TYPE.COMMON:
+      var powerup = Result.instance()
+      powerup.position = position
+      powerup.appearing = true
+      get_parent().add_child(powerup)
+      if powerup.appearing and powerup is KinematicBody2D:
+        Global.play_base_sound('MAIN_PowerupGrow')
+    elif qtype == BLOCK_TYPE.BRICK:
+      if Global.state == 0:
+        Global.play_base_sound('MAIN_Bump')
+      else:
+        brick_break()
+    elif qtype == BLOCK_TYPE.COIN_BRICK:
+      if coin_counter == 0:
+        coin_counter = 1
+      if coin_counter <= 100:
+        Global.play_base_sound('MAIN_Coin')
+        Global.add_coins(1)
+
+        var coin_effect = CoinEffect.new(position + Vector2(0, -32))
+        get_parent().add_child(coin_effect)
+
+        if coin_counter > 6:
+          $Body.set_animation('Empty')
+          coin_counter = 100
+
+func brick_break():
+  Global.play_base_sound('MAIN_BrickBreak')
+  var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
+  for i in range(4):
+    var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i])
+    get_parent().add_child(debris_effect)
+  Global.add_score(50)
+  queue_free()
 
 func _process_trigger(delta) -> void:
   t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)
@@ -177,13 +217,13 @@ func _process_trigger(delta) -> void:
   
   if t_counter >= 12:
     position = initial_position
-    # if bonus_type == BONUS_TYPE.BRICK or (bonus_type == BONUS_TYPE.COIN_BRICK and $Sprite.animation == 'Brick'):
-    #   t_counter = 0
-    #   triggered = false
-    #   active = true
+    if qtype != BLOCK_TYPE.COMMON:
+      t_counter = 0
+      triggered = false
+      active = true
 
 func _on_hit():
-  if Breakable:
+  if qtype == BLOCK_TYPE.COMMON:
     Global.play_base_sound('MAIN_BrickBreak')
     var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
     for i in range(4):

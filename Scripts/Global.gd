@@ -21,7 +21,8 @@ var projectiles_count: int = 0               # Self explanable
 
 var debug: bool = false                      # Debug
 
-var player_dead: bool = false                # Player Dead?
+var player_dead: bool = false
+var level_ended: bool = false
 
 onready var timer: Timer = Timer.new()      # Create a new timer for delay
 
@@ -105,7 +106,7 @@ func _pll() -> void: # Player Death
 func _delay() -> void:
   if Mario == null:
     return
-  if !Mario.dead:
+  if !Mario.dead and Mario.controls_enabled:
     emit_signal('TimeTick')
     time -= 1
     if time == -1:
