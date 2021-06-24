@@ -83,8 +83,32 @@ position = Vector2( 976, 288 )
 Result = ExtResource( 8 )
 
 [node name="QBlock3" parent="." instance=ExtResource( 10 )]
-position = Vector2( 944, 288 )
+position = Vector2( 976, 128 )
+qtype = 1
+
+[node name="QBlock13" parent="." instance=ExtResource( 10 )]
+position = Vector2( 720, 128 )
 qtype = 2
+
+[node name="QBlock8" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1008, 128 )
+qtype = 1
+
+[node name="QBlock9" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1008, 160 )
+qtype = 1
+
+[node name="QBlock10" parent="." instance=ExtResource( 10 )]
+position = Vector2( 976, 160 )
+qtype = 1
+
+[node name="QBlock11" parent="." instance=ExtResource( 10 )]
+position = Vector2( 976, 192 )
+qtype = 1
+
+[node name="QBlock12" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1008, 192 )
+qtype = 1
 
 [node name="FinishLine" parent="." instance=ExtResource( 11 )]
 position = Vector2( 3568, 416 )

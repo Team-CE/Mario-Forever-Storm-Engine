@@ -9,6 +9,12 @@ var bounce_count: int = 0
 
 var belongs: int = 0 # 0 - Mario
 
+enum BLOCK_TYPE {
+  COMMON,
+  BRICK,
+  COIN_BRICK
+}
+
 func _ready() -> void:
   velocity.x *= dir
   vis.connect('screen_exited', self, '_on_screen_exited')
@@ -30,6 +36,9 @@ func _physics_process(delta) -> void:
         bounce()
         bounce_count += 1
         skip_frame = true
+
+      if 'qtype' in overlaps[i]:
+        overlaps[i].hit(delta)
   if overlaps.size() == 0:
     skip_frame = false
 

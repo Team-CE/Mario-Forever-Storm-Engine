@@ -174,41 +174,9 @@ func _process_active(delta) -> void:
   var td_overlaps = mario_td.get_overlapping_bodies()
 
   if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 3 and not mario.standing:
-    active = false
-    if qtype == BLOCK_TYPE.COMMON:
-      $Body.set_animation('empty')
-    triggered = true
-    visible = true
+    hit(delta)
 
-    if qtype == BLOCK_TYPE.COMMON:
-      var powerup = Result.instance()
-      powerup.position = position
-      powerup.appearing = true
-      get_parent().add_child(powerup)
-      if powerup.appearing and powerup is KinematicBody2D:
-        Global.play_base_sound('MAIN_PowerupGrow')
-    elif qtype == BLOCK_TYPE.BRICK:
-      if Global.state == 0:
-        Global.play_base_sound('MAIN_Bump')
-      else:
-        brick_break()
-    elif qtype == BLOCK_TYPE.COIN_BRICK:
-      if coin_counter == 0:
-        coin_counter = 1
-      if coin_counter <= 100:
-        Global.play_base_sound('MAIN_Coin')
-        Global.add_coins(1)
-
-        var coin_effect = CoinEffect.new(position + Vector2(0, -32))
-        get_parent().add_child(coin_effect)
-
-        if coin_counter > 6:
-          Empty = true
-          $Body.set_animation('Empty')
-          qtype = BLOCK_TYPE.COMMON
-          coin_counter = 100
-
-func brick_break():
+func brick_break() -> void:
   Global.play_base_sound('MAIN_BrickBreak')
   var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
   for i in range(4):
@@ -216,6 +184,42 @@ func brick_break():
     get_parent().add_child(debris_effect)
   Global.add_score(50)
   queue_free()
+
+func hit(delta) -> void:
+  if not active: return
+  active = false
+  if qtype == BLOCK_TYPE.COMMON:
+    $Body.set_animation('empty')
+  triggered = true
+  visible = true
+
+  if qtype == BLOCK_TYPE.COMMON:
+    var powerup = Result.instance()
+    powerup.position = position
+    powerup.appearing = true
+    get_parent().add_child(powerup)
+    if powerup.appearing and powerup is KinematicBody2D:
+      Global.play_base_sound('MAIN_PowerupGrow')
+  elif qtype == BLOCK_TYPE.BRICK:
+    if Global.state == 0:
+      Global.play_base_sound('MAIN_Bump')
+    else:
+      brick_break()
+  elif qtype == BLOCK_TYPE.COIN_BRICK:
+    if coin_counter == 0:
+      coin_counter = 1
+    if coin_counter <= 100:
+      Global.play_base_sound('MAIN_Coin')
+      Global.add_coins(1)
+  
+      var coin_effect = CoinEffect.new(position + Vector2(0, -32))
+      get_parent().add_child(coin_effect)
+  
+      if coin_counter > 6:
+        Empty = true
+        $Body.set_animation('Empty')
+        qtype = BLOCK_TYPE.COMMON
+        coin_counter = 100
 
 func _process_trigger(delta) -> void:
   t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)
