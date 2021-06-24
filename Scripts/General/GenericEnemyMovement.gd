@@ -30,6 +30,7 @@ export var dir: float = -1
 export var speed: float = 50
 export var shell_speed: float = 250
 export var smart_turn: bool
+export var no_turn: bool
 export var no_gravity: bool
 export var is_stompable: bool
 export var is_kickable: bool = true
@@ -133,7 +134,7 @@ func _physics_process(delta):
   if not active:
     return
   # Gravity
-  if (!is_on_floor() and (death == DEATH_TYPE.BASIC or alive)) or (not death == DEATH_TYPE.BASIC and not alive):
+  if ((!is_on_floor() and (death == DEATH_TYPE.BASIC or alive)) or (not death == DEATH_TYPE.BASIC and not alive)) and not no_gravity:
     velocity.y += Global.gravity * (1 if alive else 0.4) * Global.get_delta(delta)
 
   if not no_velocity:
@@ -157,15 +158,18 @@ func _process_alive(delta: float) -> void:
   var bd_overlaps = mario_bd.get_overlapping_bodies()
 
   if ((not (is_shell and not shell_moving) and (bd_overlaps and bd_overlaps.has(self) and not (pd_overlaps and pd_overlaps.has(self)))) or ((is_shell and not shell_moving) and (pd_overlaps and pd_overlaps.has(self)))) and is_stompable and Global.Mario.y_speed >= 0 and shell_counter > 10:
-    if death == DEATH_TYPE.BASIC or (death == DEATH_TYPE.SHELL and shell_moving) or (death == DEATH_TYPE.SHELL and not is_shell):
+    if death == DEATH_TYPE.BASIC or death == DEATH_TYPE.FALL or (death == DEATH_TYPE.SHELL and shell_moving) or (death == DEATH_TYPE.SHELL and not is_shell):
       if Input.is_action_pressed('mario_jump'):
         Global.Mario.y_speed = -14
       else:
         Global.Mario.y_speed = -9
       Global.play_base_sound('ENEMY_Stomp')
+      if death == DEATH_TYPE.FALL:
+        no_gravity = false
+        $Collision.shape = null
     elif is_shell and not shell_moving:
       $Kick.play()
-    if death == DEATH_TYPE.BASIC:
+    if death == DEATH_TYPE.BASIC or death == DEATH_TYPE.FALL:
       alive = false
     else:
       shell_moving = !shell_moving
@@ -253,7 +257,7 @@ func WALK_AI() -> void:
   
   # Direction change
   velocity.x = speed * dir
-  if is_on_wall() and not skip_dir_change:
+  if is_on_wall() and not skip_dir_change and not no_turn:
     _turn()
 
 func PIRANHA_AI(delta: float, reversed: bool) -> void:

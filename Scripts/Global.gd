@@ -114,3 +114,11 @@ func _delay() -> void:
     time -= 1
     if time == -1:
       _pll()
+
+# Generic Functions
+
+func enemy_bounce() -> void:
+  if Input.is_action_pressed('mario_jump'):
+    Mario.y_speed = -14
+  else:
+    Mario.y_speed = -9
