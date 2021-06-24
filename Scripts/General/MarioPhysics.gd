@@ -187,21 +187,33 @@ func controls(delta) -> void:
       launch_counter = 2
       get_parent().add_child(fireball)
 
+    if Global.state == 3 and Global.projectiles_count < 2:
+      Global.play_base_sound('MAIN_Shoot')
+      var beetroot = load('res://Objects/Projectiles/Beetroot.tscn').instance()
+      beetroot.dir = -1 if $SmallMario.flip_h else 1
+      beetroot.position = Vector2(position.x, position.y - 32)
+      Global.projectiles_count += 1
+      launch_counter = 2
+      get_parent().add_child(beetroot)
+
 
 func animate(delta) -> void:
   $SmallMario.visible = Global.state == 0
   $BigMario.visible = Global.state == 1
   $FlowerMario.visible = Global.state == 2
+  $BeetrootMario.visible = Global.state == 3
 
   if x_speed <= -0.08:
     $SmallMario.flip_h = true
     $BigMario.flip_h = true
     $FlowerMario.flip_h = true
+    $BeetrootMario.flip_h = true
   
   if x_speed >= 0.08:
     $SmallMario.flip_h = false
     $BigMario.flip_h = false
     $FlowerMario.flip_h = false
+    $BeetrootMario.flip_h = false
 
   if appear_counter > 0:
     if not $SmallMario.animation == 'Appearing':
@@ -222,6 +234,7 @@ func animate(delta) -> void:
       $SmallMario.visible = Global.state == 0 and calculated_invis
       $BigMario.visible = Global.state == 1 and calculated_invis
       $FlowerMario.visible = Global.state == 2 and calculated_invis
+      $BeetrootMario.visible = Global.state == 3 and calculated_invis
   if shield_counter < 0:
     shield_counter = 0
 
@@ -255,11 +268,13 @@ func animate_sprite(anim_name) -> void:
     $SmallMario.set_animation(anim_name);
   $BigMario.set_animation(anim_name)
   $FlowerMario.set_animation(anim_name)
+  $BeetrootMario.set_animation(anim_name)
 
 func speed_scale_sprite(scale_num) -> void:
   $SmallMario.speed_scale = scale_num
   $BigMario.speed_scale = scale_num
   $FlowerMario.speed_scale = scale_num
+  $BeetrootMario.speed_scale = scale_num
 
 func update_collisions() -> void:
   $PrimaryDetector/CollisionPrimary.disabled = not (Global.state == 0 or crouch)

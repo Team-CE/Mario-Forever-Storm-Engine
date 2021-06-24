@@ -156,7 +156,6 @@ func _process(delta) -> void:
     $Body.set_animation('empty')
 
   if coin_counter >= 1 and coin_counter <= 7:
-    print(coin_counter)
     coin_counter += 0.02 * Global.get_delta(delta)
 
 

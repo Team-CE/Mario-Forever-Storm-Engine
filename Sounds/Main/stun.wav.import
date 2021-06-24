@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/stun.wav-b4b8177f8ee9d31e249e96ffcea6feea.sample"
+
+[deps]
+
+source_file="res://Sounds/Main/stun.wav"
+dest_files=[ "res://.import/stun.wav-b4b8177f8ee9d31e249e96ffcea6feea.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

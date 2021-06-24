@@ -23,12 +23,19 @@ func _ready() -> void:
     old_speed = 0
     $Sprite.set_animation('Flower')
 
+  if type == POWERUP_TYPE.BEETROOT:
+    old_speed = 0
+    $Sprite.set_animation('Beetroot')
+
 func _process(delta) -> void:
   if appearing and appear_counter < 32:
     if type != POWERUP_TYPE.MUSHROOM:
       $CollisionCollectable.disabled = true
   else:
     $CollisionCollectable.disabled = true
+
+  if type != POWERUP_TYPE.MUSHROOM:
+    $Sprite.flip_h = false
 
   var mario = get_parent().get_node('Mario')
   var pd_overlaps = mario.get_node('PrimaryDetector').get_overlapping_bodies()
@@ -48,6 +55,13 @@ func _process(delta) -> void:
           mario.appear_counter = 60
         if Global.state >= 1:
           Global.state = 2
+        else:
+          Global.state = 1
+      POWERUP_TYPE.BEETROOT:
+        if Global.state != 2:
+          mario.appear_counter = 60
+        if Global.state >= 1:
+          Global.state = 3
         else:
           Global.state = 1
 
