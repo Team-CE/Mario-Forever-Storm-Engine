@@ -22,8 +22,8 @@ func _process(delta) -> void:
       counter = 0
       $CrossingBar.position.y = initial_position
     
-    if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has($CrossingBar) or (Global.Mario.position.x > position.x and Global.Mario.y_speed == 0):
-      if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has($CrossingBar):
+    if Global.Mario.get_node('PrimaryDetector').get_overlapping_areas().has($CrossingBar) or (Global.Mario.position.x > position.x and Global.Mario.y_speed == 0):
+      if Global.Mario.get_node('PrimaryDetector').get_overlapping_areas().has($CrossingBar):
         bar_enabled = true
         $CrossingBar/Sprite.set_animation('crossed')
         var given_score: int

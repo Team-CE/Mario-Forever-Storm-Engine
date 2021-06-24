@@ -194,39 +194,39 @@ animations = [ {
 "speed": 25.0
 } ]
 
-[sub_resource type="AtlasTexture" id=47]
+[sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 18 )
 region = Rect2( 62, 0, 31, 62 )
 
-[sub_resource type="AtlasTexture" id=48]
+[sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 18 )
 region = Rect2( 0, 0, 31, 62 )
 
-[sub_resource type="AtlasTexture" id=49]
+[sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 18 )
 region = Rect2( 31, 0, 31, 62 )
 
-[sub_resource type="AtlasTexture" id=50]
+[sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 18 )
 region = Rect2( 62, 0, 31, 62 )
 
-[sub_resource type="AtlasTexture" id=51]
+[sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 19 )
 region = Rect2( 0, 0, 34, 62 )
 
-[sub_resource type="AtlasTexture" id=52]
+[sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 19 )
 region = Rect2( 34, 0, 34, 62 )
 
-[sub_resource type="AtlasTexture" id=53]
+[sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 19 )
 region = Rect2( 68, 0, 34, 62 )
 
-[sub_resource type="AtlasTexture" id=54]
+[sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 19 )
 region = Rect2( 102, 0, 34, 62 )
 
-[sub_resource type="SpriteFrames" id=55]
+[sub_resource type="SpriteFrames" id=33]
 animations = [ {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
@@ -243,32 +243,32 @@ animations = [ {
 "name": "Launching",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 47 ) ],
+"frames": [ SubResource( 25 ) ],
 "loop": true,
 "name": "Stopped",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 48 ), SubResource( 49 ), SubResource( 50 ) ],
+"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
 "name": "Walking",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ) ],
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ) ],
 "loop": true,
 "name": "Appearing",
 "speed": 25.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=56]
+[sub_resource type="RectangleShape2D" id=34]
 extents = Vector2( 10, 14 )
 
-[sub_resource type="RectangleShape2D" id=57]
+[sub_resource type="RectangleShape2D" id=35]
 extents = Vector2( 10, 27 )
 
-[sub_resource type="RectangleShape2D" id=58]
+[sub_resource type="RectangleShape2D" id=36]
 extents = Vector2( 10, 5 )
 
-[sub_resource type="RectangleShape2D" id=59]
+[sub_resource type="RectangleShape2D" id=37]
 extents = Vector2( 7, 2 )
 
 [sub_resource type="RectangleShape2D" id=38]
@@ -348,7 +348,8 @@ playing = true
 [node name="BeetrootMario" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 0, -30 )
-frames = SubResource( 55 )
+z_index = 10
+frames = SubResource( 33 )
 animation = "Stopped"
 playing = true
 
@@ -359,25 +360,25 @@ visible = false
 
 [node name="CollisionPrimary" type="CollisionShape2D" parent="PrimaryDetector"]
 position = Vector2( 0, -13 )
-shape = SubResource( 56 )
+shape = SubResource( 34 )
 
 [node name="CollisionPrimaryBig" type="CollisionShape2D" parent="PrimaryDetector"]
 position = Vector2( 0, -26 )
-shape = SubResource( 57 )
+shape = SubResource( 35 )
 
 [node name="InsideDetector" type="Area2D" parent="."]
 visible = false
 
 [node name="CollisionInside" type="CollisionShape2D" parent="InsideDetector"]
 position = Vector2( 0, -9 )
-shape = SubResource( 58 )
+shape = SubResource( 36 )
 
 [node name="BottomDetector" type="Area2D" parent="."]
 visible = false
 
 [node name="CollisionBottom" type="CollisionShape2D" parent="BottomDetector"]
 position = Vector2( 0, 12 )
-shape = SubResource( 59 )
+shape = SubResource( 37 )
 
 [node name="CollisionBottomClose" type="CollisionShape2D" parent="BottomDetector"]
 position = Vector2( 0, 4 )
@@ -388,7 +389,7 @@ visible = false
 
 [node name="CollisionTop" type="CollisionShape2D" parent="TopDetector"]
 position = Vector2( 0, -37 )
-shape = SubResource( 59 )
+shape = SubResource( 37 )
 
 [node name="CollisionTopBig" type="CollisionShape2D" parent="TopDetector"]
 position = Vector2( 0, -60 )

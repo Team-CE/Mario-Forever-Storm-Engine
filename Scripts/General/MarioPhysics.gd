@@ -13,6 +13,7 @@ onready var appear_counter: float = 0
 onready var shield_counter: float = 0
 onready var launch_counter: float = 0
 onready var controls_enabled: bool = true
+onready var animation_enabled: bool = true
 
 signal top_detector_collide     #@reflexguru Implement these signals
 signal bottom_detector_collide
@@ -202,6 +203,8 @@ func animate(delta) -> void:
   $BigMario.visible = Global.state == 1
   $FlowerMario.visible = Global.state == 2
   $BeetrootMario.visible = Global.state == 3
+
+  if not animation_enabled: return
 
   if x_speed <= -0.08:
     $SmallMario.flip_h = true

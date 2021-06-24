@@ -58,7 +58,7 @@ func _process(delta) -> void:
         else:
           Global.state = 1
       POWERUP_TYPE.BEETROOT:
-        if Global.state != 2:
+        if Global.state != 3:
           mario.appear_counter = 60
         if Global.state >= 1:
           Global.state = 3

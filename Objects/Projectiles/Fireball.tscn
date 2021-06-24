@@ -10,6 +10,7 @@ extents = Vector2( 3, 6 )
 extents = Vector2( 8, 8 )
 
 [node name="Fireball" type="KinematicBody2D"]
+z_index = 9
 script = ExtResource( 2 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
