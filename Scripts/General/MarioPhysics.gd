@@ -34,6 +34,14 @@ func is_over_backdrop(obj, ignore_hidden) -> bool:
 
   return false
 
+func is_over_platform(obj) -> bool:
+  var overlaps = obj.get_overlapping_areas()
+
+  if overlaps.size() > 0 && (overlaps[0].is_in_group('Platform')):
+    return overlaps[0]
+  
+  return false
+
 func _process(delta) -> void:
   if not dead:
     _process_alive(delta)
@@ -69,9 +77,12 @@ func _process_alive(delta) -> void:
   if y_speed > 0:
     jump_counter = 1
   
-  if is_over_backdrop($BottomDetector, false) and y_speed > 0:
+  if (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector)) and y_speed > 0:
     if is_over_backdrop($InsideDetector, false):
       position.y -= 16
+    var platform = is_over_platform($BottomDetector)
+    if platform:
+      position.x += platform.horizontal_speed * Global.get_delta(delta)
     y_speed = 0
     standing = true
     jump_counter = 0
@@ -144,10 +155,10 @@ func controls(delta) -> void:
     can_jump = false
     $BaseSounds/MAIN_Jump.play()
   
-  if y_speed > 0.01 and not is_over_backdrop($BottomDetector, false):
+  if y_speed > 0.01 and not (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector)):
     standing = false
   
-  if Input.is_action_pressed('mario_crouch') and is_over_backdrop($BottomDetector, false) and Global.state > 0:
+  if Input.is_action_pressed('mario_crouch') and (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector)) and Global.state > 0:
     crouch = true
     if x_speed > 0:
       x_speed -= 0.1 * Global.get_delta(delta)
@@ -250,17 +261,17 @@ func animate(delta) -> void:
     animate_sprite('Crouching')
     return
 
-  if not y_speed == 0 or not is_over_backdrop($BottomDetector, false):
+  if not y_speed == 0 or not (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector)):
     animate_sprite('Jumping')
   elif abs(x_speed) < 0.08:
     animate_sprite('Stopped')
     
   if x_speed <= -0.08:
-    if (y_speed == 0 and is_over_backdrop($BottomDetector, false)) or $SmallMario.animation == 'Launching':
+    if (y_speed == 0 and (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector))) or $SmallMario.animation == 'Launching':
       animate_sprite('Walking')
       
   if x_speed >= 0.08:
-    if (y_speed == 0 and is_over_backdrop($BottomDetector, false)) or $SmallMario.animation == 'Launching':
+    if (y_speed == 0 and (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector))) or $SmallMario.animation == 'Launching':
       animate_sprite('Walking')
       
   if $SmallMario.animation == 'Walking':

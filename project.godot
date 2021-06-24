@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Level.gd"
 }, {
+"base": "Area2D",
+"class": "Platform",
+"language": "GDScript",
+"path": "res://Scripts/General/Platform.gd"
+}, {
 "base": "GenericEnemyMovement",
 "class": "Powerup",
 "language": "GDScript",
@@ -66,6 +71,7 @@ _global_script_class_icons={
 "FLMusicLib": "",
 "GenericEnemyMovement": "res://GFX/Editor/Enemy.png",
 "Level": "",
+"Platform": "",
 "Powerup": "res://GFX/Editor/Powerup.png",
 "QBlock": "res://GFX/Editor/QBlock.png",
 "ScoreText": "",
