@@ -3,7 +3,7 @@ extends Area2D
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
 
 var dir: int
-var speed: float = 3
+var speed: float = 3.16
 var falling: bool = false
 
 var y_accel: float = 0
@@ -24,6 +24,9 @@ func _process(delta) -> void:
       get_parent().add_child(score_text)
       falling = true
       Global.play_base_sound('ENEMY_Stomp')
+      
+    if pd_overlaps and pd_overlaps[0] == self:
+      Global._ppd()
   else:
     position.y += y_accel * Global.get_delta(delta)
     y_accel += 0.2 * Global.get_delta(delta)
