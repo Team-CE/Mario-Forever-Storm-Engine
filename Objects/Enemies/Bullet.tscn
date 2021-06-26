@@ -5,7 +5,7 @@
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+extents = Vector2( 16, 13 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -31,7 +31,6 @@ animations = [ {
 script = ExtResource( 2 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 

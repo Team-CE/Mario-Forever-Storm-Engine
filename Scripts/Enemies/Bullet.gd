@@ -14,7 +14,7 @@ func _process(delta) -> void:
 
   if not falling:
     var mario_bd = Global.Mario.get_node('BottomDetector')
-    var mario_pd = Global.Mario.get_node('InsideDetector')
+    var mario_pd = Global.Mario.get_node('PrimaryDetector')
     var pd_overlaps = mario_pd.get_overlapping_areas()
     var bd_overlaps = mario_bd.get_overlapping_areas()
 
@@ -25,7 +25,7 @@ func _process(delta) -> void:
       falling = true
       Global.play_base_sound('ENEMY_Stomp')
       
-    if pd_overlaps and pd_overlaps[0] == self:
+    if pd_overlaps and pd_overlaps.has(self):
       Global._ppd()
   else:
     position.y += y_accel * Global.get_delta(delta)

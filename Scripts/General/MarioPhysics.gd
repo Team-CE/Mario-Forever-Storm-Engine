@@ -322,6 +322,7 @@ func debug() -> void:
   $DebugText.text = 'x speed = ' + str(x_speed) + '\ny speed = ' + str(y_speed) + '\nanimation: ' + str($BigMario.animation).to_lower() + '\nfps: ' + str(Engine.get_frames_per_second())
 
 func _process_camera() -> void:
+  if dead: return
   var base_y = floor((position.y + 240) / 960) * 960
   $Camera.limit_top = base_y
   $Camera.limit_bottom = base_y + 480
