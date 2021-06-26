@@ -23,6 +23,7 @@ func set_volume(vol: float) -> void:
   volume = vol
   music_player.set_volume(vol)
 
-func _track_ended() -> void:
+func track_ended() -> void:
   push_warning('Track is ended!')
+  music_player.play_music(MUSIC_FOLDER + 'interference_ending.mod', 0, true, -1, -1, 0)
 
