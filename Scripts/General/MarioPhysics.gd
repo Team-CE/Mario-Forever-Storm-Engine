@@ -43,6 +43,8 @@ func is_over_platform(obj) -> bool:
   return false
 
 func _process(delta) -> void:
+  _process_camera()
+
   if not dead:
     _process_alive(delta)
   else:
@@ -319,3 +321,7 @@ func debug() -> void:
   
   $DebugText.text = 'x speed = ' + str(x_speed) + '\ny speed = ' + str(y_speed) + '\nanimation: ' + str($BigMario.animation).to_lower() + '\nfps: ' + str(Engine.get_frames_per_second())
 
+func _process_camera() -> void:
+  var base_y = floor((position.y + 240) / 960) * 960
+  $Camera.limit_top = base_y
+  $Camera.limit_bottom = base_y + 480

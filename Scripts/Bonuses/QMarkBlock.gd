@@ -98,8 +98,6 @@ func _ready():
   
   if Empty:
     body.animation = 'empty'
-  if not Visible == VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
-    visible = false
 
 
 func editor() -> void:
@@ -169,12 +167,16 @@ func _physics_process(_delta) -> void:
 func _process_active(delta) -> void:
   if Engine.editor_hint:
     return
+  if not Visible == VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
+    visible = false
   var mario = Global.Mario
   var mario_td = Global.Mario.get_node('TopDetector')
   var td_overlaps = mario_td.get_overlapping_bodies()
 
   if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 3 and not mario.standing:
     hit(delta)
+  
+  $Body.visible = visible
 
 func brick_break() -> void:
   Global.play_base_sound('MAIN_BrickBreak')
