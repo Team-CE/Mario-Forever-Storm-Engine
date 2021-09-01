@@ -6,7 +6,9 @@ enum AI_TYPE {
   IDLE,
   WALK,
   PIRANHA,
-  PIRANHA_UPSIDE_DOWN
+  PIRANHA_UPSIDE_DOWN,
+  CUSTOM,
+  JUMP
 }
 
 enum DEATH_TYPE {
@@ -34,6 +36,8 @@ export var no_turn: bool
 export var no_gravity: bool
 export var is_stompable: bool
 export var is_kickable: bool = true
+export var jump_height: float = 0
+export var gravity_modifier: float = 1
 
 export var score: int = 100
 
@@ -44,12 +48,14 @@ export(AI_TYPE) var ai: int = AI_TYPE.IDLE
 export(DEATH_TYPE) var death: int = DEATH_TYPE.BASIC
 
 export var appearing: bool = false
+export var appear_speed: float = 0.5
 var appear_counter: float = 0
 var appeared: bool = false
 
 var death_complete: bool = false
 
 var old_speed: float
+var old_ai: int
 
 var is_shell: bool = false
 var shell_moving: bool = true
@@ -80,6 +86,7 @@ func _ready() -> void:
   self.add_to_group('Enemy')
 
   old_speed = speed
+  old_ai = ai
   initial_y = position.y + (59 * (-1 if ai == AI_TYPE.PIRANHA_UPSIDE_DOWN else 1))
 
 # _AI() function redirect to other AI functions
@@ -95,6 +102,8 @@ func _AI(delta: float) -> void:
       PIRANHA_AI(delta, true)
     AI_TYPE.CUSTOM:
       CUSTOM_AI()
+    AI_TYPE.JUMP:
+      JUMP_AI()
 
 func _physics_process(delta):
   skip_dir_change = false
@@ -104,8 +113,8 @@ func _physics_process(delta):
 
   if appearing and appear_counter < 32:
     active = false
-    position.y -= 0.5 * Global.get_delta(delta)
-    appear_counter += 0.5 * Global.get_delta(delta)
+    position.y -= appear_speed * Global.get_delta(delta)
+    appear_counter += appear_speed * Global.get_delta(delta)
     no_gravity = true
     velocity.y = 0
     $Collision.disabled = true
@@ -116,7 +125,10 @@ func _physics_process(delta):
     if old_speed != -99:
       speed = old_speed
       old_speed = -99
-    ai = AI_TYPE.WALK
+    #ai = AI_TYPE.WALK
+    if old_ai != -99:
+      ai = old_ai
+      old_ai = -99
     no_gravity = false
     $Collision.disabled = false
     z_index = 0
@@ -135,7 +147,7 @@ func _physics_process(delta):
     return
   # Gravity
   if ((!is_on_floor() and (death == DEATH_TYPE.BASIC or alive)) or (not death == DEATH_TYPE.BASIC and not alive)) and not no_gravity:
-    velocity.y += Global.gravity * (1 if alive else 0.4) * Global.get_delta(delta)
+    velocity.y += Global.gravity * gravity_modifier * (1 if alive else 0.4) * Global.get_delta(delta)
 
   if not no_velocity:
     velocity = move_and_slide(velocity, Vector2.UP)
@@ -194,6 +206,9 @@ func _process_alive(delta: float) -> void:
   var g_overlaps = $Feets/Feet_M.get_overlapping_bodies()
   if g_overlaps and g_overlaps[0] is StaticBody2D and g_overlaps[0].triggered and g_overlaps[0].t_counter < 12 and is_kickable and not appearing:
     kick(0)
+  
+  if is_on_floor():
+    velocity.y = 1
 
 func kick(score_multiplier: float) -> void:
   if death == DEATH_TYPE.BASIC:
@@ -279,6 +294,12 @@ func PIRANHA_AI(delta: float, reversed: bool) -> void:
   
   if piranha_counter >= 260 and (Global.Mario.position.x < position.x - 80 or Global.Mario.position.x > position.x + 80):
     piranha_counter = 0
+
+# Lui AI
+func JUMP_AI():
+  if is_on_floor():
+    velocity.y = -jump_height
+    $Kick.play()
 
 # Free move AI
 func CUSTOM_AI() -> void:

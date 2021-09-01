@@ -3,7 +3,7 @@ extends Area2D
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
 
 var dir: int = 1
-var velocity: Vector2 = Vector2(2, -6)
+var velocity: Vector2 = Vector2(2.4, -6)
 var skip_frame: bool = false
 var bounce_count: int = 0
 

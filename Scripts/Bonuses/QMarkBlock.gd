@@ -219,7 +219,7 @@ func hit(delta) -> void:
   
       if coin_counter > 6:
         Empty = true
-        $Body.set_animation('Empty')
+        $Body.set_animation('empty')
         qtype = BLOCK_TYPE.COMMON
         coin_counter = 100
 

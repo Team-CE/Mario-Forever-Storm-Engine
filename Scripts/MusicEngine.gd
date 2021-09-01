@@ -23,7 +23,14 @@ func set_volume(vol: float) -> void:
   volume = vol
   music_player.set_volume(vol)
 
+func fade_out(time: float) -> void:
+  var smooth
+  while volume > -100:
+    smooth = Global.lerpa(volume, 100, 0.03)
+    set_volume(smooth)
+    yield(get_tree().create_timer(time), "timeout")
+
 func track_ended() -> void:
   push_warning('Track is ended!')
-  music_player.play_music(MUSIC_FOLDER + 'interference_ending.mod', 0, true, -1, -1, 0)
+  music_player.stop_music()
 

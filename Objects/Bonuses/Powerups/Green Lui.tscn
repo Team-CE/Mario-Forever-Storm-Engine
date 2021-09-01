@@ -1,0 +1,102 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Scripts/Bonuses/Powerup.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Bonuses/Mushroom.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Bonuses/GreenLui.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14, 1 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 30, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 60, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 90, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 120, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 150, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 3 )
+region = Rect2( 180, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 3 )
+region = Rect2( 210, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 240, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 270, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 300, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 330, 0, 30, 31 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "Green Lui",
+"speed": 40.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Mushroom",
+"speed": 5.0
+} ]
+
+[node name="Powerup" type="KinematicBody2D"]
+script = ExtResource( 1 )
+can_hurt = false
+dir = 1.0
+speed = 0.0
+is_kickable = false
+jump_height = 350.0
+gravity_modifier = 0.5
+ai = 5
+type = 3
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -16 )
+shape = SubResource( 1 )
+
+[node name="CollisionCollectable" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -35 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( -1, -16 )
+frames = SubResource( 15 )
+animation = "Green Lui"
+frame = 4
+playing = true
+
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )

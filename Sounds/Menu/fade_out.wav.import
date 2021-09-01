@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fade_out.wav-f38198e6570b64ed5ba7e3056bc1c2cf.sample"
+
+[deps]
+
+source_file="res://Sounds/Menu/fade_out.wav"
+dest_files=[ "res://.import/fade_out.wav-f38198e6570b64ed5ba7e3056bc1c2cf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

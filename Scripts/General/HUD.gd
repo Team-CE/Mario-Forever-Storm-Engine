@@ -15,7 +15,7 @@ func _time() -> void:
   if Global.time == 99 and not Global.level_ended:
     $TimeSprite.playing = true
     $TimeoutSound.play()
-  $Time.text = str(Global.time)
+  $Time.text = str(abs(Global.time))
 
 func _life_lose() -> void:
   print('Died!')

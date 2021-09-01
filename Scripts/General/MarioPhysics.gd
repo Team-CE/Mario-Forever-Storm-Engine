@@ -280,9 +280,10 @@ func animate(delta) -> void:
     speed_scale_sprite(abs(x_speed) * 2.5 + 4)
 
 func animate_sprite(anim_name) -> void:
-  if anim_name != 'Crouching':
-    $SmallMario.set_animation(anim_name);
-  $BigMario.set_animation(anim_name)
+  if anim_name != 'Launching':
+    if anim_name != 'Crouching':
+      $SmallMario.set_animation(anim_name);
+    $BigMario.set_animation(anim_name)
   $FlowerMario.set_animation(anim_name)
   $BeetrootMario.set_animation(anim_name)
 

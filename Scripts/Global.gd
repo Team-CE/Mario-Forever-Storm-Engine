@@ -1,5 +1,22 @@
 extends Node
 
+var GameName = "CloudEngine"
+var soundBar: float = 0                      # Game options
+var musicBar: float = 0
+var effects: bool = true
+var scroll: int = 0
+var vsync: bool = false
+var rpc: bool = false
+
+var toSaveInfo = {
+  "SoundVol": soundBar,
+  "MusicVol": musicBar,
+  "Efekty": effects,
+  "Scroll": scroll,
+  "VSync": vsync,
+  "RPC": rpc
+}
+
 var gravity: float = 20                      # Global gravity
 
 var HUD: CanvasLayer                         # ref HUD
@@ -37,6 +54,29 @@ func _ready() -> void:
     add_child(preload('res://Objects/Core/Inspector.tscn').instance()) # Adding a debug inspector
   timer.wait_time = 1.45
   add_child(timer)
+  
+  toSaveInfo = JSON.parse(loadInfo()).result
+  
+  soundBar = toSaveInfo.SoundVol
+  musicBar = toSaveInfo.MusicVol
+  effects = toSaveInfo.Efekty
+  scroll = toSaveInfo.Scroll
+  vsync = toSaveInfo.VSync
+  rpc = toSaveInfo.RPC
+  #MusicEngine.set_volume(musicBar)
+
+func saveInfo(content):
+    var file = File.new()
+    file.open("user://" + GameName + ".cloudsav", File.WRITE)
+    file.store_string(content)
+    file.close()
+
+func loadInfo():
+    var file = File.new()
+    file.open("user://" + GameName + ".cloudsav", File.READ)
+    var content = file.get_as_text()
+    file.close()
+    return content
 
 func _reset() -> void:   # Level Restart
   lives -= 1
@@ -122,3 +162,6 @@ func enemy_bounce() -> void:
     Mario.y_speed = -14
   else:
     Mario.y_speed = -9
+
+func lerpa(a, b, t):
+  return a - t * (b - a)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lets_bg.wav-2150659398373c769115011aca760b2c.sample"
+
+[deps]
+
+source_file="res://Sounds/Menu/lets_bg.wav"
+dest_files=[ "res://.import/lets_bg.wav-2150659398373c769115011aca760b2c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

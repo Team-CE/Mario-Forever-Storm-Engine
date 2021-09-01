@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Enemies/Cannon.tscn" type="PackedScene" id=2]
@@ -22,6 +22,9 @@
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Objects/Enemies/Koopa Red.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Objects/Level/Finish Line.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Objects/Bonuses/Powerups/Poison Mushroom.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Objects/Bonuses/Powerups/Life Mushroom.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Objects/Bonuses/Powerups/Green Lui.tscn" type="PackedScene" id=25]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.105882, 0, 0.733333, 1, 0.94902, 0.992157, 0.988235, 1 )
@@ -142,7 +145,7 @@ Result = ExtResource( 7 )
 [node name="QBlock28" parent="." instance=ExtResource( 11 )]
 position = Vector2( 48, 1120 )
 Visible = 2
-Result = ExtResource( 7 )
+Result = ExtResource( 23 )
 
 [node name="QBlock10" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1520, 192 )
@@ -162,7 +165,7 @@ Result = ExtResource( 8 )
 
 [node name="QBlock23" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5168, 192 )
-Result = ExtResource( 7 )
+Result = ExtResource( 24 )
 
 [node name="QBlock32" parent="." instance=ExtResource( 11 )]
 position = Vector2( 4944, 1088 )
@@ -176,6 +179,14 @@ Result = ExtResource( 7 )
 position = Vector2( 5168, 320 )
 Visible = 2
 Result = ExtResource( 7 )
+
+[node name="QBlock34" parent="." instance=ExtResource( 11 )]
+position = Vector2( 192, 288 )
+Result = ExtResource( 25 )
+
+[node name="QBlock35" parent="." instance=ExtResource( 11 )]
+position = Vector2( 224, 288 )
+Result = ExtResource( 25 )
 
 [node name="QBlock25" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5136, 320 )
@@ -281,6 +292,7 @@ position = Vector2( 1408, 320 )
 
 [node name="Piranha3" parent="." instance=ExtResource( 10 )]
 position = Vector2( 1696, 160 )
+no_turn = true
 
 [node name="Piranha4" parent="." instance=ExtResource( 10 )]
 position = Vector2( 2208, 256 )
@@ -530,43 +542,48 @@ texture = ExtResource( 13 )
 position = Vector2( 224, 401 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 1
 playing = true
 
 [node name="Grass5" type="AnimatedSprite" parent="."]
 position = Vector2( 960, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 2
 playing = true
 
 [node name="Grass6" type="AnimatedSprite" parent="."]
 position = Vector2( 1856, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 2
 playing = true
 
 [node name="Grass7" type="AnimatedSprite" parent="."]
 position = Vector2( 3296, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 2
 playing = true
 
 [node name="Grass2" type="AnimatedSprite" parent="."]
 position = Vector2( 2880, 401 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 2
 playing = true
 
 [node name="Grass3" type="AnimatedSprite" parent="."]
 position = Vector2( 3840, 401 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 2
 playing = true
 
 [node name="Grass4" type="AnimatedSprite" parent="."]
 position = Vector2( 5136, 401 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 2
 playing = true
 
 [node name="Trees" type="Sprite" parent="."]
@@ -1075,3 +1092,6 @@ dir = -2.0
 
 [node name="FinishLine" parent="." instance=ExtResource( 22 )]
 position = Vector2( 10592, 416 )
+
+[node name="Powerup" parent="." instance=ExtResource( 25 )]
+position = Vector2( 512, 416 )

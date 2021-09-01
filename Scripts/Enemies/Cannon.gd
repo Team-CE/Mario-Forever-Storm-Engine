@@ -21,12 +21,13 @@ func _process(delta) -> void:
   if counter > 25:
     $Shoot.play()
     counter = rand_range(50, 200) * -1
-    var explosion = Explosion.new(position)
-    get_parent().add_child(explosion)
     var bullet = load('res://Objects/Enemies/Bullet.tscn').instance()
     bullet.position = Vector2(position.x, position.y + 16)
     bullet.dir = -1 if Global.Mario.position.x < position.x else 1
+    var explosionPos = position + Vector2(bullet.dir * 16, 0)
+    var explosion = Explosion.new(explosionPos)
     get_parent().add_child(bullet)
+    get_parent().add_child(explosion)
 
 func _on_screen_entered() -> void:
   on_screen = true
