@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
+[ext_resource path="res://Prefabs/Animations/Goomba.res" type="SpriteFrames" id=2]
+[ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 12, 11 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 11, 10 )
+
+[node name="AliveObject" type="KinematicBody2D" groups=[
+"Enemy",
+]]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "Use for Enemy and Powerups"
+}
+score = 200
+ray_L_pth = NodePath("Ray_L")
+ray_R_pth = NodePath("Ray_R")
+animated_sprite_pth = NodePath("Sprite")
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 2 )
+animation = "walk"
+frame = 1
+offset = Vector2( 0, -16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -11 )
+shape = SubResource( 1 )
+
+[node name="Ray_L" type="RayCast2D" parent="."]
+position = Vector2( -12, 0 )
+enabled = true
+cast_to = Vector2( 0, 15 )
+
+[node name="Ray_R" type="RayCast2D" parent="."]
+position = Vector2( 12, 0 )
+enabled = true
+cast_to = Vector2( 0, 15 )
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2( 0, -14 )
+shape = SubResource( 2 )
+
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_entered"]

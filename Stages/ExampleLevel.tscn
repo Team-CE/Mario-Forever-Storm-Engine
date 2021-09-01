@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Enemies/Cannon.tscn" type="PackedScene" id=2]
@@ -24,7 +24,8 @@
 [ext_resource path="res://Objects/Level/Finish Line.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Objects/Bonuses/Powerups/Poison Mushroom.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Objects/Bonuses/Powerups/Life Mushroom.tscn" type="PackedScene" id=24]
-[ext_resource path="res://Objects/Bonuses/Powerups/Green Lui.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Prefabs/AliveObject.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Scripts/AI/Walk.gd" type="Script" id=26]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.105882, 0, 0.733333, 1, 0.94902, 0.992157, 0.988235, 1 )
@@ -33,9 +34,11 @@ colors = PoolColorArray( 0.105882, 0, 0.733333, 1, 0.94902, 0.992157, 0.988235, 
 gradient = SubResource( 1 )
 width = 640
 
-[node name="Level" type="Node"]
+[node name="Level" type="Node2D"]
 script = ExtResource( 3 )
 music = "interference_ending.mod"
+
+[node name="HUD" parent="." instance=ExtResource( 1 )]
 
 [node name="TileMap" type="TileMap" parent="." groups=[
 "Solid",
@@ -50,13 +53,11 @@ tile_data = PoolIntArray( -458715, 3, 0, -393179, 3, 0, -327643, 3, 0, -262107, 
 [node name="Mario" parent="." instance=ExtResource( 6 )]
 position = Vector2( 128, 416 )
 
-[node name="HUD" parent="." instance=ExtResource( 1 )]
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_ignore_camera_zoom = true
 
 [node name="Background" type="Sprite" parent="ParallaxBackground"]
-position = Vector2( -0.000142981, 241.892 )
+position = Vector2( 8.73115e-11, 240 )
 rotation = 1.57079
 scale = Vector2( 0.755912, 645 )
 z_index = -100
@@ -179,14 +180,6 @@ Result = ExtResource( 7 )
 position = Vector2( 5168, 320 )
 Visible = 2
 Result = ExtResource( 7 )
-
-[node name="QBlock34" parent="." instance=ExtResource( 11 )]
-position = Vector2( 192, 288 )
-Result = ExtResource( 25 )
-
-[node name="QBlock35" parent="." instance=ExtResource( 11 )]
-position = Vector2( 224, 288 )
-Result = ExtResource( 25 )
 
 [node name="QBlock25" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5136, 320 )
@@ -542,48 +535,49 @@ texture = ExtResource( 13 )
 position = Vector2( 224, 401 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 2
 playing = true
 
 [node name="Grass5" type="AnimatedSprite" parent="."]
 position = Vector2( 960, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Grass6" type="AnimatedSprite" parent="."]
 position = Vector2( 1856, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Grass7" type="AnimatedSprite" parent="."]
 position = Vector2( 3296, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Grass2" type="AnimatedSprite" parent="."]
 position = Vector2( 2880, 401 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Grass3" type="AnimatedSprite" parent="."]
 position = Vector2( 3840, 401 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Grass4" type="AnimatedSprite" parent="."]
 position = Vector2( 5136, 401 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Trees" type="Sprite" parent="."]
@@ -1093,5 +1087,10 @@ dir = -2.0
 [node name="FinishLine" parent="." instance=ExtResource( 22 )]
 position = Vector2( 10592, 416 )
 
-[node name="Powerup" parent="." instance=ExtResource( 25 )]
-position = Vector2( 512, 416 )
+[node name="AliveObject" parent="." instance=ExtResource( 25 )]
+position = Vector2( 304, 416 )
+AI = ExtResource( 26 )
+
+[node name="Goomba7" parent="." instance=ExtResource( 20 )]
+position = Vector2( 384, 416 )
+speed = 0.0

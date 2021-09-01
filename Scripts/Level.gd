@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name Level
 tool
 
@@ -6,7 +6,6 @@ export var time: int = 360
 export var music: String = ''
 
 onready var tileMap: TileMap
-
 
 func _ready():
   if !Engine.editor_hint:

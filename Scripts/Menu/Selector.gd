@@ -145,7 +145,6 @@ func controls(delta):
             if Global.soundBar > -100:
               Global.soundBar -= 10
               AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), Global.soundBar / 12)
-              print(Global.soundBar)
               $tick.play()
             if Global.soundBar == -100:
               AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -1000)

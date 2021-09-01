@@ -1,6 +1,8 @@
 extends KinematicBody2D
 class_name GenericEnemyMovement, "res://GFX/Editor/Enemy.png"
 
+const multiplier_scores = [100, 200, 500, 1000, 2000, 5000, 1]
+
 # AI Types
 enum AI_TYPE {
   IDLE,
@@ -214,8 +216,6 @@ func kick(score_multiplier: float) -> void:
   if death == DEATH_TYPE.BASIC:
     death = DEATH_TYPE.FALL
   alive = false
-
-  var multiplier_scores = [100, 200, 500, 1000, 2000, 5000, 1]
 
   var score_text = ScoreText.new(multiplier_scores[score_multiplier], position)
   get_parent().add_child(score_text)

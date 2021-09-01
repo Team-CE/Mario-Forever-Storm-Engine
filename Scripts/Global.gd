@@ -57,6 +57,8 @@ func _ready() -> void:
   
   toSaveInfo = JSON.parse(loadInfo()).result
   
+  if !toSaveInfo:
+    return
   soundBar = toSaveInfo.SoundVol
   musicBar = toSaveInfo.MusicVol
   effects = toSaveInfo.Efekty
@@ -81,8 +83,10 @@ func loadInfo():
 func _reset() -> void:   # Level Restart
   lives -= 1
   player_dead = false
+# warning-ignore:return_value_discarded
   get_tree().reload_current_scene()
 
+# warning-ignore:unused_argument
 func _physics_process(delta: float) -> void:
   if timer.time_left <= 1 && time != -1: # Wait for delaying
     _delay()
@@ -96,23 +100,29 @@ func _physics_process(delta: float) -> void:
       lives += 1
       _reset()
 
+# warning-ignore:shadowed_variable
 func add_score(score: int) -> void:
+# warning-ignore:narrowing_conversion
   self.score += abs(score)
   HUD.get_node('Score').text = str(self.score)
   emit_signal('OnScoreChange')
 
+# warning-ignore:shadowed_variable
 func add_lives(lives: int, create_scoretext: bool) -> void:
   var scorePos = Mario.position
   scorePos.y -= 32
   if create_scoretext:
     var ScoreT = ScoreText.new(1, scorePos)
     Mario.get_parent().add_child(ScoreT)
+# warning-ignore:narrowing_conversion
   self.lives += abs(lives)
   HUD.get_node('LifeSound').play()
   HUD.get_node('Lives').text = str(self.lives)
   emit_signal('OnLivesAdded')
 
+# warning-ignore:shadowed_variable
 func add_coins(coins: int) -> void:
+# warning-ignore:narrowing_conversion
   self.coins += abs(coins)
   if self.coins >= 100:
     add_lives(1, true)

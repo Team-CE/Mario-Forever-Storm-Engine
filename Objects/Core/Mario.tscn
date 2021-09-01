@@ -23,15 +23,15 @@
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 60, 0, 30, 31 )
+region = Rect2( 0, 0, 30, 31 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 30, 31 )
+region = Rect2( 30, 0, 30, 31 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 30, 0, 30, 31 )
+region = Rect2( 60, 0, 30, 31 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 10 )
@@ -47,216 +47,216 @@ region = Rect2( 31, 0, 31, 57 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 1 ) ],
-"loop": true,
-"name": "Stopped",
-"speed": 5.0
+"name": "Walking",
+"speed": 1.0
 }, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "Dead",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 1 ) ],
-"loop": true,
-"name": "Walking",
-"speed": 1.0
-}, {
 "frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "Appearing",
 "speed": 25.0
+}, {
+"frames": [ SubResource( 3 ) ],
+"loop": true,
+"name": "Stopped",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
 } ]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 8 )
-region = Rect2( 62, 0, 31, 59 )
+region = Rect2( 0, 0, 31, 59 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 31, 59 )
+region = Rect2( 31, 0, 31, 59 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 8 )
-region = Rect2( 31, 0, 31, 59 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 8 )
 region = Rect2( 62, 0, 31, 59 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 0, 31, 57 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 10 )
 region = Rect2( 31, 0, 31, 57 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 10 )
 region = Rect2( 62, 0, 31, 57 )
 
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 8 )
+region = Rect2( 62, 0, 31, 59 )
+
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "Crouching",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 8 ) ],
-"loop": true,
-"name": "Stopped",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "Walking",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "Appearing",
 "speed": 25.0
+}, {
+"frames": [ SubResource( 14 ) ],
+"loop": true,
+"name": "Stopped",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
 } ]
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 11 )
-region = Rect2( 62, 0, 31, 59 )
+region = Rect2( 0, 0, 31, 59 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 31, 59 )
+region = Rect2( 31, 0, 31, 59 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 11 )
-region = Rect2( 31, 0, 31, 59 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 11 )
 region = Rect2( 62, 0, 31, 59 )
 
-[sub_resource type="AtlasTexture" id=20]
+[sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 34, 59 )
 
-[sub_resource type="AtlasTexture" id=21]
+[sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 12 )
 region = Rect2( 34, 0, 34, 59 )
 
-[sub_resource type="AtlasTexture" id=22]
+[sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 12 )
 region = Rect2( 68, 0, 34, 59 )
 
-[sub_resource type="AtlasTexture" id=23]
+[sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 12 )
 region = Rect2( 102, 0, 34, 59 )
 
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 11 )
+region = Rect2( 62, 0, 31, 59 )
+
 [sub_resource type="SpriteFrames" id=24]
 animations = [ {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "Crouching",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "Walking",
+"speed": 1.0
 }, {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "Launching",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 16 ) ],
+"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "Appearing",
+"speed": 25.0
+}, {
+"frames": [ SubResource( 23 ) ],
 "loop": true,
 "name": "Stopped",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ ExtResource( 14 ) ],
 "loop": true,
-"name": "Walking",
-"speed": 1.0
-}, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
-"loop": true,
-"name": "Appearing",
-"speed": 25.0
+"name": "Jumping",
+"speed": 5.0
 } ]
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 18 )
-region = Rect2( 62, 0, 31, 62 )
+region = Rect2( 0, 0, 31, 62 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 18 )
-region = Rect2( 0, 0, 31, 62 )
+region = Rect2( 31, 0, 31, 62 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 18 )
-region = Rect2( 31, 0, 31, 62 )
-
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 18 )
 region = Rect2( 62, 0, 31, 62 )
 
-[sub_resource type="AtlasTexture" id=29]
+[sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 19 )
 region = Rect2( 0, 0, 34, 62 )
 
-[sub_resource type="AtlasTexture" id=30]
+[sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 19 )
 region = Rect2( 34, 0, 34, 62 )
 
-[sub_resource type="AtlasTexture" id=31]
+[sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 19 )
 region = Rect2( 68, 0, 34, 62 )
 
-[sub_resource type="AtlasTexture" id=32]
+[sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 19 )
 region = Rect2( 102, 0, 34, 62 )
 
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 18 )
+region = Rect2( 62, 0, 31, 62 )
+
 [sub_resource type="SpriteFrames" id=33]
 animations = [ {
-"frames": [ ExtResource( 17 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "Crouching",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"loop": true,
+"name": "Walking",
+"speed": 1.0
 }, {
 "frames": [ ExtResource( 20 ) ],
 "loop": true,
 "name": "Launching",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 25 ) ],
+"frames": [ SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "Appearing",
+"speed": 25.0
+}, {
+"frames": [ SubResource( 32 ) ],
 "loop": true,
 "name": "Stopped",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"frames": [ ExtResource( 17 ) ],
 "loop": true,
-"name": "Walking",
-"speed": 1.0
-}, {
-"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ) ],
-"loop": true,
-"name": "Appearing",
-"speed": 25.0
+"name": "Jumping",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=34]
@@ -374,7 +374,6 @@ position = Vector2( 0, -9 )
 shape = SubResource( 36 )
 
 [node name="BottomDetector" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionBottom" type="CollisionShape2D" parent="BottomDetector"]
 position = Vector2( 0, 12 )
