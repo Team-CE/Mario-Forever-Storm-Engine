@@ -1,19 +1,21 @@
 extends AnimatedSprite
 
-var CONTROLS_ASSIGN = {
-  #0: 'ui_accept',
-  0: 'mario_up',
-  1: 'mario_crouch',
-  2: 'mario_left',
-  3: 'mario_right',
-  4: 'mario_jump',
-  5: 'mario_fire'
-}
+var CONTROLS_ASSIGN = [
+  'mario_up',
+  'mario_crouch',
+  'mario_left',
+  'mario_right',
+  'mario_jump',
+  'mario_fire'
+]
 
 var time
 var sel = 0
 var screen = 0
 var selLimit
+
+var fading_out = false
+var circle_size = 0.623
 
 onready var controls_enabled: bool = true
 onready var controls_changing: bool = false
@@ -22,21 +24,28 @@ func _ready() -> void:
 #  var an : AnimationPlayer = get_parent().get_parent().get_node('AnimationPlayer')
 #  an.connect('animation_finished',self,'animFinished')
   time = get_tree().create_timer(0)
-  connect('animation_finished',self,'animends')
+  connect('animation_finished', self, 'animends')
   MusicEngine.set_volume(Global.musicBar / 12)
   AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
 
 func _process(delta):
   # Random Blinking
   if !playing && time.time_left <= 0.0:
-    randomize()                          #For full random
-    var rand = randi()%5+2               #Get a Random number
-    time = get_tree().create_timer(rand) #Create a new SceneTimer
-    yield(time, 'timeout')               #Delay
-    playing = true                       #Set anim play
+    randomize()                          # For full random
+    var rand = randi() % 5 + 2           # Get a Random number
+    time = get_tree().create_timer(rand) # Create a new SceneTimer
+    yield(time, 'timeout')               # Delay
+    playing = true                       # Set anim play
     
   if controls_enabled:
     controls()
+
+  if fading_out:
+    circle_size -= 0.01 * Global.get_delta(delta)
+    get_parent().get_node('Transition').visible = true
+    get_parent().get_node('Transition').material.set_shader_param('circle_size', circle_size)
+  else:
+    get_parent().get_node('Transition').visible = false
     
   var base_y = screen * 480
   $Camera2D.limit_top = base_y
@@ -89,6 +98,7 @@ func controls():
             MusicEngine.fade_out(0.3)
             yield(get_tree().create_timer( 2.5 ), 'timeout')
             $fadeout.play()
+            fading_out = true
             MusicEngine.islooping = false
             MusicEngine.track_ended('')
             #get_tree().change_scene('res://SaveRoom.tscn')
@@ -122,15 +132,7 @@ func controls():
             screen = 0
             sel = 1
             $enter_options.play()
-            Global.toSaveInfo = {
-              'SoundVol': Global.soundBar,
-              'MusicVol': Global.musicBar,
-              'Efekty': Global.effects,
-              'Scroll': Global.scroll,
-              'VSync': Global.vsync,
-              'RPC': Global.rpc
-            }
-            Global.saveInfo(JSON.print(Global.toSaveInfo))
+            saveOptions()
       if Input.is_action_just_pressed('ui_right'):
         match sel:
           0:
@@ -195,22 +197,14 @@ func controls():
       elif Input.is_action_just_pressed('ui_cancel'):
         screen = 0
         sel = 1
-        Global.toSaveInfo = {
-          'SoundVol': Global.soundBar,
-          'MusicVol': Global.musicBar,
-          'Efekty': Global.effects,
-          'Scroll': Global.scroll,
-          'VSync': Global.vsync,
-          'RPC': Global.rpc
-        }
-        Global.saveInfo(JSON.print(Global.toSaveInfo))
+        saveOptions()
     2:    # _____ CONTROLS _____
       if Input.is_action_just_pressed('ui_accept') and sel < 6:
         get_parent().get_node('Label' + str(sel)).text = 'PRESS A KEY TO ASSIGN'
         controls_changing = true
         controls_enabled = false
         get_tree().set_input_as_handled()
-            
+
       if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept') and sel == 6:
         screen = 1
         sel = 4
@@ -246,3 +240,15 @@ func updateOptions():
   get_parent().get_node('Buttons/Scroll').frame = Global.scroll
   get_parent().get_node('Buttons/VSync').frame = Global.vsync
   get_parent().get_node('Buttons/RPC').frame = Global.rpc
+
+func saveOptions():
+  Global.toSaveInfo = {
+    'SoundVol': Global.soundBar,
+    'MusicVol': Global.musicBar,
+    'Efekty': Global.effects,
+    'Scroll': Global.scroll,
+    'VSync': Global.vsync,
+    'RPC': Global.rpc,
+    'Controls': CONTROLS_ASSIGN
+  }
+  Global.saveInfo(JSON.print(Global.toSaveInfo))

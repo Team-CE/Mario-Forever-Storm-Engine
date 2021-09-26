@@ -14,7 +14,15 @@ var toSaveInfo = {
   "Efekty": effects,
   "Scroll": scroll,
   "VSync": vsync,
-  "RPC": rpc
+  "RPC": rpc,
+  "Controls": [
+    '',
+    '',
+    '',
+    '',
+    '',
+    ''
+  ]
 }
 
 var gravity: float = 20                      # Global gravity

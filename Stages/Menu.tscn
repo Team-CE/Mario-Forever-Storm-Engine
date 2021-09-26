@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://GFX/Menu/Logo.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Menu/Selector.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://GFX/Menu/toggle.png" type="Texture" id=12]
 [ext_resource path="res://GFX/Menu/settings.png" type="Texture" id=13]
 [ext_resource path="res://GFX/Menu/options_string.png" type="Texture" id=14]
+[ext_resource path="res://icon.png" type="Texture" id=15]
 [ext_resource path="res://Sounds/Main/scoreing.wav" type="AudioStream" id=16]
 [ext_resource path="res://Scripts/Menu/Menu.gd" type="Script" id=17]
 [ext_resource path="res://GFX/Menu/menu_bg.png" type="Texture" id=18]
@@ -170,6 +171,26 @@ animations = [ {
 } ]
 
 [sub_resource type="Animation" id=33]
+
+[sub_resource type="Shader" id=34]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float circle_size : hint_range(0.0, 1.05);
+uniform float screen_width;
+uniform float screen_height;
+
+void fragment() {
+	float ratio = screen_width / screen_height;
+	float dist = distance(vec2(0.5, 0.5), vec2(mix(0.5, UV.x, ratio), UV.y));
+	COLOR.a = step(circle_size, dist);
+}"
+
+[sub_resource type="ShaderMaterial" id=35]
+shader = SubResource( 34 )
+shader_param/circle_size = 0.623
+shader_param/screen_width = 1.0
+shader_param/screen_height = 1.0
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -412,3 +433,10 @@ texture = ExtResource( 24 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Toggle = SubResource( 33 )
+
+[node name="Transition" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+material = SubResource( 35 )
+position = Vector2( 323.107, 244.107 )
+scale = Vector2( 6.21359, 6.21359 )
+texture = ExtResource( 15 )
