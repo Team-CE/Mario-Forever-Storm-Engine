@@ -1,9 +1,10 @@
-extends AIBase
+extends Brain
 
-static func _ai_process(delta:float,b:AliveObject) -> void:
-  b.velocity.x = b.speed * b.dir
-  if !b.is_on_floor():
-    b.velocity.y += Global.gravity * b.gravity_scale
-  if b.is_on_wall():
-    b.turn()
+func _ai_process(delta:float) -> void:
+  ._ai_process(delta)
+  owner.velocity.x = owner.vars["speed"] * owner.dir
+  if !owner.is_on_floor():
+    owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
+  if owner.is_on_wall():
+    owner.turn()
   

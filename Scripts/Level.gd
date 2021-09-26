@@ -4,12 +4,14 @@ tool
 
 export var time: int = 360
 export var music: String = ''
+export var death_height: float = 512
 
 onready var tileMap: TileMap
 
 func _ready():
   if !Engine.editor_hint:
     Global.time = time
+    Global.currlevel = self
     MusicEngine.play_music(music)
     print('[Level]: Ready!')
   elif not get_node('Mario'):

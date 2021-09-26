@@ -9,15 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
-"class": "AIBase",
-"language": "GDScript",
-"path": "res://Scripts/AI/AIBase.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "AliveObject",
 "language": "GDScript",
 "path": "res://Scripts/General/Generic/AliveObject.gd"
+}, {
+"base": "Node",
+"class": "Brain",
+"language": "GDScript",
+"path": "res://Scripts/AI/Brain.gd"
 }, {
 "base": "Sprite",
 "class": "BrickEffect",
@@ -39,7 +39,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/Explosion.gd"
 }, {
-"base": "Node",
+"base": "",
 "class": "FLMusicLib",
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
@@ -85,8 +85,8 @@ _global_script_classes=[ {
 "path": "res://Scripts/General/Warp.gd"
 } ]
 _global_script_class_icons={
-"AIBase": "",
 "AliveObject": "",
+"Brain": "",
 "BrickEffect": "",
 "Cannon": "res://GFX/Editor/Enemy.png",
 "CoinEffect": "",

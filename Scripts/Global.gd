@@ -48,6 +48,7 @@ var debug: bool = false                      # Debug
 
 var player_dead: bool = false
 var level_ended: bool = false
+var currlevel :Node2D
 
 onready var timer: Timer = Timer.new()      # Create a new timer for delay
 

@@ -17,17 +17,16 @@ enum DEATH_TYPE {
   DISAPPEAR
 }
 
-export var speed: float
-export var jump_height:float
-export var gravity_scale: float = 1
+export var vars: Dictionary = {"speed":100.0,"jump height":50.0}
 export var AI:Script
 export(DIRECTION) var piranha_dir: int #Use for pirahna AI **ONLY**
 #export var is_static: bool
-export var score: int
+export var gravity_scale: float = 1
+export var score: int           = 100
 export var smart_turn: bool
 export var invincible: bool
 export var ignore_all: bool #temporary
-export(float,-1,1) var dir: float = 1
+export(float,-1,1) var dir: float = -1
 
 #RayCasts leave empty if smart_turn = false
 export var ray_L_pth: NodePath
@@ -45,7 +44,8 @@ var alive: bool = true
 var freezed: bool
 var death_type:int
 
-onready var first_pos: Vector2 = position
+onready var first_pos: Vector2 = position #For pirahna plant and other enemies
+onready var brain: Brain = Brain.new()      #Shell for AI
 
 func _ready() -> void:
   if ray_L_pth == null || ray_R_pth == null:
@@ -55,32 +55,41 @@ func _ready() -> void:
     ray_R = get_node(ray_R_pth)
   
   if animated_sprite_pth == null:
-    push_warning("Can't load Animated sprite at:"+str(self))
+    push_warning('[CE WARNING] Cant load Animated sprite at:'+str(self))
   else:
     animated_sprite = get_node(animated_sprite_pth)
+  
+  brain.name = 'Brain'
+  add_child(brain)
+  if AI != null:
+    brain.set_script(AI)
+    brain._setup(self)
+  else:
+    printerr('[CE ERROR] AliveObject'+str(self)+' is brainless!')
+
 
 func _physics_process(delta:float) -> void:
-  if alive:
-    AI._ai_process(delta,self)
-    if !is_on_floor():
-      velocity.y += Global.gravity * gravity_scale
+  if alive && !freezed:
+    brain._ai_process(delta)
   
+  if position.y > Global.currlevel.death_height:
+    queue_free()
   #Fixing ceiling collision and is_on_floor() flickering
   if is_on_floor() || is_on_ceiling():
     velocity.y = 1
   
   velocity = move_and_slide(velocity,Vector2.UP)
 
-#helpful functions
+#Useful functions
 func turn()->void:
   dir = -dir
-  velocity.x = speed * dir
+  velocity.x = vars["speed"] * dir
 
 func on_edge() -> bool:
   return ray_L.is_colliding() || ray_R.is_colliding()
 
 func kill(death_type: int= 0) -> void:
-  match death_type:
+  match death_type:       #TEMP
     DEATH_TYPE.BASIC:
       pass
     DEATH_TYPE.DISAPPEAR:

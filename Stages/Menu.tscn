@@ -437,6 +437,7 @@ anims/Toggle = SubResource( 33 )
 [node name="Transition" type="Sprite" parent="."]
 modulate = Color( 0, 0, 0, 1 )
 material = SubResource( 35 )
-position = Vector2( 323.107, 244.107 )
+position = Vector2( 0, -80 )
 scale = Vector2( 6.21359, 6.21359 )
 texture = ExtResource( 15 )
+centered = false
