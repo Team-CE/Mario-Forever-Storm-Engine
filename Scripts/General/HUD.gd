@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+export var active: bool = true
 
 func _ready() -> void:
   Global.HUD = self
@@ -10,6 +11,9 @@ func _ready() -> void:
   Global.connect('TimeTick', self, '_time')
   Global.connect('OnPlayerLoseLife', self, '_life_lose')
   $GameoverSprite.visible = false
+
+  if not active:
+    queue_free()
 
 func _time() -> void:
   if Global.time == 99 and not Global.level_ended:

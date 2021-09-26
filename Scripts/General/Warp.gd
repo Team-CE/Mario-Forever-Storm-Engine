@@ -17,6 +17,7 @@ enum TYPES {
 export var id: int = 0
 export(DIRS) var direction: int = DIRS.DOWN
 export(TYPES) var type: int = TYPES.IN
+export var immediate: bool = false
 
 var in_icon: StreamTexture = preload('res://GFX/Editor/WarpIcon.png')
 var out_icon: StreamTexture = preload('res://GFX/Editor/WarpOutIcon.png')
@@ -42,6 +43,12 @@ func _ready() -> void:
   
   if not out_node:
     printerr('[CE ERROR] No out warp assigned for id ' + str(id) + ', it will not be functional.')
+  
+  if not Engine.editor_hint and immediate:
+    active = true
+    out_node = self
+    counter = 61
+    Global.Mario.animate_sprite('Crouching')
 
 func _process(delta) -> void:
   if Engine.editor_hint:
