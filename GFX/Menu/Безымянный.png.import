@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/on.png-a3dc0d58da518918098ffd20ecabc34b.stex"
+path="res://.import/Безымянный.png-428fd644ac0b536043f3cdcc106f195f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Menu/on.png"
-dest_files=[ "res://.import/on.png-a3dc0d58da518918098ffd20ecabc34b.stex" ]
+source_file="res://GFX/Menu/Безымянный.png"
+dest_files=[ "res://.import/Безымянный.png-428fd644ac0b536043f3cdcc106f195f.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

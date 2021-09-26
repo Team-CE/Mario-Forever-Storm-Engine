@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://GFX/Menu/Logo.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Menu/Selector.gd" type="Script" id=2]
@@ -11,10 +11,9 @@
 [ext_resource path="res://Sounds/Menu/fade_out.wav" type="AudioStream" id=9]
 [ext_resource path="res://Sounds/Menu/change.wav" type="AudioStream" id=10]
 [ext_resource path="res://Sounds/Menu/select_controls.wav" type="AudioStream" id=11]
-[ext_resource path="res://GFX/Menu/off.png" type="Texture" id=12]
+[ext_resource path="res://GFX/Menu/toggle.png" type="Texture" id=12]
 [ext_resource path="res://GFX/Menu/settings.png" type="Texture" id=13]
 [ext_resource path="res://GFX/Menu/options_string.png" type="Texture" id=14]
-[ext_resource path="res://GFX/Menu/on.png" type="Texture" id=15]
 [ext_resource path="res://Sounds/Main/scoreing.wav" type="AudioStream" id=16]
 [ext_resource path="res://Scripts/Menu/Menu.gd" type="Script" id=17]
 [ext_resource path="res://GFX/Menu/menu_bg.png" type="Texture" id=18]
@@ -22,6 +21,9 @@
 [ext_resource path="res://GFX/Menu/options_bg.png" type="Texture" id=20]
 [ext_resource path="res://GFX/Menu/credits_bg.png" type="Texture" id=21]
 [ext_resource path="res://Scripts/Menu/OptionsWave.gd" type="Script" id=22]
+[ext_resource path="res://GFX/Menu/scroll.png" type="Texture" id=23]
+[ext_resource path="res://GFX/Menu/controls.png" type="Texture" id=24]
+[ext_resource path="res://GFX/Menu/controls_keyboard.png" type="Texture" id=25]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 5 )
@@ -79,67 +81,95 @@ animations = [ {
 "speed": 35.0
 } ]
 
-[sub_resource type="SpriteFrames" id=14]
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 63, 36 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 36, 63, 36 )
+
+[sub_resource type="SpriteFrames" id=16]
 animations = [ {
-"frames": [ ExtResource( 12 ), ExtResource( 15 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "default",
 "speed": 0.0
 } ]
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 91, 32 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 7 )
-region = Rect2( 91, 0, 91, 32 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 7 )
-region = Rect2( 182, 0, 91, 32 )
+region = Rect2( 0, 0, 91, 32 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 7 )
-region = Rect2( 273, 0, 91, 32 )
+region = Rect2( 91, 0, 91, 32 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 7 )
-region = Rect2( 364, 0, 91, 32 )
+region = Rect2( 182, 0, 91, 32 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 7 )
-region = Rect2( 455, 0, 91, 32 )
+region = Rect2( 273, 0, 91, 32 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 7 )
-region = Rect2( 546, 0, 91, 32 )
+region = Rect2( 364, 0, 91, 32 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 7 )
-region = Rect2( 637, 0, 91, 32 )
+region = Rect2( 455, 0, 91, 32 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 7 )
-region = Rect2( 728, 0, 91, 32 )
+region = Rect2( 546, 0, 91, 32 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 7 )
-region = Rect2( 819, 0, 91, 32 )
+region = Rect2( 637, 0, 91, 32 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 7 )
+region = Rect2( 728, 0, 91, 32 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 7 )
+region = Rect2( 819, 0, 91, 32 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 7 )
 region = Rect2( 910, 0, 91, 32 )
 
-[sub_resource type="SpriteFrames" id=26]
+[sub_resource type="SpriteFrames" id=28]
 animations = [ {
-"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
 "loop": true,
 "name": "default",
 "speed": 0.0
 } ]
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 23 )
+region = Rect2( 0, 0, 178, 32 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 23 )
+region = Rect2( 0, 32, 178, 32 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 23 )
+region = Rect2( 0, 64, 178, 32 )
+
+[sub_resource type="SpriteFrames" id=32]
+animations = [ {
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=33]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -220,6 +250,78 @@ margin_bottom = 162.0
 texture = ExtResource( 1 )
 stretch_mode = 4
 
+[node name="Label0" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1024.0
+margin_right = 448.0
+margin_bottom = 1056.0
+text = "Text"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label1" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1088.0
+margin_right = 448.0
+margin_bottom = 1120.0
+text = "Text"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1152.0
+margin_right = 448.0
+margin_bottom = 1184.0
+text = "Text"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1216.0
+margin_right = 448.0
+margin_bottom = 1248.0
+text = "Text"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1280.0
+margin_right = 448.0
+margin_bottom = 1312.0
+text = "Text"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1344.0
+margin_right = 448.0
+margin_bottom = 1376.0
+text = "Text"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="S_Start" type="AnimatedSprite" parent="."]
 position = Vector2( 248, 358 )
 frames = SubResource( 13 )
@@ -273,15 +375,15 @@ texture = ExtResource( 13 )
 
 [node name="Effects" type="AnimatedSprite" parent="Buttons"]
 position = Vector2( 483, 625 )
-frames = SubResource( 14 )
+frames = SubResource( 16 )
 
 [node name="VSync" type="AnimatedSprite" parent="Buttons"]
 position = Vector2( 482, 735 )
-frames = SubResource( 14 )
+frames = SubResource( 16 )
 
 [node name="RPC" type="AnimatedSprite" parent="Buttons"]
 position = Vector2( 482, 776 )
-frames = SubResource( 14 )
+frames = SubResource( 16 )
 
 [node name="OptionsString" type="Sprite" parent="Buttons"]
 position = Vector2( 79, 564 )
@@ -290,11 +392,23 @@ script = ExtResource( 22 )
 
 [node name="SoundBar" type="AnimatedSprite" parent="Buttons"]
 position = Vector2( 498, 550 )
-frames = SubResource( 26 )
+frames = SubResource( 28 )
 
 [node name="MusicBar" type="AnimatedSprite" parent="Buttons"]
 position = Vector2( 498, 587 )
-frames = SubResource( 26 )
+frames = SubResource( 28 )
+
+[node name="Scroll" type="AnimatedSprite" parent="Buttons"]
+position = Vector2( 539, 662 )
+frames = SubResource( 32 )
+
+[node name="Keyboard" type="Sprite" parent="Buttons"]
+position = Vector2( 72, 1032 )
+texture = ExtResource( 25 )
+
+[node name="Controls" type="Sprite" parent="Buttons"]
+position = Vector2( 320, 1200 )
+texture = ExtResource( 24 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Toggle = SubResource( 27 )
+anims/Toggle = SubResource( 33 )

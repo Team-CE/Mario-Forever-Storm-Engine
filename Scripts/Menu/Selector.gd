@@ -1,19 +1,30 @@
 extends AnimatedSprite
 
+var CONTROLS_ASSIGN = {
+  #0: 'ui_accept',
+  0: 'mario_up',
+  1: 'mario_crouch',
+  2: 'mario_left',
+  3: 'mario_right',
+  4: 'mario_jump',
+  5: 'mario_fire'
+}
+
 var time
 var sel = 0
 var screen = 0
 var selLimit
 
 onready var controls_enabled: bool = true
+onready var controls_changing: bool = false
 
 func _ready() -> void:
-#  var an : AnimationPlayer = get_parent().get_parent().get_node("AnimationPlayer")
-#  an.connect("animation_finished",self,"animFinished")
+#  var an : AnimationPlayer = get_parent().get_parent().get_node('AnimationPlayer')
+#  an.connect('animation_finished',self,'animFinished')
   time = get_tree().create_timer(0)
-  connect("animation_finished",self,'animends')
+  connect('animation_finished',self,'animends')
   MusicEngine.set_volume(Global.musicBar / 12)
-  AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), Global.soundBar / 12)
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
 
 func _process(delta):
   # Random Blinking
@@ -21,11 +32,11 @@ func _process(delta):
     randomize()                          #For full random
     var rand = randi()%5+2               #Get a Random number
     time = get_tree().create_timer(rand) #Create a new SceneTimer
-    yield(time, "timeout")               #Delay
+    yield(time, 'timeout')               #Delay
     playing = true                       #Set anim play
     
   if controls_enabled:
-    controls(delta)
+    controls()
     
   var base_y = screen * 480
   $Camera2D.limit_top = base_y
@@ -44,9 +55,9 @@ func _process(delta):
       updateOptions()
       $Credits.hide()
     2:
-      position.y = 960 + (37.5 * sel)
-      position.x = 224
-      selLimit = 5
+      position.y = 1018 + (64 * sel)
+      position.x = 172
+      selLimit = 6
     3:
       position.y = 1920 + 216
       position.x = 240
@@ -54,28 +65,33 @@ func _process(delta):
       $Credits.position.y -= 1 * Global.get_delta(delta)
       $Credits.show()
     
-func controls(delta):
-  if Input.is_action_just_pressed("ui_down") and sel < selLimit:
+func controls():
+  if Input.is_action_just_pressed('ui_down') and sel < selLimit:
     sel += 1
-    var effect = MarioHeadEffect.new(position)
-    get_parent().add_child(effect)
+    if Global.effects:
+      var effect = MarioHeadEffect.new(position)
+      get_parent().add_child(effect)
     $select_main.play()
-  elif Input.is_action_just_pressed("ui_up") and sel > 0:
+  elif Input.is_action_just_pressed('ui_up') and sel > 0:
     sel -= 1
-    var effect = MarioHeadEffect.new(position)
-    get_parent().add_child(effect)
+    if Global.effects:
+      var effect = MarioHeadEffect.new(position)
+      get_parent().add_child(effect)
     $select_main.play()
   
   match screen:
-    0: 
-      if Input.is_action_just_pressed("ui_accept"):
+    0:    # _____ MAIN _____
+      if Input.is_action_just_pressed('ui_accept'):
         match sel:
           0:
             controls_enabled = false
             $letsgo.play()
             MusicEngine.fade_out(0.3)
-            yield(get_tree().create_timer( 3 ), "timeout")
+            yield(get_tree().create_timer( 2.5 ), 'timeout')
             $fadeout.play()
+            MusicEngine.islooping = false
+            MusicEngine.track_ended('')
+            #get_tree().change_scene('res://SaveRoom.tscn')
           1:
             screen += 1
             sel = 0
@@ -83,8 +99,12 @@ func controls(delta):
           2:
             controls_enabled = false
             $enter_options.play()
-    1:
-      if Input.is_action_just_pressed("ui_accept"):
+            MusicEngine.fade_out(0.2)
+            yield(get_tree().create_timer( 1 ), 'timeout')
+            get_tree().quit()
+            
+    1:    # _____ OPTIONS _____
+      if Input.is_action_just_pressed('ui_accept'):
         match sel:
           4:
             screen = 2
@@ -95,27 +115,28 @@ func controls(delta):
             sel = 0
             $enter_options.play()
             $Credits.position.y = 0
-            MusicEngine.track_ended()
-            MusicEngine.play_music("credits.mod")
+            MusicEngine.track_ended('credits.mod')
+            #MusicEngine.play_music('credits.mod')
+            #MusicEngine.islooping = true
           9:
             screen = 0
             sel = 1
             $enter_options.play()
             Global.toSaveInfo = {
-              "SoundVol": Global.soundBar,
-              "MusicVol": Global.musicBar,
-              "Efekty": Global.effects,
-              "Scroll": Global.scroll,
-              "VSync": Global.vsync,
-              "RPC": Global.rpc
+              'SoundVol': Global.soundBar,
+              'MusicVol': Global.musicBar,
+              'Efekty': Global.effects,
+              'Scroll': Global.scroll,
+              'VSync': Global.vsync,
+              'RPC': Global.rpc
             }
             Global.saveInfo(JSON.print(Global.toSaveInfo))
-      if Input.is_action_just_pressed("ui_right"):
+      if Input.is_action_just_pressed('ui_right'):
         match sel:
           0:
             if Global.soundBar < 0:
               Global.soundBar += 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), Global.soundBar / 12)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
               $tick.play()
           1:
             if Global.musicBar < 0:
@@ -139,15 +160,15 @@ func controls(delta):
               Global.rpc = true
               $change.play()
               
-      elif Input.is_action_just_pressed("ui_left"):
+      elif Input.is_action_just_pressed('ui_left'):
         match sel:
           0:
             if Global.soundBar > -100:
               Global.soundBar -= 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), Global.soundBar / 12)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
               $tick.play()
             if Global.soundBar == -100:
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -1000)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), -1000)
           1:
             if Global.musicBar > -100:
               Global.musicBar -= 10
@@ -171,35 +192,57 @@ func controls(delta):
             if Global.rpc:
               Global.rpc = false
               $change.play()
-      elif Input.is_action_just_pressed("ui_cancel"):
+      elif Input.is_action_just_pressed('ui_cancel'):
         screen = 0
         sel = 1
         Global.toSaveInfo = {
-          "SoundVol": Global.soundBar,
-          "MusicVol": Global.musicBar,
-          "Efekty": Global.effects,
-          "Scroll": Global.scroll,
-          "VSync": Global.vsync,
-          "RPC": Global.rpc
+          'SoundVol': Global.soundBar,
+          'MusicVol': Global.musicBar,
+          'Efekty': Global.effects,
+          'Scroll': Global.scroll,
+          'VSync': Global.vsync,
+          'RPC': Global.rpc
         }
         Global.saveInfo(JSON.print(Global.toSaveInfo))
-    2:
-      if Input.is_action_just_pressed("ui_cancel"):
+    2:    # _____ CONTROLS _____
+      if Input.is_action_just_pressed('ui_accept') and sel < 6:
+        get_parent().get_node('Label' + str(sel)).text = 'PRESS A KEY TO ASSIGN'
+        controls_changing = true
+        controls_enabled = false
+        get_tree().set_input_as_handled()
+            
+      if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept') and sel == 6:
         screen = 1
         sel = 4
-    3:
-      if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_accept"):
+        controls_changing = false
+        controls_enabled = true
+    3:    # _____ CREDITS _____
+      if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept'):
         screen = 1
         sel = 8
-        MusicEngine.track_ended()
-        MusicEngine.play_music("start.xm")
+        MusicEngine.track_ended('start.xm')
+        #MusicEngine.play_music('start.xm')
          
 func animends():
   playing = false
 
+func _input(event):
+  if event is InputEventKey and event.pressed and controls_changing:
+    if not event.is_action("ui_cancel"):
+      var scancode = OS.get_scancode_string(event.scancode)
+      get_parent().get_node('Label' + str(sel)).text = scancode
+      for old_event in InputMap.get_action_list(CONTROLS_ASSIGN[sel]):
+        InputMap.action_erase_event(CONTROLS_ASSIGN[sel], old_event)
+      InputMap.action_add_event(CONTROLS_ASSIGN[sel], event)
+    else:
+      pass
+    controls_changing = false
+    controls_enabled = true
+  
 func updateOptions():
-  get_parent().get_node("Buttons/SoundBar").frame = 10 + (Global.soundBar / 10)
-  get_parent().get_node("Buttons/MusicBar").frame = 10 + (Global.musicBar / 10)
-  get_parent().get_node("Buttons/Effects").frame = Global.effects
-  get_parent().get_node("Buttons/VSync").frame = Global.vsync
-  get_parent().get_node("Buttons/RPC").frame = Global.rpc
+  get_parent().get_node('Buttons/SoundBar').frame = 10 + (Global.soundBar / 10)
+  get_parent().get_node('Buttons/MusicBar').frame = 10 + (Global.musicBar / 10)
+  get_parent().get_node('Buttons/Effects').frame = Global.effects
+  get_parent().get_node('Buttons/Scroll').frame = Global.scroll
+  get_parent().get_node('Buttons/VSync').frame = Global.vsync
+  get_parent().get_node('Buttons/RPC').frame = Global.rpc

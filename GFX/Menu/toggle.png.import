@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/menu_bg.png-4b50dd1062731fb9e9ba9534dbd807ed.stex"
+path="res://.import/toggle.png-15c3c89844398978575b7107a5079b9b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Menu/menu_bg.png"
-dest_files=[ "res://.import/menu_bg.png-4b50dd1062731fb9e9ba9534dbd807ed.stex" ]
+source_file="res://GFX/Menu/toggle.png"
+dest_files=[ "res://.import/toggle.png-15c3c89844398978575b7107a5079b9b.stex" ]
 
 [params]
 
