@@ -6,7 +6,7 @@ const multiplier_scores = [100, 200, 500, 1000, 2000, 5000, 1]
 enum DEATH_TYPE {
   BASIC,
   FALL,
-  SHELL,            # Requires "Shell Stopped" and "Shell Moving" animations.
+  CUSTOM,
   DISAPPEAR
 }
 
@@ -24,6 +24,7 @@ export(float,-1,1) var dir: float = -1
 export var ray_L_pth: NodePath
 export var ray_R_pth: NodePath
 export var sound_pth: NodePath
+export var alt_sound_pth: NodePath
 export var animated_sprite_pth: NodePath
 
 var ray_L: RayCast2D
@@ -61,6 +62,12 @@ func _ready() -> void:
   else:
     printerr('[CE ERROR] AliveObject'+str(self)+' is brainless!')
 
+  if brain.has_method('_ready_mixin'):
+    brain._ready_mixin()
+
+  if death_type == DEATH_TYPE.CUSTOM && !brain.has_method('_on_custom_death'):
+    printerr('[CE ERROR] AliveObject' + str(self) + ': No custom death function provided.')
+
 func _physics_process(delta:float) -> void:
   if !alive:
     return
@@ -75,7 +82,7 @@ func _physics_process(delta:float) -> void:
   velocity = move_and_slide(velocity,Vector2.UP)
 
 #Useful functions
-func turn()->void:
+func turn() -> void:
   dir = -dir
   velocity.x = vars["speed"] * dir
 
@@ -83,7 +90,7 @@ func on_edge() -> bool:
   return ray_L.is_colliding() || ray_R.is_colliding()
 
 # warning-ignore:shadowed_variable
-func kill(death_type: int= 0) -> void:
+func kill(death_type: int = 0) -> void:
   alive = false
   collision_layer = 0
   collision_mask = 0
@@ -94,10 +101,17 @@ func kill(death_type: int= 0) -> void:
       velocity.x = 0
       get_parent().add_child(ScoreText.new(score, position))
       yield(get_tree().create_timer(2.0), 'timeout')
+      queue_free()
     DEATH_TYPE.DISAPPEAR:
-      pass
+      queue_free()
     DEATH_TYPE.FALL:
       pass
-    DEATH_TYPE.SHELL:
-      pass
-  queue_free()
+    DEATH_TYPE.CUSTOM:
+      if brain.has_method('_on_custom_death'):
+        brain._on_custom_death()
+
+func _on_custom_death(): # replace this function in your ai script.
+  pass
+
+func _ready_mixin(): # replace this function in your ai script.
+  pass

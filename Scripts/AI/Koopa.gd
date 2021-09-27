@@ -1,5 +1,15 @@
 extends Brain
 
+enum DEATH_TYPE {
+  BASIC,
+  FALL,
+  CUSTOM,
+  DISAPPEAR
+}
+
+func _ready_mixin():
+  owner.death_type = DEATH_TYPE.CUSTOM
+
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)
   if !owner.vars["stopped"]:

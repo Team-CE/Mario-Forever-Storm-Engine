@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Enemies/Koopa.tscn" type="PackedScene" id=6]
 
 [node name="Level" type="Node2D"]
@@ -25,17 +24,10 @@ position = Vector2( 48, 416 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
-[node name="Goomba" parent="." instance=ExtResource( 5 )]
-position = Vector2( 752, 416 )
+[node name="Koopa" parent="." instance=ExtResource( 6 )]
+position = Vector2( 256, 400 )
 vars = {
 "bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Koopa" parent="." instance=ExtResource( 6 )]
-position = Vector2( 512, 400 )
-vars = {
-"bounce": 5.0,
 "is shell": false,
 "shell speed": 250.0,
 "speed": 50.0,
