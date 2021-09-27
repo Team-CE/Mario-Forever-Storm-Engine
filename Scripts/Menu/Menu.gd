@@ -4,6 +4,7 @@ export var music: String = ''
 
 
 func _ready():
+  yield(get_tree().create_timer( 1.4 ), 'timeout')
   MusicEngine.play_music(music)
 
 

@@ -14,10 +14,11 @@ var sel = 0
 var screen = 0
 var selLimit
 
+var fading_in = true
 var fading_out = false
-var circle_size = 0.623
+var circle_size = 0
 
-onready var controls_enabled: bool = true
+onready var controls_enabled: bool = false
 onready var controls_changing: bool = false
 
 func _ready() -> void:
@@ -25,6 +26,7 @@ func _ready() -> void:
 #  an.connect('animation_finished',self,'animFinished')
   time = get_tree().create_timer(0)
   connect('animation_finished', self, 'animends')
+  $fadeout.play()
   MusicEngine.set_volume(Global.musicBar / 12)
   AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
 
@@ -46,6 +48,17 @@ func _process(delta):
     get_parent().get_node('Transition').material.set_shader_param('circle_size', circle_size)
   else:
     get_parent().get_node('Transition').visible = false
+
+  if fading_in:
+    
+    circle_size += 0.01 * Global.get_delta(delta)
+    get_parent().get_node('Transition').visible = true
+    get_parent().get_node('Transition').material.set_shader_param('circle_size', circle_size)
+    if circle_size > 0.623:
+      get_parent().get_node('Transition').visible = false
+      circle_size = 0.623
+      fading_in = false
+      controls_enabled = true
     
   var base_y = screen * 480
   $Camera2D.limit_top = base_y
@@ -101,7 +114,14 @@ func controls():
             fading_out = true
             MusicEngine.islooping = false
             MusicEngine.track_ended('')
-            #get_tree().change_scene('res://SaveRoom.tscn')
+            yield(get_tree().create_timer( 1.4 ), 'timeout')
+            fading_out = false
+            MusicEngine.islooping = true
+            if Global.musicBar > -100:
+              MusicEngine.set_volume(Global.musicBar / 12)
+            if Global.musicBar == -100:
+              MusicEngine.set_volume(-1000)
+            get_tree().change_scene('res://Stages/SaveGameRoom.tscn')
           1:
             screen += 1
             sel = 0
@@ -111,6 +131,8 @@ func controls():
             $enter_options.play()
             MusicEngine.fade_out(0.2)
             yield(get_tree().create_timer( 1 ), 'timeout')
+            fading_out = true
+            yield(get_tree().create_timer( 1.4 ), 'timeout')
             get_tree().quit()
             
     1:    # _____ OPTIONS _____

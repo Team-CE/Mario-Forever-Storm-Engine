@@ -26,9 +26,12 @@ func set_volume(vol: float) -> void:
 
 func fade_out(time: float) -> void:
   var smooth
-  while volume > -100:
+  while volume > -35:
     smooth = Global.lerpa(volume, 100, 0.03)
     set_volume(smooth)
+    if smooth <= -35:
+      set_volume(-1000)
+      break
     yield(get_tree().create_timer(time), "timeout")
 
 func track_ended(mus_name: String, loop: bool = true, loopStart: int = -1, loopEnd: int = -1, track: int = 0) -> void:
