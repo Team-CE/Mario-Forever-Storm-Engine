@@ -36,5 +36,6 @@ func fade_out(time: float) -> void:
 
 func track_ended(mus_name: String, loop: bool = true, loopStart: int = -1, loopEnd: int = -1, track: int = 0) -> void:
   push_warning('Track is ended!')
+# warning-ignore:standalone_ternary
   music_player.stop_music() if !islooping else music_player.play_music(MUSIC_FOLDER + mus_name, track, loop, loopStart, loopEnd, 0)
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Fonts/MFFont.fnt" type="BitmapFont" id=2]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=4]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=6]
@@ -48,3 +49,14 @@ texture = SubResource( 2 )
 position = Vector2( 64, 176 )
 type = 1
 immediate = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = 306.0
+margin_top = 264.0
+margin_right = 460.0
+margin_bottom = 286.0
+custom_fonts/font = ExtResource( 2 )
+text = "миша пидор"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -8,7 +8,9 @@ func _ready() -> void:
   $Coins.text = str(Global.coins)
   $Score.text = str(Global.score)
   $Lives.text = str(Global.lives)
+# warning-ignore:return_value_discarded
   Global.connect('TimeTick', self, '_time')
+# warning-ignore:return_value_discarded
   Global.connect('OnPlayerLoseLife', self, '_life_lose')
   $GameoverSprite.visible = false
 

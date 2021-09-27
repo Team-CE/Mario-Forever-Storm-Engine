@@ -15,14 +15,19 @@ onready var launch_counter: float = 0
 onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
 
+# warning-ignore:unused_signal
 signal top_detector_collide     #@reflexguru Implement these signals
+# warning-ignore:unused_signal
 signal bottom_detector_collide
 
+# warning-ignore:unused_signal
 signal left_detector_collide
+# warning-ignore:unused_signal
 signal right_detector_collide
 
 func _ready() -> void:
   Global.Mario = self
+# warning-ignore:return_value_discarded
   Global.connect("OnPlayerLoseLife", self, 'kill')
   $DebugText.visible = false
 

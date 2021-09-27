@@ -52,6 +52,11 @@ animations = [ {
 "name": "Walking",
 "speed": 1.0
 }, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "Dead",
@@ -65,11 +70,6 @@ animations = [ {
 "frames": [ SubResource( 3 ) ],
 "loop": true,
 "name": "Stopped",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "Jumping",
 "speed": 5.0
 } ]
 
@@ -103,15 +103,20 @@ region = Rect2( 62, 0, 31, 59 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "Walking",
+"speed": 1.0
+}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "Crouching",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "Walking",
-"speed": 1.0
+"name": "Jumping",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
@@ -121,11 +126,6 @@ animations = [ {
 "frames": [ SubResource( 14 ) ],
 "loop": true,
 "name": "Stopped",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "Jumping",
 "speed": 5.0
 } ]
 
@@ -163,19 +163,24 @@ region = Rect2( 62, 0, 31, 59 )
 
 [sub_resource type="SpriteFrames" id=24]
 animations = [ {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "Crouching",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
 "loop": true,
 "name": "Walking",
 "speed": 1.0
 }, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "Crouching",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "Launching",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "Jumping",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
@@ -186,11 +191,6 @@ animations = [ {
 "frames": [ SubResource( 23 ) ],
 "loop": true,
 "name": "Stopped",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "Jumping",
 "speed": 5.0
 } ]
 
@@ -228,19 +228,24 @@ region = Rect2( 62, 0, 31, 62 )
 
 [sub_resource type="SpriteFrames" id=33]
 animations = [ {
-"frames": [ ExtResource( 16 ) ],
-"loop": true,
-"name": "Crouching",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
 "loop": true,
 "name": "Walking",
 "speed": 1.0
 }, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "Crouching",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 20 ) ],
 "loop": true,
 "name": "Launching",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "Jumping",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
@@ -251,11 +256,6 @@ animations = [ {
 "frames": [ SubResource( 32 ) ],
 "loop": true,
 "name": "Stopped",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ) ],
-"loop": true,
-"name": "Jumping",
 "speed": 5.0
 } ]
 

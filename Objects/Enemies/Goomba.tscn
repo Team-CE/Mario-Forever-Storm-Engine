@@ -1,57 +1,39 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://GFX/Enemies/Goomba.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/General/GenericEnemyMovement.gd" type="Script" id=2]
-[ext_resource path="res://GFX/Enemies/Goomba_dead.png" type="Texture" id=3]
-[ext_resource path="res://GFX/Enemies/Goomba_falling.png" type="Texture" id=4]
-[ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
+[ext_resource path="res://Scripts/AI/Goomba.gd" type="Script" id=1]
+[ext_resource path="res://Prefabs/Animations/Goomba.res" type="SpriteFrames" id=2]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=3]
+[ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 31, 32 )
+[node name="Goomba" type="KinematicBody2D"]
+script = ExtResource( 3 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+AI = ExtResource( 1 )
+sound_pth = NodePath("Stomp")
+animated_sprite_pth = NodePath("AnimatedSprite")
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 31, 0, 31, 32 )
-
-[sub_resource type="SpriteFrames" id=4]
-animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "Falling",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "Dead",
-"speed": 5.0
-} ]
-
-[node name="Goomba" type="KinematicBody2D" groups=[
-"Enemy",
-]]
-script = ExtResource( 2 )
-is_stompable = true
-ai = 1
-
-[node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( 0, -16 )
-shape = SubResource( 1 )
-
-[node name="Sprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 4 )
-frame = 1
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 2 )
+animation = "walk"
 playing = true
 offset = Vector2( 0, -16 )
 
-[node name="Kick" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 5 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+show_behind_parent = true
+position = Vector2( 0, -16 )
+shape = SubResource( 1 )
+
+[node name="Stomp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+show_behind_parent = true
+position = Vector2( 0, -16 )
+process_parent = true
+physics_process_parent = true
