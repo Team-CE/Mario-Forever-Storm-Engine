@@ -105,7 +105,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Mario Forever Cloud Engine"
-run/main_scene="res://Stages/ExampleLevel.tscn"
+run/main_scene="res://Stages/Menu.tscn"
 boot_splash/image="res://GFX/Miscellaneous/Splash.png"
 config/icon="res://icon.png"
 
