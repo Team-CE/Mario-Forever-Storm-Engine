@@ -7,6 +7,7 @@ enum DEATH_TYPE {
   BASIC,
   FALL,
   CUSTOM,
+  NONE,
   DISAPPEAR
 }
 
@@ -31,36 +32,40 @@ var ray_L: RayCast2D
 var ray_R: RayCast2D
 var animated_sprite: AnimatedSprite
 var sound: AudioStreamPlayer2D
+var alt_sound: AudioStreamPlayer2D
 
 var velocity: Vector2
 var alive: bool = true
 var death_type:int
 
-onready var first_pos: Vector2 = position #For pirahna plant and other enemies
-onready var brain: Brain = Brain.new()      #Shell for AI
+onready var first_pos: Vector2 = position # For pirahna plant and other enemies
+onready var brain: Brain = Brain.new()      # Shell for AI
 
 func _ready() -> void:
-  if ray_L_pth.is_empty() || ray_R_pth.is_empty(): #Ray casts init
+  if ray_L_pth.is_empty() || ray_R_pth.is_empty(): # Ray casts init
     smart_turn = false
   else:
     ray_L = get_node(ray_L_pth)
     ray_R = get_node(ray_R_pth)
   
-  if !sound_pth.is_empty():  #Sound player init
+  if !sound_pth.is_empty():  # Sound player init
     sound = get_node(sound_pth)
+
+  if !alt_sound_pth.is_empty():  # Alt sound player init
+    alt_sound = get_node(alt_sound_pth)
     
-  if animated_sprite_pth.is_empty():  #Animated sprite init
-    push_warning('[CE WARNING] Cant load Animated sprite at:'+str(self))
+  if animated_sprite_pth.is_empty():  # Animated sprite init
+    push_warning('[CE WARNING] Cannot load Animated sprite at:'+str(self))
   else:
     animated_sprite = get_node(animated_sprite_pth)
   
-  brain.name = 'Brain'  #Brain init
+  brain.name = 'Brain'  # Brain init
   add_child(brain)
-  if AI != null:  #AI init
+  if AI != null:  # AI init
     brain.set_script(AI)
     brain._setup(self)
   else:
-    printerr('[CE ERROR] AliveObject'+str(self)+' is brainless!')
+    printerr('[CE ERROR] AliveObject' + str(self) + ': No AI script assigned!')
 
   if brain.has_method('_ready_mixin'):
     brain._ready_mixin()
@@ -75,13 +80,13 @@ func _physics_process(delta:float) -> void:
   brain._ai_process(delta)
   if position.y > Global.currlevel.death_height:
     queue_free()
-  #Fixing ceiling collision and is_on_floor() flickering
+  # Fixing ceiling collision and is_on_floor() flickering
   if is_on_floor() || is_on_ceiling():
     velocity.y = 1
   
   velocity = move_and_slide(velocity,Vector2.UP)
 
-#Useful functions
+# Useful functions
 func turn() -> void:
   dir = -dir
   velocity.x = vars["speed"] * dir
@@ -94,7 +99,7 @@ func kill(death_type: int = 0) -> void:
   alive = false
   collision_layer = 0
   collision_mask = 0
-  match death_type:       #TEMP
+  match death_type:       # TEMP
     DEATH_TYPE.BASIC:
       sound.play()
       animated_sprite.set_animation('dead')
@@ -109,9 +114,3 @@ func kill(death_type: int = 0) -> void:
     DEATH_TYPE.CUSTOM:
       if brain.has_method('_on_custom_death'):
         brain._on_custom_death()
-
-func _on_custom_death(): # replace this function in your ai script.
-  pass
-
-func _ready_mixin(): # replace this function in your ai script.
-  pass
