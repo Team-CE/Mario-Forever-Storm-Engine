@@ -61,7 +61,7 @@ func _process(delta):
       fading_in = false
       controls_enabled = true
 
-  position.y += (pos_y - position.y) * 0.2
+  position.y += (pos_y - position.y) * 0.4 * Global.get_delta(delta)
     
   var base_y = screen * 480
   $Camera2D.limit_top = base_y
@@ -149,7 +149,7 @@ func controls():
             screen = 3
             sel = 0
             $enter_options.play()
-            $Credits.pos_y = 0
+            $Credits.position.y = 0
             MusicEngine.track_ended('credits.mod')
             #MusicEngine.play_music('credits.mod')
             #MusicEngine.islooping = true
