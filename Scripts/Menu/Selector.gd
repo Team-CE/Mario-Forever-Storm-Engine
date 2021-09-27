@@ -18,6 +18,8 @@ var fading_in = true
 var fading_out = false
 var circle_size = 0
 
+var pos_y = 0
+
 onready var controls_enabled: bool = false
 onready var controls_changing: bool = false
 
@@ -50,7 +52,6 @@ func _process(delta):
     get_parent().get_node('Transition').visible = false
 
   if fading_in:
-    
     circle_size += 0.01 * Global.get_delta(delta)
     get_parent().get_node('Transition').visible = true
     get_parent().get_node('Transition').material.set_shader_param('circle_size', circle_size)
@@ -59,6 +60,8 @@ func _process(delta):
       circle_size = 0.623
       fading_in = false
       controls_enabled = true
+
+  position.y += (pos_y - position.y) * 0.2
     
   var base_y = screen * 480
   $Camera2D.limit_top = base_y
@@ -66,22 +69,22 @@ func _process(delta):
     
   match screen:
     0:
-      position.y = 359 + (29 * sel)
+      pos_y = 359 + (29 * sel)
       position.x = 248
       selLimit = 2
       
     1:
-      position.y = 550 + (37.5 * sel)
+      pos_y = 550 + (37.5 * sel)
       position.x = 224
       selLimit = 9
       updateOptions()
       $Credits.hide()
     2:
-      position.y = 1018 + (64 * sel)
+      pos_y = 1018 + (64 * sel)
       position.x = 172
       selLimit = 6
     3:
-      position.y = 1920 + 216
+      pos_y = 1920 + 216
       position.x = 240
       selLimit = 0
       $Credits.position.y -= 1 * Global.get_delta(delta)
@@ -146,7 +149,7 @@ func controls():
             screen = 3
             sel = 0
             $enter_options.play()
-            $Credits.position.y = 0
+            $Credits.pos_y = 0
             MusicEngine.track_ended('credits.mod')
             #MusicEngine.play_music('credits.mod')
             #MusicEngine.islooping = true
