@@ -200,7 +200,6 @@ script = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-music = "start.xm"
 
 [node name="BG" type="TextureRect" parent="."]
 anchor_top = 1.0
@@ -348,24 +347,6 @@ position = Vector2( 248, 358 )
 frames = SubResource( 13 )
 script = ExtResource( 2 )
 
-[node name="select_main" type="AudioStreamPlayer" parent="S_Start"]
-stream = ExtResource( 6 )
-
-[node name="letsgo" type="AudioStreamPlayer" parent="S_Start"]
-stream = ExtResource( 3 )
-
-[node name="enter_options" type="AudioStreamPlayer" parent="S_Start"]
-stream = ExtResource( 8 )
-
-[node name="fadeout" type="AudioStreamPlayer" parent="S_Start"]
-stream = ExtResource( 9 )
-
-[node name="change" type="AudioStreamPlayer" parent="S_Start"]
-stream = ExtResource( 10 )
-
-[node name="select_controls" type="AudioStreamPlayer" parent="S_Start"]
-stream = ExtResource( 11 )
-
 [node name="Camera2D" type="Camera2D" parent="S_Start"]
 visible = false
 current = true
@@ -373,13 +354,6 @@ limit_left = 0
 limit_top = 0
 limit_right = 640
 limit_bottom = 1280
-
-[node name="tick" type="AudioStreamPlayer" parent="S_Start"]
-stream = ExtResource( 16 )
-
-[node name="Credits" type="Sprite" parent="S_Start"]
-position = Vector2( 72, 1322 )
-texture = ExtResource( 19 )
 
 [node name="Buttons" type="Control" parent="."]
 __meta__ = {
@@ -441,3 +415,28 @@ position = Vector2( 0, -80 )
 scale = Vector2( 6.21359, 6.21359 )
 texture = ExtResource( 15 )
 centered = false
+
+[node name="select_main" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="letsgo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="enter_options" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="fadeout" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="change" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[node name="select_controls" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
+[node name="tick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+
+[node name="Credits" type="Sprite" parent="."]
+position = Vector2( 320, 1680 )
+texture = ExtResource( 19 )

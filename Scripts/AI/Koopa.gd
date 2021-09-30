@@ -1,18 +1,9 @@
 extends Brain
 
-enum DEATH_TYPE {
-  BASIC,
-  FALL,
-  CUSTOM,
-  NONE,
-  DISAPPEAR
-}
-
-const multiplier_scores = [100, 200, 500, 1000, 2000, 5000, 1]
 var shell_counter: float = 0
 
 func _ready_mixin():
-  owner.death_type = DEATH_TYPE.NONE
+  owner.death_type = AliveObject.DEATH_TYPE.NONE
 
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)

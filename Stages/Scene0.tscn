@@ -25,7 +25,57 @@ position = Vector2( 48, 416 )
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
 [node name="Koopa" parent="." instance=ExtResource( 6 )]
-position = Vector2( 256, 400 )
+position = Vector2( 272, 416 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
+
+[node name="Koopa2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 320, 416 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
+
+[node name="Koopa4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 368, 416 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
+
+[node name="Koopa5" parent="." instance=ExtResource( 6 )]
+position = Vector2( 416, 416 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
+
+[node name="Koopa6" parent="." instance=ExtResource( 6 )]
+position = Vector2( 176, 416 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
+
+[node name="Koopa3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 224, 416 )
 vars = {
 "bounce": 9.0,
 "is shell": false,

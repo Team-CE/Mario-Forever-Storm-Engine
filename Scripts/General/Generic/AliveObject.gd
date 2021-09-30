@@ -77,7 +77,7 @@ func _physics_process(delta:float) -> void:
   if !alive:
     return
     
-  brain._ai_process(delta)
+  brain._ai_process(delta) #Calling brain cells
   if position.y > Global.currlevel.death_height:
     queue_free()
   # Fixing ceiling collision and is_on_floor() flickering
@@ -87,9 +87,9 @@ func _physics_process(delta:float) -> void:
   velocity = move_and_slide(velocity,Vector2.UP)
 
 # Useful functions
-func turn() -> void:
+func turn(mp:float = 1) -> void:
   dir = -dir
-  velocity.x = vars["speed"] * dir
+  velocity.x = vars["speed"] * mp * dir
 
 func on_edge() -> bool:
   return ray_L.is_colliding() || ray_R.is_colliding()
