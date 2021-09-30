@@ -52,14 +52,14 @@ animations = [ {
 "name": "Walking",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "Dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Jumping",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
@@ -108,11 +108,6 @@ animations = [ {
 "name": "Walking",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "Crouching",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "Jumping",
@@ -126,6 +121,11 @@ animations = [ {
 "frames": [ SubResource( 14 ) ],
 "loop": true,
 "name": "Stopped",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "Crouching",
 "speed": 5.0
 } ]
 
@@ -168,16 +168,6 @@ animations = [ {
 "name": "Walking",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "Crouching",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
-"name": "Launching",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "Jumping",
@@ -191,6 +181,16 @@ animations = [ {
 "frames": [ SubResource( 23 ) ],
 "loop": true,
 "name": "Stopped",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "Launching",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "Crouching",
 "speed": 5.0
 } ]
 
@@ -233,16 +233,6 @@ animations = [ {
 "name": "Walking",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 16 ) ],
-"loop": true,
-"name": "Crouching",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 20 ) ],
-"loop": true,
-"name": "Launching",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
 "name": "Jumping",
@@ -256,6 +246,16 @@ animations = [ {
 "frames": [ SubResource( 32 ) ],
 "loop": true,
 "name": "Stopped",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "Launching",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "Crouching",
 "speed": 5.0
 } ]
 
@@ -357,6 +357,8 @@ playing = true
 "Mario",
 ]]
 visible = false
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionPrimary" type="CollisionShape2D" parent="PrimaryDetector"]
 position = Vector2( 0, -13 )
@@ -368,12 +370,16 @@ shape = SubResource( 35 )
 
 [node name="InsideDetector" type="Area2D" parent="."]
 visible = false
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionInside" type="CollisionShape2D" parent="InsideDetector"]
 position = Vector2( 0, -9 )
 shape = SubResource( 36 )
 
 [node name="BottomDetector" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionBottom" type="CollisionShape2D" parent="BottomDetector"]
 position = Vector2( 0, 12 )
@@ -385,6 +391,8 @@ shape = SubResource( 38 )
 
 [node name="TopDetector" type="Area2D" parent="."]
 visible = false
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionTop" type="CollisionShape2D" parent="TopDetector"]
 position = Vector2( 0, -37 )
@@ -396,6 +404,8 @@ shape = SubResource( 39 )
 
 [node name="RightDetector" type="Area2D" parent="."]
 visible = false
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionRight" type="CollisionShape2D" parent="RightDetector"]
 position = Vector2( 16, -11 )
@@ -407,6 +417,8 @@ shape = SubResource( 41 )
 
 [node name="LeftDetector" type="Area2D" parent="."]
 visible = false
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionLeft" type="CollisionShape2D" parent="LeftDetector"]
 position = Vector2( -16, -11 )
@@ -418,6 +430,8 @@ shape = SubResource( 42 )
 
 [node name="SmallRightDetector" type="Area2D" parent="."]
 visible = false
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionSmallRight" type="CollisionShape2D" parent="SmallRightDetector"]
 position = Vector2( 12, -14 )
@@ -429,6 +443,8 @@ shape = SubResource( 44 )
 
 [node name="SmallLeftDetector" type="Area2D" parent="."]
 visible = false
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionSmallLeft" type="CollisionShape2D" parent="SmallLeftDetector"]
 position = Vector2( -12, -14 )

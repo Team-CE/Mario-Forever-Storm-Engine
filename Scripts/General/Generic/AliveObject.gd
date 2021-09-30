@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name AliveObject
 
-const multiplier_scores = [100, 200, 500, 1000, 2000, 5000, 1]
+const multiplier_scores = [1, 2, 5, 10, 20, 50, 0.01]
 
 enum DEATH_TYPE {
   BASIC,
@@ -74,14 +74,15 @@ func _ready() -> void:
     printerr('[CE ERROR] AliveObject' + str(self) + ': No custom death function provided.')
 
 func _physics_process(delta:float) -> void:
-  if !alive:
+  if !alive && death_type != DEATH_TYPE.FALL:
     return
-    
+  
   brain._ai_process(delta) #Calling brain cells
+  
   if position.y > Global.currlevel.death_height:
     queue_free()
   # Fixing ceiling collision and is_on_floor() flickering
-  if is_on_floor() || is_on_ceiling():
+  if (is_on_floor() || is_on_ceiling()) && alive:
     velocity.y = 1
   
   velocity = move_and_slide(velocity,Vector2.UP)
@@ -90,27 +91,36 @@ func _physics_process(delta:float) -> void:
 func turn(mp:float = 1) -> void:
   dir = -dir
   velocity.x = vars["speed"] * mp * dir
+  animated_sprite.flip_h = dir < 0
 
 func on_edge() -> bool:
   return ray_L.is_colliding() || ray_R.is_colliding()
 
 # warning-ignore:shadowed_variable
-func kill(death_type: int = 0) -> void:
+func kill(death_type: int = 0, score_mp: int = 0) -> void:
   alive = false
   collision_layer = 0
   collision_mask = 0
+  velocity.x = 0
+  gravity_scale = 0.4
+  self.death_type = death_type
   match death_type:       # TEMP
     DEATH_TYPE.BASIC:
       sound.play()
       animated_sprite.set_animation('dead')
-      velocity.x = 0
       get_parent().add_child(ScoreText.new(score, position))
       yield(get_tree().create_timer(2.0), 'timeout')
       queue_free()
     DEATH_TYPE.DISAPPEAR:
       queue_free()
     DEATH_TYPE.FALL:
-      pass
+      alt_sound.play()
+      get_parent().add_child(ScoreText.new(score * multiplier_scores[score_mp], position))
+      z_index = 2
+      velocity.y = -180
+      animated_sprite.set_animation('falling')
+      yield(get_tree().create_timer(2.0), 'timeout')
+      queue_free()
     DEATH_TYPE.CUSTOM:
       if brain.has_method('_on_custom_death'):
         brain._on_custom_death()
