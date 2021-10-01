@@ -9,26 +9,28 @@ var CONTROLS_ASSIGN = [
   'mario_fire'
 ]
 
-export var music: String = '' #MENU Music
+export var music: String = ''         #MENU Music
+export var music_credits: String = '' #CREDITS Music
 
 var sel = 0
 var screen = 0
 var selLimit
+var screen_changed = 0
 
 var fading_in = true
 var fading_out = false
 var circle_size = 0
 
 var pos_y = 0
+var force_pos = false
 
 onready var controls_enabled: bool = false
 onready var controls_changing: bool = false
 
 func _ready():
-  yield(get_tree().create_timer( 1.4 ), 'timeout')
-  MusicEngine.play_music(music)
-  
   $fadeout.play()
+  yield(get_tree().create_timer( 1.2 ), 'timeout')
+  MusicEngine.play_music(music)
   MusicEngine.set_volume(Global.musicBar / 12)
   AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
   
@@ -37,14 +39,14 @@ func _process(delta):
     controls()
   
   if fading_out:
-    circle_size -= 0.01 * Global.get_delta(delta)
+    circle_size -= 0.012 * Global.get_delta(delta)
     get_node('Transition').visible = true
     get_node('Transition').material.set_shader_param('circle_size', circle_size)
   else:
     get_node('Transition').visible = false
   
   if fading_in:
-    circle_size += 0.01 * Global.get_delta(delta)
+    circle_size += 0.012 * Global.get_delta(delta)
     get_node('Transition').visible = true
     get_node('Transition').material.set_shader_param('circle_size', circle_size)
     if circle_size > 0.623:
@@ -53,8 +55,15 @@ func _process(delta):
       fading_in = false
       controls_enabled = true
   
-  $S_Start.position.y += (pos_y - $S_Start.position.y) * 0.4 * Global.get_delta(delta)
-    
+  if (not force_pos):
+    $S_Start.position.y += (pos_y - $S_Start.position.y) * 0.4 * Global.get_delta(delta)
+  else:
+    $S_Start.position.y = pos_y # Used to fix cursor position between transitions
+    force_pos = false
+  if (screen_changed != screen):
+    screen_changed = screen
+    force_pos = true
+        
   var base_y = screen * 480
   $S_Start/Camera2D.limit_top = base_y
   $S_Start/Camera2D.limit_bottom = base_y + 480
@@ -107,11 +116,9 @@ func controls():
             yield(get_tree().create_timer( 2.5 ), 'timeout')
             $fadeout.play()
             fading_out = true
-            MusicEngine.islooping = false
-            MusicEngine.track_ended('')
-            yield(get_tree().create_timer( 1.4 ), 'timeout')
+            MusicEngine.track_ended()
+            yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
-            MusicEngine.islooping = true
             if Global.musicBar > -100:
               MusicEngine.set_volume(Global.musicBar / 12)
             if Global.musicBar == -100:
@@ -141,8 +148,9 @@ func controls():
             screen = 3
             sel = 0
             $enter_options.play()
-            $Credits.position.y = 0
-            MusicEngine.track_ended('credits.mod')
+            $Credits.position.y = 1920 + $Credits.texture.get_height() / 2
+            MusicEngine.track_ended()
+            MusicEngine.play_music(music_credits)
           9:
             screen = 0
             sel = 1
@@ -229,11 +237,12 @@ func controls():
       if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept'):
         screen = 1
         sel = 8
-        MusicEngine.track_ended(music)
+        MusicEngine.track_ended()
+        MusicEngine.play_music(music)
 
 func _input(event):
   if event is InputEventKey and event.pressed and controls_changing:
-    if not event.is_action("ui_cancel"):
+    if not event.is_action('ui_cancel'):
       var scancode = OS.get_scancode_string(event.scancode)
       get_node('Label' + str(sel)).text = scancode
       for old_event in InputMap.get_action_list(CONTROLS_ASSIGN[sel]):

@@ -5,7 +5,6 @@ const MUSIC_FOLDER = 'res://Music/'
 var music_player
 
 var volume: float setget set_volume
-var islooping: bool = true
 
 func _ready() -> void:
   #return;
@@ -34,8 +33,8 @@ func fade_out(time: float) -> void:
       break
     yield(get_tree().create_timer(time), "timeout")
 
-func track_ended(mus_name: String, loop: bool = true, loopStart: int = -1, loopEnd: int = -1, track: int = 0) -> void:
+func track_ended() -> void:
   push_warning('Track is ended!')
 # warning-ignore:standalone_ternary
-  music_player.stop_music() if !islooping else music_player.play_music(MUSIC_FOLDER + mus_name, track, loop, loopStart, loopEnd, 0)
+  music_player.stop_music()
 

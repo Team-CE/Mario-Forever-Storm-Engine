@@ -200,6 +200,8 @@ script = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+music = "start.xm"
+music_credits = "credits.mod"
 
 [node name="BG" type="TextureRect" parent="."]
 anchor_top = 1.0
