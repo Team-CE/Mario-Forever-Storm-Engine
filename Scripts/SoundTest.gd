@@ -8,6 +8,8 @@ func _ready():
     var copy = i
     copy.erase(0,i.find_last('/')+1)
     $OptionButton.add_item(copy)
+  if !Sounds.empty():
+    $Test.stream = load(Sounds[0])
 
 func get_all_in_folder(path) -> Array:
   var dir = Directory.new()
@@ -32,6 +34,7 @@ func _on_Button_pressed():
     $Test.pitch_scale += $CenterContainer/VBoxContainer/Pitch.value
     $Test.play()
     yield(get_tree().create_timer($CenterContainer/VBoxContainer/Delay.value), "timeout")
+  $CenterContainer/VBoxContainer/Label.text = '0'
 
 func _on_OptionButton_item_selected(index):
   $Test.stream = load(Sounds[index])

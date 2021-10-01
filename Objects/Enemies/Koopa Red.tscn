@@ -1,39 +1,72 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Prefabs/Animations/RedKoopa.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://Scripts/General/GenericEnemyMovement.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/AI/RedKoopa.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=3]
+[ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 19, 16 )
+extents = Vector2( 23, 23 )
 
-[node name="Koopa Red" type="KinematicBody2D" groups=[
-"Enemy",
-]]
-script = ExtResource( 2 )
+[node name="RedKoopa" type="KinematicBody2D"]
+script = ExtResource( 3 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
+AI = ExtResource( 2 )
 smart_turn = true
-is_stompable = true
-ai = 1
-death = 2
+ray_L_pth = NodePath("RayCastL")
+ray_R_pth = NodePath("RayCastR")
+sound_pth = NodePath("Stomp")
+alt_sound_pth = NodePath("Kick")
+animated_sprite_pth = NodePath("Sprite")
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( -2.38419e-07, -16 )
+scale = Vector2( 1.6, 1.6 )
+process_parent = true
+physics_process_parent = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -16 )
 shape = SubResource( 1 )
-
-[node name="KillDetector" type="Area2D" parent="."]
-
-[node name="Collision" type="CollisionShape2D" parent="KillDetector"]
-position = Vector2( 0, -16 )
-shape = SubResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 frames = ExtResource( 1 )
 playing = true
 offset = Vector2( 0, -16 )
+flip_h = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+
+[node name="Stomp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="KillZone" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+position = Vector2( 0, -16 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="RayCastL" type="RayCast2D" parent="."]
+position = Vector2( -16, 0 )
+enabled = true
+cast_to = Vector2( 0, 10 )
+
+[node name="RayCastR" type="RayCast2D" parent="."]
+position = Vector2( 16, 0 )
+enabled = true
+cast_to = Vector2( 0, 10 )

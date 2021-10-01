@@ -1,43 +1,47 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://GFX/Enemies/Bullet.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/Enemies/Bullet.gd" type="Script" id=2]
+[ext_resource path="res://Prefabs/Animations/Bullet.res" type="SpriteFrames" id=1]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/AI/Bullet.gd" type="Script" id=3]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 13 )
+extents = Vector2( 16, 16 )
 
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "Dead",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "Falling",
-"speed": 5.0
-} ]
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 17, 14 )
 
-[node name="Bullet" type="Area2D" groups=[
-"Enemy",
-]]
+[node name="Bullet" type="KinematicBody2D"]
 script = ExtResource( 2 )
+vars = {
+"bounce": 5,
+"hitbox": NodePath("Hitbox"),
+"speed": 200.0
+}
+AI = ExtResource( 3 )
+alt_sound_pth = NodePath("Kick")
+animated_sprite_pth = NodePath("AnimatedSprite")
 
-[node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -16 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+show_behind_parent = true
 shape = SubResource( 1 )
+disabled = true
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 2 )
-playing = true
-offset = Vector2( 0, -16 )
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
+flip_h = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 2 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( 4.76837e-07, -7.15256e-07 )
+scale = Vector2( 1.7, 1.4 )
+process_parent = true
+physics_process_parent = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )

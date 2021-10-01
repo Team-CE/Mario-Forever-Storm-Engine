@@ -4,44 +4,39 @@
 [ext_resource path="res://GFX/Enemies/redshell_falling.png" type="Texture" id=2]
 [ext_resource path="res://GFX/Enemies/red.png" type="Texture" id=3]
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 31, 47 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
 region = Rect2( 31, 0, 31, 47 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 33, 48 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 33, 0, 33, 48 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 66, 0, 33, 48 )
-
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
 region = Rect2( 99, 0, 33, 48 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 33, 48 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 33, 0, 33, 48 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 66, 0, 33, 48 )
+
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
 region = Rect2( 99, 0, 33, 48 )
 
 [resource]
 animations = [ {
-"frames": [ SubResource( 3 ), SubResource( 4 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
 "loop": true,
 "name": "default",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "dead",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
@@ -49,12 +44,17 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 3 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 3 ) ],
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 9 ) ],
+"frames": [ SubResource( 7 ) ],
 "loop": true,
 "name": "shell stopped",
 "speed": 5.0

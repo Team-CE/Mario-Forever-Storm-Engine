@@ -46,14 +46,14 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [  ],
-"loop": true,
-"name": "dead",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "falling",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "dead",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
@@ -88,7 +88,8 @@ alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("Sprite")
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( 0, -16 )
+position = Vector2( -2.38419e-07, -16 )
+scale = Vector2( 1.6, 1.6 )
 process_parent = true
 physics_process_parent = true
 
@@ -99,14 +100,12 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 frames = SubResource( 9 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-bus = "Pitch shift"
 
 [node name="Stomp" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )

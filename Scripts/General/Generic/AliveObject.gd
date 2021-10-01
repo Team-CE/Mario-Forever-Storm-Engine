@@ -2,6 +2,7 @@ extends KinematicBody2D
 class_name AliveObject
 
 const multiplier_scores = [1, 2, 5, 10, 20, 50, 0.01]
+const pitch_md = [1, 1.05, 1.1, 1.15, 1.20, 1.25, 1.30, 1.35]
 
 enum DEATH_TYPE {
   BASIC,
@@ -18,7 +19,6 @@ export var gravity_scale: float = 1
 export var score: int           = 100
 export var smart_turn: bool
 export var invincible: bool
-export var ignore_all: bool #temporary
 export(float,-1,1) var dir: float = -1
 
 #RayCasts leave empty if smart_turn = false
@@ -79,7 +79,7 @@ func _physics_process(delta:float) -> void:
   
   brain._ai_process(delta) #Calling brain cells
   
-  if position.y > Global.currlevel.death_height:
+  if position.y > Global.Mario.get_node('Camera').limit_bottom:
     queue_free()
   # Fixing ceiling collision and is_on_floor() flickering
   if (is_on_floor() || is_on_ceiling()) && alive:
@@ -94,10 +94,12 @@ func turn(mp:float = 1) -> void:
   animated_sprite.flip_h = dir < 0
 
 func on_edge() -> bool:
-  return ray_L.is_colliding() || ray_R.is_colliding()
+  return (ray_L.is_colliding() && !ray_R.is_colliding()) || (ray_R.is_colliding() && !ray_L.is_colliding())
 
 # warning-ignore:shadowed_variable
 func kill(death_type: int = 0, score_mp: int = 0) -> void:
+  if invincible:
+    return
   alive = false
   collision_layer = 0
   collision_mask = 0
