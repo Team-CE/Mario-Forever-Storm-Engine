@@ -23,6 +23,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
 animation = "walk"
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 

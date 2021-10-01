@@ -222,58 +222,112 @@ position = Vector2( 1424, 144 )
 
 [node name="Spiny" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1424, 160 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny9" parent="." instance=ExtResource( 9 )]
 position = Vector2( 880, 1376 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny11" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1616, 1376 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny12" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1808, 1376 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny13" parent="." instance=ExtResource( 9 )]
 position = Vector2( 2000, 1376 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny14" parent="." instance=ExtResource( 9 )]
 position = Vector2( 2704, 1376 )
 z_index = -5
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny15" parent="." instance=ExtResource( 9 )]
 position = Vector2( 2576, 1376 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny16" parent="." instance=ExtResource( 9 )]
 position = Vector2( 2448, 1376 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny10" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1232, 1376 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny2" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1872, 288 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny3" parent="." instance=ExtResource( 9 )]
 position = Vector2( 3312, 416 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny4" parent="." instance=ExtResource( 9 )]
 position = Vector2( 3600, 416 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny5" parent="." instance=ExtResource( 9 )]
 position = Vector2( 3696, 416 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny7" parent="." instance=ExtResource( 9 )]
 position = Vector2( 5488, 416 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny8" parent="." instance=ExtResource( 9 )]
 position = Vector2( 5680, 320 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny17" parent="." instance=ExtResource( 9 )]
 position = Vector2( 7504, 416 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny18" parent="." instance=ExtResource( 9 )]
 position = Vector2( 8832, 416 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Spiny6" parent="." instance=ExtResource( 9 )]
 position = Vector2( 4032, 416 )
+vars = {
+"speed": 50.0
+}
 
 [node name="Piranha" parent="." instance=ExtResource( 10 )]
 position = Vector2( 1216, 320 )
@@ -533,48 +587,43 @@ texture = ExtResource( 13 )
 position = Vector2( 224, 401 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 1
 playing = true
 
 [node name="Grass5" type="AnimatedSprite" parent="."]
 position = Vector2( 960, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
 playing = true
 
 [node name="Grass6" type="AnimatedSprite" parent="."]
 position = Vector2( 1856, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
 playing = true
 
 [node name="Grass7" type="AnimatedSprite" parent="."]
 position = Vector2( 3296, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
 playing = true
 
 [node name="Grass2" type="AnimatedSprite" parent="."]
 position = Vector2( 2880, 401 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
 playing = true
 
 [node name="Grass3" type="AnimatedSprite" parent="."]
 position = Vector2( 3840, 401 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
 playing = true
 
 [node name="Grass4" type="AnimatedSprite" parent="."]
 position = Vector2( 5136, 401 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 2
 playing = true
 
 [node name="Trees" type="Sprite" parent="."]
@@ -610,285 +659,290 @@ texture = ExtResource( 15 )
 [node name="Cloud" type="AnimatedSprite" parent="."]
 position = Vector2( 160, 96 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud19" type="AnimatedSprite" parent="."]
 position = Vector2( 1104, 1104 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud20" type="AnimatedSprite" parent="."]
 position = Vector2( 1536, 1152 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud21" type="AnimatedSprite" parent="."]
 position = Vector2( 1872, 1072 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud22" type="AnimatedSprite" parent="."]
 position = Vector2( 2304, 1104 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud23" type="AnimatedSprite" parent="."]
 position = Vector2( 2752, 1072 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud24" type="AnimatedSprite" parent="."]
 position = Vector2( 3264, 1120 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud25" type="AnimatedSprite" parent="."]
 position = Vector2( 3680, 1056 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud26" type="AnimatedSprite" parent="."]
 position = Vector2( 4048, 1072 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud27" type="AnimatedSprite" parent="."]
 position = Vector2( 4352, 1120 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud28" type="AnimatedSprite" parent="."]
 position = Vector2( 4752, 1056 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud29" type="AnimatedSprite" parent="."]
 position = Vector2( 5184, 1120 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud2" type="AnimatedSprite" parent="."]
 position = Vector2( 352, 176 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud3" type="AnimatedSprite" parent="."]
 position = Vector2( 608, 96 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud4" type="AnimatedSprite" parent="."]
 position = Vector2( 848, 176 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud5" type="AnimatedSprite" parent="."]
 position = Vector2( 1088, 96 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud6" type="AnimatedSprite" parent="."]
 position = Vector2( 1456, 48 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud7" type="AnimatedSprite" parent="."]
 position = Vector2( 1792, 96 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud8" type="AnimatedSprite" parent="."]
 position = Vector2( 2112, 64 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud9" type="AnimatedSprite" parent="."]
 position = Vector2( 2464, 128 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud10" type="AnimatedSprite" parent="."]
 position = Vector2( 2752, 64 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud11" type="AnimatedSprite" parent="."]
 position = Vector2( 3024, 144 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud12" type="AnimatedSprite" parent="."]
 position = Vector2( 3296, 64 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud13" type="AnimatedSprite" parent="."]
 position = Vector2( 3552, 128 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud14" type="AnimatedSprite" parent="."]
 position = Vector2( 3792, 48 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud15" type="AnimatedSprite" parent="."]
 position = Vector2( 4064, 112 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud16" type="AnimatedSprite" parent="."]
 position = Vector2( 4368, 48 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud17" type="AnimatedSprite" parent="."]
 position = Vector2( 4736, 112 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud18" type="AnimatedSprite" parent="."]
 position = Vector2( 5024, 80 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud30" type="AnimatedSprite" parent="."]
 position = Vector2( 5488, 112 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud31" type="AnimatedSprite" parent="."]
 position = Vector2( 5680, 80 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud32" type="AnimatedSprite" parent="."]
 position = Vector2( 5952, 224 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud33" type="AnimatedSprite" parent="."]
 position = Vector2( 6160, 80 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud34" type="AnimatedSprite" parent="."]
 position = Vector2( 6336, 96 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud35" type="AnimatedSprite" parent="."]
 position = Vector2( 6576, 192 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud36" type="AnimatedSprite" parent="."]
 position = Vector2( 6800, 80 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud37" type="AnimatedSprite" parent="."]
 position = Vector2( 7216, 144 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud38" type="AnimatedSprite" parent="."]
 position = Vector2( 7696, 64 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud39" type="AnimatedSprite" parent="."]
 position = Vector2( 7904, 144 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud40" type="AnimatedSprite" parent="."]
 position = Vector2( 8256, 96 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud41" type="AnimatedSprite" parent="."]
 position = Vector2( 8608, 144 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud42" type="AnimatedSprite" parent="."]
 position = Vector2( 8880, 48 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud43" type="AnimatedSprite" parent="."]
 position = Vector2( 9104, 112 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud44" type="AnimatedSprite" parent="."]
 position = Vector2( 9424, 80 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud45" type="AnimatedSprite" parent="."]
 position = Vector2( 9600, 144 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud46" type="AnimatedSprite" parent="."]
 position = Vector2( 9856, 64 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud47" type="AnimatedSprite" parent="."]
 position = Vector2( 10000, 160 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud48" type="AnimatedSprite" parent="."]
 position = Vector2( 10208, 80 )
 frames = ExtResource( 16 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud49" type="AnimatedSprite" parent="."]
 position = Vector2( 10496, 112 )
 frames = ExtResource( 16 )
-frame = 1
 playing = true
 
 [node name="Cloud50" type="AnimatedSprite" parent="."]
 position = Vector2( 10768, 64 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Cloud51" type="AnimatedSprite" parent="."]
 position = Vector2( 10896, 176 )
 frames = ExtResource( 16 )
+frame = 2
 playing = true
 
 [node name="Platform" parent="." instance=ExtResource( 17 )]
@@ -1087,22 +1141,62 @@ Result = ExtResource( 7 )
 
 [node name="Koopa Red" parent="." instance=ExtResource( 21 )]
 position = Vector2( 3056, 1376 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
 dir = -2.0
 
 [node name="Koopa Red2" parent="." instance=ExtResource( 21 )]
 position = Vector2( 3248, 1376 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
 dir = -2.0
 
 [node name="Koopa Red3" parent="." instance=ExtResource( 21 )]
 position = Vector2( 3472, 1376 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
 dir = -2.0
 
 [node name="Koopa Red4" parent="." instance=ExtResource( 21 )]
 position = Vector2( 7280, 416 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
 dir = -2.0
 
 [node name="Koopa Red5" parent="." instance=ExtResource( 21 )]
 position = Vector2( 8544, 416 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
 dir = -2.0
 
 [node name="FinishLine" parent="." instance=ExtResource( 22 )]

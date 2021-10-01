@@ -3,7 +3,7 @@
 [ext_resource path="res://Prefabs/Animations/Bullet.res" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/AI/Bullet.gd" type="Script" id=3]
-[ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -12,9 +12,10 @@ extents = Vector2( 16, 16 )
 extents = Vector2( 17, 14 )
 
 [node name="Bullet" type="KinematicBody2D"]
+position = Vector2( 0, -14 )
 script = ExtResource( 2 )
 vars = {
-"bounce": 5,
+"bounce": 9,
 "hitbox": NodePath("Hitbox"),
 "speed": 200.0
 }
@@ -44,4 +45,4 @@ process_parent = true
 physics_process_parent = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 4 )
