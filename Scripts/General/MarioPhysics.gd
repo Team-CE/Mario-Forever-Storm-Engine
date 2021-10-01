@@ -3,6 +3,7 @@ extends Node2D
 export var x_speed: float = 0
 export var y_speed: float = 0
 export var jump_counter: int = 0
+var jump_internal_counter: float = 100
 var can_jump: bool = false
 var crouch: bool = false
 var standing: bool = false
@@ -57,6 +58,9 @@ func _process(delta) -> void:
   
   if y_speed > 10:
     y_speed = 10
+    
+  if jump_internal_counter < 100:
+    jump_internal_counter += 1 * Global.get_delta(delta)
   
   position.y += y_speed * Global.get_delta(delta)
   position.x += x_speed * Global.get_delta(delta)
@@ -84,7 +88,7 @@ func _process_alive(delta) -> void:
   if y_speed > 0:
     jump_counter = 1
   
-  if (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector)) and y_speed > 0:
+  if (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector)) and y_speed > 0 and jump_internal_counter > 3:
     if is_over_backdrop($InsideDetector, false):
       position.y -= 16
     var platform = is_over_platform($BottomDetector)
@@ -95,7 +99,7 @@ func _process_alive(delta) -> void:
     jump_counter = 0
     position.y = round(position.y / 32) * 32
   
-  if is_over_backdrop($TopDetector, true) and y_speed < 0 and y_speed > -13:
+  if is_over_backdrop($TopDetector, true) and y_speed < 0 and y_speed > -13.8:
     y_speed = 0
   
   if not (is_over_backdrop($TopDetector, false) and not is_over_backdrop($PrimaryDetector, false)) and ((is_over_backdrop($RightDetector, false) and x_speed >= 0.08) or (is_over_backdrop($LeftDetector, false) and x_speed <= -0.08)):
@@ -161,6 +165,7 @@ func controls(delta) -> void:
     jump_counter = 1
     can_jump = false
     $BaseSounds/MAIN_Jump.play()
+    jump_internal_counter = 0
   
   if y_speed > 0.01 and not (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector)):
     standing = false
