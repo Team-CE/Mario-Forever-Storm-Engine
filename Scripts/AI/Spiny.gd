@@ -1,5 +1,8 @@
 extends Brain
 
+func _ready_mixin():
+  owner.death_type = AliveObject.DEATH_TYPE.NONE
+
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)
   if !owner.is_on_floor():
@@ -12,5 +15,5 @@ func _ai_process(delta:float) -> void:
   if owner.is_on_wall():
     owner.turn()
     
-  elif is_mario_collide('InsideDetector'):
-    Global.Mario.kill()
+  if on_mario_collide('InsideDetector'):
+    Global._ppd()

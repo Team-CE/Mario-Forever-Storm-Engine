@@ -18,5 +18,5 @@ func _ai_process(delta:float) -> void:
       Global.Mario.y_speed = -(owner.vars["bounce"] + 5)
     else:
       Global.Mario.y_speed = -owner.vars["bounce"]
-  elif is_mario_collide('InsideDetector'):
-    Global.Mario.kill()
+  if on_mario_collide('InsideDetector'):
+    Global._ppd()

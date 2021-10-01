@@ -59,8 +59,8 @@ func _ai_process(delta: float) -> void:
       shell_counter = 0
       owner.dir = -1 if Global.Mario.position.x > owner.position.x else 1
     
-  if is_mario_collide('InsideDetector') && !is_mario_collide('BottomDetector') && shell_counter >= 31:
-    Global.Mario.kill()
+  if on_mario_collide('InsideDetector') && !is_mario_collide('BottomDetector') && shell_counter >= 31:
+    Global._ppd()
 
 func _on_kill_zone_enter(b:Node) -> void:
   if owner.vars['is shell'] && abs(owner.velocity.x) > 0 && b.is_class('KinematicBody2D') && b != owner:

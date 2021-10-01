@@ -19,7 +19,7 @@ func _on_hitbox_enter(a) -> void:
   if !owner.alive:
     return
   if a.name == 'InsideDetector':
-    Global.Mario.kill()
+    Global._ppd()
   elif a.name == 'BottomDetector':
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.y_speed = -(owner.vars['bounce'] + 5)
