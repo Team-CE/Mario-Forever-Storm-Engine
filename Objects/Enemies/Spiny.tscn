@@ -1,38 +1,38 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scripts/AI/Goomba.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/AI/Spiny.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Enemies/Spiny.png" type="Texture" id=2]
 [ext_resource path="res://GFX/Enemies/Spiny_falling.png" type="Texture" id=3]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=4]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=5]
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 33, 31 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
 region = Rect2( 33, 0, 33, 31 )
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
 "loop": true,
 "name": "default",
+"speed": 6.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "walk",
 "speed": 6.0
 }, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "falling",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "walk",
-"speed": 6.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 17, 15 )
 
 [node name="Spiny" type="KinematicBody2D"]
@@ -46,15 +46,16 @@ animated_sprite_pth = NodePath("Sprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
-frames = SubResource( 4 )
+frames = SubResource( 3 )
 animation = "walk"
+frame = 1
 playing = true
 flip_h = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 show_behind_parent = true
 position = Vector2( 0, -15 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
