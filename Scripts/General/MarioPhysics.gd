@@ -6,6 +6,7 @@ var jump_internal_counter: float = 100
 var can_jump: bool = false
 var crouch: bool = false
 var standing: bool = false
+var prelanding: bool = false
 
 onready var dead: bool = false
 onready var dead_counter: float = 0
@@ -34,65 +35,65 @@ func is_over_platform(obj) -> bool:
 
   if overlaps.size() > 0 && (overlaps[0].is_in_group('Platform')):
     return overlaps[0]
-  
+
   return false
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
   _process_camera()
 
   if not dead:
     _process_alive(delta)
   else:
     _process_dead(delta)
-  
+
   if velocity.y > 500:
     velocity.y = 500
-    
+
   if jump_internal_counter < 100:
     jump_internal_counter += 1 * Global.get_delta(delta)
 
 func _process_alive(delta) -> void:
-  if velocity.y < 550 and not is_on_floor():
+  if velocity.y < 550 and not is_on_floor() and not standing:
     if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y < 0:
       if abs(velocity.x) < 1:
         velocity.y -= 20 * Global.get_delta(delta)
       else:
         velocity.y -= 25 * Global.get_delta(delta)
     velocity.y += 50 * Global.get_delta(delta)
-    
+
   if controls_enabled:
     controls(delta)
-  
+
   if velocity.x > 0:
     velocity.x -= 5 * Global.get_delta(delta)
   if velocity.x < 0:
     velocity.x += 5 * Global.get_delta(delta)
-    
+
   if velocity.x > -5 and velocity.x < 5:
     velocity.x = 0
-  
+
   if velocity.y > 0:
     jump_counter = 1
-  
+
   if is_on_floor() and jump_internal_counter > 3:
     var platform = is_over_platform($BottomDetector)
     if platform:
       position.x += platform.horizontal_speed * Global.get_delta(delta)
-    velocity.y = 0
+    #velocity.y = 0
     standing = true
     jump_counter = 0
-  
+
   if position.y > $Camera.limit_bottom + 64 and controls_enabled:
     Global._pll()
-    
-  if (is_on_floor() and velocity.y > -10) or is_on_ceiling():
+
+  if is_on_floor() and velocity.y > -14 or is_on_ceiling():
     velocity.y = 1
-    
-  print(velocity)
-  print(is_on_floor())
-  
-  velocity = move_and_slide(velocity, Vector2.UP)
-  
+    prelanding = true
+    if is_on_floor():
+      standing = true
+
+  velocity = move_and_slide(velocity, Vector2(0, -1))
+
   animate(delta)
   update_collisions()
   debug()
@@ -101,10 +102,9 @@ func _process_dead(delta) -> void:
   if dead_counter == 0:
     Global.state = 0
     animate(delta)
-  
+
   $TopDetector/CollisionTop.disabled = true
   $BottomDetector/CollisionBottom.disabled = true
-  $BottomDetector/CollisionBottomClose.disabled = true
 
   dead_counter += 1 * Global.get_delta(delta)
   $SmallMario.set_animation('Dead')
@@ -117,7 +117,6 @@ func _process_dead(delta) -> void:
   elif dead_counter >= 28 and dead_counter < 29:
     velocity.y = -550
 
-  $CollisionPrimary.shape = null
   $BottomDetector/CollisionBottom.shape = null
   $TopDetector/CollisionTop.shape = null
 
@@ -136,16 +135,17 @@ func controls(delta) -> void:
 
   if jump_counter == 0 and can_jump:
     standing = false
+    prelanding = false
     velocity.y = -700 # 650
-    # position.y -= 2
     jump_counter = 1
     can_jump = false
     $BaseSounds/MAIN_Jump.play()
     jump_internal_counter = 0
-  
-  if velocity.y > 0.5 and not is_on_floor():
+
+  if velocity.y > 0.5 and not is_over_backdrop($BottomDetector, false):
     standing = false
-  
+    prelanding = false
+
   if Input.is_action_pressed('mario_crouch') and is_on_floor() and Global.state > 0:
     crouch = true
     if velocity.x > 0:
@@ -156,7 +156,7 @@ func controls(delta) -> void:
     crouch = false
   if not Input.is_action_pressed('mario_crouch'):
     crouch = false
-  
+
   if Input.is_action_pressed('mario_right') and not crouch:
     if velocity.x > -20 and velocity.x < 20:
       velocity.x = 40
@@ -166,7 +166,7 @@ func controls(delta) -> void:
       velocity.x += 12.5 * Global.get_delta(delta)
     elif velocity.x < 350 and Input.is_action_pressed('mario_fire'):
       velocity.x += 12.5 * Global.get_delta(delta)
-    
+
   if Input.is_action_pressed('mario_left') and not crouch:
     if velocity.x > -20 and velocity.x < 20:
       velocity.x = -40
@@ -176,7 +176,7 @@ func controls(delta) -> void:
       velocity.x -= 12.5 * Global.get_delta(delta)
     elif velocity.x > -350 and Input.is_action_pressed('mario_fire'):
       velocity.x -= 12.5 * Global.get_delta(delta)
-  
+
   if Input.is_action_just_pressed('mario_fire') and not crouch and Global.state > 1:
     if Global.state == 2 and Global.projectiles_count < 2:
       Global.play_base_sound('MAIN_Shoot')
@@ -210,7 +210,7 @@ func animate(delta) -> void:
     $BigMario.flip_h = true
     $FlowerMario.flip_h = true
     $BeetrootMario.flip_h = true
-  
+
   if velocity.x >= 4:
     $SmallMario.flip_h = false
     $BigMario.flip_h = false
@@ -221,7 +221,7 @@ func animate(delta) -> void:
     if not $SmallMario.animation == 'Appearing':
       animate_sprite('Appearing')
       $SmallMario.position.y -= 13
-    
+
     speed_scale_sprite(1)
     appear_counter -= 1.5 * Global.get_delta(delta)
     return
@@ -244,7 +244,7 @@ func animate(delta) -> void:
     animate_sprite('Launching')
     launch_counter -= 1.01 * Global.get_delta(delta)
     return
-  
+
   if crouch:
     animate_sprite('Crouching')
     return
@@ -253,15 +253,15 @@ func animate(delta) -> void:
     animate_sprite('Jumping')
   elif abs(velocity.x) < 0.08:
     animate_sprite('Stopped')
-    
+
   if velocity.x <= -0.08:
     if is_on_floor() or $SmallMario.animation == 'Launching':
       animate_sprite('Walking')
-      
+
   if velocity.x >= 0.08:
     if is_on_floor() or $SmallMario.animation == 'Launching':
       animate_sprite('Walking')
-      
+
   if $SmallMario.animation == 'Walking':
     speed_scale_sprite(abs(velocity.x / 50) * 2.5 + 4)
 
@@ -280,18 +280,12 @@ func speed_scale_sprite(scale_num) -> void:
   $BeetrootMario.speed_scale = scale_num
 
 func update_collisions() -> void:
-  #$CollisionPrimary.disabled = not (Global.state == 0 or crouch)
   $TopDetector/CollisionTop.disabled = not (Global.state == 0 or crouch)
   $SmallRightDetector/CollisionSmallRight.disabled = not (Global.state == 0 or crouch)
   $SmallLeftDetector/CollisionSmallLeft.disabled = not (Global.state == 0 or crouch)
-
-  #$CollisionPrimaryBig.disabled = not (Global.state > 0 and not crouch)
   $TopDetector/CollisionTopBig.disabled = not (Global.state > 0 and not crouch)
   $SmallRightDetector/CollisionSmallRightBig.disabled = not (Global.state > 0 and not crouch)
   $SmallLeftDetector/CollisionSmallLeftBig.disabled = not (Global.state > 0 and not crouch)
-
-  #$BottomDetector/CollisionBottom.disabled = not velocity.y > 100 and not velocity.y <= 0
-  #$BottomDetector/CollisionBottomClose.disabled = not velocity.y <= 100
 
 func kill() -> void:
   dead = true
@@ -301,7 +295,7 @@ func kill() -> void:
 func debug() -> void:
   if Input.is_action_just_pressed('mouse_middle'):
     $DebugText.visible = !$DebugText.visible
-  
+
   $DebugText.text = 'x speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($BigMario.animation).to_lower() + '\nfps: ' + str(Engine.get_frames_per_second())
 
 func _process_camera() -> void:

@@ -52,25 +52,25 @@ animations = [ {
 "name": "Appearing",
 "speed": 25.0
 }, {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "Dead",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 4 ) ],
 "loop": true,
 "name": "Stopped",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "Jumping",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 4 ) ],
 "loop": true,
 "name": "Walking",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Dead",
+"speed": 5.0
 } ]
 
 [sub_resource type="AtlasTexture" id=8]
@@ -113,15 +113,15 @@ animations = [ {
 "name": "Stopped",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "Walking",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
@@ -163,30 +163,30 @@ region = Rect2( 62, 0, 31, 59 )
 
 [sub_resource type="SpriteFrames" id=24]
 animations = [ {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
-"name": "Launching",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "Appearing",
 "speed": 25.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "Launching",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 20 ) ],
 "loop": true,
 "name": "Stopped",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
 "loop": true,
 "name": "Walking",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
@@ -228,24 +228,19 @@ region = Rect2( 62, 0, 31, 62 )
 
 [sub_resource type="SpriteFrames" id=33]
 animations = [ {
-"frames": [ ExtResource( 20 ) ],
-"loop": true,
-"name": "Launching",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
 "name": "Appearing",
 "speed": 25.0
 }, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "Launching",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 29 ) ],
 "loop": true,
 "name": "Stopped",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ) ],
-"loop": true,
-"name": "Jumping",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 30 ), SubResource( 31 ), SubResource( 32 ) ],
@@ -253,44 +248,48 @@ animations = [ {
 "name": "Walking",
 "speed": 1.0
 }, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "Crouching",
 "speed": 5.0
 } ]
 
-[sub_resource type="RayShape2D" id=43]
+[sub_resource type="RayShape2D" id=34]
 length = 16.1875
-slips_on_slope = true
 
-[sub_resource type="RayShape2D" id=44]
+[sub_resource type="RayShape2D" id=35]
 length = 8.0
 
-[sub_resource type="RayShape2D" id=45]
+[sub_resource type="RayShape2D" id=36]
 length = 8.0
 
-[sub_resource type="RayShape2D" id=46]
+[sub_resource type="RayShape2D" id=37]
 length = 16.0
-
-[sub_resource type="RectangleShape2D" id=37]
-extents = Vector2( 7, 2 )
-
-[sub_resource type="RectangleShape2D" id=36]
-extents = Vector2( 7, 2 )
 
 [sub_resource type="RectangleShape2D" id=38]
 extents = Vector2( 7, 2 )
 
 [sub_resource type="RectangleShape2D" id=39]
-extents = Vector2( 1, 6 )
+extents = Vector2( 7, 2 )
 
 [sub_resource type="RectangleShape2D" id=40]
-extents = Vector2( 1, 12 )
+extents = Vector2( 7, 2 )
 
 [sub_resource type="RectangleShape2D" id=41]
 extents = Vector2( 1, 6 )
 
 [sub_resource type="RectangleShape2D" id=42]
+extents = Vector2( 1, 12 )
+
+[sub_resource type="RectangleShape2D" id=43]
+extents = Vector2( 1, 6 )
+
+[sub_resource type="RectangleShape2D" id=44]
 extents = Vector2( 1, 12 )
 
 [node name="Mario" type="KinematicBody2D"]
@@ -349,50 +348,58 @@ animation = "Stopped"
 playing = true
 
 [node name="CollisionBottom" type="CollisionShape2D" parent="."]
-position = Vector2( -6.4375, -16.1875 )
-shape = SubResource( 43 )
+position = Vector2( -6, -16 )
+shape = SubResource( 34 )
+one_way_collision = true
 
 [node name="CollisionBottom2" type="CollisionShape2D" parent="."]
-position = Vector2( 6.5625, -16.1875 )
-shape = SubResource( 43 )
+position = Vector2( 6, -16 )
+shape = SubResource( 34 )
+one_way_collision = true
 
 [node name="CollisionRight" type="CollisionShape2D" parent="."]
-position = Vector2( 4, -16 )
+position = Vector2( 6, -14 )
 rotation = -1.5708
-shape = SubResource( 44 )
+shape = SubResource( 35 )
+one_way_collision = true
 
 [node name="CollisionRight2" type="CollisionShape2D" parent="."]
-position = Vector2( 4, -8 )
+position = Vector2( 6, -10 )
 rotation = -1.5708
-shape = SubResource( 44 )
+shape = SubResource( 35 )
+one_way_collision = true
 
 [node name="CollisionLeft" type="CollisionShape2D" parent="."]
-position = Vector2( -4, -8 )
+position = Vector2( -6, -10 )
 rotation = 1.5708
-shape = SubResource( 45 )
+shape = SubResource( 36 )
+one_way_collision = true
 
 [node name="CollisionLeft2" type="CollisionShape2D" parent="."]
-position = Vector2( -4, -16 )
+position = Vector2( -6, -14 )
 rotation = 1.5708
-shape = SubResource( 45 )
+shape = SubResource( 36 )
+one_way_collision = true
 
 [node name="CollisionTop" type="CollisionShape2D" parent="."]
-position = Vector2( -6, -5 )
+position = Vector2( -6, -6 )
 rotation = 3.14159
-shape = SubResource( 46 )
+shape = SubResource( 37 )
+one_way_collision = true
 
 [node name="CollisionTop2" type="CollisionShape2D" parent="."]
-position = Vector2( 7, -5 )
+position = Vector2( 6, -6 )
 rotation = 3.14159
-shape = SubResource( 46 )
+shape = SubResource( 37 )
+one_way_collision = true
 
 [node name="BottomDetector" type="Area2D" parent="."]
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionBottomClose" type="CollisionShape2D" parent="BottomDetector"]
+[node name="CollisionBottom" type="CollisionShape2D" parent="BottomDetector"]
 position = Vector2( 0, 4 )
-shape = SubResource( 37 )
+shape = SubResource( 38 )
 
 [node name="TopDetector" type="Area2D" parent="."]
 visible = false
@@ -401,11 +408,11 @@ collision_mask = 3
 
 [node name="CollisionTop" type="CollisionShape2D" parent="TopDetector"]
 position = Vector2( 0, -37 )
-shape = SubResource( 36 )
+shape = SubResource( 39 )
 
 [node name="CollisionTopBig" type="CollisionShape2D" parent="TopDetector"]
 position = Vector2( 0, -60 )
-shape = SubResource( 38 )
+shape = SubResource( 40 )
 
 [node name="SmallRightDetector" type="Area2D" parent="."]
 visible = false
@@ -414,11 +421,11 @@ collision_mask = 3
 
 [node name="CollisionSmallRight" type="CollisionShape2D" parent="SmallRightDetector"]
 position = Vector2( 12, -14 )
-shape = SubResource( 39 )
+shape = SubResource( 41 )
 
 [node name="CollisionSmallRightBig" type="CollisionShape2D" parent="SmallRightDetector"]
 position = Vector2( 12, -23 )
-shape = SubResource( 40 )
+shape = SubResource( 42 )
 
 [node name="SmallLeftDetector" type="Area2D" parent="."]
 visible = false
@@ -427,10 +434,10 @@ collision_mask = 3
 
 [node name="CollisionSmallLeft" type="CollisionShape2D" parent="SmallLeftDetector"]
 position = Vector2( -12, -14 )
-shape = SubResource( 41 )
+shape = SubResource( 43 )
 
 [node name="CollisionSmallLeftBig" type="CollisionShape2D" parent="SmallLeftDetector"]
 position = Vector2( -12, -23 )
-shape = SubResource( 42 )
+shape = SubResource( 44 )
 
 [node name="BaseSounds" parent="." instance=ExtResource( 4 )]
