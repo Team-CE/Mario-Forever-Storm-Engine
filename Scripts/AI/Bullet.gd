@@ -22,7 +22,7 @@ func _on_hitbox_enter(a) -> void:
     Global._ppd()
   elif a.name == 'BottomDetector':
     if Input.is_action_pressed('mario_jump'):
-      Global.Mario.y_speed = -(owner.vars['bounce'] + 5)
+      Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
     else:
-      Global.Mario.y_speed = -owner.vars['bounce']
+      Global.Mario.velocity.y = -owner.vars['bounce'] * 50
     owner.kill(AliveObject.DEATH_TYPE.FALL)

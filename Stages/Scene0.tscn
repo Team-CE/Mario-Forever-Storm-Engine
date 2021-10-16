@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=4]
+[ext_resource path="res://temp/S32.png" type="Texture" id=5]
+[ext_resource path="res://temp/S33.png" type="Texture" id=6]
+[ext_resource path="res://temp/S1.png" type="Texture" id=7]
+[ext_resource path="res://temp/S26.png" type="Texture" id=8]
+[ext_resource path="res://temp/S20.png" type="Texture" id=9]
+[ext_resource path="res://temp/S19.png" type="Texture" id=10]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -16,9 +22,203 @@ cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( -327616, 6, 0, -327615, 6, 0, -327614, 6, 0, -327613, 6, 0, -327612, 6, 0, -327611, 6, 0, -327610, 6, 0, -327609, 6, 0, -327608, 6, 0, -327607, 6, 0, -327606, 6, 0, -327605, 6, 0, -327604, 6, 0, -327603, 6, 0, -327602, 6, 0, -327601, 6, 0, -327600, 6, 0, -327599, 6, 0, -327598, 6, 0, -327597, 6, 0, -327596, 6, 0, -327595, 6, 0, -327594, 6, 0, -327593, 6, 0, -327592, 6, 0, -327591, 6, 0, -327590, 6, 0, -327589, 6, 0, -327588, 6, 0, -327587, 6, 0, -327586, 6, 0, -327585, 6, 0, -327584, 6, 0, -327583, 6, 0, -327582, 6, 0, -327581, 6, 0, -327580, 6, 0, -327579, 6, 0, -327578, 6, 0, -327577, 6, 0, -327576, 6, 0, -327575, 6, 0, -327574, 6, 0, -327573, 6, 0, -327572, 6, 0, -262036, 6, 0, -196500, 6, 0, -131004, 6, 0, -131003, 6, 0, -131002, 6, 0, -131001, 6, 0, -131000, 6, 0, -130999, 6, 0, -130998, 6, 0, -130997, 6, 0, -130996, 6, 0, -130995, 6, 0, -130994, 6, 0, -130993, 6, 0, -130992, 6, 0, -130991, 6, 0, -130990, 6, 0, -130989, 6, 0, -130988, 6, 0, -130987, 6, 0, -130986, 6, 0, -130985, 6, 0, -130984, 6, 0, -130983, 6, 0, -130982, 6, 0, -130981, 6, 0, -130980, 6, 0, -130979, 6, 0, -130978, 6, 0, -130977, 6, 0, -130976, 6, 0, -130975, 6, 0, -130974, 6, 0, -130973, 6, 0, -130972, 6, 0, -130971, 6, 0, -130970, 6, 0, -130969, 6, 0, -130968, 6, 0, -130967, 6, 0, -130966, 6, 0, -130965, 6, 0, -130964, 6, 0, -65468, 6, 0, -65428, 6, 0, 65535, 6, 0, 68, 6, 0, 108, 6, 0, 131071, 6, 0, 65603, 6, 0, 65604, 6, 0, 65644, 6, 0, 196607, 6, 0, 131139, 6, 0, 131180, 6, 0, 262143, 6, 0, 196675, 6, 0, 196716, 6, 0, 327679, 6, 0, 262210, 6, 0, 262211, 6, 0, 262252, 6, 0, 393215, 6, 0, 327690, 5, 196608, 327691, 5, 196610, 327788, 6, 0, 458751, 6, 0, 393228, 5, 196608, 393229, 5, 196609, 393230, 5, 196610, 393240, 6, 0, 393241, 6, 0, 393242, 6, 0, 393243, 6, 0, 393244, 6, 0, 393324, 6, 0, 524287, 6, 0, 458776, 6, 0, 458780, 6, 0, 458816, 6, 0, 458817, 6, 0, 458818, 6, 0, 458819, 6, 0, 458820, 6, 0, 458821, 6, 0, 458860, 6, 0, 589823, 6, 0, 524312, 6, 0, 524316, 6, 0, 524396, 6, 0, 655359, 6, 0, 589830, 6, 0, 589831, 6, 0, 589832, 6, 0, 589833, 6, 0, 589834, 6, 0, 589835, 6, 0, 589836, 6, 0, 589837, 6, 0, 589838, 6, 0, 589839, 6, 0, 589840, 6, 0, 589841, 6, 0, 589842, 6, 0, 589848, 6, 0, 589852, 6, 0, 589932, 6, 0, 720895, 6, 0, 655366, 6, 0, 655367, 6, 0, 655368, 6, 0, 655369, 6, 0, 655370, 6, 0, 655384, 6, 0, 655388, 6, 0, 655468, 6, 0, 786431, 6, 0, 720907, 6, 0, 720908, 6, 0, 720909, 6, 0, 720910, 6, 0, 720911, 6, 0, 720912, 6, 0, 720913, 6, 0, 720914, 6, 0, 720915, 6, 0, 720916, 6, 0, 720920, 6, 0, 720924, 6, 0, 721004, 6, 0, 851967, 6, 0, 786456, 6, 0, 786464, 6, 0, 786496, 6, 0, 786540, 6, 0, 917503, 6, 0, 852032, 5, 0, 852033, 5, 1, 852034, 5, 1, 852035, 5, 1, 852036, 5, 1, 852037, 5, 1, 852038, 5, 1, 852039, 5, 1, 852040, 5, 1, 852041, 5, 1, 852042, 5, 1, 852043, 5, 1, 852044, 5, 1, 852045, 5, 1, 852046, 5, 1, 852047, 5, 1, 852048, 5, 1, 852049, 5, 1, 852050, 5, 1, 852051, 5, 1, 852052, 5, 1, 852053, 5, 1, 852054, 5, 1, 852055, 5, 1, 852056, 5, 1, 852057, 5, 1, 852058, 5, 1, 852059, 5, 1, 852060, 5, 1, 852061, 5, 1, 852062, 5, 1, 852063, 5, 1, 852064, 5, 1, 852065, 5, 1, 852066, 5, 1, 852067, 5, 1, 852068, 5, 1, 852069, 5, 1, 852070, 5, 1, 852071, 5, 1, 852072, 5, 1, 852073, 5, 1, 852074, 5, 1, 852075, 5, 1, 852076, 5, 2, 983039, 6, 0, 917504, 5, 0, 917505, 5, 1, 917506, 5, 1, 917507, 5, 1, 917508, 5, 1, 917509, 5, 1, 917510, 5, 1, 917511, 5, 1, 917512, 5, 1, 917513, 5, 1, 917514, 5, 1, 917515, 5, 1, 917516, 5, 1, 917517, 5, 1, 917518, 5, 1, 917519, 5, 1, 917520, 5, 1, 917521, 5, 1, 917522, 5, 1, 917523, 5, 1, 917524, 5, 1, 917525, 5, 1, 917526, 5, 1, 917527, 5, 1, 917528, 5, 1, 917529, 5, 1, 917530, 5, 1, 917531, 5, 1, 917532, 5, 1, 917533, 5, 1, 917534, 5, 1, 917535, 5, 1, 917536, 5, 2, 917568, 5, 65536, 917569, 5, 65537, 917570, 5, 65537, 917571, 5, 65537, 917572, 5, 65537, 917573, 5, 65537, 917574, 5, 65537, 917575, 5, 65537, 917576, 5, 65537, 917577, 5, 65537, 917578, 5, 65537, 917579, 5, 65537, 917580, 5, 65537, 917581, 5, 65537, 917582, 5, 65537, 917583, 5, 65537, 917584, 5, 65537, 917585, 5, 65537, 917586, 5, 65537, 917587, 5, 65537, 917588, 5, 65537, 917589, 5, 65537, 917590, 5, 65537, 917591, 5, 65537, 917592, 5, 65537, 917593, 5, 65537, 917594, 5, 65537, 917595, 5, 65537, 917596, 5, 65537, 917597, 5, 65537, 917598, 5, 65537, 917599, 5, 65537, 917600, 5, 65537, 917601, 5, 65537, 917602, 5, 65537, 917603, 5, 65537, 917604, 5, 65537, 917605, 5, 65537, 917606, 5, 65537, 917607, 5, 65537, 917608, 5, 65537, 917609, 5, 65537, 917610, 5, 65537, 917611, 5, 65537, 917612, 5, 65538, 983040, 5, 131072, 983041, 5, 131073, 983042, 5, 131073, 983043, 5, 131073, 983044, 5, 131073, 983045, 5, 131073, 983046, 5, 131073, 983047, 5, 131073, 983048, 5, 131073, 983049, 5, 131073, 983050, 5, 131073, 983051, 5, 131073, 983052, 5, 131073, 983053, 5, 131073, 983054, 5, 131073, 983055, 5, 131073, 983056, 5, 131073, 983057, 5, 131073, 983058, 5, 131073, 983059, 5, 131073, 983060, 5, 131073, 983061, 5, 131073, 983062, 5, 131073, 983063, 5, 131073, 983064, 5, 131073, 983065, 5, 131073, 983066, 5, 131073, 983067, 5, 131073, 983068, 5, 131073, 983069, 5, 131073, 983070, 5, 131073, 983071, 5, 131073, 983072, 5, 131074, 983104, 5, 131072, 983105, 5, 131073, 983106, 5, 131073, 983107, 5, 131073, 983108, 5, 131073, 983109, 5, 131073, 983110, 5, 131073, 983111, 5, 131073, 983112, 5, 131073, 983113, 5, 131073, 983114, 5, 131073, 983115, 5, 131073, 983116, 5, 131073, 983117, 5, 131073, 983118, 5, 131073, 983119, 5, 131073, 983120, 5, 131073, 983121, 5, 131073, 983122, 5, 131073, 983123, 5, 131073, 983124, 5, 131073, 983125, 5, 131073, 983126, 5, 131073, 983127, 5, 131073, 983128, 5, 131073, 983129, 5, 131073, 983130, 5, 131073, 983131, 5, 131073, 983132, 5, 131073, 983133, 5, 131073, 983134, 5, 131073, 983135, 5, 131073, 983136, 5, 131073, 983137, 5, 131073, 983138, 5, 131073, 983139, 5, 131073, 983140, 5, 131073, 983141, 5, 131073, 983142, 5, 131073, 983143, 5, 131073, 983144, 5, 131073, 983145, 5, 131073, 983146, 5, 131073, 983147, 5, 131073, 983148, 5, 131074 )
+tile_data = PoolIntArray( 65535, 6, 0, 131071, 6, 0, 196607, 6, 0, 262143, 6, 0, 327679, 6, 0, 393215, 6, 0, 458751, 6, 0, 524287, 6, 0, 589823, 6, 0, 655359, 6, 0, 720895, 6, 0, 786431, 6, 0, 851967, 6, 0, 917503, 6, 0, 851968, 5, 0, 851969, 5, 1, 851970, 5, 1, 851971, 5, 1, 851972, 5, 1, 851973, 5, 1, 851974, 5, 1, 851975, 5, 1, 851976, 5, 1, 851977, 5, 1, 851978, 5, 1, 851979, 5, 1, 851980, 5, 1, 851981, 5, 1, 851982, 5, 1, 851983, 5, 1, 851984, 5, 1, 851985, 5, 1, 851986, 5, 1, 851987, 5, 1, 851988, 5, 1, 851989, 5, 1, 851990, 5, 1, 851991, 5, 1, 851992, 5, 1, 851993, 5, 1, 851994, 5, 1, 851995, 5, 1, 851996, 5, 1, 851997, 5, 1, 851998, 5, 1, 851999, 5, 1, 852000, 5, 1, 852001, 5, 1, 852002, 5, 1, 852003, 5, 1, 852004, 5, 1, 852005, 5, 1, 852006, 5, 1, 852007, 5, 1, 852008, 5, 1, 852009, 5, 1, 852010, 5, 1, 852011, 5, 1, 852012, 5, 1, 852013, 5, 2, 983039, 6, 0, 917504, 5, 65536, 917505, 5, 65537, 917506, 5, 65537, 917507, 5, 65537, 917508, 5, 65537, 917509, 5, 65537, 917510, 5, 65537, 917511, 5, 65537, 917512, 5, 65537, 917513, 5, 65537, 917514, 5, 65537, 917515, 5, 65537, 917516, 5, 65537, 917517, 5, 65537, 917518, 5, 65537, 917519, 5, 65537, 917520, 5, 65537, 917521, 5, 65537, 917522, 5, 65537, 917523, 5, 65537, 917524, 5, 65537, 917525, 5, 65537, 917526, 5, 65537, 917527, 5, 65537, 917528, 5, 65537, 917529, 5, 65537, 917530, 5, 65537, 917531, 5, 65537, 917532, 5, 65537, 917533, 5, 65537, 917534, 5, 65537, 917535, 5, 65537, 917536, 5, 65537, 917537, 5, 65537, 917538, 5, 65537, 917539, 5, 65537, 917540, 5, 65537, 917541, 5, 65537, 917542, 5, 65537, 917543, 5, 65537, 917544, 5, 65537, 917545, 5, 65537, 917546, 5, 65537, 917547, 5, 65537, 917548, 5, 65537, 917549, 5, 65538, 983040, 5, 131072, 983041, 5, 131073, 983042, 5, 131073, 983043, 5, 131073, 983044, 5, 131073, 983045, 5, 131073, 983046, 5, 131073, 983047, 5, 131073, 983048, 5, 131073, 983049, 5, 131073, 983050, 5, 131073, 983051, 5, 131073, 983052, 5, 131073, 983053, 5, 131073, 983054, 5, 131073, 983055, 5, 131073, 983056, 5, 131073, 983057, 5, 131073, 983058, 5, 131073, 983059, 5, 131073, 983060, 5, 131073, 983061, 5, 131073, 983062, 5, 131073, 983063, 5, 131073, 983064, 5, 131073, 983065, 5, 131073, 983066, 5, 131073, 983067, 5, 131073, 983068, 5, 131073, 983069, 5, 131073, 983070, 5, 131073, 983071, 5, 131073, 983072, 5, 131073, 983073, 5, 131073, 983074, 5, 131073, 983075, 5, 131073, 983076, 5, 131073, 983077, 5, 131073, 983078, 5, 131073, 983079, 5, 131073, 983080, 5, 131073, 983081, 5, 131073, 983082, 5, 131073, 983083, 5, 131073, 983084, 5, 131073, 983085, 5, 131074 )
 
 [node name="Mario" parent="." instance=ExtResource( 4 )]
-position = Vector2( 216, 152 )
+position = Vector2( 144, 416 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 256, 416 )
+
+[node name="S32" type="Sprite" parent="StaticBody2D"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 5 )
+
+[node name="S33" type="Sprite" parent="StaticBody2D"]
+position = Vector2( 48, -16 )
+texture = ExtResource( 6 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( 0, 0, 64, -32, 64, 0 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2( 320, 384 )
+
+[node name="S32" type="Sprite" parent="StaticBody2D2"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 5 )
+
+[node name="S33" type="Sprite" parent="StaticBody2D2"]
+position = Vector2( 48, -16 )
+texture = ExtResource( 6 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+polygon = PoolVector2Array( 0, 0, 64, -32, 64, 0 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2( 384, 352 )
+
+[node name="S32" type="Sprite" parent="StaticBody2D3"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 5 )
+
+[node name="S33" type="Sprite" parent="StaticBody2D3"]
+position = Vector2( 48, -16 )
+texture = ExtResource( 6 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D3"]
+polygon = PoolVector2Array( 0, 0, 64, -32, 64, 0 )
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="."]
+position = Vector2( 944, 320 )
+
+[node name="S32" type="Sprite" parent="StaticBody2D7"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 5 )
+
+[node name="S33" type="Sprite" parent="StaticBody2D7"]
+position = Vector2( 48, -16 )
+texture = ExtResource( 6 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D7"]
+polygon = PoolVector2Array( 0, 0, 64, -32, 64, 0 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2( 848, 416 )
+
+[node name="S1" type="Sprite" parent="StaticBody2D4"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D4"]
+polygon = PoolVector2Array( 0, 0, 32, -32, 32, 0 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2( 880, 384 )
+
+[node name="S1" type="Sprite" parent="StaticBody2D5"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D5"]
+polygon = PoolVector2Array( 0, 0, 32, -32, 32, 0 )
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="."]
+position = Vector2( 912, 352 )
+
+[node name="S1" type="Sprite" parent="StaticBody2D6"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D6"]
+polygon = PoolVector2Array( 0, 0, 32, -32, 32, 0 )
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="."]
+position = Vector2( 1008, 288 )
+
+[node name="S1" type="Sprite" parent="StaticBody2D8"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D8"]
+polygon = PoolVector2Array( 0, 0, 32, -32, 32, 0 )
+
+[node name="StaticBody2D9" type="StaticBody2D" parent="."]
+position = Vector2( 448, 320 )
+
+[node name="S1" type="Sprite" parent="StaticBody2D9"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D9"]
+polygon = PoolVector2Array( 0, 0, 32, -32, 32, 0 )
+
+[node name="StaticBody2D10" type="StaticBody2D" parent="."]
+position = Vector2( 1040, 288 )
+
+[node name="S26" type="Sprite" parent="StaticBody2D10"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 8 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D10"]
+polygon = PoolVector2Array( 0, 0, 0, -32, 32, 0 )
+
+[node name="StaticBody2D11" type="StaticBody2D" parent="."]
+position = Vector2( 1072, 320 )
+
+[node name="S26" type="Sprite" parent="StaticBody2D11"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 8 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D11"]
+polygon = PoolVector2Array( 0, 0, 0, -32, 32, 0 )
+
+[node name="StaticBody2D12" type="StaticBody2D" parent="."]
+position = Vector2( 1104, 352 )
+
+[node name="S26" type="Sprite" parent="StaticBody2D12"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 8 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D12"]
+polygon = PoolVector2Array( 0, 0, 0, -32, 32, 0 )
+
+[node name="StaticBody2D13" type="StaticBody2D" parent="."]
+position = Vector2( 1136, 384 )
+
+[node name="S26" type="Sprite" parent="StaticBody2D13"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 8 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D13"]
+polygon = PoolVector2Array( 0, 0, 0, -32, 32, 0 )
+
+[node name="StaticBody2D14" type="StaticBody2D" parent="."]
+position = Vector2( 1168, 416 )
+
+[node name="S26" type="Sprite" parent="StaticBody2D14"]
+position = Vector2( 16, -16 )
+texture = ExtResource( 8 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D14"]
+polygon = PoolVector2Array( 0, 0, 0, -32, 32, 0 )
+
+[node name="S20" type="Sprite" parent="."]
+position = Vector2( 1320, 208 )
+texture = ExtResource( 9 )
+
+[node name="S21" type="Sprite" parent="."]
+position = Vector2( 1352, 240 )
+texture = ExtResource( 9 )
+
+[node name="S22" type="Sprite" parent="."]
+position = Vector2( 1384, 272 )
+texture = ExtResource( 9 )
+
+[node name="S23" type="Sprite" parent="."]
+position = Vector2( 1416, 304 )
+texture = ExtResource( 9 )
+
+[node name="S19" type="Sprite" parent="."]
+position = Vector2( 1448, 304 )
+texture = ExtResource( 10 )
+
+[node name="S24" type="Sprite" parent="."]
+position = Vector2( 1480, 272 )
+texture = ExtResource( 10 )
+
+[node name="S25" type="Sprite" parent="."]
+position = Vector2( 1512, 240 )
+texture = ExtResource( 10 )
+
+[node name="S26" type="Sprite" parent="."]
+position = Vector2( 1544, 208 )
+texture = ExtResource( 10 )
+
+[node name="StaticBody2D15" type="StaticBody2D" parent="."]
+position = Vector2( 1304, 192 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D15"]
+polygon = PoolVector2Array( 0, 0, 128, 128, 256, 0 )

@@ -38,7 +38,7 @@ func is_over_platform(obj) -> bool:
 
   return false
 
-func _physics_process(delta) -> void:
+func _process(delta) -> void:
   _process_camera()
 
   if not dead:
@@ -53,7 +53,7 @@ func _physics_process(delta) -> void:
     jump_internal_counter += 1 * Global.get_delta(delta)
 
 func _process_alive(delta) -> void:
-  if velocity.y < 550 and not is_on_floor() and not standing:
+  if velocity.y < 550 and not is_on_floor():
     if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y < 0:
       if abs(velocity.x) < 1:
         velocity.y -= 20 * Global.get_delta(delta)
@@ -86,13 +86,19 @@ func _process_alive(delta) -> void:
   if position.y > $Camera.limit_bottom + 64 and controls_enabled:
     Global._pll()
 
-  if is_on_floor() and velocity.y > -14 or is_on_ceiling():
-    velocity.y = 1
-    prelanding = true
-    if is_on_floor():
-      standing = true
+#  if is_on_floor() and velocity.y > -14 or is_on_ceiling():
+#    velocity.y = 1
+#    prelanding = true
+#    if is_on_floor():
+#      standing = true
 
-  velocity = move_and_slide(velocity, Vector2(0, -1))
+  if is_on_ceiling():
+    for i in range(get_slide_count()):
+      var collider = get_slide_collision(i).collider
+      if collider.has_method('hit'):
+        collider.hit(delta)
+
+  velocity = move_and_slide_with_snap(velocity, Vector2.ZERO, Vector2(0, -1), true, 4, 0.785398, false)
 
   animate(delta)
   update_collisions()
@@ -249,7 +255,7 @@ func animate(delta) -> void:
     animate_sprite('Crouching')
     return
 
-  if not is_on_floor() and not (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector)):
+  if not is_on_floor() and not (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector)) and abs(velocity.y) > 2:
     animate_sprite('Jumping')
   elif abs(velocity.x) < 0.08:
     animate_sprite('Stopped')
@@ -280,17 +286,23 @@ func speed_scale_sprite(scale_num) -> void:
   $BeetrootMario.speed_scale = scale_num
 
 func update_collisions() -> void:
+  $Collision.disabled = not (Global.state == 0 or crouch)
   $TopDetector/CollisionTop.disabled = not (Global.state == 0 or crouch)
+  $InsideDetector/CollisionSmall.disabled = not (Global.state == 0 or crouch)
   $SmallRightDetector/CollisionSmallRight.disabled = not (Global.state == 0 or crouch)
   $SmallLeftDetector/CollisionSmallLeft.disabled = not (Global.state == 0 or crouch)
+  
+  $CollisionBig.disabled = not (Global.state > 0 and not crouch)
   $TopDetector/CollisionTopBig.disabled = not (Global.state > 0 and not crouch)
+  $InsideDetector/CollisionBig.disabled = not (Global.state > 0 and not crouch)
   $SmallRightDetector/CollisionSmallRightBig.disabled = not (Global.state > 0 and not crouch)
   $SmallLeftDetector/CollisionSmallLeftBig.disabled = not (Global.state > 0 and not crouch)
 
 func kill() -> void:
   dead = true
-  #$CollisionPrimary.shape = null
-  $BottomDetector/CollisionBottom.shape = null
+  $Collision.disabled = true
+  $CollisionBig.disabled = true
+  $BottomDetector/CollisionBottom.disabled = true
 
 func debug() -> void:
   if Input.is_action_just_pressed('mouse_middle'):

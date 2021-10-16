@@ -36,9 +36,9 @@ func _ai_process(delta: float) -> void:
     
       owner.sound.play()
       if Input.is_action_pressed('mario_jump'):
-        Global.Mario.y_speed = -(owner.vars['bounce'] + 5)
+        Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
       else:
-        Global.Mario.y_speed = -owner.vars['bounce']
+        Global.Mario.velocity.y = -owner.vars['bounce'] * 50
     elif owner.vars['is shell'] && !owner.vars['stopped'] && shell_counter >= 41: #Stops the shell
       score_mp = 0
       owner.get_parent().add_child(ScoreText.new(100, owner.position))
@@ -47,9 +47,9 @@ func _ai_process(delta: float) -> void:
     
       owner.sound.play()
       if Input.is_action_pressed('mario_jump'):
-        Global.Mario.y_speed = -(owner.vars['bounce'] + 5)
+        Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
       else:
-        Global.Mario.y_speed = -owner.vars['bounce']
+        Global.Mario.velocity.y = -owner.vars['bounce'] * 50
   
   if on_mario_collide('InsideDetector'):
     if owner.vars['stopped'] && owner.vars['is shell'] && shell_counter >= 41:

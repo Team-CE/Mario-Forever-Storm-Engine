@@ -46,7 +46,7 @@ func _process(delta) -> void:
     $Sprite.flip_h = false
 
   var mario = get_parent().get_node('Mario')
-  var pd_overlaps = mario.get_node('PrimaryDetector').get_overlapping_bodies()
+  var pd_overlaps = mario.get_node('BottomDetector').get_overlapping_bodies()
 
   if pd_overlaps and pd_overlaps.has(self):
     queue_free()
