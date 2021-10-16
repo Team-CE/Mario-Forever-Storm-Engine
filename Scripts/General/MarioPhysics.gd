@@ -93,7 +93,7 @@ func _process_alive(delta) -> void:
       if collider.has_method('hit'):
         collider.hit(delta)
 
-  velocity = move_and_slide_with_snap(velocity, Vector2.ZERO, Vector2(0, -1), true, 4, 0.785398, false)
+  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2.ZERO, Vector2(0, -1), true, 4, 0.785398, false)
 
   animate(delta)
   update_collisions()

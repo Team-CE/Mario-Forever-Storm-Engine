@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://temp/S26.png" type="Texture" id=8]
 [ext_resource path="res://temp/S20.png" type="Texture" id=9]
 [ext_resource path="res://temp/S19.png" type="Texture" id=10]
+[ext_resource path="res://Objects/Enemies/Piranha.tscn" type="PackedScene" id=11]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -25,7 +26,7 @@ format = 1
 tile_data = PoolIntArray( 65535, 6, 0, 131071, 6, 0, 196607, 6, 0, 262143, 6, 0, 327679, 6, 0, 393215, 6, 0, 458751, 6, 0, 524287, 6, 0, 589823, 6, 0, 655359, 6, 0, 720895, 6, 0, 786431, 6, 0, 851967, 6, 0, 917503, 6, 0, 851968, 5, 0, 851969, 5, 1, 851970, 5, 1, 851971, 5, 1, 851972, 5, 1, 851973, 5, 1, 851974, 5, 1, 851975, 5, 1, 851976, 5, 1, 851977, 5, 1, 851978, 5, 1, 851979, 5, 1, 851980, 5, 1, 851981, 5, 1, 851982, 5, 1, 851983, 5, 1, 851984, 5, 1, 851985, 5, 1, 851986, 5, 1, 851987, 5, 1, 851988, 5, 1, 851989, 5, 1, 851990, 5, 1, 851991, 5, 1, 851992, 5, 1, 851993, 5, 1, 851994, 5, 1, 851995, 5, 1, 851996, 5, 1, 851997, 5, 1, 851998, 5, 1, 851999, 5, 1, 852000, 5, 1, 852001, 5, 1, 852002, 5, 1, 852003, 5, 1, 852004, 5, 1, 852005, 5, 1, 852006, 5, 1, 852007, 5, 1, 852008, 5, 1, 852009, 5, 1, 852010, 5, 1, 852011, 5, 1, 852012, 5, 1, 852013, 5, 2, 983039, 6, 0, 917504, 5, 65536, 917505, 5, 65537, 917506, 5, 65537, 917507, 5, 65537, 917508, 5, 65537, 917509, 5, 65537, 917510, 5, 65537, 917511, 5, 65537, 917512, 5, 65537, 917513, 5, 65537, 917514, 5, 65537, 917515, 5, 65537, 917516, 5, 65537, 917517, 5, 65537, 917518, 5, 65537, 917519, 5, 65537, 917520, 5, 65537, 917521, 5, 65537, 917522, 5, 65537, 917523, 5, 65537, 917524, 5, 65537, 917525, 5, 65537, 917526, 5, 65537, 917527, 5, 65537, 917528, 5, 65537, 917529, 5, 65537, 917530, 5, 65537, 917531, 5, 65537, 917532, 5, 65537, 917533, 5, 65537, 917534, 5, 65537, 917535, 5, 65537, 917536, 5, 65537, 917537, 5, 65537, 917538, 5, 65537, 917539, 5, 65537, 917540, 5, 65537, 917541, 5, 65537, 917542, 5, 65537, 917543, 5, 65537, 917544, 5, 65537, 917545, 5, 65537, 917546, 5, 65537, 917547, 5, 65537, 917548, 5, 65537, 917549, 5, 65538, 983040, 5, 131072, 983041, 5, 131073, 983042, 5, 131073, 983043, 5, 131073, 983044, 5, 131073, 983045, 5, 131073, 983046, 5, 131073, 983047, 5, 131073, 983048, 5, 131073, 983049, 5, 131073, 983050, 5, 131073, 983051, 5, 131073, 983052, 5, 131073, 983053, 5, 131073, 983054, 5, 131073, 983055, 5, 131073, 983056, 5, 131073, 983057, 5, 131073, 983058, 5, 131073, 983059, 5, 131073, 983060, 5, 131073, 983061, 5, 131073, 983062, 5, 131073, 983063, 5, 131073, 983064, 5, 131073, 983065, 5, 131073, 983066, 5, 131073, 983067, 5, 131073, 983068, 5, 131073, 983069, 5, 131073, 983070, 5, 131073, 983071, 5, 131073, 983072, 5, 131073, 983073, 5, 131073, 983074, 5, 131073, 983075, 5, 131073, 983076, 5, 131073, 983077, 5, 131073, 983078, 5, 131073, 983079, 5, 131073, 983080, 5, 131073, 983081, 5, 131073, 983082, 5, 131073, 983083, 5, 131073, 983084, 5, 131073, 983085, 5, 131074 )
 
 [node name="Mario" parent="." instance=ExtResource( 4 )]
-position = Vector2( 144, 416 )
+position = Vector2( -8, 0 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
@@ -222,3 +223,74 @@ position = Vector2( 1304, 192 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D15"]
 polygon = PoolVector2Array( 0, 0, 128, 128, 256, 0 )
+
+[node name="Piranha" parent="." instance=ExtResource( 11 )]
+position = Vector2( 320, 240 )
+rotation = -1.309
+vars = {
+"bounce": 0,
+"speed": 0.0,
+"upside down": false
+}
+
+[node name="Piranha6" parent="." instance=ExtResource( 11 )]
+position = Vector2( 152, 296 )
+rotation = -2.09439
+vars = {
+"bounce": 0,
+"speed": 0.0,
+"upside down": false
+}
+
+[node name="Piranha7" parent="." instance=ExtResource( 11 )]
+position = Vector2( 232, 320 )
+rotation = -4.45058
+vars = {
+"bounce": 0,
+"speed": 0.0,
+"upside down": false
+}
+
+[node name="Piranha8" parent="." instance=ExtResource( 11 )]
+position = Vector2( 112, 248 )
+rotation = -5.75958
+vars = {
+"bounce": 0,
+"speed": 0.0,
+"upside down": false
+}
+
+[node name="Piranha2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 216, 176 )
+vars = {
+"bounce": 0,
+"speed": 0.0,
+"upside down": false
+}
+
+[node name="Piranha3" parent="." instance=ExtResource( 11 )]
+position = Vector2( 216, 176 )
+rotation = 3.14159
+vars = {
+"bounce": 0,
+"speed": 0.0,
+"upside down": false
+}
+
+[node name="Piranha4" parent="." instance=ExtResource( 11 )]
+position = Vector2( 232, 176 )
+rotation = 1.57079
+vars = {
+"bounce": 0,
+"speed": 0.0,
+"upside down": false
+}
+
+[node name="Piranha5" parent="." instance=ExtResource( 11 )]
+position = Vector2( 200, 176 )
+rotation = -1.57079
+vars = {
+"bounce": 0,
+"speed": 0.0,
+"upside down": false
+}

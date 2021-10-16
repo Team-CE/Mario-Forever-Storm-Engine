@@ -85,7 +85,7 @@ _global_script_classes=[ {
 "path": "res://Scripts/General/Warp.gd"
 } ]
 _global_script_class_icons={
-"AliveObject": "",
+"AliveObject": "res://GFX/Editor/AliveBody.png",
 "Brain": "",
 "BrickEffect": "",
 "Cannon": "res://GFX/Editor/Enemy.png",

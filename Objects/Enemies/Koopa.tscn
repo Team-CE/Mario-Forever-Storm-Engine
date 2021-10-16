@@ -8,40 +8,40 @@
 [ext_resource path="res://Scripts/AI/Koopa.gd" type="Script" id=6]
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=7]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 16, 16 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 47 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
 region = Rect2( 32, 0, 32, 47 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 33, 47 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 4 )
 region = Rect2( 33, 0, 33, 47 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 4 )
 region = Rect2( 66, 0, 33, 47 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 4 )
 region = Rect2( 99, 0, 33, 47 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 4 )
 region = Rect2( 99, 0, 33, 47 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id=20]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -51,12 +51,12 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 8 ) ],
+"frames": [ SubResource( 19 ) ],
 "loop": true,
 "name": "shell stopped",
 "speed": 5.0
@@ -67,7 +67,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=21]
 extents = Vector2( 23, 23 )
 
 [sub_resource type="RectangleShape2D" id=11]
@@ -98,12 +98,11 @@ physics_process_parent = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -16 )
-shape = SubResource( 1 )
+shape = SubResource( 12 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
-frames = SubResource( 9 )
-frame = 1
+frames = SubResource( 20 )
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
@@ -119,7 +118,7 @@ show_behind_parent = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2( 0, -16 )
-shape = SubResource( 10 )
+shape = SubResource( 21 )
 disabled = true
 
 [node name="KillDetector" type="Area2D" parent="."]
