@@ -28,9 +28,6 @@ animations = [ {
 [node name="Piranha" type="KinematicBody2D"]
 script = ExtResource( 1 )
 vars = {
-"bounce": 0,
-"speed": 0.0,
-"upside down": false
 }
 AI = ExtResource( 3 )
 alt_sound_pth = NodePath("Kick")

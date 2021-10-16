@@ -252,7 +252,7 @@ vars = {
 }
 
 [node name="Piranha8" parent="." instance=ExtResource( 11 )]
-position = Vector2( 112, 248 )
+position = Vector2( 56, 304 )
 rotation = -5.75958
 vars = {
 "bounce": 0,
