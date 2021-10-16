@@ -59,7 +59,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/MarioHeadEffect.gd"
 }, {
-"base": "Area2D",
+"base": "KinematicBody2D",
 "class": "Platform",
 "language": "GDScript",
 "path": "res://Scripts/General/Platform.gd"

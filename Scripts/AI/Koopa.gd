@@ -61,6 +61,11 @@ func _ai_process(delta: float) -> void:
     
   if on_mario_collide('InsideDetector') && !is_mario_collide('BottomDetector') && shell_counter >= 31:
     Global._ppd()
+    
+  var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
+  for i in range(len(g_overlaps)):
+    if 'triggered' in g_overlaps[i] and g_overlaps[i].triggered:
+      owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
 
 func _on_kill_zone_enter(b:Node) -> void:
   if owner.vars['is shell'] && abs(owner.velocity.x) > 0 && b.is_class('KinematicBody2D') && b != owner:

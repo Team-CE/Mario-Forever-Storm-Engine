@@ -20,3 +20,8 @@ func _ai_process(delta:float) -> void:
       Global.Mario.velocity.y = -owner.vars["bounce"] * 50
   if on_mario_collide('InsideDetector'):
     Global._ppd()
+    
+  var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
+  for i in range(len(g_overlaps)):
+    if 'triggered' in g_overlaps[i] and g_overlaps[i].triggered:
+      owner.kill(AliveObject.DEATH_TYPE.FALL, 0)

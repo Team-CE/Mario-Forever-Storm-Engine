@@ -30,13 +30,12 @@ func is_over_backdrop(obj, ignore_hidden) -> bool:
 
   return false
 
-func is_over_platform(obj) -> bool:
-  var overlaps = obj.get_overlapping_areas()
-
-  if overlaps.size() > 0 && (overlaps[0].is_in_group('Platform')):
-    return overlaps[0]
-
-  return false
+func is_over_platform() -> bool:
+  if get_slide_count() > 0:
+    var collider = get_slide_collision(0).collider
+    return collider.is_in_group('Platform')
+  else:
+    return false
 
 func _process(delta) -> void:
   _process_camera()
@@ -76,10 +75,6 @@ func _process_alive(delta) -> void:
     jump_counter = 1
 
   if is_on_floor() and jump_internal_counter > 3:
-    var platform = is_over_platform($BottomDetector)
-    if platform:
-      position.x += platform.horizontal_speed * Global.get_delta(delta)
-    #velocity.y = 0
     standing = true
     jump_counter = 0
 
@@ -255,7 +250,7 @@ func animate(delta) -> void:
     animate_sprite('Crouching')
     return
 
-  if not is_on_floor() and not (is_over_backdrop($BottomDetector, false) or is_over_platform($BottomDetector)) and abs(velocity.y) > 2:
+  if not is_on_floor() and not (is_over_backdrop($BottomDetector, false) or is_over_platform()) and abs(velocity.y) > 2:
     animate_sprite('Jumping')
   elif abs(velocity.x) < 0.08:
     animate_sprite('Stopped')

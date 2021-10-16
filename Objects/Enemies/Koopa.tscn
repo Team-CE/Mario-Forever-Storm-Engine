@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://GFX/Enemies/Koopa.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=2]
@@ -46,11 +46,6 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [  ],
-"loop": true,
-"name": "dead",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "falling",
@@ -65,10 +60,18 @@ animations = [ {
 "loop": true,
 "name": "shell stopped",
 "speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 23, 23 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 14, 2 )
 
 [node name="Koopa" type="KinematicBody2D" groups=[
 "Enemy",
@@ -118,3 +121,9 @@ show_behind_parent = true
 position = Vector2( 0, -16 )
 shape = SubResource( 10 )
 disabled = true
+
+[node name="KillDetector" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="KillDetector"]
+position = Vector2( 0, 4 )
+shape = SubResource( 11 )
