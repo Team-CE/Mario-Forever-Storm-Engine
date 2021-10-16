@@ -29,6 +29,8 @@ extents = Vector2( 9.84201, 14.744 )
 [sub_resource type="RectangleShape2D" id=6]
 
 [node name="Coin" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]

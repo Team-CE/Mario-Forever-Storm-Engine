@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Enemies/Cannon.tscn" type="PackedScene" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Objects/Bonuses/Powerups/Beetroot.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Objects/Enemies/Spiny.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Objects/Enemies/Piranha.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=11]
 [ext_resource path="res://GFX/Scenery/Tree1.png" type="Texture" id=12]
 [ext_resource path="res://GFX/Scenery/Hill.png" type="Texture" id=13]
@@ -34,7 +33,7 @@ width = 640
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 3 )
-music = "interference_ending.mod"
+music = "interfeence_ending.mod"
 
 [node name="HUD" parent="." instance=ExtResource( 1 )]
 
@@ -86,10 +85,6 @@ position = Vector2( 16, 1120 )
 qtype = 1
 
 [node name="QBlock5" parent="." instance=ExtResource( 11 )]
-position = Vector2( 1392, 192 )
-qtype = 1
-
-[node name="QBlock6" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1392, 192 )
 qtype = 1
 
@@ -328,31 +323,6 @@ position = Vector2( 4032, 416 )
 vars = {
 "speed": 50.0
 }
-
-[node name="Piranha" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1216, 320 )
-
-[node name="Piranha2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1408, 320 )
-
-[node name="Piranha3" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1696, 160 )
-no_turn = true
-
-[node name="Piranha4" parent="." instance=ExtResource( 10 )]
-position = Vector2( 2208, 256 )
-
-[node name="Piranha5" parent="." instance=ExtResource( 10 )]
-position = Vector2( 3104, 320 )
-
-[node name="Piranha6" parent="." instance=ExtResource( 10 )]
-position = Vector2( 4576, 320 )
-
-[node name="Piranha8" parent="." instance=ExtResource( 10 )]
-position = Vector2( 5216, 160 )
-
-[node name="Piranha7" parent="." instance=ExtResource( 10 )]
-position = Vector2( 4992, 320 )
 
 [node name="Cannon" parent="." instance=ExtResource( 2 )]
 position = Vector2( 2768, 368 )

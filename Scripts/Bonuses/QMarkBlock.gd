@@ -169,12 +169,6 @@ func _process_active(delta) -> void:
     return
   if not Visible == VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
     visible = false
-  var mario = Global.Mario
-  var mario_td = Global.Mario.get_node('TopDetector')
-  var td_overlaps = mario_td.get_overlapping_bodies()
-
-  if td_overlaps and td_overlaps.has(self) and mario.y_speed <= 3 and not mario.standing:
-    hit(delta)
   
   $Body.visible = visible
 

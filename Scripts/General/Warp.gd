@@ -62,7 +62,7 @@ func _process(delta) -> void:
 
     if not out_node: return
 
-    if Global.Mario.get_node('PrimaryDetector').get_overlapping_areas().has(self) and not active and type == TYPES.IN:
+    if Global.Mario.get_node('BottomDetector').get_overlapping_areas().has(self) and not active and type == TYPES.IN:
       if direction == DIRS.DOWN and Input.is_action_pressed('mario_crouch'):
         calc_pos = Vector2(position.x, position.y - 16)
         active = true

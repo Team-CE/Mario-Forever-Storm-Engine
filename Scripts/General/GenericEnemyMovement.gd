@@ -156,13 +156,14 @@ func _physics_process(delta):
 
 
 func _process(delta) -> void:
-  if alive:
-    _process_alive(delta)
-  else:
-    if death == DEATH_TYPE.BASIC:
-      if not death_complete:
-        _process_death()
-      death_complete = true
+  pass
+#  if alive:
+#    _process_alive(delta)
+#  else:
+#    if death == DEATH_TYPE.BASIC:
+#      if not death_complete:
+#        _process_death()
+#      death_complete = true
 
 func _process_alive(delta: float) -> void:
   # Stomping
@@ -171,12 +172,12 @@ func _process_alive(delta: float) -> void:
   var pd_overlaps = mario_pd.get_overlapping_bodies()
   var bd_overlaps = mario_bd.get_overlapping_bodies()
 
-  if ((not (is_shell and not shell_moving) and (bd_overlaps and bd_overlaps.has(self) and not (pd_overlaps and pd_overlaps.has(self)))) or ((is_shell and not shell_moving) and (pd_overlaps and pd_overlaps.has(self)))) and is_stompable and Global.Mario.y_speed >= 0 and shell_counter > 10:
+  if ((not (is_shell and not shell_moving) and (bd_overlaps and bd_overlaps.has(self) and not (pd_overlaps and pd_overlaps.has(self)))) or ((is_shell and not shell_moving) and (pd_overlaps and pd_overlaps.has(self)))) and is_stompable and Global.Mario.velocity.y >= 0 and shell_counter > 10:
     if death == DEATH_TYPE.BASIC or death == DEATH_TYPE.FALL or (death == DEATH_TYPE.SHELL and shell_moving) or (death == DEATH_TYPE.SHELL and not is_shell):
       if Input.is_action_pressed('mario_jump'):
-        Global.Mario.y_speed = -14
+        Global.Mario.velocity.y = -14
       else:
-        Global.Mario.y_speed = -9
+        Global.Mario.velocity.y = -9
       Global.play_base_sound('ENEMY_Stomp')
       if death == DEATH_TYPE.FALL:
         no_gravity = false

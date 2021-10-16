@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://GFX/Mario/Walk.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/General/MarioPhysics.gd" type="Script" id=2]
@@ -47,30 +47,30 @@ region = Rect2( 30, 0, 30, 31 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "Appearing",
 "speed": 25.0
-}, {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "Dead",
-"speed": 5.0
 }, {
 "frames": [ SubResource( 4 ) ],
 "loop": true,
 "name": "Stopped",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Dead",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 4 ) ],
 "loop": true,
 "name": "Walking",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
 } ]
 
 [sub_resource type="AtlasTexture" id=8]
@@ -103,20 +103,15 @@ region = Rect2( 62, 0, 31, 59 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "Jumping",
+"name": "Crouching",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "Appearing",
 "speed": 25.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "Crouching",
-"speed": 5.0
 }, {
 "frames": [ SubResource( 11 ) ],
 "loop": true,
@@ -127,6 +122,11 @@ animations = [ {
 "loop": true,
 "name": "Walking",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
 } ]
 
 [sub_resource type="AtlasTexture" id=16]
@@ -163,16 +163,6 @@ region = Rect2( 62, 0, 31, 59 )
 
 [sub_resource type="SpriteFrames" id=24]
 animations = [ {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
-"loop": true,
-"name": "Appearing",
-"speed": 25.0
-}, {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "Crouching",
@@ -183,6 +173,11 @@ animations = [ {
 "name": "Launching",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"loop": true,
+"name": "Appearing",
+"speed": 25.0
+}, {
 "frames": [ SubResource( 20 ) ],
 "loop": true,
 "name": "Stopped",
@@ -192,6 +187,11 @@ animations = [ {
 "loop": true,
 "name": "Walking",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
 } ]
 
 [sub_resource type="AtlasTexture" id=25]
@@ -228,16 +228,6 @@ region = Rect2( 62, 0, 31, 62 )
 
 [sub_resource type="SpriteFrames" id=33]
 animations = [ {
-"frames": [ ExtResource( 17 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
-"loop": true,
-"name": "Appearing",
-"speed": 25.0
-}, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "Crouching",
@@ -248,6 +238,11 @@ animations = [ {
 "name": "Launching",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"loop": true,
+"name": "Appearing",
+"speed": 25.0
+}, {
 "frames": [ SubResource( 29 ) ],
 "loop": true,
 "name": "Stopped",
@@ -257,48 +252,49 @@ animations = [ {
 "loop": true,
 "name": "Walking",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=34]
-extents = Vector2( 10, 14 )
+extents = Vector2( 10, 13 )
+
+[sub_resource type="RectangleShape2D" id=42]
+extents = Vector2( 10, 28 )
+
+[sub_resource type="RectangleShape2D" id=43]
+extents = Vector2( 8, 12 )
+
+[sub_resource type="RectangleShape2D" id=44]
+extents = Vector2( 8, 26 )
 
 [sub_resource type="RectangleShape2D" id=35]
-extents = Vector2( 10, 27 )
+extents = Vector2( 10, 2 )
 
 [sub_resource type="RectangleShape2D" id=36]
-extents = Vector2( 10, 5 )
+extents = Vector2( 7, 2 )
 
 [sub_resource type="RectangleShape2D" id=37]
 extents = Vector2( 7, 2 )
 
 [sub_resource type="RectangleShape2D" id=38]
-extents = Vector2( 7, 2 )
+extents = Vector2( 1, 6 )
 
 [sub_resource type="RectangleShape2D" id=39]
-extents = Vector2( 7, 2 )
+extents = Vector2( 1, 12 )
 
 [sub_resource type="RectangleShape2D" id=40]
-extents = Vector2( 2, 5 )
+extents = Vector2( 1, 6 )
 
 [sub_resource type="RectangleShape2D" id=41]
-extents = Vector2( 2, 16 )
-
-[sub_resource type="RectangleShape2D" id=42]
-extents = Vector2( 2, 16 )
-
-[sub_resource type="RectangleShape2D" id=43]
-extents = Vector2( 1, 6 )
-
-[sub_resource type="RectangleShape2D" id=44]
 extents = Vector2( 1, 12 )
 
-[sub_resource type="RectangleShape2D" id=45]
-extents = Vector2( 1, 6 )
-
-[sub_resource type="RectangleShape2D" id=46]
-extents = Vector2( 1, 12 )
-
-[node name="Mario" type="Node2D"]
+[node name="Mario" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -353,41 +349,40 @@ frames = SubResource( 33 )
 animation = "Stopped"
 playing = true
 
-[node name="PrimaryDetector" type="Area2D" parent="." groups=[
-"Mario",
-]]
+[node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionPrimary" type="CollisionShape2D" parent="PrimaryDetector"]
 position = Vector2( 0, -13 )
 shape = SubResource( 34 )
 
-[node name="CollisionPrimaryBig" type="CollisionShape2D" parent="PrimaryDetector"]
-position = Vector2( 0, -26 )
-shape = SubResource( 35 )
-
-[node name="InsideDetector" type="Area2D" parent="."]
+[node name="CollisionBig" type="CollisionShape2D" parent="."]
 visible = false
+position = Vector2( 0, -28 )
+shape = SubResource( 42 )
+
+[node name="InsideDetector" type="Area2D" parent="." groups=[
+"Mario",
+]]
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionInside" type="CollisionShape2D" parent="InsideDetector"]
-position = Vector2( 0, -9 )
-shape = SubResource( 36 )
+[node name="CollisionSmall" type="CollisionShape2D" parent="InsideDetector"]
+visible = false
+position = Vector2( 0, -13 )
+shape = SubResource( 43 )
+
+[node name="CollisionBig" type="CollisionShape2D" parent="InsideDetector"]
+visible = false
+position = Vector2( 0, -28 )
+shape = SubResource( 44 )
 
 [node name="BottomDetector" type="Area2D" parent="."]
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionBottom" type="CollisionShape2D" parent="BottomDetector"]
-position = Vector2( 0, 12 )
-shape = SubResource( 37 )
-
-[node name="CollisionBottomClose" type="CollisionShape2D" parent="BottomDetector"]
-position = Vector2( 0, 4 )
-shape = SubResource( 38 )
+position = Vector2( 0, 3 )
+scale = Vector2( 1, 0.5 )
+shape = SubResource( 35 )
 
 [node name="TopDetector" type="Area2D" parent="."]
 visible = false
@@ -395,38 +390,12 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionTop" type="CollisionShape2D" parent="TopDetector"]
-position = Vector2( 0, -37 )
-shape = SubResource( 37 )
+position = Vector2( 0, -28 )
+shape = SubResource( 36 )
 
 [node name="CollisionTopBig" type="CollisionShape2D" parent="TopDetector"]
-position = Vector2( 0, -60 )
-shape = SubResource( 39 )
-
-[node name="RightDetector" type="Area2D" parent="."]
-visible = false
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionRight" type="CollisionShape2D" parent="RightDetector"]
-position = Vector2( 16, -11 )
-shape = SubResource( 40 )
-
-[node name="CollisionRightBig" type="CollisionShape2D" parent="RightDetector"]
-position = Vector2( 16, -22 )
-shape = SubResource( 41 )
-
-[node name="LeftDetector" type="Area2D" parent="."]
-visible = false
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionLeft" type="CollisionShape2D" parent="LeftDetector"]
-position = Vector2( -16, -11 )
-shape = SubResource( 40 )
-
-[node name="CollisionLeftBig" type="CollisionShape2D" parent="LeftDetector"]
-position = Vector2( -16, -22 )
-shape = SubResource( 42 )
+position = Vector2( 0, -58 )
+shape = SubResource( 37 )
 
 [node name="SmallRightDetector" type="Area2D" parent="."]
 visible = false
@@ -435,11 +404,11 @@ collision_mask = 3
 
 [node name="CollisionSmallRight" type="CollisionShape2D" parent="SmallRightDetector"]
 position = Vector2( 12, -14 )
-shape = SubResource( 43 )
+shape = SubResource( 38 )
 
 [node name="CollisionSmallRightBig" type="CollisionShape2D" parent="SmallRightDetector"]
 position = Vector2( 12, -23 )
-shape = SubResource( 44 )
+shape = SubResource( 39 )
 
 [node name="SmallLeftDetector" type="Area2D" parent="."]
 visible = false
@@ -448,10 +417,10 @@ collision_mask = 3
 
 [node name="CollisionSmallLeft" type="CollisionShape2D" parent="SmallLeftDetector"]
 position = Vector2( -12, -14 )
-shape = SubResource( 45 )
+shape = SubResource( 40 )
 
 [node name="CollisionSmallLeftBig" type="CollisionShape2D" parent="SmallLeftDetector"]
 position = Vector2( -12, -23 )
-shape = SubResource( 46 )
+shape = SubResource( 41 )
 
 [node name="BaseSounds" parent="." instance=ExtResource( 4 )]

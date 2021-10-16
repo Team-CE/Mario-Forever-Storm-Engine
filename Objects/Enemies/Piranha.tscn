@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scripts/General/GenericEnemyMovement.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Enemies/piranha.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/AI/Piranha.gd" type="Script" id=3]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=4]
+[ext_resource path="res://GFX/Editor/Range.png" type="Texture" id=5]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 17, 17 )
 
 [sub_resource type="AtlasTexture" id=2]
@@ -15,7 +17,7 @@ region = Rect2( 0, 0, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
@@ -23,24 +25,46 @@ animations = [ {
 "speed": 6.0
 } ]
 
-[node name="Piranha" type="KinematicBody2D" groups=[
-"Enemy",
-]]
+[node name="Piranha" type="KinematicBody2D"]
 script = ExtResource( 1 )
-ai = 2
-death = 3
+vars = {
+}
+AI = ExtResource( 3 )
+alt_sound_pth = NodePath("Kick")
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+position = Vector2( -2.38419e-07, -16 )
+scale = Vector2( 1.6, 1.6 )
+process_parent = true
+physics_process_parent = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( 0, -17 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -32 )
 z_index = -1
-frames = SubResource( 4 )
+frames = SubResource( 5 )
 frame = 1
 playing = true
+
+[node name="Placeholder1" type="AnimatedSprite" parent="."]
+modulate = Color( 1, 1, 1, 0.388235 )
+position = Vector2( 0, -96 )
+z_index = -1
+frames = SubResource( 5 )
+frame = 1
+playing = true
+
+[node name="Placeholder2" type="Sprite" parent="."]
+
+[node name="Placeholder3" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.388235 )
+position = Vector2( 1, -56 )
+texture = ExtResource( 5 )
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )

@@ -1,5 +1,5 @@
 extends KinematicBody2D
-class_name AliveObject
+class_name AliveObject, "res://GFX/Editor/AliveBody.png"
 
 const multiplier_scores = [1, 2, 5, 10, 20, 50, 0.01]
 const pitch_md = [1, 1.05, 1.1, 1.15, 1.20, 1.25, 1.30, 1.35]
@@ -36,7 +36,8 @@ var alt_sound: AudioStreamPlayer2D
 
 var velocity: Vector2
 var alive: bool = true
-var death_type:int
+var death_type: int
+var velocity_enabled: bool = true
 
 onready var first_pos: Vector2 = position # For pirahna plant and other enemies
 onready var brain: Brain = Brain.new()      # Shell for AI
@@ -85,7 +86,8 @@ func _physics_process(delta:float) -> void:
   if (is_on_floor() || is_on_ceiling()) && alive:
     velocity.y = 1
   
-  velocity = move_and_slide(velocity,Vector2.UP)
+  if velocity_enabled:
+    velocity = move_and_slide(velocity,Vector2.UP)
 
 # Useful functions
 func turn(mp:float = 1) -> void:

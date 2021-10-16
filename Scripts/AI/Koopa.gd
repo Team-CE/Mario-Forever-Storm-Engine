@@ -36,9 +36,9 @@ func _ai_process(delta: float) -> void:
     
       owner.sound.play()
       if Input.is_action_pressed('mario_jump'):
-        Global.Mario.y_speed = -(owner.vars['bounce'] + 5)
+        Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
       else:
-        Global.Mario.y_speed = -owner.vars['bounce']
+        Global.Mario.velocity.y = -owner.vars['bounce'] * 50
     elif owner.vars['is shell'] && !owner.vars['stopped'] && shell_counter >= 41: #Stops the shell
       score_mp = 0
       owner.get_parent().add_child(ScoreText.new(100, owner.position))
@@ -47,9 +47,9 @@ func _ai_process(delta: float) -> void:
     
       owner.sound.play()
       if Input.is_action_pressed('mario_jump'):
-        Global.Mario.y_speed = -(owner.vars['bounce'] + 5)
+        Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
       else:
-        Global.Mario.y_speed = -owner.vars['bounce']
+        Global.Mario.velocity.y = -owner.vars['bounce'] * 50
   
   if on_mario_collide('InsideDetector'):
     if owner.vars['stopped'] && owner.vars['is shell'] && shell_counter >= 41:
@@ -61,6 +61,11 @@ func _ai_process(delta: float) -> void:
     
   if on_mario_collide('InsideDetector') && !is_mario_collide('BottomDetector') && shell_counter >= 31:
     Global._ppd()
+    
+  var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
+  for i in range(len(g_overlaps)):
+    if 'triggered' in g_overlaps[i] and g_overlaps[i].triggered:
+      owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
 
 func _on_kill_zone_enter(b:Node) -> void:
   if owner.vars['is shell'] && abs(owner.velocity.x) > 0 && b.is_class('KinematicBody2D') && b != owner:
