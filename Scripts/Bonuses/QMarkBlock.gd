@@ -191,12 +191,15 @@ func hit(delta) -> void:
 
   if qtype == BLOCK_TYPE.COMMON:
     var powerup = Result.instance()
-    powerup.position = position
-    powerup.vars['from bonus'] = true
-    powerup.rotation = rotation
-    get_parent().add_child(powerup)
-    if powerup.brain.appearing and powerup is KinematicBody2D:
-      Global.play_base_sound('MAIN_PowerupGrow')
+    if !powerup or !('vars' in powerup):
+      Global.play_base_sound('MAIN_Bump')
+    else:
+      powerup.position = position
+      powerup.vars['from bonus'] = true
+      powerup.rotation = rotation
+      get_parent().add_child(powerup)
+      if powerup.brain.appearing and powerup is KinematicBody2D:
+        Global.play_base_sound('MAIN_PowerupGrow')
   elif qtype == BLOCK_TYPE.BRICK:
     if Global.state == 0:
       Global.play_base_sound('MAIN_Bump')

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Enemies/Cannon.tscn" type="PackedScene" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://GFX/Scenery/Tree2.png" type="Texture" id=5]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Objects/Bonuses/Powerups/old/Beetroot.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Objects/Enemies/Spiny.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Objects/Enemies/Piranha.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=11]
@@ -18,12 +17,9 @@
 [ext_resource path="res://GFX/Scenery/Cloud.tres" type="SpriteFrames" id=16]
 [ext_resource path="res://Objects/Platforms/Platform.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Objects/Level/Warp.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Objects/Bonuses/Powerups/old/Flower.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Objects/Enemies/Koopa Red.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Objects/Level/Finish Line.tscn" type="PackedScene" id=22]
-[ext_resource path="res://Objects/Bonuses/Powerups/old/Poison Mushroom.tscn" type="PackedScene" id=23]
-[ext_resource path="res://Objects/Bonuses/Powerups/old/Life Mushroom.tscn" type="PackedScene" id=24]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.105882, 0, 0.733333, 1, 0.94902, 0.992157, 0.988235, 1 )
@@ -133,6 +129,10 @@ qtype = 1
 position = Vector2( 1456, 192 )
 Result = ExtResource( 7 )
 
+[node name="QBlock34" parent="." instance=ExtResource( 11 )]
+position = Vector2( 208, 320 )
+Result = ExtResource( 7 )
+
 [node name="QBlock9" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1488, 192 )
 Result = ExtResource( 7 )
@@ -140,7 +140,6 @@ Result = ExtResource( 7 )
 [node name="QBlock28" parent="." instance=ExtResource( 11 )]
 position = Vector2( 48, 1120 )
 Visible = 2
-Result = ExtResource( 23 )
 
 [node name="QBlock10" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1520, 192 )
@@ -152,19 +151,15 @@ Result = ExtResource( 7 )
 
 [node name="QBlock12" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1648, 192 )
-Result = ExtResource( 8 )
 
 [node name="QBlock22" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5136, 192 )
-Result = ExtResource( 8 )
 
 [node name="QBlock23" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5168, 192 )
-Result = ExtResource( 24 )
 
 [node name="QBlock32" parent="." instance=ExtResource( 11 )]
 position = Vector2( 4944, 1088 )
-Result = ExtResource( 19 )
 
 [node name="QBlock33" parent="." instance=ExtResource( 11 )]
 position = Vector2( 4912, 1088 )
