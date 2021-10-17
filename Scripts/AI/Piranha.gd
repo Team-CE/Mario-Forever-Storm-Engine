@@ -16,6 +16,8 @@ func _ai_process(delta: float) -> void:
   ._ai_process(delta)
   
   if !owner.alive:
+    owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
+    owner.velocity_enabled = true
     return
 
   if on_mario_collide('InsideDetector'):

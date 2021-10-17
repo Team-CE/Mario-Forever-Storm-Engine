@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://GFX/Enemies/paratroopa.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=2]
+[ext_resource path="res://GFX/Enemies/Shell_falling.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/AI/Paratroopa.gd" type="Script" id=4]
+[ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 33, 48 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 33, 0, 33, 48 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 14, 2 )
+
+[node name="Paratroopa" type="KinematicBody2D" groups=[
+"Enemy",
+]]
+script = ExtResource( 2 )
+vars = {
+"bounce": 9.0,
+"fly radius": 50,
+"fly speed": 2
+}
+AI = ExtResource( 4 )
+sound_pth = NodePath("Stomp")
+alt_sound_pth = NodePath("Kick")
+animated_sprite_pth = NodePath("Sprite")
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+position = Vector2( -2.38419e-07, -16 )
+scale = Vector2( 1.6, 1.6 )
+process_parent = true
+physics_process_parent = true
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -16 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -8 )
+frames = SubResource( 4 )
+frame = 1
+playing = true
+offset = Vector2( 0, -16 )
+flip_h = true
+
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Stomp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+
+[node name="KillDetector" type="Area2D" parent="."]
+visible = false
+
+[node name="Collision" type="CollisionShape2D" parent="KillDetector"]
+position = Vector2( 0, 4 )
+shape = SubResource( 5 )
