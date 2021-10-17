@@ -190,7 +190,7 @@ func hit(delta) -> void:
   visible = true
 
   if qtype == BLOCK_TYPE.COMMON:
-    var powerup = Result.instance()
+    var powerup = Result.instance() if Result and Result.has_method('instance') else null
     if !powerup or !('vars' in powerup):
       Global.play_base_sound('MAIN_Bump')
     else:
