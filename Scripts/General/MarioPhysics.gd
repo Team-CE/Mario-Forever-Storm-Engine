@@ -79,7 +79,10 @@ func _process_alive(delta) -> void:
     jump_counter = 0
 
   if position.y > $Camera.limit_bottom + 64 and controls_enabled:
-    Global._pll()
+    if get_parent().no_cliff:
+      position.y -= 550
+    else:
+      Global._pll()
 
 #  if is_on_floor() and velocity.y > -14 or is_on_ceiling():
 #    velocity.y = 1

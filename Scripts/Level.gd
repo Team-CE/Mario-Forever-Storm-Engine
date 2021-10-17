@@ -5,6 +5,7 @@ tool
 export var time: int = 360
 export var music: String = ''
 export var death_height: float = 512
+export var no_cliff: bool = false
 
 onready var tileMap: TileMap
 

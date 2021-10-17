@@ -55,6 +55,7 @@ playing = true
 flip_h = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
 show_behind_parent = true
 position = Vector2( 0, -15 )
 shape = SubResource( 4 )
@@ -63,12 +64,14 @@ shape = SubResource( 4 )
 stream = ExtResource( 4 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
 position = Vector2( 0.5, -15 )
 scale = Vector2( 1.65, 1.5 )
 process_parent = true
 physics_process_parent = true
 
 [node name="KillDetector" type="Area2D" parent="."]
+visible = false
 
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, 4 )

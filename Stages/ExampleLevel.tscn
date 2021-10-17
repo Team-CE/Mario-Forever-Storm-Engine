@@ -553,43 +553,49 @@ texture = ExtResource( 13 )
 position = Vector2( 224, 401 )
 z_index = -10
 frames = ExtResource( 14 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Grass5" type="AnimatedSprite" parent="."]
 position = Vector2( 960, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 1
 playing = true
 
 [node name="Grass6" type="AnimatedSprite" parent="."]
 position = Vector2( 1856, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 1
 playing = true
 
 [node name="Grass7" type="AnimatedSprite" parent="."]
 position = Vector2( 3296, 1361 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 1
 playing = true
 
 [node name="Grass2" type="AnimatedSprite" parent="."]
 position = Vector2( 2880, 401 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 1
 playing = true
 
 [node name="Grass3" type="AnimatedSprite" parent="."]
 position = Vector2( 3840, 401 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 1
 playing = true
 
 [node name="Grass4" type="AnimatedSprite" parent="."]
 position = Vector2( 5136, 401 )
 z_index = -10
 frames = ExtResource( 14 )
+frame = 1
 playing = true
 
 [node name="Trees" type="Sprite" parent="."]
