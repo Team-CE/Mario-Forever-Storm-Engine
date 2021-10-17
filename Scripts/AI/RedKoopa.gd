@@ -23,11 +23,11 @@ func _ai_process(delta: float) -> void:
   if owner.is_on_wall() || (owner.on_edge() && !owner.vars['is shell']):
     owner.turn()
 
-  if shell_counter < 31:
+  if shell_counter < 41:
     shell_counter += 1 * Global.get_delta(delta)
     
   if on_mario_collide('BottomDetector'): 
-    if !owner.vars['is shell']:
+    if !owner.vars['is shell'] && shell_counter >= 41:
       owner.get_parent().add_child(ScoreText.new(100, owner.position))
       owner.vars['is shell'] = true
       owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
