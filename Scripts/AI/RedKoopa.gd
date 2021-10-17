@@ -60,7 +60,7 @@ func _ai_process(delta: float) -> void:
       owner.dir = -1 if Global.Mario.position.x > owner.position.x else 1
     
   if is_mario_collide('InsideDetector') && !is_mario_collide('BottomDetector') && shell_counter >= 31:
-    Global.Mario.kill()
+    Global._ppd()
     
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
   for i in range(len(g_overlaps)):

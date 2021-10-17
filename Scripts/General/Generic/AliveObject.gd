@@ -83,7 +83,7 @@ func _physics_process(delta:float) -> void:
   if position.y > Global.Mario.get_node('Camera').limit_bottom + 256:
     queue_free()
   # Fixing ceiling collision and is_on_floor() flickering
-  if (is_on_floor() || is_on_ceiling()) && alive:
+  if (is_on_floor() || is_on_ceiling()) && alive && velocity.y >= 0:
     velocity.y = 1
   
   if velocity_enabled:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -14,6 +14,9 @@
 [ext_resource path="res://Objects/Enemies/Koopa.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Objects/Enemies/Paratroopa.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Objects/Enemies/Paratroopa Red.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Objects/Enemies/Koopa Red.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Objects/Enemies/Koopa Blue.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Objects/Enemies/Paratroopa Blue.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -97,4 +100,37 @@ vars = {
 "bounce": 9.0,
 "fly radius": 50,
 "fly speed": 2
+}
+
+[node name="Koopa2" parent="." instance=ExtResource( 16 )]
+position = Vector2( 184, 256 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
+
+[node name="RedKoopa" parent="." instance=ExtResource( 15 )]
+position = Vector2( 312, 256 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
+
+[node name="Paratroopa Blue" parent="." instance=ExtResource( 17 )]
+position = Vector2( 376, 240 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
 }

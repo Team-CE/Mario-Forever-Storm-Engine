@@ -229,9 +229,9 @@ func _process_trigger(delta) -> void:
   
   if t_counter >= 12:
     position = initial_position
+    triggered = false
     if qtype != BLOCK_TYPE.COMMON:
       t_counter = 0
-      triggered = false
       active = true
 
 func _on_hit():
