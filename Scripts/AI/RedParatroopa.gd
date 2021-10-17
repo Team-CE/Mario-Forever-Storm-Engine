@@ -19,7 +19,7 @@ func _ai_process(delta: float) -> void:
   owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
     
   counter += (float(owner.vars['fly speed']) / 45.0) * Global.get_delta(delta)
-  offset_pos = Vector2(0, owner.vars['fly radius'] * sin(counter))
+  offset_pos = Vector2(owner.vars['fly radius'] * sin(counter), 0)
   
   owner.position = initial_pos + offset_pos
     
@@ -40,7 +40,7 @@ func _ai_process(delta: float) -> void:
 func _on_custom_death():
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
-  var koopa = load('res://Objects/Enemies/Koopa.tscn').instance()
+  var koopa = load('res://Objects/Enemies/Koopa Red.tscn').instance()
   koopa.position = owner.position
   owner.get_parent().add_child(koopa)
   owner.velocity_enabled = false

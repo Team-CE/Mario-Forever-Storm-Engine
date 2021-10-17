@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Objects/Bonuses/Powerups/Poison Mushroom.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Objects/Enemies/Koopa.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Objects/Enemies/Paratroopa.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Objects/Enemies/Paratroopa Red.tscn" type="PackedScene" id=14]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -80,6 +81,14 @@ vars = {
 "shell speed": 250.0,
 "speed": 50.0,
 "stopped": false
+}
+
+[node name="Paratroopa Red" parent="." instance=ExtResource( 14 )]
+position = Vector2( 128, 136 )
+vars = {
+"bounce": 9.0,
+"fly radius": 50,
+"fly speed": 2
 }
 
 [node name="Paratroopa" parent="." instance=ExtResource( 13 )]
