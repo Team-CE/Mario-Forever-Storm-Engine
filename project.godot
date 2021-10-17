@@ -44,11 +44,6 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
 }, {
-"base": "KinematicBody2D",
-"class": "GenericEnemyMovement",
-"language": "GDScript",
-"path": "res://Scripts/General/GenericEnemyMovement.gd"
-}, {
 "base": "Node2D",
 "class": "Level",
 "language": "GDScript",
@@ -102,7 +97,6 @@ _global_script_class_icons={
 "CoinEffect": "",
 "Explosion": "",
 "FLMusicLib": "",
-"GenericEnemyMovement": "res://GFX/Editor/Enemy.png",
 "Level": "",
 "LifePowerupAction": "",
 "MarioHeadEffect": "",
