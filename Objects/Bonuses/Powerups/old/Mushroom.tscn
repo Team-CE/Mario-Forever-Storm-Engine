@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scripts/Bonuses/Powerup.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Bonuses/Mushroom.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Bonuses/Flower.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 14, 1 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 33, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 33, 0, 33, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 66, 0, 33, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 99, 0, 33, 32 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "Flower",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Mushroom",
+"speed": 5.0
+} ]
+
+[node name="Powerup" type="KinematicBody2D"]
+script = ExtResource( 1 )
+can_hurt = false
+dir = 1.0
+speed = 100.0
+is_kickable = false
+ai = 1
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -16 )
+shape = SubResource( 8 )
+
+[node name="CollisionCollectable" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -35 )
+shape = SubResource( 9 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( -1, -16 )
+frames = SubResource( 7 )
+animation = "Mushroom"
+playing = true

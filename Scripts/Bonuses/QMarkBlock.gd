@@ -123,7 +123,7 @@ func editor() -> void:
 
 func set_preview() -> StreamTexture:
   var result_inst = Result.instance()
-  var sprite = result_inst.get_node_or_null('Sprite') if is_instance_valid(Result) else null
+  var sprite = result_inst.get_node_or_null('AnimatedSprite') if is_instance_valid(Result) else null
   var res
   
   if preview == null || !is_instance_valid(sprite):
@@ -192,9 +192,10 @@ func hit(delta) -> void:
   if qtype == BLOCK_TYPE.COMMON:
     var powerup = Result.instance()
     powerup.position = position
-    powerup.appearing = true
+    powerup.vars['from bonus'] = true
+    powerup.rotation = rotation
     get_parent().add_child(powerup)
-    if powerup.appearing and powerup is KinematicBody2D:
+    if powerup.brain.appearing and powerup is KinematicBody2D:
       Global.play_base_sound('MAIN_PowerupGrow')
   elif qtype == BLOCK_TYPE.BRICK:
     if Global.state == 0:

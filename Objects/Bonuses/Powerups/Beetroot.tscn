@@ -1,85 +1,55 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scripts/Bonuses/Powerup.gd" type="Script" id=1]
-[ext_resource path="res://GFX/Bonuses/Mushroom.png" type="Texture" id=2]
-[ext_resource path="res://GFX/Bonuses/Flower.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/AI/Powerups/GenericPowerup.gd" type="Script" id=2]
 [ext_resource path="res://GFX/Bonuses/Beetroot.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 14, 1 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 33, 32 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 3 )
-region = Rect2( 33, 0, 33, 32 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 3 )
-region = Rect2( 66, 0, 33, 32 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 3 )
-region = Rect2( 99, 0, 33, 32 )
-
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 27, 33 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
 region = Rect2( 27, 0, 27, 33 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 4 )
 region = Rect2( 54, 0, 27, 33 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
 region = Rect2( 81, 0, 27, 33 )
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
-"name": "Flower",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
-"loop": true,
-"name": "Beetroot",
-"speed": 3.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "Mushroom",
+"name": "default",
 "speed": 5.0
 } ]
 
-[node name="Powerup" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 16, 16 )
+
+[node name="Beetroot" type="KinematicBody2D"]
 script = ExtResource( 1 )
-can_hurt = false
-dir = 1.0
-speed = 100.0
-is_kickable = false
-type = 2
+vars = {
+"grow speed": 0.5,
+"set state": 3,
+"speed": 0.0
+}
+AI = ExtResource( 2 )
+score = 1000
+invincible = true
+animated_sprite_pth = NodePath("AnimatedSprite")
 
-[node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -16 )
-shape = SubResource( 1 )
-
-[node name="CollisionCollectable" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -35 )
-shape = SubResource( 2 )
-
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1, -16 )
-frames = SubResource( 11 )
-animation = "Beetroot"
-frame = 2
+frames = SubResource( 5 )
 playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2( 0, -16 )
+shape = SubResource( 6 )

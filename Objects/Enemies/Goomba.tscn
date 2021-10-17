@@ -26,10 +26,12 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
 animation = "walk"
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 show_behind_parent = true
 position = Vector2( 0, -16 )
 shape = SubResource( 1 )
@@ -41,6 +43,7 @@ stream = ExtResource( 5 )
 stream = ExtResource( 4 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
 show_behind_parent = true
 position = Vector2( -2.38419e-07, -16 )
 scale = Vector2( 1.6, 1.6 )
@@ -48,6 +51,7 @@ process_parent = true
 physics_process_parent = true
 
 [node name="KillDetector" type="Area2D" parent="."]
+visible = false
 
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, 4 )

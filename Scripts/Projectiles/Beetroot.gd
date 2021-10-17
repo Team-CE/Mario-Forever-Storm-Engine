@@ -26,8 +26,8 @@ func _physics_process(delta) -> void:
 
   if overlaps.size() > 0 and bounce_count < 3:
     for i in range(overlaps.size()):
-      if overlaps[i].is_in_group('Enemy') and overlaps[i].is_kickable:
-        overlaps[i].kick(0)
+      if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('kill'):
+        overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, 0)
         bounce()
         bounce_count += 1
         skip_frame = true

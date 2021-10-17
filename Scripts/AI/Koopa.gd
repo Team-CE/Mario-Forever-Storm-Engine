@@ -23,7 +23,7 @@ func _ai_process(delta: float) -> void:
   if owner.is_on_wall():
     owner.turn()
 
-  if shell_counter < 31:
+  if shell_counter < 41:
     shell_counter += 1 * Global.get_delta(delta)
     
   if on_mario_collide('BottomDetector'): 

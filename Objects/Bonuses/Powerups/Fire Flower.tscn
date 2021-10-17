@@ -1,50 +1,56 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/AI/Powerups/GenericPowerup.gd" type="Script" id=2]
-[ext_resource path="res://GFX/Bonuses/PoisonMushroom.png" type="Texture" id=3]
-[ext_resource path="res://Scripts/AI/Powerups/Actions/PoisonMushroom.gd" type="Script" id=4]
+[ext_resource path="res://GFX/Bonuses/Flower.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 32, 32 )
+region = Rect2( 0, 0, 33, 32 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
-region = Rect2( 32, 0, 32, 32 )
+region = Rect2( 33, 0, 33, 32 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 66, 0, 33, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 99, 0, 33, 32 )
+
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "default",
-"speed": 5.0
+"speed": 10.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16, 16 )
 
-[node name="Poison Mushroom" type="KinematicBody2D"]
+[node name="FireFlower" type="KinematicBody2D"]
 script = ExtResource( 1 )
 vars = {
-"custom action": ExtResource( 4 ),
 "grow speed": 0.5,
-"speed": 100.0
+"set state": 2,
+"speed": 0.0
 }
 AI = ExtResource( 2 )
 score = 1000
 invincible = true
-dir = 1.0
 animated_sprite_pth = NodePath("AnimatedSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -16 )
-frames = SubResource( 3 )
-frame = 1
+position = Vector2( -1, -16 )
+frames = SubResource( 5 )
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 show_behind_parent = true
 position = Vector2( 0, -16 )
-shape = SubResource( 4 )
+shape = SubResource( 6 )

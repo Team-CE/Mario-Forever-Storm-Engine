@@ -52,7 +52,7 @@ func _process(delta) -> void:
       counter = 0
   else:
     counter += 1 * Global.get_delta(delta)
-    Global.Mario.x_speed = 3
+    Global.Mario.velocity.x = 150
 
     if bar_enabled:
       $CrossingBar.position.x -= 3 * Global.get_delta(delta)

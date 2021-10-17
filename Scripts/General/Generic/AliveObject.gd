@@ -56,7 +56,7 @@ func _ready() -> void:
     alt_sound = get_node(alt_sound_pth)
     
   if animated_sprite_pth.is_empty():  # Animated sprite init
-    push_warning('[CE WARNING] Cannot load Animated sprite at:'+str(self))
+    push_warning('[CE WARNING] Cannot load Animated sprite at:' + str(self))
   else:
     animated_sprite = get_node(animated_sprite_pth)
   
@@ -80,7 +80,7 @@ func _physics_process(delta:float) -> void:
   
   brain._ai_process(delta) #Calling brain cells
   
-  if position.y > Global.Mario.get_node('Camera').limit_bottom:
+  if position.y > Global.Mario.get_node('Camera').limit_bottom + 256:
     queue_free()
   # Fixing ceiling collision and is_on_floor() flickering
   if (is_on_floor() || is_on_ceiling()) && alive:
