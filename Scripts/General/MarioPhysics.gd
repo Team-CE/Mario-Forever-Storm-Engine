@@ -172,6 +172,7 @@ func controls(delta) -> void:
 
   if Input.is_action_pressed('mario_crouch') and is_on_floor() and Global.state > 0:
     crouch = true
+    velocity.y = 1
     if velocity.x > 0:
       velocity.x -= 5 * Global.get_delta(delta)
     if velocity.x < 0:
