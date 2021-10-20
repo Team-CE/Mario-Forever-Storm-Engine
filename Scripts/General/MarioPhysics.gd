@@ -131,7 +131,7 @@ func _process_dead(delta) -> void:
   $BottomDetector/CollisionBottom.disabled = true
 
   dead_counter += 1 * Global.get_delta(delta)
-  $SmallMario.set_animation('Dead')
+  $Sprite.set_animation('Dead')
   velocity.x = 0
 
   velocity.y += 25 * Global.get_delta(delta)
@@ -227,9 +227,6 @@ func animate(delta) -> void:
   if appear_counter > 0:
     if not $Sprite.animation == 'Appearing':
       animate_sprite('Appearing')
-      if Global.state == 0:
-        $Sprite.position.y -= 14
-        position_altered = true
 
     $Sprite.speed_scale = 1
     appear_counter -= 1.5 * Global.get_delta(delta)
