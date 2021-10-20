@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Scenery/Trees.png" type="Texture" id=2]
@@ -14,6 +14,12 @@
 [ext_resource path="res://GFX/SaveGameRoom/powerups_choose.png" type="Texture" id=12]
 [ext_resource path="res://GFX/SaveGameRoom/two_lives.png" type="Texture" id=13]
 [ext_resource path="res://Scripts/SaveGameRoom/ChooseTextAnimation.gd" type="Script" id=14]
+[ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=15]
+[ext_resource path="res://Prefabs/Mario/Big.tres" type="SpriteFrames" id=16]
+[ext_resource path="res://Prefabs/Mario/Beetroot.tres" type="SpriteFrames" id=17]
+[ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=18]
+[ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=19]
+[ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=20]
 
 [sub_resource type="Environment" id=3]
 background_mode = 4
@@ -31,7 +37,7 @@ width = 640
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 time = 999999
-music = "1-music-presentation.it"
+music = "1-m usic-presentation.it"
 sgr_scroll = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -49,6 +55,16 @@ tile_data = PoolIntArray( -458753, 6, 0, -524287, 6, 0, -524286, 6, 0, -393217, 
 
 [node name="Mario" parent="." instance=ExtResource( 5 )]
 position = Vector2( 16, 0 )
+powerup_animations = {
+0: ExtResource( 18 ),
+1: ExtResource( 16 ),
+2: ExtResource( 15 ),
+3: ExtResource( 17 )
+}
+powerup_scripts = {
+2: ExtResource( 19 ),
+3: ExtResource( 20 )
+}
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 active = false

@@ -1,12 +1,20 @@
 extends KinematicBody2D
 
+export var powerup_animations: Dictionary = {}
+export var powerup_scripts: Dictionary = {}
+
+var ready_powerup_scripts: Dictionary = {}
+
 var velocity: Vector2
-export var jump_counter: int = 0
+var jump_counter: int = 0
 var jump_internal_counter: float = 100
 var can_jump: bool = false
 var crouch: bool = false
 var standing: bool = false
 var prelanding: bool = false
+
+var position_altered: bool = false
+var selected_state: int = -1
 
 onready var dead: bool = false
 onready var dead_counter: float = 0
@@ -21,6 +29,11 @@ func _ready() -> void:
 # warning-ignore:return_value_discarded
   Global.connect("OnPlayerLoseLife", self, 'kill')
   $DebugText.visible = false
+  
+  # Creating working instances of provided scripts
+  var p_keys = powerup_scripts.keys()
+  for i in range(len(p_keys)):
+    ready_powerup_scripts[p_keys[i]] = powerup_scripts[p_keys[i]].new()
 
 func is_over_backdrop(obj, ignore_hidden) -> bool:
   var overlaps = obj.get_overlapping_bodies()
@@ -189,65 +202,48 @@ func controls(delta) -> void:
       velocity.x -= 12.5 * Global.get_delta(delta)
 
   if Input.is_action_just_pressed('mario_fire') and not crouch and Global.state > 1:
-    if Global.state == 2 and Global.projectiles_count < 2:
-      Global.play_base_sound('MAIN_Shoot')
-      var fireball = load('res://Objects/Projectiles/Fireball.tscn').instance()
-      fireball.dir = -1 if $SmallMario.flip_h else 1
-      fireball.position = Vector2(position.x, position.y - 32)
-      Global.projectiles_count += 1
-      launch_counter = 2
-      get_parent().add_child(fireball)
-
-    if Global.state == 3 and Global.projectiles_count < 2:
-      Global.play_base_sound('MAIN_Shoot')
-      var beetroot = load('res://Objects/Projectiles/Beetroot.tscn').instance()
-      beetroot.dir = -1 if $SmallMario.flip_h else 1
-      beetroot.position = Vector2(position.x, position.y - 32)
-      Global.projectiles_count += 1
-      launch_counter = 2
-      get_parent().add_child(beetroot)
-
+    if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('do_action'):
+      ready_powerup_scripts[Global.state].do_action(self)
 
 func animate(delta) -> void:
-  $SmallMario.visible = Global.state == 0
-  $BigMario.visible = Global.state == 1
-  $FlowerMario.visible = Global.state == 2
-  $BeetrootMario.visible = Global.state == 3
-
   if not animation_enabled: return
+  
+  if selected_state != Global.state:
+    selected_state = Global.state
+    if not Global.state in powerup_animations:
+      printerr('[CE ERROR] Mario: Animations for state ' + str(Global.state) + ' don\'t exist!')
+      return
+    $Sprite.frames = powerup_animations[Global.state]
 
   if velocity.x <= -4:
-    $SmallMario.flip_h = true
-    $BigMario.flip_h = true
-    $FlowerMario.flip_h = true
-    $BeetrootMario.flip_h = true
-
+    $Sprite.flip_h = true
   if velocity.x >= 4:
-    $SmallMario.flip_h = false
-    $BigMario.flip_h = false
-    $FlowerMario.flip_h = false
-    $BeetrootMario.flip_h = false
+    $Sprite.flip_h = false
+    
+  if Global.state > 0 and not position_altered:
+    $Sprite.position.y -= 14
+    position_altered = true
 
   if appear_counter > 0:
-    if not $SmallMario.animation == 'Appearing':
+    if not $Sprite.animation == 'Appearing':
       animate_sprite('Appearing')
-      $SmallMario.position.y -= 13
+      if Global.state == 0:
+        $Sprite.position.y -= 14
+        position_altered = true
 
-    speed_scale_sprite(1)
+    $Sprite.speed_scale = 1
     appear_counter -= 1.5 * Global.get_delta(delta)
     return
-  if appear_counter < 0:
-    $SmallMario.position.y += 13
+  if appear_counter < 0 and Global.state == 0:
+    if position_altered:
+      $Sprite.position.y += 14
+      position_altered = false
     appear_counter = 0
 
   if shield_counter > 0:
     shield_counter -= 1.5 * Global.get_delta(delta)
     if appear_counter == 0:
-      var calculated_invis = int(shield_counter / 2) % 2 == 0
-      $SmallMario.visible = Global.state == 0 and calculated_invis
-      $BigMario.visible = Global.state == 1 and calculated_invis
-      $FlowerMario.visible = Global.state == 2 and calculated_invis
-      $BeetrootMario.visible = Global.state == 3 and calculated_invis
+      $Sprite.visible = int(shield_counter / 2) % 2 == 0
   if shield_counter < 0:
     shield_counter = 0
 
@@ -266,29 +262,24 @@ func animate(delta) -> void:
     animate_sprite('Stopped')
 
   if velocity.x <= -0.08:
-    if is_on_floor() or $SmallMario.animation == 'Launching':
+    if is_on_floor() or $Sprite.animation == 'Launching':
       animate_sprite('Walking')
 
   if velocity.x >= 0.08:
-    if is_on_floor() or $SmallMario.animation == 'Launching':
+    if is_on_floor() or $Sprite.animation == 'Launching':
       animate_sprite('Walking')
 
-  if $SmallMario.animation == 'Walking':
-    speed_scale_sprite(abs(velocity.x / 50) * 2.5 + 4)
+  if $Sprite.animation == 'Walking':
+    $Sprite.speed_scale = abs(velocity.x / 50) * 2.5 + 4
 
 func animate_sprite(anim_name) -> void:
-  if anim_name != 'Launching':
-    if anim_name != 'Crouching':
-      $SmallMario.set_animation(anim_name);
-    $BigMario.set_animation(anim_name)
-  $FlowerMario.set_animation(anim_name)
-  $BeetrootMario.set_animation(anim_name)
-
-func speed_scale_sprite(scale_num) -> void:
-  $SmallMario.speed_scale = scale_num
-  $BigMario.speed_scale = scale_num
-  $FlowerMario.speed_scale = scale_num
-  $BeetrootMario.speed_scale = scale_num
+#  CRINGE
+#  if anim_name != 'Launching':
+#    if anim_name != 'Crouching':
+#      $SmallMario.set_animation(anim_name);
+#    $BigMario.set_animation(anim_name)
+#  $FlowerMario.set_animation(anim_name)
+  $Sprite.set_animation(anim_name)
 
 func update_collisions() -> void:
   $Collision.disabled = not (Global.state == 0 or crouch)
@@ -313,7 +304,7 @@ func debug() -> void:
   if Input.is_action_just_pressed('mouse_middle'):
     $DebugText.visible = !$DebugText.visible
 
-  $DebugText.text = 'x speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($BigMario.animation).to_lower() + '\nfps: ' + str(Engine.get_frames_per_second())
+  $DebugText.text = 'x speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($Sprite.animation).to_lower() + '\nfps: ' + str(Engine.get_frames_per_second())
 
 func _process_camera() -> void:
   if dead: return

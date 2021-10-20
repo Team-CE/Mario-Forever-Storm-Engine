@@ -1,0 +1,11 @@
+class_name FireFlowerAction
+
+func do_action(mario):
+  if Global.projectiles_count < 2:
+    Global.play_base_sound('MAIN_Shoot')
+    var fireball = load('res://Objects/Projectiles/Fireball.tscn').instance()
+    fireball.dir = -1 if mario.get_node('Sprite').flip_h else 1
+    fireball.position = Vector2(mario.position.x, mario.position.y - 32)
+    Global.projectiles_count += 1
+    mario.launch_counter = 2
+    mario.get_parent().add_child(fireball)

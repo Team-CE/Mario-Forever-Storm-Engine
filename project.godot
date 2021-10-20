@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/General/Generic/AliveObject.gd"
 }, {
+"base": "Reference",
+"class": "BeetrootAction",
+"language": "GDScript",
+"path": "res://Scripts/Powerups/Beetroot.gd"
+}, {
 "base": "Node",
 "class": "Brain",
 "language": "GDScript",
@@ -43,6 +48,11 @@ _global_script_classes=[ {
 "class": "FLMusicLib",
 "language": "NativeScript",
 "path": "res://FLMusicLib/FLMusic.gdns"
+}, {
+"base": "Reference",
+"class": "FireFlowerAction",
+"language": "GDScript",
+"path": "res://Scripts/Powerups/FireFlower.gd"
 }, {
 "base": "Node2D",
 "class": "Level",
@@ -91,12 +101,14 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AliveObject": "res://GFX/Editor/AliveBody.png",
+"BeetrootAction": "",
 "Brain": "",
 "BrickEffect": "",
 "Cannon": "res://GFX/Editor/Enemy.png",
 "CoinEffect": "",
 "Explosion": "",
 "FLMusicLib": "",
+"FireFlowerAction": "",
 "Level": "",
 "LifePowerupAction": "",
 "MarioHeadEffect": "",

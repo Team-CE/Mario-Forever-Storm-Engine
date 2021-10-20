@@ -96,10 +96,7 @@ func _process(delta) -> void:
       calc_pos += warp_dir * Global.get_vector_delta(delta)
       counter += 1 * Global.get_delta(delta)
 
-      Global.Mario.get_node('SmallMario').z_index = -10
-      Global.Mario.get_node('BigMario').z_index = -10
-      Global.Mario.get_node('FlowerMario').z_index = -10
-      Global.Mario.get_node('BeetrootMario').z_index = -10
+      Global.Mario.get_node('Sprite').z_index = -10
 
       if counter > 60 and not state_switched:
         state_switched = true
@@ -125,10 +122,7 @@ func _process(delta) -> void:
           Global.Mario.speed_scale_sprite(5)
       
       if counter > 120:
-        Global.Mario.get_node('SmallMario').z_index = 10
-        Global.Mario.get_node('BigMario').z_index = 10
-        Global.Mario.get_node('FlowerMario').z_index = 10
-        Global.Mario.get_node('BeetrootMario').z_index = 10
+        Global.Mario.get_node('Sprite').z_index = 10
         state_switched = false
         counter = 0
         active = false
