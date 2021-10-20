@@ -20,6 +20,8 @@ func _ready_mixin():
   
   if owner.vars['type'] == 1:
     owner.animated_sprite.frames = load('res://Prefabs/Piranhas/Fire.tres')
+  else:
+    owner.get_node('Light2D').queue_free()
   
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)

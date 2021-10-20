@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Piranhas/Green.tres" type="SpriteFrames" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=4]
 [ext_resource path="res://GFX/Editor/Range.png" type="Texture" id=5]
 [ext_resource path="res://Sounds/Main/shoot.wav" type="AudioStream" id=6]
+[ext_resource path="res://GFX/Effects/Light.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 17, 17 )
@@ -53,6 +54,13 @@ playing = true
 modulate = Color( 1, 1, 1, 0.388235 )
 position = Vector2( 1, -56 )
 texture = ExtResource( 5 )
+
+[node name="Light2D" type="Light2D" parent="."]
+modulate = Color( 1, 0.811765, 0.541176, 1 )
+position = Vector2( 0, -24 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+energy = 0.4
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
