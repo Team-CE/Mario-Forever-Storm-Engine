@@ -82,7 +82,11 @@ func _process_alive(delta) -> void:
     if get_parent().no_cliff:
       position.y -= 550
     else:
-      Global._pll()
+      if !get_parent().sgr_scroll:
+        Global._pll()
+      else:
+        get_parent().get_node('StartWarp').active = true
+        get_parent().get_node('StartWarp').counter = 61
       
   if position.y < $Camera.limit_top - 64 and controls_enabled and get_parent().no_cliff:
     position.y += 570
@@ -316,3 +320,8 @@ func _process_camera() -> void:
   var base_y = floor((position.y + 240) / 960) * 960
   $Camera.limit_top = base_y
   $Camera.limit_bottom = base_y + 480
+  
+  if get_parent().sgr_scroll:
+    var base_x = floor(position.x / 640) * 640
+    $Camera.limit_left = base_x
+    $Camera.limit_right = base_x + 640

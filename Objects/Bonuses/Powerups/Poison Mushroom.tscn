@@ -29,6 +29,7 @@ script = ExtResource( 1 )
 vars = {
 "custom action": ExtResource( 4 ),
 "grow speed": 0.5,
+"sgr behavior": false,
 "speed": 100.0
 }
 AI = ExtResource( 2 )
@@ -40,7 +41,6 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 frames = SubResource( 3 )
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

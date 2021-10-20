@@ -20,6 +20,7 @@ script = ExtResource( 1 )
 vars = {
 "grow speed": 0.5,
 "set state": 1,
+"sgr behavior": false,
 "speed": 100.0
 }
 AI = ExtResource( 2 )

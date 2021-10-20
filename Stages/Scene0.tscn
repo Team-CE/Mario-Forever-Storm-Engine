@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -11,16 +11,12 @@
 [ext_resource path="res://Objects/Bonuses/Powerups/Life Mushroom.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Objects/Bonuses/Powerups/Poison Mushroom.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Objects/Enemies/Koopa.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Objects/Enemies/Paratroopa.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Objects/Enemies/Paratroopa Red.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Objects/Enemies/Koopa Red.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Objects/Enemies/Koopa Blue.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Objects/Enemies/Paratroopa Blue.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
 glow_enabled = true
+glow_blend_mode = 0
 glow_hdr_threshold = 1.5
 
 [node name="Level" type="Node2D"]
@@ -75,57 +71,8 @@ Result = ExtResource( 7 )
 [node name="Coin" parent="." instance=ExtResource( 10 )]
 position = Vector2( 480, 272 )
 
-[node name="Koopa" parent="." instance=ExtResource( 12 )]
-position = Vector2( 160, 416 )
-vars = {
-"bounce": 9.0,
-"is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
-"speed": 50.0,
-"stopped": false
-}
-
-[node name="Paratroopa Red" parent="." instance=ExtResource( 14 )]
-position = Vector2( 128, 136 )
-vars = {
-"bounce": 9.0,
-"fly radius": 50,
-"fly speed": 2
-}
-
-[node name="Paratroopa" parent="." instance=ExtResource( 13 )]
-position = Vector2( 272, 200 )
-vars = {
-"bounce": 9.0,
-"fly radius": 50,
-"fly speed": 2
-}
-
-[node name="Koopa2" parent="." instance=ExtResource( 16 )]
-position = Vector2( 184, 256 )
-vars = {
-"bounce": 9.0,
-"is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
-"speed": 50.0,
-"stopped": false
-}
-
-[node name="RedKoopa" parent="." instance=ExtResource( 15 )]
-position = Vector2( 312, 256 )
-vars = {
-"bounce": 9.0,
-"is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
-"speed": 50.0,
-"stopped": false
-}
-
 [node name="Paratroopa Blue" parent="." instance=ExtResource( 17 )]
-position = Vector2( 376, 240 )
+position = Vector2( 368, 104 )
 vars = {
 "bounce": 9.0,
 "is shell": false,
