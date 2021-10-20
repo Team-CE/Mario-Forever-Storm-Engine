@@ -13,6 +13,8 @@ var crouch: bool = false
 var standing: bool = false
 var prelanding: bool = false
 
+var top_collider_counter: float = 0
+
 var position_altered: bool = false
 var selected_state: int = -1
 
@@ -112,10 +114,16 @@ func _process_alive(delta) -> void:
 #    prelanding = true
 #    if is_on_floor():
 #      standing = true
+  if top_collider_counter > 0:
+    top_collider_counter -= 1 * Global.get_delta(delta)
 
   if is_on_ceiling():
-    for i in range(get_slide_count()):
-      var collider = get_slide_collision(i).collider
+    top_collider_counter = 3
+
+  if top_collider_counter > 0:
+    var collisions = $TopDetector.get_overlapping_bodies()
+    for i in range(len(collisions)):
+      var collider = collisions[i]
       if collider.has_method('hit'):
         collider.hit(delta)
 
