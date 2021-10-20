@@ -72,6 +72,9 @@ func _process_alive(delta) -> void:
       else:
         velocity.y -= 25 * Global.get_delta(delta)
     velocity.y += 50 * Global.get_delta(delta)
+    
+  if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin'):
+    ready_powerup_scripts[Global.state]._process_mixin(self, delta)
 
   if controls_enabled:
     controls(delta)

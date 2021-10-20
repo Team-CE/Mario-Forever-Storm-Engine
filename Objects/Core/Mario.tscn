@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/General/MarioPhysics.gd" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Prefabs/Mario/Beetroot.tres" type="SpriteFrames" id=7]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=9]
+[ext_resource path="res://Prefabs/Mario/Lui.tres" type="SpriteFrames" id=10]
+[ext_resource path="res://Scripts/Powerups/Lui.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 13 )
@@ -51,11 +53,13 @@ powerup_animations = {
 0: ExtResource( 1 ),
 1: ExtResource( 6 ),
 2: ExtResource( 3 ),
-3: ExtResource( 7 )
+3: ExtResource( 7 ),
+4: ExtResource( 10 )
 }
 powerup_scripts = {
 2: ExtResource( 8 ),
-3: ExtResource( 9 )
+3: ExtResource( 9 ),
+4: ExtResource( 11 )
 }
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -98,6 +102,7 @@ shape = SubResource( 2 )
 [node name="InsideDetector" type="Area2D" parent="." groups=[
 "Mario",
 ]]
+visible = false
 collision_layer = 3
 collision_mask = 3
 
@@ -112,6 +117,7 @@ position = Vector2( 0, -28 )
 shape = SubResource( 4 )
 
 [node name="BottomDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 3
 collision_mask = 3
 

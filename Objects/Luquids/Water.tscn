@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://GFX/Liquids/water.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Effects/Water.gd" type="Script" id=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float level = 0;
+
+void fragment(){
+  vec4 f_color = texture(TEXTURE, UV);
+  if (UV.y < level) {
+    f_color.a = 0.f;
+  }
+  COLOR = f_color;
+ } "
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/level = 0.0
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 64, 8 )
+
+[node name="Water Pool" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )
+position = Vector2( 64, 8 )
+texture = ExtResource( 1 )
+hframes = 5
+region_enabled = true
+region_rect = Rect2( 0, 0, 640, 17 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 64, 8 )
+shape = SubResource( 3 )

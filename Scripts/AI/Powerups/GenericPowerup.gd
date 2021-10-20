@@ -6,6 +6,8 @@ var appear_counter: float = 0
 var initial_pos: Vector2
 var offset_pos: Vector2 = Vector2.ZERO
 
+var custom_script
+
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
   owner.z_index = -99
@@ -18,6 +20,9 @@ func _ready_mixin():
     mushroom.position = owner.position
     owner.get_parent().add_child(mushroom)
     owner.queue_free()
+    
+  if 'custom behavior' in owner.vars:
+    custom_script = owner.vars['custom behavior'].new()
   
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)
@@ -42,6 +47,9 @@ func _ai_process(delta: float) -> void:
     
   if appearing:
     owner.position = initial_pos + offset_pos
+    
+  if custom_script and custom_script.has_method('_process_mixin'):
+    custom_script._process_mixin(self, delta)
     
   if on_mario_collide('InsideDetector'):
     if 'set state' in owner.vars:
