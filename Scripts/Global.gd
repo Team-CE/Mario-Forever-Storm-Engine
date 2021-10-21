@@ -166,7 +166,7 @@ func _pll() -> void: # Player Death
   Mario.dead = true
 
 func _delay() -> void:
-  if Mario == null:
+  if !is_instance_valid(Mario):
     return
   if !Mario.dead and Mario.controls_enabled:
     emit_signal('TimeTick')

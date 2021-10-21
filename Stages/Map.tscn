@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://GFX/Map/map_looped.png" type="Texture" id=1]
+
+[node name="Map" type="Node2D"]
+
+[node name="map_looped" type="Sprite" parent="."]
+position = Vector2( 5000, 240 )
+texture = ExtResource( 1 )

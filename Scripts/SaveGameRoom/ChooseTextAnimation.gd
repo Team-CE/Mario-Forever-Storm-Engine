@@ -1,7 +1,7 @@
 extends Sprite
 
 var initial_y: float
-var counter: float = 0
+export var counter: float = 0
 
 func _ready() -> void:
   initial_y = position.y

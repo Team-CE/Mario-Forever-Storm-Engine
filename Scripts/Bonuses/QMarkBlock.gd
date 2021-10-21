@@ -11,7 +11,8 @@ enum VISIBILITY_TYPE {
 enum BLOCK_TYPE {
   COMMON,
   BRICK,
-  COIN_BRICK
+  COIN_BRICK,
+  RESET_POWERUP
 }
 
 export(VISIBILITY_TYPE) var Visible: int
@@ -85,7 +86,7 @@ func _ready():
   
   # Preview Sprite
   preview = Sprite.new()
-  preview.name= 'Preview'
+  preview.name = 'Preview'
   preview.scale = Vector2(0.5, 0.5)
   preview.modulate.a = 0.8
   preview.position.x += 8
@@ -103,9 +104,14 @@ func _ready():
 func editor() -> void:
   if body.animation != 'empty' and Empty and qtype == BLOCK_TYPE.COMMON:
     body.animation = 'empty'
+  if !Engine.editor_hint:
+    if body.animation != 'empty' and Global.state == 0 and qtype == BLOCK_TYPE.RESET_POWERUP:
+      body.animation = 'empty'
   elif body.animation != 'default' and not Empty and qtype == BLOCK_TYPE.COMMON:
     body.animation = 'default'
-  if body.animation != 'brick' and qtype != BLOCK_TYPE.COMMON:
+  if body.animation != 'reset' and qtype == BLOCK_TYPE.RESET_POWERUP:
+    body.animation = 'reset'
+  if body.animation != 'brick' and qtype != BLOCK_TYPE.COMMON and qtype != BLOCK_TYPE.RESET_POWERUP:
     body.animation = 'brick'
 
 
@@ -147,8 +153,11 @@ func _process(delta) -> void:
   if coin_counter >= 1 and coin_counter <= 6:
     coin_counter += 0.02 * Global.get_delta(delta)
   
-  if qtype != BLOCK_TYPE.COMMON and not Empty:
+  if qtype != BLOCK_TYPE.COMMON and qtype != BLOCK_TYPE.RESET_POWERUP and not Empty:
     body.animation = 'brick'
+    
+  if qtype == BLOCK_TYPE.RESET_POWERUP and not Empty:
+    body.animation = 'reset'
   
   if Empty:
     $Body.set_animation('empty')
@@ -220,6 +229,10 @@ func hit(delta) -> void:
         $Body.set_animation('empty')
         qtype = BLOCK_TYPE.COMMON
         coin_counter = 100
+  elif qtype == BLOCK_TYPE.RESET_POWERUP:
+    Global.play_base_sound('MAIN_Pipe')
+    Global.state = 0
+    Global.Mario.appear_counter = 60
 
 func _process_trigger(delta) -> void:
   t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)
