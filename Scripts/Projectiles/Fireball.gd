@@ -14,8 +14,13 @@ func _ready() -> void:
   vis.connect('screen_exited', self, '_on_screen_exited')
 
   add_child(vis)
+  
+  var children = get_parent().get_children()
+  for node in range(len(children)):
+    if 'AI' in children[node]:
+      add_collision_exception_with(children[node])
 
-func _physics_process(delta) -> void:
+func _process(delta) -> void:
   var overlaps = $CollisionArea.get_overlapping_bodies()
 
   if overlaps.size() > 0 and belongs == 0:

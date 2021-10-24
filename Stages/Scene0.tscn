@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Objects/Bonuses/Powerups/Mushroom.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Objects/Bonuses/Powerups/Beetroot.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Objects/Bonuses/Powerups/Life Mushroom.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Objects/Bonuses/Powerups/Poison Mushroom.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=13]
@@ -21,6 +22,7 @@
 [ext_resource path="res://Prefabs/Mario/Lui.tres" type="SpriteFrames" id=20]
 [ext_resource path="res://Objects/Bonuses/Powerups/Lui.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Objects/Enemies/Piranha.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Objects/Enemies/Koopa.tscn" type="PackedScene" id=23]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -109,4 +111,54 @@ position = Vector2( 448, 384 )
 vars = {
 "projectile count": 3,
 "type": 1
+}
+
+[node name="Goomba" parent="." instance=ExtResource( 10 )]
+position = Vector2( 272, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 576, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba3" parent="." instance=ExtResource( 10 )]
+position = Vector2( 664, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba4" parent="." instance=ExtResource( 10 )]
+position = Vector2( 368, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Koopa" parent="." instance=ExtResource( 23 )]
+position = Vector2( 344, 256 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
+
+[node name="Koopa2" parent="." instance=ExtResource( 23 )]
+position = Vector2( 712, 320 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
 }

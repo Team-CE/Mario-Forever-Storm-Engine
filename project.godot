@@ -79,6 +79,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/LuiTrail.gd"
 }, {
+"base": "AnimatedSprite",
+"class": "MapDot",
+"language": "GDScript",
+"path": "res://Scripts/Map/Dot.gd"
+}, {
 "base": "Sprite",
 "class": "MarioHeadEffect",
 "language": "GDScript",
@@ -93,11 +98,6 @@ _global_script_classes=[ {
 "class": "PoisonPowerupAction",
 "language": "GDScript",
 "path": "res://Scripts/AI/Powerups/Actions/PoisonMushroom.gd"
-}, {
-"base": "GenericEnemyMovement",
-"class": "Powerup",
-"language": "GDScript",
-"path": "res://Scripts/Bonuses/Powerup.gd"
 }, {
 "base": "StaticBody2D",
 "class": "QBlock",
@@ -129,10 +129,10 @@ _global_script_class_icons={
 "LuiAction": "",
 "LuiBehavior": "",
 "LuiTrail": "",
+"MapDot": "",
 "MarioHeadEffect": "",
 "Platform": "",
 "PoisonPowerupAction": "",
-"Powerup": "res://GFX/Editor/Powerup.png",
 "QBlock": "res://GFX/Editor/QBlock.png",
 "ScoreText": "",
 "Warp": ""

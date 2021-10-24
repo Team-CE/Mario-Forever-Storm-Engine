@@ -21,19 +21,19 @@ region = Rect2( 32, 0, 32, 47 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 33, 47 )
+region = Rect2( 99, 0, 33, 47 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 4 )
-region = Rect2( 33, 0, 33, 47 )
+region = Rect2( 0, 0, 33, 47 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 4 )
-region = Rect2( 66, 0, 33, 47 )
+region = Rect2( 33, 0, 33, 47 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 4 )
-region = Rect2( 99, 0, 33, 47 )
+region = Rect2( 66, 0, 33, 47 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 4 )
@@ -51,19 +51,19 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ SubResource( 4 ) ],
 "loop": true,
-"name": "dead",
+"name": "shell stopped",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 8 ) ],
+"frames": [  ],
 "loop": true,
-"name": "shell stopped",
+"name": "dead",
 "speed": 5.0
 } ]
 

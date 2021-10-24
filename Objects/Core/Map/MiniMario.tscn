@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Prefabs/Mario/Big.tres" type="SpriteFrames" id=1]
+
+[node name="MiniMario" type="Node2D"]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = ExtResource( 1 )
+animation = "Walking"
+frame = 1
+speed_scale = 5.0
+playing = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_left = 0
+limit_top = 0
+limit_bottom = 480
+smoothing_enabled = true

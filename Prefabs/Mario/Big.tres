@@ -35,11 +35,6 @@ region = Rect2( 62, 0, 31, 59 )
 
 [resource]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "Stopped",
@@ -58,5 +53,10 @@ animations = [ {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "Crouching",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Jumping",
 "speed": 5.0
 } ]
