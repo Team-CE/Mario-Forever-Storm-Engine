@@ -1,7 +1,5 @@
 extends Node
 
-const MUSIC_FOLDER_PREFIX = 'res://Games/'
-
 var music_player
 
 var volume: float setget set_volume
@@ -16,7 +14,7 @@ func _ready() -> void:
 func play_music(mus_name: String, loop: bool = true, loopStart: int = 0, loopEnd: int = 4000, track: int = 0) -> void:
   print('[Music Engine] Playing: ' + mus_name)
   #return;
-  music_player.play_music(MUSIC_FOLDER_PREFIX + mus_name, track, loop, loopStart, loopEnd, 0)
+  music_player.play_music(mus_name, track, loop, loopStart, loopEnd, 0)
 
 func set_volume(vol: float) -> void:
   #return;

@@ -159,7 +159,7 @@ func _process_dead(delta) -> void:
     if Global.lives > 0:
       Global._reset()
     elif dead_counter < 201:
-      MusicEngine.play_music('1-music-gameover.it')
+      MusicEngine.play_music('res://Music/1-music-gameover.it')
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
 
 func controls(delta) -> void:

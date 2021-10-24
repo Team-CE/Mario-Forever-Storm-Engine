@@ -47,7 +47,7 @@ func _process(delta) -> void:
         get_parent().add_child(score_text)
       Global.level_ended = true
       crossed = true
-      MusicEngine.play_music('1-music-complete-level.it')
+      MusicEngine.play_music('res://Music/1-music-complete-level.it')
       Global.Mario.controls_enabled = false
       counter = 0
   else:

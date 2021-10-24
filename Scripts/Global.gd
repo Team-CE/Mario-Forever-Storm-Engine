@@ -162,7 +162,7 @@ func _pll() -> void: # Player Death
     return
   player_dead = true
   emit_signal('OnPlayerLoseLife')
-  MusicEngine.play_music('1-music-die.it')
+  MusicEngine.play_music('res://Music/1-music-die.it')
   Mario.dead = true
 
 func _delay() -> void:
