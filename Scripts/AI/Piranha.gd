@@ -22,6 +22,11 @@ func _ready_mixin():
     owner.animated_sprite.frames = load('res://Prefabs/Piranhas/Fire.tres')
   else:
     owner.get_node('Light2D').queue_free()
+    
+  var children = owner.get_parent().get_children()
+  for node in range(len(children)):
+    if 'AI' in children[node]:
+      owner.add_collision_exception_with(children[node])
   
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)

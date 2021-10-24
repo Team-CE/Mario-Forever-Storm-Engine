@@ -92,7 +92,7 @@ position = Vector2( 368, 288 )
 Result = ExtResource( 7 )
 
 [node name="Paratroopa Blue" parent="." instance=ExtResource( 17 )]
-position = Vector2( 368, 104 )
+position = Vector2( 496, 248 )
 vars = {
 "bounce": 9.0,
 "is shell": false,
