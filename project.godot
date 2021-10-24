@@ -224,7 +224,6 @@ debug_f2={
 
 [physics]
 
-common/physics_fps=15
 common/physics_jitter_fix=0.0
 
 [rendering]
