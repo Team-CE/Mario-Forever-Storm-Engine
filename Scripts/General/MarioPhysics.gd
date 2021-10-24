@@ -126,6 +126,12 @@ func _process_alive(delta) -> void:
       var collider = collisions[i]
       if collider.has_method('hit'):
         collider.hit(delta)
+        
+  var bottom_collisions = $BottomDetector.get_overlapping_bodies()
+  for i in range(len(bottom_collisions)):
+    var collider = bottom_collisions[i]
+    if collider.has_method('_standing_on'):
+      collider._standing_on()
 
   velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1), Vector2(0, -1), true, 4, 0.785398, false)
 

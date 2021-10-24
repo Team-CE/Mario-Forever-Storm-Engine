@@ -1,0 +1,90 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Scripts/AI/WalkingPiranha.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Enemies/WalkingPiranha.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=3]
+[ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
+[ext_resource path="res://GFX/Enemies/WalkingPiranhaFalling.png" type="Texture" id=6]
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 35, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 35, 0, 35, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 70, 0, 35, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 105, 0, 35, 64 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14, 2 )
+
+[node name="WalkingPiranha" type="KinematicBody2D" groups=[
+"Enemy",
+]]
+script = ExtResource( 3 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+AI = ExtResource( 1 )
+sound_pth = NodePath("Stomp")
+alt_sound_pth = NodePath("Kick")
+animated_sprite_pth = NodePath("AnimatedSprite")
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -16 )
+frames = SubResource( 7 )
+frame = 1
+playing = true
+offset = Vector2( 0, -16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2( 0, -16 )
+shape = SubResource( 1 )
+
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Stomp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2( -2.38419e-07, -16 )
+scale = Vector2( 1.6, 1.6 )
+process_parent = true
+physics_process_parent = true
+
+[node name="KillDetector" type="Area2D" parent="."]
+visible = false
+
+[node name="Collision" type="CollisionShape2D" parent="KillDetector"]
+position = Vector2( 0, 4 )
+shape = SubResource( 2 )
