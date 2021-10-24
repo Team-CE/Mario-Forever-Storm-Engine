@@ -127,7 +127,7 @@ func _process_alive(delta) -> void:
       if collider.has_method('hit'):
         collider.hit(delta)
 
-  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2.ZERO, Vector2(0, -1), true, 4, 0.785398, false)
+  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1), Vector2(0, -1), true, 4, 0.785398, false)
 
   animate(delta)
   update_collisions()
@@ -163,7 +163,7 @@ func _process_dead(delta) -> void:
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
 
 func controls(delta) -> void:
-  if Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y >= 0 and not crouch:
+  if Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y >= -1 and not crouch:
     can_jump = true
   if not Input.is_action_pressed('mario_jump'):
     can_jump = false

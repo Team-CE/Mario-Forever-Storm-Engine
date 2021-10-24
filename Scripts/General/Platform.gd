@@ -1,15 +1,16 @@
-extends KinematicBody2D
+extends PathFollow2D
 class_name Platform
 
-export var horizontal_speed: float = 1
+export var speed: float = 1
 export var vertical_speed: float = 0
 export var smooth_turn: bool = false
+export var smooth_turn_distance: float = 100
 export var can_fall: bool = false
 export var move_on_touch: bool = false
 
-var velocity: Vector2
+var current_speed: float = 0
 
-var mario_x_modifier = horizontal_speed
+var velocity: Vector2
 
 var dir: int = 1
 var active: bool = false
@@ -20,20 +21,19 @@ var skip_frame: bool = false
 func _ready() -> void:
   if not move_on_touch:
     active = true
+    current_speed = speed
 
 func _process(delta) -> void:
   if active:
     movement(delta)
 
 func movement(delta) -> void:
-  if is_on_wall() and !skip_frame:
-    skip_frame = true
-    horizontal_speed = -horizontal_speed
-    mario_x_modifier = horizontal_speed
-  if !is_on_wall():
-    skip_frame = false
+  offset += current_speed * Global.get_delta(delta)
   
-  velocity.x = horizontal_speed * 50
-  velocity.y = vertical_speed * 50
-  
-  velocity = move_and_slide(velocity)
+  if smooth_turn:
+    var points = get_parent().curve.get_baked_points()
+    for i in range(len(points)):
+      var p_offset = get_parent().curve.get_closest_offset(points[i])
+      if p_offset < smooth_turn_distance and p_offset != 0:
+        print(p_offset)
+        current_speed = speed * (p_offset / smooth_turn_distance) + 0.2

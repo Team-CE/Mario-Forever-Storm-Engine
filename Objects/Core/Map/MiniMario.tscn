@@ -8,7 +8,7 @@
 scale = Vector2( 0.5, 0.5 )
 frames = ExtResource( 1 )
 animation = "Walking"
-frame = 1
+frame = 2
 speed_scale = 5.0
 playing = true
 
