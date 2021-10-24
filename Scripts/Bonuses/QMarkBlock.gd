@@ -130,6 +130,8 @@ func editor() -> void:
 func set_preview() -> StreamTexture:
   var result_inst = Result.instance()
   var sprite = result_inst.get_node_or_null('AnimatedSprite') if is_instance_valid(Result) else null
+  if !sprite:
+    sprite = result_inst.get_node_or_null('Sprite') if is_instance_valid(Result) else null
   var res
   
   if preview == null || !is_instance_valid(sprite):
@@ -200,15 +202,20 @@ func hit(delta) -> void:
 
   if qtype == BLOCK_TYPE.COMMON:
     var powerup = Result.instance() if Result and Result.has_method('instance') else null
-    if !powerup or !('vars' in powerup):
+    if !powerup or (!('vars' in powerup) and !('appearing' in powerup)):
       Global.play_base_sound('MAIN_Bump')
     else:
       powerup.position = position
-      powerup.vars['from bonus'] = true
+      if 'vars' in powerup:
+        powerup.vars['from bonus'] = true
+      elif 'appearing' in powerup:
+        powerup.appearing = true
       powerup.rotation = rotation
       get_parent().add_child(powerup)
-      if powerup.brain.appearing and powerup is KinematicBody2D:
+      if 'vars' in powerup and powerup.brain.appearing and powerup is KinematicBody2D:
         Global.play_base_sound('MAIN_PowerupGrow')
+      if !('vars' in powerup) and 'appearing' in powerup:
+        Global.play_base_sound('MAIN_Coin')
   elif qtype == BLOCK_TYPE.BRICK:
     if Global.state == 0:
       Global.play_base_sound('MAIN_Bump')
