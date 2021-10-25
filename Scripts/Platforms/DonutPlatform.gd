@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var delay: int = 2
+export var delay: int = 1
 var falling: bool = false
 var counter: float = 0
 var standoff_counter: float = 0

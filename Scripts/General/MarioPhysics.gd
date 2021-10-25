@@ -261,6 +261,7 @@ func animate(delta) -> void:
       $Sprite.visible = int(shield_counter / 2) % 2 == 0
   if shield_counter < 0:
     shield_counter = 0
+    $Sprite.visible = true
 
   if launch_counter > 0:
     animate_sprite('Launching')
