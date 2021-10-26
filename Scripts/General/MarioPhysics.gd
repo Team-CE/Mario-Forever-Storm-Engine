@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 export var powerup_animations: Dictionary = {}
 export var powerup_scripts: Dictionary = {}
+export var target_gravity_angle: float = 0
 
 var ready_powerup_scripts: Dictionary = {}
 
@@ -54,6 +55,8 @@ func is_over_platform() -> bool:
 
 func _process(delta) -> void:
   _process_camera()
+  
+  rotation_degrees += ((target_gravity_angle + 360) - (rotation_degrees + 360)) * 0.15 * Global.get_delta(delta)
 
   if not dead:
     _process_alive(delta)
@@ -133,7 +136,7 @@ func _process_alive(delta) -> void:
     if collider.has_method('_standing_on'):
       collider._standing_on()
 
-  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1), Vector2(0, -1), true, 4, 0.785398, false)
+  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
 
   animate(delta)
   update_collisions()
