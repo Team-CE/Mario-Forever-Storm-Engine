@@ -74,6 +74,7 @@ func _process_shooting(delta: float):
     fireball.position = owner.position + Vector2(0, -32).rotated(owner.rotation)
     fireball.belongs = 1
     fireball.gravity_scale = 0.5
+    fireball.z_index = 1
     owner.get_parent().add_child(fireball)
 
   if projectile_counter >= owner.vars['projectile count']:

@@ -56,7 +56,7 @@ func is_over_platform() -> bool:
 func _process(delta) -> void:
   _process_camera()
   
-  rotation_degrees += ((target_gravity_angle + 360) - (rotation_degrees + 360)) * 0.15 * Global.get_delta(delta)
+  rotation = lerp_angle(rotation, deg2rad(target_gravity_angle), 0.15)
 
   if not dead:
     _process_alive(delta)

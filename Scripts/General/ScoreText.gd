@@ -8,6 +8,7 @@ func _init(score: int, pos: Vector2 = Vector2.ZERO):
   position = pos
   position.y -= 8
   hframes = 8
+  z_index = 50
   match score:
     1:
       frame = 0
