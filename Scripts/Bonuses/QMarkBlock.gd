@@ -163,6 +163,8 @@ func _process(delta) -> void:
   
   if Empty:
     $Body.set_animation('empty')
+    collision.one_way_collision = false
+    visible = true
 
   if coin_counter >= 1 and coin_counter <= 7:
     coin_counter += 0.02 * Global.get_delta(delta)
@@ -178,8 +180,10 @@ func _physics_process(_delta) -> void:
 func _process_active(delta) -> void:
   if Engine.editor_hint:
     return
-  if not Visible == VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
-    visible = false
+  if Visible != VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
+    if !Empty and !triggered:
+      collision.one_way_collision = true
+      visible = false
   
   $Body.visible = visible
 
@@ -199,6 +203,7 @@ func hit(delta) -> void:
     $Body.set_animation('empty')
   triggered = true
   visible = true
+  $Body.visible = visible
 
   if qtype == BLOCK_TYPE.COMMON:
     var powerup = Result.instance() if Result and Result.has_method('instance') else null
