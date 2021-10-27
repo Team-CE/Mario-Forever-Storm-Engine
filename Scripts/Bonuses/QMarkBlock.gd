@@ -163,7 +163,7 @@ func _process(delta) -> void:
   
   if Empty:
     $Body.set_animation('empty')
-    collision.one_way_collision = false
+    $Collision.one_way_collision = false
     visible = true
 
   if coin_counter >= 1 and coin_counter <= 7:
@@ -204,6 +204,7 @@ func hit(delta) -> void:
   triggered = true
   visible = true
   $Body.visible = visible
+  $Collision.one_way_collision = false
 
   if qtype == BLOCK_TYPE.COMMON:
     var powerup = Result.instance() if Result and Result.has_method('instance') else null
