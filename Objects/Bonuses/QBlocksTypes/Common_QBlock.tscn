@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Bonuses/QMarkBlock.gd" type="Script" id=1]
 [ext_resource path="res://GFX/NULLTEXTURE.png" type="Texture" id=2]
@@ -6,6 +6,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( -16, -32, 16, -32, 16, 0, -16, 0 )
 
 [node name="QBlock" type="StaticBody2D" groups=[
 "Breakable",
@@ -33,3 +36,6 @@ position = Vector2( 8, -8 )
 scale = Vector2( 0.5, 0.5 )
 z_index = 21
 texture = ExtResource( 2 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 2 )

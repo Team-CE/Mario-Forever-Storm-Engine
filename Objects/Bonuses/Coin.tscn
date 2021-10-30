@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://GFX/Bonuses/Coin.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Bonuses/Coin.gd" type="Script" id=2]
+
+[sub_resource type="OccluderPolygon2D" id=7]
+polygon = PoolVector2Array( -9.9375, -7.625, -6.875, -12.875, -4.75, -14, 3.9375, -14, 5.9375, -12.9375, 8.9375, -7.8125, 8.9375, 7.9375, 7.875, 10, 6.125, 12.9375, 4, 14, -4.9375, 14, -8.0625, 12.0625, -10, 8 )
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -33,9 +36,11 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 7 )
+
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

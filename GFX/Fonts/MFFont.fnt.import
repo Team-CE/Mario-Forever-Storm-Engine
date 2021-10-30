@@ -1,0 +1,15 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontData"
+uid="uid://cm6tqikrjjsk"
+path="res://.godot/imported/MFFont.fnt-3149f7506002c0db77e99b4b7026f499.fontdata"
+
+[deps]
+
+source_file="res://GFX/Fonts/MFFont.fnt"
+dest_files=["res://.godot/imported/MFFont.fnt-3149f7506002c0db77e99b4b7026f499.fontdata"]
+
+[params]
+
+compress=true
