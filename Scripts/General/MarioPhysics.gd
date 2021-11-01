@@ -166,10 +166,12 @@ func _process_dead(delta) -> void:
 
   velocity.y += 25 * Global.get_delta(delta)
 
-  if dead_counter < 28:
+  if dead_counter < 24:
     velocity.y = 0
-  elif dead_counter >= 28 and dead_counter < 29:
+  elif dead_counter >= 24 and dead_counter < 25:
     velocity.y = -550
+    
+  position.y += velocity.y * delta
 
   $BottomDetector/CollisionBottom.shape = null
   $TopDetector/CollisionTop.shape = null
