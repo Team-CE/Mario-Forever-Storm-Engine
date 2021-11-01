@@ -9,7 +9,7 @@ func _process(delta: float) -> void:
   $Sprite.playing = $Sprite.frame < 4
   
   if Input.is_action_just_pressed('mario_jump'):
-    spring_counter = 4
+    spring_counter = 7
     
   if spring_counter > 0:
     spring_counter -= 1 * Global.get_delta(delta)

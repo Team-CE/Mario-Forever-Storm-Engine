@@ -111,19 +111,23 @@ func _process(delta) -> void:
           Global.play_base_sound('MAIN_Pipe')
 
           if out_node.direction == DIRS.DOWN:
+            Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x, out_node.position.y - 24 - (30 if Global.state != 0 else 0))
             warp_dir.y = 1
             Global.Mario.animate_sprite('Jumping')
           elif out_node.direction == DIRS.UP:
+            Global.Mario.crouch = true
             calc_pos = Vector2(out_node.position.x, out_node.position.y + 44)
             warp_dir.y = -1
             Global.Mario.animate_sprite('Crouching')
           elif out_node.direction == DIRS.RIGHT:
+            Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x - 44, out_node.position.y + 16)
             warp_dir.x = 1
             Global.Mario.animate_sprite('Walking')
             Global.Mario.speed_scale_sprite(5)
           elif out_node.direction == DIRS.LEFT:
+            Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x + 44, out_node.position.y + 16)
             warp_dir.x = -1
             Global.Mario.animate_sprite('Walking')
