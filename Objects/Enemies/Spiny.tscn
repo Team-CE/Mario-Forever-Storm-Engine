@@ -38,7 +38,9 @@ extents = Vector2( 17, 15 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 14, 2 )
 
-[node name="Spiny" type="KinematicBody2D"]
+[node name="Spiny" type="KinematicBody2D" groups=[
+"Enemy",
+]]
 script = ExtResource( 5 )
 vars = {
 "speed": 50.0
