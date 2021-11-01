@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Scenery/Trees.png" type="Texture" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://Objects/Bonuses/Powerups/Lui.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=24]
 [ext_resource path="res://GFX/SaveGameRoom/reset_powerup.png" type="Texture" id=25]
+[ext_resource path="res://Music/1-music-presentation.ogg" type="AudioStream" id=26]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -42,7 +43,7 @@ width = 640
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 time = 999999
-music = "1-music-presentation.it"
+music = ExtResource( 26 )
 sgr_scroll = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

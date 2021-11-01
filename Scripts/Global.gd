@@ -61,6 +61,7 @@ static func get_vector_delta(delta) -> Vector2: # Vector2 with delta values
   return Vector2(get_delta(delta), get_delta(delta))
 
 func _ready() -> void:
+  die_music.loop = false
   if debug:
     add_child(preload('res://Objects/Core/Inspector.tscn').instance()) # Adding a debug inspector
   timer.wait_time = 1.45
@@ -79,17 +80,17 @@ func _ready() -> void:
   #MusicEngine.set_volume(musicBar)
 
 func saveInfo(content):
-    var file = File.new()
-    file.open("user://" + GameName + ".cloudsav", File.WRITE)
-    file.store_string(content)
-    file.close()
+  var file = File.new()
+  file.open("user://" + GameName + ".cloudsav", File.WRITE)
+  file.store_string(content)
+  file.close()
 
 func loadInfo():
-    var file = File.new()
-    file.open("user://" + GameName + ".cloudsav", File.READ)
-    var content = file.get_as_text()
-    file.close()
-    return content
+  var file = File.new()
+  file.open("user://" + GameName + ".cloudsav", File.READ)
+  var content = file.get_as_text()
+  file.close()
+  return content
 
 func _reset() -> void:   # Level Restart
   lives -= 1

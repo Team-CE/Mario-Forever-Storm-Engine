@@ -1,5 +1,7 @@
 extends Node2D
 
+var win_music = preload('res://Music/1-music-complete-level.ogg')
+
 var initial_position: float
 var counter: float = 0
 
@@ -10,6 +12,7 @@ var bar_accel: float = -6
 
 func _ready() -> void:
   initial_position = $CrossingBar.position.y
+  win_music.loop = false
 
 func _process(delta) -> void:
   if not crossed:
@@ -22,8 +25,8 @@ func _process(delta) -> void:
       counter = 0
       $CrossingBar.position.y = initial_position
     
-    if Global.Mario.get_node('BottomDetector').get_overlapping_areas().has($CrossingBar) or (Global.Mario.position.x >= position.x + 24 and Global.Mario.velocity.y == 0):
-      if Global.Mario.get_node('BottomDetector').get_overlapping_areas().has($CrossingBar):
+    if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has($CrossingBar) or (Global.Mario.position.x >= position.x + 24 and Global.Mario.velocity.y == 0):
+      if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has($CrossingBar):
         bar_enabled = true
         $CrossingBar/Sprite.set_animation('crossed')
         var given_score: int
@@ -47,7 +50,9 @@ func _process(delta) -> void:
         get_parent().add_child(score_text)
       Global.level_ended = true
       crossed = true
-      MusicEngine.play_music('res://Music/1-music-complete-level.it')
+      #MusicEngine.play_music('res://Music/1-music-complete-level.it')
+      MusicPlayer.stream = win_music
+      MusicPlayer.play()
       Global.Mario.controls_enabled = false
       counter = 0
   else:

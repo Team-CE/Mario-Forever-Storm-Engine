@@ -5,6 +5,10 @@ var gameover_music: Resource = preload('res://Music/1-music-gameover.ogg')
 export var powerup_animations: Dictionary = {}
 export var powerup_scripts: Dictionary = {}
 export var target_gravity_angle: float = 0
+export var sections_scroll: bool = true
+export var camera_addon: Script
+
+var inited_camera_addon
 
 var ready_powerup_scripts: Dictionary = {}
 
@@ -30,10 +34,14 @@ onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
 
 func _ready() -> void:
+  gameover_music.loop = false
   Global.Mario = self
 # warning-ignore:return_value_discarded
   Global.connect("OnPlayerLoseLife", self, 'kill')
   $DebugText.visible = false
+  
+  if camera_addon:
+    inited_camera_addon = camera_addon.new()
   
   # Creating working instances of provided scripts
   var p_keys = powerup_scripts.keys()
@@ -330,9 +338,14 @@ func debug() -> void:
 
 func _process_camera() -> void:
   if dead: return
-  var base_y = floor((position.y + 240) / 960) * 960
-  $Camera.limit_top = base_y
-  $Camera.limit_bottom = base_y + 480
+  
+  if sections_scroll:
+    var base_y = floor((position.y + 240) / 960) * 960
+    $Camera.limit_top = base_y
+    $Camera.limit_bottom = base_y + 480
+  
+  if inited_camera_addon and inited_camera_addon.has_method('_process_camera'):
+    inited_camera_addon._process_camera(self)
   
   if get_parent().sgr_scroll:
     var base_x = floor(position.x / 640) * 640

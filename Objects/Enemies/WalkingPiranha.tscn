@@ -7,25 +7,25 @@
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
 [ext_resource path="res://GFX/Enemies/WalkingPiranhaFalling.png" type="Texture" id=6]
 
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 34, 52 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 34, 0, 34, 52 )
+
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 35, 64 )
+region = Rect2( 68, 0, 34, 52 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
-region = Rect2( 35, 0, 35, 64 )
+region = Rect2( 102, 0, 34, 52 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 70, 0, 35, 64 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
-region = Rect2( 105, 0, 35, 64 )
-
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "default",
 "speed": 8.0
@@ -36,10 +36,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16, 16 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 14, 2 )
 
 [node name="WalkingPiranha" type="KinematicBody2D" groups=[
@@ -56,9 +56,9 @@ alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -16 )
-frames = SubResource( 7 )
-frame = 1
+position = Vector2( 2, -10 )
+frames = SubResource( 5 )
+frame = 3
 playing = true
 offset = Vector2( 0, -16 )
 
@@ -66,7 +66,7 @@ offset = Vector2( 0, -16 )
 visible = false
 show_behind_parent = true
 position = Vector2( 0, -16 )
-shape = SubResource( 1 )
+shape = SubResource( 6 )
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
@@ -87,4 +87,4 @@ visible = false
 
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, 4 )
-shape = SubResource( 2 )
+shape = SubResource( 7 )

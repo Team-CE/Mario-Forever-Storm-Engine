@@ -9,6 +9,9 @@
 "Warp",
 ]]
 script = ExtResource( 2 )
+additional_options = {
+"set_scene_path": ""
+}
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 0, 0, 1 )
