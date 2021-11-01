@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var gameover_music: Resource = preload('res://Music/1-music-gameover.ogg')
+
 export var powerup_animations: Dictionary = {}
 export var powerup_scripts: Dictionary = {}
 export var target_gravity_angle: float = 0
@@ -164,11 +166,12 @@ func _process_dead(delta) -> void:
   $BottomDetector/CollisionBottom.shape = null
   $TopDetector/CollisionTop.shape = null
 
-  if dead_counter > 200:
+  if dead_counter > 180:
     if Global.lives > 0:
       Global._reset()
-    elif dead_counter < 201:
-      MusicEngine.play_music('res://Music/1-music-gameover.it')
+    elif dead_counter < 181:
+      MusicPlayer.stream = gameover_music
+      MusicPlayer.play()
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
 
 func controls(delta) -> void:

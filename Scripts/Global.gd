@@ -52,6 +52,8 @@ var currlevel :Node2D
 
 onready var timer: Timer = Timer.new()      # Create a new timer for delay
 
+var die_music: Resource = preload('res://Music/1-music-die.ogg')
+
 static func get_delta(delta) -> float: # Delta by 50 FPS
   return 50 / (1 / (delta if not delta == 0 else 0.0001))
 
@@ -162,7 +164,8 @@ func _pll() -> void: # Player Death
     return
   player_dead = true
   emit_signal('OnPlayerLoseLife')
-  MusicEngine.play_music('res://Music/1-music-die.it')
+  MusicPlayer.stream = die_music
+  MusicPlayer.play()
   Mario.dead = true
 
 func _delay() -> void:

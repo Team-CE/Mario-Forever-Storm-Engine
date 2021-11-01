@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://GFX/Menu/Logo.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Menu/Selector.gd" type="Script" id=2]
@@ -25,6 +25,8 @@
 [ext_resource path="res://GFX/Menu/scroll.png" type="Texture" id=23]
 [ext_resource path="res://GFX/Menu/controls.png" type="Texture" id=24]
 [ext_resource path="res://GFX/Menu/controls_keyboard.png" type="Texture" id=25]
+[ext_resource path="res://Music/start.ogg" type="AudioStream" id=26]
+[ext_resource path="res://Music/credits.ogg" type="AudioStream" id=27]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 5 )
@@ -200,8 +202,8 @@ script = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-music = "start.xm"
-music_credits = "credits.mod"
+music = ExtResource( 26 )
+music_credits = ExtResource( 27 )
 
 [node name="BG" type="TextureRect" parent="."]
 anchor_top = 1.0

@@ -25,3 +25,4 @@ func _process(delta: float) -> void:
         $Sprite.modulate.a -= 0.1 * Global.get_delta(delta)
     else:
       counter = 0
+  $LightOccluder2D.visible = $Sprite.modulate.a > 0.5

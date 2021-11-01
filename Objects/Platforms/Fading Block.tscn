@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Platforms/FadingBlock.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Tilesets/CBlock.png" type="Texture" id=2]
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( -16, -16, 16, -16, 16, 16, -16, 16 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -11,7 +15,11 @@ collision_mask = 3
 script = ExtResource( 1 )
 speed = 5.0
 
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 2 )
+
 [node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false

@@ -9,8 +9,8 @@ var CONTROLS_ASSIGN = [
   'mario_fire'
 ]
 
-export var music: String = ''         #MENU Music
-export var music_credits: String = '' #CREDITS Music
+export var music: Resource            #MENU Music
+export var music_credits: Resource    #CREDITS Music
 
 var sel = 0
 var screen = 0
@@ -30,8 +30,9 @@ onready var controls_changing: bool = false
 func _ready():
   $fadeout.play()
   yield(get_tree().create_timer( 1.2 ), 'timeout')
-  MusicEngine.play_music(music)
-  MusicEngine.set_volume(Global.musicBar / 12)
+  MusicPlayer.stream = music
+  MusicPlayer.play()
+  #MusicEngine.set_volume(Global.musicBar / 12)
   AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
   
 func _process(delta):
@@ -112,17 +113,17 @@ func controls():
           0:
             controls_enabled = false
             $letsgo.play()
-            MusicEngine.fade_out(0.3)
+            #MusicEngine.fade_out(0.3)
             yield(get_tree().create_timer( 2.5 ), 'timeout')
             $fadeout.play()
             fading_out = true
-            MusicEngine.track_ended()
+            #MusicEngine.track_ended()
             yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
-            if Global.musicBar > -100:
-              MusicEngine.set_volume(Global.musicBar / 12)
-            if Global.musicBar == -100:
-              MusicEngine.set_volume(-1000)
+#            if Global.musicBar > -100:
+#              MusicEngine.set_volume(Global.musicBar / 12)
+#            if Global.musicBar == -100:
+#              MusicEngine.set_volume(-1000)
             get_tree().change_scene('res://Stages/SaveGameRoom.tscn')
           1:
             screen += 1
@@ -131,7 +132,7 @@ func controls():
           2:
             controls_enabled = false
             $enter_options.play()
-            MusicEngine.fade_out(0.2)
+            #MusicEngine.fade_out(0.2)
             yield(get_tree().create_timer( 1 ), 'timeout')
             fading_out = true
             yield(get_tree().create_timer( 1.4 ), 'timeout')
@@ -149,8 +150,10 @@ func controls():
             sel = 0
             $enter_options.play()
             $Credits.position.y = 1920 + $Credits.texture.get_height() / 2
-            MusicEngine.track_ended()
-            MusicEngine.play_music(music_credits)
+            #MusicEngine.track_ended()
+            #MusicEngine.play_music(music_credits)
+            MusicPlayer.stream = music_credits
+            MusicPlayer.play()
           9:
             screen = 0
             sel = 1
@@ -166,7 +169,7 @@ func controls():
           1:
             if Global.musicBar < 0:
               Global.musicBar += 10
-              MusicEngine.set_volume(Global.musicBar / 12)
+              #MusicEngine.set_volume(Global.musicBar / 12)
               $tick.play()
           2:
             if !Global.effects:
@@ -197,10 +200,10 @@ func controls():
           1:
             if Global.musicBar > -100:
               Global.musicBar -= 10
-              MusicEngine.set_volume(Global.musicBar / 12)
+              #MusicEngine.set_volume(Global.musicBar / 12)
               $tick.play()
-            if Global.musicBar == -100:
-              MusicEngine.set_volume(-1000)
+            #if Global.musicBar == -100:
+              #MusicEngine.set_volume(-1000)
           2:
             if Global.effects:
               Global.effects = false
@@ -237,8 +240,10 @@ func controls():
       if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept'):
         screen = 1
         sel = 8
-        MusicEngine.track_ended()
-        MusicEngine.play_music(music)
+        #MusicEngine.track_ended()
+        #MusicEngine.play_music(music)
+        MusicPlayer.stream = music
+        MusicPlayer.play()
 
 func _input(event):
   if event is InputEventKey and event.pressed and controls_changing:
