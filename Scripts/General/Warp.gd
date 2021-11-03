@@ -25,6 +25,8 @@ var out_icon: StreamTexture = preload('res://GFX/Editor/WarpOutIcon.png')
 
 var disabled: bool = false
 
+var generic_warp: bool = true
+
 var active: bool = false
 var counter: float = 0
 
@@ -41,7 +43,7 @@ func _ready() -> void:
   var nodes = get_tree().get_nodes_in_group('Warp')
 
   for node in nodes:
-    if node.id == id and node.type == TYPES.OUT:
+    if node.id == id and node.type == TYPES.OUT and 'generic_warp' in node:
       out_node = node
       
   disabled = not out_node and (not 'set_scene_path' in additional_options or additional_options['set_scene_path'] == '')

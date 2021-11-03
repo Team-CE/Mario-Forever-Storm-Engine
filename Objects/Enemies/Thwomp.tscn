@@ -1,0 +1,98 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scripts/AI/Thwomp.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Enemies/thwomp.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=3]
+[ext_resource path="res://Sounds/Main/stun.wav" type="AudioStream" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 64, 68 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 64, 68 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 64, 68 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 64, 68 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 256, 0, 64, 68 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 320, 0, 64, 68 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 64, 68 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 24, 32 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 24, 2 )
+
+[node name="Thwomp" type="KinematicBody2D" groups=[
+"Enemy",
+]]
+script = ExtResource( 3 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+AI = ExtResource( 1 )
+invincible = true
+sound_pth = NodePath("Hit")
+animated_sprite_pth = NodePath("AnimatedSprite")
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -16 )
+frames = SubResource( 8 )
+frame = 4
+playing = true
+offset = Vector2( 0, -16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2( 0, -32 )
+shape = SubResource( 9 )
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2( -2.38419e-07, -16 )
+scale = Vector2( 1.6, 1.6 )
+process_parent = true
+physics_process_parent = true
+
+[node name="KillDetector" type="Area2D" parent="."]
+visible = false
+
+[node name="Collision" type="CollisionShape2D" parent="KillDetector"]
+position = Vector2( 0, 4 )
+shape = SubResource( 10 )
+
+[node name="EffectPosition1" type="Position2D" parent="."]
+position = Vector2( -16, 0 )
+
+[node name="EffectPosition2" type="Position2D" parent="."]
+position = Vector2( 16, 0 )

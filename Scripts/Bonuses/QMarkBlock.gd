@@ -196,7 +196,7 @@ func brick_break() -> void:
   Global.add_score(50)
   queue_free()
 
-func hit(delta) -> void:
+func hit(delta, thwomp = false) -> void:
   if not active: return
   active = false
   if qtype == BLOCK_TYPE.COMMON:
@@ -223,7 +223,7 @@ func hit(delta) -> void:
       if !('vars' in powerup) and 'appearing' in powerup:
         Global.play_base_sound('MAIN_Coin')
   elif qtype == BLOCK_TYPE.BRICK:
-    if Global.state == 0:
+    if Global.state == 0 and !thwomp:
       Global.play_base_sound('MAIN_Bump')
     else:
       brick_break()

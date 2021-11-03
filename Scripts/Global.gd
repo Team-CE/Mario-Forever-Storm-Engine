@@ -188,3 +188,11 @@ func enemy_bounce() -> void:
 
 func lerpa(a, b, t):
   return a - t * (b - a)
+  
+func is_mario_collide(_detector_name: String, obj) -> bool:
+  var collisions = Mario.get_node(_detector_name).get_overlapping_bodies()
+  return collisions && collisions.has(obj)
+  
+func is_mario_collide_area(_detector_name: String, obj) -> bool:
+  var collisions = Mario.get_node(_detector_name).get_overlapping_areas()
+  return collisions && collisions.has(obj)

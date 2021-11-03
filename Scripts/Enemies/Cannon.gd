@@ -6,6 +6,8 @@ var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
 var on_screen: bool
 var counter: float = 0
 
+export var result: PackedScene = preload('res://Objects/Enemies/Bullet.tscn')
+
 func _ready() -> void:
   vis.process_parent = true
   vis.physics_process_parent = true
@@ -21,7 +23,7 @@ func _process(delta) -> void:
   if counter > 25:
     $Shoot.play()
     counter = rand_range(50, 200) * -1
-    var bullet = load('res://Objects/Enemies/Bullet.tscn').instance()
+    var bullet = result.instance()
     bullet.position = Vector2(position.x, position.y)
     bullet.dir = -1 if Global.Mario.position.x < position.x else 1
     var explosionPos = position + Vector2(bullet.dir * 16, 0)

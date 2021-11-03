@@ -20,7 +20,7 @@ func _on_hitbox_enter(a) -> void:
     return
   if a.name == 'InsideDetector':
     Global._ppd()
-  elif a.name == 'BottomDetector':
+  elif a.name == 'BottomDetector' and !owner.invincible:
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
     else:
