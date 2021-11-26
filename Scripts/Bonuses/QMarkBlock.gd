@@ -211,7 +211,7 @@ func hit(delta, thwomp = false) -> void:
     if !powerup or (!('vars' in powerup) and !('appearing' in powerup)):
       Global.play_base_sound('MAIN_Bump')
     else:
-      powerup.position = position
+      powerup.position = position + Vector2(1, 0).rotated(rotation)
       if 'vars' in powerup:
         powerup.vars['from bonus'] = true
       elif 'appearing' in powerup:
