@@ -6,7 +6,7 @@ func _ready() -> void:
   if appearing:
     Global.play_base_sound('MAIN_Coin')
     Global.add_coins(1)
-    var coin_effect = CoinEffect.new(position + Vector2(0, -32))
+    var coin_effect = CoinEffect.new(position + Vector2(0, -32).rotated(rotation), rotation)
     get_parent().add_child(coin_effect)
     queue_free()
 
@@ -16,7 +16,7 @@ func _process(_delta) -> void:
     Global.add_coins(1)
     Global.add_score(200)
     get_parent().get_node('HUD').get_node('CoinSound').play()
-    var coin_effect = CoinEffect.new(position)
+    var coin_effect = CoinEffect.new(position, rotation)
     get_parent().add_child(coin_effect)
     queue_free()
 

@@ -16,7 +16,7 @@ func _setup(b) -> void:
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)
   if !owner.is_on_floor() and falling:
-    owner.velocity += Vector2(0, 40 * owner.gravity_scale * Global.get_delta(delta)).rotated(owner.rotation)
+    owner.velocity += Vector2(0, 40 * owner.gravity_scale * Global.get_delta(delta))
 
   if on_mario_collide('InsideDetector'):
     Global._ppd()
@@ -56,7 +56,7 @@ func _ai_process(delta: float) -> void:
       falling = false
       top = true
     else:
-      owner.velocity = Vector2(0, 10).rotated(owner.rotation)
+      owner.velocity = Vector2(0, 10)
     
   if top:
     owner.velocity = Vector2.ZERO

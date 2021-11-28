@@ -66,7 +66,16 @@ func is_over_platform() -> bool:
 func _process(delta) -> void:
   _process_camera()
   
-  rotation = lerp_angle(rotation, deg2rad(target_gravity_angle), 0.15)
+  var target_gravity_enabled: bool = true
+  var overlaps = $InsideDetector.get_overlapping_areas()
+  for i in overlaps:
+    if 'gravity_point' in i and i.gravity_point:
+      target_gravity_enabled = false
+      
+  if target_gravity_enabled:
+    rotation = lerp_angle(rotation, deg2rad(target_gravity_angle), 0.15)
+  else:
+    target_gravity_angle = rotation_degrees
 
   if not dead:
     _process_alive(delta)
@@ -171,7 +180,7 @@ func _process_dead(delta) -> void:
   elif dead_counter >= 24 and dead_counter < 25:
     velocity.y = -550
     
-  position.y += velocity.y * delta
+  $Sprite.position += Vector2(0, velocity.y * delta)
 
   $BottomDetector/CollisionBottom.shape = null
   $TopDetector/CollisionTop.shape = null
@@ -185,7 +194,7 @@ func _process_dead(delta) -> void:
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
 
 func controls(delta) -> void:
-  if Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y >= -1 and not crouch:
+  if Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and not crouch:
     can_jump = true
   if not Input.is_action_pressed('mario_jump'):
     can_jump = false

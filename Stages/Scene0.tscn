@@ -66,7 +66,8 @@ speed = 10.0
 offset = 500
 
 [node name="Thwomp" parent="." instance=ExtResource( 6 )]
-position = Vector2( 560, 208 )
+position = Vector2( 560, 128 )
+rotation = 3.14159
 vars = {
 "bounce": 9.0,
 "speed": 50.0

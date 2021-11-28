@@ -18,6 +18,7 @@ func _ready_mixin():
   if 'set state' in owner.vars and 'from bonus' in owner.vars and Global.state == 0 and owner.vars['set state'] > 1:
     var mushroom = load('res://Objects/Bonuses/Powerups/Mushroom.tscn').instance()
     mushroom.position = owner.position
+    mushroom.rotation = owner.rotation
     owner.get_parent().add_child(mushroom)
     owner.queue_free()
     

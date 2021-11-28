@@ -87,7 +87,7 @@ func _process(delta:float) -> void:
     velocity.y = 1
   
   if velocity_enabled:
-    velocity = move_and_slide(velocity, Vector2.UP.rotated(rotation))
+    velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation)).rotated(-rotation)
 
 # Useful functions
 func turn(mp:float = 1) -> void:

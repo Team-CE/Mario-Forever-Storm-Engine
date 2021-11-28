@@ -234,7 +234,7 @@ func hit(delta, thwomp = false) -> void:
       Global.play_base_sound('MAIN_Coin')
       Global.add_coins(1)
   
-      var coin_effect = CoinEffect.new(position + Vector2(0, -32))
+      var coin_effect = CoinEffect.new(position + Vector2(0, -32).rotated(rotation), rotation)
       get_parent().add_child(coin_effect)
   
       if coin_counter > 6:
@@ -251,7 +251,7 @@ func _process_trigger(delta) -> void:
   t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)
   
   if t_counter < 12:
-    position.y += (-1 if t_counter < 6 else 1) * Global.get_delta(delta)
+    position += Vector2(0, (-1 if t_counter < 6 else 1) * Global.get_delta(delta)).rotated(rotation)
   
   if t_counter >= 12:
     position = initial_position

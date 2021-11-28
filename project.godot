@@ -55,6 +55,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/Level.gd"
 }, {
 "base": "Reference",
+"class": "Level10Camera",
+"language": "GDScript",
+"path": "res://Games/TheMultiverse2/Scripts/Level10Camera.gd"
+}, {
+"base": "Reference",
 "class": "Level1Camera",
 "language": "GDScript",
 "path": "res://Games/TheMultiverse2/Scripts/Level1Camera.gd"
@@ -129,6 +134,7 @@ _global_script_class_icons={
 "Explosion": "",
 "FireFlowerAction": "",
 "Level": "",
+"Level10Camera": "",
 "Level1Camera": "",
 "Level2Camera": "",
 "LifePowerupAction": "",
@@ -232,7 +238,6 @@ debug_f2={
 [physics]
 
 common/physics_fps=120
-common/physics_jitter_fix=0.0
 
 [rendering]
 
