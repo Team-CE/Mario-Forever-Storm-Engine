@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://GFX/HUD/anim.png" type="Texture" id=1]
 [ext_resource path="res://GFX/HUD/Mario.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Sounds/Bonuses/coin.wav" type="AudioStream" id=8]
 [ext_resource path="res://GFX/HUD/gameover.png" type="Texture" id=9]
 [ext_resource path="res://Sounds/Main/scoreing.wav" type="AudioStream" id=10]
+[ext_resource path="res://GFX/Editor/DebugInvisible.png" type="Texture" id=11]
+[ext_resource path="res://GFX/Editor/DebugFly.png" type="Texture" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -202,13 +204,23 @@ texture = ExtResource( 2 )
 [node name="CoinsSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 256, 43 )
 frames = SubResource( 42 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="GameoverSprite" type="Sprite" parent="."]
 visible = false
 position = Vector2( 320, 240 )
 texture = ExtResource( 9 )
+
+[node name="DebugFlySprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 608, 448 )
+texture = ExtResource( 12 )
+
+[node name="DebugInvisibleSprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 608, 448 )
+texture = ExtResource( 11 )
 
 [node name="Lives" type="Label" parent="."]
 margin_left = 150.0

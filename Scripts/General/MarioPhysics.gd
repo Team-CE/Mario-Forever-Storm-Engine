@@ -76,9 +76,14 @@ func _process(delta) -> void:
     rotation = lerp_angle(rotation, deg2rad(target_gravity_angle), 0.15)
   else:
     target_gravity_angle = rotation_degrees
+    
+  $Sprite.modulate.a = 0.5 if Global.debug_fly else 1
 
   if not dead:
-    _process_alive(delta)
+    if not Global.debug_fly:
+      _process_alive(delta)
+    else:
+      _process_debug_fly(delta)
   else:
     _process_dead(delta)
 
@@ -192,6 +197,23 @@ func _process_dead(delta) -> void:
       MusicPlayer.stream = gameover_music
       MusicPlayer.play()
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
+      
+func _process_debug_fly(delta: float) -> void:
+  if Input.is_action_pressed('mario_right'):
+    position.x += 10 * Global.get_delta(delta)
+  if Input.is_action_pressed('mario_left'):
+    position.x -= 10 * Global.get_delta(delta)
+  
+  if Input.is_action_pressed('mario_up'):
+    position.y -= 10 * Global.get_delta(delta)
+  if Input.is_action_pressed('mario_crouch'):
+    position.y += 10 * Global.get_delta(delta)
+    
+  if Input.is_action_just_pressed('debug_rotate_right'):
+    target_gravity_angle += 45
+    
+  if Input.is_action_just_pressed('debug_rotate_left'):
+    target_gravity_angle -= 45
 
 func controls(delta) -> void:
   if Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and not crouch:
@@ -299,7 +321,7 @@ func animate(delta) -> void:
 
   if not is_on_floor() and not (is_over_backdrop($BottomDetector, false) or is_over_platform()) and abs(velocity.y) > 2:
     animate_sprite('Jumping')
-  elif abs(velocity.x) < 0.08:
+  elif abs(velocity.x) < 0.08 and is_on_floor():
     animate_sprite('Stopped')
 
   if velocity.x <= -0.08:

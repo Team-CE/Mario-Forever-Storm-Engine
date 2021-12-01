@@ -20,6 +20,7 @@ var y_speed: float = 0
 var skip_frame: bool = false
 
 func _ready() -> void:
+  process_priority = -100
   if not move_on_touch:
     active = true
     current_speed = speed

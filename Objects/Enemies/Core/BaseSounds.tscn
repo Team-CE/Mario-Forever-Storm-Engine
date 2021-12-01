@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=1]
 [ext_resource path="res://Sounds/Main/jump.wav" type="AudioStream" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Sounds/Bonuses/bump.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sounds/Bonuses/break.wav" type="AudioStream" id=8]
 [ext_resource path="res://Sounds/Main/shoot.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sounds/Editor/debug_toggle.wav" type="AudioStream" id=10]
 
 [node name="BaseSounds" type="Node2D"]
 
@@ -38,3 +39,6 @@ stream = ExtResource( 8 )
 
 [node name="MAIN_Shoot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
+
+[node name="DEBUG_Toggle" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )

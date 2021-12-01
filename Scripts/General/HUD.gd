@@ -16,6 +16,10 @@ func _ready() -> void:
 
   if not active:
     queue_free()
+    
+func _process(_delta: float) -> void:
+  $DebugFlySprite.visible = Global.debug_fly
+  $DebugInvisibleSprite.visible = Global.debug_inv
 
 func _time() -> void:
   if Global.time == 99 and not Global.level_ended:

@@ -44,7 +44,9 @@ var state: int = 0                           # Player powerup state
 
 var projectiles_count: int = 0               # Self explanable
 
-var debug: bool = false                      # Debug
+var debug: bool = true                      # Debug
+var debug_fly: bool = false
+var debug_inv: bool = false
 
 var player_dead: bool = false
 var level_ended: bool = false
@@ -111,6 +113,34 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_pressed('debug_f2'):
       lives += 1
       _reset()
+      
+  # Toggle fly mode
+  if Input.is_action_pressed('debug_shift') and debug:
+    if Input.is_action_just_pressed('debug_1'):
+      debug_fly = !debug_fly
+      if debug_inv and debug_fly:
+        debug_inv = false
+      play_base_sound('DEBUG_Toggle')
+      
+  # Toggle invisible mode
+  if Input.is_action_pressed('debug_shift') and debug:
+    if Input.is_action_just_pressed('debug_2'):
+      debug_inv = !debug_inv
+      if debug_inv and debug_fly:
+        debug_fly = false
+      play_base_sound('DEBUG_Toggle')
+      
+# Debug powerups
+func _input(ev):
+  if !Input.is_action_pressed('debug_shift') and debug:
+    if ev is InputEventKey and ev.scancode >= 48 and ev.scancode <= 57 and !ev.echo and ev.pressed:
+      play_base_sound('DEBUG_Toggle')
+      state = ev.scancode - 49
+      Mario.appear_counter = 60
+      
+# fix physics fps issues
+func _process(delta: float):
+  Engine.iterations_per_second = round((1 / delta) / 60) * 60
 
 # warning-ignore:shadowed_variable
 func add_score(score: int) -> void:
@@ -146,7 +176,7 @@ func play_base_sound(sound: String) -> void:
   Mario.get_node('BaseSounds').get_node(sound).play()
 
 func _ppd() -> void: # Player Powerdown
-  if Mario.shield_counter > 0:
+  if Mario.shield_counter > 0 or debug_inv or debug_fly:
     return
 
   if state == 0:
@@ -161,7 +191,7 @@ func _ppd() -> void: # Player Powerdown
     Mario.shield_counter = 100
 
 func _pll() -> void: # Player Death
-  if player_dead:
+  if player_dead or debug_inv or debug_fly:
     return
   player_dead = true
   emit_signal('OnPlayerLoseLife')

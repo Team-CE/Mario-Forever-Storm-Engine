@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/debug_toggle.wav-672213985b4b342f94edd8e05ed45207.sample"
+
+[deps]
+
+source_file="res://Sounds/Editor/debug_toggle.wav"
+dest_files=[ "res://.import/debug_toggle.wav-672213985b4b342f94edd8e05ed45207.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
