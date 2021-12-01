@@ -25,7 +25,7 @@ func _ready() -> void:
     active = true
     current_speed = speed
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
   if active:
     movement(delta)
 

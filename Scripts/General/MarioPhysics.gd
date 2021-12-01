@@ -113,7 +113,7 @@ func _process_alive(delta) -> void:
   if velocity.x < 0:
     velocity.x += 5 * Global.get_delta(delta)
 
-  if velocity.x > -5 and velocity.x < 5:
+  if velocity.x > -10 * Global.get_delta(delta) and velocity.x < 10 * Global.get_delta(delta):
     velocity.x = 0
 
   if velocity.y > 0:
@@ -280,9 +280,9 @@ func animate(delta) -> void:
       return
     $Sprite.frames = powerup_animations[Global.state]
 
-  if velocity.x <= -4:
+  if velocity.x <= -8 * Global.get_delta(delta):
     $Sprite.flip_h = true
-  if velocity.x >= 4:
+  if velocity.x >= 8 * Global.get_delta(delta):
     $Sprite.flip_h = false
     
   if Global.state > 0 and not position_altered:
@@ -324,11 +324,11 @@ func animate(delta) -> void:
   elif abs(velocity.x) < 0.08 and is_on_floor():
     animate_sprite('Stopped')
 
-  if velocity.x <= -0.08:
+  if velocity.x <= -0.16 * Global.get_delta(delta):
     if is_on_floor() or $Sprite.animation == 'Launching':
       animate_sprite('Walking')
 
-  if velocity.x >= 0.08:
+  if velocity.x >= 0.16 * Global.get_delta(delta):
     if is_on_floor() or $Sprite.animation == 'Launching':
       animate_sprite('Walking')
 
@@ -336,12 +336,6 @@ func animate(delta) -> void:
     $Sprite.speed_scale = abs(velocity.x / 50) * 2.5 + 4
 
 func animate_sprite(anim_name) -> void:
-#  CRINGE
-#  if anim_name != 'Launching':
-#    if anim_name != 'Crouching':
-#      $SmallMario.set_animation(anim_name);
-#    $BigMario.set_animation(anim_name)
-#  $FlowerMario.set_animation(anim_name)
   $Sprite.set_animation(anim_name)
 
 func update_collisions() -> void:

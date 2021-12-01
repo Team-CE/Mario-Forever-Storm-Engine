@@ -74,7 +74,7 @@ func _ready() -> void:
   if death_type == DEATH_TYPE.CUSTOM && !brain.has_method('_on_custom_death'):
     printerr('[CE ERROR] AliveObject' + str(self) + ': No custom death function provided.')
 
-func _process(delta:float) -> void:
+func _physics_process(delta:float) -> void:
   if !alive && death_type != DEATH_TYPE.FALL:
     return
   
