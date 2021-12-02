@@ -22,13 +22,13 @@ func _process(delta: float) -> void:
     counter = 0
     
   if standoff_counter <= 0:
-    position = initial_position
+    $Sprite.position = Vector2.ZERO
   
   if counter > delay * 50:
     y_speed += 0.2 * Global.get_delta(delta)
     position += Vector2(0, y_speed).rotated(rotation) * Global.get_delta(delta)
   elif counting:
-    position = initial_position + Vector2(cos(counter), 0).rotated(rotation)
+    $Sprite.position = Vector2(cos(counter), 0).rotated(rotation)
   
 func _standing_on():
   counting = true

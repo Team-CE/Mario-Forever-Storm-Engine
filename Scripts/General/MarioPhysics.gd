@@ -319,7 +319,7 @@ func animate(delta) -> void:
     animate_sprite('Crouching')
     return
 
-  if not is_on_floor() and not (is_over_backdrop($BottomDetector, false) or is_over_platform()) and abs(velocity.y) > 2:
+  if not is_on_floor() and not is_over_platform() and abs(velocity.y) > 2:
     animate_sprite('Jumping')
   elif abs(velocity.x) < 0.08 and is_on_floor():
     animate_sprite('Stopped')
