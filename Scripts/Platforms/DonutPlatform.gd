@@ -11,7 +11,7 @@ var initial_position: Vector2
 func _ready() -> void:
   initial_position = position
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
   if counting:
     counter += 1 * Global.get_delta(delta)
     

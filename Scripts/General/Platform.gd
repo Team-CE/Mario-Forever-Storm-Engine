@@ -42,7 +42,3 @@ func movement(delta) -> void:
   if falling:
     y_speed += 0.2 * Global.get_delta(delta)
     position += Vector2(0, y_speed).rotated(rotation) * Global.get_delta(delta)
-
-func _standing_on():
-  if can_fall:
-    falling = true

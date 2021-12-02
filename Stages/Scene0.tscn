@@ -1,12 +1,9 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/Platforms/Fading Block.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Objects/Enemies/Thwomp.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=13]
 [ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=14]
@@ -22,9 +19,6 @@ glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 1.5
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 64, 176 )
-
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -37,7 +31,7 @@ cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( 65535, 6, 0, 131071, 6, 0, 65561, 6, 0, 65577, 6, 0, 196607, 6, 0, 131097, 6, 0, 131113, 6, 0, 262143, 6, 0, 196633, 6, 0, 196649, 6, 0, 327679, 6, 0, 262169, 6, 0, 262185, 6, 0, 393215, 6, 0, 327705, 6, 0, 327721, 6, 0, 458751, 6, 0, 393257, 6, 0, 524287, 6, 0, 458793, 6, 0, 589823, 6, 0, 524329, 6, 0, 655359, 6, 0, 720895, 6, 0, 786431, 6, 0, 720921, 6, 0, 720922, 6, 0, 720923, 6, 0, 720924, 6, 0, 720925, 6, 0, 720926, 6, 0, 720927, 6, 0, 720928, 6, 0, 720929, 6, 0, 720930, 6, 0, 720931, 6, 0, 720932, 6, 0, 720933, 6, 0, 720934, 6, 0, 720935, 6, 0, 720936, 6, 0, 720937, 6, 0, 720938, 6, 0, 720939, 6, 0, 851967, 6, 0, 786457, 6, 0, 786458, 6, 0, 786459, 6, 0, 786460, 6, 0, 786461, 6, 0, 786462, 6, 0, 786463, 6, 0, 786464, 6, 0, 786465, 6, 0, 786466, 6, 0, 786467, 6, 0, 786468, 6, 0, 786469, 6, 0, 786470, 6, 0, 786471, 6, 0, 786472, 6, 0, 786473, 6, 0, 786474, 6, 0, 786475, 6, 0, 917503, 6, 0, 851974, 6, 0, 851989, 6, 0, 851993, 6, 0, 851994, 6, 0, 851995, 6, 0, 851996, 6, 0, 851997, 6, 0, 851998, 6, 0, 851999, 6, 0, 852000, 6, 0, 852001, 6, 0, 852002, 6, 0, 852003, 6, 0, 852004, 6, 0, 852005, 6, 0, 852006, 6, 0, 852007, 6, 0, 852008, 6, 0, 852009, 6, 0, 852010, 6, 0, 852011, 6, 0, 983039, 6, 0, 917510, 6, 0, 917511, 6, 0, 917512, 6, 0, 917513, 6, 0, 917514, 6, 0, 917515, 6, 0, 917516, 6, 0, 917517, 6, 0, 917518, 6, 0, 917519, 6, 0, 917520, 6, 0, 917521, 6, 0, 917522, 6, 0, 917523, 6, 0, 917524, 6, 0, 917525, 6, 0, 917529, 6, 0, 917530, 6, 0, 917531, 6, 0, 917532, 6, 0, 917533, 6, 0, 917534, 6, 0, 917535, 6, 0, 917536, 6, 0, 917537, 6, 0, 917538, 6, 0, 917539, 6, 0, 917540, 6, 0, 917541, 6, 0, 917542, 6, 0, 917543, 6, 0, 917544, 6, 0, 917545, 6, 0, 917546, 6, 0, 917547, 6, 0 )
+tile_data = PoolIntArray( 720898, 6, 0, 720899, 6, 0, 720900, 6, 0, 720901, 6, 0, 720902, 6, 0, 720903, 6, 0, 720904, 6, 0, 720905, 6, 0, 720906, 6, 0, 720907, 6, 0, 720908, 6, 0, 720909, 6, 0, 720910, 6, 0, 720911, 6, 0, 720912, 6, 0, 720913, 6, 0, 720914, 6, 0, 720915, 6, 0, 720916, 6, 0, 720917, 6, 0, 720918, 6, 0, 720919, 6, 0, 720920, 6, 0, 720921, 6, 0, 720922, 6, 0, 720923, 6, 0, 720924, 6, 0, 720925, 6, 0, 720926, 6, 0 )
 
 [node name="Mario" parent="." instance=ExtResource( 4 )]
 position = Vector2( 376, 208 )
@@ -55,58 +49,3 @@ powerup_scripts = {
 }
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
-
-[node name="FadingBlock" parent="." instance=ExtResource( 5 )]
-position = Vector2( 272, 272 )
-speed = 10.0
-
-[node name="FadingBlock2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 304, 272 )
-speed = 10.0
-offset = 500
-
-[node name="Thwomp" parent="." instance=ExtResource( 6 )]
-position = Vector2( 560, 128 )
-rotation = 3.14159
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Area2D" type="Area2D" parent="Thwomp"]
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Thwomp/Area2D"]
-position = Vector2( 0, 112 )
-shape = SubResource( 2 )
-
-[node name="QBlock" parent="." instance=ExtResource( 7 )]
-position = Vector2( 544, 352 )
-qtype = 1
-
-[node name="QBlock7" parent="." instance=ExtResource( 7 )]
-position = Vector2( 544, 416 )
-
-[node name="QBlock8" parent="." instance=ExtResource( 7 )]
-position = Vector2( 576, 416 )
-
-[node name="QBlock2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 576, 352 )
-qtype = 1
-
-[node name="QBlock3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 544, 320 )
-qtype = 1
-
-[node name="QBlock4" parent="." instance=ExtResource( 7 )]
-position = Vector2( 576, 320 )
-qtype = 1
-
-[node name="QBlock5" parent="." instance=ExtResource( 7 )]
-position = Vector2( 544, 288 )
-qtype = 1
-
-[node name="QBlock6" parent="." instance=ExtResource( 7 )]
-position = Vector2( 576, 288 )
-qtype = 1
