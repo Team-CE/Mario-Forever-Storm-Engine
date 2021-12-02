@@ -24,7 +24,7 @@ func _ai_process(delta: float) -> void:
     owner.turn()
 
   if shell_counter < 41:
-    shell_counter += 5 * Global.get_delta(delta)
+    shell_counter += 1 * Global.get_delta(delta)
     
   if on_mario_collide('BottomDetector'): 
     if !owner.vars['is shell'] && shell_counter >= 41:

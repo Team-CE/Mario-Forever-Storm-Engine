@@ -12,7 +12,6 @@ func _init(score: int, pos: Vector2 = Vector2.ZERO):
   match score:
     1:
       frame = 0
-      Global.add_lives(1,false)
     100:
       frame = 1
     200:
