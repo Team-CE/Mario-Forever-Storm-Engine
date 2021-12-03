@@ -69,6 +69,7 @@ vars = {
 }
 AI = ExtResource( 7 )
 gravity_scale = 0.5
+score = 1000
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")

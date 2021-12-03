@@ -44,7 +44,9 @@ var state: int = 0                           # Player powerup state
 
 var projectiles_count: int = 0               # Self explanable
 
-var debug: bool = true                      # Debug
+var checkpoint_active: int = 0               # Self explanable
+
+var debug: bool = true                       # Debug
 var debug_fly: bool = false
 var debug_inv: bool = false
 
@@ -52,11 +54,11 @@ var player_dead: bool = false
 var level_ended: bool = false
 var currlevel :Node2D
 
-onready var timer: Timer = Timer.new()      # Create a new timer for delay
+onready var timer: Timer = Timer.new()       # Create a new timer for delay
 
 var die_music: Resource = preload('res://Music/1-music-die.ogg')
 
-static func get_delta(delta) -> float: # Delta by 50 FPS
+static func get_delta(delta) -> float:       # Delta by 50 FPS
   return 50 / (1 / (delta if not delta == 0 else 0.0001))
 
 static func get_vector_delta(delta) -> Vector2: # Vector2 with delta values
