@@ -1,11 +1,111 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Sounds/Bonuses/break.wav" type="AudioStream" id=1]
-[ext_resource path="res://Prefabs/Animations/Goomba.res" type="SpriteFrames" id=2]
+[ext_resource path="res://GFX/Enemies/MicroGoombaFalling.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/AI/BrickGoomba.gd" type="Script" id=4]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sounds/Main/stun.wav" type="AudioStream" id=6]
+[ext_resource path="res://GFX/Enemies/MicroGoomba.png" type="Texture" id=7]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 7 )
+region = Rect2( 32, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 7 )
+region = Rect2( 96, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 7 )
+region = Rect2( 128, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 7 )
+region = Rect2( 160, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 7 )
+region = Rect2( 192, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 7 )
+region = Rect2( 224, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 7 )
+region = Rect2( 256, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 7 )
+region = Rect2( 288, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 7 )
+region = Rect2( 320, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 7 )
+region = Rect2( 352, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 7 )
+region = Rect2( 384, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 7 )
+region = Rect2( 416, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 7 )
+region = Rect2( 448, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 7 )
+region = Rect2( 480, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 7 )
+region = Rect2( 512, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 7 )
+region = Rect2( 544, 0, 32, 44 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 7 )
+region = Rect2( 576, 0, 32, 44 )
+
+[sub_resource type="SpriteFrames" id=23]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 22 ) ],
+"loop": true,
+"name": "walk",
+"speed": 30.0
+} ]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -27,9 +127,9 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -6 )
-frames = ExtResource( 2 )
+frames = SubResource( 23 )
 animation = "walk"
-frame = 16
+frame = 13
 playing = true
 offset = Vector2( 0, -16 )
 
