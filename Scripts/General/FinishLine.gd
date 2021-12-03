@@ -53,6 +53,7 @@ func _process(delta) -> void:
       #MusicEngine.play_music('res://Music/1-music-complete-level.it')
       MusicPlayer.stream = win_music
       MusicPlayer.play()
+      Global.checkpoint_active = 0
       Global.Mario.controls_enabled = false
       counter = 0
   else:

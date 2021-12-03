@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/checkpoint1.ogg-1b3511f9d5681dbfa57a07ed46849d12.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Main/checkpoint1.ogg"
+dest_files=[ "res://.import/checkpoint1.ogg-1b3511f9d5681dbfa57a07ed46849d12.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

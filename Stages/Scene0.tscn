@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Hammer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scripts/AI/ThrowFunctions/Hammer.gd" type="Script" id=6]
+[ext_resource path="res://Objects/Level/Checkpoint.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=13]
 [ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=14]
@@ -52,10 +51,5 @@ powerup_scripts = {
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
-[node name="EmalpkaHammer" parent="." instance=ExtResource( 5 )]
-position = Vector2( 416, 352 )
-vars = {
-"bounce": 9.0,
-"speed": 100.0,
-"throw_script": ExtResource( 6 )
-}
+[node name="Checkpoint" parent="." instance=ExtResource( 5 )]
+position = Vector2( 416, 224 )
