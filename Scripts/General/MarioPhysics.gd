@@ -378,3 +378,7 @@ func _process_camera() -> void:
     var base_x = floor(position.x / 640) * 640
     $Camera.limit_left = base_x
     $Camera.limit_right = base_x + 640
+    
+func _physics_process(_delta: float) -> void:
+  if inited_camera_addon and inited_camera_addon.has_method('_process_physics_camera'):
+    inited_camera_addon._process_physics_camera(self)

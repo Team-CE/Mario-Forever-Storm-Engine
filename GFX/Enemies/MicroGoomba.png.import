@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/emalpka.png-76c1e005a1ef9148c5e7d1f18a097d1c.stex"
+path="res://.import/MicroGoomba.png-e1ef42742c20cd9f3b85c06d273803fd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/emalpka.png"
-dest_files=[ "res://.import/emalpka.png-76c1e005a1ef9148c5e7d1f18a097d1c.stex" ]
+source_file="res://GFX/Enemies/MicroGoomba.png"
+dest_files=[ "res://.import/MicroGoomba.png-e1ef42742c20cd9f3b85c06d273803fd.stex" ]
 
 [params]
 

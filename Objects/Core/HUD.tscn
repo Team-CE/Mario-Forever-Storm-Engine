@@ -204,7 +204,7 @@ texture = ExtResource( 2 )
 [node name="CoinsSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 256, 43 )
 frames = SubResource( 42 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="GameoverSprite" type="Sprite" parent="."]
@@ -269,7 +269,6 @@ margin_right = 593.0
 margin_bottom = 54.0
 grow_horizontal = 0
 custom_fonts/font = ExtResource( 7 )
-text = "999"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false

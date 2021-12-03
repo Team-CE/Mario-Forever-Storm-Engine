@@ -43,7 +43,7 @@ func _ai_process(delta: float) -> void:
 func _on_custom_death():
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
-  var koopa = load('res://Objects/Enemies/Koopa Blue.tscn').instance()
+  var koopa = load('res://Objects/Enemies/Koopas/Koopa Blue.tscn').instance()
   koopa.position = owner.position
   owner.get_parent().add_child(koopa)
   owner.velocity_enabled = false

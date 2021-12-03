@@ -99,7 +99,7 @@ func on_edge() -> bool:
   return (ray_L.is_colliding() && !ray_R.is_colliding()) || (ray_R.is_colliding() && !ray_L.is_colliding())
 
 # warning-ignore:shadowed_variable
-func kill(death_type: int = 0, score_mp: int = 0) -> void:
+func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
   if invincible:
     return
   alive = false
@@ -110,7 +110,10 @@ func kill(death_type: int = 0, score_mp: int = 0) -> void:
   self.death_type = death_type
   match death_type:       # TEMP
     DEATH_TYPE.BASIC:
-      sound.play()
+      if !csound:
+        sound.play()
+      else:
+        csound.play()
       animated_sprite.set_animation('dead')
       get_parent().add_child(ScoreText.new(score, position))
       yield(get_tree().create_timer(2.0), 'timeout')
@@ -118,7 +121,10 @@ func kill(death_type: int = 0, score_mp: int = 0) -> void:
     DEATH_TYPE.DISAPPEAR:
       queue_free()
     DEATH_TYPE.FALL:
-      alt_sound.play()
+      if !csound:
+        alt_sound.play()
+      else:
+        csound.play()
       get_parent().add_child(ScoreText.new(score * multiplier_scores[score_mp], position))
       z_index = 2
       velocity.y = -180

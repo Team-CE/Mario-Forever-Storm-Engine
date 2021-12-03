@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Powerups/FireFlower.gd"
 }, {
+"base": "Reference",
+"class": "HammerThrow",
+"language": "GDScript",
+"path": "res://Scripts/AI/ThrowFunctions/Hammer.gd"
+}, {
 "base": "Node2D",
 "class": "Level",
 "language": "GDScript",
@@ -68,6 +73,11 @@ _global_script_classes=[ {
 "class": "Level2Camera",
 "language": "GDScript",
 "path": "res://Games/TheMultiverse2/Scripts/Level4Camera.gd"
+}, {
+"base": "Reference",
+"class": "Level3Camera",
+"language": "GDScript",
+"path": "res://Games/TheMultiverse2/Scripts/Level3Camera.gd"
 }, {
 "base": "Reference",
 "class": "LifePowerupAction",
@@ -133,10 +143,12 @@ _global_script_class_icons={
 "CoinEffect": "",
 "Explosion": "",
 "FireFlowerAction": "",
+"HammerThrow": "",
 "Level": "",
 "Level10Camera": "",
 "Level1Camera": "",
 "Level2Camera": "",
+"Level3Camera": "",
 "LifePowerupAction": "",
 "LuiAction": "",
 "LuiBehavior": "",

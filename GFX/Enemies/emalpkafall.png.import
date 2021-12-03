@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/emalpka.png-76c1e005a1ef9148c5e7d1f18a097d1c.stex"
+path="res://.import/emalpkafall.png-442683a10baf5353f4960cec33429c09.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/emalpka.png"
-dest_files=[ "res://.import/emalpka.png-76c1e005a1ef9148c5e7d1f18a097d1c.stex" ]
+source_file="res://GFX/Enemies/emalpkafall.png"
+dest_files=[ "res://.import/emalpkafall.png-442683a10baf5353f4960cec33429c09.stex" ]
 
 [params]
 
