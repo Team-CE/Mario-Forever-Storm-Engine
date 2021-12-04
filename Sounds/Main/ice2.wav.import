@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ice2.wav-80d5ec7740e5dd492810ba28262346fd.sample"
+
+[deps]
+
+source_file="res://Sounds/Main/ice2.wav"
+dest_files=[ "res://.import/ice2.wav-80d5ec7740e5dd492810ba28262346fd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

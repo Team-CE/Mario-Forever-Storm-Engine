@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BrickDebris.png-25c947e863ec01a925cc15045dad82b4.stex"
+path="res://.import/IceBlock1.png-cd7ec63e06cf2880e743b0880ab8f5a5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Bonuses/BrickDebris.png"
-dest_files=[ "res://.import/BrickDebris.png-25c947e863ec01a925cc15045dad82b4.stex" ]
+source_file="res://GFX/Bonuses/IceBlock1.png"
+dest_files=[ "res://.import/IceBlock1.png-cd7ec63e06cf2880e743b0880ab8f5a5.stex" ]
 
 [params]
 

@@ -8,17 +8,21 @@ func _ai_process(delta:float) -> void:
   if !owner.alive:
     return
   
-  owner.velocity.x = owner.vars["speed"] * owner.dir
+  if !owner.frozen:
+    owner.velocity.x = owner.vars["speed"] * owner.dir
+  else:
+    owner.velocity.x = 0
+    
   if owner.is_on_wall():
     owner.turn()
     
-  if is_mario_collide('BottomDetector'):
+  if is_mario_collide('BottomDetector') and !owner.frozen:
     owner.kill()
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
     else:
       Global.Mario.velocity.y = -owner.vars["bounce"] * 50
-  elif on_mario_collide('InsideDetector'):
+  elif on_mario_collide('InsideDetector') and !owner.frozen:
     Global._ppd()
     
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()

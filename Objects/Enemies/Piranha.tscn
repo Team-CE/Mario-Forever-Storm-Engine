@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Piranhas/Green.tres" type="SpriteFrames" id=2]
@@ -7,22 +7,26 @@
 [ext_resource path="res://GFX/Editor/Range.png" type="Texture" id=5]
 [ext_resource path="res://Sounds/Main/shoot.wav" type="AudioStream" id=6]
 [ext_resource path="res://GFX/Effects/Light.png" type="Texture" id=7]
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 17, 17 )
 
-[node name="Piranha" type="KinematicBody2D" groups=[
-"Enemy",
-]]
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 17, 32 )
+
+[node name="Piranha" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 1 )
 vars = {
 "projectile count": 3,
 "type": 0
 }
 AI = ExtResource( 3 )
+can_freeze = true
 sound_pth = NodePath("Fire")
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("Sprite")
+frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
@@ -36,10 +40,17 @@ visible = false
 position = Vector2( 0, -17 )
 shape = SubResource( 1 )
 
+[node name="Collision2" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -32 )
+shape = SubResource( 2 )
+disabled = true
+
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -32 )
 z_index = -1
 frames = ExtResource( 2 )
+frame = 1
 playing = true
 
 [node name="Placeholder1" type="AnimatedSprite" parent="."]
@@ -69,3 +80,9 @@ stream = ExtResource( 4 )
 
 [node name="Fire" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
+
+[node name="IceSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -32 )
+frames = ExtResource( 8 )
+animation = "medium"

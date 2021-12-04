@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BrickDebris.png-25c947e863ec01a925cc15045dad82b4.stex"
+path="res://.import/iceball.png-dcf3962bc6f5aa168ec994755b6c287c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Bonuses/BrickDebris.png"
-dest_files=[ "res://.import/BrickDebris.png-25c947e863ec01a925cc15045dad82b4.stex" ]
+source_file="res://GFX/Enemies/iceball.png"
+dest_files=[ "res://.import/iceball.png-dcf3962bc6f5aa168ec994755b6c287c.stex" ]
 
 [params]
 

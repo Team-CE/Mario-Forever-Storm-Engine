@@ -4,8 +4,9 @@ class_name BrickEffect
 var y_accel: float = 0
 var accel: Vector2
 
-func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO) -> void:
-  texture = preload('res://GFX/Bonuses/BrickDebris.png')
+func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO, text: int = 0) -> void:
+  var textures = [preload('res://GFX/Bonuses/BrickDebris.png'), preload('res://GFX/Bonuses/IceBrickDebris.png')]
+  texture = textures[text]
   position = pos
   accel = acceleration
   z_index = 3

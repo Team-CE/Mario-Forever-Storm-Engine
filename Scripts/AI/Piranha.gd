@@ -31,9 +31,12 @@ func _ready_mixin():
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)
   
-  if !owner.alive:
+  if !owner.alive or owner.frozen:
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
     owner.velocity_enabled = true
+    
+    if owner.frozen:
+      owner.get_node('Collision2').disabled = false
     return
 
   if on_mario_collide('InsideDetector'):

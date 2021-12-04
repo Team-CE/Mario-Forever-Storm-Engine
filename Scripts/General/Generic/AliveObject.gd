@@ -9,7 +9,8 @@ enum DEATH_TYPE {
   FALL,
   CUSTOM,
   NONE,
-  DISAPPEAR
+  DISAPPEAR,
+  UNFREEZE
 }
 
 export var vars: Dictionary = {"speed":50.0, "bounce":5}
@@ -20,6 +21,8 @@ export var score: int           = 100
 export var smart_turn: bool
 export var invincible: bool
 export(float,-1,1) var dir: float = -1
+export var can_freeze: bool = false
+export var frozen: bool = false
 
 #RayCasts leave empty if smart_turn = false
 export var ray_L_pth: NodePath
@@ -27,19 +30,24 @@ export var ray_R_pth: NodePath
 export var sound_pth: NodePath
 export var alt_sound_pth: NodePath
 export var animated_sprite_pth: NodePath
+export var frozen_sprite_pth: NodePath
 
 var ray_L: RayCast2D
 var ray_R: RayCast2D
 var animated_sprite: AnimatedSprite
+var frozen_sprite: AnimatedSprite
 var sound: AudioStreamPlayer2D
 var alt_sound: AudioStreamPlayer2D
+
+var freeze_sound = preload('res://Sounds/Main/ice1.wav')
+var unfreeze_sound = preload('res://Sounds/Main/ice2.wav')
 
 var velocity: Vector2
 var alive: bool = true
 var death_type: int
 var velocity_enabled: bool = true
 
-onready var first_pos: Vector2 = position # For pirahna plant and other enemies
+onready var first_pos: Vector2 = position   # For pirahna plant and other enemies
 onready var brain: Brain = Brain.new()      # Shell for AI
 
 func _ready() -> void:
@@ -59,6 +67,22 @@ func _ready() -> void:
     push_warning('[CE WARNING] Cannot load Animated sprite at:' + str(self))
   else:
     animated_sprite = get_node(animated_sprite_pth)
+    
+  if !frozen_sprite_pth.is_empty():
+    frozen_sprite = get_node(frozen_sprite_pth)
+    
+  if can_freeze:
+    var ice1 = AudioStreamPlayer2D.new()
+    var ice2 = AudioStreamPlayer2D.new()
+    
+    ice1.stream = freeze_sound
+    ice2.stream = unfreeze_sound
+    
+    ice1.name = 'ice1'
+    ice2.name = 'ice2'
+    
+    add_child(ice1)
+    add_child(ice2)
   
   brain.name = 'Brain'  # Brain init
   add_child(brain)
@@ -88,6 +112,11 @@ func _physics_process(delta:float) -> void:
   
   if velocity_enabled:
     velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation)).rotated(-rotation)
+    
+  # Freeze
+  if frozen_sprite && frozen:
+    frozen_sprite.visible = true
+    frozen_sprite.playing = true
 
 # Useful functions
 func turn(mp:float = 1) -> void:
@@ -107,8 +136,9 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
   collision_mask = 0
   velocity.x = 0
   gravity_scale = 0.4
-  self.death_type = death_type
-  match death_type:       # TEMP
+  if self.death_type != DEATH_TYPE.UNFREEZE:
+    self.death_type = death_type
+  match self.death_type:       # TEMP
     DEATH_TYPE.BASIC:
       if !csound:
         sound.play()
@@ -134,3 +164,29 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
     DEATH_TYPE.CUSTOM:
       if brain.has_method('_on_custom_death'):
         brain._on_custom_death()
+    DEATH_TYPE.UNFREEZE:
+      visible = false
+      if $Collision: $Collision.disabled = true
+      if $CollisionShape2D: $CollisionShape2D.disabled = true
+      if $KillDetector/Collision: $KillDetector/Collision.disabled = true
+      get_node('ice2').play()
+      var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
+      for i in range(4):
+        var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i], 1)
+        get_parent().add_child(debris_effect)
+      yield(get_tree().create_timer(2.0), 'timeout')
+      queue_free()
+        
+func freeze() -> void:
+  if !can_freeze || frozen:
+    return
+    
+  get_node('ice1').play()
+  
+  frozen = true
+  collision_layer = 3
+  collision_mask = 3
+  
+  death_type = DEATH_TYPE.UNFREEZE
+  animated_sprite.playing = false
+  

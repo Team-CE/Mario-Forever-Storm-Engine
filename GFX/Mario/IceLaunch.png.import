@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BrickDebris.png-25c947e863ec01a925cc15045dad82b4.stex"
+path="res://.import/IceLaunch.png-e792029e3837a7843aa68722f35db7e1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Bonuses/BrickDebris.png"
-dest_files=[ "res://.import/BrickDebris.png-25c947e863ec01a925cc15045dad82b4.stex" ]
+source_file="res://GFX/Mario/IceLaunch.png"
+dest_files=[ "res://.import/IceLaunch.png-e792029e3837a7843aa68722f35db7e1.stex" ]
 
 [params]
 

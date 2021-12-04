@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BrickDebris.png-25c947e863ec01a925cc15045dad82b4.stex"
+path="res://.import/IceAppear.png-012607787ce725b8c65c06c1505ed374.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Bonuses/BrickDebris.png"
-dest_files=[ "res://.import/BrickDebris.png-25c947e863ec01a925cc15045dad82b4.stex" ]
+source_file="res://GFX/Mario/IceAppear.png"
+dest_files=[ "res://.import/IceAppear.png-012607787ce725b8c65c06c1505ed374.stex" ]
 
 [params]
 

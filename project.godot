@@ -54,6 +54,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/AI/ThrowFunctions/Hammer.gd"
 }, {
+"base": "AnimatedSprite",
+"class": "IceExplosion",
+"language": "GDScript",
+"path": "res://Scripts/Effects/IceExplosion.gd"
+}, {
+"base": "Reference",
+"class": "IceFlowerAction",
+"language": "GDScript",
+"path": "res://Scripts/Powerups/IceFlower.gd"
+}, {
 "base": "Node2D",
 "class": "Level",
 "language": "GDScript",
@@ -144,6 +154,8 @@ _global_script_class_icons={
 "Explosion": "",
 "FireFlowerAction": "",
 "HammerThrow": "",
+"IceExplosion": "",
+"IceFlowerAction": "",
 "Level": "",
 "Level10Camera": "",
 "Level1Camera": "",
