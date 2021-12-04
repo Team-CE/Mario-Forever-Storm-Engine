@@ -26,7 +26,7 @@ func _ai_process(delta: float) -> void:
   if shell_counter < 41:
     shell_counter += 1 * Global.get_delta(delta)
     
-  if on_mario_collide('BottomDetector'): 
+  if on_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0: 
     if !owner.vars['is shell'] && shell_counter >= 11:
       owner.get_parent().add_child(ScoreText.new(100, owner.position))
       owner.vars['is shell'] = true

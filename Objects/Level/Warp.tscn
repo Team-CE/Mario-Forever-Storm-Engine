@@ -5,9 +5,7 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[node name="Warp" type="Area2D" groups=[
-"Warp",
-]]
+[node name="Warp" type="Area2D" groups=["Warp"]]
 script = ExtResource( 2 )
 additional_options = {
 "set_scene_path": ""
