@@ -77,7 +77,7 @@ func _ready():
   body = AnimatedSprite.new()
   body.name = 'Body'
   body.offset = Vector2(0, -16)
-  body.z_index = 20
+  body.z_index = 1
   body.frames = preload('res://Prefabs/Blocks/Question Block.tres')
   body.playing = true
   
@@ -91,7 +91,7 @@ func _ready():
   preview.modulate.a = 0.8
   preview.position.x += 8
   preview.position.y -= 8
-  preview.z_index = 21
+  preview.z_index = 2
   preview.texture = set_preview()
   
   add_child(preview)

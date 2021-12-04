@@ -172,7 +172,6 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://Scripts/Global.gd"
-MusicEngine="*res://Scripts/MusicEngine.gd"
 GlobalEditor="*res://Scripts/GlobalEditor.gd"
 MusicPlayer="*res://Objects/Core/MusicPlayer.tscn"
 

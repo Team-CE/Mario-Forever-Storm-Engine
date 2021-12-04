@@ -3,6 +3,7 @@ extends Brain
 
 var moving: int = 0
 var preparing: bool = false
+var counter: float = 0
 
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)
@@ -23,11 +24,15 @@ func _ai_process(delta:float) -> void:
   if owner.is_on_floor() and moving == 1:
     moving = 0
     preparing = false
+    counter = 40
     owner.animated_sprite.playing = false
     owner.animated_sprite.frame = 0
     owner.animated_sprite.speed_scale = 1
     owner.get_node('Stun').play()
     
+  if counter > 0:
+    counter -= 1 * Global.get_delta(delta)
+   
   if preparing:
     owner.animated_sprite.playing = true
     if owner.animated_sprite.frame == 18:
@@ -41,7 +46,7 @@ func _ai_process(delta:float) -> void:
   if moving == 1 and owner.animated_sprite.frame == 18:
     owner.animated_sprite.playing = false
       
-  if Global.Mario.position.x > owner.position.x - 80 and Global.Mario.position.x < owner.position.x + 80 and !preparing and moving == 0:
+  if Global.Mario.position.x > owner.position.x - 80 and Global.Mario.position.x < owner.position.x + 80 and !preparing and moving == 0 and counter <= 0:
     preparing = true
 
   if is_mario_collide('BottomDetector'):
@@ -55,7 +60,7 @@ func _ai_process(delta:float) -> void:
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
     else:
       Global.Mario.velocity.y = -owner.vars["bounce"] * 50
-  if on_mario_collide('InsideDetector'):
+  elif on_mario_collide('InsideDetector'):
     Global._ppd()
     
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()

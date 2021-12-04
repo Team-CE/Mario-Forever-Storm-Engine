@@ -10,10 +10,7 @@ extents = Vector2( 16, 16 )
 [sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( -16, -32, 16, -32, 16, 0, -16, 0 )
 
-[node name="QBlock" type="StaticBody2D" groups=[
-"Breakable",
-"Solid",
-]]
+[node name="QBlock" type="StaticBody2D" groups=["Breakable", "Solid"]]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource( 1 )
@@ -25,7 +22,7 @@ rotation = 3.14159
 shape = SubResource( 1 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
-z_index = 20
+z_index = 1
 frames = ExtResource( 3 )
 playing = true
 offset = Vector2( 0, -16 )
@@ -34,8 +31,15 @@ offset = Vector2( 0, -16 )
 modulate = Color( 1, 1, 1, 0.8 )
 position = Vector2( 8, -8 )
 scale = Vector2( 0.5, 0.5 )
-z_index = 21
+z_index = 2
 texture = ExtResource( 2 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( 0, -16 )
+scale = Vector2( 1.6, 1.6 )
+pause_animated_sprites = false
+process_parent = true
+physics_process_parent = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource( 2 )

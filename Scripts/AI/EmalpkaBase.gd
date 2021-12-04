@@ -59,7 +59,7 @@ func _ai_process(delta: float) -> void:
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
     else:
       Global.Mario.velocity.y = -owner.vars["bounce"] * 50
-  if on_mario_collide('InsideDetector'):
+  elif on_mario_collide('InsideDetector'):
     Global._ppd()
     
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()

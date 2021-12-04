@@ -14,7 +14,6 @@ func _ready():
   if !Engine.editor_hint:
     Global.time = time
     Global.currlevel = self
-    #MusicEngine.play_music(music)
     MusicPlayer.stream = music
     MusicPlayer.play()
     print('[Level]: Ready!')

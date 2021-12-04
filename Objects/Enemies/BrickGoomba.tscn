@@ -129,7 +129,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 position = Vector2( 0, -6 )
 frames = SubResource( 23 )
 animation = "walk"
-frame = 13
+frame = 14
 playing = true
 offset = Vector2( 0, -16 )
 

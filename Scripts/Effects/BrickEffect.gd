@@ -8,7 +8,7 @@ func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO) ->
   texture = preload('res://GFX/Bonuses/BrickDebris.png')
   position = pos
   accel = acceleration
-  z_index = 1
+  z_index = 3
 
   if accel.x < 0:
     position.x -= 6

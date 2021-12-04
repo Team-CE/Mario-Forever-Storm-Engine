@@ -126,7 +126,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
       else:
         csound.play()
       get_parent().add_child(ScoreText.new(score * multiplier_scores[score_mp], position))
-      z_index = 2
+      z_index = 3
       velocity.y = -180
       animated_sprite.set_animation('falling')
       yield(get_tree().create_timer(2.0), 'timeout')

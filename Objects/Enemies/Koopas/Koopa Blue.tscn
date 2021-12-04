@@ -19,6 +19,10 @@ region = Rect2( 0, 0, 32, 47 )
 atlas = ExtResource( 8 )
 region = Rect2( 32, 0, 32, 47 )
 
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 99, 0, 33, 48 )
+
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 33, 48 )
@@ -32,10 +36,6 @@ atlas = ExtResource( 3 )
 region = Rect2( 66, 0, 33, 48 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 3 )
-region = Rect2( 99, 0, 33, 48 )
-
-[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
 region = Rect2( 99, 0, 33, 48 )
 
@@ -56,15 +56,15 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
-"loop": true,
-"name": "shell moving",
-"speed": 20.0
-}, {
 "frames": [ SubResource( 12 ) ],
 "loop": true,
 "name": "shell stopped",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "shell moving",
+"speed": 20.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=10]
@@ -73,9 +73,7 @@ extents = Vector2( 23, 23 )
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 14, 2 )
 
-[node name="Koopa" type="KinematicBody2D" groups=[
-"Enemy",
-]]
+[node name="Koopa" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 2 )
 vars = {
 "bounce": 9.0,

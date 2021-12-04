@@ -50,7 +50,6 @@ var debug: bool = true                       # Debug
 var debug_fly: bool = false
 var debug_inv: bool = false
 
-var player_dead: bool = false
 var level_ended: bool = false
 var currlevel :Node2D
 
@@ -98,7 +97,7 @@ func loadInfo():
 
 func _reset() -> void:   # Level Restart
   lives -= 1
-  player_dead = false
+  Mario.dead = false
 # warning-ignore:return_value_discarded
   get_tree().reload_current_scene()
 
@@ -142,7 +141,9 @@ func _input(ev):
       
 # fix physics fps issues
 func _process(delta: float):
-  Engine.iterations_per_second = round((1 / delta) / 60) * 60
+  var temp = round((1 / delta) / 60) * 60
+  if temp > 0:
+    Engine.iterations_per_second = temp
 
 # warning-ignore:shadowed_variable
 func add_score(score: int) -> void:
@@ -193,9 +194,8 @@ func _ppd() -> void: # Player Powerdown
     Mario.shield_counter = 100
 
 func _pll() -> void: # Player Death
-  if player_dead or debug_inv or debug_fly:
+  if Mario.dead or debug_inv or debug_fly:
     return
-  player_dead = true
   emit_signal('OnPlayerLoseLife')
   MusicPlayer.stream = die_music
   MusicPlayer.play()

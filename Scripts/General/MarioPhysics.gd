@@ -17,7 +17,6 @@ var jump_counter: int = 0
 var jump_internal_counter: float = 100
 var can_jump: bool = false
 var crouch: bool = false
-var standing: bool = false
 var prelanding: bool = false
 
 var top_collider_counter: float = 0
@@ -120,7 +119,6 @@ func _process_alive(delta) -> void:
     jump_counter = 1
 
   if is_on_floor() and jump_internal_counter > 3:
-    standing = true
     jump_counter = 0
 
   if position.y > $Camera.limit_bottom + 64 and controls_enabled:
@@ -200,14 +198,14 @@ func _process_dead(delta) -> void:
       
 func _process_debug_fly(delta: float) -> void:
   if Input.is_action_pressed('mario_right'):
-    position.x += 10 * Global.get_delta(delta)
+    position.x += 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)
   if Input.is_action_pressed('mario_left'):
-    position.x -= 10 * Global.get_delta(delta)
+    position.x -= 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)
   
   if Input.is_action_pressed('mario_up'):
-    position.y -= 10 * Global.get_delta(delta)
+    position.y -= 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)
   if Input.is_action_pressed('mario_crouch'):
-    position.y += 10 * Global.get_delta(delta)
+    position.y += 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)
     
   if Input.is_action_just_pressed('debug_rotate_right'):
     target_gravity_angle += 45
@@ -222,7 +220,6 @@ func controls(delta) -> void:
     can_jump = false
 
   if jump_counter == 0 and can_jump:
-    standing = false
     prelanding = false
     velocity.y = -700 # 650
     jump_counter = 1
@@ -231,7 +228,6 @@ func controls(delta) -> void:
     jump_internal_counter = 0
 
   if velocity.y > 0.5 and not is_over_backdrop($BottomDetector, false):
-    standing = false
     prelanding = false
 
   if Input.is_action_pressed('mario_crouch') and is_on_floor() and Global.state > 0:
@@ -316,7 +312,10 @@ func animate(delta) -> void:
     return
 
   if crouch:
-    animate_sprite('Crouching')
+    if Global.state > 0:
+      animate_sprite('Crouching')
+    else:
+      animate_sprite('Stopped')
     return
 
   if not is_on_floor() and not is_over_platform() and abs(velocity.y) > 2:
