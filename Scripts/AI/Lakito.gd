@@ -18,9 +18,11 @@ func _ready_mixin():
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)
   
-  if !owner.alive:
+  if !owner.alive or owner.frozen:
     owner.velocity_enabled = true
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
+    owner.get_node('CollisionShape2D2').disabled = false
+    owner.get_node('CollisionShape2D').disabled = true
     return
   
   if !owner.frozen:

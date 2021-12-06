@@ -11,7 +11,7 @@
 [ext_resource path="res://Sounds/Enemies/lakitu2.wav" type="AudioStream" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 24 )
+extents = Vector2( 16, 32 )
 
 [node name="Lakito" type="KinematicBody2D" groups=["Enemy"]]
 z_index = 20
@@ -21,7 +21,6 @@ vars = {
 "speed": 0.0
 }
 AI = ExtResource( 2 )
-gravity_scale = 0.0
 can_freeze = true
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
@@ -40,6 +39,13 @@ visible = false
 show_behind_parent = true
 position = Vector2( 0, -24 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2( 0, -32 )
+shape = SubResource( 1 )
+disabled = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
