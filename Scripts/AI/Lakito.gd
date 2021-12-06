@@ -24,7 +24,6 @@ func _ai_process(delta:float) -> void:
     return
   
   if !owner.frozen:
-    print(blink_counter)
     if blink_counter < 10:
 # warning-ignore:narrowing_conversion
       blink_counter += 1 * Global.get_delta(delta)
@@ -65,14 +64,14 @@ func _ai_process(delta:float) -> void:
       # Limit speed
       if !Global.is_getting_closer(-64, owner.position):
         if xspeed < -10:
-          xspeed += 0.4
+          xspeed += 0.4 * Global.get_delta(delta)
         if xspeed > 10:
-          xspeed -= 0.4
+          xspeed -= 0.4 * Global.get_delta(delta)
       # Movement
       if owner.position.x > Global.Mario.position.x + 50:
-        xspeed -= 0.2
+        xspeed -= 0.2 * Global.get_delta(delta)
       if owner.position.x < Global.Mario.position.x - 50:
-        xspeed += 0.2
+        xspeed += 0.2 * Global.get_delta(delta)
         
       if (
         owner.position.x < Global.Mario.position.x + 100 and
@@ -80,16 +79,16 @@ func _ai_process(delta:float) -> void:
         xspeed < -2 and
         Global.Mario.velocity.x >= 0
         ):
-        xspeed += 1
+        xspeed += 1 * Global.get_delta(delta)
       if (
         owner.position.x < Global.Mario.position.x and
         owner.position.x > Global.Mario.position.x - 100 and
         xspeed > 4 and
         Global.Mario.velocity.x <= 0
         ):
-        xspeed -= 1
+        xspeed -= 1 * Global.get_delta(delta)
     elif xspeed > -2:
-      xspeed -= 1 # Will fly away if player is dead or is near the finish
+      xspeed -= 1 * Global.get_delta(delta) # Will fly away if player is dead or is near the finish
   else:
     xspeed = 0
     
