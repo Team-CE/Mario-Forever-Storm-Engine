@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Prefabs/Animations/Lakito.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/AI/Lakito.gd" type="Script" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
 [ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=6]
+[ext_resource path="res://Sounds/Enemies/lakitu1.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/Enemies/lakitu3.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sounds/Enemies/lakitu2.wav" type="AudioStream" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 24 )
@@ -55,3 +58,12 @@ visible = false
 position = Vector2( 0, -32 )
 frames = ExtResource( 6 )
 animation = "medium"
+
+[node name="Throw1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+
+[node name="Throw2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
+
+[node name="Throw3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )

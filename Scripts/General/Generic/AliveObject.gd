@@ -138,6 +138,8 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
   gravity_scale = 0.4
   if self.death_type != DEATH_TYPE.UNFREEZE:
     self.death_type = death_type
+  if brain.has_method('_on_any_death'):
+    brain._on_any_death()
   match self.death_type:       # TEMP
     DEATH_TYPE.BASIC:
       if !csound:

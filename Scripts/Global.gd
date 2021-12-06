@@ -228,3 +228,12 @@ func is_mario_collide(_detector_name: String, obj) -> bool:
 func is_mario_collide_area(_detector_name: String, obj) -> bool:
   var collisions = Mario.get_node(_detector_name).get_overlapping_areas()
   return collisions && collisions.has(obj)
+ 
+func is_getting_closer(pix: float, pos: Vector2) -> bool:
+  var camera = Mario.get_node('Camera')
+  return (
+    pos.x > camera.global_position.x - 320 + pix and
+    pos.x < camera.global_position.x + 320 - pix and
+    pos.y > camera.global_position.y - 320 + pix and
+    pos.y < camera.global_position.y + 320 - pix
+  )

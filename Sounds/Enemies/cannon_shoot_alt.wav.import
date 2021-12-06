@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/cannon_shoot_alt.wav-6b75961333dc68b7a6bb1ec838ee3b41.sample"
+
+[deps]
+
+source_file="res://Sounds/Enemies/cannon_shoot_alt.wav"
+dest_files=[ "res://.import/cannon_shoot_alt.wav-6b75961333dc68b7a6bb1ec838ee3b41.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

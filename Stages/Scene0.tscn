@@ -78,7 +78,7 @@ vars = {
 }
 
 [node name="Lakito" parent="." instance=ExtResource( 11 )]
-position = Vector2( 1088, 80 )
+position = Vector2( 1056, 80 )
 vars = {
 "bounce": 9.0,
 "speed": 0.0
