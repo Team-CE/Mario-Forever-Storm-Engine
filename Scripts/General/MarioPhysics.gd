@@ -63,7 +63,7 @@ func is_over_platform() -> bool:
     return false
 
 func _process(delta) -> void:
-  _process_camera()
+  _process_camera(delta)
   
   var target_gravity_enabled: bool = true
   var overlaps = $InsideDetector.get_overlapping_areas()
@@ -153,10 +153,11 @@ func _process_alive(delta) -> void:
         collider.hit(delta)
         
   var bottom_collisions = $BottomDetector.get_overlapping_bodies()
-  for i in range(len(bottom_collisions)):
-    var collider = bottom_collisions[i]
-    if collider.has_method('_standing_on'):
-      collider._standing_on()
+  if is_on_floor():
+    for i in range(len(bottom_collisions)):
+      var collider = bottom_collisions[i]
+      if collider.has_method('_standing_on'):
+        collider._standing_on()
 
   velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
 
@@ -362,7 +363,7 @@ func debug() -> void:
 
   $DebugText.text = 'x speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($Sprite.animation).to_lower() + '\nfps: ' + str(Engine.get_frames_per_second())
 
-func _process_camera() -> void:
+func _process_camera(delta: float) -> void:
   if dead: return
   
   if sections_scroll:
@@ -371,7 +372,7 @@ func _process_camera() -> void:
     $Camera.limit_bottom = base_y + 480
   
   if inited_camera_addon and inited_camera_addon.has_method('_process_camera'):
-    inited_camera_addon._process_camera(self)
+    inited_camera_addon._process_camera(self, delta)
   
   if get_parent().sgr_scroll:
     var base_x = floor(position.x / 640) * 640
@@ -380,4 +381,4 @@ func _process_camera() -> void:
     
 func _physics_process(_delta: float) -> void:
   if inited_camera_addon and inited_camera_addon.has_method('_process_physics_camera'):
-    inited_camera_addon._process_physics_camera(self)
+    inited_camera_addon._process_physics_camera(self, _delta)
