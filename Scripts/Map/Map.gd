@@ -37,6 +37,7 @@ func _process(delta: float) -> void:
   if Input.is_action_just_pressed('mario_jump') and !fading_out and stopped:
     fading_out = true
     $fadeout.play()
+    MusicPlayer.stop()
   
   if fading_out:
     circle_size -= 0.012 * Global.get_delta(delta)
@@ -47,5 +48,3 @@ func _process(delta: float) -> void:
     
   if circle_size <= -0.1:
     get_tree().change_scene(level_scenes[Global.levelID])
-
-

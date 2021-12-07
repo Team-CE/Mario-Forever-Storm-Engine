@@ -117,6 +117,7 @@ func controls():
           0:
             controls_enabled = false
             $letsgo.play()
+            fade_out_music()
             #MusicEngine.fade_out(0.3)
             yield(get_tree().create_timer( 2.5 ), 'timeout')
             $fadeout.play()
@@ -290,4 +291,9 @@ func saveOptions():
   Global.saveInfo(JSON.print(Global.toSaveInfo))
   
 func fade_out_music() -> void:
-  pass
+  MusicPlayer.volume_db -= 1
+  yield(get_tree().create_timer( 0.05 ), 'timeout')
+  if MusicPlayer.volume_db > -100 and circle_size > 0.1:
+    fade_out_music()
+  if MusicPlayer.volume_db < -80:
+    MusicPlayer.stop()
