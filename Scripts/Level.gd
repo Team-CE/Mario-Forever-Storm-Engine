@@ -16,6 +16,10 @@ func _ready():
     Global.currlevel = self
     MusicPlayer.stream = music
     MusicPlayer.play()
+    var mario_cam = $Mario/Camera as Camera2D
+    if Global.scroll > 0:
+      mario_cam.smoothing_enabled = true
+      mario_cam.smoothing_speed = 10
     print('[Level]: Ready!')
   elif not get_node('Mario'):
     tileMap = setup_tilemap()

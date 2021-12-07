@@ -185,7 +185,7 @@ func controls():
               $change.play()
           3:
             if Global.scroll < 2:
-              Global.scroll += 1
+              Global.scroll += 2
               $change.play()
           5:
             if !Global.vsync:
@@ -221,7 +221,7 @@ func controls():
               $change.play()
           3:
             if Global.scroll > 0:
-              Global.scroll -= 1
+              Global.scroll -= 2
               $change.play()
           5:
             if Global.vsync:
