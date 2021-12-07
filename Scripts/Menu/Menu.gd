@@ -29,6 +29,9 @@ onready var controls_enabled: bool = false
 onready var controls_changing: bool = false
 
 func _ready():
+  # temp
+  
+  # temp
   $fadeout.play()
   yield(get_tree().create_timer( 1.2 ), 'timeout')
   MusicPlayer.stream = music
