@@ -11,6 +11,7 @@ var CONTROLS_ASSIGN = [
 
 export var music: Resource            #MENU Music
 export var music_credits: Resource    #CREDITS Music
+export var sgr: String = ''
 
 var sel = 0
 var screen = 0
@@ -32,7 +33,10 @@ func _ready():
   yield(get_tree().create_timer( 1.2 ), 'timeout')
   MusicPlayer.stream = music
   MusicPlayer.play()
-  #MusicEngine.set_volume(Global.musicBar / 12)
+  if Global.musicBar > -100:
+    MusicPlayer.volume_db = round(Global.musicBar / 12)
+  if Global.musicBar == -100:
+    MusicPlayer.volume_db = -1000
   AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
   
 func _process(delta):
@@ -120,11 +124,11 @@ func controls():
             #MusicEngine.track_ended()
             yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
-#            if Global.musicBar > -100:
-#              MusicEngine.set_volume(Global.musicBar / 12)
-#            if Global.musicBar == -100:
-#              MusicEngine.set_volume(-1000)
-            get_tree().change_scene('res://Stages/SaveGameRoom.tscn')
+            if Global.musicBar > -100:
+              MusicPlayer.volume_db = round(Global.musicBar / 12)
+            if Global.musicBar == -100:
+              MusicPlayer.volume_db = -1000
+            get_tree().change_scene(sgr)
           1:
             screen += 1
             sel = 0
@@ -133,6 +137,7 @@ func controls():
             controls_enabled = false
             $enter_options.play()
             #MusicEngine.fade_out(0.2)
+            fade_out_music()
             yield(get_tree().create_timer( 1 ), 'timeout')
             fading_out = true
             yield(get_tree().create_timer( 1.4 ), 'timeout')
@@ -169,7 +174,10 @@ func controls():
           1:
             if Global.musicBar < 0:
               Global.musicBar += 10
-              #MusicEngine.set_volume(Global.musicBar / 12)
+              if Global.musicBar > -100:
+                MusicPlayer.volume_db = round(Global.musicBar / 12)
+              if Global.musicBar == -100:
+                MusicPlayer.volume_db = -1000
               $tick.play()
           2:
             if !Global.effects:
@@ -200,7 +208,10 @@ func controls():
           1:
             if Global.musicBar > -100:
               Global.musicBar -= 10
-              #MusicEngine.set_volume(Global.musicBar / 12)
+              if Global.musicBar > -100:
+                MusicPlayer.volume_db = round(Global.musicBar / 12)
+              if Global.musicBar == -100:
+                MusicPlayer.volume_db = -1000
               $tick.play()
             #if Global.musicBar == -100:
               #MusicEngine.set_volume(-1000)
@@ -277,3 +288,6 @@ func saveOptions():
     'Controls': CONTROLS_ASSIGN
   }
   Global.saveInfo(JSON.print(Global.toSaveInfo))
+  
+func fade_out_music() -> void:
+  pass

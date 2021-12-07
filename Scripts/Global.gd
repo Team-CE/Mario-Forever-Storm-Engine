@@ -51,7 +51,9 @@ var debug_fly: bool = false
 var debug_inv: bool = false
 
 var level_ended: bool = false
-var currlevel :Node2D
+var currlevel: Node2D
+
+var levelID: int = 0
 
 onready var timer: Timer = Timer.new()       # Create a new timer for delay
 
@@ -81,6 +83,10 @@ func _ready() -> void:
   vsync = toSaveInfo.VSync
   rpc = toSaveInfo.RPC
   #MusicEngine.set_volume(musicBar)
+  if Global.musicBar > -100:
+    MusicPlayer.volume_db = round(Global.musicBar / 12)
+  if Global.musicBar == -100:
+    MusicPlayer.volume_db = -1000
 
 func saveInfo(content):
   var file = File.new()

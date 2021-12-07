@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/BrickEffect.gd"
 }, {
+"base": "Reference",
+"class": "CHammerThrow",
+"language": "GDScript",
+"path": "res://Games/2022/Scripts/CHammer Throw.gd"
+}, {
 "base": "StaticBody2D",
 "class": "Cannon",
 "language": "GDScript",
@@ -89,11 +94,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/LuiTrail.gd"
 }, {
-"base": "AnimatedSprite",
-"class": "MapDot",
-"language": "GDScript",
-"path": "res://Scripts/Map/Dot.gd"
-}, {
 "base": "Sprite",
 "class": "MarioHeadEffect",
 "language": "GDScript",
@@ -129,6 +129,7 @@ _global_script_class_icons={
 "BeetrootAction": "",
 "Brain": "",
 "BrickEffect": "",
+"CHammerThrow": "",
 "Cannon": "res://GFX/Editor/Enemy.png",
 "CoinEffect": "",
 "Explosion": "",
@@ -141,7 +142,6 @@ _global_script_class_icons={
 "LuiAction": "",
 "LuiBehavior": "",
 "LuiTrail": "",
-"MapDot": "",
 "MarioHeadEffect": "",
 "Platform": "",
 "PoisonPowerupAction": "",

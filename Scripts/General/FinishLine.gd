@@ -1,5 +1,8 @@
 extends Node2D
 
+export var set_level_id: int = 0
+export var map_scene: String = ''
+
 var win_music = preload('res://Music/1-music-complete-level.ogg')
 
 var initial_position: float

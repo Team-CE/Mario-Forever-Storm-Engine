@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Map/Dot.gd" type="Script" id=1]
+[ext_resource path="res://Prefabs/Effects/Dot.tres" type="SpriteFrames" id=2]
+
+[node name="Dot" type="AnimatedSprite"]
+frames = ExtResource( 2 )
+frame = 5
+playing = true
+script = ExtResource( 1 )
