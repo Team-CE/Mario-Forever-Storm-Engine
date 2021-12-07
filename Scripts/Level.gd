@@ -20,6 +20,8 @@ func _ready():
     if Global.scroll > 0:
       mario_cam.smoothing_enabled = true
       mario_cam.smoothing_speed = 10
+    if !Global.effects:
+      $WorldEnvironment.queue_free()
     print('[Level]: Ready!')
   elif not get_node('Mario'):
     tileMap = setup_tilemap()
