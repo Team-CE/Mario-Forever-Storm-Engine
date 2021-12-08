@@ -48,10 +48,10 @@ func _process(delta) -> void:
   position.y += velocity.y * Global.get_delta(delta)
 
 func bounce() -> void:
-  var explosion = Explosion.new(position)
-  get_parent().add_child(explosion)
   velocity.y = -9
   velocity.x *= -1
+  var explosion = Explosion.new(position)
+  get_parent().add_child(explosion)
 
 func _on_screen_exited() -> void:
   if belongs == 0:
