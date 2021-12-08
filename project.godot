@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/CoinEffect.gd"
 }, {
+"base": "Reference",
+"class": "Discord",
+"language": "GDScript",
+"path": "res://discord_sdk/discord.gd"
+}, {
 "base": "AnimatedSprite",
 "class": "Explosion",
 "language": "GDScript",
@@ -132,6 +137,7 @@ _global_script_class_icons={
 "CHammerThrow": "",
 "Cannon": "res://GFX/Editor/Enemy.png",
 "CoinEffect": "",
+"Discord": "",
 "Explosion": "",
 "FireFlowerAction": "",
 "HammerThrow": "",
@@ -162,6 +168,7 @@ config/icon="res://icon.png"
 Global="*res://Scripts/Global.gd"
 GlobalEditor="*res://Scripts/GlobalEditor.gd"
 MusicPlayer="*res://Objects/Core/MusicPlayer.tscn"
+DiscordManager="*res://Scripts/Tools/discord_manager.gd"
 
 [debug]
 
