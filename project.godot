@@ -80,26 +80,6 @@ _global_script_classes=[ {
 "path": "res://Scripts/Level.gd"
 }, {
 "base": "Reference",
-"class": "Level10Camera",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/Scripts/Level10Camera.gd"
-}, {
-"base": "Reference",
-"class": "Level1Camera",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/Scripts/Level1Camera.gd"
-}, {
-"base": "Reference",
-"class": "Level2Camera",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/Scripts/Level4Camera.gd"
-}, {
-"base": "Reference",
-"class": "Level3Camera",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/Scripts/Level3Camera.gd"
-}, {
-"base": "Reference",
 "class": "LifePowerupAction",
 "language": "GDScript",
 "path": "res://Scripts/AI/Powerups/Actions/LifeMushroom.gd"
@@ -164,10 +144,6 @@ _global_script_class_icons={
 "IceExplosion": "",
 "IceFlowerAction": "",
 "Level": "",
-"Level10Camera": "",
-"Level1Camera": "",
-"Level2Camera": "",
-"Level3Camera": "",
 "LifePowerupAction": "",
 "LuiAction": "",
 "LuiBehavior": "",
@@ -184,7 +160,7 @@ _global_script_class_icons={
 
 config/name="Mario Forever Cloud Engine"
 run/main_scene="res://Stages/Menu.tscn"
-boot_splash/image="res://GFX/Miscellaneous/Splash.png"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]
