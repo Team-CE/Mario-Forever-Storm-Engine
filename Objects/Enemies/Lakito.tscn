@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Prefabs/Animations/Lakito.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/AI/Lakito.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Sounds/Enemies/lakitu1.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sounds/Enemies/lakitu3.wav" type="AudioStream" id=8]
 [ext_resource path="res://Sounds/Enemies/lakitu2.wav" type="AudioStream" id=9]
+[ext_resource path="res://Objects/Projectiles/SpinyEgg.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 32 )
@@ -21,7 +22,7 @@ vars = {
 "px_before_leaving": 1000,
 "speed": 0.0,
 "throw_delay": 200.0,
-"throw_script": "res://Objects/Projectiles/SpinyEgg.tscn"
+"throw_script": ExtResource( 10 )
 }
 AI = ExtResource( 2 )
 can_freeze = true

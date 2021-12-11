@@ -24,14 +24,14 @@ func _ready_mixin():
     
   if 'custom behavior' in owner.vars:
     custom_script = owner.vars['custom behavior'].new()
+  
+func _ai_process(delta: float) -> void:
+  ._ai_process(delta)
     
   var children = owner.get_parent().get_children()
   for node in range(len(children)):
     if children[node] is KinematicBody2D:
       owner.add_collision_exception_with(children[node])
-  
-func _ai_process(delta: float) -> void:
-  ._ai_process(delta)
   
   if !appearing:
     if !owner.is_on_floor():

@@ -17,6 +17,7 @@ var rng = RandomNumberGenerator.new()
 func _ready_mixin() -> void:
   owner.velocity_enabled = false
   owner.death_type = AliveObject.DEATH_TYPE.FALL
+  rng.randomize()
   
   var children = owner.get_parent().get_children()
   for node in range(len(children)):
@@ -54,8 +55,8 @@ func _ai_process(delta:float) -> void:
           owner.animated_sprite.frame = 0
       
     if (
-      owner.animated_sprite.frame == 15 and owner.animated_sprite.animation == 'blink lola') or (
-      owner.animated_sprite.frame == 11 and owner.animated_sprite.animation == 'blink chmurona'
+        owner.animated_sprite.frame == 15 and owner.animated_sprite.animation == 'blink lola') or (
+        owner.animated_sprite.frame == 11 and owner.animated_sprite.animation == 'blink chmurona'
       ):
       is_blinking = false
     
@@ -87,7 +88,7 @@ func _ai_process(delta:float) -> void:
         throw_was_activated = false
         throw_start = false
         is_blinking = false
-        inited_throwable = load(owner.vars['throw_script']).instance()
+        inited_throwable = owner.vars['throw_script'].instance()
         inited_throwable.position = owner.position + Vector2(0, -16)
         inited_throwable.velocity.y = -200
         get_parent().get_parent().add_child(inited_throwable)
@@ -105,17 +106,17 @@ func _ai_process(delta:float) -> void:
         xspeed += 0.2 * Global.get_delta(delta)
         
       if (
-        owner.position.x < Global.Mario.position.x + 100 and
-        owner.position.x > Global.Mario.position.x and
-        xspeed < -2 and
-        Global.Mario.velocity.x >= 0
+          owner.position.x < Global.Mario.position.x + 100 and
+          owner.position.x > Global.Mario.position.x and
+          xspeed < -2 and
+          Global.Mario.velocity.x >= 0
         ):
         xspeed += 1 * Global.get_delta(delta)
       if (
-        owner.position.x < Global.Mario.position.x and
-        owner.position.x > Global.Mario.position.x - 100 and
-        xspeed > 4 and
-        Global.Mario.velocity.x <= 0
+          owner.position.x < Global.Mario.position.x and
+          owner.position.x > Global.Mario.position.x - 100 and
+          xspeed > 4 and
+          Global.Mario.velocity.x <= 0
         ):
         xspeed -= 1 * Global.get_delta(delta)
     elif xspeed > -2:
@@ -130,9 +131,9 @@ func _ai_process(delta:float) -> void:
     else:
       Global.Mario.velocity.y = -owner.vars["bounce"] * 50
 
-
-
 func _on_any_death():
   var node = Node.new()
   node.script = preload('res://Scripts/Enemies/NewLakitu.gd')
+  node.throw_script = owner.vars['throw_script']
+  node.throw_delay = owner.vars['throw_delay']
   owner.get_parent().add_child(node)

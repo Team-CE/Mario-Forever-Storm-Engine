@@ -25,11 +25,11 @@ func _ready():
     print('[Level]: Ready!')
   elif not get_node('Mario'):
     tileMap = setup_tilemap()
-    var mario: Node2D = load('res://Objects/Core/Mario.tscn').instance()
+    var mario: Node2D = preload('res://Objects/Core/Mario.tscn').instance()
     mario.position = Vector2(48, 416)
     add_child(mario)
     mario.set_owner(self)
-    var hud: CanvasLayer = load('res://Objects/Core/HUD.tscn').instance()
+    var hud: CanvasLayer = preload('res://Objects/Core/HUD.tscn').instance()
     add_child(hud)
     hud.set_owner(self)
 

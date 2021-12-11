@@ -268,7 +268,7 @@ debug_alt={
 
 [physics]
 
-common/physics_fps=120
+common/enable_object_picking=false
 
 [rendering]
 

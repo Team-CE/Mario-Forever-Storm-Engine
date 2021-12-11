@@ -17,6 +17,7 @@ func _ready_mixin():
   owner.get_node('Placeholder1').queue_free()
   owner.get_node('Placeholder2').queue_free()
   owner.get_node('Placeholder3').queue_free()
+  rng.randomize()
   
   if owner.vars['type'] == 1:
     owner.animated_sprite.frames = preload('res://Prefabs/Piranhas/Fire.tres')
