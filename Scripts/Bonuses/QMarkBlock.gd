@@ -166,9 +166,6 @@ func _process(delta) -> void:
     $Collision.one_way_collision = false
     visible = true
 
-  if coin_counter >= 1 and coin_counter <= 7:
-    coin_counter += 0.02 * Global.get_delta(delta)
-
 
 func _physics_process(_delta) -> void:
   preview.visible = Engine.editor_hint || Global.debug
@@ -240,7 +237,7 @@ func hit(delta, thwomp = false) -> void:
       var coin_effect = CoinEffect.new(position + Vector2(0, -32).rotated(rotation), rotation)
       get_parent().add_child(coin_effect)
   
-      if coin_counter > 6:
+      if coin_counter >= 6:
         Empty = true
         $Body.set_animation('empty')
         qtype = BLOCK_TYPE.COMMON

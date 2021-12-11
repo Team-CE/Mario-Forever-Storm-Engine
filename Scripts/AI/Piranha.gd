@@ -19,7 +19,7 @@ func _ready_mixin():
   owner.get_node('Placeholder3').queue_free()
   
   if owner.vars['type'] == 1:
-    owner.animated_sprite.frames = load('res://Prefabs/Piranhas/Fire.tres')
+    owner.animated_sprite.frames = preload('res://Prefabs/Piranhas/Fire.tres')
   else:
     owner.get_node('Light2D').queue_free()
     
@@ -72,7 +72,7 @@ func _process_shooting(delta: float):
     owner.sound.play()
     projectile_timer = 10
     projectile_counter += 1
-    var fireball = load('res://Objects/Projectiles/Fireball.tscn').instance()
+    var fireball = preload('res://Objects/Projectiles/Fireball.tscn').instance()
     fireball.velocity = Vector2(rng.randf_range(-200.0, 200.0), rng.randf_range(-70, -600)).rotated(owner.rotation)
     fireball.position = owner.position + Vector2(0, -32).rotated(owner.rotation)
     fireball.belongs = 1

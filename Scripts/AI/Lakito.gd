@@ -2,18 +2,29 @@ extends Brain
 
 var camera = Global.Mario.get_node('Camera')
 
-export var px_before_leaving = 1000
-export var throw_delay = 200
+var inited_throwable
 
 var xspeed: float = 0
-var throw_counter: int = 0
-var blink_counter: int = 0
-var throw_activated: bool = false
+var throw_counter: float = 0
+var blink_counter: float = 0
+var throw_start: bool = false
+var throw_was_activated: bool = false
+var odchowanie: bool = false
 var is_blinking: bool = false
 
-func _ready_mixin():
+var rng = RandomNumberGenerator.new()
+
+func _ready_mixin() -> void:
   owner.velocity_enabled = false
   owner.death_type = AliveObject.DEATH_TYPE.FALL
+  
+  var children = owner.get_parent().get_children()
+  for node in range(len(children)):
+    if 'AI' in children[node]:
+      owner.add_collision_exception_with(children[node])
+  
+func _setup(b) -> void:
+  ._setup(b)
 
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)
@@ -27,47 +38,65 @@ func _ai_process(delta:float) -> void:
   
   if !owner.frozen:
     if blink_counter < 10:
-# warning-ignore:narrowing_conversion
       blink_counter += 1 * Global.get_delta(delta)
     else:
       blink_counter = 0
-    
-      var random: int = rand_range(1, 10)
       
-      if random > 9 and !is_blinking:
-        is_blinking = true
-        owner.animated_sprite.animation = 'blink lola'
-      if random < 2 and !is_blinking:
-        is_blinking = true
-        owner.animated_sprite.animation = 'blink chmurona'
+      if !is_blinking and !throw_was_activated:
+        var random: int = rand_range(0, 10)
+        if random > 8:
+          is_blinking = true
+          owner.animated_sprite.animation = 'blink lola'
+          owner.animated_sprite.frame = 0
+        if random < 2:
+          is_blinking = true
+          owner.animated_sprite.animation = 'blink chmurona'
+          owner.animated_sprite.frame = 0
       
-    if (!owner.animated_sprite.playing):
+    if (
+      owner.animated_sprite.frame == 15 and owner.animated_sprite.animation == 'blink lola') or (
+      owner.animated_sprite.frame == 11 and owner.animated_sprite.animation == 'blink chmurona'
+      ):
       is_blinking = false
-    if !Global.is_getting_closer(-64, owner.position):
-      throw_counter += 1 * Global.get_delta(delta)
-    
-    if throw_counter > throw_delay:
-      var throw_was_activated: bool = false
-      owner.animated_sprite.animation = 'chowanie'
-      throw_was_activated = true
-      
-      throw_counter = 0
-    
-      if throw_activated:
-        owner.animated_sprite.animation = 'idle'
-        owner.get_node('Throw' + str(int(rand_range(1, 3)))).play()
-        throw_was_activated = true
-        throw_activated = false
-        #inited_throwable.throw(self)
     
     owner.position.x += xspeed * Global.get_delta(delta)
     
-    if (!Global.Mario.dead and Global.Mario.position.x < camera.limit_right - px_before_leaving):
+    if (!Global.Mario.dead and Global.Mario.position.x < camera.limit_right - owner.vars['px_before_leaving']):
+      if Global.is_getting_closer(-32, owner.position):
+        throw_counter += 1 * Global.get_delta(delta)
+      
+      if throw_counter > owner.vars['throw_delay']:
+        if !throw_was_activated:
+          owner.animated_sprite.animation = 'chowanie'
+          throw_was_activated = true
+        elif throw_counter > owner.vars['throw_delay'] + 30:
+          if !odchowanie:
+            owner.animated_sprite.animation = 'odchowanie'
+            odchowanie = true
+          elif owner.animated_sprite.frame >= 11:
+            throw_start = true
+            odchowanie = false
+            throw_counter = 0
+            
+      if throw_start:
+        owner.animated_sprite.animation = 'default'
+        var nodes = [owner.get_node('Throw1'), owner.get_node('Throw2'), owner.get_node('Throw3')]
+        var mnode = nodes[rng.randi_range(0, 2)] as AudioStreamPlayer2D
+        mnode.play()
+    
+        throw_was_activated = false
+        throw_start = false
+        is_blinking = false
+        inited_throwable = load(owner.vars['throw_script']).instance()
+        inited_throwable.position = owner.position + Vector2(0, -16)
+        inited_throwable.velocity.y = -200
+        get_parent().get_parent().add_child(inited_throwable)
+    
       # Limit speed
-      if !Global.is_getting_closer(-64, owner.position):
-        if xspeed < -10:
+      if Global.is_getting_closer(-64, owner.position):
+        if xspeed < -12:
           xspeed += 0.4 * Global.get_delta(delta)
-        if xspeed > 10:
+        if xspeed > 12:
           xspeed -= 0.4 * Global.get_delta(delta)
       # Movement
       if owner.position.x > Global.Mario.position.x + 50:
@@ -94,12 +123,14 @@ func _ai_process(delta:float) -> void:
   else:
     xspeed = 0
     
-  if is_mario_collide('BottomDetector') and !owner.frozen and Global.Mario.velocity.y > 0:
+  if is_mario_collide('BottomDetector') and !owner.frozen and Global.Mario.position.y < owner.position.y - 32 and Global.Mario.velocity.y > 0:
     owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
     else:
       Global.Mario.velocity.y = -owner.vars["bounce"] * 50
+
+
 
 func _on_any_death():
   var node = Node.new()

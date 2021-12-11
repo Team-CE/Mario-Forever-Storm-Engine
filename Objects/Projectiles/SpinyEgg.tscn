@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/Enemies/SpinyEgg.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Enemies/spin.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Enemies/Spiny_falling.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=5]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 14, 2 )
+
+[node name="SpinyEgg" type="KinematicBody2D" groups=["Enemy"]]
+script = ExtResource( 5 )
+vars = {
+"speed": 50.0
+}
+AI = ExtResource( 1 )
+gravity_scale = 0.35
+alt_sound_pth = NodePath("Kick")
+animated_sprite_pth = NodePath("Sprite")
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -16 )
+frames = SubResource( 6 )
+playing = true
+flip_h = true
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2( 0, -16 )
+shape = SubResource( 4 )
+
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+position = Vector2( 0.5, -15 )
+scale = Vector2( 1.65, 1.5 )
+process_parent = true
+physics_process_parent = true
+
+[node name="KillDetector" type="Area2D" parent="."]
+visible = false
+
+[node name="Collision" type="CollisionShape2D" parent="KillDetector"]
+position = Vector2( 0, 4 )
+shape = SubResource( 5 )

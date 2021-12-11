@@ -78,8 +78,11 @@ vars = {
 }
 
 [node name="Lakito" parent="." instance=ExtResource( 11 )]
-position = Vector2( 1056, 80 )
+position = Vector2( 1056, 96 )
 vars = {
 "bounce": 9.0,
-"speed": 0.0
+"px_before_leaving": 1000,
+"speed": 0.0,
+"throw_delay": 50.0,
+"throw_script": "res://Objects/Projectiles/SpinyEgg.tscn"
 }

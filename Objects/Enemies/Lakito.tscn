@@ -18,7 +18,10 @@ z_index = 20
 script = ExtResource( 3 )
 vars = {
 "bounce": 9.0,
-"speed": 0.0
+"px_before_leaving": 1000,
+"speed": 0.0,
+"throw_delay": 200.0,
+"throw_script": "res://Objects/Projectiles/SpinyEgg.tscn"
 }
 AI = ExtResource( 2 )
 can_freeze = true
@@ -29,8 +32,6 @@ frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-animation = "odchowanie"
-frame = 10
 playing = true
 offset = Vector2( 0, -24 )
 

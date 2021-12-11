@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/AI/Spiny.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Enemies/Spiny.png" type="Texture" id=2]
 [ext_resource path="res://GFX/Enemies/Spiny_falling.png" type="Texture" id=3]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=4]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=5]
+[ext_resource path="res://GFX/Enemies/Spiny_appear.png" type="Texture" id=6]
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -13,6 +15,30 @@ region = Rect2( 0, 0, 33, 31 )
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
 region = Rect2( 33, 0, 33, 31 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 31, 31 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 6 )
+region = Rect2( 31, 0, 31, 31 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 6 )
+region = Rect2( 62, 0, 31, 31 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 6 )
+region = Rect2( 93, 0, 31, 31 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 6 )
+region = Rect2( 124, 0, 31, 31 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 33, 31 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -30,6 +56,11 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 6.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": false,
+"name": "appear",
+"speed": 30.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]
@@ -38,21 +69,20 @@ extents = Vector2( 17, 15 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 14, 2 )
 
-[node name="Spiny" type="KinematicBody2D" groups=[
-"Enemy",
-]]
+[node name="Spiny" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 5 )
 vars = {
 "speed": 50.0
 }
 AI = ExtResource( 1 )
+can_freeze = true
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("Sprite")
+frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 frames = SubResource( 3 )
-animation = "walk"
 playing = true
 flip_h = true
 
@@ -78,3 +108,9 @@ visible = false
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, 4 )
 shape = SubResource( 5 )
+
+[node name="IceSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -16 )
+frames = ExtResource( 7 )
+animation = "small"

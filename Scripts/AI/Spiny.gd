@@ -1,6 +1,6 @@
 extends Brain
 
-func _ready_mixin():
+func _ready_mixin() -> void:
   owner.death_type = AliveObject.DEATH_TYPE.NONE
 
 func _ai_process(delta:float) -> void:
@@ -10,12 +10,20 @@ func _ai_process(delta:float) -> void:
   
   if !owner.alive:
     return
+    
+  if !owner.frozen:
+    owner.velocity.x = owner.vars["speed"] * owner.dir
+  else:
+    owner.velocity.x = 0
   
-  owner.velocity.x = owner.vars["speed"] * owner.dir
-  if owner.is_on_wall():
+  if owner.animated_sprite.frame == 5 and owner.animated_sprite.animation == 'appear':
+    owner.animated_sprite.animation = 'walk'
+    owner.animated_sprite.frame = 0
+    
+  if owner.is_on_wall() and !owner.frozen:
     owner.turn()
     
-  if on_mario_collide('InsideDetector'):
+  if on_mario_collide('InsideDetector') and !owner.frozen:
     Global._ppd()
 
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()

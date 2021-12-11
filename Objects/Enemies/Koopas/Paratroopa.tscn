@@ -25,14 +25,14 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [  ],
-"loop": true,
-"name": "dead",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "falling",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "dead",
 "speed": 5.0
 } ]
 
@@ -66,7 +66,6 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 frames = SubResource( 4 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
