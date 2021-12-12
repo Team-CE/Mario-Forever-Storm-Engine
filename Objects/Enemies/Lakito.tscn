@@ -9,7 +9,7 @@
 [ext_resource path="res://Sounds/Enemies/lakitu1.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sounds/Enemies/lakitu3.wav" type="AudioStream" id=8]
 [ext_resource path="res://Sounds/Enemies/lakitu2.wav" type="AudioStream" id=9]
-[ext_resource path="res://Objects/Projectiles/SpinyEgg.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Objects/Enemies/SpinyEgg.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 32 )
@@ -19,6 +19,8 @@ z_index = 20
 script = ExtResource( 3 )
 vars = {
 "bounce": 9.0,
+"internal_result": null,
+"lakitu_addon": null,
 "px_before_leaving": 1000,
 "speed": 0.0,
 "throw_delay": 200.0,

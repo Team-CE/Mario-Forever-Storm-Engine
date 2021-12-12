@@ -3,6 +3,10 @@ extends Brain
 var camera = Global.Mario.get_node('Camera')
 
 var inited_throwable
+var inited_lakitu_addon
+
+var internal_result
+var custom_result_added: bool = false
 
 var xspeed: float = 0
 var throw_counter: float = 0
@@ -24,6 +28,9 @@ func _ready_mixin() -> void:
     if 'AI' in children[node]:
       owner.add_collision_exception_with(children[node])
   
+  if owner.vars['lakitu_addon']:
+    inited_lakitu_addon = owner.vars['lakitu_addon'].new()
+  
 func _setup(b) -> void:
   ._setup(b)
 
@@ -38,6 +45,9 @@ func _ai_process(delta:float) -> void:
     return
   
   if !owner.frozen:
+    if inited_lakitu_addon and inited_lakitu_addon.has_method('_process_lakitu'):
+      inited_lakitu_addon._process_lakitu(self, delta)
+    
     if blink_counter < 10:
       blink_counter += 1 * Global.get_delta(delta)
     else:
@@ -89,9 +99,17 @@ func _ai_process(delta:float) -> void:
         throw_start = false
         is_blinking = false
         inited_throwable = owner.vars['throw_script'].instance()
+        if internal_result:
+          inited_throwable.vars['result'] = internal_result
+          if custom_result_added:
+            custom_result_added = false
         inited_throwable.position = owner.position + Vector2(0, -16)
         inited_throwable.velocity.y = -200
         get_parent().get_parent().add_child(inited_throwable)
+        var children = inited_throwable.get_parent().get_children()
+        for node in range(len(children)):
+          if 'AI' in children[node]:
+            inited_throwable.add_collision_exception_with(children[node])
     
       # Limit speed
       if Global.is_getting_closer(-64, owner.position):
@@ -136,4 +154,5 @@ func _on_any_death():
   node.script = preload('res://Scripts/Enemies/NewLakitu.gd')
   node.throw_script = owner.vars['throw_script']
   node.throw_delay = owner.vars['throw_delay']
+  node.result = internal_result
   owner.get_parent().add_child(node)

@@ -8,11 +8,6 @@ func _ai_process(delta:float) -> void:
   if !owner.is_on_floor():
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
-  var children = owner.get_parent().get_children()
-  for node in range(len(children)):
-    if 'AI' in children[node]:
-      owner.add_collision_exception_with(children[node])
-  
   if !owner.alive:
     owner.animated_sprite.rotation_degrees = 0
     return
@@ -21,7 +16,14 @@ func _ai_process(delta:float) -> void:
     var spiny = load('res://Objects/Enemies/Spiny.tscn').instance()
     spiny.get_node('Sprite').set_animation('appear')
     spiny.position = owner.position
+    
     owner.get_parent().add_child(spiny)
+    
+    var children = spiny.get_parent().get_children()
+    for node in range(len(children)):
+      if children[node] is KinematicBody2D:
+        spiny.add_collision_exception_with(children[node])
+    
     if Global.Mario.position.x > owner.position.x:
       spiny.turn()
     owner.queue_free()
