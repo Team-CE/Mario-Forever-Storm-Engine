@@ -11,7 +11,6 @@ _data = {
 
 [node name="Map" type="Node2D"]
 script = ExtResource( 2 )
-music = "map.s3m"
 
 [node name="map_looped" type="Sprite" parent="."]
 position = Vector2( 5000, 240 )

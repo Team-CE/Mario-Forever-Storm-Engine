@@ -128,6 +128,7 @@ func editor() -> void:
 
 
 func set_preview() -> StreamTexture:
+  if !is_instance_valid(Result): return (GlobalEditor.NULLTEXTURE as StreamTexture)
   var result_inst = Result.instance()
   var sprite = result_inst.get_node_or_null('AnimatedSprite') if is_instance_valid(Result) else null
   if !sprite:

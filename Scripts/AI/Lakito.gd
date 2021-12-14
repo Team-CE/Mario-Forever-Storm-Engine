@@ -68,7 +68,7 @@ func _ai_process(delta:float) -> void:
         owner.animated_sprite.frame == 15 and owner.animated_sprite.animation == 'blink lola') or (
         owner.animated_sprite.frame == 11 and owner.animated_sprite.animation == 'blink chmurona'
       ):
-      is_blinking = false
+      owner.animated_sprite.animation = 'default'
     
     owner.position.x += xspeed * Global.get_delta(delta)
     
@@ -83,6 +83,7 @@ func _ai_process(delta:float) -> void:
         elif throw_counter > owner.vars['throw_delay'] + 30:
           if !odchowanie:
             owner.animated_sprite.animation = 'odchowanie'
+            owner.animated_sprite.frame = 0
             odchowanie = true
           elif owner.animated_sprite.frame >= 11:
             throw_start = true
@@ -90,7 +91,6 @@ func _ai_process(delta:float) -> void:
             throw_counter = 0
             
       if throw_start:
-        owner.animated_sprite.animation = 'default'
         var nodes = [owner.get_node('Throw1'), owner.get_node('Throw2'), owner.get_node('Throw3')]
         var mnode = nodes[rng.randi_range(0, 2)] as AudioStreamPlayer2D
         mnode.play()
@@ -101,8 +101,11 @@ func _ai_process(delta:float) -> void:
         inited_throwable = owner.vars['throw_script'].instance()
         if internal_result:
           inited_throwable.vars['result'] = internal_result
+          print('set result')
           if custom_result_added:
+            print('clear var')
             custom_result_added = false
+            internal_result = null
         inited_throwable.position = owner.position + Vector2(0, -16)
         inited_throwable.velocity.y = -200
         get_parent().get_parent().add_child(inited_throwable)
@@ -154,5 +157,6 @@ func _on_any_death():
   node.script = preload('res://Scripts/Enemies/NewLakitu.gd')
   node.throw_script = owner.vars['throw_script']
   node.throw_delay = owner.vars['throw_delay']
-  node.result = internal_result
+  node.lakitu_addon = owner.vars['lakitu_addon']
+  if node.result: node.result = internal_result
   owner.get_parent().add_child(node)

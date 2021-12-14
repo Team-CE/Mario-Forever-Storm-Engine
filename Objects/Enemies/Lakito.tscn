@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Prefabs/Animations/Lakito.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/AI/Lakito.gd" type="Script" id=2]
@@ -12,6 +12,9 @@
 [ext_resource path="res://Objects/Enemies/SpinyEgg.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 24 )
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 32 )
 
 [node name="Lakito" type="KinematicBody2D" groups=["Enemy"]]
@@ -47,8 +50,8 @@ shape = SubResource( 1 )
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 visible = false
 show_behind_parent = true
-position = Vector2( 0, -32 )
-shape = SubResource( 1 )
+position = Vector2( 0, -24 )
+shape = SubResource( 2 )
 disabled = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
@@ -65,7 +68,7 @@ scale = Vector2( 1.6, 2.4 )
 
 [node name="IceSprite" type="AnimatedSprite" parent="."]
 visible = false
-position = Vector2( 0, -32 )
+position = Vector2( 0, -24 )
 frames = ExtResource( 6 )
 animation = "medium"
 

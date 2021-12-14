@@ -14,7 +14,7 @@ enum DEATH_TYPE {
 }
 
 export var vars: Dictionary = {"speed":50.0, "bounce":5}
-export var AI:Script
+export var AI: Script
 
 export var gravity_scale: float = 1
 export var score: int           = 100

@@ -31,6 +31,7 @@ func _ai_process(delta: float) -> void:
     if !owner.vars['is shell'] && shell_counter >= 11:
       owner.get_parent().add_child(ScoreText.new(100, owner.position))
       owner.vars['is shell'] = true
+      shell_counter = 0
       owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
       owner.vars['stopped'] = true
       owner.animated_sprite.animation = 'shell stopped'
@@ -53,11 +54,11 @@ func _ai_process(delta: float) -> void:
         Global.Mario.velocity.y = -owner.vars['bounce'] * 50
   
   if on_mario_collide('InsideDetector'):
-    if owner.vars['stopped'] && owner.vars['is shell'] && shell_counter >= 41:
+    if owner.vars['stopped'] && owner.vars['is shell'] && shell_counter >= 11:
       owner.vars['stopped'] = false
       owner.animated_sprite.animation = 'shell moving'
-      owner.alt_sound.play()
       shell_counter = 0
+      owner.alt_sound.play()
       owner.dir = -1 if Global.Mario.position.x > owner.position.x else 1
       
   if is_mario_collide('InsideDetector') && !is_mario_collide('BottomDetector') && shell_counter >= 31:
