@@ -102,23 +102,25 @@ func _ready():
 
 
 func editor() -> void:
-  if body.animation != 'empty' and Empty and qtype == BLOCK_TYPE.COMMON:
-    body.animation = 'empty'
-  if !Engine.editor_hint:
-    if body.animation != 'empty' and Global.state == 0 and qtype == BLOCK_TYPE.RESET_POWERUP:
+  if body:
+    if body.animation != 'empty' and Empty and qtype == BLOCK_TYPE.COMMON:
       body.animation = 'empty'
-  elif body.animation != 'default' and not Empty and qtype == BLOCK_TYPE.COMMON:
-    body.animation = 'default'
-  if body.animation != 'reset' and qtype == BLOCK_TYPE.RESET_POWERUP:
-    body.animation = 'reset'
-  if body.animation != 'brick' and qtype != BLOCK_TYPE.COMMON and qtype != BLOCK_TYPE.RESET_POWERUP:
-    body.animation = 'brick'
+    if !Engine.editor_hint:
+      if body.animation != 'empty' and Global.state == 0 and qtype == BLOCK_TYPE.RESET_POWERUP:
+        body.animation = 'empty'
+    elif body.animation != 'default' and not Empty and qtype == BLOCK_TYPE.COMMON:
+      body.animation = 'default'
+    if body.animation != 'reset' and qtype == BLOCK_TYPE.RESET_POWERUP:
+      body.animation = 'reset'
+    if body.animation != 'brick' and qtype != BLOCK_TYPE.COMMON and qtype != BLOCK_TYPE.RESET_POWERUP:
+      body.animation = 'brick'
 
 
   if (Result != null || PrevResult != null) && Result != PrevResult:
     preview.texture = set_preview()
-  
-  body.modulate.a = 0.5 if Visible != VISIBILITY_TYPE.VISIBLE else 1.0
+    
+  if body:
+    body.modulate.a = 0.5 if Visible != VISIBILITY_TYPE.VISIBLE else 1.0
 
   if Frames != null && Frames != PrevFrames:
     body.frames = Frames
@@ -130,6 +132,8 @@ func editor() -> void:
 func set_preview() -> StreamTexture:
   if !is_instance_valid(Result): return (GlobalEditor.NULLTEXTURE as StreamTexture)
   var result_inst = Result.instance()
+  if !result_inst or !result_inst.has_method('get_node_or_null'):
+    return (GlobalEditor.NULLTEXTURE as StreamTexture)
   var sprite = result_inst.get_node_or_null('AnimatedSprite') if is_instance_valid(Result) else null
   if !sprite:
     sprite = result_inst.get_node_or_null('Sprite') if is_instance_valid(Result) else null
@@ -156,20 +160,22 @@ func _process(delta) -> void:
   if coin_counter >= 1 and coin_counter <= 6:
     coin_counter += 0.02 * Global.get_delta(delta)
   
-  if qtype != BLOCK_TYPE.COMMON and qtype != BLOCK_TYPE.RESET_POWERUP and not Empty:
-    body.animation = 'brick'
-    
-  if qtype == BLOCK_TYPE.RESET_POWERUP and not Empty:
-    body.animation = 'reset'
+  if body and 'animation' in body:
+    if qtype != BLOCK_TYPE.COMMON and qtype != BLOCK_TYPE.RESET_POWERUP and not Empty:
+      body.animation = 'brick'
+      
+    if qtype == BLOCK_TYPE.RESET_POWERUP and not Empty:
+      body.animation = 'reset'
   
-  if Empty:
-    $Body.set_animation('empty')
-    $Collision.one_way_collision = false
-    visible = true
+    if Empty:
+      $Body.set_animation('empty')
+      $Collision.one_way_collision = false
+      visible = true
 
 
 func _physics_process(_delta) -> void:
-  preview.visible = Engine.editor_hint || Global.debug
+  if preview:
+    preview.visible = Engine.editor_hint || Global.debug
   
   if 'debug' in Global && Global.debug && (Result != null || PrevResult != null) && Result != PrevResult:
     preview.texture = set_preview()
