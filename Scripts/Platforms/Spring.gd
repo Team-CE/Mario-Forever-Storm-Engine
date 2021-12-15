@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
     if spring_counter <= 0:
       Global.Mario.velocity.y = -550
     else:
-      Global.Mario.velocity.y = -900
+      Global.Mario.velocity.y = -1000
 
 func is_mario_collide(_detector_name: String) -> bool:
   var collisions = Global.Mario.get_node(_detector_name).get_overlapping_bodies()

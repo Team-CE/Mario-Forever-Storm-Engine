@@ -45,6 +45,7 @@ var state: int = 0                           # Player powerup state
 var projectiles_count: int = 0               # Self explanable
 
 var checkpoint_active: int = 0               # Self explanable
+var checkpoint_position: Vector2
 
 var debug: bool = true                       # Debug
 var debug_fly: bool = false
@@ -104,6 +105,7 @@ func loadInfo():
 func _reset() -> void:   # Level Restart
   lives -= 1
   Mario.dead = false
+  projectiles_count = 0
 # warning-ignore:return_value_discarded
   get_tree().reload_current_scene()
 

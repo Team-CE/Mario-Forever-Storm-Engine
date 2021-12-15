@@ -17,7 +17,7 @@ func _ai_process(delta: float) -> void:
     owner.velocity_enabled = true
     return
   
-  if shell_counter < 41:
+  if shell_counter < 11:
     shell_counter += 1 * Global.get_delta(delta)
     
   owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
@@ -27,7 +27,7 @@ func _ai_process(delta: float) -> void:
   
   owner.position = initial_pos + offset_pos
     
-  if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 && shell_counter >= 11:
+  if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 && shell_counter >= 8:
     owner.kill(AliveObject.DEATH_TYPE.CUSTOM, 0)
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50

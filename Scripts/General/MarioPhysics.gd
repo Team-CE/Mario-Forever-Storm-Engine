@@ -41,6 +41,8 @@ func _ready() -> void:
   
   if camera_addon:
     inited_camera_addon = camera_addon.new()
+    if inited_camera_addon.has_method('_ready_camera'):
+      inited_camera_addon._ready_camera(self)
   
   # Creating working instances of provided scripts
   var p_keys = powerup_scripts.keys()

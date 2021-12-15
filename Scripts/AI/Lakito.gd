@@ -69,6 +69,7 @@ func _ai_process(delta:float) -> void:
         owner.animated_sprite.frame == 11 and owner.animated_sprite.animation == 'blink chmurona'
       ):
       owner.animated_sprite.animation = 'default'
+      is_blinking = false
     
     owner.position.x += xspeed * Global.get_delta(delta)
     
@@ -101,9 +102,7 @@ func _ai_process(delta:float) -> void:
         inited_throwable = owner.vars['throw_script'].instance()
         if internal_result:
           inited_throwable.vars['result'] = internal_result
-          print('set result')
           if custom_result_added:
-            print('clear var')
             custom_result_added = false
             internal_result = null
         inited_throwable.position = owner.position + Vector2(0, -16)
@@ -115,7 +114,7 @@ func _ai_process(delta:float) -> void:
             inited_throwable.add_collision_exception_with(children[node])
     
       # Limit speed
-      if Global.is_getting_closer(-64, owner.position):
+      if not Global.is_getting_closer(-64, owner.position):
         if xspeed < -12:
           xspeed += 0.4 * Global.get_delta(delta)
         if xspeed > 12:

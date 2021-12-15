@@ -1,5 +1,6 @@
 extends Brain
 
+const inst = preload('res://Objects/Enemies/Koopas/Koopa.tscn')
 var initial_pos: Vector2
 var offset_pos: Vector2 = Vector2.ZERO
 
@@ -40,7 +41,7 @@ func _ai_process(delta: float) -> void:
 func _on_custom_death():
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
-  var koopa = preload('res://Objects/Enemies/Koopas/Koopa.tscn').instance()
+  var koopa = inst.instance()
   koopa.position = owner.position
   owner.get_parent().add_child(koopa)
   owner.velocity_enabled = false
