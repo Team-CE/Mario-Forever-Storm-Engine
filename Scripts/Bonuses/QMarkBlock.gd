@@ -201,6 +201,8 @@ func brick_break() -> void:
     var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i])
     get_parent().add_child(debris_effect)
   Global.add_score(50)
+  $Body.visible = false
+  yield(get_tree(),"idle_frame")
   queue_free()
 
 func hit(delta, thwomp = false) -> void:

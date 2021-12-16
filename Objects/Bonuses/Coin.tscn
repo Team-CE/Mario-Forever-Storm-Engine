@@ -36,11 +36,20 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
 
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+position = Vector2( 0, 2.38419e-07 )
+scale = Vector2( 1, 1.6 )
+pause_animated_sprites = false
+process_parent = true
+physics_process_parent = true
+
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource( 7 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -51,6 +60,9 @@ shape = SubResource( 5 )
 
 [node name="BlockDetector" type="Area2D" parent="."]
 visible = false
+collision_layer = 0
+input_pickable = false
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="BlockDetector"]
 position = Vector2( -1, 22 )
