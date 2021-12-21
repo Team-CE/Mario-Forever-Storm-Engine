@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Prefabs/Mario/IceFlower.tres" type="SpriteFrames" id=8]
 [ext_resource path="res://Scripts/Powerups/IceFlower.gd" type="Script" id=9]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Objects/Bonuses/Powerups/Propeller Mushroom.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=13]
 [ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=14]
@@ -49,12 +50,16 @@ powerup_animations = {
 4: ExtResource( 20 ),
 5: ExtResource( 8 )
 }
+powerup_offsets = {
+}
 powerup_scripts = {
 2: ExtResource( 12 ),
 3: ExtResource( 13 ),
 4: ExtResource( 19 ),
 5: ExtResource( 9 )
 }
+target_gravity_angle = 0.0
+sections_scroll = true
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
@@ -67,7 +72,7 @@ Result = ExtResource( 7 )
 
 [node name="QBlock2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 240, 256 )
-Result = ExtResource( 7 )
+Result = ExtResource( 11 )
 
 [node name="Goomba" parent="." instance=ExtResource( 10 )]
 position = Vector2( 720, 352 )

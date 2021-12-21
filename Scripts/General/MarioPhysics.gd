@@ -3,6 +3,7 @@ extends KinematicBody2D
 var gameover_music: Resource = preload('res://Music/1-music-gameover.ogg')
 
 export var powerup_animations: Dictionary = {}
+export var powerup_offsets: Dictionary = {}
 export var powerup_scripts: Dictionary = {}
 export var target_gravity_angle: float = 0
 export var sections_scroll: bool = true
@@ -166,6 +167,9 @@ func _process_alive(delta) -> void:
   animate(delta)
   update_collisions()
   debug()
+  
+  $Sprite.offset.y = 0 - $Sprite.frames.get_frame($Sprite.animation, $Sprite.frame).get_size().y
+  $Sprite.offset.x = 0 - $Sprite.frames.get_frame($Sprite.animation, $Sprite.frame).get_size().x / 2
 
 func _process_dead(delta) -> void:
   if dead_counter == 0:
@@ -284,9 +288,9 @@ func animate(delta) -> void:
   if velocity.x >= 8 * Global.get_delta(delta):
     $Sprite.flip_h = false
     
-  if Global.state > 0 and not position_altered:
-    $Sprite.position.y -= 14
-    position_altered = true
+#  if Global.state > 0 and not position_altered:
+#    $Sprite.position.y -= 14
+#    position_altered = true
 
   if appear_counter > 0:
     if not $Sprite.animation == 'Appearing':
@@ -296,9 +300,9 @@ func animate(delta) -> void:
     appear_counter -= 1.5 * Global.get_delta(delta)
     return
   if appear_counter < 0 and Global.state == 0:
-    if position_altered:
-      $Sprite.position.y += 14
-      position_altered = false
+#    if position_altered:
+#      $Sprite.position.y += 14
+#      position_altered = false
     appear_counter = 0
 
   if shield_counter > 0:
@@ -308,6 +312,7 @@ func animate(delta) -> void:
   if shield_counter < 0:
     shield_counter = 0
     $Sprite.visible = true
+#  $Sprite.offset.y = $Sprite.texture.get_size()
 
   if launch_counter > 0:
     animate_sprite('Launching')
