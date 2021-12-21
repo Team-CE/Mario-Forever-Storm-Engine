@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/AI/Powerups/GenericPowerup.gd" type="Script" id=2]
 [ext_resource path="res://GFX/Bonuses/Propeller.png" type="Texture" id=3]
 [ext_resource path="res://GFX/Effects/Light.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/AI/Powerups/Actions/PropellerMushroom.gd" type="Script" id=5]
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 3 )
@@ -35,8 +36,10 @@ extents = Vector2( 16, 16 )
 [node name="PropellerMushroom" type="KinematicBody2D"]
 script = ExtResource( 1 )
 vars = {
-"grow speed": 0.5,
-"set state": 2,
+"custom appearing": true,
+"custom behavior": ExtResource( 5 ),
+"grow speed": 6.0,
+"set state": 6,
 "sgr behavior": false,
 "speed": 0.0
 }

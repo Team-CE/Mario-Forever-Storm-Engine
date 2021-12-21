@@ -7,6 +7,7 @@ var initial_pos: Vector2
 var offset_pos: Vector2 = Vector2.ZERO
 
 var custom_script
+var custom_appearing: bool = false
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
@@ -24,6 +25,9 @@ func _ready_mixin():
     
   if 'custom behavior' in owner.vars:
     custom_script = owner.vars['custom behavior'].new()
+  
+  if 'custom appearing' in owner.vars:
+    custom_appearing = true
     
   var children = owner.get_parent().get_children()
   for node in range(len(children)):
@@ -34,22 +38,28 @@ func _ai_process(delta: float) -> void:
   ._ai_process(delta)
   
   if !appearing:
-    if !owner.is_on_floor():
-      owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
-    owner.velocity.x = owner.vars['speed'] * owner.dir
-    if owner.is_on_wall():
-      owner.turn()
+    if custom_script and custom_script.has_method('_process_movement'):
+      custom_script._process_movement(self, delta)
+    else:
+      if !owner.is_on_floor():
+        owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
+      owner.velocity.x = owner.vars['speed'] * owner.dir
+      if owner.is_on_wall():
+        owner.turn()
   
-  if appearing and appear_counter < 32:
-    offset_pos -= Vector2(0, owner.vars['grow speed']).rotated(owner.rotation) * Global.get_delta(delta)
-    appear_counter += owner.vars['grow speed'] * Global.get_delta(delta)
-  elif appear_counter >= 32 and appear_counter < 100:
-    offset_pos = Vector2(0, -32).rotated(owner.rotation)
-    owner.position = initial_pos + offset_pos
+  if not custom_appearing:
+    if appearing and appear_counter < 32:
+      offset_pos -= Vector2(0, owner.vars['grow speed']).rotated(owner.rotation) * Global.get_delta(delta)
+      appear_counter += owner.vars['grow speed'] * Global.get_delta(delta)
+    elif appear_counter >= 32 and appear_counter < 100:
+      offset_pos = Vector2(0, -32).rotated(owner.rotation)
+      owner.position = initial_pos + offset_pos
+      appearing = false
+      appear_counter = 100
+      owner.z_index = 1
+      owner.velocity_enabled = true
+  else:
     appearing = false
-    appear_counter = 100
-    owner.z_index = 1
-    owner.velocity_enabled = true
     
   if appearing:
     owner.position = initial_pos + offset_pos

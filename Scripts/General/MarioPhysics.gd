@@ -26,12 +26,15 @@ var position_altered: bool = false
 var selected_state: int = -1
 
 onready var dead: bool = false
+onready var dead_hasJumped: bool = false
+onready var dead_gameover: bool = false
 onready var dead_counter: float = 0
 onready var appear_counter: float = 0
 onready var shield_counter: float = 0
 onready var launch_counter: float = 0
 onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
+onready var allow_custom_animation: bool = false
 
 func _ready() -> void:
   gameover_music.loop = false
@@ -106,6 +109,9 @@ func _process_alive(delta) -> void:
     
   if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin'):
     ready_powerup_scripts[Global.state]._process_mixin(self, delta)
+    
+  if not Global.state == 6:
+    allow_custom_animation = false
 
   if controls_enabled:
     controls(delta)
@@ -182,12 +188,13 @@ func _process_dead(delta) -> void:
   dead_counter += 1 * Global.get_delta(delta)
   $Sprite.set_animation('Dead')
   velocity.x = 0
-
+  
   velocity.y += 25 * Global.get_delta(delta)
 
   if dead_counter < 24:
     velocity.y = 0
-  elif dead_counter >= 24 and dead_counter < 25:
+  elif not dead_hasJumped:
+    dead_hasJumped = true
     velocity.y = -550
     
   $Sprite.position += Vector2(0, velocity.y * delta)
@@ -198,21 +205,23 @@ func _process_dead(delta) -> void:
   if dead_counter > 180:
     if Global.lives > 0:
       Global._reset()
-    elif dead_counter < 181:
+    elif not dead_gameover:
       MusicPlayer.stream = gameover_music
       MusicPlayer.play()
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
+      dead_gameover = true
       
 func _process_debug_fly(delta: float) -> void:
+  var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)
   if Input.is_action_pressed('mario_right'):
-    position.x += 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)
+    position.x += debugspeed
   if Input.is_action_pressed('mario_left'):
-    position.x -= 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)
+    position.x -= debugspeed
   
   if Input.is_action_pressed('mario_up'):
-    position.y -= 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)
+    position.y -= debugspeed
   if Input.is_action_pressed('mario_crouch'):
-    position.y += 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)
+    position.y += debugspeed
     
   if Input.is_action_just_pressed('debug_rotate_right'):
     target_gravity_angle += 45
@@ -293,13 +302,14 @@ func animate(delta) -> void:
 #    position_altered = true
 
   if appear_counter > 0:
-    if not $Sprite.animation == 'Appearing':
-      animate_sprite('Appearing')
-
-    $Sprite.speed_scale = 1
+    if not allow_custom_animation:
+      if not $Sprite.animation == 'Appearing':
+        animate_sprite('Appearing')
+      $Sprite.speed_scale = 1
+      
     appear_counter -= 1.5 * Global.get_delta(delta)
     return
-  if appear_counter < 0 and Global.state == 0:
+  if appear_counter < 0:
 #    if position_altered:
 #      $Sprite.position.y += 14
 #      position_altered = false
@@ -313,6 +323,8 @@ func animate(delta) -> void:
     shield_counter = 0
     $Sprite.visible = true
 #  $Sprite.offset.y = $Sprite.texture.get_size()
+
+  if allow_custom_animation: return
 
   if launch_counter > 0:
     animate_sprite('Launching')
