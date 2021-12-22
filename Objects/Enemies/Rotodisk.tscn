@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Prefabs/Animations/Rotodisk.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://GFX/Enemies/Rotoball.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Enemies/Rotodisk.gd" type="Script" id=3]
+[ext_resource path="res://GFX/Effects/Light.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 16.0
@@ -16,14 +17,14 @@ z_index = 1
 texture = ExtResource( 2 )
 
 [node name="Node2D" type="Node2D" parent="Sprite"]
-rotation = 14.1855
+rotation = 737.783
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite/Node2D"]
 position = Vector2( 0, -150 )
-rotation = -1.61909
+rotation = -2.65034
 z_index = 15
 frames = ExtResource( 1 )
-frame = 21
+frame = 19
 playing = true
 
 [node name="Area2D" type="Area2D" parent="Sprite/Node2D/AnimatedSprite"]
@@ -35,6 +36,12 @@ collision_mask = 0
 visible = false
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="Light2D" type="Light2D" parent="Sprite/Node2D/AnimatedSprite"]
+rotation = -8.9407e-08
+z_index = 5
+texture = ExtResource( 4 )
+energy = 0.6
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false

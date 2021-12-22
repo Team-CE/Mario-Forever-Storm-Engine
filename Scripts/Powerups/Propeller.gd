@@ -40,10 +40,12 @@ func _process_mixin(mario, delta):
     else:
       mario.velocity.y = 950
       mario.get_node('Sprite').speed_scale = 2.5
-      mario.get_node('BottomDetector/CollisionBottom').position.y = mario.velocity.y / 20 * Global.get_delta(delta)
+      mario.get_node('BottomDetector/CollisionBottom').position.y = mario.velocity.y / 25 * Global.get_delta(delta)
       mario.get_node('BottomDetector/CollisionBottom').scale.y = 6
 
   if mario.is_on_floor():
+    if Input.is_action_pressed('mario_crouch'):
+      mario.can_jump = false
     isActivated = false
     flyingDown = false
     mario.allow_custom_animation = false

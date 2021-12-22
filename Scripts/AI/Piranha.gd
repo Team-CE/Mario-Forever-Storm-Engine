@@ -21,6 +21,8 @@ func _ready_mixin():
   
   if owner.vars['type'] == 1:
     owner.animated_sprite.frames = preload('res://Prefabs/Piranhas/Fire.tres')
+  elif owner.vars['type'] == 2:
+    owner.animated_sprite.frames = preload('res://Prefabs/Piranhas/Ice.tres')
   else:
     owner.get_node('Light2D').queue_free()
     
@@ -33,7 +35,12 @@ func _ai_process(delta: float) -> void:
   ._ai_process(delta)
   
   if !owner.alive or owner.frozen:
+    #owner.get_node('Sprite').global_rotation += 0.25 * Global.get_delta(delta)
+    #owner.get_node('Sprite').offset.y = 0 - owner.get_node('Sprite').frames.get_frame('falling', 0).get_size().y
+    #owner.get_node('Sprite').offset.x = owner.get_node('Sprite').frames.get_frame(owner.get_node('Sprite').animation, owner.get_node('Sprite').frame).get_size().x / 2
+    #owner.rotation_degrees = 0
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
+    #owner.velocity.x = 100
     owner.velocity_enabled = true
     
     if owner.frozen:
@@ -74,6 +81,8 @@ func _process_shooting(delta: float):
     projectile_timer = 10
     projectile_counter += 1
     var fireball = preload('res://Objects/Projectiles/Fireball.tscn').instance()
+    if owner.vars['type'] == 2:
+      fireball = preload('res://Objects/Projectiles/Iceball.tscn').instance()
     fireball.velocity = Vector2(rng.randf_range(-200.0, 200.0), rng.randf_range(-70, -600)).rotated(owner.rotation)
     fireball.position = owner.position + Vector2(0, -32).rotated(owner.rotation)
     fireball.belongs = 1

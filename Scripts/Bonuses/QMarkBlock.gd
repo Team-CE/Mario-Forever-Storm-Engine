@@ -122,12 +122,6 @@ func editor() -> void:
   if body:
     body.modulate.a = 0.5 if Visible != VISIBILITY_TYPE.VISIBLE else 1.0
 
-  if Frames != null && Frames != PrevFrames:
-    body.frames = Frames
-  
-    print(Frames.resource_path)
-    PrevFrames = Frames
-
 
 func set_preview() -> StreamTexture:
   if !is_instance_valid(Result): return (GlobalEditor.NULLTEXTURE as StreamTexture)
@@ -179,6 +173,10 @@ func _physics_process(_delta) -> void:
   
   if 'debug' in Global && Global.debug && (Result != null || PrevResult != null) && Result != PrevResult:
     preview.texture = set_preview()
+  
+  if Frames != null && Frames != PrevFrames:
+    body.frames = Frames
+    PrevFrames = Frames
 
   if Engine.editor_hint:
     editor()

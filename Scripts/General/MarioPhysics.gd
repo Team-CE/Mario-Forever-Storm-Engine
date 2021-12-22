@@ -83,7 +83,7 @@ func _process(delta) -> void:
     
   $Sprite.modulate.a = 0.5 if Global.debug_fly else 1
   
-  $BottomDetector/CollisionBottom.position.y = velocity.y / 50 * Global.get_delta(delta)
+  $BottomDetector/CollisionBottom.position.y = 5 + velocity.y / 50 * Global.get_delta(delta)
 
   if not dead:
     if not Global.debug_fly:
@@ -113,6 +113,7 @@ func _process_alive(delta) -> void:
     
   if not Global.state == 6:
     allow_custom_animation = false
+    $BottomDetector/CollisionBottom.scale.y = 0.5
 
   if controls_enabled:
     controls(delta)
