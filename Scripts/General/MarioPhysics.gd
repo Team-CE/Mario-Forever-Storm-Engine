@@ -402,3 +402,5 @@ func _process_camera(delta: float) -> void:
 func _physics_process(_delta: float) -> void:
   if inited_camera_addon and inited_camera_addon.has_method('_process_physics_camera'):
     inited_camera_addon._process_physics_camera(self, _delta)
+  if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin_physics') and not dead:
+    ready_powerup_scripts[Global.state]._process_mixin_physics(self, _delta)

@@ -184,7 +184,6 @@ DiscordManager="*res://Scripts/Tools/discord_manager.gd"
 
 [debug]
 
-settings/fps/force_fps=120
 settings/stdout/print_fps=true
 
 [display]
