@@ -3,7 +3,6 @@ extends KinematicBody2D
 var gameover_music: Resource = preload('res://Music/1-music-gameover.ogg')
 
 export var powerup_animations: Dictionary = {}
-export var powerup_offsets: Dictionary = {}
 export var powerup_scripts: Dictionary = {}
 export var target_gravity_angle: float = 0
 export var sections_scroll: bool = true
@@ -83,6 +82,8 @@ func _process(delta) -> void:
     target_gravity_angle = rotation_degrees
     
   $Sprite.modulate.a = 0.5 if Global.debug_fly else 1
+  
+  $BottomDetector/CollisionBottom.position.y = velocity.y / 50 * Global.get_delta(delta)
 
   if not dead:
     if not Global.debug_fly:

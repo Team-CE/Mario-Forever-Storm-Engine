@@ -2,6 +2,7 @@ class_name PropellerAction
 
 var isActivated: bool = false
 var flyingDown: bool = false
+var prevVelocity: float = 0
 
 func _process_mixin(mario, delta):
   if Input.is_action_just_pressed('mario_jump') and not isActivated and not mario.is_on_floor() and Global.Mario.controls_enabled:
@@ -26,10 +27,24 @@ func _process_mixin(mario, delta):
     else:
       mario.velocity.y = 950
       mario.get_node('Sprite').speed_scale = 2.5
+      mario.get_node('BottomDetector/CollisionBottom').position.y = mario.velocity.y / 8 * Global.get_delta(delta)
+
+  var deactivate = true
+  if flyingDown:
+    var collides = mario.get_node('BottomDetector').get_overlapping_bodies()
+    for i in range(len(collides)):
+      if collides[i].has_method('hit'):
+        collides[i].hit(delta)
+        deactivate = false
 
   if mario.is_on_floor():
-    isActivated = false
-    flyingDown = false
-    mario.allow_custom_animation = false
+    if deactivate:
+      isActivated = false
+      flyingDown = false
+      mario.allow_custom_animation = false
+    else:
+      mario.velocity.y = prevVelocity
+      
+  prevVelocity = mario.velocity.y
   
   

@@ -10,10 +10,10 @@ func _process_movement(brain, delta):
     
   if gravaup > 0:
     gravaup -= 0.2 * Global.get_delta(delta)
-    posy -= gravaup / 2
+    posy -= gravaup / 2 * Global.get_delta(delta)
   elif not gravaup == 0:
     gravaup = 0
   
-  brain.owner.position.y = posy + sin(counter) * 12 * Global.get_delta(delta)
+  brain.owner.position.y = posy + sin(counter) * 12
   brain.owner.velocity.y = 0
   counter += 0.03 * Global.get_delta(delta)
