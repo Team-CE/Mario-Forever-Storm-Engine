@@ -1,6 +1,6 @@
 extends Control
 
-var CONTROLS_ASSIGN = [
+const CONTROLS_ARRAY = [
   'mario_up',
   'mario_crouch',
   'mario_left',
@@ -8,6 +8,7 @@ var CONTROLS_ASSIGN = [
   'mario_jump',
   'mario_fire'
 ]
+const CONTROLS_VALUES: Dictionary = {}
 
 export var music: Resource            #MENU Music
 export var music_credits: Resource    #CREDITS Music
@@ -22,14 +23,14 @@ var fading_in = true
 var fading_out = false
 var circle_size = 0
 
-var pos_y = 0
+var pos_y: float
 var force_pos = false
 
 onready var controls_enabled: bool = false
 onready var controls_changing: bool = false
 
-func _ready():
-  # temp
+func _ready() -> void:
+  pos_y = $S_Start.position.y
   
   # temp
   $fadeout.play()
@@ -37,12 +38,14 @@ func _ready():
   MusicPlayer.stream = music
   MusicPlayer.play()
   if Global.musicBar > -100:
-    MusicPlayer.volume_db = round(Global.musicBar / 15)
+    MusicPlayer.volume_db = round(Global.musicBar / 5)
   if Global.musicBar == -100:
     MusicPlayer.volume_db = -1000
-  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 15)
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 5)
   
-func _process(delta):
+  updateControls()
+  
+func _process(delta) -> void:
   if controls_enabled:
     controls()
   
@@ -84,14 +87,14 @@ func _process(delta):
       
     1:
       pos_y = 550 + (37.5 * sel)
-      $S_Start.position.x = 224
+      $S_Start.position.x = 208
       selLimit = 9
       updateOptions()
       $Credits.hide()
     2:
-      pos_y = 1018 + (64 * sel)
+      pos_y = 987 + (64 * sel) if sel < 7 else 1415
       $S_Start.position.x = 172
-      selLimit = 6
+      selLimit = 7
     3:
       pos_y = 1920 + 216
       $S_Start.position.x = 240
@@ -99,7 +102,7 @@ func _process(delta):
       $Credits.position.y -= 1 * Global.get_delta(delta)
       $Credits.show()
     
-func controls():
+func controls() -> void:
   if Input.is_action_just_pressed('ui_down') and sel < selLimit:
     sel += 1
     if Global.effects:
@@ -129,9 +132,10 @@ func controls():
             yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
             if Global.musicBar > -100:
-              MusicPlayer.volume_db = round(Global.musicBar / 15)
+              MusicPlayer.volume_db = round(Global.musicBar / 5)
             if Global.musicBar == -100:
               MusicPlayer.volume_db = -1000
+# warning-ignore:return_value_discarded
             get_tree().change_scene(sgr)
           1:
             screen += 1
@@ -168,18 +172,20 @@ func controls():
             sel = 1
             $enter_options.play()
             saveOptions()
+            #if Global.restartNeeded:
+              #
       if Input.is_action_just_pressed('ui_right'):
         match sel:
           0:
             if Global.soundBar < 0:
               Global.soundBar += 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 15)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 5)
               $tick.play()
           1:
             if Global.musicBar < 0:
               Global.musicBar += 10
               if Global.musicBar > -100:
-                MusicPlayer.volume_db = round(Global.musicBar / 15)
+                MusicPlayer.volume_db = round(Global.musicBar / 5)
               if Global.musicBar == -100:
                 MusicPlayer.volume_db = -1000
               $tick.play()
@@ -192,12 +198,12 @@ func controls():
               Global.scroll += 2
               $change.play()
           5:
-            if !Global.vsync:
-              Global.vsync = true
+            if Global.quality < 2:
+              Global.quality += 1
               $change.play()
           6:
-            if !Global.rpc:
-              Global.rpc = true
+            if !Global.scaling:
+              Global.scaling = true
               $change.play()
               
       elif Input.is_action_just_pressed('ui_left'):
@@ -205,7 +211,7 @@ func controls():
           0:
             if Global.soundBar > -100:
               Global.soundBar -= 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 15)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 5)
               $tick.play()
             if Global.soundBar == -100:
               AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), -1000)
@@ -213,7 +219,7 @@ func controls():
             if Global.musicBar > -100:
               Global.musicBar -= 10
               if Global.musicBar > -100:
-                MusicPlayer.volume_db = round(Global.musicBar / 12)
+                MusicPlayer.volume_db = round(Global.musicBar / 5)
               if Global.musicBar == -100:
                 MusicPlayer.volume_db = -1000
               $tick.play()
@@ -228,16 +234,17 @@ func controls():
               Global.scroll -= 2
               $change.play()
           5:
-            if Global.vsync:
-              Global.vsync = false
+            if Global.quality > 0:
+              Global.quality -= 1
               $change.play()
           6:
-            if Global.rpc:
-              Global.rpc = false
+            if Global.scaling:
+              Global.scaling = false
               $change.play()
       elif Input.is_action_just_pressed('ui_cancel'):
         screen = 0
         sel = 1
+        updateControls()
         saveOptions()
     2:    # _____ CONTROLS _____
       if Input.is_action_just_pressed('ui_accept') and sel < 6:
@@ -245,12 +252,22 @@ func controls():
         controls_changing = true
         controls_enabled = false
         get_tree().set_input_as_handled()
+      
+      if Input.is_action_just_pressed('ui_accept') and sel == 6:
+        InputMap.load_from_globals()
+        updateControls()
 
-      if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept') and sel == 6:
+      if (
+        Input.is_action_just_pressed('ui_cancel') or
+        Input.is_action_just_pressed('ui_accept') and
+        sel == 7
+      ) and not controls_changing:
         screen = 1
         sel = 4
         controls_changing = false
         controls_enabled = true
+        updateControls()
+        saveOptions()
     3:    # _____ CREDITS _____
       if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept'):
         screen = 1
@@ -260,39 +277,51 @@ func controls():
         MusicPlayer.stream = music
         MusicPlayer.play()
 
-func _input(event):
+func _input(event) -> void:
   if event is InputEventKey and event.pressed and controls_changing:
     if not event.is_action('ui_cancel'):
       var scancode = OS.get_scancode_string(event.scancode)
       get_node('Label' + str(sel)).text = scancode
-      for old_event in InputMap.get_action_list(CONTROLS_ASSIGN[sel]):
-        InputMap.action_erase_event(CONTROLS_ASSIGN[sel], old_event)
-      InputMap.action_add_event(CONTROLS_ASSIGN[sel], event)
+      for old_event in InputMap.get_action_list(CONTROLS_ARRAY[sel]):
+        InputMap.action_erase_event(CONTROLS_ARRAY[sel], old_event)
+      InputMap.action_add_event(CONTROLS_ARRAY[sel], event)
     else:
-      pass
+      updateControls()
     controls_changing = false
     controls_enabled = true
   
-func updateOptions():
+func updateOptions() -> void:
   get_node('Buttons/SoundBar').frame = 10 + (Global.soundBar / 10)
   get_node('Buttons/MusicBar').frame = 10 + (Global.musicBar / 10)
   get_node('Buttons/Effects').frame = Global.effects
   get_node('Buttons/Scroll').frame = Global.scroll
-  get_node('Buttons/VSync').frame = Global.vsync
-  get_node('Buttons/RPC').frame = Global.rpc
+  get_node('Buttons/Quality').frame = Global.quality
+  get_node('Buttons/Scaling').frame = Global.scaling
 
-func saveOptions():
+func updateControls() -> void:
+  for i in CONTROLS_ARRAY:
+    var val = assign_value(i)
+    CONTROLS_VALUES[i] = val
+  
+  print(CONTROLS_VALUES)
+  
+  for i in 6:
+    get_node('Label' + str(i)).text = CONTROLS_VALUES[CONTROLS_ARRAY[i]]
+
+func saveOptions() -> void:
+  Global.controls = CONTROLS_VALUES
+  
   Global.toSaveInfo = {
     'SoundVol': Global.soundBar,
     'MusicVol': Global.musicBar,
     'Efekty': Global.effects,
     'Scroll': Global.scroll,
-    'VSync': Global.vsync,
-    'RPC': Global.rpc,
-    'Controls': CONTROLS_ASSIGN
+    'Quality': Global.quality,
+    'Scaling': Global.scaling,
+    'Controls': Global.controls
   }
   Global.saveInfo(JSON.print(Global.toSaveInfo))
-  
+
 func fade_out_music() -> void:
   MusicPlayer.volume_db -= 1
   yield(get_tree().create_timer( 0.05 ), 'timeout')
@@ -300,3 +329,10 @@ func fade_out_music() -> void:
     fade_out_music()
   if MusicPlayer.volume_db < -80:
     MusicPlayer.stop()
+
+func assign_value(key) -> String:
+  var out: String
+  for action in InputMap.get_action_list(key):
+    if action is InputEventKey:
+      out = OS.get_scancode_string(action.scancode)
+  return out

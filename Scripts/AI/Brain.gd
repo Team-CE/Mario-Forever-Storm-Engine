@@ -16,9 +16,10 @@ func is_mario_collide(_detector_name: String) -> bool:
   return collisions && collisions.has(owner)
 
 func on_mario_collide(_detector_name: String) -> bool:
-  if !colliding && is_mario_collide(_detector_name):
+  var isCol: bool = is_mario_collide(_detector_name)
+  if !colliding && isCol:
     colliding = true
     return true
-  elif colliding && !is_mario_collide(_detector_name):
+  elif colliding && !isCol:
     colliding = false
   return false

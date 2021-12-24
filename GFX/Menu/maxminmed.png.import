@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/settings.png-7f135ff2b3d4b23e9377f431a3ca712b.stex"
+path="res://.import/maxminmed.png-038a3714c8394c10ca81467e7cabc8fa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Menu/settings.png"
-dest_files=[ "res://.import/settings.png-7f135ff2b3d4b23e9377f431a3ca712b.stex" ]
+source_file="res://GFX/Menu/maxminmed.png"
+dest_files=[ "res://.import/maxminmed.png-038a3714c8394c10ca81467e7cabc8fa.stex" ]
 
 [params]
 

@@ -13,6 +13,8 @@ var belongs: int = 0 # 0 - Mario, 1 - Piranha Plant, 2 - Bro
 
 func _ready() -> void:
   velocity.x *= dir
+  if get_node_or_null('Light2D'):
+    $Light2D.queue_free()
   vis.connect('screen_exited', self, '_on_screen_exited')
 
   add_child(vis)

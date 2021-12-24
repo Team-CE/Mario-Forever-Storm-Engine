@@ -22,6 +22,13 @@ func _ready():
       mario_cam.smoothing_speed = 10
     if !Global.effects:
       $WorldEnvironment.queue_free()
+    if get_node_or_null('WorldEnvironment'):
+      if Global.quality < 2:
+        $WorldEnvironment.environment.glow_high_quality = false
+      if Global.quality == 0:
+        $WorldEnvironment.environment.glow_bicubic_upscale = false
+        if get_node_or_null('Particles2D'):
+          $Particles2D.queue_free()
     print('[Level]: Ready!')
   elif not get_node('Mario'):
     tileMap = setup_tilemap()
@@ -48,6 +55,6 @@ func setup_tilemap() -> TileMap:
   return newTM
 
 # warning-ignore:unused_argument
-func _physics_process(delta):
-  pass
+#func _physics_process(delta):
+#  pass
 

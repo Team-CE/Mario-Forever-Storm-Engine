@@ -5,25 +5,20 @@ var soundBar: float = 0                      # Game options
 var musicBar: float = 0
 var effects: bool = true
 var scroll: int = 0
-var vsync: bool = false
-var rpc: bool = false
+var quality: int = 2
+var scaling: bool = false
+var controls: Dictionary
 
 var toSaveInfo = {
   "SoundVol": soundBar,
   "MusicVol": musicBar,
   "Efekty": effects,
   "Scroll": scroll,
-  "VSync": vsync,
-  "RPC": rpc,
-  "Controls": [
-    "mario_up",
-    "mario_crouch",
-    "mario_left",
-    "mario_right",
-    "mario_jump",
-    "mario_fire"
-  ]
+  "Quality": quality,
+  "Scaling": scaling,
+  "Controls": controls
 }
+var restartNeeded: bool = false
 
 var gravity: float = 20                      # Global gravity
 
@@ -73,20 +68,33 @@ func _ready() -> void:
   timer.wait_time = 1.45
   add_child(timer)
   
-  toSaveInfo = JSON.parse(loadInfo()).result
+  toSaveInfo = JSON.parse(loadInfo()).result # Loading settings
   
   if !toSaveInfo:
     return
-  soundBar = toSaveInfo.SoundVol
-  musicBar = toSaveInfo.MusicVol
-  effects = toSaveInfo.Efekty
-  scroll = toSaveInfo.Scroll
-  vsync = toSaveInfo.VSync
-  rpc = toSaveInfo.RPC
-  ProjectSettings.set_setting("display/window/stretch/mode", "2d")
+  if toSaveInfo.has('SoundVol'): soundBar = toSaveInfo.SoundVol
+  if toSaveInfo.has('MusicVol'): musicBar = toSaveInfo.MusicVol
+  if toSaveInfo.has('Efekty'): effects = toSaveInfo.Efekty
+  if toSaveInfo.has('Scroll'): scroll = toSaveInfo.Scroll
+  if toSaveInfo.has('Quality'): quality = toSaveInfo.Quality
+  if toSaveInfo.has('Scaling'): scaling = toSaveInfo.Scaling
+  if toSaveInfo.has('Controls'): controls = toSaveInfo.Controls
+  
+  for action in controls: # Loading controls
+    if controls[action] and controls[action] is String:
+      var scancode = OS.find_scancode_from_string(controls[action])
+      var key = InputEventKey.new()
+      key.scancode = scancode
+      if key is InputEventKey:
+        var oldKeys = InputMap.get_action_list(action)
+        for toRemove in oldKeys:
+          if toRemove is InputEventKey:
+            InputMap.action_erase_event(action, toRemove)
+        InputMap.action_add_event(action, key)
+  
   #MusicEngine.set_volume(musicBar)
   if Global.musicBar > -100:
-    MusicPlayer.volume_db = round(Global.musicBar / 12)
+    MusicPlayer.volume_db = round(Global.musicBar / 5)
   if Global.musicBar == -100:
     MusicPlayer.volume_db = -1000
 
@@ -95,6 +103,16 @@ func saveInfo(content):
   file.open("user://" + GameName + ".cloudsav", File.WRITE)
   file.store_string(content)
   file.close()
+  if scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "2d":
+    ProjectSettings.set_setting("display/window/stretch/mode", "viewport")
+    ProjectSettings.save_custom("override.cfg")
+    restartNeeded = true
+    print('Need to restart')
+  elif not scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "viewport":
+    ProjectSettings.set_setting("display/window/stretch/mode", "2d")
+    ProjectSettings.save_custom("override.cfg")
+    restartNeeded = true
+    print('Need to restart')
 
 func loadInfo():
   var file = File.new()
@@ -105,7 +123,8 @@ func loadInfo():
 
 func _reset() -> void:   # Level Restart
   lives -= 1
-  Mario.dead = false
+  if Mario:
+    Mario.dead = false
   projectiles_count = 0
 # warning-ignore:return_value_discarded
   get_tree().reload_current_scene()
