@@ -69,14 +69,15 @@ func _ai_process(delta: float) -> void:
     
   if on_mario_collide('InsideDetector'):
     if 'set state' in owner.vars:
-      Global.Mario.appear_counter = 60
       if owner.score > 0:
         Global.add_score(owner.score)
         owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
-      if Global.state >= 1 or owner.vars['sgr behavior']:
-        Global.state = owner.vars['set state']
-      else:
-        Global.state = 1
+      if owner.vars['set state'] != Global.state and not (owner.vars['set state'] == 1 and Global.state > 1):
+        Global.Mario.appear_counter = 60
+        if Global.state >= 1 or owner.vars['sgr behavior']:
+          Global.state = owner.vars['set state']
+        else:
+          Global.state = 1
       Global.play_base_sound('MAIN_Powerup')
       if !owner.vars['sgr behavior']:
         owner.queue_free()

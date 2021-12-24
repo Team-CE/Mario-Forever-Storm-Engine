@@ -16,12 +16,12 @@ var toSaveInfo = {
   "VSync": vsync,
   "RPC": rpc,
   "Controls": [
-    '',
-    '',
-    '',
-    '',
-    '',
-    ''
+    "mario_up",
+    "mario_crouch",
+    "mario_left",
+    "mario_right",
+    "mario_jump",
+    "mario_fire"
   ]
 }
 
@@ -83,6 +83,7 @@ func _ready() -> void:
   scroll = toSaveInfo.Scroll
   vsync = toSaveInfo.VSync
   rpc = toSaveInfo.RPC
+  ProjectSettings.set_setting("display/window/stretch/mode", "2d")
   #MusicEngine.set_volume(musicBar)
   if Global.musicBar > -100:
     MusicPlayer.volume_db = round(Global.musicBar / 12)

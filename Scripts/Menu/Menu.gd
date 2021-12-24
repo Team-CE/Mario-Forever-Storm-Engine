@@ -37,10 +37,10 @@ func _ready():
   MusicPlayer.stream = music
   MusicPlayer.play()
   if Global.musicBar > -100:
-    MusicPlayer.volume_db = round(Global.musicBar / 12)
+    MusicPlayer.volume_db = round(Global.musicBar / 15)
   if Global.musicBar == -100:
     MusicPlayer.volume_db = -1000
-  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 15)
   
 func _process(delta):
   if controls_enabled:
@@ -129,7 +129,7 @@ func controls():
             yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
             if Global.musicBar > -100:
-              MusicPlayer.volume_db = round(Global.musicBar / 12)
+              MusicPlayer.volume_db = round(Global.musicBar / 15)
             if Global.musicBar == -100:
               MusicPlayer.volume_db = -1000
             get_tree().change_scene(sgr)
@@ -173,13 +173,13 @@ func controls():
           0:
             if Global.soundBar < 0:
               Global.soundBar += 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 15)
               $tick.play()
           1:
             if Global.musicBar < 0:
               Global.musicBar += 10
               if Global.musicBar > -100:
-                MusicPlayer.volume_db = round(Global.musicBar / 12)
+                MusicPlayer.volume_db = round(Global.musicBar / 15)
               if Global.musicBar == -100:
                 MusicPlayer.volume_db = -1000
               $tick.play()
@@ -205,7 +205,7 @@ func controls():
           0:
             if Global.soundBar > -100:
               Global.soundBar -= 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 12)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 15)
               $tick.play()
             if Global.soundBar == -100:
               AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), -1000)
