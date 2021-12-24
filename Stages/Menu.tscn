@@ -18,7 +18,7 @@
 [ext_resource path="res://Sounds/Main/scoreing.wav" type="AudioStream" id=16]
 [ext_resource path="res://Scripts/Menu/Menu.gd" type="Script" id=17]
 [ext_resource path="res://GFX/Menu/menu_bg.png" type="Texture" id=18]
-[ext_resource path="res://GFX/magik.png" type="Texture" id=19]
+[ext_resource path="res://GFX/Menu/вав.png" type="Texture" id=19]
 [ext_resource path="res://GFX/Menu/options_bg.png" type="Texture" id=20]
 [ext_resource path="res://GFX/Menu/credits_bg.png" type="Texture" id=21]
 [ext_resource path="res://Scripts/Menu/OptionsWave.gd" type="Script" id=22]
@@ -276,72 +276,78 @@ stretch_mode = 4
 
 [node name="Label0" type="Label" parent="."]
 margin_left = 192.0
-margin_top = 1024.0
+margin_top = 999.0
 margin_right = 448.0
-margin_bottom = 1056.0
+margin_bottom = 1031.0
 text = "Text"
 align = 1
 valign = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label1" type="Label" parent="."]
 margin_left = 192.0
-margin_top = 1088.0
+margin_top = 1063.0
 margin_right = 448.0
-margin_bottom = 1120.0
+margin_bottom = 1095.0
 text = "Text"
 align = 1
 valign = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label2" type="Label" parent="."]
 margin_left = 192.0
-margin_top = 1152.0
+margin_top = 1127.0
 margin_right = 448.0
-margin_bottom = 1184.0
+margin_bottom = 1159.0
 text = "Text"
 align = 1
 valign = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label3" type="Label" parent="."]
 margin_left = 192.0
-margin_top = 1216.0
+margin_top = 1191.0
 margin_right = 448.0
-margin_bottom = 1248.0
+margin_bottom = 1223.0
 text = "Text"
 align = 1
 valign = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label4" type="Label" parent="."]
 margin_left = 192.0
-margin_top = 1280.0
+margin_top = 1255.0
 margin_right = 448.0
-margin_bottom = 1312.0
+margin_bottom = 1287.0
 text = "Text"
 align = 1
 valign = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label5" type="Label" parent="."]
 margin_left = 192.0
-margin_top = 1344.0
+margin_top = 1319.0
 margin_right = 448.0
-margin_bottom = 1376.0
+margin_bottom = 1351.0
 text = "Text"
 align = 1
 valign = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
