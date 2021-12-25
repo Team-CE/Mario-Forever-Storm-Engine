@@ -14,6 +14,8 @@ var stopped: bool = false
 var fading_out: bool = false
 var circle_size: float = 0.623
 
+onready var cam = $MarioPath/PathFollow2D/MiniMario/Camera
+
 func _ready() -> void:
   MusicPlayer.stream = music
   MusicPlayer.play()
@@ -33,6 +35,9 @@ func _process(delta: float) -> void:
   if $MarioPath/PathFollow2D.offset > stop_points[Global.levelID]:
     $MarioPath/PathFollow2D.offset = stop_points[Global.levelID]
     stopped = true
+    
+  if stopped:
+    _process_camera(delta)
 
   if Input.is_action_just_pressed('mario_jump') and !fading_out and stopped:
     fading_out = true
@@ -48,3 +53,22 @@ func _process(delta: float) -> void:
     
   if circle_size <= -0.1:
     get_tree().change_scene(level_scenes[Global.levelID])
+
+
+func _process_camera(delta: float) -> void:
+  
+  if Input.is_action_pressed('mario_right'):
+    cam.position.x += 5 * Global.get_delta(delta)
+    if Input.is_action_pressed('mario_fire'):
+      cam.position.x += 3 * Global.get_delta(delta)
+
+  if Input.is_action_pressed('mario_left'):
+    cam.position.x -= 5 * Global.get_delta(delta)
+    if Input.is_action_pressed('mario_fire'):
+      cam.position.x -= 3 * Global.get_delta(delta)
+
+  if cam.get_camera_position().x < 320:
+    cam.position.x = 320
+    
+  if cam.get_camera_position().x > cam.limit_right - 320:
+    cam.position.x = cam.limit_right - 320

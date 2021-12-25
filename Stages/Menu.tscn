@@ -195,7 +195,7 @@ animations = [ {
 
 [sub_resource type="Animation" id=33]
 
-[sub_resource type="Shader" id=34]
+[sub_resource type="Shader" id=40]
 code = "shader_type canvas_item;
 render_mode unshaded;
 
@@ -210,7 +210,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=35]
-shader = SubResource( 34 )
+shader = SubResource( 40 )
 shader_param/circle_size = 0.623
 shader_param/screen_width = 1.0
 shader_param/screen_height = 1.0
@@ -225,6 +225,7 @@ __meta__ = {
 }
 music = ExtResource( 26 )
 music_credits = ExtResource( 27 )
+sgr = "res://Stages/SaveGameRoom.tscn"
 
 [node name="BG" type="TextureRect" parent="."]
 anchor_top = 1.0

@@ -26,7 +26,7 @@ var selected_state: int = -1
 
 onready var dead: bool = false
 onready var dead_hasJumped: bool = false
-onready var dead_gameover: bool = false
+onready var dead_gameover: int = 0
 onready var dead_counter: float = 0
 onready var appear_counter: float = 0
 onready var shield_counter: float = 0
@@ -211,7 +211,24 @@ func _process_dead(delta) -> void:
       MusicPlayer.stream = gameover_music
       MusicPlayer.play()
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
-      dead_gameover = true
+      dead_gameover = 1
+      yield(get_tree().create_timer( 4.0 ), 'timeout')
+      dead_gameover = 2
+
+func _input(event) -> void:
+  if dead_gameover == 2:
+    if event.is_pressed():
+      dead_gameover = false
+      Global.lives = 4
+      Global.score = 0
+      Global.coins = 0
+      Global.state = 0
+      Global.projectiles_count = 0
+      Global.checkpoint_active = 0
+      Global.gameoverLevel = get_tree().current_scene.filename
+      get_tree().change_scene('res://Stages/GameOverContinue.tscn')
+  else:
+    return
       
 func _process_debug_fly(delta: float) -> void:
   var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)

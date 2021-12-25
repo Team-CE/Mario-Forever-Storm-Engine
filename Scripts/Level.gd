@@ -16,6 +16,11 @@ func _ready():
     Global.currlevel = self
     MusicPlayer.stream = music
     MusicPlayer.play()
+    if Global.musicBar > -100:
+      MusicPlayer.volume_db = round(Global.musicBar / 5)
+    if Global.musicBar == -100:
+      MusicPlayer.volume_db = -1000
+  
     var mario_cam = $Mario/Camera as Camera2D
     if Global.scroll > 0:
       mario_cam.smoothing_enabled = true

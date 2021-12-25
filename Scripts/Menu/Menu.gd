@@ -51,17 +51,17 @@ func _process(delta) -> void:
   
   if fading_out:
     circle_size -= 0.012 * Global.get_delta(delta)
-    get_node('Transition').visible = true
-    get_node('Transition').material.set_shader_param('circle_size', circle_size)
+    $Transition.visible = true
+    $Transition.material.set_shader_param('circle_size', circle_size)
   else:
-    get_node('Transition').visible = false
+    $Transition.visible = false
   
   if fading_in:
     circle_size += 0.012 * Global.get_delta(delta)
-    get_node('Transition').visible = true
-    get_node('Transition').material.set_shader_param('circle_size', circle_size)
+    $Transition.visible = true
+    $Transition.material.set_shader_param('circle_size', circle_size)
     if circle_size > 0.623:
-      get_node('Transition').visible = false
+      $Transition.visible = false
       circle_size = 0.623
       fading_in = false
       controls_enabled = true
@@ -131,8 +131,6 @@ func controls() -> void:
             #MusicEngine.track_ended()
             yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
-            if Global.musicBar > -100:
-              MusicPlayer.volume_db = round(Global.musicBar / 5)
             if Global.musicBar == -100:
               MusicPlayer.volume_db = -1000
 # warning-ignore:return_value_discarded
@@ -172,8 +170,10 @@ func controls() -> void:
             sel = 1
             $enter_options.play()
             saveOptions()
-            #if Global.restartNeeded:
-              #
+            if Global.restartNeeded:
+# warning-ignore:return_value_discarded
+              Global.restartNeeded = false
+              get_tree().reload_current_scene()
       if Input.is_action_just_pressed('ui_right'):
         match sel:
           0:
@@ -256,7 +256,7 @@ func controls() -> void:
       if Input.is_action_just_pressed('ui_accept') and sel == 6:
         InputMap.load_from_globals()
         updateControls()
-
+        $enter_options.play()
       if (
         Input.is_action_just_pressed('ui_cancel') or
         Input.is_action_just_pressed('ui_accept') and
@@ -291,12 +291,12 @@ func _input(event) -> void:
     controls_enabled = true
   
 func updateOptions() -> void:
-  get_node('Buttons/SoundBar').frame = 10 + (Global.soundBar / 10)
-  get_node('Buttons/MusicBar').frame = 10 + (Global.musicBar / 10)
-  get_node('Buttons/Effects').frame = Global.effects
-  get_node('Buttons/Scroll').frame = Global.scroll
-  get_node('Buttons/Quality').frame = Global.quality
-  get_node('Buttons/Scaling').frame = Global.scaling
+  $Buttons/SoundBar.frame = 10 + (Global.soundBar / 10)
+  $Buttons/MusicBar.frame = 10 + (Global.musicBar / 10)
+  $Buttons/Effects.frame = Global.effects
+  $Buttons/Scroll.frame = Global.scroll
+  $Buttons/Quality.frame = Global.quality
+  $Buttons/Scaling.frame = Global.scaling
 
 func updateControls() -> void:
   for i in CONTROLS_ARRAY:

@@ -97,7 +97,7 @@ additional_options = {
 position = Vector2( 416, 336 )
 id = 16
 additional_options = {
-"set_scene_path": "res://Games/TheMultiverse2/Stages/LevelPicker.tscn"
+"set_scene_path": "res://Stages/SoundTest.tscn"
 }
 
 [node name="Scenery" type="Node2D" parent="."]

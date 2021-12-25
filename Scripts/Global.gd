@@ -51,6 +51,8 @@ var currlevel: Node2D
 
 var levelID: int = 0
 
+var gameoverLevel: String
+
 onready var timer: Timer = Timer.new()       # Create a new timer for delay
 
 var die_music: Resource = preload('res://Music/1-music-die.ogg')
@@ -69,7 +71,7 @@ func _ready() -> void:
   add_child(timer)
   
   toSaveInfo = JSON.parse(loadInfo()).result # Loading settings
-  
+    
   if !toSaveInfo:
     return
   if toSaveInfo.has('SoundVol'): soundBar = toSaveInfo.SoundVol
@@ -105,12 +107,12 @@ func saveInfo(content):
   file.close()
   if scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "2d":
     ProjectSettings.set_setting("display/window/stretch/mode", "viewport")
-    ProjectSettings.save_custom("override.cfg")
+    ProjectSettings.save_custom("user://override.cfg")
     restartNeeded = true
     print('Need to restart')
   elif not scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "viewport":
     ProjectSettings.set_setting("display/window/stretch/mode", "2d")
-    ProjectSettings.save_custom("override.cfg")
+    ProjectSettings.save_custom("user://override.cfg")
     restartNeeded = true
     print('Need to restart')
 
