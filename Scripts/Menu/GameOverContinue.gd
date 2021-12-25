@@ -55,7 +55,7 @@ func controls(delta):
   
   if Input.is_action_just_pressed('ui_accept'):
     if sel: # No
-      scene = ProjectSettings.get_setting('application/run/main_scene')
+      scene = ProjectSettings.get_setting('application/config/main_menu_scene')
     else:   # Yes
       scene = Global.gameoverLevel
     controls_enabled = false

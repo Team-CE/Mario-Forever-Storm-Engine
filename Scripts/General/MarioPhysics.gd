@@ -83,7 +83,7 @@ func _process(delta) -> void:
     
   $Sprite.modulate.a = 0.5 if Global.debug_fly else 1
   
-  $BottomDetector/CollisionBottom.position.y = 5 + velocity.y / 50 * Global.get_delta(delta)
+  $BottomDetector/CollisionBottom.position.y = 5 + velocity.y / 100 * Global.get_delta(delta)
 
   if not dead:
     if not Global.debug_fly:

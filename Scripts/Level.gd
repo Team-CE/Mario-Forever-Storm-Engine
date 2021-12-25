@@ -10,6 +10,9 @@ export var sgr_scroll: bool = false
 
 onready var tileMap: TileMap
 
+const pause_menu = preload('res://Objects/Tools/PauseMenu.tscn')
+var popup: CanvasLayer = null
+
 func _ready():
   if !Engine.editor_hint:
     Global.time = time
@@ -26,14 +29,13 @@ func _ready():
       mario_cam.smoothing_enabled = true
       mario_cam.smoothing_speed = 10
     if !Global.effects:
-      $WorldEnvironment.queue_free()
-    if get_node_or_null('WorldEnvironment'):
-      if Global.quality < 2:
-        $WorldEnvironment.environment.glow_high_quality = false
-      if Global.quality == 0:
-        $WorldEnvironment.environment.glow_bicubic_upscale = false
-        if get_node_or_null('Particles2D'):
-          $Particles2D.queue_free()
+      $WorldEnvironment.environment.glow_enabled = false
+    if Global.quality < 2:
+      $WorldEnvironment.environment.glow_high_quality = false
+    if Global.quality == 0:
+      $WorldEnvironment.environment.glow_bicubic_upscale = false
+      if get_node_or_null('Particles2D'):
+        $Particles2D.queue_free()
     print('[Level]: Ready!')
   elif not get_node('Mario'):
     tileMap = setup_tilemap()
@@ -63,3 +65,17 @@ func setup_tilemap() -> TileMap:
 #func _physics_process(delta):
 #  pass
 
+func _input(event):
+  if Engine.editor_hint: return
+  if event.is_action_pressed('ui_pause'):
+    if popup == null:
+      popup = pause_menu.instance()
+      add_child(popup)
+
+      $WorldEnvironment.environment.dof_blur_near_quality = 2
+      $WorldEnvironment.environment.dof_blur_near_enabled = true
+      for child in Global.HUD.get_children():
+        if not child is AudioStreamPlayer:
+          child.hide()
+      get_tree().paused = true
+      

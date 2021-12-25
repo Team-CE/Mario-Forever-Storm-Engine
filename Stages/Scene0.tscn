@@ -25,6 +25,9 @@
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
+dof_blur_far_distance = 1.5
+dof_blur_near_amount = 0.0
+dof_blur_near_quality = 2
 glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 1.5
