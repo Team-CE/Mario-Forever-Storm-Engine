@@ -26,7 +26,7 @@ animations = [ {
 "speed": 0.0
 } ]
 
-[sub_resource type="Shader" id=34]
+[sub_resource type="Shader" id=39]
 code = "shader_type canvas_item;
 render_mode unshaded;
 
@@ -41,7 +41,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=38]
-shader = SubResource( 34 )
+shader = SubResource( 39 )
 shader_param/circle_size = 0.623
 shader_param/screen_width = 1.0
 shader_param/screen_height = 1.0

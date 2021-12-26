@@ -10,7 +10,7 @@ export var sgr_scroll: bool = false
 
 onready var tileMap: TileMap
 
-const pause_menu = preload('res://Objects/Tools/PauseMenu.tscn')
+const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
 var popup: CanvasLayer = null
 
 func _ready():
@@ -70,12 +70,13 @@ func _input(event):
   if event.is_action_pressed('ui_pause'):
     if popup == null:
       popup = pause_menu.instance()
+      for node in popup.get_children():
+        if node.get_class() == 'Node' and not node.get_name() == 'Pause':
+          node.queue_free()
+      popup.get_node('pause').play()
       add_child(popup)
 
       $WorldEnvironment.environment.dof_blur_near_quality = 2
       $WorldEnvironment.environment.dof_blur_near_enabled = true
-      for child in Global.HUD.get_children():
-        if not child is AudioStreamPlayer:
-          child.hide()
       get_tree().paused = true
       

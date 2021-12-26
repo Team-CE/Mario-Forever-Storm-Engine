@@ -31,7 +31,7 @@ signal OnScoreChange                         # Called when score get changed
 signal OnLivesAdded                          # Called when Live added
 signal OnCoinCollected                       # Called when coins collected
 
-var lives: int = 4                           # Player lives
+var lives: int = 0                           # Player lives
 var time: int = 999                          # Time left
 var score: int = 0                           # Score
 var coins: int = 0                           # Player coins
@@ -50,8 +50,6 @@ var level_ended: bool = false
 var currlevel: Node2D
 
 var levelID: int = 0
-
-var gameoverLevel: String
 
 onready var timer: Timer = Timer.new()       # Create a new timer for delay
 
@@ -107,12 +105,12 @@ func saveInfo(content):
   file.close()
   if scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "2d":
     ProjectSettings.set_setting("display/window/stretch/mode", "viewport")
-    ProjectSettings.save_custom("user://override.cfg")
+    ProjectSettings.save_custom("override.cfg")
     restartNeeded = true
     print('Need to restart')
   elif not scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "viewport":
     ProjectSettings.set_setting("display/window/stretch/mode", "2d")
-    ProjectSettings.save_custom("user://override.cfg")
+    ProjectSettings.save_custom("override.cfg")
     restartNeeded = true
     print('Need to restart')
 
