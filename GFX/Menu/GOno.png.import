@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/yes.png-93ff1ca185763a5cc5e824fdbe1129f1.stex"
+path="res://.import/GOno.png-c6cb8c2d9f8f76ab26a9a64b046152c3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/GameOverScreen/yes.png"
-dest_files=[ "res://.import/yes.png-93ff1ca185763a5cc5e824fdbe1129f1.stex" ]
+source_file="res://GFX/Menu/GOno.png"
+dest_files=[ "res://.import/GOno.png-c6cb8c2d9f8f76ab26a9a64b046152c3.stex" ]
 
 [params]
 

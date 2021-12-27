@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://GFX/Menu/Psaveroom.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Menu/Pmainmenu.png" type="Texture" id=2]
@@ -7,11 +7,10 @@
 [ext_resource path="res://GFX/Menu/Ptitle.png" type="Texture" id=5]
 [ext_resource path="res://GFX/Menu/Presume.png" type="Texture" id=6]
 [ext_resource path="res://Sounds/Menu/select_pause.wav" type="AudioStream" id=7]
-[ext_resource path="res://GFX/GameOverScreen/ifyouchoose.png" type="Texture" id=10]
-[ext_resource path="res://GFX/GameOverScreen/wudulike.png" type="Texture" id=11]
-[ext_resource path="res://GFX/GameOverScreen/yes.png" type="Texture" id=12]
-[ext_resource path="res://GFX/GameOverScreen/enter.png" type="Texture" id=13]
-[ext_resource path="res://GFX/GameOverScreen/no.png" type="Texture" id=14]
+[ext_resource path="res://GFX/Menu/wudulike.png" type="Texture" id=8]
+[ext_resource path="res://GFX/Menu/GOno.png" type="Texture" id=9]
+[ext_resource path="res://GFX/Menu/GOyes.png" type="Texture" id=10]
+[ext_resource path="res://Sounds/Bonuses/coin.wav" type="AudioStream" id=11]
 [ext_resource path="res://Scripts/Tools/PopupMenu.gd" type="Script" id=15]
 [ext_resource path="res://Scripts/Tools/Pause.gd" type="Script" id=16]
 [ext_resource path="res://Scripts/Menu/GameOverContinue.gd" type="Script" id=17]
@@ -71,17 +70,33 @@ animations = [ {
 "speed": 0.0
 } ]
 
-[sub_resource type="AtlasTexture" id=35]
+[sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 590, 60 )
+region = Rect2( 0, 0, 72, 36 )
 
-[sub_resource type="AtlasTexture" id=36]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 10 )
-region = Rect2( 0, 60, 590, 60 )
+region = Rect2( 0, 36, 72, 36 )
 
-[sub_resource type="SpriteFrames" id=37]
+[sub_resource type="SpriteFrames" id=12]
 animations = [ {
-"frames": [ SubResource( 35 ), SubResource( 36 ) ],
+"frames": [ SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.0
+} ]
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 63, 40 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 40, 63, 40 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "default",
 "speed": 0.0
@@ -135,27 +150,17 @@ script = ExtResource( 17 )
 [node name="Sprite2" type="Sprite" parent="GameOver"]
 modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 320, 128 )
-texture = ExtResource( 11 )
+texture = ExtResource( 8 )
 
-[node name="Sprite3" type="Sprite" parent="GameOver"]
+[node name="yes" type="AnimatedSprite" parent="GameOver"]
 modulate = Color( 1, 1, 1, 0.0980392 )
-position = Vector2( 320, 368 )
-texture = ExtResource( 13 )
+position = Vector2( 192, 336 )
+frames = SubResource( 12 )
 
-[node name="yes" type="Sprite" parent="GameOver"]
+[node name="no" type="AnimatedSprite" parent="GameOver"]
 modulate = Color( 1, 1, 1, 0.0980392 )
-position = Vector2( 192, 272 )
-texture = ExtResource( 12 )
-
-[node name="no" type="Sprite" parent="GameOver"]
-modulate = Color( 1, 1, 1, 0.0980392 )
-position = Vector2( 448, 272 )
-texture = ExtResource( 14 )
-
-[node name="ifyou" type="AnimatedSprite" parent="GameOver"]
-modulate = Color( 1, 1, 1, 0.0980392 )
-position = Vector2( 320, 416 )
-frames = SubResource( 37 )
+position = Vector2( 448, 336 )
+frames = SubResource( 15 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 z_index = 4
@@ -165,3 +170,6 @@ stream = ExtResource( 7 )
 
 [node name="pause" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+
+[node name="coin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )

@@ -17,7 +17,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
   rng.randi_range(0, 1)
   
-  if Global.is_mario_collide_area('InsideDetector', self) and !active:
+  if is_instance_valid(self) and Global.is_mario_collide_area('InsideDetector', self) and !active:
     active = true
     $AnimatedSprite.animation = 'active'
     $Sound.play()

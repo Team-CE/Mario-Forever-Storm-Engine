@@ -2,6 +2,7 @@ extends Node
 
 var sel: int = 0
 var counter: float = 1
+var scene
 
 func _process(delta):
   if get_parent().isPaused:
@@ -37,10 +38,16 @@ func _process(delta):
         0:
           get_parent().resume()
         1:
-          get_tree().change_scene(ProjectSettings.get_setting('application/config/save_game_room_scene'))
+          scene = ProjectSettings.get_setting('application/config/sgr_scene')
+          var error = get_tree().change_scene(scene)
+          if error: printerr('[CE ERROR]: Could not load SGR scene')
+          MusicPlayer.stop()
           get_parent().resetandfree()
         2:
-          get_tree().change_scene(ProjectSettings.get_setting('application/config/main_menu_scene'))
+          scene = ProjectSettings.get_setting('application/config/main_menu_scene')
+          var error = get_tree().change_scene(scene)
+          if error: printerr('[CE ERROR]: Could not load Main Menu scene')
+          MusicPlayer.stop()
           get_parent().resetandfree()
         3:
           get_tree().quit()

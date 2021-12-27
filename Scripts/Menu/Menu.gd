@@ -12,7 +12,6 @@ const CONTROLS_VALUES: Dictionary = {}
 
 export var music: Resource            #MENU Music
 export var music_credits: Resource    #CREDITS Music
-export var sgr: String = ''
 
 var sel = 0
 var screen = 0
@@ -24,13 +23,14 @@ var fading_out = false
 var circle_size = 0
 
 var pos_y: float
-var force_pos = false
+var force_pos = true
 
 onready var controls_enabled: bool = false
 onready var controls_changing: bool = false
 
 func _ready() -> void:
-  pos_y = $S_Start.position.y
+  pos_y = 359
+  $Transition.material.set_shader_param('circle_size', circle_size)
   
   # temp
   $fadeout.play()
@@ -134,7 +134,7 @@ func controls() -> void:
             if Global.musicBar == -100:
               MusicPlayer.volume_db = -1000
 # warning-ignore:return_value_discarded
-            get_tree().change_scene(sgr)
+            get_tree().change_scene(ProjectSettings.get_setting('application/config/sgr_scene'))
           1:
             screen += 1
             sel = 0

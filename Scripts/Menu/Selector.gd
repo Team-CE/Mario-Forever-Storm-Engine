@@ -9,11 +9,13 @@ func _ready() -> void:
 func _process(delta):
   # Random Blinking
   if !playing && time.time_left <= 0.0:
-    randomize()                          # For full random
-    var rand = randi() % 5 + 2           # Get a Random number
-    time = get_tree().create_timer(rand) # Create a new SceneTimer
-    yield(time, 'timeout')               # Delay
-    playing = true                       # Set anim play
-    
+    randomize()                                   # For full random
+    var rand = randi() % 5 + 2                    # Get a Random number
+    time = get_tree().create_timer(rand)          # Create a new SceneTimer
+    time.connect('timeout', self, 'animstarts')   # Delay
+
+func animstarts():
+  playing = true                                  # Set anim play
+
 func animends():
   playing = false

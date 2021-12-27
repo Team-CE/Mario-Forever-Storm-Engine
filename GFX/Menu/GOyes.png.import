@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enter.png-7dacc364db3cad51b6c20be76ec08fb9.stex"
+path="res://.import/GOyes.png-5c6f338639c5632aa13ff1e6347f1170.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/GameOverScreen/enter.png"
-dest_files=[ "res://.import/enter.png-7dacc364db3cad51b6c20be76ec08fb9.stex" ]
+source_file="res://GFX/Menu/GOyes.png"
+dest_files=[ "res://.import/GOyes.png-5c6f338639c5632aa13ff1e6347f1170.stex" ]
 
 [params]
 

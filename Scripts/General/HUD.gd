@@ -4,6 +4,11 @@ export var active: bool = true
 
 func _ready() -> void:
   Global.HUD = self
+
+  if not active:
+    self.scale = Vector2.ZERO
+    queue_free()
+  
   AnimPlayed = 0
   $Coins.text = str(Global.coins)
   $Score.text = str(Global.score)
@@ -13,9 +18,6 @@ func _ready() -> void:
 # warning-ignore:return_value_discarded
   Global.connect('OnPlayerLoseLife', self, '_life_lose')
   $GameoverSprite.visible = false
-
-  if not active:
-    queue_free()
     
 func _process(_delta: float) -> void:
   $DebugFlySprite.visible = Global.debug_fly

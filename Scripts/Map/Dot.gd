@@ -3,6 +3,9 @@ extends AnimatedSprite
 var counter: float = 0
 var proc: bool = false
 
+func _ready():
+  visible = false
+
 func _process(_delta: float) -> void:
   if !proc:
     visible = position.x <= get_parent().get_parent().get_node('MarioPath/PathFollow2D/MiniMario').global_position.x

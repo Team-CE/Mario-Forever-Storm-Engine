@@ -31,7 +31,7 @@ signal OnScoreChange                         # Called when score get changed
 signal OnLivesAdded                          # Called when Live added
 signal OnCoinCollected                       # Called when coins collected
 
-var lives: int = 0                           # Player lives
+var lives: int = 4                           # Player lives
 var time: int = 999                          # Time left
 var score: int = 0                           # Score
 var coins: int = 0                           # Player coins

@@ -5,33 +5,39 @@ var scene
 var sel: int = 0
 var counter: float = 0
   
+func _ready():
+  $no.frame = 1
+  
 func _process(delta):
   if get_parent().isPaused:
     
     # FADE IN
     
-    if get_parent().cm.color.r > 0.35001:           # Fade in process
+    if get_parent().cm.color.r > 0.355:           # Fade in process
       for spr in get_children():
         if spr is AnimatedSprite or spr is Sprite:
           spr.modulate.a += (1 - spr.modulate.a) * 0.05 * Global.get_delta(delta)
     else:                                         # Fade has been finished
-      counter += 0.125 * Global.get_delta(delta)
-      var sinscale = sin(counter) * 0.25 + 1
+      counter += 0.15 * Global.get_delta(delta)
+      var sinalpha = sin(counter) * 0.3 + 0.7
       if sel: # No
-        $no.scale = Vector2(sinscale, sinscale)
-        $yes.scale = Vector2.ONE
+        $no.frame = 0
+        $no.modulate.a = sinalpha
       else:   # Yes
-        $yes.scale = Vector2(sinscale, sinscale)
-        $no.scale = Vector2.ONE
-  $ifyou.frame = sel
-  
+        $yes.frame = 0
+        $yes.modulate.a = sinalpha
+    
   if Input.is_action_just_pressed('ui_right') and sel < 1:
     sel += 1
-    get_parent().get_node('choose').play()
+    $yes.frame = 1
+    $yes.modulate.a = 1
+    get_parent().get_node('coin').play()
   
   if Input.is_action_just_pressed('ui_left') and sel > 0:
     sel -= 1
-    get_parent().get_node('choose').play()
+    $no.frame = 1
+    $no.modulate.a = 1
+    get_parent().get_node('coin').play()
   
   if Input.is_action_just_pressed('ui_accept'):
     if sel: # No

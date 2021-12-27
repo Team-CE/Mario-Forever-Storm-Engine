@@ -33,7 +33,7 @@ func _ready():
     if Global.quality < 2:
       $WorldEnvironment.environment.glow_high_quality = false
     if Global.quality == 0:
-      $WorldEnvironment.environment.glow_bicubic_upscale = false
+      #$WorldEnvironment.environment.glow_bicubic_upscale = false
       if get_node_or_null('Particles2D'):
         $Particles2D.queue_free()
     print('[Level]: Ready!')
@@ -67,6 +67,7 @@ func setup_tilemap() -> TileMap:
 
 func _input(event):
   if Engine.editor_hint: return
+  if sgr_scroll: return
   if event.is_action_pressed('ui_pause'):
     if popup == null:
       popup = pause_menu.instance()

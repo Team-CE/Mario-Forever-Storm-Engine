@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wudulike.png-a26c3d31c40ccc0ae43ed98b18bacaaa.stex"
+path="res://.import/wudulike.png-fd4e3e64d1ab5e555117092d84e7ba27.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/GameOverScreen/wudulike.png"
-dest_files=[ "res://.import/wudulike.png-a26c3d31c40ccc0ae43ed98b18bacaaa.stex" ]
+source_file="res://GFX/Menu/wudulike.png"
+dest_files=[ "res://.import/wudulike.png-fd4e3e64d1ab5e555117092d84e7ba27.stex" ]
 
 [params]
 
