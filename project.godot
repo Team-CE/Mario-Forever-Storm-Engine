@@ -176,6 +176,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/main_menu_scene="res://Games/2022/Stages/CMenu.tscn"
 config/sgr_scene="res://Games/2022/Stages/СSaveGameRoom.tscn"
+config/save_game_room_scene="res://Games/2022/Stages/CSaveGameRoom.tscn"
 
 [autoload]
 
@@ -193,7 +194,7 @@ settings/stdout/print_fps=true
 window/size/width=640
 window/size/height=480
 window/vsync/vsync_via_compositor=true
-window/stretch/mode="viewport"
+window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
 [importer_defaults]

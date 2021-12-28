@@ -125,11 +125,14 @@ position = Vector2( 0, -28 )
 shape = SubResource( 4 )
 
 [node name="BottomDetector" type="Area2D" parent="."]
-visible = false
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionBottom" type="CollisionShape2D" parent="BottomDetector"]
+scale = Vector2( 1, 0.5 )
+shape = SubResource( 5 )
+
+[node name="CollisionBottom2" type="CollisionShape2D" parent="BottomDetector"]
 scale = Vector2( 1, 0.5 )
 shape = SubResource( 5 )
 

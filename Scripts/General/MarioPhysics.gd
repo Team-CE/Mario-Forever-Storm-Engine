@@ -179,7 +179,7 @@ func _process_alive(delta) -> void:
   update_collisions()
   debug()
   
-  $Sprite.offset.y = 0 - $Sprite.frames.get_frame($Sprite.animation, $Sprite.frame).get_size().y + 1
+  $Sprite.offset.y = 0 - $Sprite.frames.get_frame($Sprite.animation, $Sprite.frame).get_size().y
   $Sprite.offset.x = 0 - $Sprite.frames.get_frame($Sprite.animation, $Sprite.frame).get_size().x / 2
 
 func _process_dead(delta) -> void:
