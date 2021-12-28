@@ -83,6 +83,7 @@ func _process(delta) -> void:
         Global.emit_signal('TimeTick')
         wait_counter -= 1 * Global.get_delta(delta)
         if wait_counter < 0:
+          Global.levelID = set_level_id
           get_tree().change_scene(map_scene)
         
 func act() -> void:
