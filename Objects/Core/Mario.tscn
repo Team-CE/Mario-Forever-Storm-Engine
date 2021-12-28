@@ -29,7 +29,7 @@ extents = Vector2( 8, 12 )
 extents = Vector2( 8, 26 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 10, 8 )
+extents = Vector2( 10, 4 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 7, 2 )
@@ -133,6 +133,7 @@ scale = Vector2( 1, 0.5 )
 shape = SubResource( 5 )
 
 [node name="CollisionBottom2" type="CollisionShape2D" parent="BottomDetector"]
+position = Vector2( 0, 2 )
 scale = Vector2( 1, 0.5 )
 shape = SubResource( 5 )
 

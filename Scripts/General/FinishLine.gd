@@ -13,6 +13,8 @@ var crossed: bool = false
 var bar_enabled: bool = false
 var bar_accel: float = -6
 
+var wait_counter: float = 30
+
 func _ready() -> void:
   initial_position = $CrossingBar.position.y
   win_music.loop = false
@@ -76,9 +78,12 @@ func _process(delta) -> void:
         Global.emit_signal('TimeTick')
         if not Global.HUD.get_node('ScoreSound').playing:
           Global.HUD.get_node('ScoreSound').play()
-      elif Global.time < 0:
+      elif Global.time <= 0:
         Global.time = 0
         Global.emit_signal('TimeTick')
+        wait_counter -= 1 * Global.get_delta(delta)
+        if wait_counter < 0:
+          get_tree().change_scene(map_scene)
         
 func act() -> void:
   Global.level_ended = true

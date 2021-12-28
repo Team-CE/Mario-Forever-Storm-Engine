@@ -14,7 +14,7 @@ var stopped: bool = false
 var fading_out: bool = false
 var circle_size: float = 0.623
 
-onready var cam = $MarioPath/PathFollow2D/MiniMario/Camera
+onready var cam = $MarioPath/PathFollow2D/MiniMario/Camera2D
 
 func _ready() -> void:
   MusicPlayer.stream = music
@@ -36,8 +36,13 @@ func _process(delta: float) -> void:
     $MarioPath/PathFollow2D.offset = stop_points[Global.levelID]
     stopped = true
     
-#  if stopped:
-#    _process_camera(delta)
+  if stopped:
+    _process_camera(delta)
+    var pj = $ParallaxBackground/ParallaxLayer/PressJump
+    if pj.modulate.a < 1:
+      pj.modulate.a += 0.1 * Global.get_delta(delta)
+    else:
+      pj.modulate.a = 1
 
   if Input.is_action_just_pressed('mario_jump') and !fading_out and stopped:
     fading_out = true
@@ -55,20 +60,19 @@ func _process(delta: float) -> void:
     get_tree().change_scene(level_scenes[Global.levelID])
 
 
-#func _process_camera(delta: float) -> void:
-#
-#  if Input.is_action_pressed('mario_right'):
-#    cam.position.x += 5 * Global.get_delta(delta)
-#    if Input.is_action_pressed('mario_fire'):
-#      cam.position.x += 3 * Global.get_delta(delta)
-#
-#  if Input.is_action_pressed('mario_left'):
-#    cam.position.x -= 5 * Global.get_delta(delta)
-#    if Input.is_action_pressed('mario_fire'):
-#      cam.position.x -= 3 * Global.get_delta(delta)
-#
-#  if cam.get_camera_position().x < 320:
-#    cam.position.x = 320
-#
-#  if cam.get_camera_position().x > cam.limit_right - 320:
-#    cam.position.x = cam.limit_right - 320
+func _process_camera(delta: float) -> void:
+  if Input.is_action_pressed('mario_right'):
+    cam.global_position.x += 5 * Global.get_delta(delta)
+    if Input.is_action_pressed('mario_fire'):
+      cam.global_position.x += 5 * Global.get_delta(delta)
+
+  if Input.is_action_pressed('mario_left'):
+    cam.global_position.x -= 5 * Global.get_delta(delta)
+    if Input.is_action_pressed('mario_fire'):
+      cam.global_position.x -= 5 * Global.get_delta(delta)
+
+  if cam.global_position.x < 320:
+    cam.global_position.x = 320
+
+  if cam.global_position.x > cam.limit_right - 320:
+    cam.global_position.x = cam.limit_right - 320
