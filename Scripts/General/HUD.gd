@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+var straycount: int
 export var active: bool = true
 
 func _ready() -> void:
@@ -13,6 +14,8 @@ func _ready() -> void:
   $Coins.text = str(Global.coins)
   $Score.text = str(Global.score)
   $Lives.text = str(Global.lives)
+  if Global.debug:
+    $DebugOrphaneNodes.visible = true
 # warning-ignore:return_value_discarded
   Global.connect('TimeTick', self, '_time')
 # warning-ignore:return_value_discarded
@@ -20,8 +23,12 @@ func _ready() -> void:
   $GameoverSprite.visible = false
     
 func _process(_delta: float) -> void:
-  $DebugFlySprite.visible = Global.debug_fly
-  $DebugInvisibleSprite.visible = Global.debug_inv
+  if Global.debug:
+    $DebugFlySprite.visible = Global.debug_fly
+    $DebugInvisibleSprite.visible = Global.debug_inv
+    straycount = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
+    $DebugOrphaneNodes.visible = true if straycount > 0 else false
+    $DebugOrphaneNodes.text = str(straycount)
 
 func _time() -> void:
   if Global.time == 99 and not Global.level_ended:

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/redshell.png-ae19115fe720a7d2848a28eac1cca771.stex"
+path="res://.import/GrayBrickDebris.png-3194ae8fc78506e7e6127a2f41099095.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/redshell.png"
-dest_files=[ "res://.import/redshell.png-ae19115fe720a7d2848a28eac1cca771.stex" ]
+source_file="res://GFX/Bonuses/GrayBrickDebris.png"
+dest_files=[ "res://.import/GrayBrickDebris.png-3194ae8fc78506e7e6127a2f41099095.stex" ]
 
 [params]
 

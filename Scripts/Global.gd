@@ -137,14 +137,13 @@ func _physics_process(delta: float) -> void:
   if projectiles_count < 0:
     projectiles_count = 0
   
-  # Hotkey for restarting current level
   if Input.is_action_pressed('debug_shift') and debug:
+  # Hotkey for restarting current level
     if Input.is_action_just_pressed('debug_f2'):
       lives += 1
       _reset()
       
   # Toggle fly mode
-  if Input.is_action_pressed('debug_shift') and debug:
     if Input.is_action_just_pressed('debug_1'):
       debug_fly = !debug_fly
       if debug_inv and debug_fly:
@@ -152,12 +151,15 @@ func _physics_process(delta: float) -> void:
       play_base_sound('DEBUG_Toggle')
       
   # Toggle invisible mode
-  if Input.is_action_pressed('debug_shift') and debug:
     if Input.is_action_just_pressed('debug_2'):
       debug_inv = !debug_inv
       if debug_inv and debug_fly:
         debug_fly = false
       play_base_sound('DEBUG_Toggle')
+    
+    if Input.is_action_just_pressed('debug_straylist'):
+      print('--- STRAY NODES LIST ---\n(if empty, then there are no stray nodes)')
+      print_stray_nodes()
       
 # Debug powerups
 func _input(ev):
@@ -166,6 +168,9 @@ func _input(ev):
       play_base_sound('DEBUG_Toggle')
       state = ev.scancode - 49
       Mario.appear_counter = 60
+  
+  if Input.is_action_just_pressed('ui_fullscreen'):
+    OS.window_fullscreen = !OS.window_fullscreen
       
 # fix physics fps issues
 func _process(delta: float):

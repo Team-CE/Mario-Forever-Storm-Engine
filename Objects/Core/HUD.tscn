@@ -194,34 +194,41 @@ layer = 5
 script = ExtResource( 4 )
 
 [node name="TimeSprite" type="AnimatedSprite" parent="."]
+light_mask = 0
 position = Vector2( 561, 24 )
 frames = SubResource( 38 )
 
 [node name="Player" type="Sprite" parent="."]
+light_mask = 0
 position = Vector2( 97, 24 )
 texture = ExtResource( 2 )
 
 [node name="CoinsSprite" type="AnimatedSprite" parent="."]
+light_mask = 0
 position = Vector2( 256, 43 )
 frames = SubResource( 42 )
 playing = true
 
 [node name="GameoverSprite" type="Sprite" parent="."]
 visible = false
+light_mask = 0
 position = Vector2( 320, 240 )
 texture = ExtResource( 9 )
 
 [node name="DebugFlySprite" type="Sprite" parent="."]
 visible = false
+light_mask = 0
 position = Vector2( 608, 448 )
 texture = ExtResource( 12 )
 
 [node name="DebugInvisibleSprite" type="Sprite" parent="."]
 visible = false
+light_mask = 0
 position = Vector2( 608, 448 )
 texture = ExtResource( 11 )
 
 [node name="Lives" type="Label" parent="."]
+light_mask = 0
 margin_left = 150.0
 margin_top = 13.0
 margin_right = 166.0
@@ -234,6 +241,7 @@ __meta__ = {
 }
 
 [node name="Score" type="Label" parent="."]
+light_mask = 0
 margin_left = 149.0
 margin_top = 32.0
 margin_right = 165.0
@@ -268,6 +276,22 @@ margin_right = 593.0
 margin_bottom = 54.0
 grow_horizontal = 0
 custom_fonts/font = ExtResource( 7 )
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebugOrphaneNodes" type="Label" parent="."]
+modulate = Color( 1, 0, 0, 0.784314 )
+light_mask = 0
+margin_left = 553.0
+margin_top = 449.0
+margin_right = 585.0
+margin_bottom = 471.0
+grow_horizontal = 0
+rect_pivot_offset = Vector2( 8, 8 )
+custom_fonts/font = ExtResource( 7 )
+text = " 0"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false

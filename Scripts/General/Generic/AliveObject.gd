@@ -150,7 +150,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
         csound.play()
       animated_sprite.set_animation('dead')
       get_parent().add_child(ScoreText.new(score, position))
-      time = get_tree().create_timer(2.0)
+      time = get_tree().create_timer(2.0, false)
       time.connect('timeout', self, 'instance_free')
     DEATH_TYPE.DISAPPEAR:
       queue_free()
@@ -163,7 +163,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
       z_index = 10
       velocity.y = -180
       animated_sprite.set_animation('falling')
-      time = get_tree().create_timer(2.0)
+      time = get_tree().create_timer(2.0, false)
       time.connect('timeout', self, 'instance_free')
     DEATH_TYPE.CUSTOM:
       if brain.has_method('_on_custom_death'):
@@ -178,7 +178,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
       for i in range(4):
         var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i], 1)
         get_parent().add_child(debris_effect)
-      time = get_tree().create_timer(2.0)
+      time = get_tree().create_timer(2.0, false)
       time.connect('timeout', self, 'instance_free')
         
 func freeze() -> void:

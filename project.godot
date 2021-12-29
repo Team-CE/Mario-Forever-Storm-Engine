@@ -176,7 +176,6 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/main_menu_scene="res://Games/2022/Stages/CMenu.tscn"
 config/sgr_scene="res://Games/2022/Stages/СSaveGameRoom.tscn"
-config/save_game_room_scene="res://Games/2022/Stages/CSaveGameRoom.tscn"
 
 [autoload]
 
@@ -308,6 +307,16 @@ ui_pause={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":16,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+ui_fullscreen={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777254,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+debug_straylist={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":96,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

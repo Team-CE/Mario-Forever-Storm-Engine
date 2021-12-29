@@ -5,10 +5,14 @@ var throw_script
 var throw_delay
 var lakitu_addon
 var result
+var time
+var lakitu = load('res://Objects/Enemies/Lakito.tscn').instance()
 
 func _ready() -> void:
-  yield(get_tree().create_timer(7.0), 'timeout')
-  var lakitu = load('res://Objects/Enemies/Lakito.tscn').instance()
+  time = get_tree().create_timer(7.0, false)
+  time.connect('timeout', self, 'newlakitu')
+
+func newlakitu():
   lakitu.vars['throw_script'] = throw_script
   lakitu.vars['throw_delay'] = throw_delay
   lakitu.vars['lakitu_addon'] = lakitu_addon

@@ -49,7 +49,6 @@ occluder = SubResource( 7 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -60,9 +59,7 @@ shape = SubResource( 5 )
 
 [node name="BlockDetector" type="Area2D" parent="."]
 visible = false
-collision_layer = 0
 input_pickable = false
-monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="BlockDetector"]
 position = Vector2( -1, 22 )

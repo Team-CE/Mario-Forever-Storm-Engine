@@ -5,7 +5,7 @@ var y_accel: float = 0
 var accel: Vector2
 
 func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO, text: int = 0) -> void:
-  var textures = [preload('res://GFX/Bonuses/BrickDebris.png'), preload('res://GFX/Bonuses/IceBrickDebris.png')]
+  var textures = [preload('res://GFX/Bonuses/BrickDebris.png'), preload('res://GFX/Bonuses/IceBrickDebris.png'), preload('res://GFX/Bonuses/GrayBrickDebris.png')]
   texture = textures[text]
   position = pos
   accel = acceleration

@@ -7,6 +7,7 @@ var offset_pos: Vector2 = Vector2.ZERO
 var shooting: bool = false
 var projectile_counter: int = 0
 var projectile_timer: float = 0
+var fireball
 
 var rng = RandomNumberGenerator.new()
 
@@ -80,9 +81,10 @@ func _process_shooting(delta: float):
     owner.sound.play()
     projectile_timer = 10
     projectile_counter += 1
-    var fireball = preload('res://Objects/Projectiles/Fireball.tscn').instance()
     if owner.vars['type'] == 2:
       fireball = preload('res://Objects/Projectiles/Iceball.tscn').instance()
+    else:
+      fireball = preload('res://Objects/Projectiles/Fireball.tscn').instance()
     fireball.velocity = Vector2(rng.randf_range(-200.0, 200.0), rng.randf_range(-70, -600)).rotated(owner.rotation)
     fireball.position = owner.position + Vector2(0, -32).rotated(owner.rotation)
     fireball.belongs = 1
