@@ -150,6 +150,7 @@ func set_preview() -> StreamTexture:
   PrevResult = Result
   #print(res)
   #print(Result)
+  result_inst.free()
   return res
 
 func _process(delta) -> void:

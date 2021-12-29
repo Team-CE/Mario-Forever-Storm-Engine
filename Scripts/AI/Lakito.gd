@@ -145,7 +145,7 @@ func _ai_process(delta:float) -> void:
     xspeed = 0
     
   if is_mario_collide('BottomDetector') and !owner.frozen and Global.Mario.position.y < owner.position.y - 32 and Global.Mario.velocity.y > 0:
-    owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
+    owner.kill(AliveObject.DEATH_TYPE.FALL, 0, owner.sound)
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
     else:

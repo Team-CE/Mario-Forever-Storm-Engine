@@ -158,8 +158,11 @@ func _physics_process(delta: float) -> void:
       play_base_sound('DEBUG_Toggle')
     
     if Input.is_action_just_pressed('debug_straylist'):
-      print('--- STRAY NODES LIST ---\n(if empty, then there are no stray nodes)')
-      print_stray_nodes()
+      if Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT) > 0:
+        print('[CE OUTPUT]: --- STRAY NODES LIST ---')
+        print_stray_nodes()
+      else:
+        print('[CE OUTPUT]: No stray nodes yet, we\'re fine!')
       
 # Debug powerups
 func _input(ev):
@@ -255,15 +258,15 @@ func lerpa(a, b, t):
   return a - t * (b - a)
   
 func is_mario_collide(_detector_name: String, obj) -> bool:
-  var collisions = Mario.get_node(_detector_name).get_overlapping_bodies()
+  var collisions = Mario.get_node_or_null(_detector_name).get_overlapping_bodies()
   return collisions && collisions.has(obj)
   
 func is_mario_collide_area(_detector_name: String, obj) -> bool:
-  var collisions = Mario.get_node(_detector_name).get_overlapping_areas()
+  var collisions = Mario.get_node_or_null(_detector_name).get_overlapping_areas()
   return collisions && collisions.has(obj)
  
 func is_getting_closer(pix: float, pos: Vector2) -> bool:
-  var camera = Mario.get_node('Camera')
+  var camera = Mario.get_node_or_null('Camera')
   return (
     pos.x > camera.global_position.x - 320 + pix and
     pos.x < camera.global_position.x + 320 - pix and

@@ -25,14 +25,14 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [  ],
-"loop": true,
-"name": "dead",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "falling",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "dead",
 "speed": 5.0
 } ]
 
@@ -42,9 +42,7 @@ extents = Vector2( 23, 23 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 14, 2 )
 
-[node name="Paratroopa Blue" type="KinematicBody2D" groups=[
-"Enemy",
-]]
+[node name="Paratroopa Blue" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 2 )
 vars = {
 "bounce": 9.0,
@@ -74,7 +72,6 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 frames = SubResource( 4 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true

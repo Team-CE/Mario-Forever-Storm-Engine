@@ -22,8 +22,10 @@ func _ready_mixin():
   
   if owner.vars['type'] == 1:
     owner.animated_sprite.frames = preload('res://Prefabs/Piranhas/Fire.tres')
+    owner.get_node('Light2D').visible = true
   elif owner.vars['type'] == 2:
     owner.animated_sprite.frames = preload('res://Prefabs/Piranhas/Ice.tres')
+    owner.get_node('Light2D').visible = true
   else:
     owner.get_node('Light2D').queue_free()
     
