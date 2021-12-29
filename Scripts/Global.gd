@@ -166,6 +166,9 @@ func _input(ev):
       play_base_sound('DEBUG_Toggle')
       state = ev.scancode - 49
       Mario.appear_counter = 60
+  
+  if Input.is_action_just_pressed('ui_fullscreen'):
+    OS.window_fullscreen = !OS.window_fullscreen
       
 # fix physics fps issues
 func _process(delta: float):
