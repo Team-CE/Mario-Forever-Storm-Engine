@@ -4,12 +4,17 @@ var isActivated: bool = false
 var flyingDown: bool = false
 var prevVelocity: float = 0
 
+func _ready_mixin(_mario):
+  flyingDown = false
+  isActivated = false
+  prevVelocity = false
+
 func _process_mixin_physics(mario, delta):
   if flyingDown:
     var collides = mario.get_node('BottomDetector').get_overlapping_bodies()
     for i in range(len(collides)):
       if collides[i].has_method('hit'):
-        collides[i].hit(delta)
+        collides[i].hit(delta, false, false)
 
 func _process_mixin(mario, delta):
   if Input.is_action_just_pressed('mario_jump') and not isActivated and not mario.is_on_floor() and Global.Mario.controls_enabled:
@@ -29,7 +34,7 @@ func _process_mixin(mario, delta):
       var collides = mario.get_node('BottomDetector').get_overlapping_bodies()
       for i in range(len(collides)):
         if collides[i].has_method('hit'):
-          collides[i].hit(delta)
+          collides[i].hit(delta, false, false)
     
     if not flyingDown:
       if mario.velocity.y > 250:

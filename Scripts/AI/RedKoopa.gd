@@ -72,11 +72,7 @@ func _ai_process(delta: float) -> void:
 
 func _on_kill_zone_enter(b:Node) -> void:
   if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0 && b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
-    if 'is shell' in b.vars and not 'stopped' in b.vars and abs(b.velocity.x) > 0:
-      b.kill(AliveObject.DEATH_TYPE.FALL, score_mp)
-      owner.kill(AliveObject.DEATH_TYPE.FALL, score_mp)
-    else:
-      b.kill(AliveObject.DEATH_TYPE.FALL, score_mp)
+    b.kill(AliveObject.DEATH_TYPE.FALL, score_mp)
     #AudioServer.get_bus_effect(1,0).pitch_scale = AliveObject.pitch_md[score_mp]
     #print(AudioServer.get_bus_effect(1,0).pitch_scale)
     if score_mp < 6:

@@ -207,7 +207,6 @@ texture = ExtResource( 2 )
 light_mask = 0
 position = Vector2( 256, 43 )
 frames = SubResource( 42 )
-frame = 2
 playing = true
 
 [node name="GameoverSprite" type="Sprite" parent="."]
@@ -283,6 +282,7 @@ __meta__ = {
 }
 
 [node name="DebugOrphaneNodes" type="Label" parent="."]
+visible = false
 modulate = Color( 1, 0, 0, 0.784314 )
 light_mask = 0
 margin_left = 48.0

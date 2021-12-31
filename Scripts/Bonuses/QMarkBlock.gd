@@ -201,7 +201,7 @@ func _process_active(delta) -> void:
   
   $Body.visible = visible
 
-func brick_break() -> void:
+func brick_break(idle_frame:bool = true) -> void:
   Global.play_base_sound('MAIN_BrickBreak')
   var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
   for i in range(4):
@@ -209,10 +209,11 @@ func brick_break() -> void:
     get_parent().add_child(debris_effect)
   Global.add_score(50)
   $Body.visible = false
-  yield(get_tree(),"idle_frame")
+  if idle_frame:
+    yield(get_tree(), 'idle_frame')
   queue_free()
 
-func hit(delta, thwomp = false) -> void:
+func hit(delta, thwomp = false, idle_frame: bool = true) -> void:
   if not active: return
   active = false
   if qtype == BLOCK_TYPE.COMMON:
@@ -242,7 +243,7 @@ func hit(delta, thwomp = false) -> void:
     if Global.state == 0 and !thwomp:
       Global.play_base_sound('MAIN_Bump')
     else:
-      brick_break()
+      brick_break(idle_frame)
   elif qtype == BLOCK_TYPE.COIN_BRICK:
     if coin_counter == 0:
       coin_counter = 1

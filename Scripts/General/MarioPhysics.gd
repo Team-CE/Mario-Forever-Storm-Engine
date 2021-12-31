@@ -71,7 +71,8 @@ func is_over_platform() -> bool:
     return false
 
 func _process(delta) -> void:
-  _process_camera(delta)
+  if get_node_or_null('Camera'):
+    _process_camera(delta)
   
   var target_gravity_enabled: bool = true
   var overlaps = $InsideDetector.get_overlapping_areas()
@@ -306,6 +307,8 @@ func animate(delta) -> void:
     if not Global.state in powerup_animations:
       printerr('[CE ERROR] Mario: Animations for state ' + str(Global.state) + ' don\'t exist!')
       return
+    if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_ready_mixin'):
+      ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
 
   if velocity.x <= -8 * Global.get_delta(delta):

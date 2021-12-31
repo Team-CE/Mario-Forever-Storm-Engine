@@ -12,7 +12,7 @@ func _ai_process(delta:float) -> void:
     return
 
 func is_mario_collide(_detector_name: String) -> bool:
-  var collisions = Global.Mario.get_node(_detector_name).get_overlapping_bodies()
+  var collisions = Global.Mario.get_node_or_null(_detector_name).get_overlapping_bodies()
   return collisions && collisions.has(owner)
 
 func on_mario_collide(_detector_name: String) -> bool:

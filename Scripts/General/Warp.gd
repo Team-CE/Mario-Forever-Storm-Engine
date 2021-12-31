@@ -58,7 +58,8 @@ func _ready() -> void:
     active = true
     out_node = self
     counter = 61
-    Global.Mario.animate_sprite('Crouching')
+    if Global.state > 0:
+      Global.Mario.animate_sprite('Crouching')
 
 func _process(delta) -> void:
   if Engine.editor_hint:

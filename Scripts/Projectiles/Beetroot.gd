@@ -27,10 +27,16 @@ func _process(delta) -> void:
   if overlaps.size() > 0 and bounce_count < 3:
     for i in range(overlaps.size()):
       if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('kill'):
-        overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, 0)
-        bounce()
-        bounce_count += 1
-        skip_frame = true
+        if not overlaps[i].invincible:
+          overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, 0)
+          bounce()
+          bounce_count += 1
+          skip_frame = true
+        elif not skip_frame:
+          $Bounce.play()
+          bounce()
+          bounce_count += 1
+          skip_frame = true
       elif (overlaps[i] is TileMap or overlaps[i].is_in_group('Solid')) and (overlaps[i].visible) and not skip_frame:
         $Bounce.play()
         bounce()

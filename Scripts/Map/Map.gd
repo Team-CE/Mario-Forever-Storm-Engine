@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
     $MarioPath/PathFollow2D.offset = stop_points[Global.levelID]
     stopped = true
     
-  if stopped:
+  if stopped and not fading_out:
     _process_camera(delta)
     var pj = $ParallaxBackground/ParallaxLayer/PressJump
     if pj.modulate.a < 1:
@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
   if Input.is_action_just_pressed('mario_jump') and !fading_out and stopped:
     fading_out = true
     $fadeout.play()
-    MusicPlayer.stop()
+    fade_out_music()
   
   if fading_out:
     circle_size -= 0.012 * Global.get_delta(delta)
@@ -76,3 +76,11 @@ func _process_camera(delta: float) -> void:
 
   if cam.global_position.x > cam.limit_right - 320:
     cam.global_position.x = cam.limit_right - 320
+
+func fade_out_music() -> void:
+  MusicPlayer.volume_db -= 2
+  yield(get_tree().create_timer( 0.05 ), 'timeout')
+  if MusicPlayer.volume_db > -100 and circle_size > 0.1:
+    fade_out_music()
+  if MusicPlayer.volume_db < -80:
+    MusicPlayer.stop()

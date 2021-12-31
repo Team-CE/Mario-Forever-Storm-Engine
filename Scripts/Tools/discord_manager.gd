@@ -29,7 +29,7 @@ func _log_hook(level: int, message: String) -> void:
 func create_core(app_id) -> bool:
   destroy_core()
   core = Discord.Core.new()
-  var result: int = core.create(app_id, Discord.CreateFlags.DEFAULT)
+  var result: int = core.create(app_id, Discord.CreateFlags.NO_REQUIRE_DISCORD)
 
   if result != Discord.Result.OK:
     print("Failed to initialise Discord Core: ", enum_to_string(Discord.Result, result))
@@ -55,7 +55,6 @@ func destroy_core() -> void:
   activities = null
   relationships = null
   networking = null
-
 
 func enum_to_string(the_enum: Dictionary, value: int) -> String:
   var index := the_enum.values().find(value)

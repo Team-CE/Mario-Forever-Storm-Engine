@@ -26,3 +26,8 @@ func configure_rpc() -> void:
   if set_big_image_text: activity.assets.large_text = set_big_image_text
 
   DiscordManager.activities.update_activity(activity)
+
+func _exit_tree() -> void:
+  if DiscordManager.core:
+    DiscordManager.destroy_core()
+  queue_free()

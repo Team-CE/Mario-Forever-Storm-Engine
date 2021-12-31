@@ -93,10 +93,12 @@ func _ready() -> void:
         InputMap.action_add_event(action, key)
   
   #MusicEngine.set_volume(musicBar)
-  if Global.musicBar > -100:
-    MusicPlayer.volume_db = round(Global.musicBar / 5)
-  if Global.musicBar == -100:
+  yield(get_tree(), 'idle_frame')
+  if musicBar > -100:
+    MusicPlayer.volume_db = round(musicBar / 5)
+  if musicBar == -100:
     MusicPlayer.volume_db = -1000
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), soundBar / 5)
 
 func saveInfo(content):
   var file = File.new()

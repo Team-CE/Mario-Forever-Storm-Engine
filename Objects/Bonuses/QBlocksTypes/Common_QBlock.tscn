@@ -24,7 +24,6 @@ shape = SubResource( 1 )
 [node name="Body" type="AnimatedSprite" parent="."]
 z_index = 1
 frames = ExtResource( 3 )
-frame = 2
 playing = true
 offset = Vector2( 0, -16 )
 

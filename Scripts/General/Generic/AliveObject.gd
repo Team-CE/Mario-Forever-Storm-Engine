@@ -23,6 +23,7 @@ export var invincible: bool
 export(float,-1,1) var dir: float = -1
 export var can_freeze: bool = false
 export var frozen: bool = false
+export var force_death_type: bool = false
 
 #RayCasts leave empty if smart_turn = false
 export var ray_L_pth: NodePath
@@ -101,7 +102,7 @@ func _ready() -> void:
     printerr('[CE ERROR] AliveObject' + str(self) + ': No custom death function provided.')
 
 func _physics_process(delta:float) -> void:
-  if !alive && death_type != DEATH_TYPE.FALL:
+  if !alive && death_type != DEATH_TYPE.FALL && !force_death_type:
     return
   
   brain._ai_process(delta) #Calling brain cells
@@ -133,11 +134,12 @@ func on_edge() -> bool:
 func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
   if invincible:
     return
-  alive = false
-  collision_layer = 0
-  collision_mask = 0
-  velocity.x = 0
-  gravity_scale = 0.4
+  if not force_death_type:
+    alive = false
+    collision_layer = 0
+    collision_mask = 0
+    velocity.x = 0
+    gravity_scale = 0.4
   if self.death_type != DEATH_TYPE.UNFREEZE:
     self.death_type = death_type
   if brain.has_method('_on_any_death'):

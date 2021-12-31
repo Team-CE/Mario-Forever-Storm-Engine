@@ -28,7 +28,10 @@ func _process(delta) -> void:
   if overlaps.size() > 0 and belongs == 0:
     for i in range(overlaps.size()):
       if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('kill'):
-        overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, 0)
+        if overlaps[i].force_death_type == false:
+          overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, 0)
+        else:
+          overlaps[i].kill(overlaps[i].death_type, 0)
         explode()
         
   if belongs != 0 and is_mario_collide('InsideDetector'):
