@@ -2,7 +2,7 @@ extends Node
 
 var GameName = "CloudEngine"
 var soundBar: float = 0                      # Game options
-var musicBar: float = 0
+var musicBar: float = 0                      # 9i sosal y Muwu B 5 yTpa
 var effects: bool = true
 var scroll: int = 0
 var quality: int = 2
