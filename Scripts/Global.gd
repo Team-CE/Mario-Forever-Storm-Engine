@@ -147,9 +147,12 @@ func _physics_process(delta: float) -> void:
       
   # Toggle fly mode
     if Input.is_action_just_pressed('debug_1'):
+      if Mario.dead_gameover: return
       debug_fly = !debug_fly
       if debug_inv and debug_fly:
         debug_inv = false
+      if Mario.dead:
+        Mario.unkill()
       play_base_sound('DEBUG_Toggle')
       
   # Toggle invisible mode

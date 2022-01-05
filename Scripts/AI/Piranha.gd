@@ -81,7 +81,7 @@ func _ai_process(delta: float) -> void:
 func _process_shooting(delta: float):
   if projectile_timer <= 0 and projectile_counter < owner.vars['projectile count'] and shooting:
     owner.sound.play()
-    projectile_timer = 10
+    projectile_timer = owner.vars['shoot interval'] if 'shoot interval' in owner.vars else 10
     projectile_counter += 1
     if owner.vars['type'] == 2:
       fireball = preload('res://Objects/Projectiles/Iceball.tscn').instance()

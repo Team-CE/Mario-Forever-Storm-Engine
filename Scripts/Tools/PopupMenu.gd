@@ -62,6 +62,7 @@ func resume() -> void:
     Global.HUD.get_node('DebugFlySprite').visible = Global.debug_fly
     Global.HUD.get_node('DebugInvisibleSprite').visible = Global.debug_inv
     Global.HUD.get_node('GameoverSprite').visible = Global.Mario.dead_gameover
+    Global.HUD.get_node('DebugOrphaneNodes').hide()
   isPaused = false
   yield(get_tree().create_timer( 0.35 ), 'timeout')
   cm.modulate = Color(1, 1, 1, 1)

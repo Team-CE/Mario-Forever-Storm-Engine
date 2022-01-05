@@ -1,11 +1,10 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/AI/Powerups/GenericPowerup.gd" type="Script" id=2]
 [ext_resource path="res://GFX/Bonuses/GreenLui.png" type="Texture" id=3]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=4]
 [ext_resource path="res://Scripts/Powerups/LuiBehavior.gd" type="Script" id=5]
-[ext_resource path="res://GFX/Effects/Light.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
@@ -64,7 +63,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 16, 16 )
+extents = Vector2( 15, 15.5 )
 
 [node name="Lui" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -82,23 +81,16 @@ sound_pth = NodePath("AudioStreamPlayer2D")
 animated_sprite_pth = NodePath("AnimatedSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -1, -16 )
+position = Vector2( -1, -15 )
 frames = SubResource( 13 )
-frame = 6
+frame = 8
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 show_behind_parent = true
-position = Vector2( 0, -16 )
+position = Vector2( 0, -15.5 )
 shape = SubResource( 14 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
-
-[node name="Light2D" type="Light2D" parent="."]
-modulate = Color( 1, 0.811765, 0.541176, 1 )
-position = Vector2( 0, -24 )
-scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 6 )
-energy = 0.4

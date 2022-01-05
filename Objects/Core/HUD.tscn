@@ -207,6 +207,7 @@ texture = ExtResource( 2 )
 light_mask = 0
 position = Vector2( 256, 43 )
 frames = SubResource( 42 )
+frame = 2
 playing = true
 
 [node name="GameoverSprite" type="Sprite" parent="."]

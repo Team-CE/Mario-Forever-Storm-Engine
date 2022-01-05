@@ -187,9 +187,18 @@ func _process_dead(delta) -> void:
   if dead_counter == 0:
     Global.state = 0
     animate(delta)
-
-  $TopDetector/CollisionTop.disabled = true
-  $BottomDetector/CollisionBottom.disabled = true
+  
+  var colDisabled
+  if not colDisabled:
+    $TopDetector/CollisionTop.disabled = true
+    $BottomDetector/CollisionBottom.disabled = true
+    $Collision.disabled = true
+    $CollisionBig.disabled = true
+    $BottomDetector/CollisionBottom.disabled = true
+    $BottomDetector/CollisionBottom2.disabled = true
+    $InsideDetector.collision_layer = 0
+    $InsideDetector.collision_mask = 0
+    colDisabled = true
 
   dead_counter += 1 * Global.get_delta(delta)
   $Sprite.set_animation('Dead')
@@ -205,8 +214,8 @@ func _process_dead(delta) -> void:
     
   $Sprite.position += Vector2(0, velocity.y * delta)
 
-  $BottomDetector/CollisionBottom.shape = null
-  $TopDetector/CollisionTop.shape = null
+  #$BottomDetector/CollisionBottom.shape = null
+  #$TopDetector/CollisionTop.shape = null
 
   if dead_counter > 180:
     if Global.lives > 0:
@@ -229,16 +238,16 @@ func _process_dead(delta) -> void:
         get_parent().get_tree().paused = true
       
 func _process_debug_fly(delta: float) -> void:
-  var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10) * Global.get_delta(delta)
+  var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10)
   if Input.is_action_pressed('mario_right'):
-    position.x += debugspeed
+    position.x += debugspeed * Global.get_delta(delta)
   if Input.is_action_pressed('mario_left'):
-    position.x -= debugspeed
+    position.x -= debugspeed * Global.get_delta(delta)
   
   if Input.is_action_pressed('mario_up'):
-    position.y -= debugspeed
+    position.y -= debugspeed * Global.get_delta(delta)
   if Input.is_action_pressed('mario_crouch'):
-    position.y += debugspeed
+    position.y += debugspeed * Global.get_delta(delta)
     
   if Input.is_action_just_pressed('debug_rotate_right'):
     target_gravity_angle += 45
@@ -391,9 +400,23 @@ func update_collisions() -> void:
 
 func kill() -> void:
   dead = true
-  $Collision.disabled = true
-  $CollisionBig.disabled = true
-  $BottomDetector/CollisionBottom.disabled = true
+
+func unkill() -> void:
+  dead = false
+  $Collision.disabled = false
+  $CollisionBig.disabled = false
+  $BottomDetector/CollisionBottom.disabled = false
+  $BottomDetector/CollisionBottom2.disabled = false
+  $InsideDetector.collision_layer = 3
+  $InsideDetector.collision_mask = 3
+  dead_counter = 0
+  dead_hasJumped = false
+  appear_counter = 0
+  shield_counter = 0
+  $TopDetector/CollisionTop.disabled = false
+  $BottomDetector/CollisionBottom.disabled = false
+  $Sprite.position = Vector2.ZERO
+  animate_sprite('Stopped')
 
 func debug() -> void:
   if Input.is_action_just_pressed('mouse_middle'):

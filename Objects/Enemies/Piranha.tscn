@@ -19,6 +19,7 @@ extents = Vector2( 17, 32 )
 script = ExtResource( 1 )
 vars = {
 "projectile count": 3,
+"shoot interval": 10.0,
 "type": 0
 }
 AI = ExtResource( 3 )
@@ -50,7 +51,6 @@ disabled = true
 position = Vector2( 0, -32 )
 z_index = -1
 frames = ExtResource( 2 )
-frame = 1
 playing = true
 
 [node name="Placeholder1" type="AnimatedSprite" parent="."]
@@ -69,6 +69,7 @@ position = Vector2( 1, -56 )
 texture = ExtResource( 5 )
 
 [node name="Light2D" type="Light2D" parent="."]
+visible = false
 modulate = Color( 1, 0.811765, 0.541176, 1 )
 position = Vector2( 0, -24 )
 scale = Vector2( 1.5, 1.5 )
@@ -80,6 +81,8 @@ stream = ExtResource( 4 )
 
 [node name="Fire" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
+max_distance = 1000.0
+attenuation = 0.176777
 
 [node name="IceSprite" type="AnimatedSprite" parent="."]
 visible = false

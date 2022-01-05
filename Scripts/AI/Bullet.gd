@@ -21,11 +21,11 @@ func _ai_process(delta: float) -> void:
 func _on_hitbox_enter(a) -> void:
   if !owner.alive:
     return
-  if a.name == 'InsideDetector':
-    Global._ppd()
-  elif a.name == 'BottomDetector' and !owner.invincible:
+  if a.name == 'BottomDetector' and !owner.invincible:
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
     else:
       Global.Mario.velocity.y = -owner.vars['bounce'] * 50
     owner.kill(AliveObject.DEATH_TYPE.FALL)
+  elif a.name == 'InsideDetector':
+    Global._ppd()

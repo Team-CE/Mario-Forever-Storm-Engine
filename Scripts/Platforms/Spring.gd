@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 var spring_counter: float = 0
 
+export var strength_modifier: float = 1
+
 func _ready() -> void:
   add_collision_exception_with(Global.Mario)
   
@@ -21,9 +23,11 @@ func _process(delta: float) -> void:
     $Sound.play()
     $Sprite.frame = 0
     if spring_counter <= 0:
-      Global.Mario.velocity.y = -550
+      Global.Mario.velocity.y = 0
+      Global.Mario.velocity += Vector2(0, -550).rotated(rotation)
     else:
-      Global.Mario.velocity.y = -1000
+      Global.Mario.velocity.y = 0
+      Global.Mario.velocity += Vector2(0, -1000 * strength_modifier).rotated(rotation)
 
 func is_mario_collide(_detector_name: String) -> bool:
   var collisions = Global.Mario.get_node(_detector_name).get_overlapping_bodies()

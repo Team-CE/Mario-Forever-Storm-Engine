@@ -223,7 +223,6 @@ __meta__ = {
 }
 music = ExtResource( 26 )
 music_credits = ExtResource( 27 )
-sgr = "res://Stages/SaveGameRoom.tscn"
 
 [node name="BG" type="TextureRect" parent="."]
 anchor_top = 1.0

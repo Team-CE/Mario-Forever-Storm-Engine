@@ -15,7 +15,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16, 16 )
+extents = Vector2( 14.5, 15.5 )
 
 [node name="Life Mushroom" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -39,7 +39,7 @@ playing = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 show_behind_parent = true
-position = Vector2( 0, -16 )
+position = Vector2( -1.5, -15.5 )
 shape = SubResource( 2 )
 
 [node name="Light2D" type="Light2D" parent="."]
