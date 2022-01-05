@@ -6,15 +6,18 @@ var counter: float = 0
 var dir: bool = false
 
 export var radius: float = 150 setget reset_offset
-export var speed: float = 2
+export var speed: float = 2 setget reset_speed
 export var flower_movement: bool = false setget reset_flower
-export var angle: float = 0
+export var angle: float = 0 setget reset_angle
 export var flower_speed: float = 5
 
 func _ready() -> void:
   if not flower_movement:
     $Sprite/Node2D/AnimatedSprite.position.y = 0 - radius
   $Sprite/Node2D.rotation_degrees += angle
+  
+  if Engine.editor_hint: return
+  $Sprite/Node2D/AnimatedSprite/Light2D.visible = true
 
 func _process(delta) -> void:
   if flower_movement:
@@ -52,3 +55,22 @@ func reset_flower(new_bool):
 
 static func get_delta(delta) -> float:       # Delta by 50 FPS
   return 50 / (1 / (delta if not delta == 0 else 0.0001))
+
+func reset_speed(new_speed):
+  speed = new_speed
+  reset_all()
+  return
+
+func reset_angle(new_angle):
+  angle = new_angle
+  reset_all()
+  return
+
+func reset_all() -> void:
+  var parent = get_parent()
+  if parent and parent.has_method('get_children'):
+    var children = parent.get_children()
+    for node in children:
+      if node.has_method('reset_offset'):
+        node.get_node('Sprite/Node2D').rotation_degrees = node.angle
+  return
