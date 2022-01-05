@@ -70,8 +70,8 @@ func _process(delta) -> void:
     $Sprite.rotation_degrees = -90 if direction == DIRS.RIGHT or direction == DIRS.LEFT else 0
   else:
     if disabled: return
-
-    if Global.Mario.get_node('BottomDetector').get_overlapping_areas().has(self) and not active and type == TYPES.IN:
+    #Вход в варп
+    if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has(self) and not active and type == TYPES.IN:
       if direction == DIRS.DOWN and Input.is_action_pressed('mario_crouch'):
         calc_pos = Vector2(position.x, position.y - 16)
         active = true
@@ -88,14 +88,14 @@ func _process(delta) -> void:
         active = true
         Global.play_base_sound('MAIN_Pipe')
         Global.Mario.animate_sprite('Walking')
-        Global.Mario.speed_scale_sprite(5)
+        Global.Mario.get_node("Sprite").speed_scale = 5
         warp_dir.x = 1
       elif direction == DIRS.LEFT and Input.is_action_pressed('mario_left'):
         calc_pos = Vector2(position.x + 16, position.y + 16)
         active = true
         Global.play_base_sound('MAIN_Pipe')
         Global.Mario.animate_sprite('Walking')
-        Global.Mario.speed_scale_sprite(5)
+        Global.Mario.get_node("Sprite").speed_scale = 5
         warp_dir.x = -1
     
     if active:
@@ -108,14 +108,14 @@ func _process(delta) -> void:
 
       Global.Mario.get_node('Sprite').z_index = -10
 
-      if counter > 60 and not state_switched:
+      if counter > 60 and not state_switched: #Выход из варпа
         if out_node:
           state_switched = true
           Global.play_base_sound('MAIN_Pipe')
 
           if out_node.direction == DIRS.DOWN:
             Global.Mario.crouch = false
-            calc_pos = Vector2(out_node.position.x, out_node.position.y - 24 - (30 if Global.state != 0 else 0))
+            calc_pos = Vector2(out_node.position.x, out_node.position.y - 40 - (30 if Global.state != 0 else 0))
             warp_dir.y = 1
             Global.Mario.animate_sprite('Jumping')
           elif out_node.direction == DIRS.UP:
@@ -128,13 +128,13 @@ func _process(delta) -> void:
             calc_pos = Vector2(out_node.position.x - 44, out_node.position.y + 16)
             warp_dir.x = 1
             Global.Mario.animate_sprite('Walking')
-            Global.Mario.speed_scale_sprite(5)
+            Global.Mario.get_node("Sprite").speed_scale = 5
           elif out_node.direction == DIRS.LEFT:
             Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x + 44, out_node.position.y + 16)
             warp_dir.x = -1
             Global.Mario.animate_sprite('Walking')
-            Global.Mario.speed_scale_sprite(5)
+            Global.Mario.get_node("Sprite").speed_scale = 5
         elif 'set_scene_path' in additional_options and additional_options['set_scene_path'] != '':
           get_tree().change_scene(additional_options['set_scene_path'])
           

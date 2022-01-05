@@ -22,7 +22,7 @@ func _ready() -> void:
 func _process(delta) -> void:
   if flower_movement:
     counter += flower_speed * get_delta(delta)
-    if counter >= 200:
+    if counter >= radius:
       counter = 0
       if dir == true: $Sprite/Node2D/AnimatedSprite.position.y = 0
       dir = true if dir == false else false
@@ -38,11 +38,8 @@ func _process(delta) -> void:
     Global._ppd()
 
 func reset_offset(new_offset):
-  if not flower_movement:
-    radius = new_offset
-    $Sprite/Node2D/AnimatedSprite.position.y = 0 - radius
-  else:
-    printerr('[CE Error]: Please turn off flower movement before changing the radius.')
+  radius = new_offset
+  $Sprite/Node2D/AnimatedSprite.position.y = 0 - radius
 
 func reset_flower(new_bool):
   flower_movement = new_bool

@@ -102,13 +102,16 @@ func _ready() -> void:
     printerr('[CE ERROR] AliveObject' + str(self) + ': No custom death function provided.')
 
 func _physics_process(delta:float) -> void:
+  var vse = get_node_or_null("VisibilityEnabler2D")
+  if is_instance_valid(vse):
+    vse.scale = Vector2(5,5)
   if !alive && death_type != DEATH_TYPE.FALL && !force_death_type:
     return
   
   brain._ai_process(delta) #Calling brain cells
   
   if is_instance_valid(Global.Mario):
-    if position.y > Global.Mario.get_node('Camera').limit_bottom + 96:
+    if position.y > Global.Mario.get_node('Camera').limit_bottom + 96 and position.y < Global.Mario.get_node('Camera').limit_bottom + 200:
       queue_free()
   # Fixing ceiling collision and is_on_floor() flickering
   if (is_on_floor() || is_on_ceiling()) && alive && velocity.y >= 0:

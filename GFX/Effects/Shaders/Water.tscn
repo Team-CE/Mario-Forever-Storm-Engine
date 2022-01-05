@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=18]
+code = "shader_type canvas_item;
+uniform float distortion = 0.01f;
+uniform float frequency = 60f;
+
+void fragment(){
+  vec2 f_uv = UV;
+  f_uv.x = sin((SCREEN_UV.y * frequency) + TIME) * (distortion/100f) + SCREEN_UV.x;
+  f_uv.x = clamp(f_uv.x,0f,1f);
+  f_uv.y = 1.f - f_uv.y;
+  vec4 f_col = texture(SCREEN_TEXTURE,f_uv);
+  
+  
+  COLOR = f_col;
+  
+}"
+
+[sub_resource type="ShaderMaterial" id=19]
+shader = SubResource( 18 )
+shader_param/distortion = 1.0
+shader_param/frequency = 8.85
+
+[node name="Shader" type="Sprite"]
+material = SubResource( 19 )
+scale = Vector2( 6.83495, 4.6699 )
+z_index = 105
+texture = ExtResource( 1 )

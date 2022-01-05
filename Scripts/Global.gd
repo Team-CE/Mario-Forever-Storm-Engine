@@ -102,14 +102,17 @@ func _ready() -> void:
 
 func saveInfo(content):
   var file = File.new()
+  
   file.open("user://" + GameName + ".cloudsav", File.WRITE)
   file.store_string(content)
   file.close()
+  
   if scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "2d":
     ProjectSettings.set_setting("display/window/stretch/mode", "viewport")
     ProjectSettings.save_custom("override.cfg")
     restartNeeded = true
     print('Need to restart')
+    
   elif not scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "viewport":
     ProjectSettings.set_setting("display/window/stretch/mode", "2d")
     ProjectSettings.save_custom("override.cfg")

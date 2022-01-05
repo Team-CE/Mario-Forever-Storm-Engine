@@ -4,6 +4,7 @@
 [ext_resource path="res://Scripts/General/Warp.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 11.5, 13.5 )
 
 [node name="Warp" type="Area2D" groups=["Warp"]]
 script = ExtResource( 2 )
@@ -18,5 +19,5 @@ texture = ExtResource( 1 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 0, -16 )
+position = Vector2( -0.5, -13.5 )
 shape = SubResource( 1 )
