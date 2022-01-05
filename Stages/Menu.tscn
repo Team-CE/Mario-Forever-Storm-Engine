@@ -464,5 +464,6 @@ stream = ExtResource( 11 )
 stream = ExtResource( 16 )
 
 [node name="Credits" type="Sprite" parent="."]
-position = Vector2( 320, 1680 )
+position = Vector2( 315.5, 1706.62 )
+scale = Vector2( 19.2813, 10.4609 )
 texture = ExtResource( 19 )
