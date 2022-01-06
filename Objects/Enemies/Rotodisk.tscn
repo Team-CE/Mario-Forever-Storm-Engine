@@ -17,14 +17,14 @@ z_index = 1
 texture = ExtResource( 2 )
 
 [node name="Node2D" type="Node2D" parent="Sprite"]
-rotation = 16.0765
+rotation = 1537.56
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite/Node2D"]
 position = Vector2( 0, -150 )
-rotation = 2.7731
+rotation = 1.81753
 z_index = 15
 frames = ExtResource( 1 )
-frame = 10
+frame = 13
 playing = true
 
 [node name="Area2D" type="Area2D" parent="Sprite/Node2D/AnimatedSprite"]
@@ -46,5 +46,5 @@ energy = 0.6
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-scale = Vector2( 1.7, 1.6 )
+scale = Vector2( 16, 16 )
 physics_process_parent = true

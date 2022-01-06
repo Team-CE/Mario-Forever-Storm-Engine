@@ -15,10 +15,12 @@ var popup: CanvasLayer = null
 
 func _ready():
   if !Engine.editor_hint:
-    Global.time = time
     Global.currlevel = self
-    MusicPlayer.stream = music
-    MusicPlayer.play()
+    $WorldEnvironment.environment.dof_blur_near_enabled = false
+    if not $Mario.custom_die_stream or Global.deaths == 0:
+      Global.time = time
+      MusicPlayer.stream = music
+      MusicPlayer.play()
     if Global.musicBar > -100:
       MusicPlayer.volume_db = round(Global.musicBar / 5)
     if Global.musicBar == -100:
@@ -67,7 +69,6 @@ func setup_tilemap() -> TileMap:
 
 func _input(event):
   if Engine.editor_hint: return
-  if sgr_scroll: return
   if event.is_action_pressed('ui_pause'):
     if popup == null:
       popup = pause_menu.instance()

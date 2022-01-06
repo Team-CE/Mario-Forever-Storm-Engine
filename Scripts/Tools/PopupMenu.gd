@@ -18,7 +18,7 @@ func _ready():
     cm2 = CanvasModulate.new()
     get_parent().get_node('ParallaxBackground').add_child(cm2)
 
-  if get_parent().get_node_or_null('HUD'):
+  if Global.HUD:
     for child in Global.HUD.get_children():
       if not child is AudioStreamPlayer:
         child.hide()
@@ -48,7 +48,7 @@ func _process(delta):
     env.dof_blur_near_amount += (0 - env.dof_blur_near_amount) * speed * Global.get_delta(delta)
 
 func resume() -> void:
-  if get_parent().get_node_or_null('HUD'):
+  if Global.HUD:
     for child in Global.HUD.get_children():
       if not child is AudioStreamPlayer:
         child.show()
@@ -75,6 +75,7 @@ func resetandfree() -> void:
   Global.score = 0
   Global.coins = 0
   Global.state = 0
+  Global.deaths = 0
   Global.projectiles_count = 0
   Global.checkpoint_active = 0
   queue_free()

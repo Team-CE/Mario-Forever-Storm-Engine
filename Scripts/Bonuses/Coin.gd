@@ -15,7 +15,7 @@ func _process(_delta) -> void:
   if g_overlaps and g_overlaps[0] is StaticBody2D and g_overlaps[0].triggered and g_overlaps[0].t_counter < 12:
     Global.add_coins(1)
     Global.add_score(200)
-    get_parent().get_node('HUD').get_node('CoinSound').play()
+    Global.HUD.get_node('CoinSound').play()
     var coin_effect = CoinEffect.new(position, rotation)
     get_parent().add_child(coin_effect)
     queue_free()
@@ -24,5 +24,5 @@ func _on_Coin_area_entered(area) -> void:
   if area.is_in_group('Mario') and not appearing:
     Global.add_coins(1)
     Global.add_score(200)
-    get_parent().get_node('HUD').get_node('CoinSound').play()
+    Global.HUD.get_node('CoinSound').play()
     queue_free()

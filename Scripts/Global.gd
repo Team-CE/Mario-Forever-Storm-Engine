@@ -35,6 +35,7 @@ var lives: int = 4                           # Player lives
 var time: int = 999                          # Time left
 var score: int = 0                           # Score
 var coins: int = 0                           # Player coins
+var deaths: int = 0                          # Player deaths (for precision madness)
 var state: int = 0                           # Player powerup state
 
 var projectiles_count: int = 0               # Self explanable
@@ -53,8 +54,6 @@ var levelID: int = 0
 
 onready var timer: Timer = Timer.new()       # Create a new timer for delay
 
-var die_music: Resource = preload('res://Music/1-music-die.ogg')
-
 static func get_delta(delta) -> float:       # Delta by 50 FPS
   return 50 / (1 / (delta if not delta == 0 else 0.0001))
 
@@ -62,7 +61,6 @@ static func get_vector_delta(delta) -> Vector2: # Vector2 with delta values
   return Vector2(get_delta(delta), get_delta(delta))
 
 func _ready() -> void:
-  die_music.loop = false
   if debug:
     add_child(preload('res://Objects/Core/Inspector.tscn').instance()) # Adding a debug inspector
   timer.wait_time = 1.45
@@ -241,8 +239,15 @@ func _pll() -> void: # Player Death
   if Mario.dead or debug_inv or debug_fly:
     return
   emit_signal('OnPlayerLoseLife')
-  MusicPlayer.stream = die_music
-  MusicPlayer.play()
+  if not Mario.custom_die_stream:
+    MusicPlayer.stream = Mario.die_music
+    MusicPlayer.play()
+  else:
+    var dieMusPlayer = AudioStreamPlayer.new()
+    dieMusPlayer.set_stream(Mario.custom_die_stream)
+    add_child(dieMusPlayer)
+    dieMusPlayer.play()
+    
   Mario.dead = true
 
 func _delay() -> void:

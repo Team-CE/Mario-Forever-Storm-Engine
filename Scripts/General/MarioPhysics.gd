@@ -7,6 +7,8 @@ export var powerup_scripts: Dictionary = {}
 export var target_gravity_angle: float = 0
 export var sections_scroll: bool = true
 export var camera_addon: Script
+export var die_music: Resource = preload('res://Music/1-music-die.ogg')
+export var custom_die_stream: Resource
 
 var inited_camera_addon
 
@@ -40,6 +42,7 @@ var popup: CanvasLayer = null
 
 func _ready() -> void:
   gameover_music.loop = false
+  die_music.loop = false
   Global.Mario = self
 # warning-ignore:return_value_discarded
   Global.connect("OnPlayerLoseLife", self, 'kill')
