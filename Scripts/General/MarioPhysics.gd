@@ -36,6 +36,7 @@ onready var launch_counter: float = 0
 onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
 onready var allow_custom_animation: bool = false
+onready var allow_custom_movement: bool = false
 
 const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
 var popup: CanvasLayer = null
@@ -107,7 +108,7 @@ func _process(delta) -> void:
     jump_internal_counter += 1 * Global.get_delta(delta)
 
 func _process_alive(delta) -> void:
-  if velocity.y < 550 and not is_on_floor():
+  if velocity.y < 550 and not is_on_floor() and not allow_custom_movement:
     if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y < 0:
       if abs(velocity.x) < 1:
         velocity.y -= 20 * Global.get_delta(delta)
@@ -125,13 +126,14 @@ func _process_alive(delta) -> void:
   if controls_enabled:
     controls(delta)
 
-  if velocity.x > 0:
-    velocity.x -= 5 * Global.get_delta(delta)
-  if velocity.x < 0:
-    velocity.x += 5 * Global.get_delta(delta)
+  if not allow_custom_movement:
+    if velocity.x > 0:
+      velocity.x -= 5 * Global.get_delta(delta)
+    if velocity.x < 0:
+      velocity.x += 5 * Global.get_delta(delta)
 
-  if velocity.x > -10 * Global.get_delta(delta) and velocity.x < 10 * Global.get_delta(delta):
-    velocity.x = 0
+    if velocity.x > -10 * Global.get_delta(delta) and velocity.x < 10 * Global.get_delta(delta):
+      velocity.x = 0
 
   if velocity.y > 0:
     jump_counter = 1
