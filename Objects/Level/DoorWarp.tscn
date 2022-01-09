@@ -6,9 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 32 )
 
-[node name="DoorWarp" type="Area2D" groups=[
-"DoorWarp",
-]]
+[node name="DoorWarp" type="Area2D" groups=["DoorWarp"]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -24,7 +22,8 @@ shape = SubResource( 1 )
 margin_left = -32.0
 margin_top = -64.0
 margin_right = 32.0
-text = "1"
+text = "0
+IN"
 align = 1
 valign = 1
 __meta__ = {

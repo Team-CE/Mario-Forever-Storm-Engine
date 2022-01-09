@@ -21,11 +21,18 @@ var can_jump: bool = false
 var crouch: bool = false
 var prelanding: bool = false
 
+enum Movement {
+  DEFAULT,
+  SWIMMING,
+  CLIMBING
+ }
+
 var top_collider_counter: float = 0
 
 var position_altered: bool = false
 var selected_state: int = -1
 
+onready var movement_type: int = Movement.DEFAULT
 onready var dead: bool = false
 onready var dead_hasJumped: bool = false
 onready var dead_gameover: bool = false
@@ -36,7 +43,6 @@ onready var launch_counter: float = 0
 onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
 onready var allow_custom_animation: bool = false
-onready var allow_custom_movement: bool = false
 
 const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
 var popup: CanvasLayer = null
@@ -46,7 +52,7 @@ func _ready() -> void:
   die_music.loop = false
   Global.Mario = self
 # warning-ignore:return_value_discarded
-  Global.connect("OnPlayerLoseLife", self, 'kill')
+  Global.connect('OnPlayerLoseLife', self, 'kill')
   $DebugText.visible = false
   
   if camera_addon:
@@ -89,7 +95,7 @@ func _process(delta) -> void:
   else:
     target_gravity_angle = rotation_degrees
     
-  $Sprite.modulate.a = 0.5 if Global.debug_fly else 1
+  #$Sprite.modulate.a = 0.5 if Global.debug_fly else 1
   
   $BottomDetector/CollisionBottom.position.y = 5 + velocity.y / 100 * Global.get_delta(delta)
 
@@ -108,14 +114,13 @@ func _process(delta) -> void:
     jump_internal_counter += 1 * Global.get_delta(delta)
 
 func _process_alive(delta) -> void:
-  if velocity.y < 550 and not is_on_floor() and not allow_custom_movement:
-    if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y < 0:
-      if abs(velocity.x) < 1:
-        velocity.y -= 20 * Global.get_delta(delta)
-      else:
-        velocity.y -= 25 * Global.get_delta(delta)
-    velocity.y += 50 * Global.get_delta(delta)
-    
+  if movement_type == Movement.SWIMMING:  # Faster than match
+    movement_swimming(delta)
+  elif movement_type == Movement.CLIMBING:
+    movement_climbing(delta)
+  else:
+    movement_default(delta)
+  
   if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin'):
     ready_powerup_scripts[Global.state]._process_mixin(self, delta)
     
@@ -125,22 +130,22 @@ func _process_alive(delta) -> void:
 
   if controls_enabled:
     controls(delta)
-
-  if not allow_custom_movement:
-    if velocity.x > 0:
-      velocity.x -= 5 * Global.get_delta(delta)
-    if velocity.x < 0:
-      velocity.x += 5 * Global.get_delta(delta)
-
-    if velocity.x > -10 * Global.get_delta(delta) and velocity.x < 10 * Global.get_delta(delta):
-      velocity.x = 0
-
-  if velocity.y > 0:
-    jump_counter = 1
-
-  if is_on_floor() and jump_internal_counter > 3:
-    jump_counter = 0
-
+  
+  if (
+      (
+        Input.is_action_just_pressed('mario_up') or
+        (
+          Input.is_action_just_pressed('mario_crouch') and
+          not is_on_floor()
+        )
+      ) and
+      is_over_vine() and
+      not movement_type == Movement.CLIMBING
+    ):
+    controls_enabled = false
+    animation_enabled = false
+    movement_type = Movement.CLIMBING
+  
   if position.y > $Camera.limit_bottom + 64 and controls_enabled:
     if get_parent().no_cliff:
       position.y -= 550
@@ -242,23 +247,64 @@ func _process_dead(delta) -> void:
         get_parent().get_node('WorldEnvironment').environment.dof_blur_near_enabled = true
         get_parent().get_tree().paused = true
       
-func _process_debug_fly(delta: float) -> void:
-  var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10)
-  if Input.is_action_pressed('mario_right'):
-    position.x += debugspeed * Global.get_delta(delta)
-  if Input.is_action_pressed('mario_left'):
-    position.x -= debugspeed * Global.get_delta(delta)
+func movement_default(delta) -> void:
+  if velocity.y < 550 and not is_on_floor():
+    if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y < 0:
+      if abs(velocity.x) < 1:
+        velocity.y -= 20 * Global.get_delta(delta)
+      else:
+        velocity.y -= 25 * Global.get_delta(delta)
+    velocity.y += 50 * Global.get_delta(delta)
   
-  if Input.is_action_pressed('mario_up'):
-    position.y -= debugspeed * Global.get_delta(delta)
+  if velocity.x > 0:
+    velocity.x -= 5 * Global.get_delta(delta)
+  if velocity.x < 0:
+    velocity.x += 5 * Global.get_delta(delta)
+
+  if velocity.x > -10 * Global.get_delta(delta) and velocity.x < 10 * Global.get_delta(delta):
+    velocity.x = 0
+
+  if velocity.y > 0:
+    jump_counter = 1
+
+  if is_on_floor() and jump_internal_counter > 3:
+    jump_counter = 0
+
+func movement_swimming(delta) -> void:
+  pass # TODO
+
+func movement_climbing(delta) -> void:
+  if not is_over_vine():
+    movement_type = Movement.DEFAULT
+    animation_enabled = true
+    controls_enabled = true
+  
   if Input.is_action_pressed('mario_crouch'):
-    position.y += debugspeed * Global.get_delta(delta)
+    if is_on_floor():
+      movement_type = Movement.DEFAULT
+      animation_enabled = true
+      controls_enabled = true
+    else:
+      velocity.y = 100
+  if Input.is_action_pressed('mario_up'):
+    velocity.y = -100
+  if Input.is_action_pressed('mario_left'):
+    velocity.x = -100
+  if Input.is_action_pressed('mario_right'):
+    velocity.x = 100
+  
+  if !Input.is_action_pressed('mario_crouch') and !Input.is_action_pressed('mario_up'):
+    velocity.y = 0
+  if !Input.is_action_pressed('mario_left') and !Input.is_action_pressed('mario_right'):
+    velocity.x = 0
     
-  if Input.is_action_just_pressed('debug_rotate_right'):
-    target_gravity_angle += 45
-    
-  if Input.is_action_just_pressed('debug_rotate_left'):
-    target_gravity_angle -= 45
+func is_over_vine() -> bool:
+  var overlaps = get_node('InsideDetector').get_overlapping_bodies()
+  print(overlaps)
+  for c in overlaps:
+    if c.is_in_group('Climbable'):
+      return true
+  return false
 
 func controls(delta) -> void:
   if Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and not crouch:
@@ -427,7 +473,25 @@ func debug() -> void:
   if Input.is_action_just_pressed('mouse_middle'):
     $DebugText.visible = !$DebugText.visible
 
-  $DebugText.text = 'x speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($Sprite.animation).to_lower() + '\nfps: ' + str(Engine.get_frames_per_second())
+  $DebugText.text = 'x speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($Sprite.animation).to_lower() + '\nmovement: ' + str(movement_type) + '\nfps: ' + str(Engine.get_frames_per_second())
+
+func _process_debug_fly(delta: float) -> void:
+  var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10)
+  if Input.is_action_pressed('mario_right'):
+    position.x += debugspeed * Global.get_delta(delta)
+  if Input.is_action_pressed('mario_left'):
+    position.x -= debugspeed * Global.get_delta(delta)
+  
+  if Input.is_action_pressed('mario_up'):
+    position.y -= debugspeed * Global.get_delta(delta)
+  if Input.is_action_pressed('mario_crouch'):
+    position.y += debugspeed * Global.get_delta(delta)
+    
+  if Input.is_action_just_pressed('debug_rotate_right'):
+    target_gravity_angle += 45
+    
+  if Input.is_action_just_pressed('debug_rotate_left'):
+    target_gravity_angle -= 45
 
 func _process_camera(delta: float) -> void:
   if dead: return

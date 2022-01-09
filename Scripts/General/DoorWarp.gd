@@ -37,9 +37,9 @@ func _process(delta: float) -> void:
   if Engine.editor_hint:
     $Label.text = str(id) + '\n' + ('IN' if type == TYPES.IN else 'OUT')
   else:
-    if Input.is_action_pressed('mario_up') and Global.is_mario_collide_area('InsideDetector', self):
+    if Input.is_action_pressed('mario_up') and Global.is_mario_collide_area('InsideDetector', self) and type == TYPES.IN and not disabled:
       active = true
-      Global.Mario.position.x = position.x
+      Global.Mario.position = position
       Global.Mario.controls_enabled = false
       Global.Mario.animation_enabled = false
       Global.Mario.velocity = Vector2(0, 0)
@@ -61,5 +61,7 @@ func _process(delta: float) -> void:
       Global.Mario.get_node('Sprite').modulate.a = 1
       Global.Mario.controls_enabled = true
       Global.Mario.animation_enabled = true
+      disabled = true
+      active = false
       
 

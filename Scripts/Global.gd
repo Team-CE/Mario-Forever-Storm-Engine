@@ -149,6 +149,7 @@ func _physics_process(delta: float) -> void:
   # Toggle fly mode
     if Input.is_action_just_pressed('debug_1'):
       if Mario.dead_gameover: return
+      Mario.get_node('Sprite').modulate.a = 0.5 * (1 + int(debug_fly))
       debug_fly = !debug_fly
       if debug_inv and debug_fly:
         debug_inv = false
