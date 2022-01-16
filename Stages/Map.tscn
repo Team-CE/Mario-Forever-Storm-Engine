@@ -42,6 +42,9 @@ level_scenes = [ null ]
 [node name="map_looped" type="Sprite" parent="."]
 position = Vector2( 5000, 240 )
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="MarioPath" type="Path2D" parent="."]
 position = Vector2( -16, 256 )
@@ -62,6 +65,9 @@ layer = 100
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0, 0 )
 motion_offset = Vector2( -320, -240 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Transition" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 modulate = Color( 0, 0, 0, 1 )
