@@ -7,15 +7,12 @@
 The most modern and powerful Mario Forever engine. Created with the intention to replace lots of engines made in Clickteam Fusion.
 Unlike some other implementations of Mario Forever, it respects original Mario physics and players won't be able to notice any difference in them when comparing to the CTF version.
 
-#### VERSION : WIP
+#### VERSION : 0.8
 
 #### [CREATED BY]
 - ReflexGURU
-- SuperMany
-
-#### [With Bullshit Assistance From]
 - JUE13
-- LooPeR231
+- SuperMany
 
 #### [CONTRIBUTING TO THIS ENGINE]
 This engine is still very unfinished, so all contributions are welcome! Feel free to open pull requests.
