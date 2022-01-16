@@ -1,16 +1,43 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://GFX/Map/map_looped.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Map/Map.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Core/Map/MiniMario.tscn" type="PackedScene" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://GFX/Map/press_start.png" type="Texture" id=5]
+[ext_resource path="res://GFX/Map/marioicon.png" type="Texture" id=6]
+[ext_resource path="res://Sounds/Menu/fade_out.wav" type="AudioStream" id=7]
+[ext_resource path="res://Scripts/Map/WorldText.gd" type="Script" id=8]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 208, 0, 0, 0, 0, 0, 208, -64, 0, 0, 0, 0, 272, -64, 0, 0, 0, 0, 272, 128, 0, 0, 0, 0, 400, 128, 0, 0, 0, 0, 400, 0, 0, 0, 0, 0, 464, 0, -137, 1, 137, -1, 592, -128, 0, 0, 0, 0, 720, 0, -130, 1, 130, -1, 848, 128, 0, 0, 0, 0, 976, 0, 0, 0, 0, 0, 1296, 0 )
 }
 
+[sub_resource type="Shader" id=40]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float circle_size : hint_range(0.0, 1.05);
+uniform float screen_width;
+uniform float screen_height;
+
+void fragment() {
+	float ratio = screen_width / screen_height;
+	float dist = distance(vec2(0.5, 0.5), vec2(mix(0.5, UV.x, ratio), UV.y));
+	COLOR.a = step(circle_size, dist);
+}"
+
+[sub_resource type="ShaderMaterial" id=41]
+shader = SubResource( 40 )
+shader_param/circle_size = 0.623
+shader_param/screen_width = 1.0
+shader_param/screen_height = 1.0
+
 [node name="Map" type="Node2D"]
 script = ExtResource( 2 )
+stop_points = [ 309 ]
+level_scenes = [ null ]
 
 [node name="map_looped" type="Sprite" parent="."]
 position = Vector2( 5000, 240 )
@@ -28,3 +55,45 @@ loop = false
 [node name="MiniMario" parent="MarioPath/PathFollow2D" instance=ExtResource( 3 )]
 position = Vector2( 8, 0 )
 z_index = 1
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = 100
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0, 0 )
+motion_offset = Vector2( -320, -240 )
+
+[node name="Transition" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+modulate = Color( 0, 0, 0, 1 )
+material = SubResource( 41 )
+position = Vector2( 0, -80 )
+scale = Vector2( 6.21359, 6.21359 )
+texture = ExtResource( 4 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PressJump" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 320, 448 )
+z_index = -1
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Marioicon" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 568, 430 )
+z_index = -1
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="WorldText" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 320, -80 )
+script = ExtResource( 8 )
+
+[node name="fadeout" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )

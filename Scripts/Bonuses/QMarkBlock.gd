@@ -178,7 +178,7 @@ func _process(delta) -> void:
 
 func _physics_process(_delta) -> void:
   if preview:
-    preview.visible = Engine.editor_hint || Global.debug
+    preview.visible = Engine.editor_hint || !Global.debug
   
   if 'debug' in Global && Global.debug && (Result != null || PrevResult != null) && Result != PrevResult:
     preview.texture = set_preview()
