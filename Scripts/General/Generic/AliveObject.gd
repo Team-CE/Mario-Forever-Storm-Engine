@@ -165,6 +165,10 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
         alt_sound.play()
       else:
         csound.play()
+      if score_mp > len(multiplier_scores) - 1:
+        score_mp = 0
+      if score_mp == 6:
+        Global.add_lives(1, false)
       get_parent().add_child(ScoreText.new(score * multiplier_scores[score_mp], position))
       z_index = 10
       velocity.y = -180

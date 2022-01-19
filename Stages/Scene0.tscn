@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://Scripts/Powerups/Propeller.gd" type="Script" id=22]
 [ext_resource path="res://Objects/Bonuses/VineExtending.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Objects/Bonuses/Star.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Music/credits.ogg" type="AudioStream" id=25]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -36,6 +37,7 @@ glow_hdr_threshold = 1.5
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
+music = ExtResource( 25 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )

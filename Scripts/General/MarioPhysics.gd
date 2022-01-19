@@ -141,6 +141,8 @@ func _process_alive(delta) -> void:
   
   if shield_star:
     star_logic()
+    $BottomDetector/CollisionBottom.disabled = true
+    $BottomDetector/CollisionBottom2.disabled = true
     var fade_bool = false
     # Starman music Fade out
     if shield_counter < 125 and Global.musicBar > -100 and not fade_bool:
@@ -149,7 +151,12 @@ func _process_alive(delta) -> void:
     if shield_counter <= 0:
       MusicPlayer.get_node('Star').stop()
       MusicPlayer.get_node('Main').play()
-      AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
+      $BottomDetector/CollisionBottom.disabled = false
+      $BottomDetector/CollisionBottom2.disabled = false
+      if Global.musicBar > -100:
+        AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
+      if Global.musicBar == -100:
+        AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
       shield_star = false
       star_kill_count = 0
   

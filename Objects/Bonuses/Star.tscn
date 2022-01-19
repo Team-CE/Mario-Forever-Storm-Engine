@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Bonuses/Star.png" type="Texture" id=2]
 [ext_resource path="res://GFX/Effects/Light.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/AI/Powerups/GenericPowerup.gd" type="Script" id=4]
-[ext_resource path="res://Scripts/AI/Powerups/Actions/Star.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/AI/Powerups/Actions/Star.gd" type="Script" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -40,7 +39,7 @@ collision_mask = 3
 script = ExtResource( 1 )
 vars = {
 "bounce": -200,
-"custom action": ExtResource( 5 ),
+"custom action": ExtResource( 6 ),
 "custom behavior": ExtResource( 6 ),
 "grow speed": 0.5,
 "speed": 125.0
