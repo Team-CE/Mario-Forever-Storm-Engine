@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://Objects/Bonuses/VineExtending.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Objects/Bonuses/Star.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Music/credits.ogg" type="AudioStream" id=25]
+[ext_resource path="res://Objects/Bonuses/QBlocksTypes/Switch_QBlock.tscn" type="PackedScene" id=26]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -323,3 +324,89 @@ qtype = 1
 [node name="QBlock38" parent="." instance=ExtResource( 6 )]
 position = Vector2( 1664, 352 )
 qtype = 1
+
+[node name="QBlock43" parent="." instance=ExtResource( 26 )]
+position = Vector2( 176, 288 )
+hsv_shift = 32
+
+[node name="QBlock53" parent="." instance=ExtResource( 26 )]
+position = Vector2( 144, 288 )
+id = 1
+hsv_shift = 49
+
+[node name="QBlock44" parent="." instance=ExtResource( 26 )]
+position = Vector2( 272, 128 )
+Block = true
+hsv_shift = 32
+
+[node name="QBlock45" parent="." instance=ExtResource( 26 )]
+position = Vector2( 272, 160 )
+Block = true
+hsv_shift = 32
+
+[node name="QBlock46" parent="." instance=ExtResource( 26 )]
+position = Vector2( 272, 192 )
+Block = true
+hsv_shift = 32
+
+[node name="QBlock47" parent="." instance=ExtResource( 26 )]
+position = Vector2( 272, 224 )
+Block = true
+hsv_shift = 32
+
+[node name="QBlock48" parent="." instance=ExtResource( 26 )]
+position = Vector2( 272, 256 )
+Block = true
+hsv_shift = 32
+
+[node name="QBlock49" parent="." instance=ExtResource( 26 )]
+position = Vector2( 240, 128 )
+Block = true
+Enabled = true
+hsv_shift = 32
+
+[node name="QBlock50" parent="." instance=ExtResource( 26 )]
+position = Vector2( 208, 128 )
+Block = true
+Enabled = true
+hsv_shift = 32
+
+[node name="QBlock51" parent="." instance=ExtResource( 26 )]
+position = Vector2( 176, 128 )
+Block = true
+Enabled = true
+hsv_shift = 32
+
+[node name="QBlock52" parent="." instance=ExtResource( 26 )]
+position = Vector2( 144, 128 )
+Block = true
+Enabled = true
+hsv_shift = 32
+
+[node name="QBlock54" parent="." instance=ExtResource( 26 )]
+position = Vector2( 144, 160 )
+Block = true
+Enabled = true
+id = 1
+hsv_shift = 49
+
+[node name="QBlock55" parent="." instance=ExtResource( 26 )]
+position = Vector2( 176, 160 )
+Block = true
+Enabled = true
+id = 1
+hsv_shift = 49
+
+[node name="QBlock56" parent="." instance=ExtResource( 26 )]
+position = Vector2( 208, 160 )
+Block = true
+Enabled = true
+id = 1
+hsv_shift = 49
+
+[node name="QBlock57" parent="." instance=ExtResource( 26 )]
+position = Vector2( 240, 160 )
+Block = true
+Enabled = true
+id = 1
+hsv_shift = 49

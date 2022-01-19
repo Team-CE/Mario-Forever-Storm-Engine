@@ -149,6 +149,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Bonuses/QMarkBlock.gd"
 }, {
+"base": "StaticBody2D",
+"class": "QSwitchBlock",
+"language": "GDScript",
+"path": "res://Scripts/Bonuses/QSwitchBlock.gd"
+}, {
 "base": "Sprite",
 "class": "ScoreText",
 "language": "GDScript",
@@ -193,6 +198,7 @@ _global_script_class_icons={
 "PropellerAction": "",
 "PropellerPowerupAction": "",
 "QBlock": "res://GFX/Editor/QBlock.png",
+"QSwitchBlock": "res://GFX/Editor/QBlock.png",
 "ScoreText": "",
 "StarPowerupAction": "",
 "Warp": ""

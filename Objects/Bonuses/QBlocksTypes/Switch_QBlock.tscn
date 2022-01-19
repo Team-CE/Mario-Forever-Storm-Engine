@@ -1,11 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/Bonuses/QMarkBlock.gd" type="Script" id=1]
-[ext_resource path="res://GFX/NULLTEXTURE.png" type="Texture" id=2]
-[ext_resource path="res://Prefabs/Blocks/Question Block.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://Scripts/Bonuses/QSwitchBlock.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Effects/Shaders/HSV_Shift.tres" type="Shader" id=2]
+[ext_resource path="res://Prefabs/Blocks/Switch Block.tres" type="SpriteFrames" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = ExtResource( 2 )
+shader_param/Shift_Hue = 0.0
 
 [sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( -16, -32, 16, -32, 16, 0, -16, 0 )
@@ -22,18 +27,12 @@ rotation = 3.14159
 shape = SubResource( 1 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
+material = SubResource( 4 )
 z_index = 1
 frames = ExtResource( 3 )
-frame = 1
+frame = 2
 playing = true
 offset = Vector2( 0, -16 )
-
-[node name="Preview" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.8 )
-position = Vector2( 8, -8 )
-scale = Vector2( 0.5, 0.5 )
-z_index = 2
-texture = ExtResource( 2 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 position = Vector2( 0, -16 )
