@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://Prefabs/Mario/Propeller.tres" type="SpriteFrames" id=21]
 [ext_resource path="res://Scripts/Powerups/Propeller.gd" type="Script" id=22]
 [ext_resource path="res://Objects/Bonuses/VineExtending.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Objects/Bonuses/Star.tscn" type="PackedScene" id=24]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -50,7 +51,7 @@ tile_data = PoolIntArray( 6, 6, 0, 65543, 6, 0, 131080, 6, 0, 458761, 6, 0, 4587
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
 [node name="Mario" parent="." instance=ExtResource( 4 )]
-position = Vector2( 112, 352 )
+position = Vector2( 1136, 416 )
 powerup_animations = {
 0: ExtResource( 18 ),
 1: ExtResource( 15 ),
@@ -75,6 +76,10 @@ position = Vector2( 960, 416 )
 position = Vector2( 112, 256 )
 Result = ExtResource( 7 )
 
+[node name="QBlock42" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1136, 320 )
+Result = ExtResource( 24 )
+
 [node name="QBlock39" parent="." instance=ExtResource( 6 )]
 position = Vector2( 272, 288 )
 Result = ExtResource( 23 )
@@ -93,6 +98,76 @@ Result = ExtResource( 11 )
 
 [node name="Goomba" parent="." instance=ExtResource( 10 )]
 position = Vector2( 720, 352 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1872, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba3" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1824, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba4" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1776, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba9" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2016, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba10" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1968, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba11" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1920, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba5" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1712, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba6" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1504, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba7" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1440, 192 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba8" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1392, 416 )
 vars = {
 "bounce": 9.0,
 "speed": 50.0

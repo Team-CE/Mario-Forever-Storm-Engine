@@ -93,9 +93,9 @@ func _ready() -> void:
   #MusicEngine.set_volume(musicBar)
   yield(get_tree(), 'idle_frame')
   if musicBar > -100:
-    MusicPlayer.volume_db = round(musicBar / 5)
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(musicBar / 5))
   if musicBar == -100:
-    MusicPlayer.volume_db = -1000
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
   AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), soundBar / 5)
 
 func saveInfo(content):
@@ -179,7 +179,7 @@ func _input(ev):
       state = ev.scancode - 49
       Mario.appear_counter = 60
   
-  if Input.is_action_just_pressed('ui_fullscreen'):
+  if ev.is_action_pressed('ui_fullscreen'):
     OS.window_fullscreen = !OS.window_fullscreen
       
 # fix physics fps issues
@@ -241,8 +241,9 @@ func _pll() -> void: # Player Death
     return
   emit_signal('OnPlayerLoseLife')
   if not Mario.custom_die_stream:
-    MusicPlayer.stream = Mario.die_music
-    MusicPlayer.play()
+    MusicPlayer.get_node('Main').stream = Mario.die_music
+    MusicPlayer.get_node('Main').play()
+    MusicPlayer.get_node('Star').stop()
   else:
     var dieMusPlayer = AudioStreamPlayer.new()
     dieMusPlayer.set_stream(Mario.custom_die_stream)

@@ -56,8 +56,8 @@ func _process(delta) -> void:
       Global.level_ended = true
       crossed = true
       #MusicEngine.play_music('res://Music/1-music-complete-level.it')
-      MusicPlayer.stream = win_music
-      MusicPlayer.play()
+      MusicPlayer.get_node('Main').stream = win_music
+      MusicPlayer.get_node('Main').play()
       Global.checkpoint_active = 0
       Global.Mario.controls_enabled = false
       counter = 0
@@ -90,8 +90,8 @@ func act() -> void:
   Global.level_ended = true
   crossed = true
   #MusicEngine.play_music('res://Music/1-music-complete-level.it')
-  MusicPlayer.stream = win_music
-  MusicPlayer.play()
+  MusicPlayer.get_node('Main').stream = win_music
+  MusicPlayer.get_node('Main').play()
   Global.checkpoint_active = 0
   Global.Mario.controls_enabled = false
   counter = 0

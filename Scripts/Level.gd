@@ -19,12 +19,13 @@ func _ready():
     $WorldEnvironment.environment.dof_blur_near_enabled = false
     if not $Mario.custom_die_stream or Global.deaths == 0:
       Global.time = time
-      MusicPlayer.stream = music
-      MusicPlayer.play()
-    if Global.musicBar > -100:
-      MusicPlayer.volume_db = round(Global.musicBar / 5)
-    if Global.musicBar == -100:
-      MusicPlayer.volume_db = -1000
+      MusicPlayer.get_node('Main').stream = music
+      MusicPlayer.get_node('Main').play()
+      MusicPlayer.get_node('Star').stop()
+      if Global.musicBar > -100:
+        AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), Global.musicBar / 5)
+      if Global.musicBar == -100:
+        AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
   
     var mario_cam = $Mario/Camera as Camera2D
     if Global.scroll > 0:

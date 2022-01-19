@@ -35,12 +35,12 @@ func _ready() -> void:
   # temp
   $fadeout.play()
   yield(get_tree().create_timer( 1.2 ), 'timeout')
-  MusicPlayer.stream = music
-  MusicPlayer.play()
+  MusicPlayer.get_node('Main').stream = music
+  MusicPlayer.get_node('Main').play()
   if Global.musicBar > -100:
-    MusicPlayer.volume_db = round(Global.musicBar / 5)
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
   if Global.musicBar == -100:
-    MusicPlayer.volume_db = -1000
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
   AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 5)
   
   updateControls()
@@ -132,7 +132,7 @@ func controls() -> void:
             yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
             if Global.musicBar == -100:
-              MusicPlayer.volume_db = -1000
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
 # warning-ignore:return_value_discarded
             get_tree().change_scene(ProjectSettings.get_setting('application/config/sgr_scene'))
           1:
@@ -163,8 +163,8 @@ func controls() -> void:
             $Credits.position.y = 1920 + $Credits.texture.get_height() / 2
             #MusicEngine.track_ended()
             #MusicEngine.play_music(music_credits)
-            MusicPlayer.stream = music_credits
-            MusicPlayer.play()
+            MusicPlayer.get_node('Main').stream = music_credits
+            MusicPlayer.get_node('Main').play()
           9:
             screen = 0
             sel = 1
@@ -185,9 +185,9 @@ func controls() -> void:
             if Global.musicBar < 0:
               Global.musicBar += 10
               if Global.musicBar > -100:
-                MusicPlayer.volume_db = round(Global.musicBar / 5)
+                AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
               if Global.musicBar == -100:
-                MusicPlayer.volume_db = -1000
+                AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
               $tick.play()
           2:
             if !Global.effects:
@@ -219,9 +219,9 @@ func controls() -> void:
             if Global.musicBar > -100:
               Global.musicBar -= 10
               if Global.musicBar > -100:
-                MusicPlayer.volume_db = round(Global.musicBar / 5)
+                AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
               if Global.musicBar == -100:
-                MusicPlayer.volume_db = -1000
+                AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
               $tick.play()
             #if Global.musicBar == -100:
               #MusicEngine.set_volume(-1000)
@@ -274,8 +274,8 @@ func controls() -> void:
         sel = 8
         #MusicEngine.track_ended()
         #MusicEngine.play_music(music)
-        MusicPlayer.stream = music
-        MusicPlayer.play()
+        MusicPlayer.get_node('Main').stream = music
+        MusicPlayer.get_node('Main').play()
 
 func _input(event) -> void:
   if event is InputEventKey and event.pressed and controls_changing:
@@ -323,12 +323,12 @@ func saveOptions() -> void:
   Global.saveInfo(JSON.print(Global.toSaveInfo))
 
 func fade_out_music() -> void:
-  MusicPlayer.volume_db -= 1
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) - 1)
   yield(get_tree().create_timer( 0.05 ), 'timeout')
-  if MusicPlayer.volume_db > -100 and circle_size > 0.1:
+  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > -100 and circle_size > 0.1:
     fade_out_music()
-  if MusicPlayer.volume_db < -80:
-    MusicPlayer.stop()
+  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) < -80:
+    MusicPlayer.get_node('Main').stop()
 
 func assign_value(key) -> String:
   var out: String

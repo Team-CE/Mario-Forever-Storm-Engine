@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Bonuses/Star.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Effects/Light.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/AI/Powerups/GenericPowerup.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/AI/Powerups/Actions/Star.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/AI/Powerups/Actions/Star.gd" type="Script" id=6]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 33, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 33, 0, 33, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 66, 0, 33, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 99, 0, 33, 32 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 16, 16 )
+
+[node name="Star" type="KinematicBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 1 )
+vars = {
+"bounce": -200,
+"custom action": ExtResource( 5 ),
+"custom behavior": ExtResource( 6 ),
+"grow speed": 0.5,
+"speed": 125.0
+}
+AI = ExtResource( 4 )
+gravity_scale = 0.35
+score = 1000
+invincible = true
+dir = 1.0
+animated_sprite_pth = NodePath("AnimatedSprite")
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -1, -16 )
+frames = SubResource( 5 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -1, -16 )
+shape = SubResource( 6 )
+
+[node name="Light2D" type="Light2D" parent="."]
+modulate = Color( 1, 0.811765, 0.541176, 1 )
+position = Vector2( 0, -16 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 3 )
+energy = 0.4

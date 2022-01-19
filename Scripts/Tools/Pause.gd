@@ -41,13 +41,15 @@ func _process(delta):
           scene = ProjectSettings.get_setting('application/config/sgr_scene')
           var error = get_tree().change_scene(scene)
           if error: printerr('[CE ERROR]: Could not load SGR scene')
-          MusicPlayer.stop()
+          MusicPlayer.get_node('Main').stop()
+          MusicPlayer.get_node('Star').stop()
           get_parent().resetandfree()
         2:
           scene = ProjectSettings.get_setting('application/config/main_menu_scene')
           var error = get_tree().change_scene(scene)
           if error: printerr('[CE ERROR]: Could not load Main Menu scene')
-          MusicPlayer.stop()
+          MusicPlayer.get_node('Main').stop()
+          MusicPlayer.get_node('Star').stop()
           get_parent().resetandfree()
         3:
           get_tree().quit()

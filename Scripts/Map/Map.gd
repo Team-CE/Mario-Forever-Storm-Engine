@@ -17,8 +17,8 @@ var circle_size: float = 0.623
 onready var cam = $MarioPath/PathFollow2D/MiniMario/Camera2D
 
 func _ready() -> void:
-  MusicPlayer.stream = music
-  MusicPlayer.play()
+  MusicPlayer.get_node('Main').stream = music
+  MusicPlayer.get_node('Main').play()
   
   if Global.levelID > 0:
     $MarioPath/PathFollow2D.offset = stop_points[Global.levelID - 1]
@@ -78,9 +78,9 @@ func _process_camera(delta: float) -> void:
     cam.global_position.x = cam.limit_right - 320
 
 func fade_out_music() -> void:
-  MusicPlayer.volume_db -= 2
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) - 2)
   yield(get_tree().create_timer( 0.05 ), 'timeout')
-  if MusicPlayer.volume_db > -100 and circle_size > 0.1:
+  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > -100 and circle_size > 0.1:
     fade_out_music()
-  if MusicPlayer.volume_db < -80:
-    MusicPlayer.stop()
+  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) < -80:
+    MusicPlayer.get_node('Main').stop()

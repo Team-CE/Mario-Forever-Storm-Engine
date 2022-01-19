@@ -38,7 +38,9 @@ onready var dead_hasJumped: bool = false
 onready var dead_gameover: bool = false
 onready var dead_counter: float = 0
 onready var appear_counter: float = 0
+onready var shield_star: bool = false
 onready var shield_counter: float = 0
+onready var star_kill_count: int = 0
 onready var launch_counter: float = 0
 onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
@@ -113,6 +115,14 @@ func _process(delta) -> void:
   if jump_internal_counter < 100:
     jump_internal_counter += 1 * Global.get_delta(delta)
 
+func fade_out_music() -> void:
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) - 0.1)
+  yield(get_tree().create_timer( 0.05, false ), 'timeout')
+  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > -100 and shield_counter > 0:
+    fade_out_music()
+  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) < -80:
+    MusicPlayer.get_node('Main').stop()
+
 func _process_alive(delta) -> void:
   if movement_type == Movement.SWIMMING:  # Faster than match
     movement_swimming(delta)
@@ -124,10 +134,25 @@ func _process_alive(delta) -> void:
   if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin'):
     ready_powerup_scripts[Global.state]._process_mixin(self, delta)
     
-  if not Global.state == 6:
+  if not Global.state == 6: # Fix for propeller powerup animation
     allow_custom_animation = false
     $BottomDetector/CollisionBottom.scale.y = 0.5
-
+  
+  
+  if shield_star:
+    star_logic()
+    var fade_bool = false
+    # Starman music Fade out
+    if shield_counter < 125 and Global.musicBar > -100 and not fade_bool:
+      fade_out_music()
+      fade_bool = true
+    if shield_counter <= 0:
+      MusicPlayer.get_node('Star').stop()
+      MusicPlayer.get_node('Main').play()
+      AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
+      shield_star = false
+      star_kill_count = 0
+  
   if controls_enabled:
     controls(delta)
   
@@ -216,8 +241,8 @@ func _process_dead(delta) -> void:
     if Global.lives > 0:
       Global._reset()
     elif not dead_gameover:
-      MusicPlayer.stream = gameover_music
-      MusicPlayer.play()
+      MusicPlayer.get_node('Main').stream = gameover_music
+      MusicPlayer.get_node('Main').play()
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
       dead_gameover = true
       yield(get_tree().create_timer( 5.0 ), 'timeout')
@@ -511,6 +536,18 @@ func unkill() -> void:
   $BottomDetector/CollisionBottom.disabled = false
   $Sprite.position = Vector2.ZERO
   animate_sprite('Stopped')
+
+func star_logic() -> void:
+  var overlaps = $InsideDetector.get_overlapping_bodies()
+
+  if overlaps.size() > 0:
+    for i in range(overlaps.size()):
+      if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('kill'):
+        if overlaps[i].force_death_type == false:
+          overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, star_kill_count)
+        else:
+          overlaps[i].kill(overlaps[i].death_type, star_kill_count)
+        star_kill_count += 1
 
 func debug() -> void:
   if Input.is_action_just_pressed('mouse_middle'):

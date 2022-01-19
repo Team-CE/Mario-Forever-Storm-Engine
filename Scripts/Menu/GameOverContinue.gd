@@ -47,7 +47,7 @@ func _process(delta):
       get_tree().reload_current_scene()
       get_parent().resetandfree()
     if Global.musicBar == -100:
-      MusicPlayer.volume_db = -1000
+      AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
 # warning-ignore:return_value_discarded
     get_parent().get_parent().get_tree().paused = false
     get_parent().get_parent().get_node('WorldEnvironment').environment.dof_blur_near_enabled = false
