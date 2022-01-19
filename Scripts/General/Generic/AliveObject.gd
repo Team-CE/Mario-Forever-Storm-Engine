@@ -53,7 +53,11 @@ onready var time = get_tree().create_timer(0)
 onready var first_pos: Vector2 = position   # For pirahna plant and other enemies
 onready var brain: Brain = Brain.new()      # Shell for AI
 
+var rng = RandomNumberGenerator.new()
+
 func _ready() -> void:
+  rng.randomize()
+  
   if ray_L_pth.is_empty() || ray_R_pth.is_empty(): # Ray casts init
     smart_turn = false
   else:
@@ -142,7 +146,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
     alive = false
     collision_layer = 0
     collision_mask = 0
-    velocity.x = 0
+    velocity.x = rng.randf_range(-50, 50)
     gravity_scale = 0.4
   if self.death_type != DEATH_TYPE.UNFREEZE:
     self.death_type = death_type
