@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/General/MarioPhysics.gd" type="Script" id=2]
@@ -15,6 +15,38 @@
 [ext_resource path="res://Scripts/Powerups/IceFlower.gd" type="Script" id=13]
 [ext_resource path="res://Prefabs/Mario/Propeller.tres" type="SpriteFrames" id=14]
 [ext_resource path="res://Scripts/Powerups/Propeller.gd" type="Script" id=15]
+[ext_resource path="res://GFX/Miscellaneous/StarmanPallete.png" type="Texture" id=16]
+
+[sub_resource type="Shader" id=12]
+code = "shader_type canvas_item;
+
+uniform sampler2D pallet;
+uniform bool mixing = false;
+
+void fragment() {
+  if (mixing) {
+    float s = float(abs(int(TIME * 20f) % 5)) / 4f;
+    // vec4 f_color = texture(TEXTURE,UV) * texture(pallet,vec2(s,1)) * vec4(2.5,2.5,2.5,2.5);
+    float bw = UV.x * UV.y / 2f;
+    vec4 col_a = texture(TEXTURE, UV) + vec4(0.4, 0.4, 0.4, 0);
+    vec4 col_b = texture(pallet, vec2(s, 1)) * vec4(1.3, 1.3, 1.3, 0);
+    vec4 f_color;
+    if (int(TIME * 20f) % 2 == 0) {
+      f_color = col_a * col_b;
+    } else {
+      f_color = texture(TEXTURE, UV);
+    }
+    f_color.a = col_a.a;
+    COLOR = f_color;
+  } else {
+    COLOR = texture(TEXTURE, UV);
+  }
+}"
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = SubResource( 12 )
+shader_param/mixing = false
+shader_param/pallet = ExtResource( 16 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 13 )
@@ -92,6 +124,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
+material = SubResource( 13 )
 z_index = 10
 frames = ExtResource( 1 )
 animation = "Stopped"

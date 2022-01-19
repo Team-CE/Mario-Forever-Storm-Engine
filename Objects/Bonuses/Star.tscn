@@ -41,7 +41,7 @@ vars = {
 "bounce": -200,
 "custom action": ExtResource( 6 ),
 "custom behavior": ExtResource( 6 ),
-"grow speed": 0.5,
+"grow speed": 1.0,
 "speed": 125.0
 }
 AI = ExtResource( 4 )
@@ -54,7 +54,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1, -16 )
 frames = SubResource( 5 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

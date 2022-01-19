@@ -10,7 +10,7 @@
 [ext_resource path="res://Prefabs/Mario/IceFlower.tres" type="SpriteFrames" id=8]
 [ext_resource path="res://Scripts/Powerups/IceFlower.gd" type="Script" id=9]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Objects/Bonuses/Powerups/Propeller Mushroom.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Objects/Bonuses/Powerups/Fire Flower.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=13]
 [ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=14]
@@ -34,6 +34,8 @@ dof_blur_near_quality = 2
 glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 1.5
+glow_bicubic_upscale = true
+glow_high_quality = true
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -75,7 +77,7 @@ powerup_scripts = {
 position = Vector2( 960, 416 )
 
 [node name="QBlock" parent="." instance=ExtResource( 6 )]
-position = Vector2( 112, 256 )
+position = Vector2( 1056, 320 )
 Result = ExtResource( 7 )
 
 [node name="QBlock42" parent="." instance=ExtResource( 6 )]
@@ -162,7 +164,7 @@ vars = {
 }
 
 [node name="Goomba7" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1440, 192 )
+position = Vector2( 1440, 160 )
 vars = {
 "bounce": 9.0,
 "speed": 50.0
@@ -179,145 +181,145 @@ vars = {
 position = Vector2( 464, 240 )
 
 [node name="QBlock3" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 224 )
+position = Vector2( 1440, 192 )
 qtype = 1
 
 [node name="QBlock4" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 224 )
+position = Vector2( 1472, 192 )
 qtype = 1
 
 [node name="QBlock5" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 256 )
+position = Vector2( 1440, 224 )
 qtype = 1
 
 [node name="QBlock6" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 256 )
+position = Vector2( 1472, 224 )
 qtype = 1
 
 [node name="QBlock7" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 288 )
+position = Vector2( 1440, 256 )
 qtype = 1
 
 [node name="QBlock8" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 288 )
+position = Vector2( 1472, 256 )
 qtype = 1
 
 [node name="QBlock9" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 320 )
+position = Vector2( 1440, 288 )
 qtype = 1
 
 [node name="QBlock10" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 320 )
+position = Vector2( 1472, 288 )
 qtype = 1
 
 [node name="QBlock11" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 352 )
+position = Vector2( 1440, 320 )
 qtype = 1
 
 [node name="QBlock12" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 352 )
+position = Vector2( 1472, 320 )
 qtype = 1
 
 [node name="QBlock13" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 384 )
+position = Vector2( 1440, 352 )
 qtype = 1
 
 [node name="QBlock14" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 384 )
+position = Vector2( 1472, 352 )
 qtype = 1
 
 [node name="QBlock15" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 224 )
+position = Vector2( 1536, 192 )
 qtype = 1
 
 [node name="QBlock16" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 224 )
+position = Vector2( 1568, 192 )
 qtype = 1
 
 [node name="QBlock17" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 256 )
+position = Vector2( 1536, 224 )
 qtype = 1
 
 [node name="QBlock18" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 256 )
+position = Vector2( 1568, 224 )
 qtype = 1
 
 [node name="QBlock19" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 288 )
+position = Vector2( 1536, 256 )
 qtype = 1
 
 [node name="QBlock20" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 288 )
+position = Vector2( 1568, 256 )
 qtype = 1
 
 [node name="QBlock21" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 320 )
+position = Vector2( 1536, 288 )
 qtype = 1
 
 [node name="QBlock22" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 320 )
+position = Vector2( 1568, 288 )
 qtype = 1
 
 [node name="QBlock23" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 352 )
+position = Vector2( 1536, 320 )
 qtype = 1
 
 [node name="QBlock24" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 352 )
+position = Vector2( 1568, 320 )
 qtype = 1
 
 [node name="QBlock25" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 384 )
+position = Vector2( 1536, 352 )
 qtype = 1
 
 [node name="QBlock26" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 384 )
+position = Vector2( 1568, 352 )
 qtype = 1
 
 [node name="QBlock27" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 224 )
+position = Vector2( 1632, 192 )
 qtype = 1
 
 [node name="QBlock28" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 224 )
+position = Vector2( 1664, 192 )
 qtype = 1
 
 [node name="QBlock29" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 256 )
+position = Vector2( 1632, 224 )
 qtype = 1
 
 [node name="QBlock30" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 256 )
+position = Vector2( 1664, 224 )
 qtype = 1
 
 [node name="QBlock31" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 288 )
+position = Vector2( 1632, 256 )
 qtype = 1
 
 [node name="QBlock32" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 288 )
+position = Vector2( 1664, 256 )
 qtype = 1
 
 [node name="QBlock33" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 320 )
+position = Vector2( 1632, 288 )
 qtype = 1
 
 [node name="QBlock34" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 320 )
+position = Vector2( 1664, 288 )
 qtype = 1
 
 [node name="QBlock35" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 352 )
+position = Vector2( 1632, 320 )
 qtype = 1
 
 [node name="QBlock36" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 352 )
+position = Vector2( 1664, 320 )
 qtype = 1
 
 [node name="QBlock37" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 384 )
+position = Vector2( 1632, 352 )
 qtype = 1
 
 [node name="QBlock38" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 384 )
+position = Vector2( 1664, 352 )
 qtype = 1

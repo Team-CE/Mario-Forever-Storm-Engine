@@ -1,7 +1,7 @@
 class_name StarPowerupAction
 
 onready var init = false
-var delay_counter: float = 70
+var delay_counter: float = 45
 
 func _process_movement(brain, delta):
   if delay_counter > 0:

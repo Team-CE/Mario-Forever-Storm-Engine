@@ -46,7 +46,7 @@ invincible = true
 animated_sprite_pth = NodePath("AnimatedSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -1, -16 )
+position = Vector2( -2, -16 )
 frames = SubResource( 11 )
 frame = 1
 playing = true

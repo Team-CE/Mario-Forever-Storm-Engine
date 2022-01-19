@@ -124,11 +124,13 @@ func fade_out_music() -> void:
     MusicPlayer.get_node('Main').stop()
 
 func _process_alive(delta) -> void:
+  var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
     movement_swimming(delta)
   elif movement_type == Movement.CLIMBING:
     movement_climbing(delta)
   else:
+    danimate = true
     movement_default(delta)
   
   if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin'):
@@ -143,6 +145,7 @@ func _process_alive(delta) -> void:
     star_logic()
     $BottomDetector/CollisionBottom.disabled = true
     $BottomDetector/CollisionBottom2.disabled = true
+    $Sprite.material.set_shader_param('mixing', true)
     var fade_bool = false
     # Starman music Fade out
     if shield_counter < 125 and Global.musicBar > -100 and not fade_bool:
@@ -153,6 +156,7 @@ func _process_alive(delta) -> void:
       MusicPlayer.get_node('Main').play()
       $BottomDetector/CollisionBottom.disabled = false
       $BottomDetector/CollisionBottom2.disabled = false
+      $Sprite.material.set_shader_param('mixing', false)
       if Global.musicBar > -100:
         AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
       if Global.musicBar == -100:
@@ -203,7 +207,7 @@ func _process_alive(delta) -> void:
 
   velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
 
-  #animate_default(delta)
+  if animation_enabled and danimate: animate_default(delta)
   update_collisions()
   debug()
   
@@ -265,7 +269,7 @@ func _process_dead(delta) -> void:
         get_parent().get_tree().paused = true
       
 func movement_default(delta) -> void:
-  if animation_enabled: animate_default(delta)
+  #if animation_enabled: animate_default(delta)
   
   if velocity.y < 550 and not is_on_floor():
     if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y < 0:
