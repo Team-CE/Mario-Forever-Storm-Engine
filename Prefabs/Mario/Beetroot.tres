@@ -1,10 +1,23 @@
-[gd_resource type="SpriteFrames" load_steps=14 format=2]
+[gd_resource type="SpriteFrames" load_steps=17 format=2]
 
 [ext_resource path="res://GFX/Mario/BeetrootAppear.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Mario/BeetrootWalk.png" type="Texture" id=2]
 [ext_resource path="res://GFX/Mario/BeetrootCrouch.png" type="Texture" id=3]
 [ext_resource path="res://GFX/Mario/BeetrootLaunch.png" type="Texture" id=4]
 [ext_resource path="res://GFX/Mario/BeetrootJump.png" type="Texture" id=5]
+[ext_resource path="res://GFX/Mario/BeetrootClimb.png" type="Texture" id=6]
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 62, 0, 31, 62 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 31, 62 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 6 )
+region = Rect2( 31, 0, 31, 62 )
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -21,10 +34,6 @@ region = Rect2( 68, 0, 34, 62 )
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
 region = Rect2( 102, 0, 34, 62 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 62, 0, 31, 62 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
@@ -45,9 +54,14 @@ animations = [ {
 "name": "Jumping",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ SubResource( 5 ) ],
 "loop": true,
-"name": "Launching",
+"name": "Stopped",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "Climbing",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
@@ -55,15 +69,15 @@ animations = [ {
 "name": "Appearing",
 "speed": 25.0
 }, {
-"frames": [ SubResource( 5 ) ],
-"loop": true,
-"name": "Stopped",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
 "name": "Walking",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Launching",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,

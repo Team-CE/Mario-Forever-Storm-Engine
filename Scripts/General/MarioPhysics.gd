@@ -131,21 +131,6 @@ func _process_alive(delta) -> void:
   if controls_enabled:
     controls(delta)
   
-  if (
-      (
-        Input.is_action_just_pressed('mario_up') or
-        (
-          Input.is_action_just_pressed('mario_crouch') and
-          not is_on_floor()
-        )
-      ) and
-      is_over_vine() and
-      not movement_type == Movement.CLIMBING
-    ):
-    controls_enabled = false
-    animation_enabled = false
-    movement_type = Movement.CLIMBING
-  
   if position.y > $Camera.limit_bottom + 64 and controls_enabled:
     if get_parent().no_cliff:
       position.y -= 550
@@ -186,7 +171,7 @@ func _process_alive(delta) -> void:
 
   velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
 
-  animate(delta)
+  #animate_default(delta)
   update_collisions()
   debug()
   
@@ -196,7 +181,7 @@ func _process_alive(delta) -> void:
 func _process_dead(delta) -> void:
   if dead_counter == 0:
     Global.state = 0
-    animate(delta)
+    animate_default(delta)
   
   var colDisabled
   if not colDisabled:
@@ -248,6 +233,8 @@ func _process_dead(delta) -> void:
         get_parent().get_tree().paused = true
       
 func movement_default(delta) -> void:
+  if animation_enabled: animate_default(delta)
+  
   if velocity.y < 550 and not is_on_floor():
     if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y < 0:
       if abs(velocity.x) < 1:
@@ -269,29 +256,37 @@ func movement_default(delta) -> void:
 
   if is_on_floor() and jump_internal_counter > 3:
     jump_counter = 0
+  
+  # Start climbing
+  if Input.is_action_pressed('mario_up') || (Input.is_action_pressed('mario_crouch') && !is_on_floor()):
+    if crouch || !is_over_vine(): return
+    if movement_type == Movement.CLIMBING: return
+    controls_enabled = false
+    movement_type = Movement.CLIMBING
 
 func movement_swimming(delta) -> void:
+  if animation_enabled: animate_swimming(delta)
   pass # TODO
 
 func movement_climbing(delta) -> void:
-  if not is_over_vine():
+  if animation_enabled: animate_climbing(delta)
+  
+  if !is_over_vine():
     movement_type = Movement.DEFAULT
-    animation_enabled = true
     controls_enabled = true
   
   if Input.is_action_pressed('mario_crouch'):
     if is_on_floor():
       movement_type = Movement.DEFAULT
-      animation_enabled = true
       controls_enabled = true
     else:
-      velocity.y = 100
+      velocity.y = 180
   if Input.is_action_pressed('mario_up'):
-    velocity.y = -100
+    velocity.y = -180
   if Input.is_action_pressed('mario_left'):
-    velocity.x = -100
+    velocity.x = -150
   if Input.is_action_pressed('mario_right'):
-    velocity.x = 100
+    velocity.x = 150
   
   if !Input.is_action_pressed('mario_crouch') and !Input.is_action_pressed('mario_up'):
     velocity.y = 0
@@ -299,8 +294,7 @@ func movement_climbing(delta) -> void:
     velocity.x = 0
     
 func is_over_vine() -> bool:
-  var overlaps = get_node('InsideDetector').get_overlapping_bodies()
-  print(overlaps)
+  var overlaps = get_node('InsideDetector').get_overlapping_areas()
   for c in overlaps:
     if c.is_in_group('Climbable'):
       return true
@@ -359,9 +353,7 @@ func controls(delta) -> void:
     if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('do_action'):
       ready_powerup_scripts[Global.state].do_action(self)
 
-func animate(delta) -> void:
-  if not animation_enabled: return
-  
+func animate_default(delta) -> void:
   if selected_state != Global.state:
     selected_state = Global.state
     if not Global.state in powerup_animations:
@@ -433,6 +425,57 @@ func animate(delta) -> void:
   if $Sprite.animation == 'Walking':
     $Sprite.speed_scale = abs(velocity.x / 50) * 2.5 + 4
 
+func animate_swimming(delta) -> void:
+  pass # TODO
+
+func animate_climbing(delta) -> void:
+  if selected_state != Global.state:
+    selected_state = Global.state
+    if not Global.state in powerup_animations:
+      printerr('[CE ERROR] Mario: Animations for state ' + str(Global.state) + ' don\'t exist!')
+      return
+    if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_ready_mixin'):
+      ready_powerup_scripts[Global.state]._ready_mixin(self)
+    $Sprite.frames = powerup_animations[Global.state]
+
+  if velocity.x <= -8 * Global.get_delta(delta):
+    $Sprite.flip_h = true
+  if velocity.x >= 8 * Global.get_delta(delta):
+    $Sprite.flip_h = false
+
+  if appear_counter > 0:
+    if not allow_custom_animation:
+      if not $Sprite.animation == 'Appearing':
+        animate_sprite('Appearing')
+      $Sprite.speed_scale = 1
+      
+    appear_counter -= 1.5 * Global.get_delta(delta)
+    return
+  if appear_counter < 0:
+#    if position_altered:
+#      $Sprite.position.y += 14
+#      position_altered = false
+    appear_counter = 0
+
+  if shield_counter > 0:
+    shield_counter -= 1.5 * Global.get_delta(delta)
+    if appear_counter == 0:
+      $Sprite.visible = int(shield_counter / 2) % 2 == 0
+  if shield_counter < 0:
+    shield_counter = 0
+    $Sprite.visible = true
+#  $Sprite.offset.y = $Sprite.texture.get_size()
+
+  if allow_custom_animation: return
+
+  if launch_counter > 0:
+    launch_counter -= 1.01 * Global.get_delta(delta)
+  
+  if $Sprite.animation == 'Climbing':
+    $Sprite.speed_scale = 2 if abs(velocity.y + velocity.x) > 5 else 0
+  else:
+    animate_sprite('Climbing')
+
 func animate_sprite(anim_name) -> void:
   $Sprite.set_animation(anim_name)
 
@@ -473,7 +516,7 @@ func debug() -> void:
   if Input.is_action_just_pressed('mouse_middle'):
     $DebugText.visible = !$DebugText.visible
 
-  $DebugText.text = 'x speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($Sprite.animation).to_lower() + '\nmovement: ' + str(movement_type) + '\nfps: ' + str(Engine.get_frames_per_second())
+  $DebugText.text = 'x speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($Sprite.animation).to_lower() + '\nmovement: ' + str(Movement.keys()[movement_type].to_lower()) + '\nfps: ' + str(Engine.get_frames_per_second())
 
 func _process_debug_fly(delta: float) -> void:
   var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10)

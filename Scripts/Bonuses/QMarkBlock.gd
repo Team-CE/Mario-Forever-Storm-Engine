@@ -237,7 +237,9 @@ func hit(delta, thwomp = false, idle_frame: bool = true) -> void:
       get_parent().add_child(powerup)
       if 'vars' in powerup and powerup.brain.appearing and powerup is KinematicBody2D:
         Global.play_base_sound('MAIN_PowerupGrow')
-      if !('vars' in powerup) and 'appearing' in powerup:
+      elif powerup.get_node_or_null('Grow') is AudioStreamPlayer2D:
+        powerup.get_node('Grow').play()
+      elif !('vars' in powerup) and 'appearing' in powerup:
         Global.play_base_sound('MAIN_Coin')
   elif qtype == BLOCK_TYPE.BRICK:
     if Global.state == 0 and !thwomp:

@@ -17,6 +17,10 @@ func _process_mixin_physics(mario, delta):
         collides[i].hit(delta, false, false)
 
 func _process_mixin(mario, delta):
+  if Global.Mario.movement_type != Global.Mario.Movement.DEFAULT:
+    _ready_mixin(mario)
+    return
+  
   if Input.is_action_just_pressed('mario_jump') and not isActivated and not mario.is_on_floor() and Global.Mario.controls_enabled:
     isActivated = true
     mario.velocity.y = -650
@@ -26,7 +30,8 @@ func _process_mixin(mario, delta):
   mario.get_node('BottomDetector/CollisionBottom').scale.y = 0.5
   
   if isActivated:
-    mario.get_node('Sprite').animation = 'Launching'
+    #mario.get_node('Sprite').animation = 'Launching'
+    mario.animate_sprite('Launching')
     
     if Input.is_action_just_pressed('mario_crouch') and not flyingDown:
       flyingDown = true
@@ -55,6 +60,6 @@ func _process_mixin(mario, delta):
     flyingDown = false
     mario.allow_custom_animation = false
       
-  prevVelocity = mario.velocity.y
+  #prevVelocity = mario.velocity.y
   
   
