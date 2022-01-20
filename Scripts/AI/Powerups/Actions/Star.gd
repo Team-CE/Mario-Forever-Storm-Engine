@@ -25,7 +25,8 @@ func do_action(brain):
   
   Global.Mario.shield_counter = 750
   Global.Mario.shield_star = true
-  Global.add_score(brain.owner.score)
+  Global.Mario.get_node('Sprite').visible = true
+  Global.play_base_sound('MAIN_Powerup')
   MusicPlayer.get_node('Main').stop()
   if Global.musicBar > -100:
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))

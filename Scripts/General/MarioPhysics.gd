@@ -56,6 +56,7 @@ func _ready() -> void:
 # warning-ignore:return_value_discarded
   Global.connect('OnPlayerLoseLife', self, 'kill')
   $DebugText.visible = false
+  $Sprite.material.set_shader_param('mixing', false)
   
   if camera_addon:
     inited_camera_addon = camera_addon.new()
@@ -116,12 +117,10 @@ func _process(delta) -> void:
     jump_internal_counter += 1 * Global.get_delta(delta)
 
 func fade_out_music() -> void:
-  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) - 0.1)
-  yield(get_tree().create_timer( 0.05, false ), 'timeout')
-  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > -100 and shield_counter > 0:
-    fade_out_music()
   if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) < -80:
-    MusicPlayer.get_node('Main').stop()
+    MusicPlayer.get_node('Star').stop()
+    return
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) - (0.25 / (Global.musicBar / 5) * -1 if Global.musicBar != 0 else 0.25))
 
 func _process_alive(delta) -> void:
   var danimate: bool = false
@@ -146,11 +145,9 @@ func _process_alive(delta) -> void:
     $BottomDetector/CollisionBottom.disabled = true
     $BottomDetector/CollisionBottom2.disabled = true
     $Sprite.material.set_shader_param('mixing', true)
-    var fade_bool = false
     # Starman music Fade out
-    if shield_counter < 125 and Global.musicBar > -100 and not fade_bool:
+    if shield_counter < 125 and Global.musicBar > -100:
       fade_out_music()
-      fade_bool = true
     if shield_counter <= 0:
       MusicPlayer.get_node('Star').stop()
       MusicPlayer.get_node('Main').play()
@@ -229,6 +226,7 @@ func _process_dead(delta) -> void:
     $BottomDetector/CollisionBottom2.disabled = true
     $InsideDetector.collision_layer = 0
     $InsideDetector.collision_mask = 0
+    $Sprite.material.set_shader_param('mixing', false)
     colDisabled = true
 
   dead_counter += 1 * Global.get_delta(delta)
@@ -415,7 +413,7 @@ func animate_default(delta) -> void:
       $Sprite.speed_scale = 1
       
     appear_counter -= 1.5 * Global.get_delta(delta)
-    return
+    if not shield_star: return
   if appear_counter < 0:
 #    if position_altered:
 #      $Sprite.position.y += 14
@@ -424,8 +422,9 @@ func animate_default(delta) -> void:
 
   if shield_counter > 0:
     shield_counter -= 1.5 * Global.get_delta(delta)
-    if appear_counter == 0:
+    if appear_counter == 0 and not shield_star:
       $Sprite.visible = int(shield_counter / 2) % 2 == 0
+    if appear_counter > 0: return
   if shield_counter < 0:
     shield_counter = 0
     $Sprite.visible = true
@@ -530,6 +529,7 @@ func update_collisions() -> void:
 
 func kill() -> void:
   dead = true
+  $Sprite.visible = true
 
 func unkill() -> void:
   dead = false
@@ -558,7 +558,10 @@ func star_logic() -> void:
           overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, star_kill_count)
         else:
           overlaps[i].kill(overlaps[i].death_type, star_kill_count)
-        star_kill_count += 1
+        if star_kill_count < 6:
+          star_kill_count += 1
+        else:
+          star_kill_count = 0
 
 func debug() -> void:
   if Input.is_action_just_pressed('mouse_middle'):

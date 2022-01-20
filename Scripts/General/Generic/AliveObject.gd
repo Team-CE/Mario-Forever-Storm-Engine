@@ -160,7 +160,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
         csound.play()
       animated_sprite.set_animation('dead')
       get_parent().add_child(ScoreText.new(score, position))
-      time = get_tree().create_timer(2.0, false)
+      time = get_tree().create_timer(4.0, false)
       time.connect('timeout', self, 'instance_free')
     DEATH_TYPE.DISAPPEAR:
       queue_free()
