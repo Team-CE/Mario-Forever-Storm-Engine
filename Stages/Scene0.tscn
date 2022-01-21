@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -16,7 +16,7 @@
 [ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=14]
 [ext_resource path="res://Prefabs/Mario/Big.tres" type="SpriteFrames" id=15]
 [ext_resource path="res://Prefabs/Mario/Beetroot.tres" type="SpriteFrames" id=16]
-[ext_resource path="res://Objects/Enemies/Rotodisk.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Fire.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=18]
 [ext_resource path="res://Scripts/Powerups/Lui.gd" type="Script" id=19]
 [ext_resource path="res://Prefabs/Mario/Lui.tres" type="SpriteFrames" id=20]
@@ -26,6 +26,7 @@
 [ext_resource path="res://Objects/Bonuses/Star.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Music/credits.ogg" type="AudioStream" id=25]
 [ext_resource path="res://Objects/Bonuses/QBlocksTypes/Switch_QBlock.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Scripts/AI/ThrowFunctions/Fireball.gd" type="Script" id=27]
 [ext_resource path="res://Objects/Enemies/Koopas/Paratroopa.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Scripts/AI/ThrowFunctions/Hammer.gd" type="Script" id=29]
 [ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Hammer.tscn" type="PackedScene" id=30]
@@ -111,43 +112,8 @@ vars = {
 "speed": 50.0
 }
 
-[node name="Goomba2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1876, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Goomba3" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1844, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Goomba4" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1812, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
 [node name="Goomba9" parent="." instance=ExtResource( 10 )]
 position = Vector2( 2016, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Goomba10" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1940, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Goomba11" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1908, 416 )
 vars = {
 "bounce": 9.0,
 "speed": 50.0
@@ -175,14 +141,11 @@ vars = {
 }
 
 [node name="Goomba8" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1392, 416 )
+position = Vector2( 1664, 160 )
 vars = {
 "bounce": 9.0,
 "speed": 50.0
 }
-
-[node name="Rotodisk" parent="." instance=ExtResource( 17 )]
-position = Vector2( 464, 240 )
 
 [node name="QBlock3" parent="." instance=ExtResource( 6 )]
 position = Vector2( 1440, 192 )
@@ -422,30 +385,6 @@ vars = {
 "fly speed": 2
 }
 
-[node name="EmalpkaHammer" parent="." instance=ExtResource( 30 )]
-position = Vector2( 2208, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 100.0,
-"throw_script": ExtResource( 29 )
-}
-
-[node name="EmalpkaHammer2" parent="." instance=ExtResource( 30 )]
-position = Vector2( 2288, 352 )
-vars = {
-"bounce": 9.0,
-"speed": 100.0,
-"throw_script": ExtResource( 29 )
-}
-
-[node name="EmalpkaHammer3" parent="." instance=ExtResource( 30 )]
-position = Vector2( 2368, 304 )
-vars = {
-"bounce": 9.0,
-"speed": 100.0,
-"throw_script": ExtResource( 29 )
-}
-
 [node name="EmalpkaHammer4" parent="." instance=ExtResource( 30 )]
 position = Vector2( 2416, 384 )
 vars = {
@@ -454,10 +393,18 @@ vars = {
 "throw_script": ExtResource( 29 )
 }
 
-[node name="EmalpkaHammer5" parent="." instance=ExtResource( 30 )]
-position = Vector2( 2352, 400 )
+[node name="EmalpkaFire" parent="." instance=ExtResource( 17 )]
+position = Vector2( 2160, 416 )
 vars = {
 "bounce": 9.0,
 "speed": 100.0,
-"throw_script": ExtResource( 29 )
+"throw_script": ExtResource( 27 )
+}
+
+[node name="EmalpkaFire2" parent="." instance=ExtResource( 17 )]
+position = Vector2( 2272, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 100.0,
+"throw_script": ExtResource( 27 )
 }
