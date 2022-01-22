@@ -115,7 +115,7 @@ func _physics_process(delta:float) -> void:
   brain._ai_process(delta) #Calling brain cells
   
   if is_instance_valid(Global.Mario):
-    if position.y > Global.Mario.get_node('Camera').limit_bottom + 96 and position.y < Global.Mario.get_node('Camera').limit_bottom + 200:
+    if position.y > Global.Mario.get_node('Camera').limit_bottom + 32 and position.y < Global.Mario.get_node('Camera').limit_bottom + 200:
       queue_free()
   # Fixing ceiling collision and is_on_floor() flickering
   if (is_on_floor() || is_on_ceiling()) && alive && velocity.y >= 0:
@@ -128,6 +128,7 @@ func _physics_process(delta:float) -> void:
   if frozen_sprite && frozen:
     frozen_sprite.visible = true
     frozen_sprite.playing = true
+    animated_sprite.playing = false
 
 # Useful functions
 func turn(mp:float = 1) -> void:

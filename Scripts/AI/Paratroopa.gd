@@ -1,13 +1,16 @@
 extends Brain
 
-const inst = preload('res://Objects/Enemies/Koopas/Koopa.tscn')
 var initial_pos: Vector2
 var offset_pos: Vector2 = Vector2.ZERO
 
-var counter: float = 0
+onready var counter: float = 0
+
+var rng = RandomNumberGenerator.new()
 
 func _ready_mixin():
   initial_pos = owner.position
+  rng.randomize()
+  counter = rng.randf_range(0, 360)
   owner.velocity_enabled = false
 
 func _ai_process(delta: float) -> void:
@@ -24,7 +27,7 @@ func _ai_process(delta: float) -> void:
   
   owner.position = initial_pos + offset_pos
     
-  if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0:
+  if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= 0:
     owner.kill(AliveObject.DEATH_TYPE.CUSTOM, 0)
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
@@ -41,7 +44,7 @@ func _ai_process(delta: float) -> void:
 func _on_custom_death():
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
-  var koopa = inst.instance()
+  var koopa = load('res://Objects/Enemies/Koopas/Koopa.tscn').instance()
   koopa.position = owner.position
   owner.get_parent().add_child(koopa)
   owner.velocity_enabled = false

@@ -5,11 +5,11 @@ var score_mp: int
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
+  if owner.vars['is shell']:
+    to_stopped_shell() if owner.vars['stopped'] else to_moving_shell()
 
 func _setup(b)-> void:
   ._setup(b)
-  owner.vars['is shell'] = false
-  owner.vars['stopped'] = false
   owner.get_node(owner.vars['kill zone']).connect('body_entered',self,"_on_kill_zone_enter")
 
 func _ai_process(delta: float) -> void:
@@ -22,54 +22,64 @@ func _ai_process(delta: float) -> void:
     owner.get_node(owner.vars['kill zone']).get_child(0).disabled = true
     return
   
-  owner.velocity.x = (owner.vars['speed'] if !owner.vars['is shell'] else 0 if owner.vars['stopped'] else owner.vars['shell speed']) * owner.dir
+  if !owner.frozen:
+    owner.velocity.x = (owner.vars['speed'] if !owner.vars['is shell'] else 0 if owner.vars['stopped'] else owner.vars['shell speed']) * owner.dir
+  else:
+    owner.velocity.x = 0
+    return
+  
   if owner.is_on_wall():
     owner.turn()
 
   if shell_counter < 41:
     shell_counter += 1 * Global.get_delta(delta)
     
-  if on_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0: 
-    if !owner.vars['is shell'] && shell_counter >= 11:
+  if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 && shell_counter >= 11: 
+    if !owner.vars['is shell']:
       owner.get_parent().add_child(ScoreText.new(100, owner.position))
-      owner.vars['is shell'] = true
-      shell_counter = 0
-      owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
-      owner.vars['stopped'] = true
-      owner.animated_sprite.animation = 'shell stopped'
+      to_stopped_shell()
     
       owner.sound.play()
       if Input.is_action_pressed('mario_jump'):
         Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
       else:
         Global.Mario.velocity.y = -owner.vars['bounce'] * 50
-    elif owner.vars['is shell'] && !owner.vars['stopped'] && shell_counter >= 11: #Stops the shell
-      score_mp = 0
+    elif owner.vars['is shell'] && !owner.vars['stopped']: #Stops the shell
       owner.get_parent().add_child(ScoreText.new(100, owner.position))
-      owner.vars['stopped'] = true
-      owner.animated_sprite.animation = 'shell stopped'
+      to_stopped_shell()
     
       owner.sound.play()
       if Input.is_action_pressed('mario_jump'):
         Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
       else:
         Global.Mario.velocity.y = -owner.vars['bounce'] * 50
-  
-  if on_mario_collide('InsideDetector'):
-    if owner.vars['stopped'] && owner.vars['is shell'] && shell_counter >= 11:
-      owner.vars['stopped'] = false
-      owner.animated_sprite.animation = 'shell moving'
-      shell_counter = 0
-      owner.alt_sound.play()
-      owner.dir = -1 if Global.Mario.position.x > owner.position.x else 1
-      
-  if is_mario_collide('InsideDetector') && !is_mario_collide('BottomDetector') && shell_counter >= 31:
+  elif is_mario_collide('InsideDetector') and !owner.vars['stopped'] and shell_counter >= 31:
     Global._ppd()
+    
+  if is_mario_collide('InsideDetector'):
+    if owner.vars['stopped'] && owner.vars['is shell'] && shell_counter >= 11:
+      to_moving_shell()
+      owner.dir = -1 if Global.Mario.position.x > owner.position.x else 1
+      owner.alt_sound.play()
     
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
   for i in range(len(g_overlaps)):
     if 'triggered' in g_overlaps[i] and g_overlaps[i].triggered:
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
+
+func to_stopped_shell() -> void:
+  owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
+  shell_counter = 0
+  owner.vars['is shell'] = true
+  score_mp = 0
+  owner.vars['stopped'] = true
+  owner.animated_sprite.animation = 'shell stopped'
+
+func to_moving_shell() -> void:
+  owner.vars['is shell'] = true
+  owner.vars['stopped'] = false
+  owner.animated_sprite.animation = 'shell moving'
+  shell_counter = 0
 
 func _on_kill_zone_enter(b:Node) -> void:
   if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0 && b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):

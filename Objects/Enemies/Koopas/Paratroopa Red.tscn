@@ -39,9 +39,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 14, 2 )
 
-[node name="Paratroopa Red" type="KinematicBody2D" groups=[
-"Enemy",
-]]
+[node name="Paratroopa Red" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 2 )
 vars = {
 "bounce": 9.0,
