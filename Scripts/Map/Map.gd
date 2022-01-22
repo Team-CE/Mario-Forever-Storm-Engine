@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
   if Input.is_action_just_pressed('mario_jump') and !fading_out and stopped:
     fading_out = true
     $fadeout.play()
-    fade_out_music()
+    MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 2.0)
   
   if fading_out:
     circle_size -= 0.012 * Global.get_delta(delta)
@@ -76,11 +76,3 @@ func _process_camera(delta: float) -> void:
 
   if cam.global_position.x > cam.limit_right - 320:
     cam.global_position.x = cam.limit_right - 320
-
-func fade_out_music() -> void:
-  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) - 2)
-  yield(get_tree().create_timer( 0.05 ), 'timeout')
-  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > -100 and circle_size > 0.1:
-    fade_out_music()
-  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) < -80:
-    MusicPlayer.get_node('Main').stop()

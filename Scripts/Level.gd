@@ -11,6 +11,9 @@ export var sgr_scroll: bool = false
 onready var tileMap: TileMap
 onready var worldEnv: WorldEnvironment
 
+onready var mpMain = MusicPlayer.get_node('Main')
+onready var mpStar = MusicPlayer.get_node('Star')
+
 const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
 var popup: CanvasLayer = null
 
@@ -20,9 +23,12 @@ func _ready():
     $WorldEnvironment.environment.dof_blur_near_enabled = false
     if not $Mario.custom_die_stream or Global.deaths == 0:
       Global.time = time
-      MusicPlayer.get_node('Main').stream = music
-      MusicPlayer.get_node('Main').play()
-      MusicPlayer.get_node('Star').stop()
+      MusicPlayer.get_node('TweenOut').remove_all()
+      mpMain.stream = music
+      mpMain.play()
+      mpMain.volume_db = 0
+      mpStar.stop()
+      mpStar.volume_db = 0
       if Global.musicBar > -100:
         AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), Global.musicBar / 5)
       if Global.musicBar == -100:

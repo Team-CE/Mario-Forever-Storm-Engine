@@ -6,10 +6,12 @@ var score_mp: int
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
   if owner.vars['is shell']:
+# warning-ignore:standalone_ternary
     to_stopped_shell() if owner.vars['stopped'] else to_moving_shell()
 
 func _setup(b)-> void:
   ._setup(b)
+# warning-ignore:return_value_discarded
   owner.get_node(owner.vars['kill zone']).connect('body_entered',self,"_on_kill_zone_enter")
 
 func _ai_process(delta: float) -> void:
@@ -26,6 +28,11 @@ func _ai_process(delta: float) -> void:
     owner.velocity.x = (owner.vars['speed'] if !owner.vars['is shell'] else 0 if owner.vars['stopped'] else owner.vars['shell speed']) * owner.dir
   else:
     owner.velocity.x = 0
+    if !owner.vars['is shell']:
+      owner.get_node('Collision2').disabled = false
+      owner.get_node('Collision').disabled = true
+      owner.frozen_sprite.animation = 'medium'
+      owner.frozen_sprite.position.y = -32
     return
   
   if owner.is_on_wall():

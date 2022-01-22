@@ -122,12 +122,10 @@ func controls() -> void:
           0:
             controls_enabled = false
             $letsgo.play()
-            fade_out_music()
-            #MusicEngine.fade_out(0.3)
+            MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 5.0)
             yield(get_tree().create_timer( 2.5 ), 'timeout')
             $fadeout.play()
             fading_out = true
-            #MusicEngine.track_ended()
             yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
             if Global.musicBar == -100:
@@ -141,8 +139,7 @@ func controls() -> void:
           2:
             controls_enabled = false
             $enter_options.play()
-            #MusicEngine.fade_out(0.2)
-            fade_out_music()
+            MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 3.0)
             yield(get_tree().create_timer( 1 ), 'timeout')
             fading_out = true
             yield(get_tree().create_timer( 1.4 ), 'timeout')
@@ -160,8 +157,6 @@ func controls() -> void:
             sel = 0
             $enter_options.play()
             $Credits.position.y = 1920 + $Credits.texture.get_height() / 2
-            #MusicEngine.track_ended()
-            #MusicEngine.play_music(music_credits)
             MusicPlayer.get_node('Main').stream = music_credits
             MusicPlayer.get_node('Main').play()
           9:
@@ -170,8 +165,8 @@ func controls() -> void:
             $enter_options.play()
             saveOptions()
             if Global.restartNeeded:
-# warning-ignore:return_value_discarded
               Global.restartNeeded = false
+# warning-ignore:return_value_discarded
               get_tree().reload_current_scene()
       if Input.is_action_just_pressed('ui_right'):
         match sel:
@@ -222,8 +217,6 @@ func controls() -> void:
               if Global.musicBar == -100:
                 AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
               $tick.play()
-            #if Global.musicBar == -100:
-              #MusicEngine.set_volume(-1000)
           2:
             if Global.effects:
               Global.effects = false
@@ -271,8 +264,6 @@ func controls() -> void:
       if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept'):
         screen = 1
         sel = 8
-        #MusicEngine.track_ended()
-        #MusicEngine.play_music(music)
         MusicPlayer.get_node('Main').stream = music
         MusicPlayer.get_node('Main').play()
 
@@ -318,14 +309,6 @@ func saveOptions() -> void:
     'Controls': Global.controls
   }
   Global.saveInfo(JSON.print(Global.toSaveInfo))
-
-func fade_out_music() -> void:
-  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) - 1)
-  yield(get_tree().create_timer( 0.05 ), 'timeout')
-  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > -100 and circle_size > 0.1:
-    fade_out_music()
-  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) < -80:
-    MusicPlayer.get_node('Main').stop()
 
 func assign_value(key) -> String:
   var out: String

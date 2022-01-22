@@ -2,7 +2,7 @@ extends Node
 
 var GameName = "CloudEngine"
 var soundBar: float = 0                      # Game options
-var musicBar: float = 0                      # 9i sosal y Muwu B 5 yTpa
+var musicBar: float = 0
 var effects: bool = true
 var scroll: int = 0
 var quality: int = 2
@@ -25,20 +25,20 @@ var gravity: float = 20                      # Global gravity
 var HUD: CanvasLayer                         # ref HUD
 var Mario: Node2D                            # ref Mario
 
-signal TimeTick                              # Called when time got lower
-signal OnPlayerLoseLife                      # Called when Player Die
-signal OnScoreChange                         # Called when score get changed
-signal OnLivesAdded                          # Called when Live added
-signal OnCoinCollected                       # Called when coins collected
+signal TimeTick                              # Called when time ticks
+signal OnPlayerLoseLife                      # Called when the player dies
+signal OnScoreChange                         # Called when score gets changed
+signal OnLivesAdded                          # Called when a life gets added
+signal OnCoinCollected                       # Called when coins get collected
 
 var lives: int = 4                           # Player lives
 var time: int = 999                          # Time left
 var score: int = 0                           # Score
 var coins: int = 0                           # Player coins
-var deaths: int = 0                          # Player deaths (for precision madness)
+var deaths: int = 0                          # Player deaths (for precision madness-like levels)
 var state: int = 0                           # Player powerup state
 
-var projectiles_count: int = 0               # Self explanable
+var projectiles_count: int = 0               # Number of player's projectiles on screen
 
 var checkpoint_active: int = 0               # Self explanable
 var checkpoint_position: Vector2
@@ -187,6 +187,11 @@ func _process(delta: float):
   var temp = round((1 / delta) / 60) * 60
   if temp > 0:
     Engine.iterations_per_second = temp
+  
+  # in case something goes wrong with volume
+  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > 1:
+    push_warning('Too high music volume!')
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), 0)
 
 # warning-ignore:shadowed_variable
 func add_score(score: int) -> void:

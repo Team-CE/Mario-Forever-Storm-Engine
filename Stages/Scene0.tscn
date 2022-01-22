@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -30,24 +30,16 @@
 [ext_resource path="res://Objects/Enemies/Koopas/Paratroopa.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Scripts/AI/ThrowFunctions/Hammer.gd" type="Script" id=29]
 [ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Hammer.tscn" type="PackedScene" id=30]
-
-[sub_resource type="Environment" id=1]
-background_mode = 4
-dof_blur_far_distance = 1.5
-dof_blur_near_amount = 0.0
-dof_blur_near_quality = 2
-glow_enabled = true
-glow_blend_mode = 0
-glow_hdr_threshold = 1.5
-glow_bicubic_upscale = true
-glow_high_quality = true
+[ext_resource path="res://Objects/Enemies/Koopas/Paratroopa Red.tscn" type="PackedScene" id=31]
+[ext_resource path="res://Objects/Enemies/Koopas/Paratroopa Blue.tscn" type="PackedScene" id=32]
+[ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=33]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 music = ExtResource( 25 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 1 )
+environment = ExtResource( 33 )
 
 [node name="TileMap" type="TileMap" parent="." groups=["Solid"]]
 tile_set = ExtResource( 2 )
@@ -87,6 +79,10 @@ Result = ExtResource( 7 )
 
 [node name="QBlock42" parent="." instance=ExtResource( 6 )]
 position = Vector2( 1136, 320 )
+Result = ExtResource( 24 )
+
+[node name="QBlock58" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1168, 224 )
 Result = ExtResource( 24 )
 
 [node name="QBlock39" parent="." instance=ExtResource( 6 )]
@@ -407,4 +403,23 @@ vars = {
 "bounce": 9.0,
 "speed": 100.0,
 "throw_script": ExtResource( 27 )
+}
+
+[node name="Paratroopa Blue" parent="." instance=ExtResource( 32 )]
+position = Vector2( 1312, 304 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
+
+[node name="Paratroopa Red" parent="." instance=ExtResource( 31 )]
+position = Vector2( 1376, 352 )
+vars = {
+"bounce": 9.0,
+"fly radius": 50,
+"fly speed": 2
 }

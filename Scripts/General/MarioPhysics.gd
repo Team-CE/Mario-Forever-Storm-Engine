@@ -46,6 +46,8 @@ onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
 onready var allow_custom_animation: bool = false
 
+var faded: bool = false
+
 const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
 var popup: CanvasLayer = null
 
@@ -116,12 +118,6 @@ func _process(delta) -> void:
   if jump_internal_counter < 100:
     jump_internal_counter += 1 * Global.get_delta(delta)
 
-func fade_out_music() -> void:
-  if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) < -80:
-    MusicPlayer.get_node('Star').stop()
-    return
-  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) - (0.25 / (Global.musicBar / 5) * -1 if Global.musicBar != 0 else 0.25))
-
 func _process_alive(delta) -> void:
   var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
@@ -146,8 +142,10 @@ func _process_alive(delta) -> void:
     $BottomDetector/CollisionBottom2.disabled = true
     $Sprite.material.set_shader_param('mixing', true)
     # Starman music Fade out
-    if shield_counter < 125 and Global.musicBar > -100:
-      fade_out_music()
+    
+    if shield_counter <= 125 and Global.musicBar > -100 and !faded:
+      MusicPlayer.fade_out(MusicPlayer.get_node('Star'), 3.0)
+      faded = true
     if shield_counter <= 0:
       MusicPlayer.get_node('Star').stop()
       MusicPlayer.get_node('Main').play()

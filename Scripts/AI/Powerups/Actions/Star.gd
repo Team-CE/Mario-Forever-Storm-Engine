@@ -3,6 +3,9 @@ class_name StarPowerupAction
 onready var init = false
 var delay_counter: float = 45
 
+var mpStar = MusicPlayer.get_node('Star')
+var mario = Global.Mario
+
 func _process_movement(brain, delta):
   if delay_counter > 0:
     delay_counter -= 1 * Global.get_delta(delta)
@@ -23,15 +26,18 @@ func _process_movement(brain, delta):
 func do_action(brain):
   if brain.custom_script.delay_counter > 1: return
   
-  Global.Mario.shield_counter = 750
-  Global.Mario.shield_star = true
-  Global.Mario.get_node('Sprite').visible = true
+  mario.shield_counter = 750
+  mario.shield_star = true
+  mario.faded = false
+  mario.get_node('Sprite').visible = true
   Global.play_base_sound('MAIN_Powerup')
   MusicPlayer.get_node('Main').stop()
   if Global.musicBar > -100:
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
   if Global.musicBar == -100:
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
-  MusicPlayer.get_node('Star').play()
+  mpStar.play()
+  mpStar.volume_db = 0
+  MusicPlayer.get_node('TweenOut').remove(mpStar)
   brain.owner.get_parent().add_child(ScoreText.new(brain.owner.score, brain.owner.position))
   brain.owner.queue_free()
