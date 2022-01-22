@@ -32,7 +32,6 @@ func _ready() -> void:
   pos_y = 359
   $Transition.material.set_shader_param('circle_size', circle_size)
   
-  # temp
   $fadeout.play()
   yield(get_tree().create_timer( 1.2 ), 'timeout')
   MusicPlayer.get_node('Main').stream = music
@@ -302,8 +301,6 @@ func updateControls() -> void:
   for i in CONTROLS_ARRAY:
     var val = assign_value(i)
     CONTROLS_VALUES[i] = val
-  
-  print(CONTROLS_VALUES)
   
   for i in 6:
     get_node('Label' + str(i)).text = CONTROLS_VALUES[CONTROLS_ARRAY[i]]

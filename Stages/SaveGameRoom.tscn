@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Scenery/Trees.png" type="Texture" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=24]
 [ext_resource path="res://GFX/SaveGameRoom/reset_powerup.png" type="Texture" id=25]
 [ext_resource path="res://Music/1-music-presentation.ogg" type="AudioStream" id=26]
+[ext_resource path="res://GFX/Scenery/Cloud.tres" type="SpriteFrames" id=27]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -73,7 +74,7 @@ powerup_scripts = {
 }
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
-active = false
+visible = false
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_ignore_camera_zoom = true
@@ -104,7 +105,18 @@ additional_options = {
 z_index = -100
 
 [node name="Hill" type="Sprite" parent="Scenery"]
+modulate = Color( 0.431373, 1, 0.752941, 1 )
 position = Vector2( 440, 352 )
+texture = ExtResource( 3 )
+
+[node name="Hill4" type="Sprite" parent="Scenery"]
+modulate = Color( 0.431373, 1, 0.752941, 1 )
+position = Vector2( 1008, 352 )
+texture = ExtResource( 3 )
+
+[node name="Hill5" type="Sprite" parent="Scenery"]
+modulate = Color( 0.431373, 1, 0.752941, 1 )
+position = Vector2( 1312, 368 )
 texture = ExtResource( 3 )
 
 [node name="Trees" type="Sprite" parent="Scenery"]
@@ -115,17 +127,53 @@ texture = ExtResource( 2 )
 position = Vector2( 688, 392 )
 texture = ExtResource( 2 )
 
-[node name="Hill2" type="Sprite" parent="Scenery"]
-position = Vector2( 976, 352 )
-texture = ExtResource( 3 )
-
-[node name="Hill3" type="Sprite" parent="Scenery"]
-position = Vector2( 1312, 360 )
-texture = ExtResource( 3 )
-
 [node name="Trees3" type="Sprite" parent="Scenery"]
 position = Vector2( 1240, 400 )
 texture = ExtResource( 2 )
+
+[node name="Cloud" type="AnimatedSprite" parent="Scenery"]
+position = Vector2( 208, 80 )
+frames = ExtResource( 27 )
+playing = true
+
+[node name="Cloud2" type="AnimatedSprite" parent="Scenery"]
+position = Vector2( 384, 128 )
+frames = ExtResource( 27 )
+playing = true
+
+[node name="Cloud3" type="AnimatedSprite" parent="Scenery"]
+position = Vector2( 592, 64 )
+frames = ExtResource( 27 )
+frame = 2
+playing = true
+
+[node name="Cloud4" type="AnimatedSprite" parent="Scenery"]
+position = Vector2( 736, 80 )
+frames = ExtResource( 27 )
+frame = 2
+playing = true
+
+[node name="Cloud5" type="AnimatedSprite" parent="Scenery"]
+position = Vector2( 1216, 32 )
+frames = ExtResource( 27 )
+frame = 1
+playing = true
+
+[node name="Cloud6" type="AnimatedSprite" parent="Scenery"]
+position = Vector2( 1328, 112 )
+frames = ExtResource( 27 )
+playing = true
+
+[node name="Cloud7" type="AnimatedSprite" parent="Scenery"]
+position = Vector2( 1648, 48 )
+frames = ExtResource( 27 )
+playing = true
+
+[node name="Cloud8" type="AnimatedSprite" parent="Scenery"]
+position = Vector2( 448, 48 )
+frames = ExtResource( 27 )
+frame = 2
+playing = true
 
 [node name="Powerups" type="Node2D" parent="."]
 

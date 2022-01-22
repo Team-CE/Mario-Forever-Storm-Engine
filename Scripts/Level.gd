@@ -9,6 +9,7 @@ export var no_cliff: bool = false
 export var sgr_scroll: bool = false
 
 onready var tileMap: TileMap
+onready var worldEnv: WorldEnvironment
 
 const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
 var popup: CanvasLayer = null
@@ -40,7 +41,8 @@ func _ready():
       if get_node_or_null('Particles2D'):
         $Particles2D.queue_free()
     print('[Level]: Ready!')
-  elif not get_node('Mario'):
+  elif not get_node_or_null('Mario'):
+    worldEnv = setup_worldenv()
     tileMap = setup_tilemap()
     var mario: Node2D = preload('res://Objects/Core/Mario.tscn').instance()
     mario.position = Vector2(48, 416)
@@ -49,6 +51,14 @@ func _ready():
     var hud: CanvasLayer = preload('res://Objects/Core/HUD.tscn').instance()
     add_child(hud)
     hud.set_owner(self)
+
+func setup_worldenv() -> WorldEnvironment:
+  var newWE = WorldEnvironment.new()
+  newWE.environment = load('res://default_env.tres')
+  add_child(newWE)
+  newWE.set_owner(self)
+  newWE.set_name('WorldEnvironment')
+  return newWE
 
 func setup_tilemap() -> TileMap:
   var newTM = TileMap.new()
