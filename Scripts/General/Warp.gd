@@ -115,7 +115,7 @@ func _process(delta) -> void:
 
           if out_node.direction == DIRS.DOWN:
             Global.Mario.crouch = false
-            calc_pos = Vector2(out_node.position.x, out_node.position.y - 40 - (30 if Global.state != 0 else 0))
+            calc_pos = Vector2(out_node.position.x, out_node.position.y - 40 + (24 if Global.state != 0 else 0))
             warp_dir.y = 1
             Global.Mario.animate_sprite('Jumping')
           elif out_node.direction == DIRS.UP:

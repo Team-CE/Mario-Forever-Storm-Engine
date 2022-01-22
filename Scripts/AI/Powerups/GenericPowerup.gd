@@ -28,7 +28,7 @@ func _ready_mixin():
   
   if 'custom appearing' in owner.vars:
     custom_appearing = true
-    
+  
   var children = owner.get_parent().get_children()
   for node in range(len(children)):
     if children[node] is KinematicBody2D:
@@ -37,7 +37,7 @@ func _ready_mixin():
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)
   
-  if !appearing:
+  if !appearing and not ('sgr behavior' in owner.vars and owner.vars['sgr behavior']):
     if custom_script and custom_script.has_method('_process_movement'):
       custom_script._process_movement(self, delta)
     else:
@@ -47,7 +47,7 @@ func _ai_process(delta: float) -> void:
       if owner.is_on_wall():
         owner.turn()
   
-  if not custom_appearing:
+  if !custom_appearing and not ('sgr behavior' in owner.vars and owner.vars['sgr behavior']):
     if appearing and appear_counter < 32:
       offset_pos -= Vector2(0, owner.vars['grow speed']).rotated(owner.rotation) * Global.get_delta(delta)
       appear_counter += owner.vars['grow speed'] * Global.get_delta(delta)
@@ -72,14 +72,15 @@ func _ai_process(delta: float) -> void:
       if owner.score > 0:
         Global.add_score(owner.score)
         owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
-      if owner.vars['set state'] != Global.state and not (owner.vars['set state'] == 1 and Global.state > 1) or owner.vars['sgr behavior']:
+      if owner.vars['set state'] != Global.state and (not (owner.vars['set state'] == 1 and Global.state > 1) or owner.vars['sgr behavior']):
         Global.Mario.appear_counter = 60
         if Global.state >= 1 or owner.vars['sgr behavior']:
           Global.state = owner.vars['set state']
         else:
           Global.state = 1
-      Global.play_base_sound('MAIN_Powerup')
+        Global.play_base_sound('MAIN_Powerup')
       if !owner.vars['sgr behavior']:
+        Global.play_base_sound('MAIN_Powerup')
         owner.queue_free()
     elif 'custom action' in owner.vars:
       var action_class = owner.vars['custom action'].new()

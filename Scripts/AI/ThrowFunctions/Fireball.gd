@@ -4,8 +4,7 @@ var hammer_scene = preload('res://Objects/Projectiles/Fireball.tscn')
 
 func throw(ai) -> void:
   var inst = hammer_scene.instance()
-  inst.position = ai.owner.position - Vector2(0, 24)
-  inst.rotation = ai.owner.rotation
+  inst.position = ai.owner.position - Vector2(0, 24).rotated(ai.owner.rotation)
   inst.belongs = 2
   inst.dir = -1 if ai.owner.animated_sprite.flip_h else 1
   inst.velocity.y = ai.owner.velocity.y
