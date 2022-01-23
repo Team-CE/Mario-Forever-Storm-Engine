@@ -21,7 +21,7 @@ func _input(event: InputEvent) -> void:
   if event is InputEventMouseButton:
     var ev :InputEventMouseButton = event
     if ev.pressed:
-      if ev.get_button_index() == 1:
+      if ev.get_button_index() == 2: # Right mouse button
         $InspectLabel.visible = !$InspectLabel.visible
 
 

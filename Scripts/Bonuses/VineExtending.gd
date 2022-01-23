@@ -26,10 +26,10 @@ func _physics_process(_delta) -> void:
   if position.y >= firstpos - 32: return
   
   # Удаление
-  if get_node('RayCast2D').is_colliding():
+  if $RayCast2D.is_colliding() and ($RayCast2D.get_collider() is TileMap or $RayCast2D.get_collider().is_in_group('Solid')):
     var inst = vine.instance()
     add_child(inst)
-    get_node('AnimatedSprite').queue_free()
+    $AnimatedSprite.queue_free()
     appearing = false
     sync_anim()
 
@@ -37,4 +37,4 @@ func sync_anim() -> void:
   var children = get_children()
   for i in children:
     if i is Area2D:
-      i.get_node('AnimatedSprite').frame = get_node('AnimatedSprite').frame
+      i.get_node('AnimatedSprite').frame = $AnimatedSprite.frame

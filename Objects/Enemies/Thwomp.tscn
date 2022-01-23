@@ -47,12 +47,11 @@ extents = Vector2( 24, 32 )
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 24, 2 )
 
-[node name="Thwomp" type="KinematicBody2D" groups=[
-"Enemy",
-]]
+[node name="Thwomp" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 3 )
 vars = {
 "bounce": 9.0,
+"ignore qblocks": false,
 "speed": 50.0
 }
 AI = ExtResource( 1 )
@@ -63,7 +62,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 frames = SubResource( 8 )
-frame = 4
+frame = 3
 playing = true
 offset = Vector2( 0, -16 )
 
@@ -79,9 +78,8 @@ stream = ExtResource( 4 )
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
 show_behind_parent = true
-position = Vector2( -2.38419e-07, -16 )
-scale = Vector2( 1.6, 1.6 )
-process_parent = true
+position = Vector2( 1.90735e-06, -32 )
+scale = Vector2( 3.2, 3.2 )
 physics_process_parent = true
 
 [node name="KillDetector" type="Area2D" parent="."]
@@ -96,3 +94,13 @@ position = Vector2( -16, 0 )
 
 [node name="EffectPosition2" type="Position2D" parent="."]
 position = Vector2( 16, 0 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+visible = false
+show_behind_parent = true
+position = Vector2( 0, -32 )
+shape = SubResource( 9 )

@@ -211,3 +211,6 @@ func freeze() -> void:
   
 func instance_free():
   queue_free()
+
+func getInfo() -> String:
+  return 'name: {n}\nvel x: {x}\nvel y: {y}'.format({'x':velocity.x,'y':velocity.y,'n':self.get_name()}).to_lower()

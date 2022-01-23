@@ -18,7 +18,7 @@ func _ai_process(delta: float) -> void:
   if !owner.is_on_floor() and falling:
     owner.velocity += Vector2(0, 40 * owner.gravity_scale * Global.get_delta(delta))
 
-  if on_mario_collide('InsideDetector'):
+  if Global.is_mario_collide_area('InsideDetector', owner.get_node('Hitbox')):
     Global._ppd()
     
   if !falling and !top:
@@ -29,6 +29,7 @@ func _ai_process(delta: float) -> void:
     var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
     for i in range(len(g_overlaps)):
       if g_overlaps[i].has_method('hit'):
+        if ('ignore hidden' in owner.vars and owner.vars['ignore hidden']) && !g_overlaps[i].visible: return
         g_overlaps[i].hit(delta, true)
         if g_overlaps[i].qtype == QBlock.BLOCK_TYPE.BRICK:
           hit_counter = 3
@@ -63,6 +64,7 @@ func _ai_process(delta: float) -> void:
     if counter == 50:
       hit_counter = 20
       offset = (owner.position - initial_pos).rotated(-owner.rotation)
+      owner.get_node('CollisionShape2D').disabled = true
       
     if counter > 0:
       counter -= 1 * Global.get_delta(delta)
@@ -76,11 +78,12 @@ func _ai_process(delta: float) -> void:
         owner.position = initial_pos
         top = false
         falling = false
+        owner.get_node('CollisionShape2D').disabled = false
         
         
-  if owner.get_node('AnimatedSprite').frame == 7:
-    owner.get_node('AnimatedSprite').playing = false
+  if owner.animated_sprite.frame == 7:
+    owner.animated_sprite.playing = false
     
   if rand_range(-70.0, 40.0) > 39.0:
-    owner.get_node('AnimatedSprite').frame = 0
-    owner.get_node('AnimatedSprite').playing = true
+    owner.animated_sprite.frame = 0
+    owner.animated_sprite.playing = true
