@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Sounds/Enemies/cannon_shoot.wav" type="AudioStream" id=1]
+[ext_resource path="res://GFX/Enemies/CannonSideSpiked.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Enemies/Cannon.gd" type="Script" id=3]
+[ext_resource path="res://Objects/Enemies/SpikedBullet.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[node name="SpikedCannon" type="StaticBody2D" groups=["Solid"]]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 3 )
+result = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
