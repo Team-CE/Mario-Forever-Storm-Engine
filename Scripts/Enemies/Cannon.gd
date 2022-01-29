@@ -25,7 +25,7 @@ func _process(delta) -> void:
     counter = rand_range(50, 200) * -1
     var bullet = result.instance()
     bullet.position = Vector2(position.x, position.y)
-    bullet.dir = -1 if Global.Mario.position.x < position.x else 1
+    bullet.dir = -1 if Global.Mario.position.rotated(-rotation).x < position.rotated(-rotation).x else 1
     bullet.rotation = rotation
     var explosionPos = position + Vector2(bullet.dir * 16, 0)
     var explosion = Explosion.new(explosionPos)
