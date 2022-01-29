@@ -17,6 +17,9 @@ func _ai_process(delta: float) -> void:
   owner.velocity.x = (owner.vars["speed"] - speed_modifier) * owner.dir
   
   owner.animated_sprite.flip_h = owner.dir < 0
+  
+  if !Global.is_getting_closer(-300, owner.position):
+    owner.queue_free()
 
 func _on_hitbox_enter(a) -> void:
   if !owner.alive:
