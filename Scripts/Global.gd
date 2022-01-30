@@ -290,6 +290,6 @@ func is_getting_closer(pix: float, pos: Vector2) -> bool:
   return (
     pos.x > camera.global_position.x - 320 + pix and
     pos.x < camera.global_position.x + 320 - pix and
-    pos.y > camera.global_position.y - 320 + pix and
-    pos.y < camera.global_position.y + 320 - pix
+    pos.y > camera.global_position.y - 240 + pix and
+    pos.y < camera.global_position.y + 240 - pix
   )

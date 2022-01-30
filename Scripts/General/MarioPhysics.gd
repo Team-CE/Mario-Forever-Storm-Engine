@@ -332,6 +332,14 @@ func is_over_vine() -> bool:
       return true
   return false
 
+func jump() -> void:
+  prelanding = false
+  velocity.y = -700 # 650
+  jump_counter = 1
+  can_jump = false
+  $BaseSounds/MAIN_Jump.play()
+  jump_internal_counter = 0
+
 func controls(delta) -> void:
   if Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and not crouch:
     can_jump = true
@@ -339,12 +347,7 @@ func controls(delta) -> void:
     can_jump = false
 
   if jump_counter == 0 and can_jump:
-    prelanding = false
-    velocity.y = -700 # 650
-    jump_counter = 1
-    can_jump = false
-    $BaseSounds/MAIN_Jump.play()
-    jump_internal_counter = 0
+    jump()
 
   if velocity.y > 0.5 and not is_over_backdrop($BottomDetector, false):
     prelanding = false
