@@ -8,6 +8,7 @@
 extents = Vector2( 48, 0.5 )
 
 [node name="Platform" type="PathFollow2D"]
+process_priority = 2
 rotate = false
 script = ExtResource( 2 )
 

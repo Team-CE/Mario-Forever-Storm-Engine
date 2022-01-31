@@ -98,6 +98,9 @@ func hit(delta, thwomp = false, idle_frame: bool = true) -> void:
   $Collision.one_way_collision = false
   Global.play_base_sound('MISC_Switch')
   
+  toggle_switches()
+
+func toggle_switches() -> void:
   var nodes = get_parent().get_children()
   
   for node in nodes:

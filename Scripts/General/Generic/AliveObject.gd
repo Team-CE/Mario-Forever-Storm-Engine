@@ -24,6 +24,7 @@ export(float,-1,1) var dir: float = -1
 export var can_freeze: bool = false
 export var frozen: bool = false
 export var force_death_type: bool = false
+export var auto_destroy: bool = true
 
 #RayCasts leave empty if smart_turn = false
 export var ray_L_pth: NodePath
@@ -115,7 +116,7 @@ func _physics_process(delta:float) -> void:
   brain._ai_process(delta) #Calling brain cells
   
   if is_instance_valid(Global.Mario):
-    if position.y > Global.Mario.get_node('Camera').limit_bottom + 32 and position.y < Global.Mario.get_node('Camera').limit_bottom + 200:
+    if auto_destroy and (position.y > Global.Mario.get_node('Camera').limit_bottom + 32 and position.y < Global.Mario.get_node('Camera').limit_bottom + 200):
       queue_free()
   # Fixing ceiling collision and is_on_floor() flickering
   if (is_on_floor() || is_on_ceiling()) && alive && velocity.y >= 0:

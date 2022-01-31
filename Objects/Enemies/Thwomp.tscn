@@ -56,13 +56,14 @@ vars = {
 }
 AI = ExtResource( 1 )
 invincible = true
+auto_destroy = false
 sound_pth = NodePath("Hit")
 animated_sprite_pth = NodePath("AnimatedSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 frames = SubResource( 8 )
-frame = 7
+frame = 5
 playing = true
 offset = Vector2( 0, -16 )
 
@@ -74,12 +75,6 @@ shape = SubResource( 9 )
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
-
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-visible = false
-show_behind_parent = true
-position = Vector2( 1.90735e-06, -32 )
-scale = Vector2( 3.2, 3.2 )
 
 [node name="KillDetector" type="Area2D" parent="."]
 visible = false

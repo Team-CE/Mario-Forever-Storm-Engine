@@ -52,6 +52,8 @@ var currlevel: Node2D
 
 var levelID: int = 0
 
+var p_fps_switch: float = 0
+
 onready var timer: Timer = Timer.new()       # Create a new timer for delay
 
 static func get_delta(delta) -> float:       # Delta by 50 FPS
@@ -185,7 +187,14 @@ func _input(ev):
 # fix physics fps issues
 func _process(delta: float):
   var temp = round((1 / delta) / 60) * 60
-  if temp > 0:
+  var temp2 = round(Engine.iterations_per_second / 60) * 60
+  if temp > 0 and temp2 != temp:
+    p_fps_switch += 1 * get_delta(delta)
+  else:
+    p_fps_switch = 0
+  
+  if p_fps_switch > 50:
+    print('Updated engine iterations')
     Engine.iterations_per_second = temp
   
   # in case something goes wrong with volume

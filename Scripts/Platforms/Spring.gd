@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 var spring_counter: float = 0
+var velocity: Vector2 = Vector2.ZERO
 
 export var strength_modifier: float = 1
 
@@ -9,6 +10,9 @@ func _ready() -> void:
   
 func _process(delta: float) -> void:
   $Sprite.playing = $Sprite.frame < 4
+  
+  velocity.y += 20 * Global.get_delta(delta)
+  velocity = move_and_slide_with_snap(velocity, Vector2.DOWN, Vector2.UP)
   
   if Input.is_action_just_pressed('mario_jump'):
     spring_counter = 7
