@@ -1,0 +1,178 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://GFX/Fonts/LoliPop.tres" type="DynamicFont" id=1]
+[ext_resource path="res://GFX/Fonts/MusicIcon.svg" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Appear"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 4, 4.3, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 496 ), Vector2( 0, 416 ), Vector2( 0, 432 ), Vector2( 0, 432 ), Vector2( 0, 416 ), Vector2( 0, 496 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MusicIcon:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 4, 4.3, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -32, 455 ), Vector2( 48, 455 ), Vector2( 32, 455 ), Vector2( 32, 455 ), Vector2( 48, 455 ), Vector2( -32, 455 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MusicIcon2:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 4, 4.3, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 672, 455 ), Vector2( 592, 455 ), Vector2( 608, 455 ), Vector2( 608, 455 ), Vector2( 592, 455 ), Vector2( 672, 455 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MusicIcon:rotation_degrees")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 1.5, 2.5, 3.5, 4, 4.3, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -24.5, -8.1, 8.3, -8.3, 8.3, 8.3, -24.7, 16.2 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("MusicIcon2:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 1.5, 2.5, 3.5, 4, 4.3, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 180.0, 204.5, 188.1, 171.7, 188.3, 171.7, 171.7, 204.7, 163.8 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 496 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MusicIcon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -32, 455 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MusicIcon2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 672, 455 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MusicIcon:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("MusicIcon2:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 180.0 ]
+}
+
+[node name="Control" type="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -320.0
+margin_top = -480.0
+margin_right = 320.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -320.0
+margin_top = 16.0
+margin_right = 320.0
+margin_bottom = 63.9994
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = ExtResource( 1 )
+text = "MUSIC NAME"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MusicIcon" type="Sprite" parent="."]
+position = Vector2( -32, 455 )
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 2 )
+
+[node name="MusicIcon2" type="Sprite" parent="."]
+position = Vector2( 672, 455 )
+rotation = 3.14159
+scale = Vector2( 0.05, -0.05 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Appear"
+anims/Appear = SubResource( 1 )
+anims/RESET = SubResource( 2 )

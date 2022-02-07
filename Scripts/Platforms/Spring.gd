@@ -4,6 +4,7 @@ var spring_counter: float = 0
 var velocity: Vector2 = Vector2.ZERO
 
 export var strength_modifier: float = 1
+export var disable_physics: bool = false
 
 func _ready() -> void:
   add_collision_exception_with(Global.Mario)
@@ -11,8 +12,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
   $Sprite.playing = $Sprite.frame < 4
   
-  velocity.y += 20 * Global.get_delta(delta)
-  velocity = move_and_slide_with_snap(velocity, Vector2.DOWN, Vector2.UP)
+  if !disable_physics:
+    velocity.y += 20 * Global.get_delta(delta)
+    velocity = move_and_slide_with_snap(velocity, Vector2.DOWN, Vector2.UP)
   
   if Input.is_action_just_pressed('mario_jump'):
     spring_counter = 7

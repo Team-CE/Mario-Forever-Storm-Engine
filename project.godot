@@ -219,7 +219,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Mario Forever Cloud Engine"
-run/main_scene="res://Stages/Menu.tscn"
+run/main_scene="res://Games/TheMultiverse2/Stages/LevelPicker.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/main_menu_scene="res://Stages/Menu.tscn"
