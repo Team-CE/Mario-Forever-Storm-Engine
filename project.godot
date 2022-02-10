@@ -40,11 +40,6 @@ _global_script_classes=[ {
 "path": "res://Scripts/Effects/CoinEffect.gd"
 }, {
 "base": "Reference",
-"class": "Darklvl1Camera",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/Scripts/Darklvl1Camera.gd"
-}, {
-"base": "Reference",
 "class": "Discord",
 "language": "GDScript",
 "path": "res://discord_sdk/discord.gd"
@@ -191,7 +186,6 @@ _global_script_class_icons={
 "BrickEffect": "",
 "Cannon": "res://GFX/Editor/Enemy.png",
 "CoinEffect": "",
-"Darklvl1Camera": "",
 "Discord": "",
 "Explosion": "",
 "FireFlowerAction": "",
