@@ -49,6 +49,8 @@ var alive: bool = true
 var death_type: int
 var velocity_enabled: bool = true
 
+var just_died: bool = false
+
 onready var time = get_tree().create_timer(0)
 
 onready var first_pos: Vector2 = position   # For pirahna plant and other enemies
@@ -196,6 +198,9 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
         get_parent().add_child(debris_effect)
       time = get_tree().create_timer(2.0, false)
       time.connect('timeout', self, 'instance_free')
+  just_died = true
+  yield(get_tree(), 'idle_frame')
+  just_died = false
         
 func freeze() -> void:
   if !can_freeze || frozen:

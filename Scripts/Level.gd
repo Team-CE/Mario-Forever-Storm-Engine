@@ -60,7 +60,7 @@ func _ready():
 
 func setup_worldenv() -> WorldEnvironment:
   var newWE = WorldEnvironment.new()
-  newWE.environment = load('res://default_env.tres')
+  newWE.environment = load('res://Prefabs/world_env.tres')
   add_child(newWE)
   newWE.set_owner(self)
   newWE.set_name('WorldEnvironment')
