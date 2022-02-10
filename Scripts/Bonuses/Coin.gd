@@ -12,7 +12,15 @@ func _ready() -> void:
 
 func _process(_delta) -> void:
   var g_overlaps = $BlockDetector.get_overlapping_bodies()
-  if g_overlaps and g_overlaps[0] is StaticBody2D and g_overlaps[0].triggered and g_overlaps[0].t_counter < 12:
+  var brick:StaticBody2D
+  if g_overlaps[0] is StaticBody2D:
+    brick = g_overlaps[0]
+    if !brick.is_in_group('Breakable'):
+      return
+  else:
+    return
+    
+  if brick.triggered and brick.t_counter < 12:
     Global.add_coins(1)
     Global.add_score(200)
     Global.HUD.get_node('CoinSound').play()
