@@ -51,6 +51,20 @@ var faded: bool = false
 const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
 var popup: CanvasLayer = null
 
+onready var cam: Camera2D
+func get_camera() -> Camera2D:
+  return cam
+
+func change_camera_parent() -> void:
+  if cam.get_parent() != self:
+    get_tree().current_scene.remove_child(cam)
+    cam.set_owner(self)
+    add_child(cam)
+  else:
+    remove_child(cam)
+    cam.set_owner(get_tree().current_scene)
+    get_tree().current_scene.add_child(cam)
+
 func _ready() -> void:
   gameover_music.loop = false
   die_music.loop = false
