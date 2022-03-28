@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shell.png-b5fd980a09d7ad16a878535a93c9e967.stex"
+path="res://.import/emalpkasawhold.png-8f3a31157078f21820d1572c6d1de109.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/Shell.png"
-dest_files=[ "res://.import/Shell.png-b5fd980a09d7ad16a878535a93c9e967.stex" ]
+source_file="res://GFX/Enemies/emalpkasawhold.png"
+dest_files=[ "res://.import/emalpkasawhold.png-8f3a31157078f21820d1572c6d1de109.stex" ]
 
 [params]
 

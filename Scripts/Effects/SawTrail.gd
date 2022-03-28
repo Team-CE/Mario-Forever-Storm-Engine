@@ -1,11 +1,11 @@
 extends Sprite
-class_name SawTrail
+class_name LuiTrail
 
 var counter: float = 0
 
-func _init(pos: Vector2 = Vector2.ZERO, r: float = 0):
-  texture = preload('res://GFX/Enemies/chainsaw.png')
-  rotation_degrees = r
+func _init(pos: Vector2 = Vector2.ZERO, flip: bool = false):
+  texture = preload('res://GFX/Mario/LuiJump.png')
+  flip_h = flip
   position = pos
 
 func _process(delta) -> void:

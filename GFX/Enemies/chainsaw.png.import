@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shell.png-b5fd980a09d7ad16a878535a93c9e967.stex"
+path="res://.import/chainsaw.png-6d2ea2ba68564abdc10447512a4c532b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/Shell.png"
-dest_files=[ "res://.import/Shell.png-b5fd980a09d7ad16a878535a93c9e967.stex" ]
+source_file="res://GFX/Enemies/chainsaw.png"
+dest_files=[ "res://.import/chainsaw.png-6d2ea2ba68564abdc10447512a4c532b.stex" ]
 
 [params]
 
