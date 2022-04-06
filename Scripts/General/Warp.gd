@@ -125,13 +125,13 @@ func _process(delta) -> void:
             Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
           elif out_node.direction == DIRS.RIGHT:
             Global.Mario.crouch = false
-            calc_pos = Vector2(out_node.position.x - 44, out_node.position.y + 16)
+            calc_pos = Vector2(out_node.position.x - 44, out_node.position.y + 15.9)
             warp_dir.x = 1
             Global.Mario.animate_sprite('Walking')
             Global.Mario.get_node("Sprite").speed_scale = 5
           elif out_node.direction == DIRS.LEFT:
             Global.Mario.crouch = false
-            calc_pos = Vector2(out_node.position.x + 44, out_node.position.y + 16)
+            calc_pos = Vector2(out_node.position.x + 44, out_node.position.y + 15.9)
             warp_dir.x = -1
             Global.Mario.animate_sprite('Walking')
             Global.Mario.get_node("Sprite").speed_scale = 5
