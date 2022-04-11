@@ -110,6 +110,11 @@ _global_script_classes=[ {
 "path": "res://Games/TheMultiverse2/Scripts/Level3Camera.gd"
 }, {
 "base": "Reference",
+"class": "Level5Camera",
+"language": "GDScript",
+"path": "res://Games/TheMultiverse2/Scripts/Level5Camera.gd"
+}, {
+"base": "Reference",
 "class": "Level6Camera",
 "language": "GDScript",
 "path": "res://Games/TheMultiverse2/Scripts/Level6.gd"
@@ -215,6 +220,7 @@ _global_script_class_icons={
 "Level1Camera": "",
 "Level2Camera": "",
 "Level3Camera": "",
+"Level5Camera": "",
 "Level6Camera": "",
 "LifePowerupAction": "",
 "LuiAction": "",

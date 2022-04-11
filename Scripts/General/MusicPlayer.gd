@@ -1,7 +1,7 @@
 extends Node
 
-onready var tween_out = $TweenOut
-onready var tween_in = $TweenIn
+onready var tween_out: Tween = $TweenOut
+onready var tween_in: Tween = $TweenIn
 
 # Put this to audio_stream: MusicPlayer.get_node('Main')
 func fade_out(audio_stream: Object, duration: float, from_vol: float = 0, to_vol: float = -80) -> void:
