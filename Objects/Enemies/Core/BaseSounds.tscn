@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=1]
 [ext_resource path="res://Sounds/Main/jump.wav" type="AudioStream" id=2]
@@ -13,11 +13,15 @@
 [ext_resource path="res://Sounds/Main/propeller_activate.wav" type="AudioStream" id=11]
 [ext_resource path="res://Sounds/Main/propeller_down.wav" type="AudioStream" id=12]
 [ext_resource path="res://Sounds/Bonuses/switch.wav" type="AudioStream" id=13]
+[ext_resource path="res://Sounds/Main/swim.wav" type="AudioStream" id=14]
 
 [node name="BaseSounds" type="Node2D"]
 
 [node name="MAIN_Jump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
+
+[node name="MAIN_Swim" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 14 )
 
 [node name="ENEMY_Stomp" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 1 )

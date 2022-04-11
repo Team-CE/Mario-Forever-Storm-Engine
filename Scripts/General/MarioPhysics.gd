@@ -133,6 +133,15 @@ func _process(delta) -> void:
     jump_internal_counter += 1 * Global.get_delta(delta)
 
 func _process_alive(delta) -> void:
+  if selected_state != Global.state:
+    selected_state = Global.state
+    if not Global.state in powerup_animations:
+      printerr('[CE ERROR] Mario: Animations for state ' + str(Global.state) + ' don\'t exist!')
+      return
+    if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_ready_mixin'):
+      ready_powerup_scripts[Global.state]._ready_mixin(self)
+    $Sprite.frames = powerup_animations[Global.state]
+
   var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
     movement_swimming(delta)
@@ -281,6 +290,9 @@ func _process_dead(delta) -> void:
 func movement_default(delta) -> void:
   #if animation_enabled: animate_default(delta)
   
+  if Global.is_mario_collide_area_group('InsideDetector', 'Water'):
+    movement_type = Movement.SWIMMING
+  
   if velocity.y < 550 and not is_on_floor():
     if Input.is_action_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch') and velocity.y < 0:
       if abs(velocity.x) < 1:
@@ -311,8 +323,34 @@ func movement_default(delta) -> void:
     movement_type = Movement.CLIMBING
 
 func movement_swimming(delta) -> void:
-  if animation_enabled: animate_swimming(delta)
-  pass # TODO
+  if !Global.is_mario_collide_area_group('InsideDetector', 'Water'):
+    movement_type = Movement.DEFAULT
+  
+  if velocity.x > 0:
+    velocity.x -= 5 * Global.get_delta(delta)
+  if velocity.x < 0:
+    velocity.x += 5 * Global.get_delta(delta)
+
+  if velocity.x > -10 * Global.get_delta(delta) and velocity.x < 10 * Global.get_delta(delta):
+    velocity.x = 0
+  
+  if velocity.y < 165:
+    velocity.y += 5 * Global.get_delta(delta)
+  
+  if velocity.y > 165 + (50 * Global.get_delta(delta)):
+    velocity.y -= 50 * Global.get_delta(delta)
+  elif velocity.y > 165:
+    velocity.y = 165
+  
+  if Input.is_action_just_pressed('mario_jump'):
+    Global.play_base_sound('MAIN_Swim')
+    if Global.is_mario_collide_area_group('TopDetector', 'Water'):
+      velocity.y = -161.5
+    else:
+      velocity.y = -484.5
+  
+  if animation_enabled: animate_swimming(delta, Input.is_action_just_pressed('mario_jump'))
+    
 
 func movement_climbing(delta) -> void:
   if animation_enabled: animate_climbing(delta)
@@ -383,9 +421,9 @@ func controls(delta) -> void:
       velocity.x = 40
     elif velocity.x <= -20:
       velocity.x += 20 * Global.get_delta(delta)
-    elif velocity.x < 175 and not Input.is_action_pressed('mario_fire'):
+    elif velocity.x < 175 and (not Input.is_action_pressed('mario_fire') or movement_type == Movement.SWIMMING):
       velocity.x += 12.5 * Global.get_delta(delta)
-    elif velocity.x < 350 and Input.is_action_pressed('mario_fire'):
+    elif velocity.x < 350 and Input.is_action_pressed('mario_fire') and movement_type != Movement.SWIMMING:
       velocity.x += 12.5 * Global.get_delta(delta)
 
   if Input.is_action_pressed('mario_left') and not crouch:
@@ -393,9 +431,9 @@ func controls(delta) -> void:
       velocity.x = -40
     elif velocity.x >= 20:
       velocity.x -= 20 * Global.get_delta(delta)
-    elif velocity.x > -175 and not Input.is_action_pressed('mario_fire'):
+    elif velocity.x > -175 and (not Input.is_action_pressed('mario_fire') or movement_type == Movement.SWIMMING):
       velocity.x -= 12.5 * Global.get_delta(delta)
-    elif velocity.x > -350 and Input.is_action_pressed('mario_fire'):
+    elif velocity.x > -350 and Input.is_action_pressed('mario_fire') and movement_type != Movement.SWIMMING:
       velocity.x -= 12.5 * Global.get_delta(delta)
 
   if Input.is_action_just_pressed('mario_fire') and not crouch and Global.state > 1:
@@ -403,15 +441,6 @@ func controls(delta) -> void:
       ready_powerup_scripts[Global.state].do_action(self)
 
 func animate_default(delta) -> void:
-  if selected_state != Global.state:
-    selected_state = Global.state
-    if not Global.state in powerup_animations:
-      printerr('[CE ERROR] Mario: Animations for state ' + str(Global.state) + ' don\'t exist!')
-      return
-    if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_ready_mixin'):
-      ready_powerup_scripts[Global.state]._ready_mixin(self)
-    $Sprite.frames = powerup_animations[Global.state]
-
   if velocity.x <= -8 * Global.get_delta(delta):
     $Sprite.flip_h = true
   if velocity.x >= 8 * Global.get_delta(delta):
@@ -475,19 +504,61 @@ func animate_default(delta) -> void:
   if $Sprite.animation == 'Walking':
     $Sprite.speed_scale = abs(velocity.x / 50) * 2.5 + 4
 
-func animate_swimming(delta) -> void:
-  pass # TODO
+func animate_swimming(delta, start) -> void:
+  if start or (!start and $Sprite.animation != 'SwimmingLoop' and $Sprite.animation != 'SwimmingStart' and !is_on_floor()) and $Sprite.animation != 'Appearing':
+    $Sprite.animation = 'SwimmingStart'
+    $Sprite.frame = 0
+    $Sprite.speed_scale = 1
+  
+  if $Sprite.frame > 5:
+    $Sprite.animation = 'SwimmingLoop'
+    $Sprite.frame = 0
+    $Sprite.speed_scale = 1
+  
+  if velocity.x <= -8 * Global.get_delta(delta):
+    $Sprite.flip_h = true
+  if velocity.x >= 8 * Global.get_delta(delta):
+    $Sprite.flip_h = false
+    
+  if $Sprite.animation == 'Walking':
+    $Sprite.speed_scale = abs(velocity.x / 50) * 2.5 + 4
+  
+  if velocity.x <= -0.16 * Global.get_delta(delta):
+    if is_on_floor() or $Sprite.animation == 'Launching':
+      animate_sprite('Walking')
+
+  if velocity.x >= 0.16 * Global.get_delta(delta):
+    if is_on_floor() or $Sprite.animation == 'Launching':
+      animate_sprite('Walking')
+
+  if abs(velocity.x) < 0.08 and (is_on_floor() or is_over_platform()):
+    animate_sprite('Stopped')
+  
+  if appear_counter > 0:
+    if not allow_custom_animation:
+      if not $Sprite.animation == 'Appearing':
+        animate_sprite('Appearing')
+      $Sprite.speed_scale = 1
+      
+    appear_counter -= 1.5 * Global.get_delta(delta)
+    if not shield_star: return
+  if appear_counter < 0:
+    appear_counter = 0
+    $Sprite.animation = 'SwimmingStart'
+    $Sprite.frame = 0
+    $Sprite.speed_scale = 1
+
+  if shield_counter > 0:
+    shield_counter -= 1.5 * Global.get_delta(delta)
+    if appear_counter == 0 and not shield_star:
+      $Sprite.visible = int(shield_counter / 2) % 2 == 0
+    if appear_counter > 0: return
+  if shield_counter < 0:
+    shield_counter = 0
+    $Sprite.visible = true
+    
 
 func animate_climbing(delta) -> void:
-  if selected_state != Global.state:
-    selected_state = Global.state
-    if not Global.state in powerup_animations:
-      printerr('[CE ERROR] Mario: Animations for state ' + str(Global.state) + ' don\'t exist!')
-      return
-    if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_ready_mixin'):
-      ready_powerup_scripts[Global.state]._ready_mixin(self)
-    $Sprite.frames = powerup_animations[Global.state]
-
   if velocity.x <= -8 * Global.get_delta(delta):
     $Sprite.flip_h = true
   if velocity.x >= 8 * Global.get_delta(delta):
@@ -502,9 +573,6 @@ func animate_climbing(delta) -> void:
     appear_counter -= 1.5 * Global.get_delta(delta)
     return
   if appear_counter < 0:
-#    if position_altered:
-#      $Sprite.position.y += 14
-#      position_altered = false
     appear_counter = 0
 
   if shield_counter > 0:
@@ -514,7 +582,6 @@ func animate_climbing(delta) -> void:
   if shield_counter < 0:
     shield_counter = 0
     $Sprite.visible = true
-#  $Sprite.offset.y = $Sprite.texture.get_size()
 
   if allow_custom_animation: return
 

@@ -294,6 +294,16 @@ func is_mario_collide(_detector_name: String, obj) -> bool:
 func is_mario_collide_area(_detector_name: String, obj) -> bool:
   var collisions = Mario.get_node_or_null(_detector_name).get_overlapping_areas()
   return collisions && collisions.has(obj)
+
+func is_mario_collide_area_group(_detector_name: String, group: String) -> bool:
+  var collisions = Mario.get_node_or_null(_detector_name).get_overlapping_areas()
+  var has = false
+  if !collisions:
+    return false
+  else: for c in collisions:
+    if c.has_method('is_in_group') and c.is_in_group(group):
+      has = true
+  return has
  
 func is_getting_closer(pix: float, pos: Vector2) -> bool:
   var camera = Mario.get_node_or_null('Camera')

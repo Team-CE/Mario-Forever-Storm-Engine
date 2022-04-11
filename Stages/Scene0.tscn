@@ -1,42 +1,28 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
 [ext_resource path="res://Objects/Core/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/Level/Checkpoint.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Objects/Bonuses/Powerups/Ice Flower.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Mario/IceFlower.tres" type="SpriteFrames" id=8]
 [ext_resource path="res://Scripts/Powerups/IceFlower.gd" type="Script" id=9]
-[ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Objects/Bonuses/Powerups/Fire Flower.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=13]
 [ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=14]
 [ext_resource path="res://Prefabs/Mario/Big.tres" type="SpriteFrames" id=15]
 [ext_resource path="res://Prefabs/Mario/Beetroot.tres" type="SpriteFrames" id=16]
-[ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Fire.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=18]
 [ext_resource path="res://Scripts/Powerups/Lui.gd" type="Script" id=19]
 [ext_resource path="res://Prefabs/Mario/Lui.tres" type="SpriteFrames" id=20]
 [ext_resource path="res://Prefabs/Mario/Propeller.tres" type="SpriteFrames" id=21]
 [ext_resource path="res://Scripts/Powerups/Propeller.gd" type="Script" id=22]
-[ext_resource path="res://Objects/Bonuses/VineExtending.tscn" type="PackedScene" id=23]
-[ext_resource path="res://Objects/Bonuses/Star.tscn" type="PackedScene" id=24]
-[ext_resource path="res://Music/credits.ogg" type="AudioStream" id=25]
-[ext_resource path="res://Objects/Bonuses/QBlocksTypes/Switch_QBlock.tscn" type="PackedScene" id=26]
-[ext_resource path="res://Scripts/AI/ThrowFunctions/Fireball.gd" type="Script" id=27]
-[ext_resource path="res://Objects/Enemies/Koopas/Paratroopa.tscn" type="PackedScene" id=28]
-[ext_resource path="res://Scripts/AI/ThrowFunctions/Hammer.gd" type="Script" id=29]
-[ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Hammer.tscn" type="PackedScene" id=30]
-[ext_resource path="res://Objects/Enemies/Koopas/Paratroopa Red.tscn" type="PackedScene" id=31]
-[ext_resource path="res://Objects/Enemies/Koopas/Paratroopa Blue.tscn" type="PackedScene" id=32]
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=33]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 240, 160 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
-music = ExtResource( 25 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 33 )
@@ -47,7 +33,7 @@ cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( 6, 6, 0, 65543, 6, 0, 131080, 6, 0, 131100, 6, 0, 131101, 6, 0, 131102, 6, 0, 131103, 6, 0, 458761, 6, 0, 458762, 6, 0, 458763, 6, 0, 458764, 6, 0, 458765, 6, 0, 458766, 6, 0, 458767, 6, 0, 458768, 6, 0, 458769, 6, 0, 655379, 6, 0, 655384, 6, 0, 720898, 6, 0, 720899, 6, 0, 720900, 6, 0, 720901, 6, 0, 720902, 6, 0, 720903, 6, 0, 720904, 6, 0, 720905, 6, 0, 720906, 6, 0, 720907, 6, 0, 720908, 6, 0, 720909, 6, 0, 720910, 6, 0, 720911, 6, 0, 720912, 6, 0, 720913, 6, 0, 720915, 6, 0, 720916, 6, 0, 720917, 6, 0, 720918, 6, 0, 720919, 6, 0, 720920, 6, 0, 851995, 6, 0, 851996, 6, 0, 851997, 6, 0, 851998, 6, 0, 851999, 6, 0, 852000, 6, 0, 852001, 6, 0, 852002, 6, 0, 852003, 6, 0, 852004, 6, 0, 852005, 6, 0, 852006, 6, 0, 852007, 6, 0, 852008, 6, 0, 852009, 6, 0, 852010, 6, 0, 852011, 6, 0, 852012, 6, 0, 852013, 6, 0, 852014, 6, 0, 852015, 6, 0, 852016, 6, 0, 852017, 6, 0, 852018, 6, 0, 852019, 6, 0, 852020, 6, 0, 852021, 6, 0, 852022, 6, 0, 852023, 6, 0, 852024, 6, 0, 852025, 6, 0, 852026, 6, 0, 852027, 6, 0, 852028, 6, 0, 852031, 6, 0, 852032, 6, 0, 852033, 6, 0, 852034, 6, 0, 852035, 6, 0, 852036, 6, 0, 852037, 6, 0, 852038, 6, 0, 852039, 6, 0, 852040, 6, 0, 852041, 6, 0, 852042, 6, 0, 852043, 6, 0, 852044, 6, 0, 852045, 6, 0, 852046, 6, 0, 852047, 6, 0, 917564, 6, 0, 917565, 6, 0, 917566, 6, 0, 917567, 6, 0 )
+tile_data = PoolIntArray( 196649, 7, 0, 393255, 7, 0, 589861, 7, 0, 851995, 6, 0, 851996, 6, 0, 851997, 6, 0, 851998, 6, 0, 851999, 6, 0, 852000, 6, 0, 852001, 6, 0, 852002, 6, 0, 852003, 6, 0, 852004, 6, 0, 852005, 6, 0, 852006, 6, 0, 852007, 6, 0, 852008, 6, 0, 852009, 6, 0, 852010, 6, 0, 852011, 6, 0, 852012, 6, 0, 852013, 6, 0, 852014, 6, 0, 852015, 6, 0, 852016, 6, 0, 852017, 6, 0, 852018, 6, 0, 852019, 6, 0, 852020, 6, 0, 852021, 6, 0, 852022, 6, 0, 852023, 6, 0, 852024, 6, 0, 852025, 6, 0 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
@@ -70,356 +56,8 @@ powerup_scripts = {
 6: ExtResource( 22 )
 }
 
-[node name="Checkpoint" parent="." instance=ExtResource( 5 )]
-position = Vector2( 960, 416 )
-
-[node name="QBlock" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1056, 320 )
-Result = ExtResource( 7 )
-
-[node name="QBlock42" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1136, 320 )
-Result = ExtResource( 24 )
-
-[node name="QBlock58" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1168, 224 )
-Result = ExtResource( 24 )
-
-[node name="QBlock39" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1008, 272 )
-Result = ExtResource( 23 )
-
-[node name="QBlock40" parent="." instance=ExtResource( 6 )]
-position = Vector2( 944, 272 )
-Result = ExtResource( 23 )
-
-[node name="QBlock41" parent="." instance=ExtResource( 6 )]
-position = Vector2( 912, 272 )
-Result = ExtResource( 23 )
-
-[node name="QBlock2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 80, 256 )
-Result = ExtResource( 11 )
-
-[node name="Goomba" parent="." instance=ExtResource( 10 )]
-position = Vector2( 720, 352 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Goomba9" parent="." instance=ExtResource( 10 )]
-position = Vector2( 2016, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Goomba5" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1776, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Goomba6" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1504, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Goomba7" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1440, 160 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="Goomba8" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1664, 160 )
-vars = {
-"bounce": 9.0,
-"speed": 50.0
-}
-
-[node name="QBlock3" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 192 )
-qtype = 1
-
-[node name="QBlock4" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 192 )
-qtype = 1
-
-[node name="QBlock5" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 224 )
-qtype = 1
-
-[node name="QBlock6" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 224 )
-qtype = 1
-
-[node name="QBlock7" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 256 )
-qtype = 1
-
-[node name="QBlock8" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 256 )
-qtype = 1
-
-[node name="QBlock9" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 288 )
-qtype = 1
-
-[node name="QBlock10" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 288 )
-qtype = 1
-
-[node name="QBlock11" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 320 )
-qtype = 1
-
-[node name="QBlock12" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 320 )
-qtype = 1
-
-[node name="QBlock13" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1440, 352 )
-qtype = 1
-
-[node name="QBlock14" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1472, 352 )
-qtype = 1
-
-[node name="QBlock15" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 192 )
-qtype = 1
-
-[node name="QBlock16" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 192 )
-qtype = 1
-
-[node name="QBlock17" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 224 )
-qtype = 1
-
-[node name="QBlock18" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 224 )
-qtype = 1
-
-[node name="QBlock19" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 256 )
-qtype = 1
-
-[node name="QBlock20" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 256 )
-qtype = 1
-
-[node name="QBlock21" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 288 )
-qtype = 1
-
-[node name="QBlock22" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 288 )
-qtype = 1
-
-[node name="QBlock23" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 320 )
-qtype = 1
-
-[node name="QBlock24" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 320 )
-qtype = 1
-
-[node name="QBlock25" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1536, 352 )
-qtype = 1
-
-[node name="QBlock26" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1568, 352 )
-qtype = 1
-
-[node name="QBlock27" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 192 )
-qtype = 1
-
-[node name="QBlock28" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 192 )
-qtype = 1
-
-[node name="QBlock29" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 224 )
-qtype = 1
-
-[node name="QBlock30" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 224 )
-qtype = 1
-
-[node name="QBlock31" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 256 )
-qtype = 1
-
-[node name="QBlock32" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 256 )
-qtype = 1
-
-[node name="QBlock33" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 288 )
-qtype = 1
-
-[node name="QBlock34" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 288 )
-qtype = 1
-
-[node name="QBlock35" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 320 )
-qtype = 1
-
-[node name="QBlock36" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 320 )
-qtype = 1
-
-[node name="QBlock37" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1632, 352 )
-qtype = 1
-
-[node name="QBlock38" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1664, 352 )
-qtype = 1
-
-[node name="QBlock43" parent="." instance=ExtResource( 26 )]
-position = Vector2( 176, 288 )
-hsv_shift = 32
-
-[node name="QBlock53" parent="." instance=ExtResource( 26 )]
-position = Vector2( 144, 288 )
-id = 1
-hsv_shift = 49
-
-[node name="QBlock44" parent="." instance=ExtResource( 26 )]
-position = Vector2( 272, 128 )
-Block = true
-hsv_shift = 32
-
-[node name="QBlock45" parent="." instance=ExtResource( 26 )]
-position = Vector2( 272, 160 )
-Block = true
-hsv_shift = 32
-
-[node name="QBlock46" parent="." instance=ExtResource( 26 )]
-position = Vector2( 272, 192 )
-Block = true
-hsv_shift = 32
-
-[node name="QBlock47" parent="." instance=ExtResource( 26 )]
-position = Vector2( 272, 224 )
-Block = true
-hsv_shift = 32
-
-[node name="QBlock48" parent="." instance=ExtResource( 26 )]
-position = Vector2( 272, 256 )
-Block = true
-hsv_shift = 32
-
-[node name="QBlock49" parent="." instance=ExtResource( 26 )]
-position = Vector2( 240, 128 )
-Block = true
-Enabled = true
-hsv_shift = 32
-
-[node name="QBlock50" parent="." instance=ExtResource( 26 )]
-position = Vector2( 208, 128 )
-Block = true
-Enabled = true
-hsv_shift = 32
-
-[node name="QBlock51" parent="." instance=ExtResource( 26 )]
-position = Vector2( 176, 128 )
-Block = true
-Enabled = true
-hsv_shift = 32
-
-[node name="QBlock52" parent="." instance=ExtResource( 26 )]
-position = Vector2( 144, 128 )
-Block = true
-Enabled = true
-hsv_shift = 32
-
-[node name="QBlock54" parent="." instance=ExtResource( 26 )]
-position = Vector2( 144, 160 )
-Block = true
-Enabled = true
-id = 1
-hsv_shift = 49
-
-[node name="QBlock55" parent="." instance=ExtResource( 26 )]
-position = Vector2( 176, 160 )
-Block = true
-Enabled = true
-id = 1
-hsv_shift = 49
-
-[node name="QBlock56" parent="." instance=ExtResource( 26 )]
-position = Vector2( 208, 160 )
-Block = true
-Enabled = true
-id = 1
-hsv_shift = 49
-
-[node name="QBlock57" parent="." instance=ExtResource( 26 )]
-position = Vector2( 240, 160 )
-Block = true
-Enabled = true
-id = 1
-hsv_shift = 49
-
-[node name="Paratroopa" parent="." instance=ExtResource( 28 )]
-position = Vector2( 1840, 240 )
-vars = {
-"bounce": 9.0,
-"fly radius": 50,
-"fly speed": 2
-}
-
-[node name="EmalpkaHammer4" parent="." instance=ExtResource( 30 )]
-position = Vector2( 2416, 384 )
-vars = {
-"bounce": 9.0,
-"speed": 100.0,
-"throw_script": ExtResource( 29 )
-}
-
-[node name="EmalpkaFire" parent="." instance=ExtResource( 17 )]
-position = Vector2( 2160, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 100.0,
-"throw_script": ExtResource( 27 )
-}
-
-[node name="EmalpkaFire2" parent="." instance=ExtResource( 17 )]
-position = Vector2( 2272, 416 )
-vars = {
-"bounce": 9.0,
-"speed": 100.0,
-"throw_script": ExtResource( 27 )
-}
-
-[node name="Paratroopa Blue" parent="." instance=ExtResource( 32 )]
-position = Vector2( 1312, 304 )
-vars = {
-"bounce": 9.0,
-"is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
-"speed": 50.0,
-"stopped": false
-}
-
-[node name="Paratroopa Red" parent="." instance=ExtResource( 31 )]
-position = Vector2( 1376, 352 )
-vars = {
-"bounce": 9.0,
-"fly radius": 50,
-"fly speed": 2
-}
+[node name="Area2D" type="Area2D" parent="." groups=["Water"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 1616, 256 )
+shape = SubResource( 1 )

@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=23 format=2]
+[gd_resource type="SpriteFrames" load_steps=32 format=2]
 
 [ext_resource path="res://GFX/Mario/PropellerWalk.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Mario/PropellerAppear.png" type="Texture" id=2]
@@ -6,22 +6,11 @@
 [ext_resource path="res://GFX/Mario/PropellerJump.png" type="Texture" id=4]
 [ext_resource path="res://GFX/Mario/PropellerLaunch.png" type="Texture" id=5]
 [ext_resource path="res://GFX/Mario/PropellerClimb.png" type="Texture" id=6]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 31, 69 )
+[ext_resource path="res://GFX/Mario/PropellerSwim.png" type="Texture" id=7]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
 region = Rect2( 66, 0, 33, 71 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 31, 60 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 6 )
-region = Rect2( 31, 0, 31, 60 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -39,6 +28,14 @@ region = Rect2( 68, 0, 34, 71 )
 atlas = ExtResource( 2 )
 region = Rect2( 102, 0, 34, 71 )
 
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 31, 60 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 6 )
+region = Rect2( 31, 0, 31, 60 )
+
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 33, 71 )
@@ -50,6 +47,10 @@ region = Rect2( 33, 0, 33, 71 )
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
 region = Rect2( 66, 0, 33, 71 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 31, 69 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 5 )
@@ -71,21 +72,43 @@ region = Rect2( 108, 0, 36, 71 )
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 33, 55 )
 
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 7 )
+region = Rect2( 246, 0, 41, 66 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 7 )
+region = Rect2( 287, 0, 41, 66 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 41, 66 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 7 )
+region = Rect2( 41, 0, 41, 66 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 7 )
+region = Rect2( 82, 0, 41, 66 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 7 )
+region = Rect2( 123, 0, 41, 66 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 7 )
+region = Rect2( 164, 0, 41, 66 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 7 )
+region = Rect2( 205, 0, 41, 66 )
+
 [resource]
 animations = [ {
-"frames": [ SubResource( 1 ) ],
-"loop": true,
-"name": "Jumping",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 6 ) ],
 "loop": true,
 "name": "Stopped",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 15 ), SubResource( 16 ) ],
-"loop": true,
-"name": "Climbing",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
@@ -93,10 +116,20 @@ animations = [ {
 "name": "Appearing",
 "speed": 25.0
 }, {
+"frames": [ SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "Climbing",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
 "name": "Walking",
 "speed": 1.0
+}, {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "Jumping",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
@@ -107,4 +140,14 @@ animations = [ {
 "loop": true,
 "name": "Crouching",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "SwimmingLoop",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 24 ) ],
+"loop": false,
+"name": "SwimmingStart",
+"speed": 10.0
 } ]
