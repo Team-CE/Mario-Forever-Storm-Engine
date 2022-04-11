@@ -3,6 +3,7 @@ extends Brain
 var counter: float = 0
 var move_multiplier: int = 1
 var throw_activated: bool = false
+var inv_counter: float = 0
 
 var initial_pos: Vector2
 
@@ -27,6 +28,9 @@ func _ai_process(delta: float) -> void:
   owner.velocity.x = owner.vars["speed"] * owner.dir * move_multiplier
   owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
   
+  if inv_counter < 31:
+    inv_counter += 1 * Global.get_delta(delta)
+    
   if counter < 20:
     counter += 1 * Global.get_delta(delta)
   else:
@@ -53,13 +57,13 @@ func _ai_process(delta: float) -> void:
     
   owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
   
-  if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0:
+  if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 && inv_counter >= 11:
     owner.kill(AliveObject.DEATH_TYPE.FALL, 0, owner.sound)
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
     else:
       Global.Mario.velocity.y = -owner.vars["bounce"] * 50
-  elif on_mario_collide('InsideDetector'):
+  elif on_mario_collide('InsideDetector') && inv_counter >= 21:
     Global._ppd()
     
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()

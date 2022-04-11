@@ -70,7 +70,7 @@ vars = {
 "throw_script": ExtResource( 9 )
 }
 AI = ExtResource( 6 )
-gravity_scale = 0.5
+gravity_scale = 0.0
 score = 1000
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
@@ -80,6 +80,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 position = Vector2( 0, -16 )
 frames = SubResource( 11 )
 animation = "walk"
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
