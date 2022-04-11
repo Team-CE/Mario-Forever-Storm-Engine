@@ -190,6 +190,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/General/ScoreText.gd"
 }, {
 "base": "Reference",
+"class": "SilverHammerThrow",
+"language": "GDScript",
+"path": "res://Scripts/AI/ThrowFunctions/SilverHammer.gd"
+}, {
+"base": "Reference",
 "class": "StarPowerupAction",
 "language": "GDScript",
 "path": "res://Scripts/AI/Powerups/Actions/Star.gd"
@@ -236,6 +241,7 @@ _global_script_class_icons={
 "QSwitchBlock": "res://GFX/Editor/QBlock.png",
 "SawTrail": "",
 "ScoreText": "",
+"SilverHammerThrow": "",
 "StarPowerupAction": "",
 "Warp": ""
 }
