@@ -289,8 +289,6 @@ func _process_dead(delta) -> void:
         get_parent().get_tree().paused = true
       
 func movement_default(delta) -> void:
-  if animation_enabled: animate_default(delta)
-  
   if Global.is_mario_collide_area_group('InsideDetector', 'Water'):
     movement_type = Movement.SWIMMING
   

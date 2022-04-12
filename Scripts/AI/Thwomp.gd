@@ -5,6 +5,9 @@ var falling: bool = false
 
 var counter: float = 50
 var hit_counter: float = 0
+var is_smiling: bool = false
+var smile_counter: float = 0
+var laugh: bool = true
 
 var initial_pos: Vector2
 var offset: Vector2
@@ -20,6 +23,19 @@ func _ai_process(delta: float) -> void:
 
   if Global.is_mario_collide_area('InsideDetector', owner.get_node('Hitbox')):
     Global._ppd()
+    is_smiling = true
+  
+  if is_smiling:
+    smile_counter += 1 * Global.get_delta(delta)
+    if laugh:
+      owner.alt_sound.play()
+      owner.animated_sprite.animation = 'laugh'
+      laugh = false
+    if smile_counter > 120:
+      owner.animated_sprite.animation = 'default'
+      laugh = true
+      is_smiling = false
+      smile_counter = 0
     
   if !falling and !top:
     owner.velocity = Vector2.ZERO
@@ -79,11 +95,7 @@ func _ai_process(delta: float) -> void:
         top = false
         falling = false
         owner.get_node('CollisionShape2D').disabled = false
-        
-        
-  if owner.animated_sprite.frame == 7:
-    owner.animated_sprite.playing = false
     
-  if rand_range(-70.0, 40.0) > 39.0:
+  if rand_range(-70.0, 40.0) > 39.0 and not is_smiling:
     owner.animated_sprite.frame = 0
     owner.animated_sprite.playing = true

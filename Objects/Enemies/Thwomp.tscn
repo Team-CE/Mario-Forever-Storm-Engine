@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/AI/Thwomp.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Enemies/thwomp.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=3]
 [ext_resource path="res://Sounds/Main/stun.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/Enemies/thwomp.wav" type="AudioStream" id=5]
+[ext_resource path="res://GFX/Enemies/thwompsmile.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -33,12 +35,29 @@ region = Rect2( 320, 0, 64, 68 )
 atlas = ExtResource( 2 )
 region = Rect2( 384, 0, 64, 68 )
 
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 64, 68 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 6 )
+region = Rect2( 64, 0, 64, 68 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 6 )
+region = Rect2( 128, 0, 64, 68 )
+
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 1 ) ],
-"loop": true,
+"loop": false,
 "name": "default",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "laugh",
+"speed": 6.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=9]
@@ -58,12 +77,13 @@ AI = ExtResource( 1 )
 invincible = true
 auto_destroy = false
 sound_pth = NodePath("Hit")
+alt_sound_pth = NodePath("Laugh")
 animated_sprite_pth = NodePath("AnimatedSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 frames = SubResource( 8 )
-frame = 5
+frame = 7
 playing = true
 offset = Vector2( 0, -16 )
 
@@ -75,6 +95,9 @@ shape = SubResource( 9 )
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+
+[node name="Laugh" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
 
 [node name="KillDetector" type="Area2D" parent="."]
 visible = false
