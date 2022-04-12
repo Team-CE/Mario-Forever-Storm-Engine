@@ -324,7 +324,7 @@ func movement_default(delta) -> void:
       movement_type = Movement.CLIMBING
 
 func movement_swimming(delta) -> void:
-  if animation_enabled: animate_swimming(delta, Input.is_action_just_pressed('mario_jump'))
+  if animation_enabled: animate_swimming(delta, Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch'))
   
   if !Global.is_mario_collide_area_group('InsideDetector', 'Water'):
     movement_type = Movement.DEFAULT
@@ -352,7 +352,7 @@ func movement_swimming(delta) -> void:
   elif velocity.y > 165:
     velocity.y = 165
   
-  if Input.is_action_just_pressed('mario_jump'):
+  if Input.is_action_just_pressed('mario_jump') and not Input.is_action_pressed('mario_crouch'):
     Global.play_base_sound('MAIN_Swim')
     if Global.is_mario_collide_area_group('TopDetector', 'Water'):
       velocity.y = -161.5
