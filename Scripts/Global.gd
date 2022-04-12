@@ -264,7 +264,7 @@ func _pll() -> void: # Player Death
     dieMusPlayer.set_stream(Mario.custom_die_stream)
     add_child(dieMusPlayer)
     dieMusPlayer.play()
-    
+  
   Mario.dead = true
 
 func _delay() -> void:

@@ -235,6 +235,7 @@ func _process_alive(delta) -> void:
 func _process_dead(delta) -> void:
   if dead_counter == 0:
     Global.state = 0
+    $Sprite.frames = powerup_animations[0]
     animate_default(delta)
   
   var colDisabled
@@ -288,7 +289,7 @@ func _process_dead(delta) -> void:
         get_parent().get_tree().paused = true
       
 func movement_default(delta) -> void:
-  #if animation_enabled: animate_default(delta)
+  if animation_enabled: animate_default(delta)
   
   if Global.is_mario_collide_area_group('InsideDetector', 'Water'):
     movement_type = Movement.SWIMMING
@@ -318,18 +319,27 @@ func movement_default(delta) -> void:
   # Start climbing
   if Input.is_action_pressed('mario_up') || (Input.is_action_pressed('mario_crouch') && !is_on_floor()):
     if crouch || !is_over_vine(): return
-    if movement_type == Movement.CLIMBING: return
-    controls_enabled = false
-    movement_type = Movement.CLIMBING
+    if movement_type == Movement.DEFAULT:
+      controls_enabled = false
+      movement_type = Movement.CLIMBING
 
 func movement_swimming(delta) -> void:
+  if animation_enabled: animate_swimming(delta, Input.is_action_just_pressed('mario_jump'))
+  
   if !Global.is_mario_collide_area_group('InsideDetector', 'Water'):
     movement_type = Movement.DEFAULT
+    print('No longer in water!')
   
   if velocity.x > 0:
     velocity.x -= 5 * Global.get_delta(delta)
   if velocity.x < 0:
     velocity.x += 5 * Global.get_delta(delta)
+  
+  #Water restrictions
+  if velocity.x > 175:
+    velocity.x -= 15 * Global.get_delta(delta)
+  if velocity.x < -175:
+    velocity.x += 15 * Global.get_delta(delta)
 
   if velocity.x > -10 * Global.get_delta(delta) and velocity.x < 10 * Global.get_delta(delta):
     velocity.x = 0
@@ -348,8 +358,6 @@ func movement_swimming(delta) -> void:
       velocity.y = -161.5
     else:
       velocity.y = -484.5
-  
-  if animation_enabled: animate_swimming(delta, Input.is_action_just_pressed('mario_jump'))
     
 
 func movement_climbing(delta) -> void:
@@ -398,7 +406,7 @@ func controls(delta) -> void:
   if not Input.is_action_pressed('mario_jump'):
     can_jump = false
 
-  if jump_counter == 0 and can_jump:
+  if jump_counter == 0 and can_jump and movement_type != Movement.SWIMMING:
     jump()
 
   if velocity.y > 0.5 and not is_over_backdrop($BottomDetector, false):
@@ -513,25 +521,35 @@ func animate_swimming(delta, start) -> void:
   if $Sprite.frame > 5:
     $Sprite.animation = 'SwimmingLoop'
     $Sprite.frame = 0
-    $Sprite.speed_scale = 1
+    $Sprite.speed_scale = 2
   
   if velocity.x <= -8 * Global.get_delta(delta):
     $Sprite.flip_h = true
   if velocity.x >= 8 * Global.get_delta(delta):
     $Sprite.flip_h = false
     
+  if launch_counter > 0:
+    launch_counter -= 1.01 * Global.get_delta(delta)
+
+  if crouch:
+    if Global.state > 0:
+      animate_sprite('Crouching')
+    else:
+      animate_sprite('Stopped')
+    return
+  
   if $Sprite.animation == 'Walking':
     $Sprite.speed_scale = abs(velocity.x / 50) * 2.5 + 4
   
   if velocity.x <= -0.16 * Global.get_delta(delta):
-    if is_on_floor() or $Sprite.animation == 'Launching':
+    if (is_on_floor() or $Sprite.animation == 'Launching') and $Sprite.animation != 'Appearing':
       animate_sprite('Walking')
 
   if velocity.x >= 0.16 * Global.get_delta(delta):
-    if is_on_floor() or $Sprite.animation == 'Launching':
+    if (is_on_floor() or $Sprite.animation == 'Launching') and $Sprite.animation != 'Appearing':
       animate_sprite('Walking')
 
-  if abs(velocity.x) < 0.08 and (is_on_floor() or is_over_platform()):
+  if abs(velocity.x) < 0.08 and (is_on_floor() or is_over_platform()) and $Sprite.animation != 'Appearing' and $Sprite.animation != 'Launching':
     animate_sprite('Stopped')
   
   if appear_counter > 0:
@@ -556,7 +574,7 @@ func animate_swimming(delta, start) -> void:
   if shield_counter < 0:
     shield_counter = 0
     $Sprite.visible = true
-    
+
 
 func animate_climbing(delta) -> void:
   if velocity.x <= -8 * Global.get_delta(delta):
