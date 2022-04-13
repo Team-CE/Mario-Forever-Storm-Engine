@@ -81,6 +81,7 @@ func to_stopped_shell() -> void:
   score_mp = 0
   owner.vars['stopped'] = true
   owner.animated_sprite.animation = 'shell stopped'
+  if !owner.death_signal_exception: owner.emit_signal('enemy_died')
 
 func to_moving_shell() -> void:
   owner.vars['is shell'] = true

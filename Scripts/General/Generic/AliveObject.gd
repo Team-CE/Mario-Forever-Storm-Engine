@@ -227,7 +227,3 @@ func instance_free():
 
 func getInfo() -> String:
   return 'name: {n}\nvel x: {x}\nvel y: {y}'.format({'x':velocity.x,'y':velocity.y,'n':self.get_name()}).to_lower()
-
-
-func _on_enemy_died(name: String = '') -> void:
-  var enemy_script 
