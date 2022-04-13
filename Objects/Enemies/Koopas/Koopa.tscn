@@ -44,6 +44,11 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
 "frames": [  ],
 "loop": true,
 "name": "dead",
@@ -57,11 +62,6 @@ animations = [ {
 "frames": [ SubResource( 8 ) ],
 "loop": true,
 "name": "shell stopped",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "falling",
 "speed": 5.0
 } ]
 
@@ -95,7 +95,7 @@ animated_sprite_pth = NodePath("Sprite")
 frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -8 )
+position = Vector2( 0, -7 )
 frames = SubResource( 9 )
 frame = 1
 playing = true

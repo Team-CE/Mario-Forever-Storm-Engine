@@ -7,6 +7,9 @@ export var music: Resource
 export var death_height: float = 512
 export var no_cliff: bool = false
 export var sgr_scroll: bool = false
+export var custom_scripts: Dictionary = {
+  'on_enemy_death': null
+}
 
 onready var tileMap: TileMap
 onready var worldEnv: WorldEnvironment
@@ -98,4 +101,10 @@ func _input(event):
       $WorldEnvironment.environment.dof_blur_near_quality = 2
       $WorldEnvironment.environment.dof_blur_near_enabled = true
       get_tree().paused = true
+      
+func activate_event(name: String, args: Array):
+  if custom_scripts[name]:
+    var inited_script = custom_scripts[name].new()
+    if inited_script.has_method('_on_activation'):
+      inited_script._on_activation(self, args)
       

@@ -81,6 +81,7 @@ func _ai_process(delta: float) -> void:
         Global.play_base_sound('MAIN_Powerup')
       if !owner.vars['sgr behavior']:
         Global.play_base_sound('MAIN_Powerup')
+        if !owner.death_signal_exception: owner.emit_signal('enemy_died')
         owner.queue_free()
     elif 'custom action' in owner.vars:
       var action_class = owner.vars['custom action'].new()

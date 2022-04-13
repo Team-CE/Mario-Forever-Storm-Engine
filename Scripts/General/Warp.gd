@@ -75,17 +75,20 @@ func _process(delta) -> void:
       if direction == DIRS.DOWN and Input.is_action_pressed('mario_crouch'):
         calc_pos = Vector2(position.x, position.y - 16)
         active = true
+        Global.invulnerable = true
         Global.play_base_sound('MAIN_Pipe')
         warp_dir.y = 1
         Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
       elif direction == DIRS.UP and Input.is_action_pressed('mario_up'):
         calc_pos = Vector2(position.x, position.y + 16 + (30 if Global.state != 0 else 0))
         active = true
+        Global.invulnerable = true
         Global.play_base_sound('MAIN_Pipe')
         warp_dir.y = -1
       elif direction == DIRS.RIGHT and Input.is_action_pressed('mario_right'):
         calc_pos = Vector2(position.x - 16, position.y + 16)
         active = true
+        Global.invulnerable = true
         Global.play_base_sound('MAIN_Pipe')
         Global.Mario.animate_sprite('Walking')
         Global.Mario.get_node("Sprite").speed_scale = 5
@@ -93,6 +96,7 @@ func _process(delta) -> void:
       elif direction == DIRS.LEFT and Input.is_action_pressed('mario_left'):
         calc_pos = Vector2(position.x + 16, position.y + 16)
         active = true
+        Global.invulnerable = true
         Global.play_base_sound('MAIN_Pipe')
         Global.Mario.animate_sprite('Walking')
         Global.Mario.get_node("Sprite").speed_scale = 5
@@ -146,5 +150,6 @@ func _process(delta) -> void:
         active = false
         Global.Mario.controls_enabled = true
         Global.Mario.animation_enabled = true
+        Global.invulnerable = false
 
 

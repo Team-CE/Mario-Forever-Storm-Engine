@@ -78,4 +78,5 @@ func resetandfree() -> void:
   Global.deaths = 0
   Global.projectiles_count = 0
   Global.checkpoint_active = 0
+  Global.invulnerable = false
   queue_free()

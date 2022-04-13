@@ -53,14 +53,7 @@ func _process(delta) -> void:
       else:
         var score_text = ScoreText.new(100, Global.Mario.position)
         get_parent().add_child(score_text)
-      Global.level_ended = true
-      crossed = true
-      #MusicEngine.play_music('res://Music/1-music-complete-level.it')
-      MusicPlayer.get_node('Main').stream = win_music
-      MusicPlayer.get_node('Main').play()
-      Global.checkpoint_active = 0
-      Global.Mario.controls_enabled = false
-      counter = 0
+      act()
   else:
     counter += 1 * Global.get_delta(delta)
     Global.Mario.velocity.x = 150
@@ -94,4 +87,5 @@ func act() -> void:
   MusicPlayer.get_node('Main').play()
   Global.checkpoint_active = 0
   Global.Mario.controls_enabled = false
+  Global.invulnerable = true
   counter = 0

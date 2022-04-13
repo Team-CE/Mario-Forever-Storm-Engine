@@ -47,15 +47,15 @@ animations = [ {
 "name": "default",
 "speed": 6.0
 }, {
-"frames": [ SubResource( 1 ), SubResource( 2 ) ],
-"loop": true,
-"name": "walk",
-"speed": 6.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "falling",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "walk",
+"speed": 6.0
 }, {
 "frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
 "loop": false,
@@ -75,15 +75,25 @@ vars = {
 "speed": 50.0
 }
 AI = ExtResource( 1 )
+gravity_scale = null
+score = null
+invincible = null
+dir = null
 can_freeze = true
+frozen = null
+force_death_type = null
+auto_destroy = null
+death_signal_exception = null
+ray_L_pth = null
+ray_R_pth = null
+sound_pth = null
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("Sprite")
 frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -16 )
+position = Vector2( 0, -15 )
 frames = SubResource( 3 )
-frame = 1
 playing = true
 flip_h = true
 

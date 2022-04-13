@@ -1,6 +1,8 @@
 extends KinematicBody2D
 class_name AliveObject, "res://GFX/Editor/AliveBody.png"
 
+signal enemy_died
+
 const multiplier_scores = [1, 2, 5, 10, 20, 50, 0.01]
 const pitch_md = [1, 1.05, 1.1, 1.15, 1.20, 1.25, 1.30, 1.35]
 
@@ -25,6 +27,7 @@ export var can_freeze: bool = false
 export var frozen: bool = false
 export var force_death_type: bool = false
 export var auto_destroy: bool = true
+export var death_signal_exception: bool = false
 
 #RayCasts leave empty if smart_turn = false
 export var ray_L_pth: NodePath
@@ -107,6 +110,9 @@ func _ready() -> void:
 
   if death_type == DEATH_TYPE.CUSTOM && !brain.has_method('_on_custom_death'):
     printerr('[CE ERROR] AliveObject' + str(self) + ': No custom death function provided.')
+  
+  if !death_signal_exception:
+    connect('enemy_died', get_tree().get_current_scene(), 'activate_event', ['on_enemy_death', [get_name()]])
 
 func _physics_process(delta:float) -> void:
   var vse = get_node_or_null("VisibilityEnabler2D")
@@ -199,6 +205,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
       time = get_tree().create_timer(2.0, false)
       time.connect('timeout', self, 'instance_free')
   just_died = true
+  if !death_signal_exception: emit_signal('enemy_died')
   yield(get_tree(), 'idle_frame')
   just_died = false
         
@@ -220,3 +227,7 @@ func instance_free():
 
 func getInfo() -> String:
   return 'name: {n}\nvel x: {x}\nvel y: {y}'.format({'x':velocity.x,'y':velocity.y,'n':self.get_name()}).to_lower()
+
+
+func _on_enemy_died(name: String = '') -> void:
+  var enemy_script 
