@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Liquids/Water.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Objects/Enemies/Blooper.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Mario/IceFlower.tres" type="SpriteFrames" id=8]
 [ext_resource path="res://Scripts/Powerups/IceFlower.gd" type="Script" id=9]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=12]
@@ -20,8 +21,15 @@
 [ext_resource path="res://Scripts/Powerups/Propeller.gd" type="Script" id=22]
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=33]
 
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 240, 96 )
+
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
+custom_scripts = {
+"on_enemy_death": null
+}
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 33 )
@@ -59,7 +67,8 @@ powerup_scripts = {
 position = Vector2( 1360, 224 )
 
 [node name="CollisionShape2D" parent="Water" index="0"]
-position = Vector2( 256, 104 )
+position = Vector2( 256, 96 )
+shape = SubResource( 1 )
 
 [node name="Sprite" parent="Water" index="1"]
 position = Vector2( 16, 0 )
@@ -75,5 +84,36 @@ vars = {
 "bounce": 9.0,
 "speed": 50.0
 }
+
+[node name="Blooper" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1008, 176 )
+vars = {
+"bounce": 9,
+"can_stomp": false,
+"speed": 50.0
+}
+score = 200
+
+[node name="Blooper2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1344, 208 )
+vars = {
+"bounce": 9,
+"can_stomp": false,
+"speed": 50.0
+}
+score = 200
+
+[node name="Blooper3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1264, 96 )
+vars = {
+"bounce": 9,
+"can_stomp": false,
+"speed": 50.0
+}
+score = 200
+
+[node name="Water2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 0, 64 )
+move_with_scroll = true
 
 [editable path="Water"]

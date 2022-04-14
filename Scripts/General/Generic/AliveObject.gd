@@ -15,7 +15,7 @@ enum DEATH_TYPE {
   UNFREEZE
 }
 
-export var vars: Dictionary = {"speed":50.0, "bounce":5}
+export var vars: Dictionary = {"speed":50.0, "bounce":9}
 export var AI: Script
 
 export var gravity_scale: float = 1
