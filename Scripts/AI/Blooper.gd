@@ -11,6 +11,11 @@ func _ready_mixin() -> void:
   owner.death_type = AliveObject.DEATH_TYPE.FALL
   rng.randomize()
 
+  var children = owner.get_parent().get_children()
+  for node in range(len(children)):
+    if 'AI' in children[node]:
+      owner.add_collision_exception_with(children[node])
+
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)
   var tween = owner.get_node('Tween')

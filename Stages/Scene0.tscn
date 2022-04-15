@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Objects/Enemies/Blooper.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Mario/IceFlower.tres" type="SpriteFrames" id=8]
 [ext_resource path="res://Scripts/Powerups/IceFlower.gd" type="Script" id=9]
+[ext_resource path="res://Objects/Enemies/FishBlue.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Objects/Enemies/Lava Lotus.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=13]
 [ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=14]
@@ -85,26 +87,8 @@ vars = {
 "speed": 50.0
 }
 
-[node name="Blooper" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1008, 176 )
-vars = {
-"bounce": 9,
-"can_stomp": false,
-"speed": 50.0
-}
-score = 200
-
 [node name="Blooper2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1344, 208 )
-vars = {
-"bounce": 9,
-"can_stomp": false,
-"speed": 50.0
-}
-score = 200
-
-[node name="Blooper3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1264, 96 )
 vars = {
 "bounce": 9,
 "can_stomp": false,
@@ -115,5 +99,47 @@ score = 200
 [node name="Water2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, 64 )
 move_with_scroll = true
+
+[node name="AliveObject" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1296, 304 )
+
+[node name="AliveObject4" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1472, 208 )
+vars = {
+"bounce": 9,
+"speed": 50.0
+}
+
+[node name="AliveObject2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1744, 288 )
+vars = {
+"bounce": 9,
+"speed": 50.0
+}
+
+[node name="AliveObject3" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1808, 352 )
+vars = {
+"bounce": 9,
+"speed": 50.0
+}
+
+[node name="Lava Lotus" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1248, 384 )
+
+[node name="Lava Lotus2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1312, 384 )
+
+[node name="Lava Lotus3" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1184, 384 )
+
+[node name="Lava Lotus4" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1088, 384 )
+
+[node name="Lava Lotus5" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1024, 384 )
+
+[node name="Lava Lotus6" parent="." instance=ExtResource( 11 )]
+position = Vector2( 960, 384 )
 
 [editable path="Water"]

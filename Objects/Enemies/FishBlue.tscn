@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Enemies/fishb.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/AI/FishBlue.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15, 15 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 31, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 31, 0, 31, 32 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Blue Fish" type="KinematicBody2D" groups=["Enemy"]]
+script = ExtResource( 1 )
+AI = ExtResource( 3 )
+gravity_scale = 0.0
+invincible = true
+animated_sprite_pth = NodePath("AnimatedSprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 4 )
+playing = true
+flip_h = true
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+position = Vector2( 1.90735e-06, 9.53674e-07 )
+scale = Vector2( 1.6, 1.6 )
+process_parent = true
+physics_process_parent = true

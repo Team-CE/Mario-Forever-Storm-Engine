@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bowserbattle.ogg-a21320785d2b32e905013706cdf86ef4.oggstr"
+
+[deps]
+
+source_file="res://Music/bowserbattle.ogg"
+dest_files=[ "res://.import/bowserbattle.ogg-a21320785d2b32e905013706cdf86ef4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
