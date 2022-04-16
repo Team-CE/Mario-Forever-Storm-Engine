@@ -6,6 +6,7 @@ var dir: int = 1
 var velocity: Vector2 = Vector2(2.4, -6)
 var skip_frame: bool = false
 var bounce_count: int = 0
+var drown: bool = false
 
 var belongs: int = 0 # 0 - Mario
 
@@ -23,8 +24,12 @@ func _ready() -> void:
 
 func _process(delta) -> void:
   var overlaps = get_overlapping_bodies()
+  if is_over_water():
+    drown = true
+    velocity.y = 1.25 * Global.get_delta(delta)
+    velocity.x = 0
 
-  if overlaps.size() > 0 and bounce_count < 3:
+  if overlaps.size() > 0 and bounce_count < 3 and !drown:
     for i in range(overlaps.size()):
       if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('kill'):
         if not overlaps[i].invincible:
@@ -58,6 +63,13 @@ func bounce() -> void:
   velocity.x *= -1
   var explosion = Explosion.new(position)
   get_parent().add_child(explosion)
+
+func is_over_water() -> bool:
+  var overlaps = get_overlapping_areas()
+  for c in overlaps:
+    if c.is_in_group('Water'):
+      return true
+  return false
 
 func _on_screen_exited() -> void:
   if belongs == 0:

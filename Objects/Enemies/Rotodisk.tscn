@@ -17,14 +17,14 @@ z_index = 1
 texture = ExtResource( 2 )
 
 [node name="Node2D" type="Node2D" parent="Sprite"]
-rotation = 1537.56
+rotation = 1651.56
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite/Node2D"]
 position = Vector2( 0, -150 )
-rotation = 1.81753
+rotation = 0.918654
 z_index = 15
 frames = ExtResource( 1 )
-frame = 13
+frame = 25
 playing = true
 
 [node name="Area2D" type="Area2D" parent="Sprite/Node2D/AnimatedSprite"]

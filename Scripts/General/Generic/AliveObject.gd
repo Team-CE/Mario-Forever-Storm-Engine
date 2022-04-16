@@ -187,6 +187,8 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null) -> void:
       z_index = 10
       velocity.y = -180
       animated_sprite.set_animation('falling')
+      animated_sprite.rotation_degrees = rotation_degrees
+      rotation_degrees = 0
       time = get_tree().create_timer(2.0, false)
       time.connect('timeout', self, 'instance_free')
     DEATH_TYPE.CUSTOM:

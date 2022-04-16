@@ -18,7 +18,7 @@ func _process(delta) -> void:
     bullet.dir = -1 if Global.Mario.position.rotated(-rotation).x < position.rotated(-rotation).x else 1
     bullet.rotation = rotation
     bullet.z_index = 1
-    var explosionPos = position + Vector2(bullet.dir * 16, 0)
+    var explosionPos = position + Vector2(bullet.dir * 16, 0).rotated(rotation)
     var explosion = Explosion.new(explosionPos)
     get_parent().add_child(bullet)
     get_parent().add_child(explosion)

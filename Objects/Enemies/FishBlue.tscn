@@ -25,6 +25,10 @@ animations = [ {
 
 [node name="Blue Fish" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 1 )
+vars = {
+"bounce": 9,
+"speed": 62.5
+}
 AI = ExtResource( 3 )
 gravity_scale = 0.0
 invincible = true
@@ -36,6 +40,7 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
+frame = 1
 playing = true
 flip_h = true
 

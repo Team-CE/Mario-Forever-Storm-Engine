@@ -49,6 +49,7 @@ func _ready():
       #$WorldEnvironment.environment.glow_bicubic_upscale = false
       if get_node_or_null('Particles2D'):
         $Particles2D.queue_free()
+    $Mario.invulnerable = false
     print('[Level]: Ready!')
   elif not get_node_or_null('Mario'):
     worldEnv = setup_worldenv()

@@ -87,5 +87,5 @@ func act() -> void:
   MusicPlayer.get_node('Main').play()
   Global.checkpoint_active = 0
   Global.Mario.controls_enabled = false
-  Global.invulnerable = true
+  Global.Mario.invulnerable = true
   counter = 0

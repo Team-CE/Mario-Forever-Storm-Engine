@@ -15,7 +15,7 @@ onready var time = get_tree().create_timer(0)
 
 func _ready():
   rng.randomize()
-  pass
+  connect('body_entered',self,"_on_body_enter")
 
 func _process(delta):
   var id_overlaps = Global.Mario.get_node_or_null('InsideDetector').get_overlapping_areas()
@@ -45,6 +45,10 @@ func launch_bullets() -> void:
 func getInfo() -> String:
   return 'name: {n}\ni: {i}'.format({'i':i,'n':self.get_name()}).to_lower()
 
+func _on_body_enter(a: Node) -> void:
+  print(a)
+  if a.is_class('KinematicBody2D') and a.has_method('explode'):
+    a.explode()
 
 func _on_Timer_timeout() -> void:
   if i >= 0:

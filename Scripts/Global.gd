@@ -48,7 +48,6 @@ var debug_fly: bool = false
 var debug_inv: bool = false
 
 var level_ended: bool = false
-var invulnerable: bool = false               # True while warping or finishing the level
 var currlevel: Node2D
 
 var levelID: int = 0
@@ -132,7 +131,7 @@ func _reset() -> void:   # Level Restart
   if Mario:
     Mario.dead = false
   projectiles_count = 0
-  invulnerable = false
+  Mario.invulnerable = false
 # warning-ignore:return_value_discarded
   get_tree().reload_current_scene()
 
@@ -238,7 +237,7 @@ func play_base_sound(sound: String) -> void:
   Mario.get_node('BaseSounds').get_node(sound).play()
 
 func _ppd() -> void: # Player Powerdown
-  if Mario.shield_counter > 0 or debug_inv or debug_fly or invulnerable:
+  if Mario.shield_counter > 0 or debug_inv or debug_fly or Mario.invulnerable:
     return
 
   if state == 0:
@@ -253,7 +252,7 @@ func _ppd() -> void: # Player Powerdown
     Mario.shield_counter = 100
 
 func _pll() -> void: # Player Death
-  if Mario.dead or debug_inv or debug_fly or invulnerable:
+  if Mario.dead or debug_inv or debug_fly or Mario.invulnerable:
     return
   emit_signal('OnPlayerLoseLife')
   if not Mario.custom_die_stream:

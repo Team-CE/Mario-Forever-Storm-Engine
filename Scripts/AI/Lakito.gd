@@ -150,11 +150,6 @@ func _ai_process(delta:float) -> void:
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
     else:
       Global.Mario.velocity.y = -owner.vars["bounce"] * 50
-  
-  var children = owner.get_parent().get_children()
-  for node in range(len(children)):
-    if 'AI' in children[node]:
-      owner.add_collision_exception_with(children[node])
 
 func _on_any_death():
   var node = Node.new()

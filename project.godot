@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/BrickEffect.gd"
 }, {
+"base": "Area2D",
+"class": "BubbleEffect",
+"language": "GDScript",
+"path": "res://Scripts/Effects/Bubble.gd"
+}, {
 "base": "StaticBody2D",
 "class": "Cannon",
 "language": "GDScript",
@@ -219,6 +224,7 @@ _global_script_class_icons={
 "BeetrootAction": "",
 "Brain": "",
 "BrickEffect": "",
+"BubbleEffect": "",
 "Cannon": "res://GFX/Editor/Enemy.png",
 "ChainsawThrow": "",
 "CoinEffect": "",
