@@ -11,8 +11,6 @@ func _ready_mixin():
 
 func _setup(b)-> void:
   ._setup(b)
-# warning-ignore:return_value_discarded
-  owner.get_node(owner.vars['kill zone']).connect('body_entered',self,"_on_kill_zone_enter")
 
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)
@@ -35,7 +33,22 @@ func _ai_process(delta: float) -> void:
       owner.frozen_sprite.position.y = -32
     return
   
-  if owner.is_on_wall():
+  var turn_if_no_break: bool = true
+    
+  for b in owner.get_node(owner.vars['kill zone']).get_overlapping_bodies():
+    if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
+      if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
+        b.kill(AliveObject.DEATH_TYPE.FALL, score_mp)
+        if score_mp < 6:
+          score_mp += 1
+        else:
+          score_mp = 0
+      elif b is QBlock and b.active:
+        b.hit(1, true)
+        owner.turn()
+        turn_if_no_break = false
+  
+  if owner.is_on_wall() and turn_if_no_break:
     owner.turn()
 
   if shell_counter < 41:
@@ -88,13 +101,3 @@ func to_moving_shell() -> void:
   owner.vars['stopped'] = false
   owner.animated_sprite.animation = 'shell moving'
   shell_counter = 0
-
-func _on_kill_zone_enter(b:Node) -> void:
-  if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0 && b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
-    b.kill(AliveObject.DEATH_TYPE.FALL, score_mp)
-    #AudioServer.get_bus_effect(1,0).pitch_scale = AliveObject.pitch_md[score_mp]
-    #print(AudioServer.get_bus_effect(1,0).pitch_scale)
-    if score_mp < 6:
-      score_mp += 1
-    else:
-      score_mp = 0

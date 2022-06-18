@@ -131,7 +131,8 @@ func _reset() -> void:   # Level Restart
   if Mario:
     Mario.dead = false
   projectiles_count = 0
-  Mario.invulnerable = false
+  if is_instance_valid(Mario):
+    Mario.invulnerable = false
 # warning-ignore:return_value_discarded
   get_tree().reload_current_scene()
 

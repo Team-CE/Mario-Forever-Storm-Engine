@@ -7,6 +7,10 @@ export var mario_speed: float = 1
 export var mario_fast_speed: float = 15
 export var stop_points: Array = []
 export var level_scenes: Array = []
+export var camera_left_limit: int = 0
+export var camera_right_limit: int = 10000
+export var camera_top_limit: int = 0
+export var camera_bottom_limit: int = 480
 
 var current_speed: float = mario_speed
 var stopped: bool = false
@@ -22,6 +26,11 @@ func _ready() -> void:
   
   if Global.levelID > 0:
     $MarioPath/PathFollow2D.offset = stop_points[Global.levelID - 1]
+  
+  $MarioPath/PathFollow2D/MiniMario/Camera2D.limit_left = camera_left_limit
+  $MarioPath/PathFollow2D/MiniMario/Camera2D.limit_right = camera_right_limit
+  $MarioPath/PathFollow2D/MiniMario/Camera2D.limit_top = camera_top_limit
+  $MarioPath/PathFollow2D/MiniMario/Camera2D.limit_bottom = camera_bottom_limit
 
 func _process(delta: float) -> void:
   $MarioPath/PathFollow2D/MiniMario/AnimatedSprite.speed_scale = 20 if !stopped else 5

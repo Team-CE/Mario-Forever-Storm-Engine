@@ -47,8 +47,8 @@ func _process(delta) -> void:
         bounce_count += 1
         skip_frame = true
 
-      if 'qtype' in overlaps[i]:
-        overlaps[i].hit(delta)
+      if overlaps[i] is QBlock:
+        overlaps[i].hit(delta, true)
   if overlaps.size() == 0:
     skip_frame = false
   

@@ -38,11 +38,6 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [  ],
-"loop": true,
-"name": "dead",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
 "name": "walk",
@@ -51,6 +46,11 @@ animations = [ {
 "frames": [ SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "holding",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "dead",
 "speed": 5.0
 } ]
 
@@ -80,7 +80,6 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 position = Vector2( 0, -16 )
 frames = SubResource( 11 )
 animation = "walk"
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true

@@ -213,7 +213,7 @@ func brick_break(idle_frame:bool = true) -> void:
     yield(get_tree(), 'idle_frame')
   queue_free()
 
-func hit(delta, thwomp = false, idle_frame: bool = true) -> void:
+func hit(delta, ignore_powerup = false, idle_frame: bool = true) -> void:
   if not active: return
   active = false
   if qtype == BLOCK_TYPE.COMMON:
@@ -242,7 +242,7 @@ func hit(delta, thwomp = false, idle_frame: bool = true) -> void:
       elif !('vars' in powerup) and 'appearing' in powerup:
         Global.play_base_sound('MAIN_Coin')
   elif qtype == BLOCK_TYPE.BRICK:
-    if Global.state == 0 and !thwomp:
+    if Global.state == 0 and !ignore_powerup:
       Global.play_base_sound('MAIN_Bump')
     else:
       brick_break(idle_frame)

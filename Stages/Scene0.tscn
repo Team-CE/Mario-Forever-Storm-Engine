@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -16,11 +16,13 @@
 [ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=14]
 [ext_resource path="res://Prefabs/Mario/Big.tres" type="SpriteFrames" id=15]
 [ext_resource path="res://Prefabs/Mario/Beetroot.tres" type="SpriteFrames" id=16]
+[ext_resource path="res://Objects/Enemies/Koopas/Koopa.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=18]
 [ext_resource path="res://Scripts/Powerups/Lui.gd" type="Script" id=19]
 [ext_resource path="res://Prefabs/Mario/Lui.tres" type="SpriteFrames" id=20]
 [ext_resource path="res://Prefabs/Mario/Propeller.tres" type="SpriteFrames" id=21]
 [ext_resource path="res://Scripts/Powerups/Propeller.gd" type="Script" id=22]
+[ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=33]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -130,5 +132,47 @@ vars = {
 
 [node name="Lava Lotus" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1328, 384 )
+
+[node name="QBlock" parent="." instance=ExtResource( 23 )]
+position = Vector2( 880, 416 )
+
+[node name="QBlock2" parent="." instance=ExtResource( 23 )]
+position = Vector2( 1168, 416 )
+qtype = 1
+
+[node name="QBlock3" parent="." instance=ExtResource( 23 )]
+position = Vector2( 1200, 416 )
+qtype = 1
+
+[node name="QBlock4" parent="." instance=ExtResource( 23 )]
+position = Vector2( 1232, 416 )
+qtype = 1
+
+[node name="QBlock5" parent="." instance=ExtResource( 23 )]
+position = Vector2( 1264, 416 )
+qtype = 1
+
+[node name="QBlock6" parent="." instance=ExtResource( 23 )]
+position = Vector2( 1200, 384 )
+qtype = 1
+
+[node name="QBlock7" parent="." instance=ExtResource( 23 )]
+position = Vector2( 1232, 384 )
+qtype = 1
+
+[node name="QBlock8" parent="." instance=ExtResource( 23 )]
+position = Vector2( 1264, 384 )
+qtype = 1
+
+[node name="Koopa" parent="." instance=ExtResource( 17 )]
+position = Vector2( 1040, 416 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false
+}
 
 [editable path="Water"]
