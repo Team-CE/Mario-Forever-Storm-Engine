@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -6,11 +6,9 @@
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Liquids/Water.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Enemies/Goomba.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Objects/Enemies/Blooper.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Mario/IceFlower.tres" type="SpriteFrames" id=8]
 [ext_resource path="res://Scripts/Powerups/IceFlower.gd" type="Script" id=9]
 [ext_resource path="res://Objects/Enemies/FishBlue.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Objects/Enemies/Lava Lotus.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=13]
 [ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=14]
@@ -44,7 +42,7 @@ cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( 196649, 7, 0, 393255, 7, 0, 458810, 6, 0, 524346, 6, 0, 589861, 7, 0, 589882, 6, 0, 655418, 6, 0, 720954, 6, 0, 786490, 6, 0, 851995, 6, 0, 851996, 6, 0, 851997, 6, 0, 851998, 6, 0, 851999, 6, 0, 852000, 6, 0, 852001, 6, 0, 852002, 6, 0, 852003, 6, 0, 852004, 6, 0, 852005, 6, 0, 852006, 6, 0, 852007, 6, 0, 852008, 6, 0, 852009, 6, 0, 852010, 6, 0, 852011, 6, 0, 852012, 6, 0, 852013, 6, 0, 852014, 6, 0, 852015, 6, 0, 852016, 6, 0, 852017, 6, 0, 852018, 6, 0, 852019, 6, 0, 852020, 6, 0, 852021, 6, 0, 852022, 6, 0, 852023, 6, 0, 852024, 6, 0, 852025, 6, 0, 852026, 6, 0 )
+tile_data = PoolIntArray( 196649, 7, 0, 393255, 7, 0, 458774, 6, 0, 458776, 6, 0, 458778, 6, 0, 458780, 6, 0, 458782, 6, 0, 458784, 6, 0, 458810, 6, 0, 524346, 6, 0, 589861, 7, 0, 589882, 6, 0, 655418, 6, 0, 720954, 6, 0, 786490, 6, 0, 851995, 6, 0, 851996, 6, 0, 851997, 6, 0, 851998, 6, 0, 851999, 6, 0, 852000, 6, 0, 852001, 6, 0, 852002, 6, 0, 852003, 6, 0, 852004, 6, 0, 852005, 6, 0, 852006, 6, 0, 852007, 6, 0, 852008, 6, 0, 852009, 6, 0, 852010, 6, 0, 852011, 6, 0, 852012, 6, 0, 852013, 6, 0, 852014, 6, 0, 852015, 6, 0, 852016, 6, 0, 852017, 6, 0, 852018, 6, 0, 852019, 6, 0, 852020, 6, 0, 852021, 6, 0, 852022, 6, 0, 852023, 6, 0, 852024, 6, 0, 852025, 6, 0, 852026, 6, 0 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
@@ -89,39 +87,9 @@ vars = {
 "speed": 50.0
 }
 
-[node name="Blooper2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1344, 208 )
-vars = {
-"bounce": 9,
-"can_stomp": false,
-"speed": 50.0
-}
-score = 200
-
 [node name="Water2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, 464 )
 move_with_scroll = true
-
-[node name="AliveObject" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1296, 304 )
-vars = {
-"bounce": 9,
-"speed": 62.5
-}
-
-[node name="AliveObject4" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1472, 208 )
-vars = {
-"bounce": 9,
-"speed": 62.5
-}
-
-[node name="AliveObject2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1744, 288 )
-vars = {
-"bounce": 9,
-"speed": 62.5
-}
 
 [node name="AliveObject3" parent="." instance=ExtResource( 10 )]
 position = Vector2( 1808, 352 )
@@ -129,9 +97,6 @@ vars = {
 "bounce": 9,
 "speed": 62.5
 }
-
-[node name="Lava Lotus" parent="." instance=ExtResource( 11 )]
-position = Vector2( 1328, 384 )
 
 [node name="QBlock" parent="." instance=ExtResource( 23 )]
 position = Vector2( 880, 416 )

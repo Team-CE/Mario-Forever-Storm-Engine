@@ -15,6 +15,7 @@ var inited_camera_addon
 var ready_powerup_scripts: Dictionary = {}
 
 var velocity: Vector2
+var old_velocity: Vector2
 var jump_counter: int = 0
 var jump_internal_counter: float = 100
 var can_jump: bool = false
@@ -46,6 +47,11 @@ onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
 onready var allow_custom_animation: bool = false
 onready var invulnerable: bool = false               # True while warping or finishing the level
+
+onready var ray_R: RayCast2D = $SmallRightDetector/RayCastRight
+onready var ray_R_big: RayCast2D = $SmallRightDetector/RayCastRightBig
+onready var ray_L: RayCast2D = $SmallLeftDetector/RayCastLeft
+onready var ray_L_big: RayCast2D = $SmallLeftDetector/RayCastLeftBig
 
 var faded: bool = false
 
@@ -143,6 +149,8 @@ func _process_alive(delta) -> void:
       ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
 
+  old_velocity = velocity
+  
   var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
     movement_swimming(delta)
@@ -223,10 +231,13 @@ func _process_alive(delta) -> void:
       var collider = bottom_collisions[i]
       if collider.has_method('_standing_on'):
         collider._standing_on()
-
+  
+  if old_velocity and velocity.y > 1:
+    one_tile_gap(old_velocity.x, true)
+    
   velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
-
   update_collisions()
+    
   if animation_enabled and danimate: animate_default(delta)
   debug()
   
@@ -625,12 +636,51 @@ func update_collisions() -> void:
   $InsideDetector/CollisionSmall.disabled = not (Global.state == 0 or crouch)
   $SmallRightDetector/CollisionSmallRight.disabled = not (Global.state == 0 or crouch)
   $SmallLeftDetector/CollisionSmallLeft.disabled = not (Global.state == 0 or crouch)
+  $SmallRightDetector/RayCastRight.enabled = (Global.state == 0 or crouch)
+  $SmallLeftDetector/RayCastLeft.enabled = (Global.state == 0 or crouch)
   
   $CollisionBig.disabled = not (Global.state > 0 and not crouch)
   $TopDetector/CollisionTopBig.disabled = not (Global.state > 0 and not crouch)
   $InsideDetector/CollisionBig.disabled = not (Global.state > 0 and not crouch)
   $SmallRightDetector/CollisionSmallRightBig.disabled = not (Global.state > 0 and not crouch)
   $SmallLeftDetector/CollisionSmallLeftBig.disabled = not (Global.state > 0 and not crouch)
+  $SmallRightDetector/RayCastRightBig.enabled = (Global.state > 0 and not crouch)
+  $SmallLeftDetector/RayCastLeftBig.enabled = (Global.state > 0 and not crouch)
+
+func one_tile_gap(vel: float, change_pos: bool = true) -> Vector2:
+  if velocity.x > 1 or velocity.x < -1:
+    var pos = Vector2.ZERO
+    if (ray_L.is_colliding() and !ray_R.is_colliding()):
+      pos.y = ray_L.get_collision_point().y
+      pos.x = position.x - 0.1
+    if (ray_R.is_colliding() and !ray_L.is_colliding()):
+      pos.y = ray_R.get_collision_point().y
+      pos.x = position.x + 0.1
+    if (ray_L_big.is_colliding() and !ray_R_big.is_colliding()):
+      pos.y = ray_L_big.get_collision_point().y
+      pos.x = position.x - 0.1
+    if (ray_R_big.is_colliding() and !ray_L_big.is_colliding()):
+      pos.y = ray_R_big.get_collision_point().y
+      pos.x = position.x + 0.1
+    
+    if pos != Vector2.ZERO:
+      if change_pos:
+        position = pos
+        velocity = Vector2(vel, 0)
+      else:
+        return pos
+  return Vector2.ZERO
+
+func ray_reverse(ray: RayCast2D):
+  var old_height = position.y
+  ray.rotation_degrees = 180
+  ray.position.y = -13
+  ray.cast_to.y -= 13
+  
+  
+  ray.cast_to.y += 13
+  ray.position.y = old_height
+  ray.rotation_degrees = 0
 
 func kill() -> void:
   dead = true

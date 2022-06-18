@@ -164,11 +164,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/General/Platform.gd"
 }, {
-"base": "PathFollow2D",
-"class": "PlatformCustom",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/Scripts/Level4CustomPlatform.gd"
-}, {
 "base": "Reference",
 "class": "PoisonMush",
 "language": "GDScript",
@@ -256,7 +251,6 @@ _global_script_class_icons={
 "MarioHeadEffect": "",
 "PikoBrickEffect": "",
 "Platform": "",
-"PlatformCustom": "",
 "PoisonMush": "",
 "PoisonPowerupAction": "",
 "PropellerAction": "",
