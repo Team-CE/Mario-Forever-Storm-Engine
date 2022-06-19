@@ -11,9 +11,6 @@ func _ready() -> void:
     self.scale = Vector2.ZERO
     queue_free()
   
-  if not visible:
-    self.scale = Vector2.ZERO
-  
   AnimPlayed = 0
   $Coins.text = str(Global.coins)
   $Score.text = str(Global.score)
@@ -33,6 +30,11 @@ func _process(_delta: float) -> void:
     straycount = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
     $DebugOrphaneNodes.visible = true if straycount > 0 else false
     $DebugOrphaneNodes.text = str(straycount)
+  
+  if not visible:
+    self.scale = Vector2.ZERO
+  else:
+    self.scale = Vector2(1, 1)
 
 func _time() -> void:
   if Global.time == 99 and not Global.level_ended and visible:

@@ -174,6 +174,9 @@ func _physics_process(delta: float) -> void:
         print_stray_nodes()
       else:
         print('[CE OUTPUT]: No stray nodes yet, we\'re fine!')
+    
+  if Input.is_action_just_pressed('debug_hud'):
+    HUD.visible = !HUD.visible
       
 # Debug powerups
 func _input(ev):
