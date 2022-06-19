@@ -149,7 +149,7 @@ func _process_alive(delta) -> void:
       ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
 
-  if velocity.x > 1 or velocity.x < -1:
+  if velocity.x > 1 or velocity.x < -1 or velocity.y < -1:
     old_velocity = velocity
   
   var danimate: bool = false
@@ -647,7 +647,6 @@ func update_collisions() -> void:
 func one_tile_gap(vel: float, change_pos: bool = true) -> Vector2:
   if (velocity.x > 1 or velocity.x < -1) and (vel > 1 or vel < -1):
     var pos = Vector2.ZERO
-    print(ray_L_2.is_colliding())
     if (ray_L.is_colliding() and !ray_R.is_colliding()):
       if ray_L.get_collision_point().y == round(position.y): return Vector2.ZERO
       if ray_L_2.is_colliding(): return Vector2.ZERO
