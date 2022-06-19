@@ -26,6 +26,7 @@ func _ready() -> void:
   $GameoverSprite.visible = false
     
 func _process(_delta: float) -> void:
+  
   if Global.debug:
     $DebugFlySprite.visible = Global.debug_fly
     $DebugInvisibleSprite.visible = Global.debug_inv

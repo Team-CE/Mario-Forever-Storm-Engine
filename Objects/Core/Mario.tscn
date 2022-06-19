@@ -237,16 +237,6 @@ shape = SubResource( 8 )
 position = Vector2( 12, -23 )
 shape = SubResource( 9 )
 
-[node name="RayCastRight" type="RayCast2D" parent="SmallRightDetector"]
-position = Vector2( 10.1, -26 )
-enabled = true
-cast_to = Vector2( 0, 26 )
-
-[node name="RayCastRightBig" type="RayCast2D" parent="SmallRightDetector"]
-position = Vector2( 10.1, -54 )
-enabled = true
-cast_to = Vector2( 0, 54 )
-
 [node name="SmallLeftDetector" type="Area2D" parent="."]
 visible = false
 collision_layer = 3
@@ -260,14 +250,32 @@ shape = SubResource( 10 )
 position = Vector2( -12, -23 )
 shape = SubResource( 11 )
 
-[node name="RayCastLeft" type="RayCast2D" parent="SmallLeftDetector"]
-position = Vector2( -10.1, -26 )
+[node name="RayCastRight" type="RayCast2D" parent="."]
+visible = false
+position = Vector2( 10.1, -10 )
 enabled = true
-cast_to = Vector2( 0, 26 )
+cast_to = Vector2( 0, 10 )
+collision_mask = 2
 
-[node name="RayCastLeftBig" type="RayCast2D" parent="SmallLeftDetector"]
-position = Vector2( -10.1, -54 )
+[node name="RayCastRight2" type="RayCast2D" parent="."]
+visible = false
+position = Vector2( 10, -12 )
 enabled = true
-cast_to = Vector2( 0, 54 )
+cast_to = Vector2( 6, 0 )
+collision_mask = 2
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+visible = false
+position = Vector2( -10.1, -10 )
+enabled = true
+cast_to = Vector2( 0, 10 )
+collision_mask = 2
+
+[node name="RayCastLeft2" type="RayCast2D" parent="."]
+visible = false
+position = Vector2( -10, -12 )
+enabled = true
+cast_to = Vector2( -6, 0 )
+collision_mask = 2
 
 [node name="BaseSounds" parent="." instance=ExtResource( 4 )]
