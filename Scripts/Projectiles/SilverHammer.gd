@@ -32,7 +32,7 @@ func _process(delta) -> void:
     for i in range(overlaps.size()):
       if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('kill') and belongs == 0:
         if not overlaps[i].invincible:
-          overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, 0)
+          overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, 0, null, self.name)
           bounce()
           bounce_count += 1
           skip_frame = true

@@ -57,7 +57,7 @@ func _ready():
 
   # If alrady loaded
   if get_node_or_null('Body') != null:
-    collision = $Collision
+    if !Engine.editor_hint: collision = $Collision
     body = $Body
     preview = $Preview
     return
@@ -68,19 +68,6 @@ func _ready():
   PrevResult = Result
   PrevFrames = Frames
   
-  # Collision
-  blockShape = RectangleShape2D.new()
-  blockShape.extents = Vector2(16, 16)
-  
-  collision = CollisionShape2D.new()
-  collision.name = 'Collision'
-  collision.shape = blockShape
-  collision.position.y -= 16
-  collision.visible = false
-  
-  add_child(collision)
-  collision.set_owner(self)
-  
   # Animated sprite Sprite
   body = AnimatedSprite.new()
   body.name = 'Body'
@@ -88,6 +75,7 @@ func _ready():
   body.z_index = 1
   body.frames = preload('res://Prefabs/Blocks/Question Block.tres')
   body.playing = true
+  print('help me')
   
   add_child(body)
   body.set_owner(self)
@@ -107,7 +95,20 @@ func _ready():
   
   if Empty:
     body.animation = 'empty'
-
+  
+  if !Engine.editor_hint:
+    # Collision
+    blockShape = RectangleShape2D.new()
+    blockShape.extents = Vector2(16, 16)
+    
+    collision = CollisionShape2D.new()
+    collision.name = 'Collision'
+    collision.shape = blockShape
+    collision.position.y -= 16
+    collision.visible = false
+    
+    add_child(collision)
+    collision.set_owner(self)
 
 func editor() -> void:
   if body:

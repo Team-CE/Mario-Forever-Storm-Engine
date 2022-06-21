@@ -121,6 +121,7 @@ vars = {
 }
 AI = ExtResource( 4 )
 gravity_scale = 0.7
+invincible_for_projectiles = [ "fireball", "iceball" ]
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
@@ -129,8 +130,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 position = Vector2( 0, -6 )
 frames = SubResource( 23 )
 animation = "walk"
-frame = 14
-playing = true
+frame = 6
 offset = Vector2( 0, -16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

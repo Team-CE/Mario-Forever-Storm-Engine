@@ -50,12 +50,7 @@ func _ai_process(delta:float) -> void:
     preparing = true
 
   if is_mario_collide('BottomDetector'):
-    owner.sound.play()
     owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
-    var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
-    for i in range(4):
-      var debris_effect = BrickEffect.new(owner.position + Vector2(0, -16), speeds[i])
-      owner.get_parent().add_child(debris_effect)
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
     else:
@@ -66,7 +61,13 @@ func _ai_process(delta:float) -> void:
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
   for i in range(len(g_overlaps)):
     if 'triggered' in g_overlaps[i] and g_overlaps[i].triggered:
-      owner.sound.play()
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
       
   owner.animated_sprite.flip_h = false
+
+func _on_any_death():
+  owner.sound.play()
+  var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
+  for i in range(4):
+    var debris_effect = BrickEffect.new(owner.position + Vector2(0, -16), speeds[i])
+    owner.get_parent().add_child(debris_effect)
