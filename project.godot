@@ -20,6 +20,26 @@ _global_script_classes=[ {
 "path": "res://Scripts/Powerups/Beetroot.gd"
 }, {
 "base": "Node",
+"class": "BlockPartyGlobals",
+"language": "GDScript",
+"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/globals/Global.gd"
+}, {
+"base": "Node2D",
+"class": "BlockPartyLevel",
+"language": "GDScript",
+"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/Level.gd"
+}, {
+"base": "Node",
+"class": "BlockPartyPlacements",
+"language": "GDScript",
+"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/globals/Placements.gd"
+}, {
+"base": "Node",
+"class": "BlockPartySoundPlayer",
+"language": "GDScript",
+"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/globals/SoundPlayer.gd"
+}, {
+"base": "Node",
 "class": "Brain",
 "language": "GDScript",
 "path": "res://Scripts/AI/Brain.gd"
@@ -88,6 +108,11 @@ _global_script_classes=[ {
 "class": "IceFlowerAction",
 "language": "GDScript",
 "path": "res://Scripts/Powerups/IceFlower.gd"
+}, {
+"base": "Area2D",
+"class": "Interactive",
+"language": "GDScript",
+"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/Block.gd"
 }, {
 "base": "Node2D",
 "class": "Level",
@@ -164,6 +189,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/General/Platform.gd"
 }, {
+"base": "PathFollow2D",
+"class": "PlatformCustom",
+"language": "GDScript",
+"path": "res://Games/TheMultiverse2/Scripts/Level4CustomPlatform.gd"
+}, {
 "base": "Reference",
 "class": "PoisonMush",
 "language": "GDScript",
@@ -222,6 +252,10 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AliveObject": "res://GFX/Editor/AliveBody.png",
 "BeetrootAction": "",
+"BlockPartyGlobals": "",
+"BlockPartyLevel": "",
+"BlockPartyPlacements": "",
+"BlockPartySoundPlayer": "",
 "Brain": "",
 "BrickEffect": "",
 "BubbleEffect": "",
@@ -236,6 +270,7 @@ _global_script_class_icons={
 "HammerThrow": "",
 "IceExplosion": "",
 "IceFlowerAction": "",
+"Interactive": "",
 "Level": "",
 "Level10Camera": "",
 "Level1Camera": "",
@@ -251,6 +286,7 @@ _global_script_class_icons={
 "MarioHeadEffect": "",
 "PikoBrickEffect": "",
 "Platform": "",
+"PlatformCustom": "",
 "PoisonMush": "",
 "PoisonPowerupAction": "",
 "PropellerAction": "",
@@ -419,6 +455,16 @@ ui_fullscreen={
 debug_hud={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+zoom_in={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+zoom_out={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 
