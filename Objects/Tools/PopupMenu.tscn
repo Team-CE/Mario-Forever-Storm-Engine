@@ -167,9 +167,12 @@ z_index = 4
 
 [node name="choose" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+bus = "Sounds"
 
 [node name="pause" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "Sounds"
 
 [node name="coin" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
+bus = "Sounds"

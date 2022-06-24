@@ -56,9 +56,11 @@ disabled = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+bus = "Sounds"
 
 [node name="Stomp" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+bus = "Sounds"
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
@@ -74,9 +76,12 @@ animation = "medium"
 
 [node name="Throw1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
+bus = "Sounds"
 
 [node name="Throw2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
+bus = "Sounds"
 
 [node name="Throw3" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
+bus = "Sounds"

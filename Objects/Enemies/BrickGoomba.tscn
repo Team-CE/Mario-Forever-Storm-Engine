@@ -141,12 +141,15 @@ shape = SubResource( 1 )
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+bus = "Sounds"
 
 [node name="Stomp" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 1 )
+bus = "Sounds"
 
 [node name="Stun" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
+bus = "Sounds"
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false

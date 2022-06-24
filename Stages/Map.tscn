@@ -105,3 +105,4 @@ script = ExtResource( 8 )
 
 [node name="fadeout" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+bus = "Sounds"

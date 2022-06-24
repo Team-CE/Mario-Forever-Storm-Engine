@@ -299,14 +299,18 @@ __meta__ = {
 
 [node name="LifeSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+bus = "Sounds"
 
 [node name="TimeoutSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "Sounds"
 
 [node name="CoinSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+bus = "Sounds"
 
 [node name="ScoreSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+bus = "Sounds"
 
 [connection signal="animation_finished" from="TimeSprite" to="." method="_on_anim_finish"]

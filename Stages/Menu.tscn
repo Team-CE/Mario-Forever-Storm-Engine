@@ -441,24 +441,31 @@ centered = false
 
 [node name="select_main" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+bus = "Sounds"
 
 [node name="letsgo" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "Sounds"
 
 [node name="enter_options" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+bus = "Sounds"
 
 [node name="fadeout" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+bus = "Sounds"
 
 [node name="change" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+bus = "Sounds"
 
 [node name="select_controls" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
+bus = "Sounds"
 
 [node name="tick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
+bus = "Sounds"
 
 [node name="Credits" type="Sprite" parent="."]
 position = Vector2( 315.5, 1706.62 )

@@ -47,3 +47,4 @@ physics_process_parent = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+bus = "Sounds"

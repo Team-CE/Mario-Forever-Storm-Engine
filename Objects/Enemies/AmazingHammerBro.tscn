@@ -118,10 +118,12 @@ shape = SubResource( 9 )
 [node name="Kick" type="AudioStreamPlayer2D" parent="PathFollow2D/AmazingBro"]
 position = Vector2( 0, -16 )
 stream = ExtResource( 7 )
+bus = "Sounds"
 
 [node name="Stomp" type="AudioStreamPlayer2D" parent="PathFollow2D/AmazingBro"]
 position = Vector2( 0, -16 )
 stream = ExtResource( 6 )
+bus = "Sounds"
 
 [node name="KillDetector" type="Area2D" parent="PathFollow2D/AmazingBro"]
 visible = false

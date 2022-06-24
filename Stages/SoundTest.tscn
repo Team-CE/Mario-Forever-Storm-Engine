@@ -106,6 +106,7 @@ value = 0.3
 [node name="Test" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( 318, 239 )
 stream = ExtResource( 1 )
+bus = "Sounds"
 
 [node name="OptionButton" type="OptionButton" parent="."]
 margin_right = 75.0

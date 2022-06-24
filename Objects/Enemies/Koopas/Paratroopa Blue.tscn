@@ -91,9 +91,11 @@ flip_h = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+bus = "Sounds"
 
 [node name="Stomp" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
+bus = "Sounds"
 
 [node name="KillZone" type="Area2D" parent="."]
 visible = false
