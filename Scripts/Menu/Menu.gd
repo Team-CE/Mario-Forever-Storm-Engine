@@ -42,7 +42,10 @@ func _ready() -> void:
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
   if Global.musicBar == -100:
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
-  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 5)
+  if Global.soundBar > -100:
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), round(Global.soundBar / 5))
+  if Global.soundBar == -100:
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), -1000)
   
   updateControls()
   
@@ -177,15 +180,12 @@ func controls() -> void:
           0:
             if Global.soundBar < 0:
               Global.soundBar += 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 5)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), round(Global.soundBar / 5))
               $tick.play()
           1:
             if Global.musicBar < 0:
               Global.musicBar += 10
-              if Global.musicBar > -100:
-                AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
-              if Global.musicBar == -100:
-                AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
               $tick.play()
           2:
             if !Global.effects:
@@ -209,10 +209,10 @@ func controls() -> void:
           0:
             if Global.soundBar > -100:
               Global.soundBar -= 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Global.soundBar / 5)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), round(Global.soundBar / 5))
               $tick.play()
             if Global.soundBar == -100:
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), -1000)
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), -1000)
           1:
             if Global.musicBar > -100:
               Global.musicBar -= 10

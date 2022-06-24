@@ -91,7 +91,7 @@ func _process(delta):
 func resume() -> void:
   if Global.HUD:
     for child in Global.HUD.get_children():
-      if not child is AudioStreamPlayer:
+      if (not child is AudioStreamPlayer) and (not 'DebugOrphaneNodes' in child.name):
         child.show()
         
     Global.HUD.get_node('DebugFlySprite').visible = Global.debug_fly

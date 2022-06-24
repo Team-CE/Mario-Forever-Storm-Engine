@@ -101,7 +101,10 @@ func _ready() -> void:
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(musicBar / 5))
   if musicBar == -100:
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
-  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), soundBar / 5)
+  if soundBar > -100:
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), round(soundBar / 5))
+  if soundBar == -100:
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), -1000)
 
 func saveInfo(content):
   var file = File.new()
