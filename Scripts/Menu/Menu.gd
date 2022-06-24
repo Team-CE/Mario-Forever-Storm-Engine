@@ -34,6 +34,8 @@ func _ready() -> void:
   
   $fadeout.play()
   yield(get_tree().create_timer( 1.2 ), 'timeout')
+  if !Global.saveFileExists:
+    saveOptions()
   MusicPlayer.get_node('Main').stream = music
   MusicPlayer.get_node('Main').play()
   if Global.musicBar > -100:
@@ -121,6 +123,8 @@ func controls() -> void:
         match sel:
           0:
             controls_enabled = false
+            if !Global.saveFileExists:
+              saveOptions()
             $letsgo.play()
             MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 5.0)
             yield(get_tree().create_timer( 2.5 ), 'timeout')

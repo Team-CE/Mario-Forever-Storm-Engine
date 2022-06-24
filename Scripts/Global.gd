@@ -19,6 +19,7 @@ var toSaveInfo = {
   "Controls": controls
 }
 var restartNeeded: bool = false
+var saveFileExists: bool = false
 
 var gravity: float = 20                      # Global gravity
 
@@ -68,10 +69,12 @@ func _ready() -> void:
   timer.wait_time = 1.45
   add_child(timer)
   
-  toSaveInfo = JSON.parse(loadInfo()).result # Loading settings
-    
-  if !toSaveInfo:
+  var loadedData = loadInfo()
+  if !loadedData:
     return
+  saveFileExists = true
+  toSaveInfo = JSON.parse(loadedData).result # Loading settings
+  
   if toSaveInfo.has('SoundVol'): soundBar = toSaveInfo.SoundVol
   if toSaveInfo.has('MusicVol'): musicBar = toSaveInfo.MusicVol
   if toSaveInfo.has('Efekty'): effects = toSaveInfo.Efekty
@@ -121,6 +124,8 @@ func saveInfo(content):
 
 func loadInfo():
   var file = File.new()
+  if !file.file_exists("user://" + GameName + ".cloudsav"):
+    return false
   file.open("user://" + GameName + ".cloudsav", File.READ)
   var content = file.get_as_text()
   file.close()

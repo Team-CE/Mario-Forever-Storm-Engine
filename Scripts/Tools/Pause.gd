@@ -4,6 +4,12 @@ var sel: int = 0
 var counter: float = 1
 var scene
 
+func _ready():
+  if Global.musicBar > -100:
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5) - 6)
+  if Global.musicBar == -100:
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+
 func _process(delta):
   if get_parent().isPaused:
     
@@ -36,6 +42,10 @@ func _process(delta):
     if Input.is_action_just_pressed('ui_accept') and counter > 1:
       match sel:
         0:
+          if Global.musicBar > -100:
+            AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
+          if Global.musicBar == -100:
+            AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
           get_parent().resume()
         1:
           scene = ProjectSettings.get_setting('application/config/sgr_scene')
@@ -58,6 +68,8 @@ func _process(delta):
       get_parent().get_parent().get_tree().paused = false
       
     if Input.is_action_just_pressed('ui_cancel') and counter > 1:
+      if Global.musicBar > -100:
+        AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
       get_parent().resume()
       get_parent().get_parent().get_tree().paused = false
 
