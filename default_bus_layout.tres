@@ -1,4 +1,12 @@
-[gd_resource type="AudioBusLayout" format=2]
+[gd_resource type="AudioBusLayout" load_steps=2 format=2]
+
+[sub_resource type="AudioEffectReverb" id=1]
+resource_name = "Reverb"
+predelay_msec = 50.0
+predelay_feedback = 0.2
+room_size = 0.5
+damping = 0.3
+dry = 0.7
 
 [resource]
 bus/1/name = "Sounds"
@@ -7,6 +15,8 @@ bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
 bus/1/send = "Master"
+bus/1/effect/0/effect = SubResource( 1 )
+bus/1/effect/0/enabled = false
 bus/2/name = "Music"
 bus/2/solo = false
 bus/2/mute = false

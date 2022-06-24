@@ -1,5 +1,3 @@
-class_name StarPowerupAction
-
 onready var init = false
 var delay_counter: float = 45
 

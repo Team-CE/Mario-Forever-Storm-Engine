@@ -77,6 +77,7 @@ func _process(delta) -> void:
         wait_counter -= 1 * Global.get_delta(delta)
         if wait_counter < 0:
           Global.levelID = set_level_id
+          AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
           get_tree().change_scene(map_scene)
         
 func act() -> void:

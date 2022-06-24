@@ -1,5 +1,3 @@
-class_name ChainsawThrow
-
 var hammer_scene = preload('res://Objects/Projectiles/Chainsaw.tscn')
 
 func throw(ai) -> void:

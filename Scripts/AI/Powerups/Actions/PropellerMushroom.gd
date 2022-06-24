@@ -1,5 +1,3 @@
-class_name PropellerPowerupAction
-
 var counter: float = 180
 var gravaup: float = 10
 var posy: float = -99999
