@@ -1,5 +1,3 @@
-class_name IceFlowerAction
-
 var fb = preload('res://Objects/Projectiles/Iceball.tscn')
 
 func do_action(mario):

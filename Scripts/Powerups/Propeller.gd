@@ -1,5 +1,3 @@
-class_name PropellerAction
-
 var isActivated: bool = false
 var flyingDown: bool = false
 var prevVelocity: float = 0

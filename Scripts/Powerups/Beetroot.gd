@@ -1,5 +1,3 @@
-class_name BeetrootAction
-
 var fb = preload('res://Objects/Projectiles/Beetroot.tscn')
 
 func do_action(mario):

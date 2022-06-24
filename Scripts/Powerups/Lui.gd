@@ -1,5 +1,3 @@
-class_name LuiAction
-
 var trail_counter: float = 0
 
 func _process_mixin(mario, delta):

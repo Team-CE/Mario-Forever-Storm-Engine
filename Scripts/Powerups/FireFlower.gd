@@ -1,5 +1,3 @@
-class_name FireFlowerAction
-
 var fb = preload('res://Objects/Projectiles/Fireball.tscn')
 
 func do_action(mario):
