@@ -16,6 +16,7 @@ var ready_powerup_scripts: Dictionary = {}
 
 var velocity: Vector2
 var old_velocity: Vector2
+var reset_velocity: int = 0
 var jump_counter: int = 0
 var jump_internal_counter: float = 100
 var can_jump: bool = false
@@ -151,6 +152,7 @@ func _process_alive(delta) -> void:
 
   if velocity.x > 1 or velocity.x < -1 or velocity.y < -1:
     old_velocity = velocity
+    reset_velocity = 0
   
   var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
@@ -232,8 +234,13 @@ func _process_alive(delta) -> void:
       var collider = bottom_collisions[i]
       if collider.has_method('_standing_on'):
         collider._standing_on()
+
+  if old_velocity:
+    if reset_velocity > 2:
+      old_velocity = Vector2.ZERO
+    reset_velocity += 1
   
-  if old_velocity and velocity.y > 1:
+  if old_velocity != Vector2.ZERO and velocity.y > 1:
     one_tile_gap(old_velocity.x, true)
     
   velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
