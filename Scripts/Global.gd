@@ -247,6 +247,10 @@ func add_coins(coins: int) -> void:
 
 func play_base_sound(sound: String) -> void:
   Mario.get_node('BaseSounds').get_node(sound).play()
+  
+func reset_audio_effects() -> void:
+  AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('CompositedSounds'), 0)
 
 func _ppd() -> void: # Player Powerdown
   if Mario.shield_counter > 0 or debug_inv or debug_fly or Mario.invulnerable:
