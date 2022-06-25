@@ -75,7 +75,6 @@ func _ready():
   body.z_index = 1
   body.frames = preload('res://Prefabs/Blocks/Question Block.tres')
   body.playing = true
-  print('help me')
   
   add_child(body)
   body.set_owner(self)
@@ -149,8 +148,6 @@ func set_preview() -> StreamTexture:
   
   preview.scale = Vector2(16,16) / res.get_size()
   PrevResult = Result
-  #print(res)
-  #print(Result)
   result_inst.free()
   return res
 

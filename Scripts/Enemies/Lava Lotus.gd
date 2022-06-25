@@ -29,7 +29,6 @@ func new_bullet(i) -> void:
   ball.velocity = bullets[i]
   ball.position.x = rng.randf_range(-8, 8)
   add_child(ball)
-  #print(i)
   return
 
 func launch_bullets() -> void:
@@ -46,7 +45,6 @@ func getInfo() -> String:
   return 'name: {n}\ni: {i}'.format({'i':i,'n':self.get_name()}).to_lower()
 
 func _on_body_enter(a: Node) -> void:
-  print(a)
   if a.is_class('KinematicBody2D') and a.has_method('explode'):
     a.explode()
 

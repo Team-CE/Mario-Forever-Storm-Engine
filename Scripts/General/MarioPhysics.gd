@@ -669,7 +669,6 @@ func one_tile_gap(vel: float) -> void:
     if pos != Vector2.ZERO:
       position = pos
       velocity = Vector2(vel, 0)
-      print('trigger')
 
 func kill() -> void:
   dead = true
