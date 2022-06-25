@@ -70,21 +70,21 @@ func _process(delta) -> void:
     $Sprite.rotation_degrees = -90 if direction == DIRS.RIGHT or direction == DIRS.LEFT else 0
   else:
     if disabled: return
-    #Вход в варп
+    # Warp Enter
     if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has(self) and not active and type == TYPES.IN:
       if direction == DIRS.DOWN and Input.is_action_pressed('mario_crouch'):
         calc_pos = Vector2(position.x, position.y - 16)
         active = true
         Global.Mario.invulnerable = true
         Global.play_base_sound('MAIN_Pipe')
-        warp_dir.y = 1
+        warp_dir = Vector2(0, 1)
         Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
       elif direction == DIRS.UP and Input.is_action_pressed('mario_up'):
         calc_pos = Vector2(position.x, position.y + 16 + (30 if Global.state != 0 else 0))
         active = true
         Global.Mario.invulnerable = true
         Global.play_base_sound('MAIN_Pipe')
-        warp_dir.y = -1
+        warp_dir = Vector2(0, -1)
       elif direction == DIRS.RIGHT and Input.is_action_pressed('mario_right'):
         calc_pos = Vector2(position.x - 16, position.y + 16)
         active = true
@@ -92,7 +92,8 @@ func _process(delta) -> void:
         Global.play_base_sound('MAIN_Pipe')
         Global.Mario.animate_sprite('Walking')
         Global.Mario.get_node("Sprite").speed_scale = 5
-        warp_dir.x = 1
+        Global.Mario.get_node("Sprite").flip_h = true
+        warp_dir = Vector2(1, 0)
       elif direction == DIRS.LEFT and Input.is_action_pressed('mario_left'):
         calc_pos = Vector2(position.x + 16, position.y + 16)
         active = true
@@ -100,7 +101,8 @@ func _process(delta) -> void:
         Global.play_base_sound('MAIN_Pipe')
         Global.Mario.animate_sprite('Walking')
         Global.Mario.get_node("Sprite").speed_scale = 5
-        warp_dir.x = -1
+        Global.Mario.get_node("Sprite").flip_h = false
+        warp_dir = Vector2(-1, 0)
     
     if active:
       Global.Mario.controls_enabled = false
@@ -112,7 +114,7 @@ func _process(delta) -> void:
 
       Global.Mario.get_node('Sprite').z_index = -10
 
-      if counter > 60 and not state_switched: #Выход из варпа
+      if counter > 60 and not state_switched: # Warp Exit
         if out_node:
           state_switched = true
           Global.play_base_sound('MAIN_Pipe')
@@ -120,25 +122,27 @@ func _process(delta) -> void:
           if out_node.direction == DIRS.DOWN:
             Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x, out_node.position.y - 40 + (24 if Global.state != 0 else 0))
-            warp_dir.y = 1
+            warp_dir = Vector2(0, 1)
             Global.Mario.animate_sprite('Jumping')
           elif out_node.direction == DIRS.UP:
             Global.Mario.crouch = true
             calc_pos = Vector2(out_node.position.x, out_node.position.y + 44)
-            warp_dir.y = -1
+            warp_dir = Vector2(0, -1)
             Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
           elif out_node.direction == DIRS.RIGHT:
             Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x - 44, out_node.position.y + 15.9)
-            warp_dir.x = 1
+            warp_dir = Vector2(1, 0)
             Global.Mario.animate_sprite('Walking')
             Global.Mario.get_node("Sprite").speed_scale = 5
+            Global.Mario.get_node("Sprite").flip_h = false
           elif out_node.direction == DIRS.LEFT:
             Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x + 44, out_node.position.y + 15.9)
-            warp_dir.x = -1
+            warp_dir = Vector2(-1, 0)
             Global.Mario.animate_sprite('Walking')
             Global.Mario.get_node("Sprite").speed_scale = 5
+            Global.Mario.get_node("Sprite").flip_h = true
         elif 'set_scene_path' in additional_options and additional_options['set_scene_path'] != '':
           get_tree().change_scene(additional_options['set_scene_path'])
           
