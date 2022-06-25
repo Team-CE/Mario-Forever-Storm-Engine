@@ -4,6 +4,7 @@ var speed_modifier: float = 0
 
 func _setup(b)-> void:
   ._setup(b)
+# warning-ignore:return_value_discarded
   owner.get_node(owner.vars['hitbox']).connect('area_entered',self,"_on_hitbox_enter")
 
 func _ai_process(delta: float) -> void:

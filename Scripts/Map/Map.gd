@@ -68,6 +68,7 @@ func _process(delta: float) -> void:
     $ParallaxBackground/ParallaxLayer/Transition.visible = false
     
   if circle_size <= -0.1:
+# warning-ignore:return_value_discarded
     get_tree().change_scene(level_scenes[Global.levelID])
 
 

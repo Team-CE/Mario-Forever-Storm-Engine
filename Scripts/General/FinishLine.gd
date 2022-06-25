@@ -66,6 +66,7 @@ func _process(delta) -> void:
 
     if counter > 400:
       if Global.time > 0:
+# warning-ignore:narrowing_conversion
         Global.time -= round(5 * Global.get_delta(delta))
         Global.add_score(round(50 * Global.get_delta(delta)))
         Global.emit_signal('TimeTick')
@@ -78,6 +79,7 @@ func _process(delta) -> void:
         if wait_counter < 0:
           Global.levelID = set_level_id
           Global.reset_audio_effects()
+# warning-ignore:return_value_discarded
           get_tree().change_scene(map_scene)
         
 func act() -> void:

@@ -41,9 +41,11 @@ func _process(delta):
   
   if Input.is_action_just_pressed('ui_accept'):
     if sel: # No
+# warning-ignore:return_value_discarded
       get_tree().change_scene(ProjectSettings.get_setting('application/config/main_menu_scene'))
       get_parent().resetandfree()
     else:   # Yes
+# warning-ignore:return_value_discarded
       get_tree().reload_current_scene()
       get_parent().resetandfree()
     if Global.musicBar == -100:

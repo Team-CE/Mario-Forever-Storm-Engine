@@ -90,7 +90,7 @@ func _process(delta) -> void:
       selLimit = 2
       
     1:
-      pos_y = 550 + (37.5 * sel)
+      pos_y = 534 + (37.5 * sel)
       $S_Start.position.x = 208
       selLimit = 9
       updateOptions()
@@ -173,8 +173,6 @@ func controls() -> void:
             saveOptions()
             if Global.restartNeeded:
               Global.restartNeeded = false
-# warning-ignore:return_value_discarded
-              get_tree().reload_current_scene()
       if Input.is_action_just_pressed('ui_right'):
         match sel:
           0:
@@ -203,6 +201,9 @@ func controls() -> void:
             if !Global.scaling:
               Global.scaling = true
               $change.play()
+              saveOptions()
+              yield(get_tree(), 'idle_frame')
+              updateControls()
               
       elif Input.is_action_just_pressed('ui_left'):
         match sel:
@@ -237,6 +238,7 @@ func controls() -> void:
             if Global.scaling:
               Global.scaling = false
               $change.play()
+              saveOptions()
       elif Input.is_action_just_pressed('ui_cancel'):
         screen = 0
         sel = 1
@@ -291,6 +293,7 @@ func updateOptions() -> void:
   $Buttons/Scroll.frame = Global.scroll
   $Buttons/Quality.frame = Global.quality
   $Buttons/Scaling.frame = Global.scaling
+  $Buttons/Restart.visible = Global.restartNeeded
 
 func updateControls() -> void:
   for i in CONTROLS_ARRAY:

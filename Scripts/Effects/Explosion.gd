@@ -10,6 +10,6 @@ func _init(pos: Vector2 = Vector2.ZERO):
   z_index = 1
   play('default')
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
   if frame == 3:
     queue_free()

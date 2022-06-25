@@ -27,6 +27,7 @@ func _process(_delta: float) -> void:
   if Global.debug:
     $DebugFlySprite.visible = Global.debug_fly
     $DebugInvisibleSprite.visible = Global.debug_inv
+# warning-ignore:narrowing_conversion
     straycount = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
     $DebugOrphaneNodes.visible = true if straycount > 0 else false
     $DebugOrphaneNodes.text = str(straycount)

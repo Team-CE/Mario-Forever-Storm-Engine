@@ -15,6 +15,7 @@ func _ready() -> void:
   velocity.x *= dir
   if Global.quality == 0 and get_node_or_null('Light2D'):
     $Light2D.queue_free()
+# warning-ignore:return_value_discarded
   vis.connect('screen_exited', self, '_on_screen_exited')
 
   add_child(vis)

@@ -241,7 +241,7 @@ func _process_alive(delta) -> void:
     reset_velocity += 1
   
   if old_velocity != Vector2.ZERO and velocity.y > 1:
-    one_tile_gap(old_velocity.x, true)
+    one_tile_gap(old_velocity.x)
     
   velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
   update_collisions()
@@ -651,27 +651,23 @@ func update_collisions() -> void:
   $SmallRightDetector/CollisionSmallRightBig.disabled = not (Global.state > 0 and not crouch)
   $SmallLeftDetector/CollisionSmallLeftBig.disabled = not (Global.state > 0 and not crouch)
 
-func one_tile_gap(vel: float, change_pos: bool = true) -> Vector2:
+func one_tile_gap(vel: float) -> void:
   if (velocity.x > 1 or velocity.x < -1) and (vel > 1 or vel < -1):
     var pos = Vector2.ZERO
     if (ray_L.is_colliding() and !ray_R.is_colliding()):
-      if ray_L.get_collision_point().y == round(position.y): return Vector2.ZERO
-      if ray_L_2.is_colliding(): return Vector2.ZERO
+      if ray_L.get_collision_point().y == round(position.y): return
+      if ray_L_2.is_colliding(): return
       pos.y = ray_L.get_collision_point().y
       pos.x = position.x - 0.1
     if (ray_R.is_colliding() and !ray_L.is_colliding()):
-      if ray_R.get_collision_point().y == round(position.y): return Vector2.ZERO
-      if ray_R_2.is_colliding(): return Vector2.ZERO
+      if ray_R.get_collision_point().y == round(position.y): return
+      if ray_R_2.is_colliding(): return
       pos.y = ray_R.get_collision_point().y
       pos.x = position.x + 0.1
     
     if pos != Vector2.ZERO:
-      if change_pos:
-        position = pos
-        velocity = Vector2(vel, 0)
-      else:
-        return pos
-  return Vector2.ZERO
+      position = pos
+      velocity = Vector2(vel, 0)
 
 func kill() -> void:
   dead = true

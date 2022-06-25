@@ -10,6 +10,9 @@ func _ready():
     $OptionButton.add_item(copy)
   if !Sounds.empty():
     $Test.stream = load(Sounds[0])
+  yield(Global.get_tree(), 'idle_frame')
+  AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, true)
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('CompositedSounds'), -8)
 
 func get_all_in_folder(path) -> Array:
   var dir = Directory.new()

@@ -44,6 +44,7 @@ func _process_mixin(mario, delta):
         mario.velocity.y = 250
       if mario.velocity.y < 0:
         mario.velocity.y -= 10 * Global.get_delta(delta)
+# warning-ignore:incompatible_ternary
       mario.get_node('Sprite').speed_scale = 2.5 if mario.velocity.y < 0 else 1
     else:
       mario.velocity.y = 950

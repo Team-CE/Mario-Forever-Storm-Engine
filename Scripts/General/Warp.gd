@@ -144,6 +144,7 @@ func _process(delta) -> void:
             Global.Mario.get_node("Sprite").speed_scale = 5
             Global.Mario.get_node("Sprite").flip_h = true
         elif 'set_scene_path' in additional_options and additional_options['set_scene_path'] != '':
+# warning-ignore:return_value_discarded
           get_tree().change_scene(additional_options['set_scene_path'])
           
       

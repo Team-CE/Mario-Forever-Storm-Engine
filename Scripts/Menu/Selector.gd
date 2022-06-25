@@ -4,9 +4,10 @@ var time
 
 func _ready() -> void:
   time = get_tree().create_timer(0)
+# warning-ignore:return_value_discarded
   connect('animation_finished', self, 'animends')
 
-func _process(delta):
+func _process(_delta):
   # Random Blinking
   if !playing && time.time_left <= 0.0:
     randomize()                                   # For full random

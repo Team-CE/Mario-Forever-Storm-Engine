@@ -115,12 +115,14 @@ func saveInfo(content):
   
   if scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "2d":
     ProjectSettings.set_setting("display/window/stretch/mode", "viewport")
+# warning-ignore:return_value_discarded
     ProjectSettings.save_custom("override.cfg")
     restartNeeded = true
     print('Need to restart')
     
   elif not scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "viewport":
     ProjectSettings.set_setting("display/window/stretch/mode", "2d")
+# warning-ignore:return_value_discarded
     ProjectSettings.save_custom("override.cfg")
     restartNeeded = true
     print('Need to restart')
@@ -136,11 +138,10 @@ func loadInfo():
 
 func _reset() -> void:   # Level Restart
   lives -= 1
-  if Mario:
-    Mario.dead = false
   projectiles_count = 0
   if is_instance_valid(Mario):
     Mario.invulnerable = false
+    Mario.dead = false
 # warning-ignore:return_value_discarded
   get_tree().reload_current_scene()
 
@@ -160,6 +161,7 @@ func _physics_process(delta: float) -> void:
       
   # Toggle fly mode
     if Input.is_action_just_pressed('debug_1'):
+      if !is_instance_valid(Mario): return
       if Mario.dead_gameover: return
       Mario.get_node('Sprite').modulate.a = 0.5 * (1 + int(debug_fly))
       debug_fly = !debug_fly
@@ -171,6 +173,7 @@ func _physics_process(delta: float) -> void:
       
   # Toggle invisible mode
     if Input.is_action_just_pressed('debug_2'):
+      if !is_instance_valid(Mario): return
       debug_inv = !debug_inv
       if debug_inv and debug_fly:
         debug_fly = false
@@ -184,6 +187,7 @@ func _physics_process(delta: float) -> void:
         print('[CE OUTPUT]: No stray nodes yet, we\'re fine!')
     
   if Input.is_action_just_pressed('debug_hud'):
+    if !is_instance_valid(HUD): return
     HUD.visible = !HUD.visible
       
 # Debug powerups
@@ -200,6 +204,7 @@ func _input(ev):
 # fix physics fps issues
 func _process(delta: float):
   var temp = round((1 / delta) / 60) * 60
+# warning-ignore:integer_division
   var temp2 = round(Engine.iterations_per_second / 60) * 60
   if temp > 0 and temp2 != temp:
     p_fps_switch += 1 * get_delta(delta)
@@ -246,7 +251,8 @@ func add_coins(coins: int) -> void:
   emit_signal('OnCoinCollected')
 
 func play_base_sound(sound: String) -> void:
-  Mario.get_node('BaseSounds').get_node(sound).play()
+  if is_instance_valid(Mario):
+    Mario.get_node('BaseSounds').get_node(sound).play()
   
 func reset_audio_effects() -> void:
   AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)

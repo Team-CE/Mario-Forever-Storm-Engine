@@ -45,10 +45,22 @@ func _ready():
       $WorldEnvironment.environment.glow_enabled = false
     if Global.quality < 2:
       $WorldEnvironment.environment.glow_high_quality = false
+      for node in get_children():
+        if node.is_class('Light2D') and node.shadow_enabled:
+          node.shadow_filter = 3
+          node.shadow_buffer_size = 1024
     if Global.quality == 0:
       #$WorldEnvironment.environment.glow_bicubic_upscale = false
-      if get_node_or_null('Particles2D'):
-        $Particles2D.queue_free()
+      for node in get_children():
+        if node.is_class('Particles2D'):
+          node.queue_free()
+        if 'Particles' in node.name:
+          for part in node.get_children():
+            if part.is_class('Particles2D'):
+              part.queue_free()
+        if node.is_class('Light2D') and node.shadow_enabled:
+          node.shadow_filter = 1
+          node.shadow_buffer_size = 512
     $Mario.invulnerable = false
     
     Global.reset_audio_effects()

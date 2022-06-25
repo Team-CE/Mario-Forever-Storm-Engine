@@ -192,7 +192,7 @@ func _physics_process(_delta) -> void:
     editor()
     return
 
-func _process_active(delta) -> void:
+func _process_active(_delta) -> void:
   if Engine.editor_hint:
     return
   if Visible != VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
@@ -214,7 +214,7 @@ func brick_break(idle_frame:bool = true) -> void:
     yield(get_tree(), 'idle_frame')
   queue_free()
 
-func hit(delta, ignore_powerup = false, idle_frame: bool = true) -> void:
+func hit(_delta, ignore_powerup = false, idle_frame: bool = true) -> void:
   if not active: return
   active = false
   if qtype == BLOCK_TYPE.COMMON:

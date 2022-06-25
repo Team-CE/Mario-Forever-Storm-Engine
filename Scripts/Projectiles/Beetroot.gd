@@ -18,6 +18,7 @@ enum BLOCK_TYPE {
 
 func _ready() -> void:
   velocity.x *= dir
+# warning-ignore:return_value_discarded
   vis.connect('screen_exited', self, '_on_screen_exited')
 
   add_child(vis)

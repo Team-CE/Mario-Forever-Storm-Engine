@@ -78,7 +78,7 @@ func _ai_process(delta: float) -> void:
     
   owner.position = initial_pos + offset_pos
   
-func _process_shooting(delta: float):
+func _process_shooting(_delta):
   if projectile_timer <= 0 and projectile_counter < owner.vars['projectile count'] and shooting:
     owner.sound.play()
     projectile_timer = owner.vars['shoot interval'] if 'shoot interval' in owner.vars else 10
