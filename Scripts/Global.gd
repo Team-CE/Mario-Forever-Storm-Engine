@@ -8,6 +8,7 @@ var scroll: int = 0
 var quality: int = 2
 var scaling: bool = false
 var controls: Dictionary
+var autopause: bool = true
 
 var toSaveInfo = {
   "SoundVol": soundBar,
@@ -16,7 +17,9 @@ var toSaveInfo = {
   "Scroll": scroll,
   "Quality": quality,
   "Scaling": scaling,
-  "Controls": controls
+  "Controls": controls,
+  "VSync": OS.vsync_enabled,
+  "Autopause": autopause
 }
 var restartNeeded: bool = false
 var saveFileExists: bool = false
@@ -41,7 +44,7 @@ var state: int = 0                           # Player powerup state
 
 var projectiles_count: int = 0               # Number of player's projectiles on screen
 
-var checkpoint_active: int = 0               # Self explanable
+var checkpoint_active: int = -1               # Self explanable
 var checkpoint_position: Vector2
 
 var debug: bool = true                       # Debug
@@ -82,6 +85,8 @@ func _ready() -> void:
   if toSaveInfo.has('Quality'): quality = toSaveInfo.Quality
   if toSaveInfo.has('Scaling'): scaling = toSaveInfo.Scaling
   if toSaveInfo.has('Controls'): controls = toSaveInfo.Controls
+  if toSaveInfo.has('VSync'): OS.vsync_enabled = toSaveInfo.VSync
+  if toSaveInfo.has('Autopause'): autopause = toSaveInfo.Autopause
   
   for action in controls: # Loading controls
     if controls[action] and controls[action] is String:

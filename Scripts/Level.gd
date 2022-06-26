@@ -3,6 +3,7 @@ class_name Level
 tool
 
 export var time: int = 360
+export var time_after_checkpoint: Array = []
 export var music: Resource
 export var death_height: float = 512
 export var no_cliff: bool = false
@@ -19,6 +20,7 @@ onready var mpStar = MusicPlayer.get_node('Star')
 
 const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
 var popup: CanvasLayer = null
+var popa: CanvasLayer = null
 
 func _ready():
   if !Engine.editor_hint:
@@ -116,7 +118,22 @@ func _input(event):
       $WorldEnvironment.environment.dof_blur_near_quality = 2
       $WorldEnvironment.environment.dof_blur_near_enabled = true
       get_tree().paused = true
-      
+
+func _notification(what):
+  if Engine.editor_hint: return
+  if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+    if popup == null:
+      popup = pause_menu.instance()
+      print('creating pause')
+      for node in popup.get_children():
+        if node.get_class() == 'Node' and not node.get_name() == 'Pause':
+          node.queue_free()
+      call_deferred('add_child', popup)
+
+      $WorldEnvironment.environment.dof_blur_near_quality = 2
+      $WorldEnvironment.environment.dof_blur_near_enabled = true
+      get_tree().paused = true
+
 func activate_event(name: String, args: Array):
   if custom_scripts[name]:
     var inited_script = custom_scripts[name].new()

@@ -54,7 +54,7 @@ func _ready() -> void:
   if not Engine.editor_hint:
     $Sprite.visible = false
   
-  if not Engine.editor_hint and immediate and Global.checkpoint_active == 0:
+  if not Engine.editor_hint and immediate and Global.checkpoint_active == -1:
     active = true
     out_node = self
     counter = 61

@@ -204,6 +204,10 @@ func controls() -> void:
               saveOptions()
               yield(get_tree(), 'idle_frame')
               updateControls()
+          7:
+            if !OS.vsync_enabled:
+              OS.vsync_enabled = true
+              $change.play()
               
       elif Input.is_action_just_pressed('ui_left'):
         match sel:
@@ -239,6 +243,10 @@ func controls() -> void:
               Global.scaling = false
               $change.play()
               saveOptions()
+          7:
+            if OS.vsync_enabled:
+              OS.vsync_enabled = false
+              $change.play()
       elif Input.is_action_just_pressed('ui_cancel'):
         screen = 0
         sel = 1
@@ -294,6 +302,7 @@ func updateOptions() -> void:
   $Buttons/Quality.frame = Global.quality
   $Buttons/Scaling.frame = Global.scaling
   $Buttons/Restart.visible = Global.restartNeeded
+  $Buttons/VSync.frame = OS.vsync_enabled
 
 func updateControls() -> void:
   for i in CONTROLS_ARRAY:
@@ -313,7 +322,9 @@ func saveOptions() -> void:
     'Scroll': Global.scroll,
     'Quality': Global.quality,
     'Scaling': Global.scaling,
-    'Controls': Global.controls
+    'Controls': Global.controls,
+    'VSync': OS.vsync_enabled,
+    'Autopause': Global.autopause
   }
   Global.saveInfo(JSON.print(Global.toSaveInfo))
 

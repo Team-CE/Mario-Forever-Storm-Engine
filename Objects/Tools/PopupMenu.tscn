@@ -162,6 +162,8 @@ modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 448, 336 )
 frames = SubResource( 15 )
 
+[node name="Node2D" type="Node2D" parent="."]
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 z_index = 4
 

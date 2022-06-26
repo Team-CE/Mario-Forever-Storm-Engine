@@ -1,6 +1,7 @@
 extends Brain
 
 var counter: float = 0
+var counter_t: float = 0
 var move_multiplier: int = 1
 var throw_activated: bool = false
 var inv_counter: float = 0
@@ -38,7 +39,11 @@ func _ai_process(delta: float) -> void:
     move_multiplier = round(rand_range(-4, 14) / 10)
     if rand_range(1, 14) > 13 and owner.is_on_floor():
       owner.velocity.y = -400
-      
+  
+  if counter_t < 30:
+    counter_t += 1 * Global.get_delta(delta)
+  else:
+    counter_t = 0
     var throw_was_activated: bool = false
       
     if throw_activated:
@@ -48,7 +53,7 @@ func _ai_process(delta: float) -> void:
       throw_activated = false
       inited_throwable.throw(self)
       
-    if rand_range(1, 14) > 9 and !throw_was_activated:
+    if rand_range(1, 18) > 9 and !throw_was_activated:
       throw_activated = true
       owner.animated_sprite.animation = 'holding'
       

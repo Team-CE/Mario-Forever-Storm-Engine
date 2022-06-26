@@ -88,7 +88,7 @@ func act() -> void:
   #MusicEngine.play_music('res://Music/1-music-complete-level.it')
   MusicPlayer.get_node('Main').stream = win_music
   MusicPlayer.get_node('Main').play()
-  Global.checkpoint_active = 0
+  Global.checkpoint_active = -1
   Global.Mario.controls_enabled = false
   Global.Mario.invulnerable = true
   counter = 0

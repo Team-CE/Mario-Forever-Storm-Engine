@@ -11,26 +11,27 @@ onready var firstpos = position.y
 func _process(delta) -> void:
   if not appearing: return
 
-  position.y -= 2 * Global.get_delta(delta)             # Движение
-  if position.y <= firstpos - 32:                       # Создаем лозу под пираньей
-    var vineindex = floor((firstpos - position.y) / 32) # Чтоб не было щелей между лозы при лагах
+  position.y -= 2 * Global.get_delta(delta)             # Movement
+  if position.y <= firstpos - 32:                       # Creating vine under piranha head
+    var vineindex = floor((firstpos - position.y) / 32) # To avoid holes between vines on lag
     if not array.has(vineindex):
-      array.append(vineindex)                           # Чтоб не создавалось несколько в одной точке
+      array.append(vineindex)                           # To avoid multiple in one point
       var inst = vine.instance()
-      add_child(inst)                                   # Добавляем прям в нее, чтобы следовало за пираньей
+      add_child(inst)                                   # Adding right into the head so it follows
       sync_anim()
-      inst.position.y = vineindex * 32                  # Ставим под бонусом
+      inst.position.y = vineindex * 32                  # Creating under bonus block
     
 func _physics_process(_delta) -> void:
   if not appearing: return
   if position.y >= firstpos - 32: return
   
-  # Удаление
+  # Deletion
   if $RayCast2D.is_colliding() and ($RayCast2D.get_collider() is TileMap or $RayCast2D.get_collider().is_in_group('Solid')):
     var inst = vine.instance()
     add_child(inst)
     $AnimatedSprite.queue_free()
     appearing = false
+    array = []
     sync_anim()
 
 func sync_anim() -> void:

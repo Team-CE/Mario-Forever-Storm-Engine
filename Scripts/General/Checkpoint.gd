@@ -2,7 +2,7 @@ extends Area2D
 
 
 var active: bool = false
-export var id: int = 1
+export var id: int = 0
 
 var counter: float = 0
 
@@ -13,6 +13,14 @@ func _ready() -> void:
     active = true
     $AnimatedSprite.animation = 'active'
     Global.Mario.position = position
+    var level = Global.Mario.get_parent()
+    if (
+      'time_after_checkpoint' in level
+      and level.time_after_checkpoint.size() > 0
+      and level.time_after_checkpoint[id] > 0
+    ):
+      yield(get_tree(), 'idle_frame')
+      Global.time = Global.Mario.get_parent().time_after_checkpoint[id]
 
 func _process(delta: float) -> void:
   rng.randi_range(0, 1)

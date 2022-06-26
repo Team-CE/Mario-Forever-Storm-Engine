@@ -118,6 +118,6 @@ func resetandfree() -> void:
   Global.state = 0
   Global.deaths = 0
   Global.projectiles_count = 0
-  Global.checkpoint_active = 0
+  Global.checkpoint_active = -1
   Global.Mario.invulnerable = false
   queue_free()
