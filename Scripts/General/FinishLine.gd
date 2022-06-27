@@ -1,4 +1,5 @@
 extends Node2D
+class_name FinishProcess
 
 export var set_level_id: int = 0
 export var map_scene: String = ''
@@ -9,11 +10,15 @@ var initial_position: float
 var counter: float = 0
 
 var crossed: bool = false
+var warp_finish: bool = false
 
 var bar_enabled: bool = false
 var bar_accel: float = -6
 
 var wait_counter: float = 30
+
+func _init():
+  win_music.loop = false
 
 func _ready() -> void:
   initial_position = $CrossingBar.position.y
@@ -55,40 +60,45 @@ func _process(delta) -> void:
         get_parent().add_child(score_text)
       act()
   else:
-    counter += 1 * Global.get_delta(delta)
-    Global.Mario.velocity.x = 150
+    finish_process(delta)
+    if not warp_finish:
+      Global.Mario.velocity.x = 150
 
-    if bar_enabled:
-      $CrossingBar.position.x -= 3 * Global.get_delta(delta)
-      $CrossingBar.position.y += bar_accel * Global.get_delta(delta)
-      bar_accel += 0.2 * Global.get_delta(delta)
-      $CrossingBar.rotation_degrees += 17 * Global.get_delta(delta)
-
-    if counter > 400:
-      if Global.time > 0:
-# warning-ignore:narrowing_conversion
-        Global.time -= round(5 * Global.get_delta(delta))
-        Global.add_score(round(50 * Global.get_delta(delta)))
-        Global.emit_signal('TimeTick')
-        if not Global.HUD.get_node('ScoreSound').playing:
-          Global.HUD.get_node('ScoreSound').play()
-      elif Global.time <= 0:
-        Global.time = 0
-        Global.emit_signal('TimeTick')
-        wait_counter -= 1 * Global.get_delta(delta)
-        if wait_counter < 0:
-          Global.levelID = set_level_id
-          Global.reset_audio_effects()
-# warning-ignore:return_value_discarded
-          get_tree().change_scene(map_scene)
+      if bar_enabled:
+        $CrossingBar.position.x -= 3 * Global.get_delta(delta)
+        $CrossingBar.position.y += bar_accel * Global.get_delta(delta)
+        bar_accel += 0.2 * Global.get_delta(delta)
+        $CrossingBar.rotation_degrees += 17 * Global.get_delta(delta)
         
-func act() -> void:
+func finish_process(delta):
+  counter += 1 * Global.get_delta(delta)
+  if counter > 400:
+    if Global.time > 0:
+# warning-ignore:narrowing_conversion
+      Global.time -= round(5 * Global.get_delta(delta))
+      Global.add_score(round(50 * Global.get_delta(delta)))
+      Global.emit_signal('TimeTick')
+      if not Global.HUD.get_node('ScoreSound').playing:
+        Global.HUD.get_node('ScoreSound').play()
+    elif Global.time <= 0:
+      Global.time = 0
+      Global.emit_signal('TimeTick')
+      wait_counter -= 1 * Global.get_delta(delta)
+      if wait_counter < 0:
+        Global.levelID = set_level_id
+        Global.reset_audio_effects()
+        Global.Mario.visible = true
+# warning-ignore:return_value_discarded
+        get_tree().change_scene(map_scene)
+  
+func act(warp_finish_enabled: bool = false) -> void:
   Global.level_ended = true
   crossed = true
-  #MusicEngine.play_music('res://Music/1-music-complete-level.it')
   MusicPlayer.get_node('Main').stream = win_music
   MusicPlayer.get_node('Main').play()
+  MusicPlayer.get_node('Star').stop()
   Global.checkpoint_active = -1
   Global.Mario.controls_enabled = false
   Global.Mario.invulnerable = true
   counter = 0
+  warp_finish = warp_finish_enabled

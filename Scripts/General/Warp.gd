@@ -18,6 +18,7 @@ export var id: int = 0
 export(DIRS) var direction: int = DIRS.DOWN
 export(TYPES) var type: int = TYPES.IN
 export var immediate: bool = false
+export var trigger_finish: bool = false
 export var additional_options: Dictionary = { 'set_scene_path': '' }
 
 var in_icon: StreamTexture = preload('res://GFX/Editor/WarpIcon.png')
@@ -37,7 +38,8 @@ var calc_pos: Vector2
 var warp_dir: Vector2 = Vector2.ZERO
 
 var out_node
-
+var finishline = null
+var why = false
 
 func _ready() -> void:
   var nodes = get_tree().get_nodes_in_group('Warp')
@@ -46,20 +48,27 @@ func _ready() -> void:
     if node.id == id and node.type == TYPES.OUT and 'generic_warp' in node:
       out_node = node
       
-  disabled = not out_node and (not 'set_scene_path' in additional_options or additional_options['set_scene_path'] == '')
+  disabled = not out_node and (not 'set_scene_path' in additional_options or additional_options['set_scene_path'] == '') and not trigger_finish
   
   if disabled:
-    printerr('[CE ERROR] No out warp assigned for id ' + str(id) + ', it will not be functional. Create an out warp or set an additional option.')
+    printerr('[CE ERROR] No out warp assigned for ID ' + str(id) + ', it will not be functional. Create an out warp or set an additional option.')
     
   if not Engine.editor_hint:
     $Sprite.visible = false
   
-  if not Engine.editor_hint and immediate and Global.checkpoint_active == -1:
-    active = true
-    out_node = self
-    counter = 61
-    if Global.state > 0:
-      Global.Mario.animate_sprite('Crouching')
+    if immediate and Global.checkpoint_active == -1:
+      active = true
+      out_node = self
+      counter = 61
+      if Global.state > 0:
+        Global.Mario.animate_sprite('Crouching')
+      
+    if trigger_finish:
+      if !is_instance_valid(Global.Mario.get_parent().get_node_or_null('FinishLine')):
+        printerr('[CE ERROR] No Finish Line found on level. Create one or untick the checkbox for warp ID ' + str(id))
+        trigger_finish = false
+      else:
+        finishline = Global.Mario.get_parent().get_node_or_null('FinishLine')
 
 func _process(delta) -> void:
   if Engine.editor_hint:
@@ -71,7 +80,7 @@ func _process(delta) -> void:
   else:
     if disabled: return
     # Warp Enter
-    if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has(self) and not active and type == TYPES.IN:
+    if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has(self) and not active and type == TYPES.IN and (not trigger_finish or (trigger_finish and counter < 60)):
       if direction == DIRS.DOWN and Input.is_action_pressed('mario_crouch'):
         calc_pos = Vector2(position.x, position.y - 16)
         active = true
@@ -92,7 +101,7 @@ func _process(delta) -> void:
         Global.play_base_sound('MAIN_Pipe')
         Global.Mario.animate_sprite('Walking')
         Global.Mario.get_node("Sprite").speed_scale = 5
-        Global.Mario.get_node("Sprite").flip_h = true
+        Global.Mario.get_node("Sprite").flip_h = false
         warp_dir = Vector2(1, 0)
       elif direction == DIRS.LEFT and Input.is_action_pressed('mario_left'):
         calc_pos = Vector2(position.x + 16, position.y + 16)
@@ -101,7 +110,7 @@ func _process(delta) -> void:
         Global.play_base_sound('MAIN_Pipe')
         Global.Mario.animate_sprite('Walking')
         Global.Mario.get_node("Sprite").speed_scale = 5
-        Global.Mario.get_node("Sprite").flip_h = false
+        Global.Mario.get_node("Sprite").flip_h = true
         warp_dir = Vector2(-1, 0)
     
     if active:
@@ -146,9 +155,13 @@ func _process(delta) -> void:
         elif 'set_scene_path' in additional_options and additional_options['set_scene_path'] != '':
 # warning-ignore:return_value_discarded
           get_tree().change_scene(additional_options['set_scene_path'])
-          
+        elif trigger_finish:
+          if !why:
+            finishline.act(true)
+            Global.Mario.visible = false
+            why = true
       
-      if counter >= 120 and Global.Mario.get_slide_count() == 0:
+      if counter >= 120 and Global.Mario.get_slide_count() == 0 and not trigger_finish:
         Global.Mario.get_node('Sprite').z_index = 10
         state_switched = false
         counter = 0

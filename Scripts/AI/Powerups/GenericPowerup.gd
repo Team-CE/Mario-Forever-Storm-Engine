@@ -33,6 +33,10 @@ func _ready_mixin():
   for node in range(len(children)):
     if children[node] is KinematicBody2D:
       owner.add_collision_exception_with(children[node])
+      Global.Mario.ray_L.add_exception(owner)
+      Global.Mario.ray_L_2.add_exception(owner)
+      Global.Mario.ray_R.add_exception(owner)
+      Global.Mario.ray_R_2.add_exception(owner)
   
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)

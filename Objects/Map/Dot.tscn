@@ -5,5 +5,4 @@
 
 [node name="Dot" type="AnimatedSprite"]
 frames = ExtResource( 2 )
-playing = true
 script = ExtResource( 1 )

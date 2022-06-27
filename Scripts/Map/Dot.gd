@@ -5,6 +5,7 @@ var proc: bool = false
 
 func _ready():
   visible = false
+  playing = true
 
 func _process(_delta: float) -> void:
   if !proc:
