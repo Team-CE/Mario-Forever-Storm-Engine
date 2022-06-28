@@ -1,5 +1,4 @@
 extends Node2D
-class_name FinishProcess
 
 export var set_level_id: int = 0
 export var map_scene: String = ''

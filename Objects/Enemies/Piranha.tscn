@@ -51,6 +51,7 @@ disabled = true
 position = Vector2( 0, -32 )
 z_index = -1
 frames = ExtResource( 2 )
+frame = 1
 playing = true
 
 [node name="Placeholder1" type="AnimatedSprite" parent="."]

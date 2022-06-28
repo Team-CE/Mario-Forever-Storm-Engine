@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Lava_2.png-c3d287e7bba5f0fbec969e5f7a2095f2.stex"
+path="res://.import/CannonBase3.png-bd36bb7a4150c908574f2b0ab3ad32fa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Liquids/Lava_2.png"
-dest_files=[ "res://.import/Lava_2.png-c3d287e7bba5f0fbec969e5f7a2095f2.stex" ]
+source_file="res://GFX/Tilesets/CannonBase3.png"
+dest_files=[ "res://.import/CannonBase3.png-bd36bb7a4150c908574f2b0ab3ad32fa.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
