@@ -87,6 +87,7 @@ func finish_process(delta):
         Global.levelID = set_level_id
         Global.reset_audio_effects()
         Global.Mario.visible = true
+        Global.deaths = 0
 # warning-ignore:return_value_discarded
         get_tree().change_scene(map_scene)
   

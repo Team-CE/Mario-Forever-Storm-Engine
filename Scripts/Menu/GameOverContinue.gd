@@ -42,12 +42,14 @@ func _process(delta):
   if Input.is_action_just_pressed('ui_accept'):
     if sel: # No
 # warning-ignore:return_value_discarded
+      Global.reset_all_values()
       get_tree().change_scene(ProjectSettings.get_setting('application/config/main_menu_scene'))
-      get_parent().resetandfree()
+      get_parent().queue_free()
     else:   # Yes
 # warning-ignore:return_value_discarded
+      Global.reset_all_values()
       get_tree().reload_current_scene()
-      get_parent().resetandfree()
+      get_parent().queue_free()
     if Global.musicBar == -100:
       AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
 # warning-ignore:return_value_discarded

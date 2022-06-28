@@ -54,7 +54,8 @@ func _process(delta):
           if error: printerr('[CE ERROR]: Could not load SGR scene')
           MusicPlayer.get_node('Main').stop()
           MusicPlayer.get_node('Star').stop()
-          get_parent().resetandfree()
+          Global.reset_all_values()
+          get_parent().queue_free()
         2:
           scene = ProjectSettings.get_setting('application/config/main_menu_scene')
           AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
@@ -62,7 +63,8 @@ func _process(delta):
           if error: printerr('[CE ERROR]: Could not load Main Menu scene')
           MusicPlayer.get_node('Main').stop()
           MusicPlayer.get_node('Star').stop()
-          get_parent().resetandfree()
+          Global.reset_all_values()
+          get_parent().queue_free()
         3:
           get_tree().quit()
           get_parent().queue_free()

@@ -54,6 +54,9 @@ var initial_position: Vector2
 # TODO #1 Make nodes visible in editor node tree @reflexguru
 func _ready():
   initial_position = position
+  if !Engine.editor_hint and Visible == VISIBILITY_TYPE.INVIS_ONCE and Global.deaths > 0:
+    print('a')
+    queue_free()
 
   # If alrady loaded
   if get_node_or_null('Body') != null:

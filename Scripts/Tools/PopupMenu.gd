@@ -110,14 +110,3 @@ func resume() -> void:
   
   get_parent().popup = null
   queue_free()
-  
-func resetandfree() -> void:
-  Global.lives = 4
-  Global.score = 0
-  Global.coins = 0
-  Global.state = 0
-  Global.deaths = 0
-  Global.projectiles_count = 0
-  Global.checkpoint_active = -1
-  Global.Mario.invulnerable = false
-  queue_free()

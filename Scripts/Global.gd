@@ -258,6 +258,17 @@ func add_coins(coins: int) -> void:
 func play_base_sound(sound: String) -> void:
   if is_instance_valid(Mario):
     Mario.get_node('BaseSounds').get_node(sound).play()
+
+func reset_all_values(reset_state: bool = true) -> void:
+  lives = 4
+  score = 0
+  coins = 0
+  deaths = 0
+  projectiles_count = 0
+  checkpoint_active = -1
+  if reset_state: state = 0
+  if is_instance_valid(Mario):
+    Mario.invulnerable = false
   
 func reset_audio_effects() -> void:
   AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
@@ -281,6 +292,7 @@ func _ppd() -> void: # Player Powerdown
 func _pll() -> void: # Player Death
   if Mario.dead or debug_inv or debug_fly or Mario.invulnerable:
     return
+  Global.deaths += 1
   emit_signal('OnPlayerLoseLife')
   if not Mario.custom_die_stream:
     MusicPlayer.get_node('Main').volume_db = 0
