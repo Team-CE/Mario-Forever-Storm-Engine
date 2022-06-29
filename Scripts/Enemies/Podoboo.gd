@@ -22,10 +22,10 @@ func _process(delta):
   #if Engine.editor_hint: return
   counter += 1 * Global.get_delta(delta)
   if active:
-    position += velocity.rotated(rotation) # start y = -12.8
+    position += velocity.rotated(rotation) * Global.get_vector_delta(delta) # start y = -12.8
     velocity += Vector2(0, 0.2) * Global.get_delta(delta)
     $AnimatedSprite.flip_v = velocity.y > 0.2
-    if velocity.y > 0.2 and position >= firstpos:
+    if velocity.y > 0.2 and position.rotated(rotation).y >= firstpos.rotated(rotation).y:
       active = false
       #var splash = LavaEffect.new(position - Vector2(0, 32).rotated(rotation), rotation)
       #var splash = Explosion.new(position - Vector2(0, 32).rotated(rotation))
