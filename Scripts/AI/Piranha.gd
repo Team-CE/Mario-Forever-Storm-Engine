@@ -64,13 +64,13 @@ func _ai_process(delta: float) -> void:
   if piranha_counter < 64:
     offset_pos += Vector2(0, -1).rotated(owner.rotation) * Global.get_delta(delta)
     
-  if piranha_counter > 64 and piranha_counter < 66:
+  if piranha_counter >= 64 and piranha_counter <= 66:
     shooting = true
   
   if owner.vars['type'] > 0:
     _process_shooting(delta)
   
-  if piranha_counter >= 130 and piranha_counter < 194:
+  if piranha_counter >= 130 and piranha_counter < 193:
     offset_pos += Vector2(0, 1).rotated(owner.rotation) * Global.get_delta(delta)
   
   if piranha_counter >= 260 and (Global.Mario.position.x < owner.position.x - 80 or Global.Mario.position.x > owner.position.x + 80):
