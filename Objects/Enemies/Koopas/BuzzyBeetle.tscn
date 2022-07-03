@@ -1,0 +1,156 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Scripts/AI/BuzzyBeetle.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=2]
+[ext_resource path="res://GFX/Enemies/buzzybeetle.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=7]
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=8]
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=21]
+animations = [ {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"loop": true,
+"name": "shell moving",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 20 ) ],
+"loop": true,
+"name": "shell stopped",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15, 15.5 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 15, 15.5 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 14, 2 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 23, 14 )
+
+[node name="BuzzyBeetle" type="KinematicBody2D" groups=["Enemy"]]
+script = ExtResource( 2 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false,
+"upside down": false,
+"upside down shell speed": 175.0
+}
+AI = ExtResource( 1 )
+invincible = true
+can_freeze = true
+sound_pth = NodePath("Stomp")
+alt_sound_pth = NodePath("Kick")
+animated_sprite_pth = NodePath("Sprite")
+frozen_sprite_pth = NodePath("IceSprite")
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 2 )
+frames = SubResource( 21 )
+frame = 1
+playing = true
+offset = Vector2( 0, -16 )
+flip_h = true
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -15.5 )
+shape = SubResource( 1 )
+
+[node name="Collision2" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -15.5 )
+shape = SubResource( 12 )
+disabled = true
+
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+bus = "Sounds"
+
+[node name="Stomp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+bus = "Sounds"
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+position = Vector2( -2.38419e-07, -16 )
+scale = Vector2( 1.6, 1.6 )
+process_parent = true
+physics_process_parent = true
+
+[node name="KillDetector" type="Area2D" parent="."]
+visible = false
+
+[node name="Collision" type="CollisionShape2D" parent="KillDetector"]
+position = Vector2( 0, 4 )
+shape = SubResource( 11 )
+
+[node name="KillZone" type="Area2D" parent="."]
+visible = false
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+position = Vector2( 0, -16 )
+shape = SubResource( 10 )
+disabled = true
+
+[node name="IceSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -16 )
+frames = ExtResource( 8 )
+animation = "small"

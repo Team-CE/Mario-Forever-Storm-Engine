@@ -25,7 +25,7 @@ func _process(delta) -> void:
     if counter >= radius:
       counter = 0
       if dir == true: $Sprite/Node2D/AnimatedSprite.position.y = 0
-      dir = true if dir == false else false
+      dir = !dir
     
     $Sprite/Node2D/AnimatedSprite.position.y += (flower_speed if dir else 0 - flower_speed) * get_delta(delta)
   
