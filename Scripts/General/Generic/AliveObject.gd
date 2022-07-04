@@ -23,6 +23,7 @@ export var score: int           = 100
 export var smart_turn: bool
 export var invincible: bool
 export var invincible_for_projectiles: Array = []
+export var invincible_for_shells: bool = false
 export(float,-1,1) var dir: float = -1
 export var can_freeze: bool = false
 export var frozen: bool = false
@@ -151,8 +152,10 @@ func on_edge() -> bool:
   return (ray_L.is_colliding() && !ray_R.is_colliding()) || (ray_R.is_colliding() && !ray_L.is_colliding())
 
 # warning-ignore:shadowed_variable
-func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = null) -> void:
-  if invincible:
+func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = null, is_shell: bool = false) -> void:
+  if invincible and !is_shell:
+    return
+  if invincible_for_shells and is_shell:
     return
   if projectile: 
     for proj_exception in invincible_for_projectiles:

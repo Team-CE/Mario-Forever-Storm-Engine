@@ -38,7 +38,11 @@ func _ai_process(delta: float) -> void:
   for b in owner.get_node(owner.vars['kill zone']).get_overlapping_bodies():
     if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
       if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
-        b.kill(AliveObject.DEATH_TYPE.FALL, score_mp)
+        if 'is shell' in b.vars and 'stopped' in b.vars and !b.vars['stopped'] and b.vars['is shell']:
+          owner.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
+          b.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
+          return
+        b.kill(AliveObject.DEATH_TYPE.FALL, score_mp, null, null, true)
         if score_mp < 6:
           score_mp += 1
         else:
@@ -94,10 +98,18 @@ func to_stopped_shell() -> void:
   score_mp = 0
   owner.vars['stopped'] = true
   owner.animated_sprite.animation = 'shell stopped'
+  if 'visibility_enabler' in owner.vars:
+    owner.get_node(owner.vars['visibility_enabler']).rect = Rect2( -16, -32, 32, 32 )
+  else:
+    print('ERROR: could not find visibility_enabler for ' + owner.name)
   if !owner.death_signal_exception: owner.emit_signal('enemy_died')
 
 func to_moving_shell() -> void:
   owner.vars['is shell'] = true
   owner.vars['stopped'] = false
   owner.animated_sprite.animation = 'shell moving'
+  if 'visibility_enabler' in owner.vars:
+    owner.get_node(owner.vars['visibility_enabler']).rect = Rect2( -480, -192, 960, 320 )
+  else:
+    print('ERROR: could not find visibility_enabler for ' + owner.name)
   shell_counter = 0

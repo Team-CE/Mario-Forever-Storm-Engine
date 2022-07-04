@@ -66,8 +66,7 @@ bus = "Sounds"
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-position = Vector2( -9.53674e-07, -8 )
-scale = Vector2( 4.8, 5.6 )
+rect = Rect2( -48, -64, 96, 128 )
 process_parent = true
 physics_process_parent = true
 

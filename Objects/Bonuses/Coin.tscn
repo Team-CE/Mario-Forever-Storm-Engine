@@ -38,8 +38,7 @@ script = ExtResource( 2 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-position = Vector2( 0, 2.38419e-07 )
-scale = Vector2( 1, 1.6 )
+rect = Rect2( -10, -16, 20, 32 )
 pause_animated_sprites = false
 process_parent = true
 physics_process_parent = true
@@ -49,7 +48,6 @@ occluder = SubResource( 7 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

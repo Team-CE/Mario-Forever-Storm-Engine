@@ -10,20 +10,20 @@
 [ext_resource path="res://Sounds/Enemies/throw.wav" type="AudioStream" id=8]
 [ext_resource path="res://Scripts/AI/ThrowFunctions/Chainsaw.gd" type="Script" id=9]
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 48, 64 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 6 )
-region = Rect2( 48, 0, 48, 64 )
-
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 48, 64 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 6 )
 region = Rect2( 48, 0, 48, 64 )
 
 [sub_resource type="SpriteFrames" id=11]
@@ -33,9 +33,9 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"frames": [  ],
 "loop": true,
-"name": "holding",
+"name": "dead",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
@@ -48,9 +48,9 @@ animations = [ {
 "name": "walk",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
-"name": "dead",
+"name": "holding",
 "speed": 5.0
 } ]
 
@@ -103,8 +103,7 @@ bus = "Sounds"
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
 show_behind_parent = true
-position = Vector2( -2.38419e-07, -16 )
-scale = Vector2( 1.6, 1.6 )
+rect = Rect2( -16, -48, 32, 48 )
 process_parent = true
 physics_process_parent = true
 

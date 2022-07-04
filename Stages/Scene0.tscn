@@ -139,7 +139,8 @@ vars = {
 "speed": 50.0,
 "stopped": false,
 "upside down": false,
-"upside down shell speed": 175.0
+"upside down shell speed": 175.0,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
 }
 
 [node name="BuzzyBeetle2" parent="." instance=ExtResource( 7 )]
@@ -152,11 +153,12 @@ vars = {
 "speed": 50.0,
 "stopped": false,
 "upside down": true,
-"upside down shell speed": 175.0
+"upside down shell speed": 175.0,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
 }
 
 [node name="BuzzyBeetle3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1296, 96 )
+position = Vector2( 1264, 96 )
 vars = {
 "bounce": 9.0,
 "is shell": false,
@@ -165,7 +167,22 @@ vars = {
 "speed": 50.0,
 "stopped": false,
 "upside down": true,
-"upside down shell speed": 175.0
+"upside down shell speed": 175.0,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
+}
+
+[node name="BuzzyBeetle4" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1024, 96 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false,
+"upside down": true,
+"upside down shell speed": 175.0,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
 }
 
 [editable path="Water"]

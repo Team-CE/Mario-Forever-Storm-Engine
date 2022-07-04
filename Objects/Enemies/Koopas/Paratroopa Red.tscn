@@ -59,8 +59,7 @@ frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-position = Vector2( -2.38419e-07, -16 )
-scale = Vector2( 1.6, 1.6 )
+rect = Rect2( -80, -48, 160, 48 )
 process_parent = true
 physics_process_parent = true
 
@@ -78,6 +77,7 @@ disabled = true
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 frames = SubResource( 4 )
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true

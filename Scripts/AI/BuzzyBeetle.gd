@@ -16,16 +16,19 @@ func _setup(b)-> void:
   # Upside-down behaviour
   if owner.vars['upside down']:
     owner.animated_sprite.flip_v = true
+    owner.animated_sprite.position.y -= 4
     owner.gravity_scale = !owner.gravity_scale
 
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)
+  # owner.get_node(owner.vars['visibility_enabler'])
   
   if !owner.is_on_floor():
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
   if !owner.alive:
     owner.get_node(owner.vars['kill zone']).get_child(0).disabled = true
+    owner.animated_sprite.flip_v = false
     return
   
   if !owner.frozen:
@@ -44,7 +47,11 @@ func _ai_process(delta: float) -> void:
   for b in owner.get_node(owner.vars['kill zone']).get_overlapping_bodies():
     if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
       if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
-        b.kill(AliveObject.DEATH_TYPE.FALL, score_mp)
+        if 'is shell' in b.vars and 'stopped' in b.vars and !b.vars['stopped'] and b.vars['is shell']:
+          owner.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
+          b.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
+          return
+        b.kill(AliveObject.DEATH_TYPE.FALL, score_mp, null, null, true)
         if score_mp < 6:
           score_mp += 1
         else:
@@ -74,6 +81,7 @@ func _ai_process(delta: float) -> void:
       
     if upside_down_state == 1 and owner.is_on_floor():
       upside_down_state = 2
+      owner.animated_sprite.position.y += 4
       owner.dir = 1 if Global.Mario.position.x > owner.position.x else -1
       owner.animated_sprite.speed_scale = 0.75
       owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
@@ -126,12 +134,18 @@ func to_stopped_shell() -> void:
   score_mp = 0
   owner.vars['stopped'] = true
   owner.animated_sprite.animation = 'shell stopped'
+  owner.get_node(owner.vars['visibility_enabler']).rect = Rect2( -16, -32, 32, 32 )
   if !owner.death_signal_exception: owner.emit_signal('enemy_died')
 
 func to_moving_shell(reset_counter: bool = true) -> void:
   owner.vars['is shell'] = true
   owner.vars['stopped'] = false
   owner.animated_sprite.animation = 'shell moving'
+  if 'visibility_enabler' in owner.vars:
+    owner.get_node(owner.vars['visibility_enabler']).rect = Rect2( -480, -192, 960, 320 )
+  else:
+    print('ERROR: could not find visibility_enabler for ' + owner.name)
+  
   if reset_counter:
     shell_counter = 0
     owner.animated_sprite.speed_scale = 1

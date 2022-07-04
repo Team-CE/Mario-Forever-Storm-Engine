@@ -65,8 +65,7 @@ bus = "Sounds"
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
 show_behind_parent = true
-position = Vector2( -2.38419e-07, -24 )
-scale = Vector2( 1.6, 2.4 )
+rect = Rect2( -16, -48, 32, 48 )
 
 [node name="IceSprite" type="AnimatedSprite" parent="."]
 visible = false

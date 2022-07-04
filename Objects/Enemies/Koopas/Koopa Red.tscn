@@ -23,7 +23,8 @@ vars = {
 "kill zone": NodePath("KillZone"),
 "shell speed": 250.0,
 "speed": 50.0,
-"stopped": false
+"stopped": false,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
 }
 AI = ExtResource( 2 )
 smart_turn = true
@@ -35,8 +36,7 @@ animated_sprite_pth = NodePath("Sprite")
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-position = Vector2( -2.38419e-07, -16 )
-scale = Vector2( 1.6, 1.6 )
+rect = Rect2( -16, -48, 32, 48 )
 process_parent = true
 physics_process_parent = true
 

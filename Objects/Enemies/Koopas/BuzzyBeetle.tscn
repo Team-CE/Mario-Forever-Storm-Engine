@@ -15,6 +15,10 @@ region = Rect2( 0, 0, 32, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 32, 0, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 3 )
 region = Rect2( 192, 0, 32, 32 )
@@ -35,10 +39,6 @@ region = Rect2( 128, 0, 32, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 160, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 3 )
-region = Rect2( 64, 0, 32, 32 )
-
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
 "frames": [ SubResource( 13 ), SubResource( 14 ) ],
@@ -51,6 +51,11 @@ animations = [ {
 "name": "dead",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 20 ) ],
+"loop": true,
+"name": "shell stopped",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 15 ) ],
 "loop": true,
 "name": "falling",
@@ -60,11 +65,6 @@ animations = [ {
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
-}, {
-"frames": [ SubResource( 20 ) ],
-"loop": true,
-"name": "shell stopped",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -89,7 +89,8 @@ vars = {
 "speed": 50.0,
 "stopped": false,
 "upside down": false,
-"upside down shell speed": 175.0
+"upside down shell speed": 175.0,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
 }
 AI = ExtResource( 1 )
 invincible = true
@@ -102,7 +103,6 @@ frozen_sprite_pth = NodePath("IceSprite")
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, 2 )
 frames = SubResource( 21 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
@@ -128,8 +128,7 @@ bus = "Sounds"
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-position = Vector2( -2.38419e-07, -16 )
-scale = Vector2( 1.6, 1.6 )
+rect = Rect2( -16, -32, 32, 32 )
 process_parent = true
 physics_process_parent = true
 

@@ -17,6 +17,10 @@ region = Rect2( 0, 0, 32, 47 )
 atlas = ExtResource( 1 )
 region = Rect2( 32, 0, 32, 47 )
 
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 4 )
+region = Rect2( 99, 0, 33, 47 )
+
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 33, 47 )
@@ -33,10 +37,6 @@ region = Rect2( 66, 0, 33, 47 )
 atlas = ExtResource( 4 )
 region = Rect2( 99, 0, 33, 47 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 4 )
-region = Rect2( 99, 0, 33, 47 )
-
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ) ],
@@ -44,10 +44,10 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [  ],
 "loop": true,
-"name": "shell moving",
-"speed": 20.0
+"name": "dead",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 8 ) ],
 "loop": true,
@@ -59,10 +59,10 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
-"name": "dead",
-"speed": 5.0
+"name": "shell moving",
+"speed": 20.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -85,7 +85,8 @@ vars = {
 "kill zone": NodePath("KillZone"),
 "shell speed": 250.0,
 "speed": 50.0,
-"stopped": false
+"stopped": false,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
 }
 AI = ExtResource( 6 )
 can_freeze = true
@@ -123,8 +124,7 @@ bus = "Sounds"
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-position = Vector2( -2.38419e-07, -16 )
-scale = Vector2( 1.6, 1.6 )
+rect = Rect2( -16, -48, 32, 48 )
 process_parent = true
 physics_process_parent = true
 

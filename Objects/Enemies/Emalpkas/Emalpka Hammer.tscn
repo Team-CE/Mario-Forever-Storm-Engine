@@ -78,6 +78,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 position = Vector2( 0, -16 )
 frames = SubResource( 5 )
 animation = "walk"
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
@@ -103,8 +104,7 @@ bus = "Sounds"
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
 show_behind_parent = true
-position = Vector2( -2.38419e-07, -16 )
-scale = Vector2( 1.6, 1.6 )
+rect = Rect2( -16, -48, 32, 48 )
 process_parent = true
 physics_process_parent = true
 

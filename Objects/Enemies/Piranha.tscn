@@ -31,8 +31,7 @@ frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-position = Vector2( -2.38419e-07, -16 )
-scale = Vector2( 1.6, 1.6 )
+rect = Rect2( -16, -64, 32, 64 )
 process_parent = true
 physics_process_parent = true
 

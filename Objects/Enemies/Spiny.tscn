@@ -83,7 +83,6 @@ frozen_sprite_pth = NodePath("IceSprite")
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -15 )
 frames = SubResource( 3 )
-frame = 1
 playing = true
 flip_h = true
 
@@ -99,8 +98,7 @@ bus = "Sounds"
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-position = Vector2( 0.5, -15 )
-scale = Vector2( 1.65, 1.5 )
+rect = Rect2( -16, -32, 32, 32 )
 process_parent = true
 physics_process_parent = true
 

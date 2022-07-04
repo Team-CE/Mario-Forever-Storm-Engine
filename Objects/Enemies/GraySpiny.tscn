@@ -58,18 +58,9 @@ vars = {
 "speed": 50.0
 }
 AI = ExtResource( 1 )
-gravity_scale = null
-score = null
 invincible = true
-dir = null
+invincible_for_shells = true
 can_freeze = true
-frozen = null
-force_death_type = null
-auto_destroy = null
-death_signal_exception = null
-ray_L_pth = null
-ray_R_pth = null
-sound_pth = null
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("Sprite")
 frozen_sprite_pth = NodePath("IceSprite")
@@ -77,7 +68,6 @@ frozen_sprite_pth = NodePath("IceSprite")
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -15 )
 frames = SubResource( 3 )
-frame = 1
 playing = true
 flip_h = true
 
@@ -93,8 +83,7 @@ bus = "Sounds"
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-position = Vector2( 0.5, -15 )
-scale = Vector2( 1.65, 1.5 )
+rect = Rect2( -16, -32, 32, 32 )
 process_parent = true
 physics_process_parent = true
 

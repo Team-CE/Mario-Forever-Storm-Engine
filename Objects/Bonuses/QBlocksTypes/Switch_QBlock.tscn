@@ -30,13 +30,12 @@ shape = SubResource( 1 )
 material = SubResource( 4 )
 z_index = 1
 frames = ExtResource( 3 )
-frame = 2
 playing = true
 offset = Vector2( 0, -16 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( 0, -16 )
-scale = Vector2( 1.6, 1.6 )
+visible = false
+rect = Rect2( -16, -32, 32, 32 )
 pause_animated_sprites = false
 process_parent = true
 physics_process_parent = true

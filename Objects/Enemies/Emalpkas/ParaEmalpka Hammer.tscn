@@ -33,6 +33,11 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
+"frames": [  ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "falling",
@@ -46,11 +51,6 @@ animations = [ {
 "frames": [ SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "holding",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "dead",
 "speed": 5.0
 } ]
 
@@ -80,6 +80,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 position = Vector2( 0, -16 )
 frames = SubResource( 11 )
 animation = "walk"
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
@@ -105,8 +106,7 @@ bus = "Sounds"
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
 show_behind_parent = true
-position = Vector2( -2.38419e-07, -16 )
-scale = Vector2( 1.6, 1.6 )
+rect = Rect2( -16, -128, 32, 224 )
 process_parent = true
 physics_process_parent = true
 

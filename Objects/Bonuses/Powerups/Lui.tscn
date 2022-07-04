@@ -84,7 +84,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1, -15 )
 frames = SubResource( 13 )
-frame = 10
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -95,6 +95,7 @@ shape = SubResource( 14 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+max_distance = 640.0
 bus = "Sounds"
 
 [node name="Light2D" type="Light2D" parent="."]
