@@ -49,14 +49,14 @@ animations = [ {
 "name": "dead",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 8 ) ],
-"loop": true,
-"name": "shell stopped",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 8 ) ],
+"loop": true,
+"name": "shell stopped",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
@@ -136,7 +136,6 @@ position = Vector2( 0, 4 )
 shape = SubResource( 11 )
 
 [node name="KillZone" type="Area2D" parent="."]
-visible = false
 show_behind_parent = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]

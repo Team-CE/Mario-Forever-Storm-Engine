@@ -53,9 +53,9 @@ var initial_position: Vector2
 
 # TODO #1 Make nodes visible in editor node tree @reflexguru
 func _ready():
+  visible = false
   initial_position = position
   if !Engine.editor_hint and Visible == VISIBILITY_TYPE.INVIS_ONCE and Global.deaths > 0:
-    print('a')
     queue_free()
 
   # If alrady loaded
@@ -195,7 +195,7 @@ func _physics_process(_delta) -> void:
 func _process_active(_delta) -> void:
   if Engine.editor_hint:
     return
-  if Visible != VISIBILITY_TYPE.VISIBLE and !Engine.editor_hint:
+  if Visible != VISIBILITY_TYPE.VISIBLE:
     if !Empty and !triggered:
       collision.one_way_collision = true
       visible = false
@@ -203,6 +203,8 @@ func _process_active(_delta) -> void:
       Global.Mario.ray_L_2.add_exception(self)
       Global.Mario.ray_R.add_exception(self)
       Global.Mario.ray_R_2.add_exception(self)
+  else:
+    visible = true
   
   $Body.visible = visible
 
