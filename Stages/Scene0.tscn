@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -9,18 +9,22 @@
 [ext_resource path="res://Objects/Enemies/Koopas/BuzzyBeetle.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Mario/IceFlower.tres" type="SpriteFrames" id=8]
 [ext_resource path="res://Scripts/Powerups/IceFlower.gd" type="Script" id=9]
-[ext_resource path="res://Objects/Enemies/FishBlue.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Objects/Bonuses/Powerups/Fire Flower.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Objects/Enemies/Koopas/Koopa.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=13]
 [ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=14]
 [ext_resource path="res://Prefabs/Mario/Big.tres" type="SpriteFrames" id=15]
 [ext_resource path="res://Prefabs/Mario/Beetroot.tres" type="SpriteFrames" id=16]
+[ext_resource path="res://Objects/Enemies/Koopas/Paratroopa Red.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=18]
 [ext_resource path="res://Scripts/Powerups/Lui.gd" type="Script" id=19]
 [ext_resource path="res://Prefabs/Mario/Lui.tres" type="SpriteFrames" id=20]
 [ext_resource path="res://Prefabs/Mario/Propeller.tres" type="SpriteFrames" id=21]
 [ext_resource path="res://Scripts/Powerups/Propeller.gd" type="Script" id=22]
 [ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Objects/Enemies/Koopas/Paratroopa Blue.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Objects/Enemies/Koopas/Paratroopa.tscn" type="PackedScene" id=25]
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=33]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -42,12 +46,12 @@ cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( 65564, 6, 0, 65565, 6, 0, 65566, 6, 0, 65567, 6, 0, 65568, 6, 0, 65569, 6, 0, 65570, 6, 0, 65571, 6, 0, 65572, 6, 0, 65573, 6, 0, 65574, 6, 0, 65575, 6, 0, 65576, 6, 0, 65577, 6, 0, 65578, 6, 0, 458774, 6, 0, 458775, 6, 0, 458776, 6, 0, 458777, 6, 0, 458778, 6, 0, 458779, 6, 0, 458780, 6, 0, 458810, 6, 0, 524346, 6, 0, 589882, 6, 0, 655418, 6, 0, 720954, 6, 0, 786490, 6, 0, 851995, 6, 0, 851996, 6, 0, 851997, 6, 0, 851998, 6, 0, 851999, 6, 0, 852000, 6, 0, 852001, 6, 0, 852002, 6, 0, 852003, 6, 0, 852004, 6, 0, 852005, 6, 0, 852006, 6, 0, 852007, 6, 0, 852008, 6, 0, 852009, 6, 0, 852010, 6, 0, 852011, 6, 0, 852012, 6, 0, 852013, 6, 0, 852014, 6, 0, 852015, 6, 0, 852016, 6, 0, 852017, 6, 0, 852018, 6, 0, 852019, 6, 0, 852020, 6, 0, 852021, 6, 0, 852022, 6, 0, 852023, 6, 0, 852024, 6, 0, 852025, 6, 0, 852026, 6, 0 )
+tile_data = PoolIntArray( -65452, 6, 0, 84, 6, 0, 65578, 6, 0, 65579, 6, 0, 65580, 6, 0, 65581, 6, 0, 65582, 6, 0, 65583, 6, 0, 65584, 6, 0, 65585, 6, 0, 65586, 6, 0, 65587, 6, 0, 65588, 6, 0, 65589, 6, 0, 65590, 6, 0, 65591, 6, 0, 65592, 6, 0, 65593, 6, 0, 65594, 6, 0, 65595, 6, 0, 65620, 6, 0, 131115, 6, 0, 131153, 6, 0, 131156, 6, 0, 131159, 6, 0, 196652, 6, 0, 196689, 6, 0, 196692, 6, 0, 196695, 6, 0, 262166, 6, 0, 262167, 6, 0, 262168, 6, 0, 262169, 6, 0, 262170, 6, 0, 262171, 6, 0, 262189, 6, 0, 262226, 6, 0, 262228, 6, 0, 262230, 6, 0, 327726, 6, 0, 327762, 6, 0, 327764, 6, 0, 327766, 6, 0, 393263, 6, 0, 393264, 6, 0, 393300, 6, 0, 458810, 6, 0, 458828, 6, 0, 458829, 6, 0, 458830, 6, 0, 458831, 6, 0, 458836, 6, 0, 458845, 6, 0, 458846, 6, 0, 524346, 6, 0, 524379, 6, 0, 524380, 6, 0, 589858, 6, 0, 589882, 6, 0, 589899, 6, 0, 589913, 6, 0, 589914, 6, 0, 589930, 6, 0, 589931, 6, 0, 589932, 6, 0, 589933, 6, 0, 655418, 6, 0, 655447, 6, 0, 655448, 6, 0, 655475, 6, 0, 655476, 6, 0, 720915, 6, 0, 720918, 6, 0, 720954, 6, 0, 720977, 6, 0, 720981, 6, 0, 720982, 6, 0, 720997, 6, 0, 720998, 6, 0, 720999, 6, 0, 721000, 6, 0, 721001, 6, 0, 721002, 6, 0, 721003, 6, 0, 786451, 6, 0, 786490, 6, 0, 786542, 6, 0, 786543, 6, 0, 786544, 6, 0, 786545, 6, 0, 786546, 6, 0, 786547, 6, 0, 851987, 6, 0, 851988, 6, 0, 851989, 6, 0, 851990, 6, 0, 851991, 6, 0, 851992, 6, 0, 851993, 6, 0, 851994, 6, 0, 851995, 6, 0, 851996, 6, 0, 851997, 6, 0, 851998, 6, 0, 851999, 6, 0, 852000, 6, 0, 852001, 6, 0, 852002, 6, 0, 852003, 6, 0, 852004, 6, 0, 852005, 6, 0, 852006, 6, 0, 852007, 6, 0, 852008, 6, 0, 852009, 6, 0, 852010, 6, 0, 852011, 6, 0, 852012, 6, 0, 852013, 6, 0, 852014, 6, 0, 852015, 6, 0, 852016, 6, 0, 852017, 6, 0, 852018, 6, 0, 852019, 6, 0, 852020, 6, 0, 852021, 6, 0, 852022, 6, 0, 852023, 6, 0, 852024, 6, 0, 852025, 6, 0, 852026, 6, 0, 852042, 6, 0, 852043, 6, 0, 852044, 6, 0, 852045, 6, 0, 852046, 6, 0, 852047, 6, 0, 852048, 6, 0, 852049, 6, 0, 852050, 6, 0, 852051, 6, 0, 852052, 6, 0, 852053, 6, 0, 852054, 6, 0, 852055, 6, 0, 852056, 6, 0, 852057, 6, 0, 852058, 6, 0, 852059, 6, 0, 852060, 6, 0, 852061, 6, 0, 852062, 6, 0, 852063, 6, 0, 852064, 6, 0, 852065, 6, 0, 852066, 6, 0, 852067, 6, 0, 852068, 6, 0, 852069, 6, 0, 852070, 6, 0, 852071, 6, 0, 852072, 6, 0, 917609, 6, 0, 917610, 6, 0, 917611, 6, 0, 917612, 6, 0, 917613, 6, 0, 917614, 6, 0, 917615, 6, 0, 917616, 6, 0, 917617, 6, 0, 917618, 6, 0, 917619, 6, 0, 917620, 6, 0, 917621, 6, 0, 917622, 6, 0 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
 [node name="Mario" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1136, 416 )
+position = Vector2( 2544, 416 )
 powerup_animations = {
 0: ExtResource( 18 ),
 1: ExtResource( 15 ),
@@ -66,7 +70,7 @@ powerup_scripts = {
 }
 
 [node name="Water" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1360, 224 )
+position = Vector2( 1872, 224 )
 
 [node name="CollisionShape2D" parent="Water" index="0"]
 position = Vector2( 256, 96 )
@@ -81,7 +85,49 @@ margin_right = 480.0
 margin_bottom = 192.0
 
 [node name="Goomba" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1872, 224 )
+position = Vector2( 1824, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 800, 128 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1360, 32 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 768, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba5" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1040, 416 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba6" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1472, 32 )
+vars = {
+"bounce": 9.0,
+"speed": 50.0
+}
+
+[node name="Goomba7" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1088, 416 )
 vars = {
 "bounce": 9.0,
 "speed": 50.0
@@ -91,30 +137,15 @@ vars = {
 position = Vector2( 0, 464 )
 move_with_scroll = true
 
-[node name="AliveObject3" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1808, 352 )
-vars = {
-"bounce": 9,
-"speed": 62.5
-}
-
 [node name="QBlock" parent="." instance=ExtResource( 23 )]
-position = Vector2( 880, 416 )
+position = Vector2( 720, 416 )
+
+[node name="QBlock3" parent="." instance=ExtResource( 23 )]
+position = Vector2( 2448, 320 )
+Result = ExtResource( 10 )
 
 [node name="QBlock2" parent="." instance=ExtResource( 23 )]
 position = Vector2( 1168, 416 )
-qtype = 1
-
-[node name="QBlock3" parent="." instance=ExtResource( 23 )]
-position = Vector2( 1200, 416 )
-qtype = 1
-
-[node name="QBlock4" parent="." instance=ExtResource( 23 )]
-position = Vector2( 1232, 416 )
-qtype = 1
-
-[node name="QBlock5" parent="." instance=ExtResource( 23 )]
-position = Vector2( 1264, 416 )
 qtype = 1
 
 [node name="QBlock6" parent="." instance=ExtResource( 23 )]
@@ -125,30 +156,104 @@ qtype = 1
 position = Vector2( 1232, 384 )
 qtype = 1
 
-[node name="QBlock8" parent="." instance=ExtResource( 23 )]
-position = Vector2( 1264, 384 )
-qtype = 1
+[node name="Koopa" parent="." instance=ExtResource( 11 )]
+position = Vector2( 672, 368 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"qblock zone": NodePath("QBlockZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
+}
+
+[node name="Koopa2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 672, 416 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"qblock zone": NodePath("QBlockZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
+}
+
+[node name="Koopa3" parent="." instance=ExtResource( 11 )]
+position = Vector2( 720, 336 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"qblock zone": NodePath("QBlockZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
+}
+
+[node name="Koopa7" parent="." instance=ExtResource( 11 )]
+position = Vector2( 720, 128 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"qblock zone": NodePath("QBlockZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
+}
+
+[node name="Koopa6" parent="." instance=ExtResource( 11 )]
+position = Vector2( 624, 336 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"qblock zone": NodePath("QBlockZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
+}
+
+[node name="Koopa5" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1552, 32 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"qblock zone": NodePath("QBlockZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
+}
+
+[node name="Koopa4" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1200, 352 )
+vars = {
+"bounce": 9.0,
+"is shell": false,
+"kill zone": NodePath("KillZone"),
+"qblock zone": NodePath("QBlockZone"),
+"shell speed": 250.0,
+"speed": 50.0,
+"stopped": false,
+"visibility_enabler": NodePath("VisibilityEnabler2D")
+}
 
 [node name="BuzzyBeetle" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1360, 416 )
+position = Vector2( 1552, 256 )
 vars = {
 "bounce": 9.0,
 "is shell": false,
 "kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
-"speed": 50.0,
-"stopped": false,
-"upside down": false,
-"upside down shell speed": 175.0,
-"visibility_enabler": NodePath("VisibilityEnabler2D")
-}
-
-[node name="BuzzyBeetle2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1360, 96 )
-vars = {
-"bounce": 9.0,
-"is shell": false,
-"kill zone": NodePath("KillZone"),
+"qblock zone": NodePath("QBlockZone"),
 "shell speed": 250.0,
 "speed": 50.0,
 "stopped": false,
@@ -157,32 +262,31 @@ vars = {
 "visibility_enabler": NodePath("VisibilityEnabler2D")
 }
 
-[node name="BuzzyBeetle3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1264, 96 )
+[node name="Paratroopa Red" parent="." instance=ExtResource( 17 )]
+position = Vector2( 1728, 304 )
 vars = {
 "bounce": 9.0,
-"is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
-"speed": 50.0,
-"stopped": false,
-"upside down": true,
-"upside down shell speed": 175.0,
-"visibility_enabler": NodePath("VisibilityEnabler2D")
+"fly radius": 50,
+"fly speed": 2
 }
 
-[node name="BuzzyBeetle4" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1024, 96 )
+[node name="Paratroopa Blue" parent="." instance=ExtResource( 24 )]
+position = Vector2( 1664, 304 )
 vars = {
 "bounce": 9.0,
 "is shell": false,
 "kill zone": NodePath("KillZone"),
 "shell speed": 250.0,
 "speed": 50.0,
-"stopped": false,
-"upside down": true,
-"upside down shell speed": 175.0,
-"visibility_enabler": NodePath("VisibilityEnabler2D")
+"stopped": false
+}
+
+[node name="Paratroopa" parent="." instance=ExtResource( 25 )]
+position = Vector2( 1792, 304 )
+vars = {
+"bounce": 9.0,
+"fly radius": 50,
+"fly speed": 2
 }
 
 [editable path="Water"]

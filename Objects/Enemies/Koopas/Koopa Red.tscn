@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Prefabs/Animations/RedKoopa.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/AI/RedKoopa.gd" type="Script" id=2]
@@ -10,7 +10,10 @@
 extents = Vector2( 16, 15.5 )
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 23, 14 )
+extents = Vector2( 24, 24 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 24, 14 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 14, 2 )
@@ -21,6 +24,7 @@ vars = {
 "bounce": 9.0,
 "is shell": false,
 "kill zone": NodePath("KillZone"),
+"qblock zone": NodePath("QBlockZone"),
 "shell speed": 250.0,
 "speed": 50.0,
 "stopped": false,
@@ -80,6 +84,14 @@ visible = false
 position = Vector2( 16, 0 )
 enabled = true
 cast_to = Vector2( 0, 10 )
+
+[node name="QBlockZone" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QBlockZone"]
+position = Vector2( 0, -16 )
+shape = SubResource( 11 )
+disabled = true
 
 [node name="KillDetector" type="Area2D" parent="."]
 visible = false

@@ -21,6 +21,7 @@ var jump_counter: int = 0
 var jump_internal_counter: float = 100
 var can_jump: bool = false
 var crouch: bool = false
+var is_stuck: bool = false
 var prelanding: bool = false
 
 enum Movement {
@@ -143,6 +144,10 @@ func _process(delta) -> void:
 func _process_alive(delta) -> void:
   if selected_state != Global.state:
     selected_state = Global.state
+    if selected_state > 0 and test_move(Transform2D(rotation, position), Vector2(0, -6).rotated(rotation)):
+      velocity.y = 0
+      crouch = true
+      is_stuck = true
     if not Global.state in powerup_animations:
       printerr('[CE ERROR] Mario: Animations for state ' + str(Global.state) + ' don\'t exist!')
       return
@@ -436,17 +441,44 @@ func controls(delta) -> void:
   if velocity.y > 0.5 and not is_over_backdrop($BottomDetector, false):
     prelanding = false
 
-  if Input.is_action_pressed('mario_crouch') and is_on_floor() and Global.state > 0:
-    crouch = true
-    velocity.y = 1
-    if velocity.x > 0:
-      velocity.x -= 5 * Global.get_delta(delta)
-    if velocity.x < 0:
-      velocity.x += 5 * Global.get_delta(delta)
+  if is_on_floor() and Global.state > 0:
+    if Input.is_action_pressed('mario_crouch'):
+      crouch = true
+      is_stuck = false
+      velocity.y = 1
+      if velocity.x > 0:
+        velocity.x -= 6.25 * Global.get_delta(delta) if !Input.is_action_pressed('mario_right') else 2.5 * Global.get_delta(delta)
+      if velocity.x < 0:
+        velocity.x += 6.25 * Global.get_delta(delta) if !Input.is_action_pressed('mario_left') else 2.5 * Global.get_delta(delta)
+    else:
+      if !test_move(Transform2D(rotation, position), Vector2(0, -6).rotated(rotation)):
+        crouch = false
+        is_stuck = false
+      else:
+        is_stuck = true
+        velocity = Vector2.DOWN
   else:
+    if !test_move(Transform2D(rotation, position), Vector2(0, -6).rotated(rotation)):
+      crouch = false
+      is_stuck = false
+    #else:
+    #  crouch = true
+    #  is_stuck = true
+  #if not Input.is_action_pressed('mario_crouch'):
+  #  crouch = false
+  if Global.state == 0:
     crouch = false
-  if not Input.is_action_pressed('mario_crouch'):
-    crouch = false
+    is_stuck = false
+  
+  if is_stuck:
+    var left_collide: bool = test_move(Transform2D(rotation, position + Vector2(-16, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
+    var right_collide: bool = test_move(Transform2D(rotation, position + Vector2(16, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
+    if left_collide and right_collide:
+      position += Vector2(1, 0).rotated(rotation) * Global.get_vector_delta(delta) if $Sprite.flip_h else Vector2(-1, 0).rotated(rotation) * Global.get_vector_delta(delta)
+    if left_collide and !right_collide:
+      position += Vector2(1, 0).rotated(rotation) * Global.get_vector_delta(delta)
+    if right_collide and !left_collide:
+      position += Vector2(-1, 0).rotated(rotation) * Global.get_vector_delta(delta)
 
   if Input.is_action_pressed('mario_right') and not crouch:
     if velocity.x > -20 and velocity.x < 20:
@@ -513,7 +545,7 @@ func animate_default(delta) -> void:
     launch_counter -= 1.01 * Global.get_delta(delta)
     return
 
-  if crouch:
+  if crouch and not is_stuck:
     if Global.state > 0:
       animate_sprite('Crouching')
     else:
@@ -555,7 +587,7 @@ func animate_swimming(delta, start) -> void:
   if launch_counter > 0:
     launch_counter -= 1.01 * Global.get_delta(delta)
 
-  if crouch:
+  if crouch and not is_stuck:
     if Global.state > 0:
       animate_sprite('Crouching')
     else:
@@ -713,7 +745,7 @@ func debug() -> void:
   $DebugText.text = 'x speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($Sprite.animation).to_lower() + '\nmovement: ' + str(Movement.keys()[movement_type].to_lower()) + '\nfps: ' + str(Engine.get_frames_per_second())
 
 func _process_debug_fly(delta: float) -> void:
-  var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10)
+  var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10) - (int( Input.is_action_pressed('debug_shift') ) * 9)
   if Input.is_action_pressed('mario_right'):
     position.x += debugspeed * Global.get_delta(delta)
   if Input.is_action_pressed('mario_left'):

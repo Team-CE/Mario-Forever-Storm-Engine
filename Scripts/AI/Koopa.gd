@@ -2,13 +2,18 @@ extends Brain
 
 var shell_counter: float = 0
 var score_mp: int
+var error: bool = false
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
   if owner.vars['is shell']:
 # warning-ignore:standalone_ternary
     to_stopped_shell() if owner.vars['stopped'] else to_moving_shell()
-
+  
+  if not 'qblock zone' in owner.vars:
+    printerr('ERROR: could not find qblock zone for enemy ' + owner.name + '! Please recreate the object')
+    error = true
+    
 func _setup(b)-> void:
   ._setup(b)
 
@@ -20,6 +25,7 @@ func _ai_process(delta: float) -> void:
   
   if !owner.alive:
     owner.get_node(owner.vars['kill zone']).get_child(0).disabled = true
+    if !error: owner.get_node(owner.vars['qblock zone']).get_child(0).disabled = true
     return
   
   if !owner.frozen:
@@ -37,7 +43,7 @@ func _ai_process(delta: float) -> void:
     
   for b in owner.get_node(owner.vars['kill zone']).get_overlapping_bodies():
     if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
-      if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
+      if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'): #&& Global.is_getting_closer(-32, owner.position):
         if 'is shell' in b.vars and 'stopped' in b.vars and !b.vars['stopped'] and b.vars['is shell']:
           owner.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           b.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
@@ -47,7 +53,10 @@ func _ai_process(delta: float) -> void:
           score_mp += 1
         else:
           score_mp = 0
-      elif b is QBlock and b.active:
+
+  if !error: for b in owner.get_node_or_null(owner.vars['qblock zone']).get_overlapping_bodies():
+    if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
+      if b is QBlock and b.active:
         b.hit(1, true)
         owner.turn()
         turn_if_no_break = false
@@ -84,6 +93,7 @@ func _ai_process(delta: float) -> void:
     if owner.vars['stopped'] && owner.vars['is shell'] && shell_counter >= 11:
       to_moving_shell()
       owner.dir = -1 if Global.Mario.position.x > owner.position.x else 1
+      owner.alt_sound.pitch_scale = 0.9
       owner.alt_sound.play()
     
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
@@ -93,6 +103,7 @@ func _ai_process(delta: float) -> void:
 
 func to_stopped_shell() -> void:
   owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
+  if !error: owner.get_node(owner.vars['qblock zone']).get_child(0).disabled = false
   shell_counter = 0
   owner.vars['is shell'] = true
   score_mp = 0

@@ -11,8 +11,8 @@ func _ready():
   if !Sounds.empty():
     $Test.stream = load(Sounds[0])
   yield(Global.get_tree(), 'idle_frame')
-  AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, true)
-  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('CompositedSounds'), -8)
+  #AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, true)
+  #AudioServer.set_bus_volume_db(AudioServer.get_bus_index('CompositedSounds'), -8)
 
 func get_all_in_folder(path) -> Array:
   var dir = Directory.new()
@@ -34,9 +34,9 @@ func _on_Button_pressed():
   $Test.pitch_scale = 1
   for i in range($CenterContainer/VBoxContainer/Times.value + 1):
     $CenterContainer/VBoxContainer/Label.text = str(i) 
-    $Test.pitch_scale += $CenterContainer/VBoxContainer/Pitch.value
     $Test.play()
     yield(get_tree().create_timer($CenterContainer/VBoxContainer/Delay.value), "timeout")
+    $Test.pitch_scale += $CenterContainer/VBoxContainer/Pitch.value
   $CenterContainer/VBoxContainer/Label.text = '0'
 
 func _on_OptionButton_item_selected(index):

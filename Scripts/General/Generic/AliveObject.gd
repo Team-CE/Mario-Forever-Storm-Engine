@@ -186,8 +186,10 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = nu
     DEATH_TYPE.FALL:
       if !csound:
         alt_sound.play()
+        alt_sound.pitch_scale = 1 + score_mp * 0.125
       else:
         csound.play()
+        csound.pitch_scale = 1 + score_mp * 0.125
       if score_mp > len(multiplier_scores) - 1:
         score_mp = 0
       if score_mp == 6:

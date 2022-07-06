@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scripts/AI/BuzzyBeetle.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=2]
@@ -19,10 +19,6 @@ region = Rect2( 32, 0, 32, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 64, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 3 )
-region = Rect2( 192, 0, 32, 32 )
-
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 3 )
 region = Rect2( 64, 0, 32, 32 )
@@ -38,6 +34,10 @@ region = Rect2( 128, 0, 32, 32 )
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 3 )
 region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
@@ -56,15 +56,15 @@ animations = [ {
 "name": "shell stopped",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 15 ) ],
-"loop": true,
-"name": "falling",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 15 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -77,7 +77,10 @@ extents = Vector2( 15, 15.5 )
 extents = Vector2( 14, 2 )
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 23, 14 )
+extents = Vector2( 24, 24 )
+
+[sub_resource type="RectangleShape2D" id=22]
+extents = Vector2( 24, 14 )
 
 [node name="BuzzyBeetle" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 2 )
@@ -85,6 +88,7 @@ vars = {
 "bounce": 9.0,
 "is shell": false,
 "kill zone": NodePath("KillZone"),
+"qblock zone": NodePath("QBlockZone"),
 "shell speed": 250.0,
 "speed": 50.0,
 "stopped": false,
@@ -146,6 +150,14 @@ show_behind_parent = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2( 0, -16 )
 shape = SubResource( 10 )
+disabled = true
+
+[node name="QBlockZone" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QBlockZone"]
+position = Vector2( 0, -16 )
+shape = SubResource( 22 )
 disabled = true
 
 [node name="IceSprite" type="AnimatedSprite" parent="."]
