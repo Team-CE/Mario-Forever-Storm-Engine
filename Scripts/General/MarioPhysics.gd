@@ -469,6 +469,11 @@ func controls(delta) -> void:
     is_stuck = false
   
   if is_stuck:
+    var collisions = $TopDetector.get_overlapping_bodies()
+    for collider in collisions:
+      if collider.has_method('hit'):
+        collider.hit(delta)
+    
     var left_collide: bool = test_move(Transform2D(rotation, position + Vector2(-16, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
     var right_collide: bool = test_move(Transform2D(rotation, position + Vector2(16, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
     if left_collide and right_collide:
@@ -676,7 +681,7 @@ func update_collisions() -> void:
   $SmallLeftDetector/CollisionSmallLeft.disabled = not (Global.state == 0 or crouch)
   
   $CollisionBig.disabled = not (Global.state > 0 and not crouch)
-  $TopDetector/CollisionTopBig.disabled = not (Global.state > 0 and not crouch)
+  $TopDetector/CollisionTopBig.disabled = not (Global.state > 0 and (not crouch or is_stuck))
   $InsideDetector/CollisionBig.disabled = not (Global.state > 0 and not crouch)
   $SmallRightDetector/CollisionSmallRightBig.disabled = not (Global.state > 0 and not crouch)
   $SmallLeftDetector/CollisionSmallLeftBig.disabled = not (Global.state > 0 and not crouch)
