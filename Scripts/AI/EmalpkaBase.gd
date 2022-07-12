@@ -36,6 +36,7 @@ func _ai_process(delta: float) -> void:
     counter += 1 * Global.get_delta(delta)
   else:
     counter = 0
+# warning-ignore:narrowing_conversion
     move_multiplier = round(rand_range(-4, 14) / 10)
     if rand_range(1, 14) > 13 and owner.is_on_floor():
       owner.velocity.y = -400

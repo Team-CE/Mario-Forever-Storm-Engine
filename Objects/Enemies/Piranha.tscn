@@ -48,10 +48,10 @@ shape = SubResource( 2 )
 disabled = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -32 )
 z_index = -1
 frames = ExtResource( 2 )
 playing = true
+offset = Vector2( 0, -32 )
 
 [node name="Placeholder1" type="AnimatedSprite" parent="."]
 modulate = Color( 1, 1, 1, 0.388235 )
@@ -83,7 +83,7 @@ bus = "Sounds"
 [node name="Fire" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
 max_distance = 750.0
-attenuation = 0.176777
+attenuation = 0.392292
 bus = "Sounds"
 
 [node name="IceSprite" type="AnimatedSprite" parent="."]

@@ -47,6 +47,7 @@ func reset_flower(new_bool):
   counter = 0
   dir = false
   $Sprite/Node2D.rotation = 0
+# warning-ignore:incompatible_ternary
   $Sprite/Node2D/AnimatedSprite.position.y = 0 if flower_movement else 0 - radius
   return
 

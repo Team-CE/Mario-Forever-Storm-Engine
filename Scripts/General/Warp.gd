@@ -63,8 +63,6 @@ func _ready() -> void:
       active = true
       out_node = self
       counter = 61
-      if Global.state > 0:
-        Global.Mario.animate_sprite('Crouching')
       
     if trigger_finish:
       if !is_instance_valid(Global.Mario.get_parent().get_node_or_null('FinishLine')):
