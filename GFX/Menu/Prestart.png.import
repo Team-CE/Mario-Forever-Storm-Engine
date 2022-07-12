@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CBlock.png-93439673674e6e8b7f08d1ac56bf5804.stex"
+path="res://.import/Prestart.png-1bc3bd2b1bcb9657dc258569b3d86902.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Tilesets/CBlock.png"
-dest_files=[ "res://.import/CBlock.png-93439673674e6e8b7f08d1ac56bf5804.stex" ]
+source_file="res://GFX/Menu/Prestart.png"
+dest_files=[ "res://.import/Prestart.png-1bc3bd2b1bcb9657dc258569b3d86902.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

@@ -6,13 +6,13 @@ var error: bool = false
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
-  if owner.vars['is shell']:
-# warning-ignore:standalone_ternary
-    to_stopped_shell() if owner.vars['stopped'] else to_moving_shell()
   
   if not 'qblock zone' in owner.vars:
     printerr('ERROR: could not find qblock zone for enemy ' + owner.name + '! Please recreate the object')
     error = true
+  if owner.vars['is shell']:
+# warning-ignore:standalone_ternary
+    to_stopped_shell() if owner.vars['stopped'] else to_moving_shell()
     
 func _setup(b)-> void:
   ._setup(b)
@@ -103,7 +103,7 @@ func _ai_process(delta: float) -> void:
 
 func to_stopped_shell() -> void:
   owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
-  if !error: owner.get_node(owner.vars['qblock zone']).get_child(0).disabled = false
+  if !error: owner.get_node_or_null(owner.vars['qblock zone']).get_child(0).disabled = false
   shell_counter = 0
   owner.vars['is shell'] = true
   score_mp = 0

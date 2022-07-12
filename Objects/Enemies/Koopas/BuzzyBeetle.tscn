@@ -97,7 +97,7 @@ vars = {
 "visibility_enabler": NodePath("VisibilityEnabler2D")
 }
 AI = ExtResource( 1 )
-invincible = true
+invincible_for_projectiles = [ "beetroot", "fireball" ]
 can_freeze = true
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")

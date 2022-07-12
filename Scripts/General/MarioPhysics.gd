@@ -203,16 +203,16 @@ func _process_alive(delta) -> void:
     controls(delta)
   
   if position.y > $Camera.limit_bottom + 64 and controls_enabled:
-    if get_parent().no_cliff:
+    if 'no_cliff' in get_parent() and get_parent().no_cliff:
       position.y -= 550
     else:
-      if !get_parent().sgr_scroll:
+      if 'sgr_scroll' in get_parent() and !get_parent().sgr_scroll:
         Global._pll()
-      else:
+      elif get_node_or_null('StartWarp') in get_parent():
         get_parent().get_node('StartWarp').active = true
         get_parent().get_node('StartWarp').counter = 61
       
-  if position.y < $Camera.limit_top - 64 and controls_enabled and get_parent().no_cliff:
+  if position.y < $Camera.limit_top - 64 and controls_enabled and 'no_cliff' in get_parent() and get_parent().no_cliff:
     position.y += 570
 
 #  if is_on_floor() and velocity.y > -14 or is_on_ceiling():
@@ -228,15 +228,13 @@ func _process_alive(delta) -> void:
 
   if top_collider_counter > 0:
     var collisions = $TopDetector.get_overlapping_bodies()
-    for i in range(len(collisions)):
-      var collider = collisions[i]
+    for collider in collisions:
       if collider.has_method('hit'):
         collider.hit(delta)
         
   var bottom_collisions = $BottomDetector.get_overlapping_bodies()
   if is_on_floor():
-    for i in range(len(bottom_collisions)):
-      var collider = bottom_collisions[i]
+    for collider in bottom_collisions:
       if collider.has_method('_standing_on'):
         collider._standing_on()
 
@@ -773,7 +771,7 @@ func _process_camera(delta: float) -> void:
   if inited_camera_addon and inited_camera_addon.has_method('_process_camera'):
     inited_camera_addon._process_camera(self, delta)
   
-  if get_parent().sgr_scroll:
+  if 'sgr_scroll' in get_parent() and get_parent().sgr_scroll:
     var base_x = floor(position.x / 640) * 640
     $Camera.limit_left = base_x
     $Camera.limit_right = base_x + 640

@@ -10,20 +10,20 @@
 [ext_resource path="res://GFX/Enemies/emalpkafirL.png" type="Texture" id=8]
 [ext_resource path="res://GFX/Enemies/emalpkafirfall.png" type="Texture" id=9]
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 48, 64 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 6 )
-region = Rect2( 48, 0, 48, 64 )
-
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 48, 64 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 8 )
+region = Rect2( 48, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 6 )
 region = Rect2( 48, 0, 48, 64 )
 
 [sub_resource type="SpriteFrames" id=11]
@@ -33,14 +33,14 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "holding",
+"speed": 5.0
+}, {
 "frames": [  ],
 "loop": true,
 "name": "dead",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "falling",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 9 ), SubResource( 10 ) ],
@@ -48,9 +48,9 @@ animations = [ {
 "name": "walk",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "holding",
+"name": "falling",
 "speed": 5.0
 } ]
 

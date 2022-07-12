@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lets_kuku_ruurururu.wav-4372c7e6813ae5cbd57761d551d4bcf3.sample"
+
+[deps]
+
+source_file="res://Sounds/Main/lets_kuku_ruurururu.wav"
+dest_files=[ "res://.import/lets_kuku_ruurururu.wav-4372c7e6813ae5cbd57761d551d4bcf3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,191 @@
+[gd_scene load_steps=32 format=2]
+
+[ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=1]
+[ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
+[ext_resource path="res://Sounds/Menu/lets_bg.wav" type="AudioStream" id=3]
+[ext_resource path="res://GFX/Scenery/Tree1.png" type="Texture" id=4]
+[ext_resource path="res://Games/TheMultiverse2/GFX/Backgrounds/zabor.png" type="Texture" id=5]
+[ext_resource path="res://Games/TheMultiverse2/GFX/Backgrounds/defaultGrass.png" type="Texture" id=6]
+[ext_resource path="res://GFX/Scenery/Hill.png" type="Texture" id=7]
+[ext_resource path="res://GFX/Scenery/Tree2.png" type="Texture" id=8]
+[ext_resource path="res://GFX/Scenery/Cloud.tres" type="SpriteFrames" id=9]
+[ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=10]
+[ext_resource path="res://Prefabs/Mario/Big.tres" type="SpriteFrames" id=11]
+[ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=12]
+[ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=14]
+[ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=15]
+[ext_resource path="res://Prefabs/Mario/Propeller.tres" type="SpriteFrames" id=16]
+[ext_resource path="res://Prefabs/Mario/Beetroot.tres" type="SpriteFrames" id=17]
+[ext_resource path="res://Prefabs/Mario/IceFlower.tres" type="SpriteFrames" id=18]
+[ext_resource path="res://Prefabs/Mario/Lui.tres" type="SpriteFrames" id=19]
+[ext_resource path="res://Scripts/Powerups/Propeller.gd" type="Script" id=20]
+[ext_resource path="res://Scripts/Powerups/Lui.gd" type="Script" id=21]
+[ext_resource path="res://Scripts/Powerups/IceFlower.gd" type="Script" id=22]
+[ext_resource path="res://Scripts/General/CutsceneCave.gd" type="Script" id=23]
+[ext_resource path="res://Sounds/Main/lets_kuku_ruurururu.wav" type="AudioStream" id=24]
+[ext_resource path="res://Objects/Level/Warp.tscn" type="PackedScene" id=25]
+
+[sub_resource type="Gradient" id=121]
+colors = PoolColorArray( 0.372549, 0.501961, 0.713726, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=122]
+gradient = SubResource( 121 )
+
+[sub_resource type="AtlasTexture" id=115]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=116]
+atlas = ExtResource( 6 )
+region = Rect2( 64, 0, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=117]
+atlas = ExtResource( 6 )
+region = Rect2( 128, 0, 64, 32 )
+
+[sub_resource type="SpriteFrames" id=123]
+animations = [ {
+"frames": [ SubResource( 115 ), SubResource( 116 ), SubResource( 117 ) ],
+"loop": true,
+"name": "default",
+"speed": 7.0
+} ]
+
+[node name="CutsceneCave" type="Node2D"]
+script = ExtResource( 23 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 1 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 32, 32 )
+collision_layer = 3
+collision_mask = 3
+format = 1
+tile_data = PoolIntArray( 720911, 9, 0, 720912, 10, 0, 720913, 10, 0, 720915, 6, 0, 786451, 6, 0, 917503, 5, 0, 851968, 5, 1, 851969, 5, 1, 851970, 5, 1, 851971, 5, 1, 851972, 5, 1, 851973, 5, 1, 851974, 5, 1, 851975, 5, 1, 851976, 5, 1, 851977, 5, 1, 851978, 5, 1, 851979, 5, 1, 851980, 5, 1, 851981, 5, 1, 851982, 5, 1, 851983, 5, 1, 851984, 5, 1, 851985, 5, 1, 851986, 5, 1, 851987, 5, 2, 983039, 5, 65536, 917504, 5, 65537, 917505, 5, 65537, 917506, 5, 65537, 917507, 5, 65537, 917508, 5, 65537, 917509, 5, 65537, 917510, 5, 65537, 917511, 5, 65537, 917512, 5, 65537, 917513, 5, 65537, 917514, 5, 65537, 917515, 5, 65537, 917516, 5, 65537, 917517, 5, 65537, 917518, 5, 65537, 917519, 5, 65537, 917520, 5, 65537, 917521, 5, 65537, 917522, 5, 65537, 917523, 5, 65538, 1048575, 5, 131072, 983040, 5, 131073, 983041, 5, 131073, 983042, 5, 131073, 983043, 5, 131073, 983044, 5, 131073, 983045, 5, 131073, 983046, 5, 131073, 983047, 5, 131073, 983048, 5, 131073, 983049, 5, 131073, 983050, 5, 131073, 983051, 5, 131073, 983052, 5, 131073, 983053, 5, 131073, 983054, 5, 131073, 983055, 5, 131073, 983056, 5, 131073, 983057, 5, 131073, 983058, 5, 131073, 983059, 5, 131074 )
+
+[node name="TileMap2" type="TileMap" parent="."]
+z_index = 1
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 589841, 2, 0, 655377, 3, 0, 720913, 3, 0, 786449, 3, 0, 851985, 3, 0, 917521, 3, 0 )
+
+[node name="letsgo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+autoplay = true
+bus = "Sounds"
+
+[node name="letspipe" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
+bus = "Sounds"
+
+[node name="Mario" parent="." instance=ExtResource( 13 )]
+position = Vector2( -16, 416 )
+powerup_animations = {
+0: ExtResource( 12 ),
+1: ExtResource( 11 ),
+2: ExtResource( 10 ),
+3: ExtResource( 17 ),
+4: ExtResource( 19 ),
+5: ExtResource( 18 ),
+6: ExtResource( 16 )
+}
+powerup_scripts = {
+2: ExtResource( 15 ),
+3: ExtResource( 14 ),
+4: ExtResource( 21 ),
+5: ExtResource( 22 ),
+6: ExtResource( 20 )
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1.4079e-09, 240 )
+rotation = 1.5708
+scale = Vector2( 0.23634, 640 )
+z_index = -99
+texture = SubResource( 122 )
+
+[node name="Cloud" type="AnimatedSprite" parent="."]
+position = Vector2( 48, 208 )
+z_index = -1
+frames = ExtResource( 9 )
+frame = 2
+playing = true
+
+[node name="Cloud2" type="AnimatedSprite" parent="."]
+position = Vector2( 128, 48 )
+z_index = -1
+frames = ExtResource( 9 )
+frame = 1
+playing = true
+
+[node name="Cloud3" type="AnimatedSprite" parent="."]
+position = Vector2( 368, 32 )
+z_index = -1
+frames = ExtResource( 9 )
+frame = 1
+playing = true
+
+[node name="Cloud4" type="AnimatedSprite" parent="."]
+position = Vector2( 272, 240 )
+z_index = -1
+frames = ExtResource( 9 )
+playing = true
+
+[node name="Cloud5" type="AnimatedSprite" parent="."]
+position = Vector2( 512, 144 )
+z_index = -1
+frames = ExtResource( 9 )
+playing = true
+
+[node name="Sprite2" type="Sprite" parent="."]
+modulate = Color( 0.55, 1.18, 0.85, 1 )
+position = Vector2( 336, 384 )
+z_index = -10
+texture = ExtResource( 7 )
+
+[node name="Sprite3" type="Sprite" parent="."]
+position = Vector2( 320, 384 )
+texture = ExtResource( 4 )
+
+[node name="Sprite4" type="Sprite" parent="."]
+position = Vector2( 112, 368 )
+texture = ExtResource( 8 )
+
+[node name="AnimatedSprite3" type="AnimatedSprite" parent="."]
+position = Vector2( 256, 400 )
+z_index = -1
+frames = SubResource( 123 )
+frame = 2
+playing = true
+
+[node name="Zabor" type="Sprite" parent="."]
+position = Vector2( 96, 400 )
+z_index = -1
+texture = ExtResource( 5 )
+
+[node name="Zabor2" type="Sprite" parent="."]
+position = Vector2( 128, 400 )
+z_index = -1
+texture = ExtResource( 5 )
+
+[node name="Zabor3" type="Sprite" parent="."]
+position = Vector2( 160, 400 )
+z_index = -1
+texture = ExtResource( 5 )
+
+[node name="Zabor4" type="Sprite" parent="."]
+position = Vector2( 192, 400 )
+z_index = -1
+texture = ExtResource( 5 )
+
+[node name="Warp" parent="." instance=ExtResource( 25 )]
+position = Vector2( 480, 400 )
+direction = 2
+additional_options = {
+"set_scene_path": "res://Stages/Scene0.tscn"
+}
+out_duration = 120.0

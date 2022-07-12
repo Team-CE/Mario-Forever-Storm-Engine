@@ -75,6 +75,7 @@ vars = {
 }
 AI = ExtResource( 1 )
 invincible = true
+invincible_for_shells = true
 auto_destroy = false
 sound_pth = NodePath("Hit")
 alt_sound_pth = NodePath("Laugh")

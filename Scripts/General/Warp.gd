@@ -20,6 +20,8 @@ export(TYPES) var type: int = TYPES.IN
 export var immediate: bool = false
 export var trigger_finish: bool = false
 export var additional_options: Dictionary = { 'set_scene_path': '' }
+export var out_duration: float = 60
+export var custom_warp_sound: Resource
 
 var in_icon: StreamTexture = preload('res://GFX/Editor/WarpIcon.png')
 var out_icon: StreamTexture = preload('res://GFX/Editor/WarpOutIcon.png')
@@ -34,12 +36,13 @@ var counter: float = 0
 var state_switched: bool = false
 
 var calc_pos: Vector2
-
 var warp_dir: Vector2 = Vector2.ZERO
 
 var out_node
 var finishline = null
 var why = false
+
+var custom_audio: AudioStreamPlayer = null
 
 func _ready() -> void:
   var nodes = get_tree().get_nodes_in_group('Warp')
@@ -69,6 +72,12 @@ func _ready() -> void:
         trigger_finish = false
       else:
         finishline = Global.Mario.get_parent().get_node_or_null('FinishLine')
+    
+    if custom_warp_sound:
+      custom_audio = AudioStreamPlayer.new()
+      custom_audio.stream = custom_warp_sound
+      add_child(custom_audio)
+      print('Custom warp audio added')
 
 func _process(delta) -> void:
   if Engine.editor_hint:
@@ -85,20 +94,23 @@ func _process(delta) -> void:
         calc_pos = Vector2(position.x, position.y - 16)
         active = true
         Global.Mario.invulnerable = true
-        Global.play_base_sound('MAIN_Pipe')
+# warning-ignore:standalone_ternary
+        Global.play_base_sound('MAIN_Pipe') if !custom_audio else custom_audio.play()
         warp_dir = Vector2(0, 1)
         Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
       elif direction == DIRS.UP and Input.is_action_pressed('mario_up'):
         calc_pos = Vector2(position.x, position.y + 16 + (30 if Global.state != 0 else 0))
         active = true
         Global.Mario.invulnerable = true
-        Global.play_base_sound('MAIN_Pipe')
+# warning-ignore:standalone_ternary
+        Global.play_base_sound('MAIN_Pipe') if !custom_audio else custom_audio.play()
         warp_dir = Vector2(0, -1)
       elif direction == DIRS.RIGHT and Input.is_action_pressed('mario_right'):
         calc_pos = Vector2(position.x - 16, position.y + 16)
         active = true
         Global.Mario.invulnerable = true
-        Global.play_base_sound('MAIN_Pipe')
+# warning-ignore:standalone_ternary
+        Global.play_base_sound('MAIN_Pipe') if !custom_audio else custom_audio.play()
         Global.Mario.animate_sprite('Walking')
         Global.Mario.get_node("Sprite").speed_scale = 5
         Global.Mario.get_node("Sprite").flip_h = false
@@ -107,7 +119,8 @@ func _process(delta) -> void:
         calc_pos = Vector2(position.x + 16, position.y + 16)
         active = true
         Global.Mario.invulnerable = true
-        Global.play_base_sound('MAIN_Pipe')
+# warning-ignore:standalone_ternary
+        Global.play_base_sound('MAIN_Pipe') if !custom_audio else custom_audio.play()
         Global.Mario.animate_sprite('Walking')
         Global.Mario.get_node("Sprite").speed_scale = 5
         Global.Mario.get_node("Sprite").flip_h = true
@@ -123,7 +136,7 @@ func _process(delta) -> void:
 
       Global.Mario.get_node('Sprite').z_index = -10
 
-      if counter > 60 and not state_switched: # Warp Exit
+      if counter > out_duration and not state_switched: # Warp Exit
         if out_node:
           state_switched = true
           Global.play_base_sound('MAIN_Pipe')
@@ -161,7 +174,7 @@ func _process(delta) -> void:
             Global.Mario.visible = false
             why = true
       
-      if counter >= 120 and Global.Mario.get_slide_count() == 0 and not trigger_finish:
+      if counter >= out_duration + 60 and Global.Mario.get_slide_count() == 0 and not trigger_finish:
         Global.Mario.get_node('Sprite').z_index = 10
         state_switched = false
         counter = 0

@@ -36,6 +36,7 @@ vars = {
 AI = ExtResource( 2 )
 score = 1000
 invincible = true
+invincible_for_shells = true
 dir = 1.0
 animated_sprite_pth = NodePath("AnimatedSprite")
 

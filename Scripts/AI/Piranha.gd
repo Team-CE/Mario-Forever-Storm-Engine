@@ -83,6 +83,8 @@ func _process_shooting(_delta):
     owner.sound.play()
     projectile_timer = owner.vars['shoot interval'] if 'shoot interval' in owner.vars else 10
     projectile_counter += 1
+    if 'no fireballs above screen' in owner.vars and owner.vars['no fireballs above screen'] and owner.position.y + 272 < Global.Mario.position.y:
+      return
     if owner.vars['type'] == 2:
       fireball = preload('res://Objects/Projectiles/Iceball.tscn').instance()
     else:
