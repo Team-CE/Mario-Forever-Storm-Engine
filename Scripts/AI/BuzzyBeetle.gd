@@ -78,8 +78,8 @@ func _ai_process(delta: float) -> void:
     if (
       Global.Mario.position.x > owner.position.x - 80 and
       Global.Mario.position.x < owner.position.x + 80 and
-      Global.Mario.position.y > owner.position.y - 32 and
-      Global.Mario.position.x < owner.position.x + 240 and
+      Global.Mario.position.y > owner.position.y - 96 and
+      Global.Mario.position.y < owner.position.y + 500 and
       upside_down_state == 0
     ):
       upside_down_state = 1

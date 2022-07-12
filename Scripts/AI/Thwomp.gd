@@ -15,6 +15,7 @@ var offset: Vector2
 func _setup(b) -> void:
   ._setup(b)
   initial_pos = owner.position
+  owner.get_node('CollisionShape2D').disabled = true
 
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)
@@ -42,6 +43,7 @@ func _ai_process(delta: float) -> void:
 
   if falling:
     counter = 50
+    owner.get_node('CollisionShape2D').disabled = false
     var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
     for i in range(len(g_overlaps)):
       if g_overlaps[i].has_method('hit'):
@@ -94,7 +96,6 @@ func _ai_process(delta: float) -> void:
         owner.position = initial_pos
         top = false
         falling = false
-        owner.get_node('CollisionShape2D').disabled = false
     
   if rand_range(-70.0, 40.0) > 39.0 and not is_smiling:
     owner.animated_sprite.frame = 0
