@@ -307,8 +307,6 @@ func _process_dead(delta) -> void:
             node.queue_free()
         get_parent().add_child(popup)
 
-        get_parent().get_node('WorldEnvironment').environment.dof_blur_near_quality = 2
-        get_parent().get_node('WorldEnvironment').environment.dof_blur_near_enabled = true
         get_parent().get_tree().paused = true
       
 func movement_default(delta) -> void:

@@ -13,7 +13,7 @@ func _process(delta):
     
     # FADE IN
     
-    if get_parent().cm.color.r > 0.355:           # Fade in process
+    if get_node('../Sprite').modulate.v > 0.355:           # Fade in process
       for spr in get_children():
         if spr is AnimatedSprite or spr is Sprite:
           spr.modulate.a += (1 - spr.modulate.a) * 0.05 * Global.get_delta(delta)
@@ -31,13 +31,13 @@ func _process(delta):
     sel += 1
     $yes.frame = 1
     $yes.modulate.a = 1
-    get_parent().get_node('coin').play()
+    get_node('../coin').play()
   
   if Input.is_action_just_pressed('ui_left') and sel > 0:
     sel -= 1
     $no.frame = 1
     $no.modulate.a = 1
-    get_parent().get_node('coin').play()
+    get_node('../coin').play()
   
   if Input.is_action_just_pressed('ui_accept'):
     if sel: # No
@@ -54,4 +54,3 @@ func _process(delta):
       AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
 # warning-ignore:return_value_discarded
     get_parent().get_parent().get_tree().paused = false
-    get_parent().get_parent().get_node('WorldEnvironment').environment.dof_blur_near_enabled = false

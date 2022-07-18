@@ -19,7 +19,7 @@ func _process(delta):
     
     # FADE IN
     
-    if get_parent().cm.color.r > 0.355:           # Fade in process
+    if get_node('../Sprite').modulate.v > 0.355:           # Fade in process
       for spr in get_children():
         if spr is AnimatedSprite or spr is Sprite:
           spr.modulate.a += (1 - spr.modulate.a) * 0.1 * Global.get_delta(delta)
@@ -36,12 +36,12 @@ func _process(delta):
       get_node('sel' + str(sel)).frame = 0
       get_node('sel' + str(sel)).modulate.a = 1
       sel += 1
-      get_parent().get_node('choose').play()
+      get_node('../choose').play()
     elif Input.is_action_just_pressed('ui_up') and sel > 0:
       get_node('sel' + str(sel)).frame = 0
       get_node('sel' + str(sel)).modulate.a = 1
       sel -= 1
-      get_parent().get_node('choose').play()
+      get_node('../choose').play()
     
     if !can_restart and $sel1.frame != 2: $sel1.frame = 2
     

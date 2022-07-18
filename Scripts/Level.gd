@@ -115,14 +115,12 @@ func _input(event):
       popup.get_node('pause').play()
       add_child(popup)
 
-      $WorldEnvironment.environment.dof_blur_near_quality = 2
-      $WorldEnvironment.environment.dof_blur_near_enabled = true
       get_tree().paused = true
 
 func _notification(what):
   if Engine.editor_hint: return
   if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
-    if popup == null:
+    if popup == null and not get_tree().paused:
       popup = pause_menu.instance()
       print('creating pause')
       for node in popup.get_children():
@@ -130,8 +128,6 @@ func _notification(what):
           node.queue_free()
       call_deferred('add_child', popup)
 
-      $WorldEnvironment.environment.dof_blur_near_quality = 2
-      $WorldEnvironment.environment.dof_blur_near_enabled = true
       get_tree().paused = true
 
 func activate_event(name: String, args: Array):
