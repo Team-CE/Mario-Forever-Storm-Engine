@@ -73,9 +73,9 @@ func _ready() -> void:
     
     if custom_warp_sound:
       custom_audio = AudioStreamPlayer.new()
+      custom_audio.bus = 'Sounds'
       custom_audio.stream = custom_warp_sound
       add_child(custom_audio)
-      print('Custom warp audio added')
 
 func _process(delta) -> void:
   if Engine.editor_hint:

@@ -208,9 +208,9 @@ func _process_alive(delta) -> void:
     else:
       if 'sgr_scroll' in get_parent() and !get_parent().sgr_scroll:
         Global._pll()
-      elif get_node_or_null('StartWarp') in get_parent():
-        get_parent().get_node('StartWarp').active = true
-        get_parent().get_node('StartWarp').counter = 61
+      elif get_node_or_null('../StartWarp'):
+        get_node('../StartWarp').active = true
+        get_node('../StartWarp').counter = 61
       
   if position.y < $Camera.limit_top - 64 and controls_enabled and 'no_cliff' in get_parent() and get_parent().no_cliff:
     position.y += 570
@@ -299,7 +299,7 @@ func _process_dead(delta) -> void:
       MusicPlayer.get_node('Main').play()
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
       dead_gameover = true
-      yield(get_tree().create_timer( 5.0 ), 'timeout')
+      yield(get_tree().create_timer( 5.0, false ), 'timeout')
       if popup == null:
         popup = pause_menu.instance()
         for node in popup.get_children():

@@ -13,6 +13,8 @@ func _ready():
   if Global.lives == 0 || !is_instance_valid(Global.Mario) || (is_instance_valid(Global.Mario) && !Global.Mario.controls_enabled):
     can_restart = false
     $sel1.frame = 2
+  if 'sgr_scroll' in get_node('../../') and get_node_or_null('../../').sgr_scroll:
+    can_restart = false
 
 func _process(delta):
   if get_parent().isPaused:
