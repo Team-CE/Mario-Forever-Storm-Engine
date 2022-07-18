@@ -41,7 +41,7 @@ func _ai_process(delta: float) -> void:
   
   var turn_if_no_break: bool = true
     
-  for b in owner.get_node(owner.vars['kill zone']).get_overlapping_bodies():
+  for b in owner.get_node_or_null(owner.vars['kill zone']).get_overlapping_bodies():
     if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
       if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'): #&& Global.is_getting_closer(-32, owner.position):
         if 'is shell' in b.vars and 'stopped' in b.vars and !b.vars['stopped'] and b.vars['is shell']:

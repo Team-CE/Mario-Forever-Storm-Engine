@@ -243,9 +243,11 @@ func _process_alive(delta) -> void:
       old_velocity = Vector2.ZERO
     reset_velocity += 1
   
-  if old_velocity != Vector2.ZERO and velocity.y > 1:
-    one_tile_gap(old_velocity.x)
-    
+#  if old_velocity != Vector2.ZERO and velocity.y > 1:
+#    one_tile_gap(old_velocity.x)
+  
+  vertical_correction(5) # Corner correction like in original Mario games
+  horizontal_correction(10) # One tile gap runover ability
   velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
   update_collisions()
     
@@ -447,14 +449,14 @@ func controls(delta) -> void:
       if velocity.x < 0:
         velocity.x += 6.25 * Global.get_delta(delta) if !Input.is_action_pressed('mario_left') else 2.5 * Global.get_delta(delta)
     else:
-      if !test_move(Transform2D(rotation, position), Vector2(0, -6).rotated(rotation)):
+      if !test_move(global_transform, Vector2(0, -6).rotated(rotation)):
         crouch = false
         is_stuck = false
       else:
         is_stuck = true
         velocity = Vector2.DOWN
   else:
-    if !test_move(Transform2D(rotation, position), Vector2(0, -6).rotated(rotation)):
+    if !test_move(global_transform, Vector2(0, -6).rotated(rotation)):
       crouch = false
       is_stuck = false
     #else:
@@ -684,24 +686,33 @@ func update_collisions() -> void:
   $SmallRightDetector/CollisionSmallRightBig.disabled = not (Global.state > 0 and not crouch)
   $SmallLeftDetector/CollisionSmallLeftBig.disabled = not (Global.state > 0 and not crouch)
 
-func one_tile_gap(vel: float) -> void:
-  if (velocity.x > 1 or velocity.x < -1) and (vel > 1 or vel < -1):
-    var pos = Vector2.ZERO
-    
-    if (ray_L.is_colliding() and !ray_R.is_colliding()):
-      if ray_L.get_collision_point().y == round(position.y): return
-      if ray_L_2.is_colliding(): return
-      pos.y = ray_L.get_collision_point().y
-      pos.x = position.x - 0.1
-    if (ray_R.is_colliding() and !ray_L.is_colliding()):
-      if ray_R.get_collision_point().y == round(position.y): return
-      if ray_R_2.is_colliding(): return
-      pos.y = ray_R.get_collision_point().y
-      pos.x = position.x + 0.1
-    
-    if pos != Vector2.ZERO:
-      position = pos
-      velocity = Vector2(vel, 0)
+func vertical_correction(amount: int):
+  var delta = get_physics_process_delta_time()
+  if velocity.y < 0 and test_move(global_transform,
+  Vector2(0, velocity.y * delta).rotated(rotation)
+  ):
+    for i in range(1, amount * 2 + 1):
+      for j in [-1.0, 1.0]:
+        if !test_move(global_transform.translated(Vector2(i * j / 2, 0)),
+        Vector2(0, velocity.y * delta).rotated(rotation)
+        ):
+          translate(Vector2(i * j / 2, 0).rotated(rotation))
+          if velocity.x * j < 0: velocity.x = 0
+          return
+
+func horizontal_correction(amount: int):
+  var delta = get_physics_process_delta_time()
+  if velocity.y > 0 and (velocity.x > 1 or velocity.x < -1) and test_move(global_transform,
+  Vector2(velocity.x * delta, 0).rotated(rotation)
+  ):
+    for i in range(1, amount * 2 + 1):
+      for j in [-1.0, 1.0]:
+        if !test_move(global_transform.translated(Vector2(0, i * j / 2)),
+        Vector2(velocity.x * delta, 0).rotated(rotation)
+        ):
+          translate(Vector2(0, i * j / 2).rotated(rotation))
+          if velocity.y * j < 0: velocity.y = 0
+          return
 
 func kill() -> void:
   dead = true

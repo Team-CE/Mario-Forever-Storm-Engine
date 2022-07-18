@@ -381,7 +381,7 @@ tracks/1/keys = {
 
 [node name="PopupMenu" type="CanvasLayer"]
 pause_mode = 2
-layer = 5
+layer = 128
 script = ExtResource( 15 )
 
 [node name="Sprite" type="Sprite" parent="."]

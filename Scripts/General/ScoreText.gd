@@ -6,8 +6,8 @@ var icounter = 120
 
 func _init(score: int, pos: Vector2 = Vector2.ZERO):
   texture = preload('res://GFX/Texts/Score.png')
-  position = pos
-  position.y -= 8
+  rotation = Global.Mario.rotation
+  position = pos + Vector2(0, -8).rotated(rotation)
   hframes = 8
   z_index = 50
   match score:
@@ -42,6 +42,6 @@ func _init(score: int, pos: Vector2 = Vector2.ZERO):
 func _process(delta) -> void:
   counter += 1 * Global.get_delta(delta)
   if counter < 36:
-    position.y -= 1 * Global.get_delta(delta)
+    position += Vector2(0, -1).rotated(rotation) * Global.get_vector_delta(delta)
   if counter > icounter:
     queue_free()

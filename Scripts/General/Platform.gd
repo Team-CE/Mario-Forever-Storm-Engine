@@ -24,6 +24,8 @@ func _ready() -> void:
   if not move_on_touch:
     active = true
     current_speed = speed
+  if smooth_turn:
+    get_parent().curve.bake_interval = smooth_turn_distance
 
 func _physics_process(delta) -> void:
   if active:
@@ -34,8 +36,8 @@ func movement(delta) -> void:
   
   if smooth_turn:
     var points = get_parent().curve.get_baked_points()
-    for i in range(len(points)):
-      var p_offset = get_parent().curve.get_closest_offset(points[i])
+    for point in points:
+      var p_offset = get_parent().curve.get_closest_offset(point)
       if p_offset < smooth_turn_distance and p_offset != 0:
         current_speed = speed * (p_offset / smooth_turn_distance) + 0.2
         

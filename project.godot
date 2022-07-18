@@ -177,7 +177,7 @@ config/save_game_room_scene="res://Games/TheMultiverse2/Stages/CSaveGameRoom.tsc
 Global="*res://Scripts/Global.gd"
 GlobalEditor="*res://Scripts/GlobalEditor.gd"
 MusicPlayer="*res://Objects/Core/MusicPlayer.tscn"
-DiscordManager="*res://Scripts/Tools/discord_manager.gd"
+DiscordManager="res://Scripts/Tools/discord_manager.gd"
 
 [debug]
 

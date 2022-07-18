@@ -234,8 +234,7 @@ func add_score(score: int) -> void:
 
 # warning-ignore:shadowed_variable
 func add_lives(lives: int, create_scoretext: bool) -> void:
-  var scorePos = Mario.position
-  scorePos.y -= 32
+  var scorePos = Mario.position + Vector2(0, -32).rotated(Mario.rotation)
   if create_scoretext:
     var ScoreT = ScoreText.new(1, scorePos)
     Mario.get_parent().add_child(ScoreT)
