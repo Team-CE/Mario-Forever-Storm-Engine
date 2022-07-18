@@ -281,6 +281,9 @@ func _process_dead(delta) -> void:
   velocity.x = 0
   
   velocity.y += 25 * Global.get_delta(delta)
+  
+  if shield_counter > 0:
+    $Sprite.visible = true
 
   if dead_counter < 24:
     velocity.y = 0
