@@ -397,13 +397,17 @@ func movement_climbing(delta) -> void:
       movement_type = Movement.DEFAULT
       controls_enabled = true
     else:
-      velocity.y = 180
+      velocity.y = 150
+  elif Input.is_action_just_pressed('mario_jump'):
+    jump_counter = 0
+    movement_type = Movement.DEFAULT
+    controls_enabled = true
   if Input.is_action_pressed('mario_up'):
-    velocity.y = -180
+    velocity.y = -125
   if Input.is_action_pressed('mario_left'):
-    velocity.x = -150
+    velocity.x = -125
   if Input.is_action_pressed('mario_right'):
-    velocity.x = 150
+    velocity.x = 125
   
   if !Input.is_action_pressed('mario_crouch') and !Input.is_action_pressed('mario_up'):
     velocity.y = 0
