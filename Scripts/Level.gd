@@ -25,7 +25,7 @@ var popa: CanvasLayer = null
 func _ready():
   if !Engine.editor_hint:
     Global.currlevel = self
-    $WorldEnvironment.environment.dof_blur_near_enabled = false
+    Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
     if not $Mario.custom_die_stream or Global.deaths == 0:
       Global.time = time
       MusicPlayer.get_node('TweenOut').remove_all()
@@ -114,19 +114,21 @@ func _input(event):
           node.queue_free()
       popup.get_node('pause').play()
       add_child(popup)
+      Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
       get_tree().paused = true
 
 func _notification(what):
   if Engine.editor_hint: return
+  if !Global.autopause: return
   if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
     if popup == null and not get_tree().paused:
       popup = pause_menu.instance()
-      print('creating pause')
       for node in popup.get_children():
         if node.get_class() == 'Node' and not node.get_name() == 'Pause':
           node.queue_free()
       call_deferred('add_child', popup)
+      Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
       get_tree().paused = true
 

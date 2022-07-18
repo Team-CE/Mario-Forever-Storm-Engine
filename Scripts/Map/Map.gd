@@ -33,6 +33,7 @@ func _ready() -> void:
   $MarioPath/PathFollow2D/MiniMario/Camera2D.limit_bottom = camera_bottom_limit
   
   Global.reset_audio_effects()
+  Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _process(delta: float) -> void:
   $MarioPath/PathFollow2D/MiniMario/AnimatedSprite.speed_scale = 20 if !stopped else 5

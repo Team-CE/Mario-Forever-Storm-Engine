@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var sel: int = 0
 var counter: float = 1
@@ -17,6 +17,7 @@ func _ready():
     can_restart = false
 
 func _process(delta):
+  if get_parent().options: return
   if get_parent().isPaused:
     
     # FADE IN
@@ -34,7 +35,7 @@ func _process(delta):
     
     # CONTROLS
     
-    if Input.is_action_just_pressed('ui_down') and sel < 4:
+    if Input.is_action_just_pressed('ui_down') and sel < 5:
       get_node('sel' + str(sel)).frame = 0
       get_node('sel' + str(sel)).modulate.a = 1
       sel += 1
@@ -55,6 +56,7 @@ func _process(delta):
           if Global.musicBar == -100:
             AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
           get_parent().resume()
+          get_parent().get_parent().get_tree().paused = false
         1:
           if !can_restart: return
           if Global.musicBar > -100:
@@ -65,8 +67,14 @@ func _process(delta):
             Global._reset()
           else:
             Global._pll()
-          get_parent().resume()
+            get_parent().resume()
+          get_parent().get_parent().get_tree().paused = false
         2:
+          get_node('../AnimationPlayer').play('ToOptions')
+          get_node('../enter').play()
+          get_node('../Options')._pseudo_ready()
+          get_parent().options = true
+        3:
           scene = ProjectSettings.get_setting('application/config/sgr_scene')
           AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
           var error = get_tree().change_scene(scene)
@@ -75,7 +83,8 @@ func _process(delta):
           MusicPlayer.get_node('Star').stop()
           Global.reset_all_values()
           get_parent().queue_free()
-        3:
+          get_parent().get_parent().get_tree().paused = false
+        4:
           scene = ProjectSettings.get_setting('application/config/main_menu_scene')
           AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
           var error = get_tree().change_scene(scene)
@@ -84,11 +93,11 @@ func _process(delta):
           MusicPlayer.get_node('Star').stop()
           Global.reset_all_values()
           get_parent().queue_free()
-        4:
+          get_parent().get_parent().get_tree().paused = false
+        5:
           get_tree().quit()
           get_parent().queue_free()
-      
-      get_parent().get_parent().get_tree().paused = false
+          get_parent().get_parent().get_tree().paused = false
       
     if Input.is_action_just_pressed('ui_cancel') and counter > 1:
       if Global.musicBar > -100:

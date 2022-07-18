@@ -2,9 +2,9 @@ extends CanvasLayer
 
 var isPaused: bool = true
 var why: bool = false
+var options: bool = false
 
 onready var env = $Sprite.material
-onready var cm = $Sprite.modulate
 
 export var darkness: float = 0.35
 export var speed: float = 0.15
@@ -46,10 +46,11 @@ func resume() -> void:
     Global.HUD.get_node('GameoverSprite').visible = Global.Mario.dead_gameover
     Global.HUD.get_node('DebugOrphaneNodes').hide()
   isPaused = false
+  Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
   
-  yield(get_tree().create_timer( darkness ), 'timeout')
+  yield(get_tree().create_timer( darkness, false), 'timeout')
   
-  cm = Color.white
+  $Sprite.modulate = Color.white
   
   get_parent().popup = null
   queue_free()

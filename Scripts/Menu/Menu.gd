@@ -47,6 +47,8 @@ func _ready() -> void:
   if Global.soundBar == -100:
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), -1000)
   
+  Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+  
   updateControls()
   
 func _process(delta) -> void:
