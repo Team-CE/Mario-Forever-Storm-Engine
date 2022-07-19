@@ -6,6 +6,7 @@ func do_action(mario):
     var fireball = fb.instance()
     fireball.dir = -1 if mario.get_node('Sprite').flip_h else 1
     fireball.position = Vector2(mario.position.x, mario.position.y - 32)
+    fireball.rotation = mario.rotation
     Global.projectiles_count += 1
     mario.launch_counter = 2
     mario.get_parent().add_child(fireball)

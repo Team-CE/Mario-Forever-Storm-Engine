@@ -11,6 +11,8 @@ var fireball
 
 var rng = RandomNumberGenerator.new()
 
+var rotat: float
+
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.DISAPPEAR
   owner.velocity_enabled = false
@@ -38,17 +40,15 @@ func _ai_process(delta: float) -> void:
   ._ai_process(delta)
   
   if !owner.alive or owner.frozen:
-    #owner.get_node('Sprite').global_rotation += 0.25 * Global.get_delta(delta)
-    #owner.get_node('Sprite').offset.y = 0 - owner.get_node('Sprite').frames.get_frame('falling', 0).get_size().y
-    #owner.get_node('Sprite').offset.x = owner.get_node('Sprite').frames.get_frame(owner.get_node('Sprite').animation, owner.get_node('Sprite').frame).get_size().x / 2
-    #owner.rotation_degrees = 0
+    owner.animated_sprite.rotation = rotat
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
-    #owner.velocity.x = 100
     owner.velocity_enabled = true
     
     if owner.frozen:
       owner.get_node('Collision2').disabled = false
     return
+
+  rotat = owner.rotation
 
   if on_mario_collide('InsideDetector'):
     Global._ppd()
@@ -83,7 +83,8 @@ func _process_shooting(_delta):
     owner.sound.play()
     projectile_timer = owner.vars['shoot interval'] if 'shoot interval' in owner.vars else 10
     projectile_counter += 1
-    if 'no fireballs above screen' in owner.vars and owner.vars['no fireballs above screen'] and owner.position.y + 272 < Global.Mario.position.y:
+    if ('no fireballs above screen' in owner.vars and owner.vars['no fireballs above screen']
+    and owner.position.y + 272 < Global.Mario.position.y):
       return
     if owner.vars['type'] == 2:
       fireball = preload('res://Objects/Projectiles/Iceball.tscn').instance()

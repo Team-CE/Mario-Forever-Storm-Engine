@@ -5,6 +5,7 @@ func _ready_mixin():
 
 func _setup(b)-> void:
   ._setup(b)
+# warning-ignore:return_value_discarded
   owner.get_node(owner.vars['kill zone']).connect('body_entered',self,"_on_kill_zone_enter")
 
 func _ai_process(delta: float) -> void:

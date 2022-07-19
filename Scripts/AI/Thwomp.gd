@@ -69,8 +69,8 @@ func _ai_process(delta: float) -> void:
     
   if owner.is_on_floor() and falling:
     owner.sound.play()
-    owner.get_parent().add_child(Explosion.new(owner.position + owner.get_node('EffectPosition1').position))
-    owner.get_parent().add_child(Explosion.new(owner.position + owner.get_node('EffectPosition2').position))
+    owner.get_parent().add_child(Explosion.new(owner.position + owner.get_node('EffectPosition1').position.rotated(owner.rotation)))
+    owner.get_parent().add_child(Explosion.new(owner.position + owner.get_node('EffectPosition2').position.rotated(owner.rotation)))
     if hit_counter <= 0:
       falling = false
       top = true

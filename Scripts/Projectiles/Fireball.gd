@@ -44,7 +44,7 @@ func _process(delta) -> void:
   velocity.y += 24 * gravity_scale * Global.get_delta(delta)
 
   if belongs != 1:
-    velocity = move_and_slide(velocity, Vector2.UP)
+    velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation)).rotated(-rotation)
   else:
     position += velocity * Vector2(delta, delta)
 

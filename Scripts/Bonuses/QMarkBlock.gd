@@ -212,7 +212,7 @@ func brick_break(idle_frame:bool = true) -> void:
   Global.play_base_sound('MAIN_BrickBreak')
   var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
   for i in range(4):
-    var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i], debris)
+    var debris_effect = BrickEffect.new(position + Vector2(0, -16).rotated(rotation), speeds[i], debris)
     get_parent().add_child(debris_effect)
   Global.add_score(50)
   $Body.visible = false

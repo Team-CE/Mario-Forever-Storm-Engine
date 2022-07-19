@@ -118,9 +118,9 @@ func _ready() -> void:
     connect('enemy_died', get_tree().get_current_scene(), 'activate_event', ['on_enemy_death', [get_name()]])
 
 func _physics_process(delta:float) -> void:
-  var vse = get_node_or_null("VisibilityEnabler2D")
-  if is_instance_valid(vse):
-    vse.scale = Vector2(5,5)
+#  var vse = get_node_or_null("VisibilityEnabler2D")
+#  if is_instance_valid(vse):
+#    vse.scale = Vector2(5,5)
   if !alive && death_type != DEATH_TYPE.FALL && !force_death_type:
     return
   
@@ -134,7 +134,7 @@ func _physics_process(delta:float) -> void:
     velocity.y = 1
   
   if velocity_enabled:
-    velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation)).rotated(-rotation)
+    velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation), false, 4, 0.802852, false).rotated(-rotation)
     
   # Freeze
   if frozen_sprite && frozen:
@@ -153,7 +153,7 @@ func on_edge() -> bool:
 
 # warning-ignore:shadowed_variable
 func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = null, is_shell: bool = false) -> void:
-  if invincible and !is_shell:
+  if invincible:
     return
   if invincible_for_shells and is_shell:
     return
@@ -197,9 +197,8 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = nu
       get_parent().add_child(ScoreText.new(score * multiplier_scores[score_mp], position))
       z_index = 10
       velocity.y = -180
+      rotation = Global.Mario.rotation
       animated_sprite.set_animation('falling')
-      animated_sprite.rotation_degrees = rotation_degrees
-      rotation_degrees = 0
       time = get_tree().create_timer(2.0, false)
       time.connect('timeout', self, 'instance_free')
     DEATH_TYPE.CUSTOM:

@@ -15,8 +15,6 @@ var inited_camera_addon
 var ready_powerup_scripts: Dictionary = {}
 
 var velocity: Vector2
-var old_velocity: Vector2
-var reset_velocity: int = 0
 var jump_counter: int = 0
 var jump_internal_counter: float = 100
 var can_jump: bool = false
@@ -154,10 +152,6 @@ func _process_alive(delta) -> void:
     if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_ready_mixin'):
       ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
-
-  if velocity.x > 1 or velocity.x < -1 or velocity.y < -1:
-    old_velocity = velocity
-    reset_velocity = 0
   
   var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
@@ -187,8 +181,9 @@ func _process_alive(delta) -> void:
       MusicPlayer.fade_out(MusicPlayer.get_node('Star'), 3.0)
       faded = true
     if shield_counter <= 0:
-      MusicPlayer.get_node('Star').stop()
-      MusicPlayer.get_node('Main').play()
+      if not MusicPlayer.get_node('Main').playing:
+        MusicPlayer.get_node('Star').stop()
+        MusicPlayer.get_node('Main').play()
       $BottomDetector/CollisionBottom.disabled = false
       $BottomDetector/CollisionBottom2.disabled = false
       $Sprite.material.set_shader_param('mixing', false)
@@ -237,14 +232,6 @@ func _process_alive(delta) -> void:
     for collider in bottom_collisions:
       if collider.has_method('_standing_on'):
         collider._standing_on()
-
-  if old_velocity:
-    if reset_velocity > 2:
-      old_velocity = Vector2.ZERO
-    reset_velocity += 1
-  
-#  if old_velocity != Vector2.ZERO and velocity.y > 1:
-#    one_tile_gap(old_velocity.x)
   
   vertical_correction(5) # Corner correction like in original Mario games
   horizontal_correction(10) # One tile gap runover ability
@@ -284,6 +271,7 @@ func _process_dead(delta) -> void:
   
   if shield_counter > 0:
     $Sprite.visible = true
+    shield_counter = 0
 
   if dead_counter < 24:
     velocity.y = 0
@@ -766,14 +754,14 @@ func debug() -> void:
 func _process_debug_fly(delta: float) -> void:
   var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10) - (int( Input.is_action_pressed('debug_shift') ) * 9)
   if Input.is_action_pressed('mario_right'):
-    position.x += debugspeed * Global.get_delta(delta)
+    position += Vector2(debugspeed * Global.get_delta(delta), 0).rotated(rotation)
   if Input.is_action_pressed('mario_left'):
-    position.x -= debugspeed * Global.get_delta(delta)
+    position -= Vector2(debugspeed * Global.get_delta(delta), 0).rotated(rotation)
   
   if Input.is_action_pressed('mario_up'):
-    position.y -= debugspeed * Global.get_delta(delta)
+    position -= Vector2(0, debugspeed * Global.get_delta(delta)).rotated(rotation)
   if Input.is_action_pressed('mario_crouch'):
-    position.y += debugspeed * Global.get_delta(delta)
+    position += Vector2(0, debugspeed * Global.get_delta(delta)).rotated(rotation)
     
   if Input.is_action_just_pressed('debug_rotate_right'):
     target_gravity_angle += 45
