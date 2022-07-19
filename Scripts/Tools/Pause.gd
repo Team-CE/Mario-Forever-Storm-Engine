@@ -16,6 +16,10 @@ func _ready():
   if 'sgr_scroll' in get_node('../../') and get_node_or_null('../../').sgr_scroll:
     can_restart = false
 
+func _input(ev):
+  if ev.is_action_pressed('ui_fullscreen'):
+    OS.window_fullscreen = !OS.window_fullscreen
+
 func _process(delta):
   if get_parent().options: return
   if get_parent().isPaused:
