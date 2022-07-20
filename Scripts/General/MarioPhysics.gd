@@ -307,7 +307,7 @@ func movement_default(delta) -> void:
     movement_type = Movement.SWIMMING
   
   if velocity.y < 550 and !is_on_floor():
-    if Input.is_action_pressed('mario_jump') and !Input.is_action_pressed('mario_crouch') and velocity.y < 0:
+    if Input.is_action_pressed('mario_jump') and !Input.is_action_pressed('mario_crouch') and velocity.y < 0 and controls_enabled:
       if abs(velocity.x) < 1:
         velocity.y -= 20 * Global.get_delta(delta)
       else:
@@ -329,10 +329,9 @@ func movement_default(delta) -> void:
     jump_counter = 0
   
   # Start climbing
-  if Input.is_action_pressed('mario_up') || (Input.is_action_pressed('mario_crouch') && !is_on_floor()):
+  if Input.is_action_pressed('mario_up') || (Input.is_action_pressed('mario_crouch') && !is_on_floor()) and controls_enabled:
     if crouch || !is_over_vine(): return
     if movement_type == Movement.DEFAULT:
-      controls_enabled = false
       movement_type = Movement.CLIMBING
 
 func movement_swimming(delta) -> void:
@@ -378,29 +377,6 @@ func movement_climbing(delta) -> void:
   
   if !is_over_vine():
     movement_type = Movement.DEFAULT
-    controls_enabled = true
-  
-  if Input.is_action_pressed('mario_crouch'):
-    if is_on_floor():
-      movement_type = Movement.DEFAULT
-      controls_enabled = true
-    else:
-      velocity.y = 150
-  elif Input.is_action_just_pressed('mario_jump'):
-    jump_counter = 0
-    movement_type = Movement.DEFAULT
-    controls_enabled = true
-  if Input.is_action_pressed('mario_up'):
-    velocity.y = -125
-  if Input.is_action_pressed('mario_left'):
-    velocity.x = -125
-  if Input.is_action_pressed('mario_right'):
-    velocity.x = 125
-  
-  if !Input.is_action_pressed('mario_crouch') and !Input.is_action_pressed('mario_up'):
-    velocity.y = 0
-  if !Input.is_action_pressed('mario_left') and !Input.is_action_pressed('mario_right'):
-    velocity.x = 0
     
 func is_over_vine() -> bool:
   var overlaps = get_node('InsideDetector').get_overlapping_areas()
@@ -430,6 +406,30 @@ func controls(delta) -> void:
 
   if jump_counter == 0 and can_jump and movement_type != Movement.SWIMMING:
     jump()
+  
+  if movement_type == Movement.CLIMBING:
+      if Input.is_action_pressed('mario_up'):
+        velocity.y = -125
+      if Input.is_action_pressed('mario_left'):
+        velocity.x = -125
+      if Input.is_action_pressed('mario_right'):
+        velocity.x = 125
+      
+      if !Input.is_action_pressed('mario_crouch') and !Input.is_action_pressed('mario_up'):
+        velocity.y = 0
+      if !Input.is_action_pressed('mario_left') and !Input.is_action_pressed('mario_right'):
+        velocity.x = 0
+      if Input.is_action_pressed('mario_crouch'):
+        if is_on_floor():
+          movement_type = Movement.DEFAULT
+        else:
+          velocity.y = 150
+      elif Input.is_action_just_pressed('mario_jump'):
+        movement_type = Movement.DEFAULT
+        jump_counter = 0
+        jump()
+      return
+
 
   if velocity.y > 0.5 and not is_over_backdrop($BottomDetector, false):
     prelanding = false

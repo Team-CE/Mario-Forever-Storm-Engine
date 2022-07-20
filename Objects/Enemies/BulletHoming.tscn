@@ -1,30 +1,29 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Prefabs/Animations/Bullet.res" type="SpriteFrames" id=1]
-[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=2]
-[ext_resource path="res://Scripts/AI/Bullet.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/AI/BulletHoming.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=3]
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+extents = Vector2( 16, 14 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 17, 14 )
+extents = Vector2( 16, 16 )
 
-[node name="Bullet" type="KinematicBody2D"]
+[node name="BulletHoming" type="KinematicBody2D"]
 position = Vector2( 0, -14 )
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 vars = {
 "bounce": 9,
 "hitbox": NodePath("Hitbox"),
-"speed": 162.5
+"speed": 200.0
 }
-AI = ExtResource( 3 )
+AI = ExtResource( 2 )
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 show_behind_parent = true
 shape = SubResource( 1 )
 disabled = true
@@ -34,7 +33,6 @@ frames = ExtResource( 1 )
 flip_h = true
 
 [node name="Hitbox" type="Area2D" parent="."]
-visible = false
 show_behind_parent = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

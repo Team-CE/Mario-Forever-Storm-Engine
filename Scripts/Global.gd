@@ -347,8 +347,8 @@ func is_mario_collide_area_group(_detector_name: String, group: String) -> bool:
 func is_getting_closer(pix: float, pos: Vector2) -> bool:
   var camera = Mario.get_node_or_null('Camera')
   return (
-    pos.x > camera.global_position.x - 320 + pix and
-    pos.x < camera.global_position.x + 320 - pix and
-    pos.y > camera.global_position.y - 240 + pix and
-    pos.y < camera.global_position.y + 240 - pix
+    pos.x > camera.get_camera_screen_center().x - 320 + pix and
+    pos.x < camera.get_camera_screen_center().x + 320 - pix and
+    pos.y > camera.get_camera_screen_center().y - 240 + pix and
+    pos.y < camera.get_camera_screen_center().y + 240 - pix
   )

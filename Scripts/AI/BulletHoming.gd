@@ -1,7 +1,8 @@
 extends Brain
 
 var speed_modifier: float = 0
-var speed: float = 162.5
+var speed: float = 200
+const speed_cap: int = 200
 var temp: bool = false
 var old_rotation: float = 0
 
@@ -15,10 +16,16 @@ func _ai_process(delta: float) -> void:
   ._ai_process(delta)
   if owner.velocity.y < 0:
     owner.velocity.y = 0
+  # Animation
+  owner.animated_sprite.modulate.r += 0.15 * Global.get_delta(delta)
+  owner.animated_sprite.modulate.g -= 0.15 * Global.get_delta(delta)
+  owner.animated_sprite.modulate.b -= 0.15 * Global.get_delta(delta)
+  if owner.animated_sprite.modulate.r > 1.5:
+    owner.animated_sprite.modulate = Color.white
   
   if !Global.is_getting_closer(-300, owner.position):
     owner.queue_free()
-  
+    
   owner.velocity.x = (speed - speed_modifier) * owner.dir
   if !owner.alive:
     owner.gravity_scale = 0.8
@@ -32,7 +39,37 @@ func _ai_process(delta: float) -> void:
       speed_modifier += speed * 0.002
     return
   old_rotation = owner.rotation
+  
   owner.animated_sprite.flip_h = owner.dir < 0
+  
+  var right_of_player: bool = owner.position.rotated(-owner.rotation).x > Global.Mario.position.rotated(-owner.rotation).x
+  if owner.dir == (1 if right_of_player else -1):
+    if speed_modifier < speed_cap:
+      speed_modifier += 5 * Global.get_delta(delta)
+    else:
+      owner.dir = -1 if right_of_player else 1
+  else:
+    if abs(speed_modifier) > 0:
+      speed_modifier -= 5 * Global.get_delta(delta)
+
+#    if owner.dir == -1:
+#      if abs(speed_modifier) < speed_cap:
+#        speed_modifier -= 6.25 * Global.get_delta(delta)
+#    else:
+#      if abs(speed_modifier) > 0:
+#        speed_modifier += 6.25 * Global.get_delta(delta)
+#      else:
+#        owner.dir = -1
+#  else:
+#    if owner.dir == 1:
+#      if abs(speed_modifier) < speed_cap:
+#        speed_modifier -= 6.25 * Global.get_delta(delta)
+#    else:
+#      if abs(speed_modifier) > 0:
+#        speed_modifier += 6.25 * Global.get_delta(delta)
+#      else:
+#        owner.dir = 1
+  
 
 func _on_hitbox_enter(a) -> void:
   if !owner.alive:

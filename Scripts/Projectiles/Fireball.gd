@@ -3,7 +3,7 @@ extends KinematicBody2D
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
 
 var dir: int = 1
-var velocity: Vector2 = Vector2(426, 0)
+var velocity: Vector2 = Vector2(387.5, 0)
 var skip_frame: bool = false
 var gravity_scale: float = 1
 
@@ -39,9 +39,9 @@ func _process(delta) -> void:
     Global._ppd()
 
   if is_on_floor() and belongs != 1:
-    velocity.y = -350
+    velocity.y = -250
 
-  velocity.y += 24 * gravity_scale * Global.get_delta(delta)
+  velocity.y += 20 * gravity_scale * Global.get_delta(delta)
 
   if belongs != 1:
     velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation)).rotated(-rotation)
