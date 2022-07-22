@@ -38,6 +38,7 @@ func _ready() -> void:
     saveOptions()
   MusicPlayer.get_node('Main').stream = music
   MusicPlayer.get_node('Main').play()
+  MusicPlayer.play_on_pause()
   if Global.musicBar > -100:
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
   if Global.musicBar == -100:

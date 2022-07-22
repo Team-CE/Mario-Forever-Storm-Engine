@@ -20,7 +20,6 @@ onready var mpStar = MusicPlayer.get_node('Star')
 
 const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
 var popup: CanvasLayer = null
-var popa: CanvasLayer = null
 
 func _ready():
   if !Engine.editor_hint:
@@ -31,6 +30,7 @@ func _ready():
       MusicPlayer.get_node('TweenOut').remove_all()
       mpMain.stream = music
       mpMain.play()
+      MusicPlayer.play_on_pause()
       mpMain.volume_db = 0
       mpStar.stop()
       mpStar.volume_db = 0
@@ -122,7 +122,7 @@ func _notification(what):
   if Engine.editor_hint: return
   if !Global.autopause: return
   if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
-    if popup == null and not get_tree().paused:
+    if popup == null and not (is_instance_valid(Global.Mario) and Global.Mario.popup):
       popup = pause_menu.instance()
       for node in popup.get_children():
         if node.get_class() == 'Node' and not node.get_name() == 'Pause':

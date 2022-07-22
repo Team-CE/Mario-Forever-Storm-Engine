@@ -23,6 +23,7 @@ onready var cam = $MarioPath/PathFollow2D/MiniMario/Camera2D
 func _ready() -> void:
   MusicPlayer.get_node('Main').stream = music
   MusicPlayer.get_node('Main').play()
+  MusicPlayer.play_on_pause()
   
   if Global.levelID > 0:
     $MarioPath/PathFollow2D.offset = stop_points[Global.levelID - 1]

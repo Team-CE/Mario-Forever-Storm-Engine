@@ -199,10 +199,6 @@ func _process_active(_delta) -> void:
     if !Empty and !triggered:
       collision.one_way_collision = true
       visible = false
-      Global.Mario.ray_L.add_exception(self)
-      Global.Mario.ray_L_2.add_exception(self)
-      Global.Mario.ray_R.add_exception(self)
-      Global.Mario.ray_R_2.add_exception(self)
   else:
     visible = true
   
@@ -229,10 +225,6 @@ func hit(_delta, ignore_powerup = false, idle_frame: bool = true) -> void:
   visible = true
   $Body.visible = visible
   $Collision.one_way_collision = false
-  Global.Mario.ray_L.remove_exception(self)
-  Global.Mario.ray_L_2.remove_exception(self)
-  Global.Mario.ray_R.remove_exception(self)
-  Global.Mario.ray_R_2.remove_exception(self)
 
   if qtype == BLOCK_TYPE.COMMON:
     var powerup = Result.instance() if Result and Result.has_method('instance') else null

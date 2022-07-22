@@ -106,10 +106,10 @@ extents = Vector2( 8, 26 )
 extents = Vector2( 10, 4 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 7, 2 )
+extents = Vector2( 8, 2 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 7, 2 )
+extents = Vector2( 8, 2 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 1, 6 )
@@ -200,8 +200,8 @@ shape = SubResource( 4 )
 
 [node name="BottomDetector" type="Area2D" parent="."]
 visible = false
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionBottom" type="CollisionShape2D" parent="BottomDetector"]
 scale = Vector2( 1, 0.5 )

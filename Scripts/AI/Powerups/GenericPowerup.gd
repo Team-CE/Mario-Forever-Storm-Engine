@@ -18,8 +18,7 @@ func _ready_mixin():
   # Replacing with mushroom if mario is small and state is provided
   if 'set state' in owner.vars and 'from bonus' in owner.vars and Global.state == 0 and owner.vars['set state'] > 1:
     var mushroom = load('res://Objects/Bonuses/Powerups/Mushroom.tscn').instance()
-    mushroom.position = owner.position
-    mushroom.rotation = owner.rotation
+    mushroom.transform = owner.transform
     owner.get_parent().add_child(mushroom)
     owner.queue_free()
     
@@ -33,10 +32,6 @@ func _ready_mixin():
   for node in range(len(children)):
     if children[node] is KinematicBody2D:
       owner.add_collision_exception_with(children[node])
-      Global.Mario.ray_L.add_exception(owner)
-      Global.Mario.ray_L_2.add_exception(owner)
-      Global.Mario.ray_R.add_exception(owner)
-      Global.Mario.ray_R_2.add_exception(owner)
   
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)

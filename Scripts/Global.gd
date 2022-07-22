@@ -297,6 +297,7 @@ func _pll() -> void: # Player Death
     MusicPlayer.get_node('Main').volume_db = 0
     MusicPlayer.get_node('Main').stream = Mario.die_music
     MusicPlayer.get_node('Main').play()
+    MusicPlayer.stop_on_pause()
     MusicPlayer.get_node('Star').stop()
   else:
     var dieMusPlayer = AudioStreamPlayer.new()

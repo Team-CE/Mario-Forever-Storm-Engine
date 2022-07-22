@@ -51,30 +51,12 @@ func _ai_process(delta: float) -> void:
   else:
     if abs(speed_modifier) > 0:
       speed_modifier -= 5 * Global.get_delta(delta)
-
-#    if owner.dir == -1:
-#      if abs(speed_modifier) < speed_cap:
-#        speed_modifier -= 6.25 * Global.get_delta(delta)
-#    else:
-#      if abs(speed_modifier) > 0:
-#        speed_modifier += 6.25 * Global.get_delta(delta)
-#      else:
-#        owner.dir = -1
-#  else:
-#    if owner.dir == 1:
-#      if abs(speed_modifier) < speed_cap:
-#        speed_modifier -= 6.25 * Global.get_delta(delta)
-#    else:
-#      if abs(speed_modifier) > 0:
-#        speed_modifier += 6.25 * Global.get_delta(delta)
-#      else:
-#        owner.dir = 1
   
 
 func _on_hitbox_enter(a) -> void:
   if !owner.alive:
     return
-  if a.name == 'BottomDetector' and !owner.invincible:
+  if a.name == 'BottomDetector' and !owner.invincible and Global.Mario.velocity.y >= 0:
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
     else:

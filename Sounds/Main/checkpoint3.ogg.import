@@ -11,5 +11,5 @@ dest_files=[ "res://.import/checkpoint3.ogg-18a9afe845ae8bf4c9308de5b519231f.ogg
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

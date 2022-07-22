@@ -6,10 +6,10 @@
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+extents = Vector2( 16, 2 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 17, 14 )
+extents = Vector2( 16, 8 )
 
 [node name="Bullet" type="KinematicBody2D"]
 position = Vector2( 0, -14 )
@@ -24,17 +24,16 @@ alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 show_behind_parent = true
 shape = SubResource( 1 )
 disabled = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+z_index = -1
 frames = ExtResource( 1 )
 flip_h = true
 
 [node name="Hitbox" type="Area2D" parent="."]
-visible = false
 show_behind_parent = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

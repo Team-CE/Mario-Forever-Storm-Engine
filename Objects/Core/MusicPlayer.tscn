@@ -21,5 +21,6 @@ pause_mode = 1
 [node name="TweenIn" type="Tween" parent="."]
 pause_mode = 1
 
+[connection signal="finished" from="Main" to="." method="_on_Main_finished"]
 [connection signal="tween_completed" from="TweenOut" to="." method="_on_TweenOut_tween_completed"]
 [connection signal="tween_step" from="TweenOut" to="." method="_on_TweenOut_tween_step"]

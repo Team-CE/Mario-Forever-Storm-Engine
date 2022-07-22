@@ -30,7 +30,7 @@ enum Movement {
 
 var top_collider_counter: float = 0
 
-var position_altered: bool = false
+var is_big_collision: bool = false
 var selected_state: int = -1
 
 onready var movement_type: int = Movement.DEFAULT
@@ -42,6 +42,7 @@ onready var appear_counter: float = 0
 onready var shield_star: bool = false
 onready var shield_counter: float = 0
 onready var star_kill_count: int = 0
+onready var exceptions_added = false
 onready var launch_counter: float = 0
 onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
@@ -73,8 +74,6 @@ func change_camera_parent() -> void:
     get_tree().current_scene.add_child(cam)
 
 func _ready() -> void:
-  gameover_music.loop = false
-  die_music.loop = false
   Global.Mario = self
 # warning-ignore:return_value_discarded
   Global.connect('OnPlayerLoseLife', self, 'kill')
@@ -142,7 +141,7 @@ func _process(delta) -> void:
 func _process_alive(delta) -> void:
   if selected_state != Global.state:
     selected_state = Global.state
-    if selected_state > 0 and test_move(Transform2D(rotation, position), Vector2(0, -6).rotated(rotation)):
+    if selected_state > 0 and test_move(global_transform, Vector2(0, -6).rotated(rotation)):
       velocity.y = 0
       crouch = true
       is_stuck = true
@@ -172,8 +171,10 @@ func _process_alive(delta) -> void:
   
   if shield_star:
     star_logic()
-    $BottomDetector/CollisionBottom.disabled = true
-    $BottomDetector/CollisionBottom2.disabled = true
+    if !exceptions_added:
+      $BottomDetector.collision_layer = 0b100 # Only layer 3, which are springs
+      $BottomDetector.collision_mask = 0b100
+      exceptions_added = true
     $Sprite.material.set_shader_param('mixing', true)
     # Starman music Fade out
     
@@ -184,14 +185,15 @@ func _process_alive(delta) -> void:
       if not MusicPlayer.get_node('Main').playing:
         MusicPlayer.get_node('Star').stop()
         MusicPlayer.get_node('Main').play()
-      $BottomDetector/CollisionBottom.disabled = false
-      $BottomDetector/CollisionBottom2.disabled = false
+      $BottomDetector.collision_layer = 0b111 # All 3 layers
+      $BottomDetector.collision_mask = 0b111
       $Sprite.material.set_shader_param('mixing', false)
       if Global.musicBar > -100:
         AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
       if Global.musicBar == -100:
         AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
       shield_star = false
+      exceptions_added = false
       star_kill_count = 0
   
   if controls_enabled:
@@ -290,13 +292,14 @@ func _process_dead(delta) -> void:
     elif not dead_gameover:
       MusicPlayer.get_node('Main').stream = gameover_music
       MusicPlayer.get_node('Main').play()
+      MusicPlayer.stop_on_pause()
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
       dead_gameover = true
       yield(get_tree().create_timer( 5.0, false ), 'timeout')
       if popup == null:
         popup = pause_menu.instance()
         for node in popup.get_children():
-          if node.get_class() == 'Node' and not node.get_name() == 'GameOver':
+          if node.get_class() == 'Node2D' and not node.get_name() == 'GameOver':
             node.queue_free()
         get_parent().add_child(popup)
 
@@ -507,10 +510,6 @@ func animate_default(delta) -> void:
     $Sprite.flip_h = true
   if velocity.x >= 8 * Global.get_delta(delta):
     $Sprite.flip_h = false
-    
-#  if Global.state > 0 and not position_altered:
-#    $Sprite.position.y -= 14
-#    position_altered = true
 
   if appear_counter > 0:
     if not allow_custom_animation:
@@ -521,9 +520,6 @@ func animate_default(delta) -> void:
     appear_counter -= 1.5 * Global.get_delta(delta)
     if not shield_star: return
   if appear_counter < 0:
-#    if position_altered:
-#      $Sprite.position.y += 14
-#      position_altered = false
     appear_counter = 0
 
   if shield_counter > 0:
@@ -680,6 +676,15 @@ func update_collisions() -> void:
   $InsideDetector/CollisionBig.disabled = not (Global.state > 0 and not crouch)
   $SmallRightDetector/CollisionSmallRightBig.disabled = not (Global.state > 0 and not crouch)
   $SmallLeftDetector/CollisionSmallLeftBig.disabled = not (Global.state > 0 and not crouch)
+  if is_big_collision != $TopDetector/CollisionTopBig.disabled:
+    return
+  else:
+    is_big_collision = not $TopDetector/CollisionTopBig.disabled
+#    on_big_collision_change()
+
+#func on_big_collision_change():
+#  if test_move(global_transform, Vector2(0, -1).rotated(rotation)):
+#    if test_move(global_transform, Vector2(0, 1).rotated(rotation))
 
 func vertical_correction(amount: int):
   var delta = get_physics_process_delta_time()

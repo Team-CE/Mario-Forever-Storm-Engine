@@ -18,6 +18,12 @@ func fade_in(audio_stream: Object, duration: float, from_vol: float = -80, to_vo
   tween_in.start()
   print('Fading in...')
 
+func stop_on_pause():
+  $Main.pause_mode = PAUSE_MODE_STOP
+
+func play_on_pause():
+  $Main.pause_mode = PAUSE_MODE_INHERIT
+
 func _on_TweenOut_tween_completed(object, _key):
   object.stop()
   object.volume_db = 0
@@ -26,3 +32,7 @@ func _on_TweenOut_tween_completed(object, _key):
 func _on_TweenOut_tween_step(_object, _key, _elapsed, _value):
   #print(value)
   pass
+
+func _on_Main_finished():
+  $Main.pause_mode = PAUSE_MODE_INHERIT
+  print('finished')

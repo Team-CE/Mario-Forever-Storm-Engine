@@ -14,6 +14,7 @@ var warp_finish: bool = false
 var bar_enabled: bool = false
 var bar_accel: float = -6
 
+var final_score: int
 var wait_counter: float = 30
 
 func _init():
@@ -75,6 +76,7 @@ func finish_process(delta):
     if Global.time > 0:
 # warning-ignore:narrowing_conversion
       Global.time -= round(5 * Global.get_delta(delta))
+# warning-ignore:narrowing_conversion
       Global.add_score(round(50 * Global.get_delta(delta)))
       Global.emit_signal('TimeTick')
       if not Global.HUD.get_node('ScoreSound').playing:
@@ -82,6 +84,7 @@ func finish_process(delta):
     elif Global.time <= 0:
       Global.time = 0
       Global.emit_signal('TimeTick')
+      Global.score = final_score
       wait_counter -= 1 * Global.get_delta(delta)
       if wait_counter < 0:
         Global.levelID = set_level_id
@@ -96,9 +99,16 @@ func act(warp_finish_enabled: bool = false) -> void:
   crossed = true
   MusicPlayer.get_node('Main').stream = win_music
   MusicPlayer.get_node('Main').play()
+  MusicPlayer.stop_on_pause()
   MusicPlayer.get_node('Star').stop()
   Global.checkpoint_active = -1
   Global.Mario.controls_enabled = false
   Global.Mario.invulnerable = true
   counter = 0
   warp_finish = warp_finish_enabled
+  final_score = Global.score + (Global.time * 10)
+  for i in get_tree().get_current_scene().get_children():
+    if i is KinematicBody2D and ('Fireball' in i.name or 'Beetroot' in i.name or 'Iceball' in i.name):
+      var score_text = ScoreText.new(100, i.position)
+      i.get_parent().add_child(score_text)
+      i.queue_free()
