@@ -23,6 +23,8 @@ export var additional_options: Dictionary = { 'set_scene_path': '' }
 export var out_duration: float = 60
 export var custom_warp_sound: Resource
 
+var mario_sprite
+
 var in_icon: StreamTexture = preload('res://GFX/Editor/WarpIcon.png')
 var out_icon: StreamTexture = preload('res://GFX/Editor/WarpOutIcon.png')
 
@@ -58,6 +60,7 @@ func _ready() -> void:
     
   if not Engine.editor_hint:
     $Sprite.visible = false
+    mario_sprite = Global.Mario.get_node("Sprite")
   
     if immediate and Global.checkpoint_active == -1:
       active = true
@@ -94,15 +97,17 @@ func _process(delta) -> void:
         Global.Mario.invulnerable = true
 # warning-ignore:standalone_ternary
         Global.play_base_sound('MAIN_Pipe') if !custom_audio else custom_audio.play()
-        warp_dir = Vector2(0, 1)
+        warp_dir = Vector2.DOWN
         Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
+        Global.Mario.get_node('Sprite').visible = true
       elif direction == DIRS.UP and Input.is_action_pressed('mario_up'):
         calc_pos = Vector2(position.x, position.y + 16 + (30 if Global.state != 0 else 0))
         active = true
         Global.Mario.invulnerable = true
 # warning-ignore:standalone_ternary
         Global.play_base_sound('MAIN_Pipe') if !custom_audio else custom_audio.play()
-        warp_dir = Vector2(0, -1)
+        warp_dir = Vector2.UP
+        Global.Mario.get_node('Sprite').visible = true
       elif direction == DIRS.RIGHT and Input.is_action_pressed('mario_right'):
         calc_pos = Vector2(position.x - 16, position.y + 16)
         active = true
@@ -110,9 +115,9 @@ func _process(delta) -> void:
 # warning-ignore:standalone_ternary
         Global.play_base_sound('MAIN_Pipe') if !custom_audio else custom_audio.play()
         Global.Mario.animate_sprite('Walking')
-        Global.Mario.get_node("Sprite").speed_scale = 5
-        Global.Mario.get_node("Sprite").flip_h = false
-        warp_dir = Vector2(1, 0)
+        mario_sprite.speed_scale = 5
+        mario_sprite.flip_h = false
+        warp_dir = Vector2.RIGHT
       elif direction == DIRS.LEFT and Input.is_action_pressed('mario_left'):
         calc_pos = Vector2(position.x + 16, position.y + 16)
         active = true
@@ -120,17 +125,21 @@ func _process(delta) -> void:
 # warning-ignore:standalone_ternary
         Global.play_base_sound('MAIN_Pipe') if !custom_audio else custom_audio.play()
         Global.Mario.animate_sprite('Walking')
-        Global.Mario.get_node("Sprite").speed_scale = 5
-        Global.Mario.get_node("Sprite").flip_h = true
-        warp_dir = Vector2(-1, 0)
+        mario_sprite.speed_scale = 5
+        mario_sprite.flip_h = true
+        warp_dir = Vector2.LEFT
     
     if active:
       Global.Mario.controls_enabled = false
       Global.Mario.animation_enabled = false
       Global.Mario.position = calc_pos
-      Global.Mario.velocity = Vector2(0, 0)
+      Global.Mario.velocity = Vector2.ZERO
       calc_pos += warp_dir * Global.get_vector_delta(delta)
       counter += 1 * Global.get_delta(delta)
+      if warp_dir == Vector2.LEFT or warp_dir == Vector2.RIGHT:
+        mario_sprite.visible = counter < 36 or counter > 83
+      else:
+        mario_sprite.visible = true
 
       Global.Mario.get_node('Sprite').z_index = -10
 
@@ -142,27 +151,27 @@ func _process(delta) -> void:
           if out_node.direction == DIRS.DOWN:
             Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x, out_node.position.y - 40 + (24 if Global.state != 0 else 0))
-            warp_dir = Vector2(0, 1)
+            warp_dir = Vector2.DOWN
             Global.Mario.animate_sprite('Jumping')
           elif out_node.direction == DIRS.UP:
             Global.Mario.crouch = true
             calc_pos = Vector2(out_node.position.x, out_node.position.y + 44)
-            warp_dir = Vector2(0, -1)
+            warp_dir = Vector2.UP
             Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
           elif out_node.direction == DIRS.RIGHT:
             Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x - 44, out_node.position.y + 15.9)
-            warp_dir = Vector2(1, 0)
+            warp_dir = Vector2.RIGHT
             Global.Mario.animate_sprite('Walking')
-            Global.Mario.get_node("Sprite").speed_scale = 5
-            Global.Mario.get_node("Sprite").flip_h = false
+            mario_sprite.speed_scale = 5
+            mario_sprite.flip_h = false
           elif out_node.direction == DIRS.LEFT:
             Global.Mario.crouch = false
             calc_pos = Vector2(out_node.position.x + 44, out_node.position.y + 15.9)
-            warp_dir = Vector2(-1, 0)
+            warp_dir = Vector2.LEFT
             Global.Mario.animate_sprite('Walking')
-            Global.Mario.get_node("Sprite").speed_scale = 5
-            Global.Mario.get_node("Sprite").flip_h = true
+            mario_sprite.speed_scale = 5
+            mario_sprite.flip_h = true
         elif 'set_scene_path' in additional_options and additional_options['set_scene_path'] != '':
 # warning-ignore:return_value_discarded
           get_tree().change_scene(additional_options['set_scene_path'])
@@ -180,4 +189,3 @@ func _process(delta) -> void:
         Global.Mario.controls_enabled = true
         Global.Mario.animation_enabled = true
         Global.Mario.invulnerable = false
-

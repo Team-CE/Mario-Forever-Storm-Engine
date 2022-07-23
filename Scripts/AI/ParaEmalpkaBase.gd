@@ -1,6 +1,7 @@
 extends Brain
 
 var counter: float = 0
+var counter_throw: float = 0
 var fcounter: float = 0
 var move_multiplier: int = 1
 var throw_activated: bool = false
@@ -24,6 +25,7 @@ func _ai_process(delta: float) -> void:
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
   if !owner.alive:
+    owner.gravity_scale = 0.6
     return
 
   owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
@@ -41,6 +43,10 @@ func _ai_process(delta: float) -> void:
     if rand_range(1, 14) > 13 and owner.is_on_floor():
       owner.velocity.y = -400
       
+  if counter_throw < 30:
+    counter_throw += 1 * Global.get_delta(delta)
+  else:
+    counter_throw = 0
     var throw_was_activated: bool = false
       
     if throw_activated:
@@ -50,7 +56,7 @@ func _ai_process(delta: float) -> void:
       throw_activated = false
       inited_throwable.throw(self)
       
-    if rand_range(1, 14) > 9 and !throw_was_activated:
+    if rand_range(1, 18) > 9 and !throw_was_activated:
       throw_activated = true
       owner.animated_sprite.animation = 'holding'
     

@@ -18,10 +18,9 @@ func _ready() -> void:
 
   add_child(vis)
   
-  var children = get_parent().get_children()
-  for node in range(len(children)):
-    if 'AI' in children[node]:
-      add_collision_exception_with(children[node])
+  for node in get_parent().get_children():
+    if 'AI' in node or 'belongs' in node:
+      add_collision_exception_with(node)
 
 func _process(delta) -> void:
   var overlaps = $CollisionArea.get_overlapping_bodies()

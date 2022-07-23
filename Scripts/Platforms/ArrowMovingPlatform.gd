@@ -5,7 +5,12 @@ var timer: float = 0
 var vector_dir: Vector2
 var speed: float
 var life_time: float
-  
+
+func _ready():
+  for i in get_tree().get_current_scene().get_children():
+    if i is AliveObject and 'Thwomp' in i.name:
+      add_collision_exception_with(i)
+
 func _physics_process(delta):
   timer += speed * Global.get_delta(delta)
   position += vector_dir.rotated(rotation) * Vector2(speed, speed) * Global.get_vector_delta(delta)

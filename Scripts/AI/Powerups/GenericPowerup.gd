@@ -29,9 +29,9 @@ func _ready_mixin():
     custom_appearing = true
   
   var children = owner.get_parent().get_children()
-  for node in range(len(children)):
-    if children[node] is KinematicBody2D:
-      owner.add_collision_exception_with(children[node])
+  for node in children:
+    if node is KinematicBody2D:
+      owner.add_collision_exception_with(node)
   
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)

@@ -42,8 +42,7 @@ func _on_hitbox_enter(a) -> void:
       Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
     else:
       Global.Mario.velocity.y = -owner.vars['bounce'] * 50
-    owner.get_node_or_null(owner.vars['hitbox']).get_child(0).disabled = true
-    owner.kill(AliveObject.DEATH_TYPE.FALL)
+    owner.call_deferred('kill', AliveObject.DEATH_TYPE.FALL)
     return
   elif a.name == 'InsideDetector':
     Global._ppd()
