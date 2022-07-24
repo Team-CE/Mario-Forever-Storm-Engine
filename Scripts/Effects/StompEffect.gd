@@ -1,9 +1,8 @@
 extends AnimatedSprite
 
-func _init(pos: Vector2 = Vector2.ZERO, rot: float = 0):
-  frames = preload('res://Prefabs/Effects/LavaEffect.tres')
+func _init(pos: Vector2 = Vector2.ZERO):
+  frames = preload('res://Prefabs/Effects/StompEffect.tres')
   position = pos
-  rotation = rot
   modulate.r = 1.2
   modulate.g = 1.2
   modulate.b = 1.2
@@ -11,5 +10,5 @@ func _init(pos: Vector2 = Vector2.ZERO, rot: float = 0):
   play('default')
 
 func _process(_delta) -> void:
-  if frame == 11:
+  if frame == 6:
     queue_free()

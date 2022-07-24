@@ -17,6 +17,8 @@ func _ready() -> void:
     $Light2D.queue_free()
 # warning-ignore:return_value_discarded
   vis.connect('screen_exited', self, '_on_screen_exited')
+# warning-ignore:return_value_discarded
+  vis.connect('tree_exited', self, '_on_tree_exited')
 
   add_child(vis)
   
@@ -65,6 +67,8 @@ func explode() -> void:
   queue_free()
 
 func _on_screen_exited() -> void:
+  queue_free()
+  
+func _on_tree_exited() -> void:
   if belongs == 0:
     Global.projectiles_count -= 1
-  queue_free()

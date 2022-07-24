@@ -4,6 +4,7 @@ var speed_modifier: float = 0
 var speed: float = 162.5
 var temp: bool = false
 var old_rotation: float = 0
+var inv_counter: float = 0
 
 func _setup(b)-> void:
   ._setup(b)
@@ -20,6 +21,8 @@ func _ai_process(delta: float) -> void:
     owner.queue_free()
   
   owner.velocity.x = (speed - speed_modifier) * owner.dir
+  if inv_counter < 7:
+    inv_counter += 1 * Global.get_delta(delta)
   if !owner.alive:
     owner.gravity_scale = 0.8
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
@@ -37,12 +40,13 @@ func _ai_process(delta: float) -> void:
 func _on_hitbox_enter(a) -> void:
   if !owner.alive:
     return
-  if a.name == 'BottomDetector' and !owner.invincible and Global.Mario.velocity.y >= 0:
+  if a.name == 'BottomDetector' and !owner.invincible:
+    inv_counter = 0
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
     else:
       Global.Mario.velocity.y = -owner.vars['bounce'] * 50
     owner.call_deferred('kill', AliveObject.DEATH_TYPE.FALL)
     return
-  elif a.name == 'InsideDetector':
+  elif a.name == 'InsideDetector' and inv_counter > 5:
     Global._ppd()

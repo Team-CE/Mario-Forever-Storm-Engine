@@ -80,7 +80,7 @@ func _process(delta) -> void:
 func _physics_process(_delta) -> void:
   editor()
 
-func _process_active(delta) -> void:
+func _process_active(_delta) -> void:
   if Engine.editor_hint:
     return
   
@@ -89,7 +89,7 @@ func _process_active(delta) -> void:
 
   $Body.visible = visible
 
-func hit(delta, thwomp = false, idle_frame: bool = true) -> void:
+func hit(_delta = 0, _a = false, _b = false) -> void:
   if not active or Block: return
   active = false
   triggered = true

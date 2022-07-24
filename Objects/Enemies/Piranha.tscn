@@ -50,6 +50,7 @@ disabled = true
 [node name="Sprite" type="AnimatedSprite" parent="."]
 z_index = -1
 frames = ExtResource( 2 )
+frame = 1
 playing = true
 offset = Vector2( 0, -32 )
 
@@ -70,11 +71,14 @@ texture = ExtResource( 5 )
 
 [node name="Light2D" type="Light2D" parent="."]
 visible = false
-modulate = Color( 1, 0.811765, 0.541176, 1 )
-position = Vector2( 0, -24 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 7 )
+offset = Vector2( 0, -48 )
+color = Color( 1, 0.501961, 0.501961, 1 )
 energy = 0.4
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 4.0
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )

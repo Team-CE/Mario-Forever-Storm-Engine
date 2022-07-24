@@ -13,6 +13,7 @@ func _ready() -> void:
   velocity.x *= dir
 # warning-ignore:return_value_discarded
   vis.connect('screen_exited', self, '_on_screen_exited')
+  vis.connect('tree_exited', self, '_on_tree_exited')
 
   add_child(vis)
 
@@ -20,9 +21,9 @@ func _process(delta) -> void:
   var overlaps = $CollisionArea.get_overlapping_bodies()
 
   if overlaps.size() > 0 and belongs == 0:
-    for i in range(overlaps.size()):
-      if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('kill'):
-        overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, 0, null, self.name)
+    for i in overlaps:
+      if i.is_in_group('Enemy') and i.has_method('kill'):
+        i.kill(AliveObject.DEATH_TYPE.FALL, 0, null, self.name)
         explode()
         
   if belongs != 0 and is_mario_collide('InsideDetector'):
@@ -45,6 +46,8 @@ func explode() -> void:
   queue_free()
 
 func _on_screen_exited() -> void:
+  queue_free()
+
+func _on_tree_exited() -> void:
   if belongs == 0:
     Global.projectiles_count -= 1
-  queue_free()

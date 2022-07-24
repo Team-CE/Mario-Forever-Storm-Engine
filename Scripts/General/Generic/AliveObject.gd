@@ -199,7 +199,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = nu
       velocity.y = -180
       rotation = Global.Mario.rotation
       animated_sprite.set_animation('falling')
-      time = get_tree().create_timer(2.0, false)
+      time = get_tree().create_timer(2.5, false)
       time.connect('timeout', self, 'instance_free')
     DEATH_TYPE.CUSTOM:
       if brain.has_method('_on_custom_death'):

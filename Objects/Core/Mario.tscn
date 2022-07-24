@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/General/MarioPhysics.gd" type="Script" id=2]
@@ -122,6 +122,53 @@ extents = Vector2( 1, 6 )
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 1, 12 )
+
+[sub_resource type="Animation" id=16]
+resource_name = "Big"
+length = 0.24
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.12, 0.24 ),
+"transitions": PoolRealArray( 0.5, 2, 2 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -12 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "Small"
+length = 0.24
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.12, 0.24 ),
+"transitions": PoolRealArray( 0.5, 2, 2 ),
+"update": 0,
+"values": [ Vector2( 0, -16 ), Vector2( 0, -28 ), Vector2( 0, -16 ) ]
+}
 
 [node name="Mario" type="KinematicBody2D"]
 collision_layer = 2
@@ -254,29 +301,31 @@ shape = SubResource( 11 )
 [node name="RayCastRight" type="RayCast2D" parent="."]
 visible = false
 position = Vector2( 10.1, -10 )
-enabled = true
 cast_to = Vector2( 0, 10 )
 collision_mask = 2
 
 [node name="RayCastRight2" type="RayCast2D" parent="."]
 visible = false
 position = Vector2( 10, -12 )
-enabled = true
 cast_to = Vector2( 6, 0 )
 collision_mask = 2
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 visible = false
 position = Vector2( -10.1, -10 )
-enabled = true
 cast_to = Vector2( 0, 10 )
 collision_mask = 2
 
 [node name="RayCastLeft2" type="RayCast2D" parent="."]
 visible = false
 position = Vector2( -10, -12 )
-enabled = true
 cast_to = Vector2( -6, 0 )
 collision_mask = 2
 
 [node name="BaseSounds" parent="." instance=ExtResource( 4 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+anims/Big = SubResource( 16 )
+anims/RESET = SubResource( 15 )
+anims/Small = SubResource( 14 )

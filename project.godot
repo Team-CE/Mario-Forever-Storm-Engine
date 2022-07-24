@@ -79,11 +79,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/Block.gd"
 }, {
-"base": "AnimatedSprite",
-"class": "LavaEffect",
-"language": "GDScript",
-"path": "res://Scripts/Effects/LavaEffect.gd"
-}, {
 "base": "Node2D",
 "class": "Level",
 "language": "GDScript",
@@ -149,7 +144,6 @@ _global_script_class_icons={
 "Explosion": "",
 "IceExplosion": "",
 "Interactive": "",
-"LavaEffect": "",
 "Level": "",
 "LuiTrail": "",
 "MarioHeadEffect": "",

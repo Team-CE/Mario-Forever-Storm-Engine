@@ -4,7 +4,7 @@ class_name Cannon, "res://GFX/Editor/Enemy.png"
 var on_screen: bool
 var counter: float = 0
 
-export var delay: float = 125
+export var delay: float = 25
 export var result: PackedScene = preload('res://Objects/Enemies/Bullet.tscn')
 export var custom_sound: Resource
 

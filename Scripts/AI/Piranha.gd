@@ -12,6 +12,7 @@ var fireball
 var rng = RandomNumberGenerator.new()
 
 var rotat: float
+var inv_counter: float = 0
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.DISAPPEAR
@@ -32,9 +33,9 @@ func _ready_mixin():
     owner.get_node('Light2D').queue_free()
     
   var children = owner.get_parent().get_children()
-  for node in range(len(children)):
-    if 'AI' in children[node]:
-      owner.add_collision_exception_with(children[node])
+  for node in children:
+    if 'AI' in node:
+      owner.add_collision_exception_with(node)
   
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)
@@ -50,8 +51,17 @@ func _ai_process(delta: float) -> void:
 
   rotat = owner.rotation
 
-  if on_mario_collide('InsideDetector'):
-    Global._ppd()
+  if !Global.Mario.is_in_shoe:
+    if on_mario_collide('InsideDetector'):
+      Global._ppd()
+  else:
+    if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0:
+      inv_counter = 0
+      owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
+      Global.Mario.shoe_node.stomp()
+      owner.velocity.y = 0
+    elif on_mario_collide('InsideDetector') and inv_counter > 5:
+      Global._ppd()
     
   if projectile_timer > 0:
     projectile_timer -= 1 * Global.get_delta(delta)

@@ -38,18 +38,24 @@ onready var dead: bool = false
 onready var dead_hasJumped: bool = false
 onready var dead_gameover: bool = false
 onready var dead_counter: float = 0
+
 onready var appear_counter: float = 0
 onready var shield_star: bool = false
 onready var shield_counter: float = 0
 onready var star_kill_count: int = 0
 onready var exceptions_added = false
+
 onready var launch_counter: float = 0
 onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
 onready var allow_custom_animation: bool = false
 onready var invulnerable: bool = false               # True while warping or finishing the level
 
-onready var ray_R: RayCast2D = $RayCastRight
+onready var shoe_node: Object = null
+onready var shoe_type: int = 0
+onready var is_in_shoe: bool = false
+
+onready var ray_R: RayCast2D = $RayCastRight # UNUSED
 onready var ray_L: RayCast2D = $RayCastLeft
 onready var ray_R_2: RayCast2D = $RayCastRight2
 onready var ray_L_2: RayCast2D = $RayCastLeft2
@@ -157,10 +163,16 @@ func _process_alive(delta) -> void:
     movement_swimming(delta)
   elif movement_type == Movement.CLIMBING:
     movement_climbing(delta)
-  else:
+  elif !is_in_shoe:
     danimate = true
     movement_default(delta)
-  
+    if $AnimationPlayer.current_animation != 'RESET':
+      $AnimationPlayer.play('RESET')
+      $AnimationPlayer.stop(true)
+  else:
+    movement_default(delta)
+    animate_shoe(delta)
+    
   if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin'):
     ready_powerup_scripts[Global.state]._process_mixin(self, delta)
     
@@ -645,7 +657,7 @@ func animate_climbing(delta) -> void:
 
   if shield_counter > 0:
     shield_counter -= 1.5 * Global.get_delta(delta)
-    if appear_counter == 0:
+    if appear_counter == 0 and not shield_star:
       $Sprite.visible = int(shield_counter / 2) % 2 == 0
   if shield_counter < 0:
     shield_counter = 0
@@ -661,21 +673,68 @@ func animate_climbing(delta) -> void:
   else:
     animate_sprite('Climbing')
 
+func animate_shoe(delta) -> void:
+  if velocity.x <= -8 * Global.get_delta(delta):
+    $Sprite.flip_h = true
+  if velocity.x >= 8 * Global.get_delta(delta):
+    $Sprite.flip_h = false
+
+  if appear_counter > 0:
+    if not allow_custom_animation:
+      if not $Sprite.animation == 'Appearing':
+        animate_sprite('Appearing')
+      $Sprite.speed_scale = 1
+      
+    appear_counter -= 1.5 * Global.get_delta(delta)
+  if appear_counter < 0:
+    appear_counter = 0
+
+  if shield_counter > 0:
+    shield_counter -= 1.5 * Global.get_delta(delta)
+    if appear_counter == 0:
+      $Sprite.visible = int(shield_counter / 2) % 2 == 0
+  if shield_counter < 0:
+    shield_counter = 0
+    $Sprite.visible = true
+  
+  # Moving animation
+  if (velocity.x <= -0.16 * Global.get_delta(delta) or velocity.x >= 0.16 * Global.get_delta(delta)) and (
+  is_on_floor() or $Sprite.animation == 'Launching'):
+    if !$AnimationPlayer.is_playing():
+      $AnimationPlayer.queue('Small' if Global.state == 0 else 'Big')
+  #else:
+  #  $AnimationPlayer.stop(true)
+  
+  animate_sprite('Stopped')
+
+func bind_shoe(id: int):
+  shoe_node = instance_from_id(id)
+  shoe_type = shoe_node.type
+  is_in_shoe = true
+
+func unbind_shoe():
+  shoe_node = null
+  is_in_shoe = false
+  $AnimationPlayer.play('RESET')
+  $AnimationPlayer.stop()
+  $Sprite.position = Vector2.ZERO
+
 func animate_sprite(anim_name) -> void:
   $Sprite.set_animation(anim_name)
 
 func update_collisions() -> void:
-  $Collision.disabled = not (Global.state == 0 or crouch)
-  $TopDetector/CollisionTop.disabled = not (Global.state == 0 or crouch)
-  $InsideDetector/CollisionSmall.disabled = not (Global.state == 0 or crouch)
-  $SmallRightDetector/CollisionSmallRight.disabled = not (Global.state == 0 or crouch)
-  $SmallLeftDetector/CollisionSmallLeft.disabled = not (Global.state == 0 or crouch)
+  var is_small: bool = (Global.state > 0 && !crouch)
+  $Collision.disabled = is_small
+  $TopDetector/CollisionTop.disabled = is_small
+  $InsideDetector/CollisionSmall.disabled = is_small
+  $SmallRightDetector/CollisionSmallRight.disabled = is_small
+  $SmallLeftDetector/CollisionSmallLeft.disabled = is_small
   
-  $CollisionBig.disabled = not (Global.state > 0 and not crouch)
-  $TopDetector/CollisionTopBig.disabled = not (Global.state > 0 and (not crouch or is_stuck))
-  $InsideDetector/CollisionBig.disabled = not (Global.state > 0 and not crouch)
-  $SmallRightDetector/CollisionSmallRightBig.disabled = not (Global.state > 0 and not crouch)
-  $SmallLeftDetector/CollisionSmallLeftBig.disabled = not (Global.state > 0 and not crouch)
+  $CollisionBig.disabled = !is_small && !(Global.state == 0 && is_in_shoe)
+  $TopDetector/CollisionTopBig.disabled = !(Global.state > 0 && (!crouch || is_stuck)) && !(Global.state == 0 && is_in_shoe)
+  $InsideDetector/CollisionBig.disabled = !is_small
+  $SmallRightDetector/CollisionSmallRightBig.disabled = !is_small
+  $SmallLeftDetector/CollisionSmallLeftBig.disabled = !is_small
   if is_big_collision != $TopDetector/CollisionTopBig.disabled:
     return
   else:
@@ -706,7 +765,7 @@ func horizontal_correction(amount: int):
   Vector2(velocity.x * delta, 0).rotated(rotation)
   ):
     for i in range(1, amount * 2 + 1):
-      for j in [-1.0, 1.0]:
+      for j in [-1.0, 0]:
         if !test_move(global_transform.translated(Vector2(0, i * j / 2)),
         Vector2(velocity.x * delta, 0).rotated(rotation)
         ):
@@ -739,12 +798,12 @@ func star_logic() -> void:
   var overlaps = $InsideDetector.get_overlapping_bodies()
 
   if overlaps.size() > 0:
-    for i in range(overlaps.size()):
-      if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('kill'):
-        if overlaps[i].force_death_type == false:
-          overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, star_kill_count)
+    for i in overlaps:
+      if i.is_in_group('Enemy') and i.has_method('kill'):
+        if i.force_death_type == false:
+          i.kill(AliveObject.DEATH_TYPE.FALL, star_kill_count)
         else:
-          overlaps[i].kill(overlaps[i].death_type, star_kill_count)
+          i.kill(i.death_type, star_kill_count)
         if star_kill_count < 6:
           star_kill_count += 1
         else:

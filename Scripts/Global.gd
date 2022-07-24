@@ -277,8 +277,13 @@ func _ppd() -> void: # Player Powerdown
   if Mario.shield_counter > 0 or debug_inv or debug_fly or Mario.invulnerable:
     return
 
-  if state == 0:
+  if state == 0 and !Mario.is_in_shoe:
     _pll()
+  elif Mario.is_in_shoe:
+    Mario.shoe_node.get_node('hit').play()
+    Mario.shoe_node.hit()
+    Mario.unbind_shoe()
+    Mario.shield_counter = 150
   else:
     play_base_sound('MAIN_Pipe')
     if state > 1:
@@ -293,6 +298,9 @@ func _pll() -> void: # Player Death
     return
   Global.deaths += 1
   emit_signal('OnPlayerLoseLife')
+  if Mario.is_in_shoe:
+    Mario.shoe_node.queue_free()
+    Mario.unbind_shoe()
   if not Mario.custom_die_stream:
     MusicPlayer.get_node('Main').volume_db = 0
     MusicPlayer.get_node('Main').stream = Mario.die_music
