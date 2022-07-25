@@ -173,8 +173,7 @@ func _process(delta) -> void:
             mario_sprite.speed_scale = 5
             mario_sprite.flip_h = true
         elif 'set_scene_path' in additional_options and additional_options['set_scene_path'] != '':
-# warning-ignore:return_value_discarded
-          get_tree().change_scene(additional_options['set_scene_path'])
+          Global.goto_scene(additional_options['set_scene_path'])
         elif trigger_finish:
           if !why:
             finishline.act(true)

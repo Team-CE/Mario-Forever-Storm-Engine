@@ -7,7 +7,7 @@ var speed: float
 var life_time: float
 
 func _ready():
-  for i in get_tree().get_current_scene().get_children():
+  for i in Global.current_scene.get_children():
     if i is AliveObject and 'Thwomp' in i.name:
       add_collision_exception_with(i)
 

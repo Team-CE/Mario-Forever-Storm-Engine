@@ -106,6 +106,13 @@ func setup_tilemap() -> TileMap:
 
 func _input(event):
   if Engine.editor_hint: return
+  
+  if !Input.is_action_pressed('debug_shift') and Global.debug:
+    if event is InputEventKey and event.scancode >= 48 and event.scancode <= 57 and !event.echo and event.pressed:
+      Global.play_base_sound('DEBUG_Toggle')
+      Global.state = event.scancode - 49
+      Global.Mario.appear_counter = 60
+      
   if event.is_action_pressed('ui_pause'):
     if popup == null:
       popup = pause_menu.instance()

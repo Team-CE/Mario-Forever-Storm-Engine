@@ -64,7 +64,10 @@ var levelID: int = 0
 
 var p_fps_switch: float = 0
 
-onready var timer: Timer = Timer.new()       # Create a new timer for delay
+var current_scene = null
+
+# Create a new timer for delay
+onready var timer: Timer = Timer.new()
 
 static func get_delta(delta) -> float:       # Delta by 50 FPS
   return 50 / (1 / (delta if not delta == 0 else 0.0001))
@@ -73,8 +76,15 @@ static func get_vector_delta(delta) -> Vector2: # Vector2 with delta values
   return Vector2(get_delta(delta), get_delta(delta))
 
 func _ready() -> void:
+  var root = get_tree().get_root()
+  current_scene = root.get_child(root.get_child_count() - 1)
+  # Move the scene to viewport with shader if one launches it using the F6 key in Godot
+  if current_scene.get_parent() == root:
+    root.call_deferred('remove_child', current_scene)
+    get_node('/root/GlobalViewport/Viewport').call_deferred('add_child', current_scene)
+  # Adding a debug inspector
   if debug:
-    add_child(preload('res://Objects/Core/Inspector.tscn').instance()) # Adding a debug inspector
+    add_child(preload('res://Objects/Core/Inspector.tscn').instance())
   timer.wait_time = 1.45
   add_child(timer)
   
@@ -82,7 +92,9 @@ func _ready() -> void:
   if !loadedData:
     return
   saveFileExists = true
-  toSaveInfo = JSON.parse(loadedData).result # Loading settings
+  
+  # Loading settings
+  toSaveInfo = JSON.parse(loadedData).result
   
   if toSaveInfo.has('SoundVol'): soundBar = toSaveInfo.SoundVol
   if toSaveInfo.has('MusicVol'): musicBar = toSaveInfo.MusicVol
@@ -94,7 +106,8 @@ func _ready() -> void:
   if toSaveInfo.has('VSync') and typeof(toSaveInfo.VSync) == TYPE_BOOL: OS.vsync_enabled = toSaveInfo.VSync
   if toSaveInfo.has('Autopause') and typeof(toSaveInfo.Autopause) == TYPE_BOOL: autopause = toSaveInfo.Autopause
   
-  for action in controls: # Loading controls
+  # Loading controls
+  for action in controls:
     if controls[action] and controls[action] is String:
       var scancode = OS.find_scancode_from_string(controls[action])
       var key = InputEventKey.new()
@@ -106,7 +119,10 @@ func _ready() -> void:
             InputMap.action_erase_event(action, toRemove)
         InputMap.action_add_event(action, key)
   
-  #MusicEngine.set_volume(musicBar)
+  GlobalViewport.set_deferred('filter_enabled', scaling == ScalingType.FILTER and ProjectSettings.get_setting("display/window/stretch/mode") == "disable" )
+  VisualServer.set_default_clear_color(Color.black)
+  
+  # Loading music
   yield(get_tree(), 'idle_frame')
   if musicBar > -100:
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(musicBar / 5))
@@ -124,14 +140,21 @@ func saveInfo(content):
   file.store_string(content)
   file.close()
   
-  if scaling <= ScalingType.FILTER and ProjectSettings.get_setting("display/window/stretch/mode") == "2d":
+  if scaling == ScalingType.FAST and ProjectSettings.get_setting("display/window/stretch/mode") != "viewport":
     ProjectSettings.set_setting("display/window/stretch/mode", "viewport")
 # warning-ignore:return_value_discarded
     ProjectSettings.save_custom("override.cfg")
     restartNeeded = true
     print('Need to restart')
+
+  elif scaling == ScalingType.FILTER and ProjectSettings.get_setting("display/window/stretch/mode") != "disable":
+    ProjectSettings.set_setting("display/window/stretch/mode", "disable")
+# warning-ignore:return_value_discarded
+    ProjectSettings.save_custom("override.cfg")
+    restartNeeded = true
+    print('Need to restart')
     
-  elif scaling >= ScalingType.FANCY and ProjectSettings.get_setting("display/window/stretch/mode") == "viewport":
+  elif scaling == ScalingType.FANCY and ProjectSettings.get_setting("display/window/stretch/mode") != "2d":
     ProjectSettings.set_setting("display/window/stretch/mode", "2d")
 # warning-ignore:return_value_discarded
     ProjectSettings.save_custom("override.cfg")
@@ -153,8 +176,7 @@ func _reset() -> void:   # Level Restart
   if is_instance_valid(Mario):
     Mario.invulnerable = false
     Mario.dead = false
-# warning-ignore:return_value_discarded
-  get_tree().reload_current_scene()
+  goto_scene(current_scene.filename)
 
 # warning-ignore:unused_argument
 func _physics_process(delta: float) -> void:
@@ -201,14 +223,8 @@ func _physics_process(delta: float) -> void:
     if !is_instance_valid(HUD): return
     HUD.visible = !HUD.visible
       
-# Debug powerups
+# Fullscreen toggle
 func _input(ev):
-  if !Input.is_action_pressed('debug_shift') and debug:
-    if ev is InputEventKey and ev.scancode >= 48 and ev.scancode <= 57 and !ev.echo and ev.pressed and get_tree().get_current_scene() is Level:
-      play_base_sound('DEBUG_Toggle')
-      state = ev.scancode - 49
-      Mario.appear_counter = 60
-  
   if ev.is_action_pressed('ui_fullscreen'):
     OS.window_fullscreen = !OS.window_fullscreen
       
@@ -367,3 +383,13 @@ func is_getting_closer(pix: float, pos: Vector2) -> bool:
     pos.y > camera.get_camera_screen_center().y - 240 + pix and
     pos.y < camera.get_camera_screen_center().y + 240 - pix
   )
+
+func goto_scene(path: String):
+  call_deferred('_deferred_goto_scene', path)
+
+func _deferred_goto_scene(path: String):
+  current_scene.free()
+  var s = ResourceLoader.load(path)
+  current_scene = s.instance()
+  get_node('/root/GlobalViewport/Viewport').add_child(current_scene)
+  #get_tree().set_current_scene(current_scene)

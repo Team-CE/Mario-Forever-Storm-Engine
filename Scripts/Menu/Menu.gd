@@ -144,8 +144,7 @@ func controls() -> void:
             fading_out = false
             if Global.musicBar == -100:
               AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
-# warning-ignore:return_value_discarded
-            get_tree().change_scene(ProjectSettings.get_setting('application/config/sgr_scene'))
+            Global.goto_scene(ProjectSettings.get_setting('application/config/sgr_scene'))
           1:
             screen += 1
             sel = 0
@@ -169,8 +168,7 @@ func controls() -> void:
           8:
             $enter_options.play()
             if credits_scene:
-# warning-ignore:return_value_discarded
-              get_tree().change_scene(credits_scene)
+              Global.goto_scene(credits_scene)
             else:
               screen = 3
               sel = 0

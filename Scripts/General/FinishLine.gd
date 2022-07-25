@@ -91,8 +91,7 @@ func finish_process(delta):
         Global.reset_audio_effects()
         Global.Mario.visible = true
         Global.deaths = 0
-# warning-ignore:return_value_discarded
-        get_tree().change_scene(map_scene)
+        Global.goto_scene(map_scene)
   
 func act(warp_finish_enabled: bool = false) -> void:
   Global.level_ended = true
@@ -107,7 +106,7 @@ func act(warp_finish_enabled: bool = false) -> void:
   counter = 0
   warp_finish = warp_finish_enabled
   final_score = Global.score + (Global.time * 10)
-  for i in get_tree().get_current_scene().get_children():
+  for i in Global.current_scene.get_children():
     if i is KinematicBody2D and ('Fireball' in i.name or 'Beetroot' in i.name or 'Iceball' in i.name):
       var score_text = ScoreText.new(100, i.position)
       i.get_parent().add_child(score_text)

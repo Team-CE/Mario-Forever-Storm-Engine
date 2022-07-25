@@ -20,4 +20,4 @@ func _process(delta):
   if Input.is_action_just_pressed('ui_accept') and counter > 5:
     get_parent().resume()
     get_parent().get_parent().get_tree().paused = false
-    get_tree().get_current_scene().freeRestartPrompt()
+    Global.current_scene.freeRestartPrompt()

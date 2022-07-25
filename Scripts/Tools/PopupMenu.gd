@@ -52,5 +52,5 @@ func resume() -> void:
   
   $Sprite.modulate = Color.white
   
-  if get_tree().get_current_scene().get_class() == 'Level': get_parent().popup = null
+  if Global.current_scene.get_class() == 'Node2D': get_parent().popup = null
   queue_free()
