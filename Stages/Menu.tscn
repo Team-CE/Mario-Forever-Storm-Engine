@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=84 format=2]
 
 [ext_resource path="res://GFX/Menu/Logo.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Menu/Selector.gd" type="Script" id=2]
@@ -28,7 +28,12 @@
 [ext_resource path="res://Music/start.ogg" type="AudioStream" id=26]
 [ext_resource path="res://Music/credits.ogg" type="AudioStream" id=27]
 [ext_resource path="res://GFX/Menu/maxminmed.png" type="Texture" id=28]
-[ext_resource path="res://GFX/Menu/please_restart.png" type="Texture" id=29]
+[ext_resource path="res://GFX/Menu/NoteQuality.png" type="Texture" id=29]
+[ext_resource path="res://GFX/Menu/ONoteVsync.png" type="Texture" id=30]
+[ext_resource path="res://GFX/Menu/scaling_choose.png" type="Texture" id=31]
+[ext_resource path="res://GFX/Menu/NoteScaling.png" type="Texture" id=32]
+[ext_resource path="res://GFX/Menu/NoteEffects.png" type="Texture" id=33]
+[ext_resource path="res://GFX/Menu/NoteControls.png" type="Texture" id=34]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 5 )
@@ -122,6 +127,42 @@ animations = [ {
 "speed": 0.0
 } ]
 
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 31 )
+region = Rect2( 0, 34, 158, 34 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 31 )
+region = Rect2( 0, 0, 158, 34 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 31 )
+region = Rect2( 0, 68, 158, 34 )
+
+[sub_resource type="SpriteFrames" id=56]
+animations = [ {
+"frames": [ SubResource( 45 ), SubResource( 46 ), SubResource( 47 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.0
+} ]
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 63, 36 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 36, 63, 36 )
+
+[sub_resource type="SpriteFrames" id=57]
+animations = [ {
+"frames": [ SubResource( 43 ), SubResource( 44 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.0
+} ]
+
 [sub_resource type="AtlasTexture" id=48]
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 91, 32 )
@@ -194,20 +235,24 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 63, 36 )
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 32 )
+region = Rect2( 0, 0, 567, 64 )
 
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 12 )
-region = Rect2( 0, 36, 63, 36 )
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 32 )
+region = Rect2( 0, 64, 567, 64 )
 
-[sub_resource type="SpriteFrames" id=45]
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 32 )
+region = Rect2( 0, 128, 567, 64 )
+
+[sub_resource type="SpriteFrames" id=61]
 animations = [ {
-"frames": [ SubResource( 43 ), SubResource( 44 ) ],
+"frames": [ SubResource( 58 ), SubResource( 59 ), SubResource( 60 ) ],
 "loop": true,
 "name": "default",
-"speed": 0.0
+"speed": 5.0
 } ]
 
 [sub_resource type="Shader" id=40]
@@ -247,9 +292,6 @@ margin_bottom = -1440.0
 texture = ExtResource( 18 )
 expand = true
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BG4" type="TextureRect" parent="."]
 anchor_top = 1.0
@@ -260,9 +302,6 @@ margin_bottom = -960.0
 texture = ExtResource( 20 )
 expand = true
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BG5" type="TextureRect" parent="."]
 anchor_top = 1.0
@@ -316,9 +355,6 @@ text = "Text"
 align = 1
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label1" type="Label" parent="."]
 margin_left = 192.0
@@ -405,20 +441,24 @@ position = Vector2( 320, 388 )
 texture = ExtResource( 4 )
 
 [node name="Options" type="Sprite" parent="Buttons"]
-position = Vector2( 334, 704 )
+position = Vector2( 334, 688 )
 texture = ExtResource( 13 )
 
 [node name="Effects" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 483, 609 )
+position = Vector2( 483, 593 )
 frames = SubResource( 16 )
 
 [node name="Quality" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 490, 723 )
+position = Vector2( 490, 707 )
 frames = SubResource( 39 )
 
 [node name="Scaling" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 482, 760 )
-frames = SubResource( 16 )
+position = Vector2( 530, 744 )
+frames = SubResource( 56 )
+
+[node name="VSync" type="AnimatedSprite" parent="Buttons"]
+position = Vector2( 482, 781 )
+frames = SubResource( 57 )
 
 [node name="OptionsString" type="Sprite" parent="Buttons"]
 position = Vector2( 79, 564 )
@@ -426,15 +466,15 @@ texture = ExtResource( 14 )
 script = ExtResource( 22 )
 
 [node name="SoundBar" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 498, 534 )
+position = Vector2( 498, 518 )
 frames = SubResource( 28 )
 
 [node name="MusicBar" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 498, 571 )
+position = Vector2( 498, 555 )
 frames = SubResource( 28 )
 
 [node name="Scroll" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 539, 646 )
+position = Vector2( 539, 630 )
 frames = SubResource( 32 )
 
 [node name="Keyboard" type="Sprite" parent="Buttons"]
@@ -445,14 +485,30 @@ texture = ExtResource( 25 )
 position = Vector2( 320, 1200 )
 texture = ExtResource( 24 )
 
-[node name="Restart" type="Sprite" parent="Buttons"]
+[node name="VSyncNote" type="Sprite" parent="Buttons"]
 visible = false
-position = Vector2( 320, 925 )
+position = Vector2( 320, 916 )
+texture = ExtResource( 30 )
+
+[node name="EffectsNote" type="Sprite" parent="Buttons"]
+visible = false
+position = Vector2( 320, 917 )
+texture = ExtResource( 33 )
+
+[node name="ScalingNote" type="AnimatedSprite" parent="Buttons"]
+visible = false
+position = Vector2( 320, 920 )
+frames = SubResource( 61 )
+
+[node name="QualityNote" type="Sprite" parent="Buttons"]
+visible = false
+position = Vector2( 320, 920 )
 texture = ExtResource( 29 )
 
-[node name="VSync" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 482, 797 )
-frames = SubResource( 45 )
+[node name="ControlsNote" type="Sprite" parent="Buttons"]
+visible = false
+position = Vector2( 320, 920 )
+texture = ExtResource( 34 )
 
 [node name="Transition" type="Sprite" parent="."]
 modulate = Color( 0, 0, 0, 1 )
@@ -461,6 +517,9 @@ position = Vector2( 0, -80 )
 scale = Vector2( 6.21359, 6.21359 )
 texture = ExtResource( 15 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="select_main" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
@@ -471,6 +530,7 @@ stream = ExtResource( 3 )
 bus = "Sounds"
 
 [node name="enter_options" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 8 )
 bus = "Sounds"
 

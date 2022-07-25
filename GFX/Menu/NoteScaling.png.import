@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/POsound.png-8fed7fe0f932399e90797a39a596d464.stex"
+path="res://.import/NoteScaling.png-a450bc614f18999bbaf6b0802f00ce61.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Menu/POsound.png"
-dest_files=[ "res://.import/POsound.png-8fed7fe0f932399e90797a39a596d464.stex" ]
+source_file="res://GFX/Menu/NoteScaling.png"
+dest_files=[ "res://.import/NoteScaling.png-a450bc614f18999bbaf6b0802f00ce61.stex" ]
 
 [params]
 

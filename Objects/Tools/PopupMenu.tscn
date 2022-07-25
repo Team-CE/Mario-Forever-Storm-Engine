@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=2]
+[gd_scene load_steps=90 format=2]
 
 [ext_resource path="res://GFX/Menu/Psaveroom.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Menu/Pmainmenu.png" type="Texture" id=2]
@@ -30,6 +30,10 @@
 [ext_resource path="res://Sounds/Main/scoreing.wav" type="AudioStream" id=28]
 [ext_resource path="res://Sounds/Menu/change.wav" type="AudioStream" id=29]
 [ext_resource path="res://Sounds/Menu/enter_options.wav" type="AudioStream" id=30]
+[ext_resource path="res://GFX/Menu/ONoteVsync.png" type="Texture" id=31]
+[ext_resource path="res://GFX/Menu/please_restart.png" type="Texture" id=32]
+[ext_resource path="res://GFX/Menu/ok.png" type="Texture" id=33]
+[ext_resource path="res://Scripts/Menu/RestartPrompt.gd" type="Script" id=34]
 
 [sub_resource type="ShaderMaterial" id=19]
 shader = ExtResource( 13 )
@@ -392,66 +396,72 @@ z_index = -1
 texture = SubResource( 21 )
 
 [node name="Pause" type="Node2D" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.0980392 )
 script = ExtResource( 16 )
 
 [node name="Sprite" type="Sprite" parent="Pause"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 320, 80 )
 texture = ExtResource( 5 )
 
 [node name="sel0" type="AnimatedSprite" parent="Pause"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 320, 192 )
 frames = SubResource( 9 )
 animation = "resume"
 
 [node name="sel3" type="AnimatedSprite" parent="Pause"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 320, 312 )
 frames = SubResource( 9 )
 animation = "save"
 
 [node name="sel4" type="AnimatedSprite" parent="Pause"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 320, 352 )
 frames = SubResource( 9 )
 animation = "menu"
 
 [node name="sel5" type="AnimatedSprite" parent="Pause"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 320, 392 )
 frames = SubResource( 9 )
 animation = "quit"
 
 [node name="sel1" type="AnimatedSprite" parent="Pause"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 320, 232 )
 frames = SubResource( 9 )
 animation = "restart"
 
 [node name="sel2" type="AnimatedSprite" parent="Pause"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 320, 272 )
 frames = SubResource( 9 )
 animation = "options"
 
-[node name="GameOver" type="Node" parent="."]
+[node name="GameOver" type="Node2D" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.0980392 )
 script = ExtResource( 17 )
 
 [node name="Sprite2" type="Sprite" parent="GameOver"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 320, 128 )
 texture = ExtResource( 8 )
 
 [node name="yes" type="AnimatedSprite" parent="GameOver"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 192, 336 )
 frames = SubResource( 12 )
 
 [node name="no" type="AnimatedSprite" parent="GameOver"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 position = Vector2( 448, 336 )
 frames = SubResource( 15 )
+
+[node name="RestartPrompt" type="Node2D" parent="."]
+visible = false
+script = ExtResource( 34 )
+
+[node name="Sprite" type="Sprite" parent="RestartPrompt"]
+position = Vector2( 320, 160 )
+texture = ExtResource( 32 )
+
+[node name="sel0" type="Sprite" parent="RestartPrompt"]
+position = Vector2( 320, 320 )
+texture = ExtResource( 33 )
 
 [node name="Options" type="Node2D" parent="."]
 position = Vector2( 640, 0 )
@@ -510,6 +520,10 @@ bus = "Sounds"
 [node name="change" type="AudioStreamPlayer" parent="Options"]
 stream = ExtResource( 29 )
 bus = "Sounds"
+
+[node name="VSyncNote" type="Sprite" parent="Options"]
+position = Vector2( 320, 424 )
+texture = ExtResource( 31 )
 
 [node name="choose" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )

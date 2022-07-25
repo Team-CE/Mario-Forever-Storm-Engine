@@ -12,11 +12,14 @@ const CONTROLS_VALUES: Dictionary = {}
 
 export var music: Resource            #MENU Music
 export var music_credits: Resource    #CREDITS Music
+export var credits_scene: String
 
 var sel = 0
 var screen = 0
 var selLimit
 var screen_changed = 0
+const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
+var popup: CanvasLayer = null
 
 var fading_in = true
 var fading_out = false
@@ -91,9 +94,8 @@ func _process(delta) -> void:
       pos_y = 359 + (29 * sel)
       $S_Start.position.x = 248
       selLimit = 2
-      
     1:
-      pos_y = 534 + (37.5 * sel)
+      pos_y = 518 + (37.5 * sel)
       $S_Start.position.x = 208
       selLimit = 9
       updateOptions()
@@ -116,12 +118,14 @@ func controls() -> void:
       var effect = MarioHeadEffect.new($S_Start.position)
       add_child(effect)
     $select_main.play()
+    if screen == 1: updateNotes()
   elif Input.is_action_just_pressed('ui_up') and sel > 0:
     sel -= 1
     if Global.effects:
       var effect = MarioHeadEffect.new($S_Start.position)
       add_child(effect)
     $select_main.play()
+    if screen == 1: updateNotes()
   
   match screen:
     0:    # _____ MAIN _____
@@ -163,19 +167,25 @@ func controls() -> void:
             sel = 0
             $enter_options.play()
           8:
-            screen = 3
-            sel = 0
             $enter_options.play()
-            $Credits.position.y = 1920 + $Credits.texture.get_height() / 2
-            MusicPlayer.get_node('Main').stream = music_credits
-            MusicPlayer.get_node('Main').play()
+            if credits_scene:
+# warning-ignore:return_value_discarded
+              get_tree().change_scene(credits_scene)
+            else:
+              screen = 3
+              sel = 0
+              $Credits.position.y = 1920 + $Credits.texture.get_height() / 2
+              MusicPlayer.get_node('Main').stream = music_credits
+              MusicPlayer.get_node('Main').play()
           9:
-            screen = 0
-            sel = 1
             $enter_options.play()
             saveOptions()
             if Global.restartNeeded:
               Global.restartNeeded = false
+              promptRestart()
+            else:
+              screen = 0
+              sel = 1
       if Input.is_action_just_pressed('ui_right'):
         match sel:
           0:
@@ -201,12 +211,12 @@ func controls() -> void:
               Global.quality += 1
               $change.play()
           6:
-            if !Global.scaling:
-              Global.scaling = true
+            if Global.scaling < 2:
+              Global.scaling += 1
               $change.play()
               saveOptions()
               yield(get_tree(), 'idle_frame')
-              updateControls()
+              updateNotes()
           7:
             if !OS.vsync_enabled:
               OS.vsync_enabled = true
@@ -242,10 +252,11 @@ func controls() -> void:
               Global.quality -= 1
               $change.play()
           6:
-            if Global.scaling:
-              Global.scaling = false
+            if Global.scaling > 0:
+              Global.scaling -= 1
               $change.play()
               saveOptions()
+              updateNotes()
           7:
             if OS.vsync_enabled:
               OS.vsync_enabled = false
@@ -304,8 +315,15 @@ func updateOptions() -> void:
   $Buttons/Scroll.frame = Global.scroll
   $Buttons/Quality.frame = Global.quality
   $Buttons/Scaling.frame = Global.scaling
-  $Buttons/Restart.visible = Global.restartNeeded
   $Buttons/VSync.frame = OS.vsync_enabled
+
+func updateNotes() -> void:
+  $Buttons/EffectsNote.visible = sel == 2
+  $Buttons/ControlsNote.visible = sel == 4
+  $Buttons/QualityNote.visible = sel == 5
+  $Buttons/ScalingNote.visible = sel == 6
+  $Buttons/ScalingNote.frame = Global.scaling
+  $Buttons/VSyncNote.visible = sel == 7
 
 func updateControls() -> void:
   for i in CONTROLS_ARRAY:
@@ -337,3 +355,17 @@ func assign_value(key) -> String:
     if action is InputEventKey:
       out = OS.get_scancode_string(action.scancode)
   return out
+
+func promptRestart() -> void:
+  popup = pause_menu.instance()
+  for node in popup.get_children():
+    if node.get_class() == 'Node2D' and not node.get_name() == 'RestartPrompt':
+      node.queue_free()
+  get_parent().add_child(popup)
+  
+  get_parent().get_tree().paused = true
+
+func freeRestartPrompt() -> void:
+  screen = 0
+  sel = 1
+  $enter_options.play()

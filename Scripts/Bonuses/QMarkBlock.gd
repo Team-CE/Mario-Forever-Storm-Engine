@@ -268,6 +268,7 @@ func hit(_delta, ignore_powerup = false, idle_frame: bool = true) -> void:
     Global.play_base_sound('MAIN_Pipe')
     Global.state = 0
     Global.Mario.appear_counter = 60
+    Global.lives = 4
 
 func _process_trigger(delta) -> void:
   t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)

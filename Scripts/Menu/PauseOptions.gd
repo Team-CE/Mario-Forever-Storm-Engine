@@ -21,6 +21,8 @@ func _process(delta):
   
   get_node('sel' + str(sel)).frame = 1
   
+  $VSyncNote.visible = sel == 3
+  
   # CONTROLS
   
   if Input.is_action_just_pressed('ui_down') and sel < 4:

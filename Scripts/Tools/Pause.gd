@@ -15,6 +15,7 @@ func _ready():
     $sel1.frame = 2
   if 'sgr_scroll' in get_node('../../') and get_node_or_null('../../').sgr_scroll:
     can_restart = false
+  visible = true
 
 func _input(ev):
   if ev.is_action_pressed('ui_fullscreen'):
@@ -26,14 +27,12 @@ func _process(delta):
     
     # FADE IN
     
-    if get_node('../Sprite').modulate.v > 0.355:           # Fade in process
-      for spr in get_children():
-        if spr is AnimatedSprite or spr is Sprite:
-          spr.modulate.a += (1 - spr.modulate.a) * 0.1 * Global.get_delta(delta)
-    else:                                         # Fade has been finished
-      counter += 0.15 * Global.get_delta(delta)
-      var sinalpha = sin(counter) * 0.3 + 0.7
-      get_node('sel' + str(sel)).modulate.a = sinalpha
+    #if get_node('../Sprite').modulate.v > 0.355:           # Fade in process
+    modulate.a += (1 - modulate.a) * 0.1 * Global.get_delta(delta)
+    #else:                                         # Fade has been finished
+    counter += 0.15 * Global.get_delta(delta)
+    var sinalpha = sin(counter) * 0.3 + 0.7
+    get_node('sel' + str(sel)).modulate.a = sinalpha
     
     if sel != 1 or (sel == 1 and can_restart): get_node('sel' + str(sel)).frame = 1
     
@@ -52,7 +51,7 @@ func _process(delta):
     
     if !can_restart and $sel1.frame != 2: $sel1.frame = 2
     
-    if Input.is_action_just_pressed('ui_accept') and counter > 0.15:
+    if Input.is_action_just_pressed('ui_accept') and counter > 1:
       match sel:
         0:
           if Global.musicBar > -100:
@@ -103,7 +102,7 @@ func _process(delta):
           get_parent().queue_free()
           get_parent().get_parent().get_tree().paused = false
       
-    if Input.is_action_just_pressed('ui_cancel') and counter > 1:
+    if Input.is_action_just_pressed('ui_cancel') and counter > 3:
       if Global.musicBar > -100:
         AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
       get_parent().resume()
@@ -113,6 +112,4 @@ func _process(delta):
     
     # FADE OUT
     
-    for spr in get_children():
-      if spr is AnimatedSprite or spr is Sprite:
-        spr.modulate.a += (0 - spr.modulate.a) * 0.15 * Global.get_delta(delta)
+    modulate.a += (0 - modulate.a) * 0.15 * Global.get_delta(delta)

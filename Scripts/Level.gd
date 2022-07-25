@@ -110,7 +110,7 @@ func _input(event):
     if popup == null:
       popup = pause_menu.instance()
       for node in popup.get_children():
-        if node.get_class() == 'Node' and not node.get_name() == 'Pause':
+        if node.get_class() == 'Node2D' and not node.get_name() == 'Pause' and not node.get_name() == 'Options':
           node.queue_free()
       popup.get_node('pause').play()
       add_child(popup)
@@ -125,7 +125,7 @@ func _notification(what):
     if popup == null and not (is_instance_valid(Global.Mario) and Global.Mario.popup):
       popup = pause_menu.instance()
       for node in popup.get_children():
-        if node.get_class() == 'Node' and not node.get_name() == 'Pause':
+        if node.get_class() == 'Node2D' and not node.get_name() == 'Pause' and not node.get_name() == 'Options':
           node.queue_free()
       call_deferred('add_child', popup)
       Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

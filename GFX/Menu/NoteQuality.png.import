@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Pmusic.png-401f9d90fbab516e9850684b1437eaee.stex"
+path="res://.import/NoteQuality.png-2835bb4c054f881497f455b9d3e6ab86.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Menu/Pmusic.png"
-dest_files=[ "res://.import/Pmusic.png-401f9d90fbab516e9850684b1437eaee.stex" ]
+source_file="res://GFX/Menu/NoteQuality.png"
+dest_files=[ "res://.import/NoteQuality.png-2835bb4c054f881497f455b9d3e6ab86.stex" ]
 
 [params]
 

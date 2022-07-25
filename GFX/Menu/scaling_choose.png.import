@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/OVsyncNote.png-b871e1be4c0326c4b99800116b7e4eb1.stex"
+path="res://.import/scaling_choose.png-fad1ebee5825a5c89d3a6ff67dfa1a61.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Menu/OVsyncNote.png"
-dest_files=[ "res://.import/OVsyncNote.png-b871e1be4c0326c4b99800116b7e4eb1.stex" ]
+source_file="res://GFX/Menu/scaling_choose.png"
+dest_files=[ "res://.import/scaling_choose.png-fad1ebee5825a5c89d3a6ff67dfa1a61.stex" ]
 
 [params]
 

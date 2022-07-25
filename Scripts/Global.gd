@@ -1,12 +1,12 @@
 extends Node
 
 var GameName = "CloudEngine"
-var soundBar: float = 0                      # Game options
-var musicBar: float = 0
+var soundBar: float = 0.0                      # Game options
+var musicBar: float = 0.0
 var effects: bool = true
 var scroll: int = 0
 var quality: int = 2
-var scaling: bool = false
+var scaling: int = ScalingType.FANCY
 var controls: Dictionary
 var autopause: bool = true
 
@@ -23,6 +23,12 @@ var toSaveInfo = {
 }
 var restartNeeded: bool = false
 var saveFileExists: bool = false
+
+enum ScalingType {
+  FAST,
+  FILTER,
+  FANCY
+}
 
 var gravity: float = 20                      # Global gravity
 
@@ -80,13 +86,13 @@ func _ready() -> void:
   
   if toSaveInfo.has('SoundVol'): soundBar = toSaveInfo.SoundVol
   if toSaveInfo.has('MusicVol'): musicBar = toSaveInfo.MusicVol
-  if toSaveInfo.has('Efekty'): effects = toSaveInfo.Efekty
-  if toSaveInfo.has('Scroll'): scroll = toSaveInfo.Scroll
-  if toSaveInfo.has('Quality'): quality = toSaveInfo.Quality
-  if toSaveInfo.has('Scaling'): scaling = toSaveInfo.Scaling
-  if toSaveInfo.has('Controls'): controls = toSaveInfo.Controls
-  if toSaveInfo.has('VSync'): OS.vsync_enabled = toSaveInfo.VSync
-  if toSaveInfo.has('Autopause'): autopause = toSaveInfo.Autopause
+  if toSaveInfo.has('Efekty') and typeof(toSaveInfo.Efekty) == TYPE_BOOL: effects = toSaveInfo.Efekty
+  if toSaveInfo.has('Scroll') and typeof(toSaveInfo.Scroll) == TYPE_REAL: scroll = toSaveInfo.Scroll
+  if toSaveInfo.has('Quality') and typeof(toSaveInfo.Quality) == TYPE_REAL: quality = toSaveInfo.Quality
+  if toSaveInfo.has('Scaling') and typeof(toSaveInfo.Scaling) == TYPE_REAL: scaling = toSaveInfo.Scaling
+  if toSaveInfo.has('Controls') and typeof(toSaveInfo.Controls) == TYPE_DICTIONARY: controls = toSaveInfo.Controls
+  if toSaveInfo.has('VSync') and typeof(toSaveInfo.VSync) == TYPE_BOOL: OS.vsync_enabled = toSaveInfo.VSync
+  if toSaveInfo.has('Autopause') and typeof(toSaveInfo.Autopause) == TYPE_BOOL: autopause = toSaveInfo.Autopause
   
   for action in controls: # Loading controls
     if controls[action] and controls[action] is String:
@@ -118,14 +124,14 @@ func saveInfo(content):
   file.store_string(content)
   file.close()
   
-  if scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "2d":
+  if scaling <= ScalingType.FILTER and ProjectSettings.get_setting("display/window/stretch/mode") == "2d":
     ProjectSettings.set_setting("display/window/stretch/mode", "viewport")
 # warning-ignore:return_value_discarded
     ProjectSettings.save_custom("override.cfg")
     restartNeeded = true
     print('Need to restart')
     
-  elif not scaling and ProjectSettings.get_setting("display/window/stretch/mode") == "viewport":
+  elif scaling >= ScalingType.FANCY and ProjectSettings.get_setting("display/window/stretch/mode") == "viewport":
     ProjectSettings.set_setting("display/window/stretch/mode", "2d")
 # warning-ignore:return_value_discarded
     ProjectSettings.save_custom("override.cfg")
@@ -198,7 +204,7 @@ func _physics_process(delta: float) -> void:
 # Debug powerups
 func _input(ev):
   if !Input.is_action_pressed('debug_shift') and debug:
-    if ev is InputEventKey and ev.scancode >= 48 and ev.scancode <= 57 and !ev.echo and ev.pressed:
+    if ev is InputEventKey and ev.scancode >= 48 and ev.scancode <= 57 and !ev.echo and ev.pressed and get_tree().get_current_scene() is Level:
       play_base_sound('DEBUG_Toggle')
       state = ev.scancode - 49
       Mario.appear_counter = 60

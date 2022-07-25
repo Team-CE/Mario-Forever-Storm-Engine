@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var scene
 
@@ -7,16 +7,15 @@ var counter: float = 0
   
 func _ready():
   $no.frame = 1
+  visible = true
   
 func _process(delta):
   if get_parent().isPaused:
     
     # FADE IN
     
-    if get_node('../Sprite').modulate.v > 0.355:           # Fade in process
-      for spr in get_children():
-        if spr is AnimatedSprite or spr is Sprite:
-          spr.modulate.a += (1 - spr.modulate.a) * 0.05 * Global.get_delta(delta)
+    if modulate.v > 0.355:           # Fade in process
+      modulate.a += (1 - modulate.a) * 0.05 * Global.get_delta(delta)
     else:                                         # Fade has been finished
       counter += 0.15 * Global.get_delta(delta)
       var sinalpha = sin(counter) * 0.3 + 0.7
