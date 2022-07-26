@@ -10,10 +10,8 @@ export var darkness: float = 0.35
 export var speed: float = 0.15
 
 func _ready():
-  if Global.HUD:
-    for child in Global.HUD.get_children():
-      if not child is AudioStreamPlayer:
-        child.hide()
+  if is_instance_valid(Global.HUD):
+    Global.HUD.visible = false
   if !Global.effects or Global.quality == 0:
     env = null
 
@@ -36,15 +34,8 @@ func _process(delta):
     if env: env.set_shader_param('amount', env.get_shader_param('amount') + (0 - env.get_shader_param('amount')) * speed * Global.get_delta(delta))
 
 func resume() -> void:
-  if Global.HUD:
-    for child in Global.HUD.get_children():
-      if (not child is AudioStreamPlayer) and (not 'DebugOrphaneNodes' in child.name):
-        child.show()
-        
-    Global.HUD.get_node('DebugFlySprite').visible = Global.debug_fly
-    Global.HUD.get_node('DebugInvisibleSprite').visible = Global.debug_inv
-    Global.HUD.get_node('GameoverSprite').visible = Global.Mario.dead_gameover
-    Global.HUD.get_node('DebugOrphaneNodes').hide()
+  if is_instance_valid(Global.HUD) and Global.HUD.active:
+    Global.HUD.visible = true
   isPaused = false
   Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
   
@@ -52,5 +43,5 @@ func resume() -> void:
   
   $Sprite.modulate = Color.white
   
-  if Global.current_scene.get_class() == 'Node2D': get_parent().popup = null
+  if Global.current_scene.popup: Global.current_scene.popup = null
   queue_free()

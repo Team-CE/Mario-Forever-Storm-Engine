@@ -183,6 +183,7 @@ settings/stdout/print_fps=true
 window/size/width=640
 window/size/height=480
 window/vsync/vsync_via_compositor=true
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [importer_defaults]
@@ -332,5 +333,5 @@ common/enable_object_picking=false
 
 2d/snapping/use_gpu_pixel_snap=true
 quality/reflections/texture_array_reflections=false
-environment/default_environment="res://default_env.tres"
+environment/default_clear_color=Color( 0.333333, 0.333333, 0.333333, 1 )
 quality/2d/use_pixel_snap=true

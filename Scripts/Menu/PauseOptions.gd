@@ -4,6 +4,7 @@ var sel: int = 0
 var counter: float = 1
 
 func _pseudo_ready():
+  $AnimationPlayer.play('ToOptions')
   sel = 0
   counter = 0
   updateOptions()
@@ -13,14 +14,18 @@ func _pseudo_ready():
       i.modulate.a = 1
 
 func _process(delta):
+  if $AnimationPlayer.is_playing():
+    get_node('../Pause').position = position - Vector2(640, 0)
+    
   if !get_parent().options: return
   
+  # Text blinking
   counter += 0.15 * Global.get_delta(delta)
   var sinalpha = sin(counter) * 0.3 + 0.7
   get_node('sel' + str(sel)).modulate.a = sinalpha
-  
+  # Text selection
   get_node('sel' + str(sel)).frame = 1
-  
+  # VSync Subtitle
   $VSyncNote.visible = sel == 3
   
   # CONTROLS
@@ -38,7 +43,7 @@ func _process(delta):
   
   if Input.is_action_just_pressed('ui_accept') and counter > 0.15:
     if sel == 4:
-      get_node('../AnimationPlayer').play('FromOptions')
+      $AnimationPlayer.play('FromOptions')
       get_node('../enter').play()
       get_parent().options = false
   if Input.is_action_just_pressed('ui_right'):
@@ -91,7 +96,7 @@ func _process(delta):
     updateOptions()
     
   if Input.is_action_just_pressed('ui_cancel') and counter > 1:
-    get_node('../AnimationPlayer').play('FromOptions')
+    $AnimationPlayer.play('FromOptions')
     saveOptions()
     get_parent().options = false
 

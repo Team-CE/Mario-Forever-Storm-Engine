@@ -1,0 +1,139 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Scripts/Tools/Pause.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Menu/Pmainmenu.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Menu/Pquit.png" type="Texture" id=3]
+[ext_resource path="res://GFX/Menu/Psaveroom.png" type="Texture" id=4]
+[ext_resource path="res://GFX/Menu/Ptitle.png" type="Texture" id=5]
+[ext_resource path="res://GFX/Menu/Prestart.png" type="Texture" id=6]
+[ext_resource path="res://GFX/Menu/Presume.png" type="Texture" id=7]
+[ext_resource path="res://GFX/Menu/Poptions.png" type="Texture" id=8]
+[ext_resource path="res://Sounds/Main/pause.wav" type="AudioStream" id=9]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 320, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 32, 320, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 320, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 32, 320, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 31, 210, 31 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 210, 31 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 62, 210, 31 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 320, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 32, 320, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 320, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 32, 320, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 29, 120, 29 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 120, 29 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "save",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "menu",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "restart",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "resume",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "quit",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 22 ), SubResource( 23 ) ],
+"loop": true,
+"name": "options",
+"speed": 5.0
+} ]
+
+[node name="Pause" type="Node2D"]
+visible = false
+modulate = Color( 1, 1, 1, 0.0980392 )
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 320, 80 )
+texture = ExtResource( 5 )
+
+[node name="sel0" type="AnimatedSprite" parent="."]
+position = Vector2( 320, 192 )
+frames = SubResource( 9 )
+animation = "resume"
+
+[node name="sel3" type="AnimatedSprite" parent="."]
+position = Vector2( 320, 312 )
+frames = SubResource( 9 )
+animation = "save"
+
+[node name="sel4" type="AnimatedSprite" parent="."]
+position = Vector2( 320, 352 )
+frames = SubResource( 9 )
+animation = "menu"
+
+[node name="sel5" type="AnimatedSprite" parent="."]
+position = Vector2( 320, 392 )
+frames = SubResource( 9 )
+animation = "quit"
+
+[node name="sel1" type="AnimatedSprite" parent="."]
+position = Vector2( 320, 232 )
+frames = SubResource( 9 )
+animation = "restart"
+
+[node name="sel2" type="AnimatedSprite" parent="."]
+position = Vector2( 320, 272 )
+frames = SubResource( 9 )
+animation = "options"
+
+[node name="pause" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+bus = "Sounds"

@@ -62,8 +62,7 @@ onready var ray_L_2: RayCast2D = $RayCastLeft2
 
 var faded: bool = false
 
-const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
-var popup: CanvasLayer = null
+var gameovercont_node = load('res://Objects/Tools/PopupMenu/GameOver.tscn')
 
 onready var cam: Camera2D
 func get_camera() -> Camera2D:
@@ -308,12 +307,11 @@ func _process_dead(delta) -> void:
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
       dead_gameover = true
       yield(get_tree().create_timer( 5.0, false ), 'timeout')
-      if popup == null:
-        popup = pause_menu.instance()
-        for node in popup.get_children():
-          if node.get_class() == 'Node2D' and not node.get_name() == 'GameOver':
-            node.queue_free()
-        get_parent().add_child(popup)
+      if Global.current_scene.popup == null:
+        Global.current_scene.popup = Global.current_scene.popup_node.instance()
+        var gameovercont = gameovercont_node.instance()
+        get_parent().add_child(Global.current_scene.popup)
+        Global.current_scene.popup.add_child(gameovercont)
 
         get_parent().get_tree().paused = true
       

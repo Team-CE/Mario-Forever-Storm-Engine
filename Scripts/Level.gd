@@ -18,7 +18,9 @@ onready var worldEnv: WorldEnvironment
 onready var mpMain = MusicPlayer.get_node('Main')
 onready var mpStar = MusicPlayer.get_node('Star')
 
-const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
+const popup_node = preload('res://Objects/Tools/PopupMenu.tscn')
+const pause_node = preload('res://Objects/Tools/PopupMenu/Pause.tscn')
+const options_node = preload('res://Objects/Tools/PopupMenu/Options.tscn')
 var popup: CanvasLayer = null
 
 func _ready():
@@ -65,6 +67,11 @@ func _ready():
           node.shadow_buffer_size = 512
     $Mario.invulnerable = false
     
+    get_parent().world.environment = $WorldEnvironment.environment.duplicate(true)
+    #$WorldEnvironment.queue_free()
+    
+    if is_instance_valid(get_node('/root/fadeout')):
+      get_node('/root/fadeout').call_deferred('queue_free')
     Global.reset_audio_effects()
     print('[Level]: Ready!')
   elif not get_node_or_null('Mario'):
@@ -115,12 +122,13 @@ func _input(event):
       
   if event.is_action_pressed('ui_pause'):
     if popup == null:
-      popup = pause_menu.instance()
-      for node in popup.get_children():
-        if node.get_class() == 'Node2D' and not node.get_name() == 'Pause' and not node.get_name() == 'Options':
-          node.queue_free()
-      popup.get_node('pause').play()
+      popup = popup_node.instance()
+      var pause = pause_node.instance()
+      var options = options_node.instance()
       add_child(popup)
+      popup.add_child(pause)
+      popup.add_child(options)
+      pause.get_node('pause').play()
       Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
       get_tree().paused = true
@@ -129,12 +137,13 @@ func _notification(what):
   if Engine.editor_hint: return
   if !Global.autopause: return
   if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
-    if popup == null and not (is_instance_valid(Global.Mario) and Global.Mario.popup):
-      popup = pause_menu.instance()
-      for node in popup.get_children():
-        if node.get_class() == 'Node2D' and not node.get_name() == 'Pause' and not node.get_name() == 'Options':
-          node.queue_free()
+    if popup == null:
+      popup = popup_node.instance()
+      var pause = pause_node.instance()
+      var options = options_node.instance()
       call_deferred('add_child', popup)
+      popup.call_deferred('add_child', pause)
+      popup.call_deferred('add_child', options)
       Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
       get_tree().paused = true

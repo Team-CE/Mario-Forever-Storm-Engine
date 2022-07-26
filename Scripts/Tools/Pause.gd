@@ -73,7 +73,6 @@ func _process(delta):
             get_parent().resume()
           get_parent().get_parent().get_tree().paused = false
         2:
-          get_node('../AnimationPlayer').play('ToOptions')
           get_node('../enter').play()
           get_node('../Options')._pseudo_ready()
           get_parent().options = true

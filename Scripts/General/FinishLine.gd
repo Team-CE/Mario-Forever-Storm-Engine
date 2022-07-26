@@ -85,6 +85,7 @@ func finish_process(delta):
       Global.time = 0
       Global.emit_signal('TimeTick')
       Global.score = final_score
+      Global.emit_signal('OnScoreChange')
       wait_counter -= 1 * Global.get_delta(delta)
       if wait_counter < 0:
         Global.levelID = set_level_id
@@ -107,7 +108,7 @@ func act(warp_finish_enabled: bool = false) -> void:
   warp_finish = warp_finish_enabled
   final_score = Global.score + (Global.time * 10)
   for i in Global.current_scene.get_children():
-    if i is KinematicBody2D and ('Fireball' in i.name or 'Beetroot' in i.name or 'Iceball' in i.name):
-      var score_text = ScoreText.new(100, i.position)
-      i.get_parent().add_child(score_text)
-      i.queue_free()
+    if i is KinematicBody2D and i.has_method('_on_level_complete'):
+      var score = i._on_level_complete()
+      if score and typeof(score) == TYPE_REAL:
+        final_score += score

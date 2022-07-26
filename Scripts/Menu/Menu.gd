@@ -18,7 +18,8 @@ var sel = 0
 var screen = 0
 var selLimit
 var screen_changed = 0
-const pause_menu = preload('res://Objects/Tools/PopupMenu.tscn')
+const popup_node = preload('res://Objects/Tools/PopupMenu.tscn')
+const prompt_node = preload('res://Objects/Tools/PopupMenu/RestartPrompt.tscn')
 var popup: CanvasLayer = null
 
 var fading_in = true
@@ -138,7 +139,9 @@ func controls() -> void:
             $letsgo.play()
             MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 5.0)
             yield(get_tree().create_timer( 2.5 ), 'timeout')
-            $fadeout.play()
+            var fadeout = $fadeout.duplicate()
+            get_node('/root').add_child(fadeout)
+            fadeout.play()
             fading_out = true
             yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
@@ -355,11 +358,10 @@ func assign_value(key) -> String:
   return out
 
 func promptRestart() -> void:
-  popup = pause_menu.instance()
-  for node in popup.get_children():
-    if node.get_class() == 'Node2D' and not node.get_name() == 'RestartPrompt':
-      node.queue_free()
+  popup = popup_node.instance()
+  var prompt = prompt_node.instance()
   get_parent().add_child(popup)
+  popup.add_child(prompt)
   
   get_parent().get_tree().paused = true
 

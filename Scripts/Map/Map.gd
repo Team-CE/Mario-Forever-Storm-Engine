@@ -59,7 +59,9 @@ func _process(delta: float) -> void:
 
   if Input.is_action_just_pressed('mario_jump') and !fading_out and stopped:
     fading_out = true
-    $fadeout.play()
+    var fadeout = $fadeout.duplicate()
+    get_node('/root').add_child(fadeout)
+    fadeout.play()
     MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 2.0)
   
   if fading_out:
