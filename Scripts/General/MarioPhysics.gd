@@ -248,7 +248,10 @@ func _process_alive(delta) -> void:
   
   vertical_correction(5) # Corner correction like in original Mario games
   horizontal_correction(10) # One tile gap runover ability
-  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
+  var old_velocity = Vector2.ZERO + velocity
+  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation) * (8 if !jump_counter else 1), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
+  if abs(abs(old_velocity.x) - abs(velocity.x)) > 1 and is_on_floor() and !is_on_wall():
+    velocity.x = old_velocity.x
   update_collisions()
     
   if animation_enabled and danimate: animate_default(delta)
@@ -408,11 +411,11 @@ func jump() -> void:
 
 func controls(delta) -> void:
   if (
-      Input.is_action_just_pressed('mario_jump') and
-      not Input.is_action_pressed('mario_crouch') and
-      not crouch and
-      movement_type != Movement.SWIMMING
-    ):
+    Input.is_action_just_pressed('mario_jump') and
+    not Input.is_action_pressed('mario_crouch') and
+    not crouch and
+    movement_type != Movement.SWIMMING
+  ):
     can_jump = true
   if not Input.is_action_pressed('mario_jump'):
     can_jump = false
@@ -421,27 +424,27 @@ func controls(delta) -> void:
     jump()
   
   if movement_type == Movement.CLIMBING:
-      if Input.is_action_pressed('mario_up'):
-        velocity.y = -125
-      if Input.is_action_pressed('mario_left'):
-        velocity.x = -125
-      if Input.is_action_pressed('mario_right'):
-        velocity.x = 125
-      
-      if !Input.is_action_pressed('mario_crouch') and !Input.is_action_pressed('mario_up'):
-        velocity.y = 0
-      if !Input.is_action_pressed('mario_left') and !Input.is_action_pressed('mario_right'):
-        velocity.x = 0
-      if Input.is_action_pressed('mario_crouch'):
-        if is_on_floor():
-          movement_type = Movement.DEFAULT
-        else:
-          velocity.y = 150
-      elif Input.is_action_just_pressed('mario_jump'):
+    if Input.is_action_pressed('mario_up'):
+      velocity.y = -125
+    if Input.is_action_pressed('mario_left'):
+      velocity.x = -125
+    if Input.is_action_pressed('mario_right'):
+      velocity.x = 125
+    
+    if !Input.is_action_pressed('mario_crouch') and !Input.is_action_pressed('mario_up'):
+      velocity.y = 0
+    if !Input.is_action_pressed('mario_left') and !Input.is_action_pressed('mario_right'):
+      velocity.x = 0
+    if Input.is_action_pressed('mario_crouch'):
+      if is_on_floor():
         movement_type = Movement.DEFAULT
-        jump_counter = 0
-        jump()
-      return
+      else:
+        velocity.y = 150
+    elif Input.is_action_just_pressed('mario_jump'):
+      movement_type = Movement.DEFAULT
+      jump_counter = 0
+      jump()
+    return
 
 
   if velocity.y > 0.5 and not is_over_backdrop($BottomDetector, false):
@@ -766,7 +769,10 @@ func horizontal_correction(amount: int):
     for i in range(1, amount * 2 + 1):
       for j in [-1.0, 0]:
         var coll = move_and_collide(
-          Vector2(velocity.x * delta, 0).rotated(rotation)
+          Vector2(velocity.x * delta, 0).rotated(rotation),
+          true,
+          true,
+          true
         )
         
         var normal = Vector2(0, 0)
