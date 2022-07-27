@@ -759,15 +759,25 @@ func vertical_correction(amount: int):
 
 func horizontal_correction(amount: int):
   var delta = get_process_delta_time()
-  if velocity.y > 0 and (velocity.x > 1 or velocity.x < -1) and test_move(global_transform,
-  Vector2(velocity.x * delta, 0).rotated(rotation)
+  if velocity.y > 0 and (velocity.x > 1 or velocity.x < -1) and test_move(
+    global_transform,
+    Vector2(velocity.x * delta, 0).rotated(rotation)
   ):
     for i in range(1, amount * 2 + 1):
       for j in [-1.0, 0]:
-        if !test_move(global_transform.translated(Vector2(0, i * j / 2)),
-        Vector2(velocity.x * delta, 0).rotated(rotation)
-        ) && !is_on_floor():
-          print('correct h')
+        var coll = move_and_collide(
+          Vector2(velocity.x * delta, 0).rotated(rotation)
+        )
+        
+        var normal = Vector2(0, 0)
+        
+        if ('normal' in coll):
+          normal = coll.normal.rotated(-rotation)
+
+        if !test_move(
+          global_transform.translated(Vector2(0, i * j / 2)),
+          Vector2(velocity.x * delta, 0).rotated(rotation)
+        ) && !is_on_floor() && 'normal' in coll && normal.x == -1 && normal.y < 0.1 && normal.y > -0.1:
           translate(Vector2(0, i * j / 2).rotated(rotation))
           if velocity.y * j < 0: velocity.y = 0
           return
