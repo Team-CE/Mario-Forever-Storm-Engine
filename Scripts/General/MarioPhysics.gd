@@ -744,7 +744,7 @@ func update_collisions() -> void:
 #    if test_move(global_transform, Vector2(0, 1).rotated(rotation))
 
 func vertical_correction(amount: int):
-  var delta = get_physics_process_delta_time()
+  var delta = get_process_delta_time()
   if velocity.y < 0 and test_move(global_transform,
   Vector2(0, velocity.y * delta).rotated(rotation)
   ):
@@ -758,7 +758,7 @@ func vertical_correction(amount: int):
           return
 
 func horizontal_correction(amount: int):
-  var delta = get_physics_process_delta_time()
+  var delta = get_process_delta_time()
   if velocity.y > 0 and (velocity.x > 1 or velocity.x < -1) and test_move(global_transform,
   Vector2(velocity.x * delta, 0).rotated(rotation)
   ):
@@ -766,7 +766,8 @@ func horizontal_correction(amount: int):
       for j in [-1.0, 0]:
         if !test_move(global_transform.translated(Vector2(0, i * j / 2)),
         Vector2(velocity.x * delta, 0).rotated(rotation)
-        ):
+        ) && !is_on_floor():
+          print('correct h')
           translate(Vector2(0, i * j / 2).rotated(rotation))
           if velocity.y * j < 0: velocity.y = 0
           return
