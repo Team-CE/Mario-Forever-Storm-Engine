@@ -70,7 +70,7 @@ func _ready():
     get_parent().world.environment = $WorldEnvironment.environment.duplicate(true)
     #$WorldEnvironment.queue_free()
     
-    if is_instance_valid(get_node('/root/fadeout')):
+    if is_instance_valid(get_node_or_null('/root/fadeout')):
       get_node('/root/fadeout').call_deferred('queue_free')
     Global.reset_audio_effects()
     print('[Level]: Ready!')

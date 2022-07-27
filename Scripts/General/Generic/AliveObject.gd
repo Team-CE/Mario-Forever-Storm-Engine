@@ -39,6 +39,8 @@ export var alt_sound_pth: NodePath
 export var animated_sprite_pth: NodePath
 export var frozen_sprite_pth: NodePath
 
+export var temp: bool = false # For AnimationPlayers
+
 var ray_L: RayCast2D
 var ray_R: RayCast2D
 var animated_sprite: AnimatedSprite
@@ -53,7 +55,6 @@ var velocity: Vector2
 var alive: bool = true
 var death_type: int
 var velocity_enabled: bool = true
-
 var just_died: bool = false
 
 onready var time = get_tree().create_timer(0)
@@ -239,3 +240,4 @@ func instance_free():
 
 func getInfo() -> String:
   return 'name: {n}\nvel x: {x}\nvel y: {y}'.format({'x':velocity.x,'y':velocity.y,'n':self.get_name()}).to_lower()
+
