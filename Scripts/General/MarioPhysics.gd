@@ -157,6 +157,9 @@ func _process_alive(delta) -> void:
       ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
   
+  if get_slide_count() == 0 and is_on_floor() and velocity.y < 0:
+    velocity.y = 0
+  
   var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
     movement_swimming(delta)

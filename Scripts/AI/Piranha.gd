@@ -12,7 +12,7 @@ var fireball
 var rng = RandomNumberGenerator.new()
 
 var rotat: float
-var inv_counter: float = 0
+var inv_counter: float = 10
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.DISAPPEAR
@@ -55,13 +55,16 @@ func _ai_process(delta: float) -> void:
     if on_mario_collide('InsideDetector'):
       Global._ppd()
   else:
-    if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0:
+    if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= 1:
       inv_counter = 0
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
       Global.Mario.shoe_node.stomp()
       owner.velocity.y = 0
-    elif on_mario_collide('InsideDetector') and inv_counter > 5:
+    elif on_mario_collide('InsideDetector') and inv_counter > 8:
       Global._ppd()
+  
+  if inv_counter < 10:
+    inv_counter += 1 * Global.get_delta(delta)
     
   if projectile_timer > 0:
     projectile_timer -= 1 * Global.get_delta(delta)

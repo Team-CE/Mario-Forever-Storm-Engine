@@ -33,7 +33,7 @@ func _ai_process(delta:float) -> void:
     if 'triggered' in i and i.triggered:
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
   
-  if inv_counter < 7:
+  if inv_counter < 10:
     inv_counter += 1 * Global.get_delta(delta)
   if !Global.Mario.is_in_shoe:
     if on_mario_collide('InsideDetector') and !owner.frozen:
@@ -44,5 +44,5 @@ func _ai_process(delta:float) -> void:
       Global.Mario.shoe_node.stomp()
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
       return
-    elif on_mario_collide('InsideDetector') and !owner.frozen and inv_counter > 5:
+    elif on_mario_collide('InsideDetector') and !owner.frozen and inv_counter > 8:
       Global._ppd()

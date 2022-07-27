@@ -49,6 +49,11 @@ animations = [ {
 "name": "dead",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 8 ) ],
 "loop": true,
 "name": "shell stopped",
@@ -58,11 +63,6 @@ animations = [ {
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "falling",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -89,8 +89,7 @@ vars = {
 "qblock zone": NodePath("QBlockZone"),
 "shell speed": 250.0,
 "speed": 50.0,
-"stopped": false,
-"visibility_enabler": NodePath("VisibilityEnabler2D")
+"stopped": false
 }
 AI = ExtResource( 6 )
 can_freeze = true
@@ -102,6 +101,7 @@ frozen_sprite_pth = NodePath("IceSprite")
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -7 )
 frames = SubResource( 9 )
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true

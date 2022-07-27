@@ -12,7 +12,7 @@ var active: bool = false
 var velocity := Vector2.ZERO
 onready var firstpos = position
 
-var inv_counter: float = 0
+var inv_counter: float = 10
 
 func _ready():
   if Engine.editor_hint:
@@ -57,7 +57,7 @@ func _process(delta):
     counter = 0
   
   visible = active
-  if inv_counter < 7:
+  if inv_counter < 10:
     inv_counter += 1 * Global.get_delta(delta)
 
   $CollisionShape2D.disabled = !active
@@ -67,11 +67,10 @@ func _process(delta):
       inv_counter = 0
       Global.Mario.shoe_node.stomp()
       return
-    elif Global.is_mario_collide_area('InsideDetector', self) and velocity.y > -8 and inv_counter > 5:
+    elif Global.is_mario_collide_area('InsideDetector', self) and velocity.y > -8 and inv_counter > 8:
       Global._ppd()
   else:
-    var id_overlaps = Global.Mario.get_node_or_null('InsideDetector').get_overlapping_areas()
-    if id_overlaps and id_overlaps.has(self):
+    if Global.is_mario_collide_area('BottomDetector', self):
       Global._ppd()
       
 func reset_height(new_height):

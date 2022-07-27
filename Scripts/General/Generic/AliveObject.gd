@@ -117,6 +117,8 @@ func _ready() -> void:
   if !death_signal_exception:
 # warning-ignore:return_value_discarded
     connect('enemy_died', Global.current_scene, 'activate_event', ['on_enemy_death', [get_name()]])
+  
+  temp = false
 
 func _physics_process(delta:float) -> void:
 #  var vse = get_node_or_null("VisibilityEnabler2D")

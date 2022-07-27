@@ -5,6 +5,7 @@ var falling: bool = false
 
 var counter: float = 50
 var hit_counter: float = 0
+var inv_counter: float = 10
 var is_smiling: bool = false
 var smile_counter: float = 0
 var laugh: bool = true
@@ -22,9 +23,21 @@ func _ai_process(delta: float) -> void:
   if !owner.is_on_floor() and falling:
     owner.velocity += Vector2(0, 40 * owner.gravity_scale * Global.get_delta(delta))
 
-  if Global.is_mario_collide_area('InsideDetector', owner.get_node('Hitbox')):
-    Global._ppd()
-    is_smiling = true
+  if Global.Mario.is_in_shoe and Global.Mario.shoe_type == 1:
+    if Global.is_mario_collide_area('BottomDetector', owner.get_node('Hitbox')) and Global.Mario.velocity.y > 0:
+      inv_counter = 0
+      Global.Mario.shoe_node.stomp()
+      return
+    elif Global.is_mario_collide_area('InsideDetector', owner.get_node('Hitbox')) and inv_counter > 8:
+      Global._ppd()
+      is_smiling = true
+  else:
+    if Global.is_mario_collide_area('InsideDetector', owner.get_node('Hitbox')):
+      Global._ppd()
+      is_smiling = true
+  
+  if inv_counter < 10:
+    inv_counter += 1 * Global.get_delta(delta)
   
   if is_smiling:
     smile_counter += 1 * Global.get_delta(delta)

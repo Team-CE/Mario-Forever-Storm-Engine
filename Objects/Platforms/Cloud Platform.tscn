@@ -44,7 +44,7 @@ script = ExtResource( 3 )
 [node name="Sprite" type="AnimatedSprite" parent="KinematicPlatform"]
 position = Vector2( 0, 16 )
 frames = SubResource( 6 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="Collision" type="CollisionShape2D" parent="KinematicPlatform"]

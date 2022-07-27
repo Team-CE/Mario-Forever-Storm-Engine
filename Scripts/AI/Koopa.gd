@@ -7,9 +7,6 @@ var error: bool = false
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
   
-  if not 'qblock zone' in owner.vars:
-    printerr('ERROR: could not find qblock zone for enemy ' + owner.name + '! Please recreate the object')
-    error = true
   if owner.vars['is shell']:
 # warning-ignore:standalone_ternary
     to_stopped_shell() if owner.vars['stopped'] else to_moving_shell()
@@ -25,7 +22,7 @@ func _ai_process(delta: float) -> void:
   
   if !owner.alive:
     owner.get_node(owner.vars['kill zone']).get_child(0).disabled = true
-    if !error: owner.get_node(owner.vars['qblock zone']).get_child(0).disabled = true
+    owner.get_node('QBlockZone').get_child(0).disabled = true
     return
   
   if !owner.frozen:
@@ -54,7 +51,7 @@ func _ai_process(delta: float) -> void:
         else:
           score_mp = 0
 
-  if !error: for b in owner.get_node_or_null(owner.vars['qblock zone']).get_overlapping_bodies():
+  if !error: for b in owner.get_node('QBlockZone').get_overlapping_bodies():
     if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
       if b is QBlock and b.active:
         b.hit(1, true)
@@ -97,30 +94,29 @@ func _ai_process(delta: float) -> void:
       owner.alt_sound.play()
     
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
-  for i in range(len(g_overlaps)):
-    if 'triggered' in g_overlaps[i] and g_overlaps[i].triggered:
+  for i in g_overlaps:
+    if 'triggered' in i and i.triggered:
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
 
 func to_stopped_shell() -> void:
   owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
-  if !error: owner.get_node_or_null(owner.vars['qblock zone']).get_child(0).disabled = false
+  owner.get_node('QBlockZone').get_child(0).disabled = false
   shell_counter = 0
   owner.vars['is shell'] = true
   score_mp = 0
   owner.vars['stopped'] = true
   owner.animated_sprite.animation = 'shell stopped'
-  if 'visibility_enabler' in owner.vars:
-    owner.get_node(owner.vars['visibility_enabler']).rect = Rect2( -16, -32, 32, 32 )
-  else:
-    print('ERROR: could not find visibility_enabler for ' + owner.name)
+  if Global.Mario.is_in_shoe:
+    Global.Mario.shoe_node.stomp()
+    owner.kill(AliveObject.DEATH_TYPE.FALL, 0, owner.sound)
+    owner.velocity.y = 0
+    return
+  owner.get_node('VisibilityEnabler2D').rect = Rect2( -16, -32, 32, 32 )
   if !owner.death_signal_exception: owner.emit_signal('enemy_died')
 
 func to_moving_shell() -> void:
   owner.vars['is shell'] = true
   owner.vars['stopped'] = false
   owner.animated_sprite.animation = 'shell moving'
-  if 'visibility_enabler' in owner.vars:
-    owner.get_node(owner.vars['visibility_enabler']).rect = Rect2( -480, -192, 960, 320 )
-  else:
-    print('ERROR: could not find visibility_enabler for ' + owner.name)
+  owner.get_node('VisibilityEnabler2D').rect = Rect2( -480, -192, 960, 320 )
   shell_counter = 0
