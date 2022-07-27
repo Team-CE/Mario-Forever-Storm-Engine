@@ -185,16 +185,30 @@ func _physics_process(delta: float) -> void:
     timer.start()
   if projectiles_count < 0:
     projectiles_count = 0
-  
-  if Input.is_action_pressed('debug_shift') and debug:
+      
+# Fullscreen toggle
+func _input(ev):
+  if ev.is_action_pressed('ui_fullscreen'):
+    OS.window_fullscreen = !OS.window_fullscreen
+
+  if !debug or !(ev is InputEventKey) or !ev.pressed:
+    return
+  if Input.is_action_pressed('debug_shift'):
   # Hotkey for restarting current level
-    if Input.is_action_just_pressed('debug_f2'):
+    if ev.is_action_pressed('debug_f2'):
       lives += 1
       _reset()
-      
+
+    if ev.is_action_pressed('debug_straylist'):
+      if Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT) > 0:
+        print('[CE OUTPUT]: --- STRAY NODES LIST ---')
+        print_stray_nodes()
+      else:
+        print('[CE OUTPUT]: No stray nodes yet, we\'re fine!')
+
+    if !is_instance_valid(Mario): return
   # Toggle fly mode
-    if Input.is_action_just_pressed('debug_1'):
-      if !is_instance_valid(Mario): return
+    if ev.scancode == 49:
       if Mario.dead_gameover: return
       Mario.get_node('Sprite').modulate.a = 0.5 * (1 + int(debug_fly))
       debug_fly = !debug_fly
@@ -205,28 +219,27 @@ func _physics_process(delta: float) -> void:
       play_base_sound('DEBUG_Toggle')
       
   # Toggle invisible mode
-    if Input.is_action_just_pressed('debug_2'):
-      if !is_instance_valid(Mario): return
+    if ev.scancode == 50:
       debug_inv = !debug_inv
       if debug_inv and debug_fly:
         debug_fly = false
       play_base_sound('DEBUG_Toggle')
-    
-    if Input.is_action_just_pressed('debug_straylist'):
-      if Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT) > 0:
-        print('[CE OUTPUT]: --- STRAY NODES LIST ---')
-        print_stray_nodes()
+  
+  # Toggle shoe
+    if ev.scancode == 51:
+      if Mario.shoe_node == null:
+        var shoe = load('res://Objects/Bonuses/ShoeRed.tscn').instance()
+        current_scene.add_child(shoe)
+        shoe.global_position = Mario.global_position
       else:
-        print('[CE OUTPUT]: No stray nodes yet, we\'re fine!')
+        Mario.shoe_node.call_deferred('queue_free')
+        Mario.unbind_shoe()
+      play_base_sound('DEBUG_Toggle')
     
-  if Input.is_action_just_pressed('debug_hud'):
+  # Toggle HUD visibility (without shift key)
+  if ev.is_action_pressed('debug_hud'):
     if !is_instance_valid(HUD): return
     HUD.visible = !HUD.visible
-      
-# Fullscreen toggle
-func _input(ev):
-  if ev.is_action_pressed('ui_fullscreen'):
-    OS.window_fullscreen = !OS.window_fullscreen
       
 # fix physics fps issues
 func _process(delta: float):

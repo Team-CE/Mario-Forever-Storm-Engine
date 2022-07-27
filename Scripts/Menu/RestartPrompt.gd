@@ -6,7 +6,6 @@ var counter: float = 0
 func _ready():
   if Global.musicBar > -100:
     AudioServer.call_deferred('set_bus_volume_db', AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
-  visible = true
 
 func _process(delta):
   if get_parent().isPaused:

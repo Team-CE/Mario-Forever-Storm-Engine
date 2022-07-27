@@ -248,10 +248,10 @@ func _process_alive(delta) -> void:
   
   vertical_correction(5) # Corner correction like in original Mario games
   horizontal_correction(10) # One tile gap runover ability
-  var old_velocity = Vector2.ZERO + velocity
-  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation) * (8 if !jump_counter else 1), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
-  if abs(abs(old_velocity.x) - abs(velocity.x)) > 1 and is_on_floor() and !is_on_wall():
-    velocity.x = old_velocity.x
+
+  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation) * (8 if !(jump_counter or movement_type == Movement.CLIMBING) else 1), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
+
+
   update_collisions()
     
   if animation_enabled and danimate: animate_default(delta)
@@ -783,7 +783,7 @@ func horizontal_correction(amount: int):
         if !test_move(
           global_transform.translated(Vector2(0, i * j / 2)),
           Vector2(velocity.x * delta, 0).rotated(rotation)
-        ) && !is_on_floor() && 'normal' in coll && normal.x == -1 && normal.y < 0.1 && normal.y > -0.1:
+        ) && !is_on_floor() && 'normal' in coll && (normal.x == -1 || normal.x == 1) && normal.y < 0.1 && normal.y > -0.1:
           translate(Vector2(0, i * j / 2).rotated(rotation))
           if velocity.y * j < 0: velocity.y = 0
           return

@@ -7,7 +7,6 @@ var counter: float = 0
   
 func _ready():
   $no.frame = 1
-  visible = true
   
 func _process(delta):
   if get_parent().isPaused:

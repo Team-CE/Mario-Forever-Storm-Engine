@@ -15,7 +15,6 @@ func _ready():
     $sel1.frame = 2
   if 'sgr_scroll' in get_node('../../') and get_node_or_null('../../').sgr_scroll:
     can_restart = false
-  visible = true
 
 func _input(ev):
   if ev.is_action_pressed('ui_fullscreen'):
@@ -106,7 +105,5 @@ func _process(delta):
       get_parent().get_parent().get_tree().paused = false
 
   else:
-    
     # FADE OUT
-    
     modulate.a += (0 - modulate.a) * 0.15 * Global.get_delta(delta)

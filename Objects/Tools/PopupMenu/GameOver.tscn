@@ -38,7 +38,6 @@ animations = [ {
 } ]
 
 [node name="GameOver" type="Node2D"]
-visible = false
 modulate = Color( 1, 1, 1, 0.0980392 )
 script = ExtResource( 1 )
 

@@ -1,9 +1,9 @@
 extends Brain
 
 var shoe_red = preload('res://Objects/Bonuses/ShoeRed.tscn')
-var moving: bool = false
 var shoe_created: bool = false
 var ooawel: bool = false
+var death_bool: bool = false
 
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)
@@ -11,17 +11,27 @@ func _ai_process(delta:float) -> void:
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
   if !owner.alive:
+    if not death_bool:
+      death_bool = true
+      var shoe = shoe_red.instance()
+      Global.current_scene.add_child(shoe)
+      shoe.global_transform = owner.global_transform
+      shoe.position.y += 4 * Global.get_delta(delta)
+      shoe.get_node('AnimatedSprite').flip_h = min(owner.dir, 0)
+      if shoe_created: return
+      shoe.dead = true
+      shoe.get_node('AnimatedSprite').flip_v = true
+      
     return
     
   owner.get_node('AnimatedSprite2').flip_h = min(owner.dir, 0)
   
-  owner.velocity.x = owner.vars['speed'] * owner.dir * int(moving)
+  owner.velocity.x = owner.vars['speed'] * owner.dir * int(not owner.is_on_floor())
   if owner.is_on_wall():
     owner.turn()
   
   if owner.is_on_floor() and not ooawel:
     owner.get_node('AnimationPlayer').play('hi')
-    moving = false
     ooawel = true
     
   if owner.temp:
@@ -49,15 +59,7 @@ func _ai_process(delta:float) -> void:
 func jump():
   owner.dir = 1 if Global.Mario.position.x > owner.position.x else -1
   owner.velocity.y = -400
-  moving = true
   ooawel = false
 
 func _on_any_death():
   owner.get_node('AnimatedSprite2').queue_free()
-  var shoe = shoe_red.instance()
-  Global.current_scene.add_child(shoe)
-  shoe.global_transform = owner.global_transform
-  if shoe_created: return
-  shoe.dead = true
-  shoe.velocity.y = -5
-  shoe.get_node('AnimatedSprite').flip_v = true
