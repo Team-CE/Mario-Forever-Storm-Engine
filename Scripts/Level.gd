@@ -158,7 +158,8 @@ func _on_timeout():
   popup.call_deferred('add_child', pause)
   popup.call_deferred('add_child', options)
   Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-  timer.call_deferred('queue_free')
+  if is_instance_valid(timer):
+    timer.call_deferred('queue_free')
 
   get_tree().paused = true
 

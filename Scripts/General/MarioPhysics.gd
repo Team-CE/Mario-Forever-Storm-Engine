@@ -157,9 +157,6 @@ func _process_alive(delta) -> void:
       ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
   
-  if get_slide_count() == 0 and is_on_floor() and velocity.y < 0:
-    velocity.y = 0
-  
   var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
     movement_swimming(delta)
@@ -253,8 +250,23 @@ func _process_alive(delta) -> void:
   horizontal_correction(10) # One tile gap runover ability
   var old_velocity = Vector2.ZERO + velocity # Fix for slopes
   velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation) * (8 if !(jump_counter or movement_type == Movement.CLIMBING) else 1), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
-  if abs(abs(old_velocity.x) - abs(velocity.x)) > 1 and is_on_floor() and !is_on_wall():
+  if !is_on_wall():
     velocity.x = old_velocity.x
+
+  var coll = move_and_collide(
+    Vector2(velocity.x * delta, 0).rotated(rotation),
+    true,
+    true,
+    true
+  )
+  
+  if coll:
+    var normal = Vector2(0, 0)
+    if 'normal' in coll:
+      normal = coll.normal.rotated(-rotation)
+    if ('normal' in coll && (normal.x == -1 || normal.x == 1) && normal.y < 0.1 && normal.y > -0.1) and is_on_floor() and velocity.y < 0:
+      velocity.y = 0
+
   update_collisions()
     
   if animation_enabled and danimate: animate_default(delta)

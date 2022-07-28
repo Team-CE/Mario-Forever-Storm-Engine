@@ -10,6 +10,7 @@ export var speed: float = 2 setget reset_speed
 export var flower_movement: bool = false setget reset_flower
 export var angle: float = 0 setget reset_angle
 export var flower_speed: float = 5
+export var instant_kill: bool = false
 
 func _ready() -> void:
   if not flower_movement:
@@ -35,7 +36,10 @@ func _process(delta) -> void:
   if Engine.editor_hint: return
   
   if Global.is_mario_collide_area('InsideDetector', $Sprite/Node2D/AnimatedSprite/Area2D):
-    Global._ppd()
+    if !instant_kill:
+      Global._ppd()
+    else:
+      Global._pll()
 
 func reset_offset(new_offset):
   radius = new_offset

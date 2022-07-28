@@ -63,7 +63,7 @@ func _process(delta):
   $CollisionShape2D.disabled = !active
   if Global.Mario.is_in_shoe and Global.Mario.shoe_type == 1:
     if Global.is_mario_collide_area('BottomDetector', self) and Global.Mario.velocity.y > 0:
-      velocity.y += 5
+      velocity += Vector2(0, 5).rotated(-rotation)
       inv_counter = 0
       Global.Mario.shoe_node.stomp()
       return
