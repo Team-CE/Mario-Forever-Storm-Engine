@@ -21,7 +21,7 @@ func _ready() -> void:
   add_child(vis)
   
   for node in get_parent().get_children():
-    if 'AI' in node or 'belongs' in node:
+    if node is KinematicBody2D and ('AI' in node or 'belongs' in node):
       add_collision_exception_with(node)
 
 func _process(delta) -> void:

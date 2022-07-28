@@ -15,7 +15,7 @@ func _ready():
 
 func _process(delta):
   if dead:
-    position += velocity
+    position += velocity * Global.get_vector_delta(delta)
     velocity.y += 0.4 * Global.get_delta(delta)
     return
   if is_free:

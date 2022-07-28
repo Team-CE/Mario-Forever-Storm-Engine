@@ -142,6 +142,8 @@ func _process(delta) -> void:
         mario_sprite.visible = true
 
       Global.Mario.get_node('Sprite').z_index = -10
+      if Global.Mario.is_in_shoe:
+        Global.Mario.shoe_node.z_index = -9
 
       if counter > out_duration and not state_switched: # Warp Exit
         if out_node:
@@ -188,3 +190,5 @@ func _process(delta) -> void:
         Global.Mario.controls_enabled = true
         Global.Mario.animation_enabled = true
         Global.Mario.invulnerable = false
+        if Global.Mario.is_in_shoe:
+          Global.Mario.shoe_node.z_index = 11

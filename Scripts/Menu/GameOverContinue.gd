@@ -9,21 +9,16 @@ func _ready():
   $no.frame = 1
   
 func _process(delta):
-  if get_parent().isPaused:
-    
-    # FADE IN
-    
-    if modulate.v > 0.355:           # Fade in process
-      modulate.a += (1 - modulate.a) * 0.05 * Global.get_delta(delta)
-    else:                                         # Fade has been finished
-      counter += 0.15 * Global.get_delta(delta)
-      var sinalpha = sin(counter) * 0.3 + 0.7
-      if sel: # No
-        $no.frame = 0
-        $no.modulate.a = sinalpha
-      else:   # Yes
-        $yes.frame = 0
-        $yes.modulate.a = sinalpha
+  modulate.a += (1 - modulate.a) * 0.05 * Global.get_delta(delta)
+
+  counter += 0.15 * Global.get_delta(delta)
+  var sinalpha = sin(counter) * 0.3 + 0.7
+  if sel: # No
+    $no.frame = 0
+    $no.modulate.a = sinalpha
+  else:   # Yes
+    $yes.frame = 0
+    $yes.modulate.a = sinalpha
     
   if Input.is_action_just_pressed('ui_right') and sel < 1:
     sel += 1
@@ -45,7 +40,7 @@ func _process(delta):
     else:   # Yes
 # warning-ignore:return_value_discarded
       Global.reset_all_values()
-      get_tree().reload_current_scene()
+      Global.goto_scene(Global.current_scene)
       get_parent().queue_free()
     if Global.musicBar == -100:
       AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)

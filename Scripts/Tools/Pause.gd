@@ -16,7 +16,7 @@ func _ready():
   if 'sgr_scroll' in get_node('../../') and get_node_or_null('../../').sgr_scroll:
     can_restart = false
 
-func _input(ev):
+func _unhandled_input(ev):
   if ev.is_action_pressed('ui_fullscreen'):
     OS.window_fullscreen = !OS.window_fullscreen
 
