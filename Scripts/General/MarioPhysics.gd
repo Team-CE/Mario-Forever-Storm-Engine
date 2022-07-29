@@ -811,7 +811,7 @@ func fix_velocity_y(delta) -> void:
     if !is_on_floor() or velocity.y > -1: return
     var normal = Vector2.ZERO
     if 'normal' in coll:
-      normal = coll.normal.rotated(rotation)
+      normal = coll.normal.rotated(-rotation)
       #prints(coll.normal, ' and ', normal)
       if (normal.x >= 0 and velocity.x > 1) or (normal.x <= 0 and velocity.x < -1):
         velocity.y = 0

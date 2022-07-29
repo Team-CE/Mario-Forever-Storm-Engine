@@ -158,7 +158,7 @@ __meta__ = {
 [node name="Cloud" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 208, 80 )
 frames = ExtResource( 27 )
-frame = 1
+frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -167,7 +167,7 @@ __meta__ = {
 [node name="Cloud2" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 384, 128 )
 frames = ExtResource( 27 )
-frame = 1
+frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -176,6 +176,7 @@ __meta__ = {
 [node name="Cloud3" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 592, 64 )
 frames = ExtResource( 27 )
+frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -184,6 +185,7 @@ __meta__ = {
 [node name="Cloud4" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 736, 80 )
 frames = ExtResource( 27 )
+frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -192,7 +194,6 @@ __meta__ = {
 [node name="Cloud5" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 1216, 32 )
 frames = ExtResource( 27 )
-frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -201,7 +202,7 @@ __meta__ = {
 [node name="Cloud6" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 1328, 112 )
 frames = ExtResource( 27 )
-frame = 1
+frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -210,7 +211,7 @@ __meta__ = {
 [node name="Cloud7" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 1648, 48 )
 frames = ExtResource( 27 )
-frame = 1
+frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -219,6 +220,7 @@ __meta__ = {
 [node name="Cloud8" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 448, 48 )
 frames = ExtResource( 27 )
+frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
