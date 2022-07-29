@@ -29,8 +29,6 @@ export(PackedScene) var Result: PackedScene
 var PrevFrames: SpriteFrames
 export(SpriteFrames) var Frames: SpriteFrames
 
-var CoinPreview: StreamTexture = preload('res://GFX/Bonuses/CoinPreview.png')
-
 export(int, 1, 100) var Count: int = 1
 
 export(bool) var Empty: bool
@@ -116,10 +114,7 @@ func editor() -> void:
   if body:
     if body.animation != 'empty' and Empty and qtype == BLOCK_TYPE.COMMON:
       body.animation = 'empty'
-    if !Engine.editor_hint:
-      if body.animation != 'empty' and Global.state == 0 and qtype == BLOCK_TYPE.RESET_POWERUP:
-        body.animation = 'empty'
-    elif body.animation != 'default' and not Empty and qtype == BLOCK_TYPE.COMMON:
+    if body.animation != 'default' and not Empty and qtype == BLOCK_TYPE.COMMON:
       body.animation = 'default'
     if body.animation != 'reset' and qtype == BLOCK_TYPE.RESET_POWERUP:
       body.animation = 'reset'
@@ -145,7 +140,7 @@ func set_preview() -> StreamTexture:
   var res
   
   if preview == null || !is_instance_valid(sprite):
-    return (GlobalEditor.NULLTEXTURE as StreamTexture) if qtype != BLOCK_TYPE.COIN_BRICK else CoinPreview as StreamTexture
+    return (GlobalEditor.NULLTEXTURE as StreamTexture)
   
   res = sprite.texture if sprite is Sprite else sprite.frames.get_frame('default' if not 'type' in result_inst else sprite.animation, 0) if sprite is AnimatedSprite else null
   
@@ -168,18 +163,22 @@ func _process(delta) -> void:
     if qtype != BLOCK_TYPE.COMMON and qtype != BLOCK_TYPE.RESET_POWERUP and not Empty:
       body.animation = 'brick'
       
-    if qtype == BLOCK_TYPE.RESET_POWERUP and not Empty:
-      body.animation = 'reset'
-  
+    if qtype == BLOCK_TYPE.RESET_POWERUP:
+      body.animation = 'reset' if active else 'empty'
+      if !Engine.editor_hint:
+        active = Global.state != 0
+        if is_instance_valid(Global.current_scene.get_node_or_null('reset_powerup')):
+          Global.current_scene.get_node('reset_powerup').visible = Global.state != 0
+      
     if Empty:
-      $Body.set_animation('empty')
-      $Collision.one_way_collision = false
+      body.set_animation('empty')
+      collision.one_way_collision = false
       visible = true
 
 
 func _physics_process(_delta) -> void:
   if preview:
-    preview.visible = Engine.editor_hint || !Global.debug
+    preview.visible = Engine.editor_hint || Global.debug
   
   if 'debug' in Global && Global.debug && (Result != null || PrevResult != null) && Result != PrevResult:
     preview.texture = set_preview()
@@ -202,7 +201,7 @@ func _process_active(_delta) -> void:
   else:
     visible = true
   
-  $Body.visible = visible
+  body.visible = visible
 
 func brick_break(idle_frame:bool = true) -> void:
   Global.play_base_sound('MAIN_BrickBreak')
@@ -211,7 +210,7 @@ func brick_break(idle_frame:bool = true) -> void:
     var debris_effect = BrickEffect.new(position + Vector2(0, -16).rotated(rotation), speeds[i], debris)
     get_parent().add_child(debris_effect)
   Global.add_score(50)
-  $Body.visible = false
+  body.visible = false
   if idle_frame:
     yield(get_tree(), 'idle_frame')
   queue_free()
@@ -220,11 +219,11 @@ func hit(_delta, ignore_powerup = false, idle_frame: bool = true) -> void:
   if not active: return
   active = false
   if qtype == BLOCK_TYPE.COMMON:
-    $Body.set_animation('empty')
+    body.set_animation('empty')
   triggered = true
   visible = true
-  $Body.visible = visible
-  $Collision.one_way_collision = false
+  body.visible = visible
+  collision.one_way_collision = false
 
   if qtype == BLOCK_TYPE.COMMON:
     var powerup = Result.instance() if Result and Result.has_method('instance') else null
@@ -261,7 +260,7 @@ func hit(_delta, ignore_powerup = false, idle_frame: bool = true) -> void:
   
       if coin_counter >= 6:
         Empty = true
-        $Body.set_animation('empty')
+        body.set_animation('empty')
         qtype = BLOCK_TYPE.COMMON
         coin_counter = 100
   elif qtype == BLOCK_TYPE.RESET_POWERUP:
@@ -279,7 +278,7 @@ func _process_trigger(delta) -> void:
   if t_counter >= 12:
     position = initial_position
     triggered = false
-    if qtype != BLOCK_TYPE.COMMON:
+    if qtype != BLOCK_TYPE.COMMON and qtype != BLOCK_TYPE.RESET_POWERUP:
       t_counter = 0
       active = true
 

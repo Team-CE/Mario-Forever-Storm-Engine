@@ -1,8 +1,8 @@
 extends Node
 
 var GameName = "CloudEngine"
-var soundBar: float = 0.0                      # Game options
-var musicBar: float = 0.0
+var soundBar: float = 0.5                      # Game options
+var musicBar: float = 0.5
 var effects: bool = true
 var scroll: int = 0
 var quality: int = 2
@@ -96,8 +96,8 @@ func _ready() -> void:
   # Loading settings
   toSaveInfo = JSON.parse(loadedData).result
   
-  if toSaveInfo.has('SoundVol'): soundBar = toSaveInfo.SoundVol
-  if toSaveInfo.has('MusicVol'): musicBar = toSaveInfo.MusicVol
+  if toSaveInfo.has('SoundVol') and typeof(toSaveInfo.SoundVol) == TYPE_REAL and toSaveInfo.SoundVol >= 0.0 and toSaveInfo.SoundVol <= 1.0: soundBar = toSaveInfo.SoundVol
+  if toSaveInfo.has('MusicVol') and typeof(toSaveInfo.MusicVol) == TYPE_REAL and toSaveInfo.MusicVol >= 0.0 and toSaveInfo.MusicVol <= 1.0: musicBar = toSaveInfo.MusicVol
   if toSaveInfo.has('Efekty') and typeof(toSaveInfo.Efekty) == TYPE_BOOL: effects = toSaveInfo.Efekty
   if toSaveInfo.has('Scroll') and typeof(toSaveInfo.Scroll) == TYPE_REAL: scroll = toSaveInfo.Scroll
   if toSaveInfo.has('Quality') and typeof(toSaveInfo.Quality) == TYPE_REAL: quality = toSaveInfo.Quality
@@ -124,14 +124,10 @@ func _ready() -> void:
   
   # Loading music
   yield(get_tree(), 'idle_frame')
-  if musicBar > -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(musicBar / 5))
-  if musicBar == -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
-  if soundBar > -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), round(soundBar / 5))
-  if soundBar == -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), -1000)
+  if musicBar <= 1.0:
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(musicBar))
+  if soundBar <= 1.0:
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), linear2db(soundBar))
 
 func saveInfo(content):
   var file = File.new()
@@ -230,12 +226,19 @@ func _input(ev):
       if Mario.shoe_node == null:
         var shoe = load('res://Objects/Bonuses/ShoeRed.tscn').instance()
         current_scene.add_child(shoe)
-        shoe.global_position = Mario.global_position
+        shoe.get_inside()
       else:
         Mario.shoe_node.call_deferred('queue_free')
         Mario.unbind_shoe()
       play_base_sound('DEBUG_Toggle')
     
+  # Trigger finish
+    if ev.scancode == 52:
+      if !is_instance_valid(current_scene.get_node_or_null('FinishLine')):
+        push_error('ERROR: Finish line not found')
+        return
+      current_scene.get_node('FinishLine').act()
+      
   # Toggle HUD visibility (without shift key)
   if ev.is_action_pressed('debug_hud'):
     if !is_instance_valid(HUD): return
@@ -259,6 +262,12 @@ func _process(delta: float):
   if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > 1:
     push_warning('Too high music volume!')
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), 0)
+
+func _notification(what):
+  if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+    if DiscordManager.core:
+      DiscordManager.destroy_core()
+      print('[Discord]: Core destroyed.')
 
 # warning-ignore:shadowed_variable
 func add_score(score: int) -> void:
@@ -300,9 +309,12 @@ func reset_all_values(reset_state: bool = true) -> void:
   deaths = 0
   projectiles_count = 0
   checkpoint_active = -1
+  level_ended = false
+  levelID = 0
   if reset_state: state = 0
   if is_instance_valid(Mario):
     Mario.invulnerable = false
+    Mario.shoe_node = null
   
 func reset_audio_effects() -> void:
   AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
@@ -403,6 +415,7 @@ func goto_scene(path: String):
 func _deferred_goto_scene(path: String):
   current_scene.free()
   var s = ResourceLoader.load(path)
+  assert(is_instance_valid(s), 'ERROR: Cannot go to invalid or empty scene!')
   current_scene = s.instance()
   get_node('/root/GlobalViewport/Viewport').add_child(current_scene)
   #get_tree().set_current_scene(current_scene)

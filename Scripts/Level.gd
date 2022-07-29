@@ -37,10 +37,7 @@ func _ready():
       mpMain.volume_db = 0
       mpStar.stop()
       mpStar.volume_db = 0
-      if Global.musicBar > -100:
-        AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), Global.musicBar / 5)
-      if Global.musicBar == -100:
-        AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+      AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
   
     var mario_cam = $Mario/Camera as Camera2D
     if Global.scroll > 0:
@@ -68,7 +65,8 @@ func _ready():
           node.shadow_buffer_size = 512
     $Mario.invulnerable = false
     
-    get_parent().world.environment = $WorldEnvironment.environment.duplicate(true)
+    get_parent().world.environment = null
+    #get_parent().world.environment = $WorldEnvironment.environment.duplicate(true)
     #$WorldEnvironment.queue_free()
     
     if is_instance_valid(get_node_or_null('/root/fadeout')):

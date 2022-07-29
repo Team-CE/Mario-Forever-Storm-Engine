@@ -2,7 +2,6 @@ extends Brain
 
 var shell_counter: float = 0
 var score_mp: int
-var error: bool = false
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
@@ -51,7 +50,7 @@ func _ai_process(delta: float) -> void:
         else:
           score_mp = 0
 
-  if !error: for b in owner.get_node('QBlockZone').get_overlapping_bodies():
+  for b in owner.get_node('QBlockZone').get_overlapping_bodies():
     if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
       if b is QBlock and b.active:
         b.hit(1, true)

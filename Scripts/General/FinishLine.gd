@@ -15,7 +15,7 @@ var bar_enabled: bool = false
 var bar_accel: float = -6
 
 var final_score: int
-var wait_counter: float = 30
+onready var wait_counter: float = 30
 
 func _init():
   win_music.loop = false
@@ -92,6 +92,7 @@ func finish_process(delta):
         Global.reset_audio_effects()
         Global.Mario.visible = true
         Global.deaths = 0
+        Global.level_ended = false
         Global.goto_scene(map_scene)
   
 func act(warp_finish_enabled: bool = false) -> void:

@@ -156,6 +156,14 @@ func _process_alive(delta) -> void:
     if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_ready_mixin'):
       ready_powerup_scripts[Global.state]._ready_mixin(self)
     $Sprite.frames = powerup_animations[Global.state]
+    if is_in_shoe:
+      $AnimationPlayer.play('Small' if Global.state == 0 else 'Big')
+  
+  if shoe_node != null and !is_instance_valid(shoe_node):
+    var shoe = load('res://Objects/Bonuses/ShoeRed.tscn').instance()
+    Global.current_scene.add_child(shoe)
+    shoe.global_position = global_position
+    bind_shoe(shoe.get_instance_id())
   
   var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
@@ -245,27 +253,15 @@ func _process_alive(delta) -> void:
     for collider in bottom_collisions:
       if collider.has_method('_standing_on'):
         collider._standing_on()
-  
+
   vertical_correction(5) # Corner correction like in original Mario games
   horizontal_correction(10) # One tile gap runover ability
   var old_velocity = Vector2.ZERO + velocity # Fix for slopes
-  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation) * (8 if !(jump_counter or movement_type == Movement.CLIMBING) else 1), Vector2(0, -1).rotated(rotation), true, 4, 0.785398, false).rotated(-rotation)
+  velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation) * (8 if !(jump_counter or movement_type == Movement.CLIMBING) else 1), Vector2(0, -1).rotated(rotation), true, 4, 0.96, false).rotated(-rotation)
   if !is_on_wall():
     velocity.x = old_velocity.x
-
-  var coll = move_and_collide(
-    Vector2(velocity.x * delta, 0).rotated(rotation),
-    true,
-    true,
-    true
-  )
   
-  if coll:
-    var normal = Vector2(0, 0)
-    if 'normal' in coll:
-      normal = coll.normal.rotated(-rotation)
-    if ('normal' in coll && (normal.x == -1 || normal.x == 1) && normal.y < 0.1 && normal.y > -0.1) and is_on_floor() and velocity.y < 0:
-      velocity.y = 0
+  fix_velocity_y(delta)
 
   update_collisions()
     
@@ -802,6 +798,28 @@ func horizontal_correction(amount: int):
           translate(Vector2(0, i * j / 2).rotated(rotation))
           if velocity.y * j < 0: velocity.y = 0
           return
+
+func fix_velocity_y(delta) -> void:
+  var coll = move_and_collide(
+    Vector2(velocity.x * delta, 50).rotated(rotation),
+    true,
+    true,
+    true
+  )
+
+  if coll:
+    if !is_on_floor() or velocity.y > -1: return
+    var normal = Vector2.ZERO
+    if 'normal' in coll:
+      normal = coll.normal.rotated(rotation)
+      #prints(coll.normal, ' and ', normal)
+      if (normal.x >= 0 and velocity.x > 1) or (normal.x <= 0 and velocity.x < -1):
+        velocity.y = 0
+      elif (
+        is_zero_approx(normal.x)
+        and is_equal_approx(normal.y, -1)
+      ):
+        velocity.y = 0
 
 func kill() -> void:
   dead = true

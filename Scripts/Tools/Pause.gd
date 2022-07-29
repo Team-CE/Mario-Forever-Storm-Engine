@@ -6,21 +6,17 @@ var scene
 var can_restart: bool = true
 
 func _ready():
-  if Global.musicBar > -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5) - 6)
-  if Global.musicBar == -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar) - 6)
   if Global.lives == 0 || !is_instance_valid(Global.Mario) || (is_instance_valid(Global.Mario) && !Global.Mario.controls_enabled):
     can_restart = false
     $sel1.frame = 2
   if 'sgr_scroll' in get_node('../../') and get_node_or_null('../../').sgr_scroll:
     can_restart = false
 
-func _unhandled_input(ev):
-  if ev.is_action_pressed('ui_fullscreen'):
-    OS.window_fullscreen = !OS.window_fullscreen
-
 func _process(delta):
+  if Input.is_action_just_pressed('ui_fullscreen'):
+    OS.window_fullscreen = !OS.window_fullscreen
+    
   if get_parent().options: return
   if get_parent().isPaused:
     
@@ -53,18 +49,12 @@ func _process(delta):
     if Input.is_action_just_pressed('ui_accept') and counter > 1:
       match sel:
         0:
-          if Global.musicBar > -100:
-            AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
-          if Global.musicBar == -100:
-            AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+          AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
           get_parent().resume()
           get_parent().get_parent().get_tree().paused = false
         1:
           if !can_restart: return
-          if Global.musicBar > -100:
-            AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
-          if Global.musicBar == -100:
-            AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+          AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
           if is_instance_valid(Global.Mario) and Global.Mario.dead:
             Global._reset()
           else:
@@ -94,13 +84,12 @@ func _process(delta):
           get_parent().queue_free()
           get_parent().get_parent().get_tree().paused = false
         5:
-          get_tree().quit()
+          get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
           get_parent().queue_free()
           get_parent().get_parent().get_tree().paused = false
       
     if Input.is_action_just_pressed('ui_cancel') and counter > 3:
-      if Global.musicBar > -100:
-        AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
+      AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
       get_parent().resume()
       get_parent().get_parent().get_tree().paused = false
 

@@ -19,7 +19,7 @@ func _process(delta):
     velocity.y += 0.4 * Global.get_delta(delta)
     return
   if is_free:
-    if !is_instance_valid(Global.Mario.shoe_node) and Global.is_mario_collide_area('BottomDetector', $Area2D):
+    if !Global.Mario.is_in_shoe and Global.is_mario_collide_area('BottomDetector', $Area2D):
       get_inside()
   else:
     $AnimatedSprite.global_transform = Global.Mario.get_node('Sprite').global_transform
@@ -30,7 +30,6 @@ func _process(delta):
 func get_inside():
   is_free = false
   Global.Mario.bind_shoe(get_instance_id())
-  Global.Mario.shoe_type = type
   Global.play_base_sound('ENEMY_Stomp')
   Global.Mario.get_node('AnimationPlayer').play('Small' if Global.state == 0 else 'Big')
   z_index = 11

@@ -43,14 +43,7 @@ func _ready() -> void:
   MusicPlayer.get_node('Main').stream = music
   MusicPlayer.get_node('Main').play()
   MusicPlayer.play_on_pause()
-  if Global.musicBar > -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
-  if Global.musicBar == -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
-  if Global.soundBar > -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), round(Global.soundBar / 5))
-  if Global.soundBar == -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), -1000)
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
   
   Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
   
@@ -145,21 +138,22 @@ func controls() -> void:
             fading_out = true
             yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
-            if Global.musicBar == -100:
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+            #if Global.musicBar == -100:
+            #  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
             Global.goto_scene(ProjectSettings.get_setting('application/config/sgr_scene'))
           1:
             screen += 1
             sel = 0
             $enter_options.play()
+            updateNotes()
           2:
             controls_enabled = false
             $enter_options.play()
             MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 3.0)
             yield(get_tree().create_timer( 1 ), 'timeout')
             fading_out = true
-            yield(get_tree().create_timer( 1.4 ), 'timeout')
-            get_tree().quit()
+            yield(get_tree().create_timer( 1.2 ), 'timeout')
+            get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
             
     1:    # _____ OPTIONS _____
       if Input.is_action_just_pressed('ui_accept'):
@@ -190,15 +184,19 @@ func controls() -> void:
       if Input.is_action_just_pressed('ui_right'):
         match sel:
           0:
-            if Global.soundBar < 0:
-              Global.soundBar += 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), round(Global.soundBar / 5))
+            if Global.soundBar < 0.99:
+              Global.soundBar += 0.1
+              if is_nan(linear2db(Global.soundBar)): Global.soundBar = 1.0
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), linear2db(Global.soundBar))
               $tick.play()
+              print(AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Sounds')))
           1:
-            if Global.musicBar < 0:
-              Global.musicBar += 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
+            if Global.musicBar < 0.99:
+              Global.musicBar += 0.1
+              if is_nan(linear2db(Global.musicBar)): Global.musicBar = 1.0
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
               $tick.play()
+              print(AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')))
           2:
             if !Global.effects:
               Global.effects = true
@@ -226,20 +224,19 @@ func controls() -> void:
       elif Input.is_action_just_pressed('ui_left'):
         match sel:
           0:
-            if Global.soundBar > -100:
-              Global.soundBar -= 10
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), round(Global.soundBar / 5))
+            if Global.soundBar > 0.0001:
+              Global.soundBar -= 0.1
+              if is_nan(linear2db(Global.soundBar)): Global.soundBar = 0
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), linear2db(Global.soundBar))
               $tick.play()
-            if Global.soundBar == -100:
-              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), -1000)
+              print(AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Sounds')))
           1:
-            if Global.musicBar > -100:
-              Global.musicBar -= 10
-              if Global.musicBar > -100:
-                AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
-              if Global.musicBar == -100:
-                AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+            if Global.musicBar > 0.0001:
+              Global.musicBar -= 0.1
+              if is_nan(linear2db(Global.musicBar)): Global.musicBar = 0
+              AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
               $tick.play()
+              print(AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')))
           2:
             if Global.effects:
               Global.effects = false
@@ -310,8 +307,8 @@ func _input(event) -> void:
     controls_enabled = true
   
 func updateOptions() -> void:
-  $Buttons/SoundBar.frame = 10 + (Global.soundBar / 10)
-  $Buttons/MusicBar.frame = 10 + (Global.musicBar / 10)
+  $Buttons/SoundBar.frame = round(Global.soundBar * 10.0)
+  $Buttons/MusicBar.frame = round(Global.musicBar * 10.0)
   $Buttons/Effects.frame = Global.effects
   $Buttons/Scroll.frame = Global.scroll
   $Buttons/Quality.frame = Global.quality

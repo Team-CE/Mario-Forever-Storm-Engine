@@ -49,15 +49,19 @@ func _process(delta):
   if Input.is_action_just_pressed('ui_right'):
     match sel:
       0:
-        if Global.soundBar < 0:
-          Global.soundBar += 10
-          AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), round(Global.soundBar / 5))
+        if Global.soundBar < 0.99:
+          Global.soundBar += 0.1
+          if is_nan(linear2db(Global.soundBar)): Global.soundBar = 1.0
+          AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), linear2db(Global.soundBar))
           $tick.play()
+          print('SoundVol: ', AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Sounds')))
       1:
-        if Global.musicBar < 0:
-          Global.musicBar += 10
-          AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5) - 6)
+        if Global.musicBar < 0.99:
+          Global.musicBar += 0.1
+          if is_nan(linear2db(Global.musicBar)): Global.musicBar = 1.0
+          AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar) - 6)
           $tick.play()
+          print('MusVol: ', AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')))
       2:
         if !Global.autopause:
           Global.autopause = true
@@ -71,20 +75,19 @@ func _process(delta):
   elif Input.is_action_just_pressed('ui_left'):
     match sel:
       0:
-        if Global.soundBar > -100:
-          Global.soundBar -= 10
-          AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), round(Global.soundBar / 5))
+        if Global.soundBar > 0.0001:
+          Global.soundBar -= 0.1
+          if is_nan(linear2db(Global.soundBar)): Global.soundBar = 0
+          AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), linear2db(Global.soundBar))
           $tick.play()
-        if Global.soundBar == -100:
-          AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), -1000)
+          print('SoundVol: ', AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Sounds')))
       1:
-        if Global.musicBar > -100:
-          Global.musicBar -= 10
-          if Global.musicBar > -100:
-            AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5) - 6)
-          if Global.musicBar == -100:
-            AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+        if Global.musicBar > 0.0001:
+          Global.musicBar -= 0.1
+          if is_nan(linear2db(Global.musicBar)): Global.musicBar = 0
+          AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar) - 6)
           $tick.play()
+          print('MusVol: ', AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')))
       2:
         if Global.autopause:
           Global.autopause = false
@@ -102,8 +105,8 @@ func _process(delta):
 
 
 func updateOptions() -> void:
-  $SoundBar.frame = 10 + (Global.soundBar / 10)
-  $MusicBar.frame = 10 + (Global.musicBar / 10)
+  $SoundBar.frame = round(Global.soundBar * 10.0)
+  $MusicBar.frame = round(Global.musicBar * 10.0)
   $AutoPause.frame = Global.autopause
   $VSync.frame = OS.vsync_enabled
   

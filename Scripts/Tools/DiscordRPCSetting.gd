@@ -7,6 +7,8 @@ export var set_big_image_key: String
 export var set_big_image_text: String
 export var set_timestamp: bool
 
+var just_created: bool = false
+
 func _ready() -> void:
   call_deferred('configure_rpc')
 
@@ -14,6 +16,7 @@ func configure_rpc() -> void:
   if !DiscordManager.core:
     print('[DiscordManager] Creating a new core')
     var res = DiscordManager.create_core(int(connect_app_id))
+    just_created = true
     if !res: return
   else:
     print('[DiscordManager] Using an existing core')
@@ -26,8 +29,3 @@ func configure_rpc() -> void:
   if set_big_image_text: activity.assets.large_text = set_big_image_text
 
   DiscordManager.activities.update_activity(activity)
-
-func _exit_tree() -> void:
-  if DiscordManager.core:
-    DiscordManager.destroy_core()
-  queue_free()
