@@ -137,7 +137,7 @@ func _process(delta) -> void:
       calc_pos += warp_dir * Global.get_vector_delta(delta)
       counter += 1 * Global.get_delta(delta)
       if warp_dir == Vector2.LEFT or warp_dir == Vector2.RIGHT:
-        mario_sprite.visible = counter < 36 or counter > 83
+        mario_sprite.visible = counter < 36 or counter > 23 + out_duration
       else:
         mario_sprite.visible = true
 

@@ -54,6 +54,7 @@ func _ai_process(delta:float) -> void:
       blink_counter = 0
       
       if !is_blinking and !throw_was_activated:
+# warning-ignore:narrowing_conversion
         var random: int = rand_range(0, 10)
         if random > 8:
           is_blinking = true

@@ -30,10 +30,7 @@ func do_action(brain):
   mario.get_node('Sprite').visible = true
   Global.play_base_sound('MAIN_Powerup')
   MusicPlayer.get_node('Main').stop()
-  if Global.musicBar > -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
-  if Global.musicBar == -100:
-    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
   mpStar.play()
   mpStar.volume_db = 0
   MusicPlayer.get_node('TweenOut').remove(mpStar)

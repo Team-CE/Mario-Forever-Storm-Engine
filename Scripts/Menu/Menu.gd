@@ -138,8 +138,6 @@ func controls() -> void:
             fading_out = true
             yield(get_tree().create_timer( 1.2 ), 'timeout')
             fading_out = false
-            #if Global.musicBar == -100:
-            #  AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
             Global.goto_scene(ProjectSettings.get_setting('application/config/sgr_scene'))
           1:
             screen += 1

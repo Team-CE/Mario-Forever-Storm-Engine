@@ -33,7 +33,7 @@ func _ready() -> void:
   $MarioPath/PathFollow2D/MiniMario/Camera2D.limit_top = camera_top_limit
   $MarioPath/PathFollow2D/MiniMario/Camera2D.limit_bottom = camera_bottom_limit
   
-  Global.reset_audio_effects()
+  Global.call_deferred('reset_audio_effects')
   Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _process(delta: float) -> void:

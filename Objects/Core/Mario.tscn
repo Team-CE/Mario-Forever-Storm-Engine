@@ -261,8 +261,8 @@ shape = SubResource( 5 )
 
 [node name="TopDetector" type="Area2D" parent="."]
 visible = false
-collision_layer = 3
-collision_mask = 3
+collision_layer = 11
+collision_mask = 11
 
 [node name="CollisionTop" type="CollisionShape2D" parent="TopDetector"]
 position = Vector2( 0, -28 )
@@ -297,30 +297,6 @@ shape = SubResource( 10 )
 [node name="CollisionSmallLeftBig" type="CollisionShape2D" parent="SmallLeftDetector"]
 position = Vector2( -12, -23 )
 shape = SubResource( 11 )
-
-[node name="RayCastRight" type="RayCast2D" parent="."]
-visible = false
-position = Vector2( 10.1, -10 )
-cast_to = Vector2( 0, 10 )
-collision_mask = 2
-
-[node name="RayCastRight2" type="RayCast2D" parent="."]
-visible = false
-position = Vector2( 10, -12 )
-cast_to = Vector2( 6, 0 )
-collision_mask = 2
-
-[node name="RayCastLeft" type="RayCast2D" parent="."]
-visible = false
-position = Vector2( -10.1, -10 )
-cast_to = Vector2( 0, 10 )
-collision_mask = 2
-
-[node name="RayCastLeft2" type="RayCast2D" parent="."]
-visible = false
-position = Vector2( -10, -12 )
-cast_to = Vector2( -6, 0 )
-collision_mask = 2
 
 [node name="BaseSounds" parent="." instance=ExtResource( 4 )]
 

@@ -173,6 +173,8 @@ func _process(delta) -> void:
     if Empty:
       body.set_animation('empty')
       collision.one_way_collision = false
+      collision_layer = 0b11
+      collision_mask = 0b11
       visible = true
 
 
@@ -197,6 +199,8 @@ func _process_active(_delta) -> void:
   if Visible != VISIBILITY_TYPE.VISIBLE:
     if !Empty and !triggered:
       collision.one_way_collision = true
+      collision_layer = 0b1000
+      collision_mask = 0b1000
       visible = false
   else:
     visible = true
@@ -224,6 +228,8 @@ func hit(_delta, ignore_powerup = false, idle_frame: bool = true) -> void:
   visible = true
   body.visible = visible
   collision.one_way_collision = false
+  collision_layer = 0b11
+  collision_mask = 0b11
 
   if qtype == BLOCK_TYPE.COMMON:
     var powerup = Result.instance() if Result and Result.has_method('instance') else null

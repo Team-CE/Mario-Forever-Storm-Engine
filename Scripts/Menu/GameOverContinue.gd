@@ -42,7 +42,5 @@ func _process(delta):
       Global.reset_all_values()
       Global.goto_scene(Global.current_scene)
       get_parent().queue_free()
-    if Global.musicBar == -100:
-      AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
 # warning-ignore:return_value_discarded
     get_parent().get_parent().get_tree().paused = false

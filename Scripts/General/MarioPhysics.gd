@@ -55,11 +55,6 @@ onready var shoe_node: Object = null
 onready var shoe_type: int = 0
 onready var is_in_shoe: bool = false
 
-onready var ray_R: RayCast2D = $RayCastRight # UNUSED
-onready var ray_L: RayCast2D = $RayCastLeft
-onready var ray_R_2: RayCast2D = $RayCastRight2
-onready var ray_L_2: RayCast2D = $RayCastLeft2
-
 var faded: bool = false
 
 var gameovercont_node = load('res://Objects/Tools/PopupMenu/GameOver.tscn')
@@ -207,10 +202,7 @@ func _process_alive(delta) -> void:
       $BottomDetector.collision_layer = 0b111 # All 3 layers
       $BottomDetector.collision_mask = 0b111
       $Sprite.material.set_shader_param('mixing', false)
-      if Global.musicBar > -100:
-        AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), round(Global.musicBar / 5))
-      if Global.musicBar == -100:
-        AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), -1000)
+      AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
       shield_star = false
       exceptions_added = false
       star_kill_count = 0
@@ -236,17 +228,20 @@ func _process_alive(delta) -> void:
 #    prelanding = true
 #    if is_on_floor():
 #      standing = true
-  if top_collider_counter > 0:
-    top_collider_counter -= 1 * Global.get_delta(delta)
+#  if top_collider_counter > 0:
+#    top_collider_counter -= 1 * Global.get_delta(delta)
+#
+#  if is_on_ceiling():
+#    top_collider_counter = 3
 
-  if is_on_ceiling():
-    top_collider_counter = 3
-
-  if top_collider_counter > 0:
-    var collisions = $TopDetector.get_overlapping_bodies()
-    for collider in collisions:
-      if collider.has_method('hit'):
-        collider.hit(delta)
+  #if top_collider_counter > 0:
+  if velocity.y <= 5:
+    var coll = move_and_collide(Vector2(0, velocity.y * delta), true, true, true)
+  #var collisions = $TopDetector.get_overlapping_bodies()
+    if coll and ('collider' in coll):
+      var coll_node = instance_from_id(coll.collider_id)
+      if coll_node.has_method('hit'):
+        coll_node.hit(delta)
         
   var bottom_collisions = $BottomDetector.get_overlapping_bodies()
   if is_on_floor():
