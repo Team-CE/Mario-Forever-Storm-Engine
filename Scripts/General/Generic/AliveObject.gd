@@ -50,6 +50,8 @@ var alt_sound: AudioStreamPlayer2D
 
 var freeze_sound = preload('res://Sounds/Main/ice1.wav')
 var unfreeze_sound = preload('res://Sounds/Main/ice2.wav')
+onready var freeze_counter: float = 0
+var freeze_sprite_counter: float
 
 var velocity: Vector2
 var alive: bool = true
@@ -93,6 +95,10 @@ func _ready() -> void:
     
     ice1.stream = freeze_sound
     ice2.stream = unfreeze_sound
+    ice1.bus = 'Sounds'
+    ice2.bus = 'Sounds'
+    
+    ice2.max_distance = 600
     
     ice1.name = 'ice1'
     ice2.name = 'ice2'
@@ -121,9 +127,6 @@ func _ready() -> void:
   temp = false
 
 func _physics_process(delta:float) -> void:
-#  var vse = get_node_or_null("VisibilityEnabler2D")
-#  if is_instance_valid(vse):
-#    vse.scale = Vector2(5,5)
   if !alive && death_type != DEATH_TYPE.FALL && !force_death_type:
     return
   
@@ -141,9 +144,23 @@ func _physics_process(delta:float) -> void:
     
   # Freeze
   if frozen_sprite && frozen:
-    frozen_sprite.visible = true
+    if freeze_counter < 300:
+      frozen_sprite.visible = true
     frozen_sprite.playing = true
     animated_sprite.playing = false
+    freeze_counter += 1 * Global.get_delta(delta)
+    freeze_sprite_counter += 1 * Global.get_delta(delta)
+    if freeze_sprite_counter > 80:
+      freeze_sprite_counter = 0
+      frozen_sprite.frame = 0
+    
+    if Global.is_mario_collide('TopDetector', self) and Global.Mario.is_on_floor():
+      kill(DEATH_TYPE.UNFREEZE) 
+    
+  if freeze_counter > 300:
+    frozen_sprite.visible = int(freeze_counter / 2) % 2 == 0
+  if freeze_counter > 360:
+    kill(DEATH_TYPE.UNFREEZE)
 
 # Useful functions
 func turn(mp:float = 1) -> void:
@@ -209,9 +226,9 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = nu
         brain._on_custom_death()
     DEATH_TYPE.UNFREEZE:
       visible = false
-      if $Collision: $Collision.disabled = true
-      if $CollisionShape2D: $CollisionShape2D.disabled = true
-      if $KillDetector/Collision: $KillDetector/Collision.disabled = true
+      if is_instance_valid(get_node_or_null('Collision')): $Collision.disabled = true
+      if is_instance_valid(get_node_or_null('CollisionShape2D')): $CollisionShape2D.disabled = true
+      if is_instance_valid(get_node_or_null('KillDetector/Collision')): $KillDetector/Collision.disabled = true
       get_node('ice2').play()
       var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
       for i in range(4):
@@ -229,6 +246,8 @@ func freeze() -> void:
     return
     
   get_node('ice1').play()
+  
+  get_parent().add_child(ScoreText.new(score, position))
   
   frozen = true
   collision_layer = 3

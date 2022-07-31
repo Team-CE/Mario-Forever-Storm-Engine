@@ -158,6 +158,6 @@ disabled = true
 
 [node name="IceSprite" type="AnimatedSprite" parent="."]
 visible = false
-position = Vector2( 0, -16 )
 frames = ExtResource( 8 )
 animation = "small"
+offset = Vector2( 0, -16 )

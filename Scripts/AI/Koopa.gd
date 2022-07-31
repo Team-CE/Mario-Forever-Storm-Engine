@@ -32,7 +32,7 @@ func _ai_process(delta: float) -> void:
       owner.get_node('Collision2').disabled = false
       owner.get_node('Collision').disabled = true
       owner.frozen_sprite.animation = 'medium'
-      owner.frozen_sprite.position.y = -32
+      owner.frozen_sprite.offset.y = -32
     return
   
   var turn_if_no_break: bool = true
@@ -44,6 +44,7 @@ func _ai_process(delta: float) -> void:
           owner.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           b.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           return
+        if b.invincible: return
         b.kill(AliveObject.DEATH_TYPE.FALL, score_mp, null, null, true)
         if score_mp < 6:
           score_mp += 1

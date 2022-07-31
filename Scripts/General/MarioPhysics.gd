@@ -223,25 +223,17 @@ func _process_alive(delta) -> void:
   if position.y < $Camera.limit_top - 64 and controls_enabled and 'no_cliff' in get_parent() and get_parent().no_cliff:
     position.y += 570
 
-#  if is_on_floor() and velocity.y > -14 or is_on_ceiling():
-#    velocity.y = 1
-#    prelanding = true
-#    if is_on_floor():
-#      standing = true
-#  if top_collider_counter > 0:
-#    top_collider_counter -= 1 * Global.get_delta(delta)
-#
-#  if is_on_ceiling():
-#    top_collider_counter = 3
+  if top_collider_counter > 0:
+    top_collider_counter -= 1 * Global.get_delta(delta)
 
-  #if top_collider_counter > 0:
-  if velocity.y <= 5:
-    var coll = move_and_collide(Vector2(0, velocity.y * delta), true, true, true)
-  #var collisions = $TopDetector.get_overlapping_bodies()
-    if coll and ('collider' in coll):
-      var coll_node = instance_from_id(coll.collider_id)
-      if coll_node.has_method('hit'):
-        coll_node.hit(delta)
+  if is_on_ceiling():
+    top_collider_counter = 3
+
+  if top_collider_counter > 0:
+    var collisions = $TopDetector.get_overlapping_bodies()
+    for collider in collisions:
+      if collider.has_method('hit'):
+        collider.hit(delta)
         
   var bottom_collisions = $BottomDetector.get_overlapping_bodies()
   if is_on_floor():
@@ -843,6 +835,7 @@ func star_logic() -> void:
   if overlaps.size() > 0:
     for i in overlaps:
       if i.is_in_group('Enemy') and i.has_method('kill'):
+        if i.invincible: return
         if i.force_death_type == false:
           i.kill(AliveObject.DEATH_TYPE.FALL, star_kill_count)
         else:

@@ -77,7 +77,6 @@ disabled = true
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 frames = SubResource( 4 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true

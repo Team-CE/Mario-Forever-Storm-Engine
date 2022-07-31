@@ -40,7 +40,7 @@ func _process(delta):
     else:   # Yes
 # warning-ignore:return_value_discarded
       Global.reset_all_values()
-      Global.goto_scene(Global.current_scene)
+      Global.goto_scene(Global.current_scene.filename)
       get_parent().queue_free()
 # warning-ignore:return_value_discarded
     get_parent().get_parent().get_tree().paused = false

@@ -4,8 +4,8 @@
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
 [ext_resource path="res://Sounds/Menu/lets_bg.wav" type="AudioStream" id=3]
 [ext_resource path="res://GFX/Scenery/Tree1.png" type="Texture" id=4]
-[ext_resource path="res://Games/TheMultiverse2/GFX/Backgrounds/zabor.png" type="Texture" id=5]
-[ext_resource path="res://Games/TheMultiverse2/GFX/Backgrounds/defaultGrass.png" type="Texture" id=6]
+[ext_resource path="res://GFX/Scenery/Fence.png" type="Texture" id=5]
+[ext_resource path="res://GFX/Scenery/Grass.png" type="Texture" id=6]
 [ext_resource path="res://GFX/Scenery/Hill.png" type="Texture" id=7]
 [ext_resource path="res://GFX/Scenery/Tree2.png" type="Texture" id=8]
 [ext_resource path="res://GFX/Scenery/Cloud.tres" type="SpriteFrames" id=9]
@@ -156,6 +156,7 @@ position = Vector2( 112, 368 )
 texture = ExtResource( 8 )
 
 [node name="AnimatedSprite3" type="AnimatedSprite" parent="."]
+modulate = Color( 0.498039, 1.14118, 0.670588, 1 )
 position = Vector2( 256, 400 )
 z_index = -1
 frames = SubResource( 123 )

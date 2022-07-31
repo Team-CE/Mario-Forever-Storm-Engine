@@ -13,19 +13,19 @@ func _ready() -> void:
     active = true
     $AnimatedSprite.animation = 'active'
     Global.Mario.position = position
-    var level = Global.Mario.get_parent()
+    var level = Global.current_scene
     if (
       'time_after_checkpoint' in level
       and level.time_after_checkpoint.size() > 0
       and level.time_after_checkpoint[id] > 0
     ):
       yield(get_tree(), 'idle_frame')
-      Global.time = Global.Mario.get_parent().time_after_checkpoint[id]
+      Global.time = level.time_after_checkpoint[id]
 
 func _process(delta: float) -> void:
   rng.randi_range(0, 1)
   
-  if is_instance_valid(self) and Global.is_mario_collide_area('InsideDetector', self) and !active:
+  if is_instance_valid(self) and is_instance_valid(Global.Mario) and Global.is_mario_collide_area('InsideDetector', self) and !active:
     active = true
     $AnimatedSprite.animation = 'active'
     $Sound.play()

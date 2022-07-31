@@ -103,6 +103,7 @@ func act(warp_finish_enabled: bool = false) -> void:
   MusicPlayer.stop_on_pause()
   MusicPlayer.get_node('Star').stop()
   Global.checkpoint_active = -1
+  Global.checkpoint_position = Vector2.ZERO
   Global.Mario.controls_enabled = false
   Global.Mario.invulnerable = true
   counter = 0

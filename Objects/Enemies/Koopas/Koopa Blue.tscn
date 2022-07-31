@@ -51,6 +51,11 @@ animations = [ {
 "name": "dead",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 12 ) ],
 "loop": true,
 "name": "shell stopped",
@@ -60,11 +65,6 @@ animations = [ {
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
-}, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "falling",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=10]

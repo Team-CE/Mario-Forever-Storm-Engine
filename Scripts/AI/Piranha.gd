@@ -41,12 +41,13 @@ func _ai_process(delta: float) -> void:
   ._ai_process(delta)
   
   if !owner.alive or owner.frozen:
-    owner.animated_sprite.rotation = rotat
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
     owner.velocity_enabled = true
     
     if owner.frozen:
       owner.get_node('Collision2').disabled = false
+    else:
+      owner.animated_sprite.rotation = rotat
     return
 
   rotat = owner.rotation

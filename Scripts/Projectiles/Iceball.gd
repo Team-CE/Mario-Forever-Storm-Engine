@@ -3,7 +3,7 @@ extends KinematicBody2D
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
 
 var dir: int = 1
-var velocity: Vector2 = Vector2(426, 0)
+var velocity: Vector2 = Vector2(387.5, 0)
 var skip_frame: bool = false
 var gravity_scale: float = 1
 
@@ -22,10 +22,9 @@ func _ready() -> void:
 
   add_child(vis)
   
-  var children = get_parent().get_children()
-  for node in range(len(children)):
-    if 'AI' in children[node]:
-      add_collision_exception_with(children[node])
+  for node in get_parent().get_children():
+    if node is KinematicBody2D and ('AI' in node or 'belongs' in node):
+      add_collision_exception_with(node)
 
 func _process(delta) -> void:
   var overlaps = $CollisionArea.get_overlapping_bodies()
@@ -48,6 +47,7 @@ func _process(delta) -> void:
   velocity.y += 24 * gravity_scale * Global.get_delta(delta)
 
   if belongs != 1:
+    velocity.x = lerp(velocity.x, 0, 0.02)
     velocity = move_and_slide(velocity, Vector2.UP)
   else:
     position += velocity * Vector2(delta, delta)

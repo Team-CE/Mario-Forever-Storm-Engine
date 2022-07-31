@@ -309,6 +309,7 @@ func reset_all_values(reset_state: bool = true) -> void:
   deaths = 0
   projectiles_count = 0
   checkpoint_active = -1
+  checkpoint_position = Vector2.ZERO
   level_ended = false
   levelID = 0
   if reset_state: state = 0
@@ -343,7 +344,7 @@ func _ppd() -> void: # Player Powerdown
 func _pll() -> void: # Player Death
   if Mario.dead or debug_inv or debug_fly or Mario.invulnerable:
     return
-  Global.deaths += 1
+  deaths += 1
   emit_signal('OnPlayerLoseLife')
   if Mario.is_in_shoe:
     Mario.shoe_node.queue_free()

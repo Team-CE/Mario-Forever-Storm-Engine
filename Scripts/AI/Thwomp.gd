@@ -29,12 +29,14 @@ func _ai_process(delta: float) -> void:
       Global.Mario.shoe_node.stomp()
       return
     elif Global.is_mario_collide_area('InsideDetector', owner.get_node('Hitbox')) and inv_counter > 8:
+      if Global.Mario.shield_counter == 0:
+        is_smiling = true
       Global._ppd()
-      is_smiling = true
   else:
     if Global.is_mario_collide_area('InsideDetector', owner.get_node('Hitbox')):
+      if Global.Mario.shield_counter == 0:
+        is_smiling = true
       Global._ppd()
-      is_smiling = true
   
   if inv_counter < 10:
     inv_counter += 1 * Global.get_delta(delta)

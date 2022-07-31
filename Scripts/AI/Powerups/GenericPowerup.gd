@@ -11,7 +11,7 @@ var custom_appearing: bool = false
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
-  owner.z_index = -5
+  if !('sgr behavior' in owner.vars and owner.vars['sgr behavior']): owner.z_index = -5
   owner.velocity_enabled = false
   initial_pos = owner.position
   

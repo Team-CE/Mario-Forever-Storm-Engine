@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Prefabs/Animations/RedKoopa.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/AI/RedKoopa.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=3]
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 15.5 )
@@ -18,25 +19,28 @@ extents = Vector2( 24, 14 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 14, 2 )
 
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 16, 32 )
+
 [node name="RedKoopa" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 3 )
 vars = {
 "bounce": 9.0,
 "is shell": false,
 "kill zone": NodePath("KillZone"),
-"qblock zone": NodePath("QBlockZone"),
 "shell speed": 250.0,
 "speed": 50.0,
-"stopped": false,
-"visibility_enabler": NodePath("VisibilityEnabler2D")
+"stopped": false
 }
 AI = ExtResource( 2 )
 smart_turn = true
+can_freeze = true
 ray_L_pth = NodePath("RayCastL")
 ray_R_pth = NodePath("RayCastR")
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("Sprite")
+frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
@@ -52,6 +56,7 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -7 )
 frames = ExtResource( 1 )
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
@@ -99,3 +104,15 @@ visible = false
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, 4 )
 shape = SubResource( 3 )
+
+[node name="Collision2" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -32 )
+shape = SubResource( 12 )
+disabled = true
+
+[node name="IceSprite" type="AnimatedSprite" parent="."]
+visible = false
+frames = ExtResource( 6 )
+animation = "small"
+offset = Vector2( 0, -16 )

@@ -3,17 +3,12 @@ extends Brain
 var shell_counter: float = 0
 var score_mp: int
 var upside_down_state: int = 0
-var error: bool = false
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
   if owner.vars['is shell']:
 # warning-ignore:standalone_ternary
     to_stopped_shell() if owner.vars['stopped'] else to_moving_shell()
-
-  if not 'qblock zone' in owner.vars:
-    printerr('ERROR: could not find qblock zone for enemy ' + owner.name + '! Please recreate the object')
-    error = true
     
 func _setup(b)-> void:
   ._setup(b)
@@ -32,7 +27,7 @@ func _ai_process(delta: float) -> void:
   
   if !owner.alive:
     owner.get_node(owner.vars['kill zone']).get_child(0).disabled = true
-    if !error: owner.get_node(owner.vars['qblock zone']).get_child(0).disabled = true
+    owner.get_node('QBlockZone').get_child(0).disabled = true
     owner.animated_sprite.flip_v = false
     return
   
@@ -62,7 +57,7 @@ func _ai_process(delta: float) -> void:
         else:
           score_mp = 0
           
-  if !error: for b in owner.get_node_or_null(owner.vars['qblock zone']).get_overlapping_bodies():
+  for b in owner.get_node('QBlockZone').get_overlapping_bodies():
     if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
       if b is QBlock and b.active:
         b.hit(1, true)
@@ -93,7 +88,7 @@ func _ai_process(delta: float) -> void:
       owner.dir = 1 if Global.Mario.position.x > owner.position.x else -1
       owner.animated_sprite.speed_scale = 0.75
       owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
-      if !error: owner.get_node(owner.vars['qblock zone']).get_child(0).disabled = false
+      owner.get_node('QBlockZone').get_child(0).disabled = false
       score_mp = 0
       to_moving_shell(false)
       owner.get_parent().add_child(Explosion.new(owner.position + Vector2(0, -16)))
@@ -139,26 +134,20 @@ func _ai_process(delta: float) -> void:
 
 func to_stopped_shell() -> void:
   owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
-  if !error: owner.get_node(owner.vars['qblock zone']).get_child(0).disabled = false
+  owner.get_node('QBlockZone').get_child(0).disabled = false
   shell_counter = 0
   owner.vars['is shell'] = true
   score_mp = 0
   owner.vars['stopped'] = true
   owner.animated_sprite.animation = 'shell stopped'
-  if 'visibility_enabler' in owner.vars:
-    owner.get_node(owner.vars['visibility_enabler']).rect = Rect2( -16, -32, 32, 32 )
-  else:
-    print('ERROR: could not find visibility_enabler for ' + owner.name)
+  owner.get_node('VisibilityEnabler2D').rect = Rect2( -16, -32, 32, 32 )
   if !owner.death_signal_exception: owner.emit_signal('enemy_died')
 
 func to_moving_shell(reset_counter: bool = true) -> void:
   owner.vars['is shell'] = true
   owner.vars['stopped'] = false
   owner.animated_sprite.animation = 'shell moving'
-  if 'visibility_enabler' in owner.vars:
-    owner.get_node(owner.vars['visibility_enabler']).rect = Rect2( -480, -192, 960, 320 )
-  else:
-    print('ERROR: could not find visibility_enabler for ' + owner.name)
+  owner.get_node('VisibilityEnabler2D').rect = Rect2( -480, -192, 960, 320 )
   
   if reset_counter:
     shell_counter = 0

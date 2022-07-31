@@ -15,26 +15,6 @@ _global_script_classes=[ {
 "path": "res://Scripts/General/Generic/AliveObject.gd"
 }, {
 "base": "Node",
-"class": "BlockPartyGlobals",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/globals/Global.gd"
-}, {
-"base": "Node2D",
-"class": "BlockPartyLevel",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/Level.gd"
-}, {
-"base": "Node",
-"class": "BlockPartyPlacements",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/globals/Placements.gd"
-}, {
-"base": "Node",
-"class": "BlockPartySoundPlayer",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/globals/SoundPlayer.gd"
-}, {
-"base": "Node",
 "class": "Brain",
 "language": "GDScript",
 "path": "res://Scripts/AI/Brain.gd"
@@ -48,6 +28,11 @@ _global_script_classes=[ {
 "class": "BubbleEffect",
 "language": "GDScript",
 "path": "res://Scripts/Effects/Bubble.gd"
+}, {
+"base": "Reference",
+"class": "CHammerThrow",
+"language": "GDScript",
+"path": "res://Games/2022/Scripts/CHammer Throw.gd"
 }, {
 "base": "StaticBody2D",
 "class": "Cannon",
@@ -74,11 +59,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/IceExplosion.gd"
 }, {
-"base": "Area2D",
-"class": "Interactive",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/Block.gd"
-}, {
 "base": "Node2D",
 "class": "Level",
 "language": "GDScript",
@@ -93,11 +73,6 @@ _global_script_classes=[ {
 "class": "MarioHeadEffect",
 "language": "GDScript",
 "path": "res://Scripts/Effects/MarioHeadEffect.gd"
-}, {
-"base": "Sprite",
-"class": "PikoBrickEffect",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/Boss/PikoBrickEffect.gd"
 }, {
 "base": "PathFollow2D",
 "class": "Platform",
@@ -131,23 +106,18 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AliveObject": "res://GFX/Editor/AliveBody.png",
-"BlockPartyGlobals": "",
-"BlockPartyLevel": "",
-"BlockPartyPlacements": "",
-"BlockPartySoundPlayer": "",
 "Brain": "",
 "BrickEffect": "",
 "BubbleEffect": "",
+"CHammerThrow": "",
 "Cannon": "res://GFX/Editor/Enemy.png",
 "CoinEffect": "",
 "Discord": "",
 "Explosion": "",
 "IceExplosion": "",
-"Interactive": "",
 "Level": "",
 "LuiTrail": "",
 "MarioHeadEffect": "",
-"PikoBrickEffect": "",
 "Platform": "",
 "QBlock": "res://GFX/Editor/QBlock.png",
 "QSwitchBlock": "res://GFX/Editor/QBlock.png",
@@ -159,12 +129,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Mario Forever Cloud Engine"
-run/main_scene="res://Games/TheMultiverse2/Stages/LevelPicker.tscn"
+run/main_scene="res://Games/2022/Stages/Intro.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
-config/main_menu_scene="res://Stages/Menu.tscn"
-config/sgr_scene="res://Games/TheMultiverse2/Stages/CSaveGameRoom.tscn"
-config/save_game_room_scene="res://Games/TheMultiverse2/Stages/CSaveGameRoom.tscn"
+config/main_menu_scene="res://Games/2022/Stages/CMenu.tscn"
+config/sgr_scene="res://Games/2022/Stages/СSaveGameRoom.tscn"
+config/save_game_room_scene="res://Games/2022/Stages/СSaveGameRoom.tscn"
 
 [autoload]
 

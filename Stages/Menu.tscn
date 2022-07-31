@@ -131,17 +131,17 @@ animations = [ {
 atlas = ExtResource( 31 )
 region = Rect2( 0, 34, 158, 34 )
 
-[sub_resource type="AtlasTexture" id=46]
+[sub_resource type="AtlasTexture" id=61]
 atlas = ExtResource( 31 )
 region = Rect2( 0, 0, 158, 34 )
 
-[sub_resource type="AtlasTexture" id=47]
+[sub_resource type="AtlasTexture" id=62]
 atlas = ExtResource( 31 )
 region = Rect2( 0, 68, 158, 34 )
 
 [sub_resource type="SpriteFrames" id=56]
 animations = [ {
-"frames": [ SubResource( 45 ), SubResource( 46 ), SubResource( 47 ) ],
+"frames": [ SubResource( 45 ), SubResource( 61 ), SubResource( 62 ) ],
 "loop": true,
 "name": "default",
 "speed": 0.0
@@ -247,7 +247,7 @@ region = Rect2( 0, 64, 567, 64 )
 atlas = ExtResource( 32 )
 region = Rect2( 0, 128, 567, 64 )
 
-[sub_resource type="SpriteFrames" id=61]
+[sub_resource type="SpriteFrames" id=63]
 animations = [ {
 "frames": [ SubResource( 58 ), SubResource( 59 ), SubResource( 60 ) ],
 "loop": true,
@@ -498,7 +498,7 @@ texture = ExtResource( 33 )
 [node name="ScalingNote" type="AnimatedSprite" parent="Buttons"]
 visible = false
 position = Vector2( 320, 920 )
-frames = SubResource( 61 )
+frames = SubResource( 63 )
 
 [node name="QualityNote" type="Sprite" parent="Buttons"]
 visible = false

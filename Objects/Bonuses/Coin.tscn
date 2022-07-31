@@ -1,7 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://GFX/Bonuses/Coin.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Bonuses/Coin.gd" type="Script" id=2]
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://Sounds/Main/ice2.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/Main/ice1.wav" type="AudioStream" id=5]
 
 [sub_resource type="OccluderPolygon2D" id=7]
 polygon = PoolVector2Array( -9.9375, -7.625, -8, -12, -4.75, -14, 3.9375, -14, 7, -12, 8.9375, -7.8125, 8.9375, 7.9375, 7, 12, 4, 14, -4.9375, 14, -8.0625, 12.0625, -10, 8 )
@@ -31,9 +34,12 @@ extents = Vector2( 9.84201, 14.744 )
 
 [sub_resource type="RectangleShape2D" id=6]
 
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 16, 16 )
+
 [node name="Coin" type="Area2D"]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
@@ -48,6 +54,7 @@ occluder = SubResource( 7 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -64,4 +71,28 @@ input_pickable = false
 position = Vector2( -1, 22 )
 shape = SubResource( 6 )
 
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 3
+collision_mask = 0
+
+[node name="Collision2" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 8 )
+disabled = true
+
+[node name="IceSprite" type="AnimatedSprite" parent="."]
+visible = false
+frames = ExtResource( 3 )
+animation = "small"
+
+[node name="ice1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+bus = "Sounds"
+
+[node name="ice2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+max_distance = 600.0
+bus = "Sounds"
+
 [connection signal="area_entered" from="." to="." method="_on_Coin_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Coin_body_entered"]
