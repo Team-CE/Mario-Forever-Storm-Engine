@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Sounds/Main/shoot.wav" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/AI/ThrowFunctions/Fireball.gd" type="Script" id=2]
@@ -9,14 +9,7 @@
 [ext_resource path="res://Scripts/AI/EmalpkaBase.gd" type="Script" id=7]
 [ext_resource path="res://GFX/Enemies/emalpkafirL.png" type="Texture" id=8]
 [ext_resource path="res://GFX/Enemies/emalpkafirfall.png" type="Texture" id=9]
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 48, 64 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 8 )
-region = Rect2( 48, 0, 48, 64 )
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=10]
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 6 )
@@ -26,6 +19,14 @@ region = Rect2( 0, 0, 48, 64 )
 atlas = ExtResource( 6 )
 region = Rect2( 48, 0, 48, 64 )
 
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 0, 48, 64 )
+
 [sub_resource type="SpriteFrames" id=11]
 animations = [ {
 "frames": [  ],
@@ -33,14 +34,14 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
-"loop": true,
-"name": "holding",
-"speed": 5.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "falling",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 9 ), SubResource( 10 ) ],
@@ -48,9 +49,9 @@ animations = [ {
 "name": "walk",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
-"name": "falling",
+"name": "holding",
 "speed": 5.0
 } ]
 
@@ -59,6 +60,9 @@ extents = Vector2( 16, 24 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 14, 2 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 17, 32 )
 
 [node name="EmalpkaFire" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 3 )
@@ -70,14 +74,17 @@ vars = {
 AI = ExtResource( 7 )
 gravity_scale = 0.5
 score = 1000
+can_freeze = true
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
+frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 frames = SubResource( 11 )
 animation = "walk"
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
@@ -113,3 +120,15 @@ visible = false
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, 4 )
 shape = SubResource( 2 )
+
+[node name="Collision2" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -32 )
+shape = SubResource( 12 )
+disabled = true
+
+[node name="IceSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -32 )
+frames = ExtResource( 10 )
+animation = "medium"

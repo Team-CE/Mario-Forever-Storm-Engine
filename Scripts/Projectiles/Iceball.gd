@@ -47,7 +47,7 @@ func _process(delta) -> void:
   velocity.y += 24 * gravity_scale * Global.get_delta(delta)
 
   if belongs != 1:
-    velocity.x = lerp(velocity.x, 0, 0.02)
+    velocity.x = lerp(velocity.x, 0, 0.02 * Global.get_delta(delta))
     velocity = move_and_slide(velocity, Vector2.UP)
   else:
     position += velocity * Vector2(delta, delta)

@@ -546,7 +546,7 @@ func animate_default(delta) -> void:
   if allow_custom_animation: return
 
   if launch_counter > 0:
-    animate_sprite('Launching')
+    if Global.state > 1: animate_sprite('Launching')
     launch_counter -= 1.01 * Global.get_delta(delta)
     return
 

@@ -23,6 +23,12 @@ func _ai_process(delta: float) -> void:
   if !owner.is_on_floor():
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
+  if owner.frozen:
+    owner.get_node('Collision2').disabled = false
+    owner.get_node('CollisionShape2D').disabled = true
+    owner.velocity.x = 0
+    return
+  
   if !owner.alive:
     return
     

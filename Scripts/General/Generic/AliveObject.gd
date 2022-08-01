@@ -140,8 +140,10 @@ func _physics_process(delta:float) -> void:
     velocity.y = 1
   
   if velocity_enabled:
-    velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation), false, 4, 0.802852, false).rotated(-rotation)
-    
+    if !frozen:
+      velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation), false, 4, 0.802852, false).rotated(-rotation)
+    else:
+      velocity = move_and_slide(velocity, Vector2.UP, false, 4, 0.802852, false)
   # Freeze
   if frozen_sprite && frozen:
     if freeze_counter < 300:
@@ -155,7 +157,7 @@ func _physics_process(delta:float) -> void:
       frozen_sprite.frame = 0
     
     if Global.is_mario_collide('TopDetector', self) and Global.Mario.is_on_floor():
-      kill(DEATH_TYPE.UNFREEZE) 
+      kill(DEATH_TYPE.UNFREEZE)
     
   if freeze_counter > 300:
     frozen_sprite.visible = int(freeze_counter / 2) % 2 == 0

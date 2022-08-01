@@ -6,7 +6,7 @@ var musicBar: float = 0.5
 var effects: bool = true
 var scroll: int = 0
 var quality: int = 2
-var scaling: int = ScalingType.FANCY
+var scaling: int = ScalingType.FAST
 var controls: Dictionary
 var autopause: bool = true
 
@@ -53,7 +53,7 @@ var projectiles_count: int = 0               # Number of player's projectiles on
 var checkpoint_active: int = -1               # Self explanable
 var checkpoint_position: Vector2
 
-var debug: bool = true                       # Debug
+var debug: bool = false                       # Debug
 var debug_fly: bool = false
 var debug_inv: bool = false
 
@@ -82,6 +82,10 @@ func _ready() -> void:
   if current_scene.get_parent() == root:
     root.call_deferred('remove_child', current_scene)
     get_node('/root/GlobalViewport/Viewport').call_deferred('add_child', current_scene)
+  
+  if OS.is_debug_build():
+    debug = true
+  
   # Adding a debug inspector
   if debug:
     add_child(preload('res://Objects/Core/Inspector.tscn').instance())
@@ -119,7 +123,7 @@ func _ready() -> void:
             InputMap.action_erase_event(action, toRemove)
         InputMap.action_add_event(action, key)
   
-  GlobalViewport.set_deferred('filter_enabled', scaling == ScalingType.FILTER and ProjectSettings.get_setting("display/window/stretch/mode") == "disable" )
+  GlobalViewport.set_deferred('filter_enabled', ProjectSettings.get_setting("display/window/stretch/mode") == 'disable' )
   VisualServer.set_default_clear_color(Color.black)
   
   # Loading music
