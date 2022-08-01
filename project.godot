@@ -162,9 +162,9 @@ config/name="Mario Forever Cloud Engine"
 run/main_scene="res://Games/TheMultiverse2/Stages/Intro.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
-config/main_menu_scene="res://Stages/Menu.tscn"
-config/sgr_scene="res://Stages/SaveGameRoom.tscn"
-config/save_game_room_scene="res://Stages/SaveGameRoom.tscn"
+config/main_menu_scene="res://Games/TheMultiverse2/Stages/CMenu.tscn"
+config/sgr_scene="res://Games/TheMultiverse2/Stages/CSaveGameRoom.tscn"
+config/save_game_room_scene="res://Games/TheMultiverse2/Stages/CSaveGameRoom.tscn"
 
 [autoload]
 
@@ -324,6 +324,13 @@ zoom_out={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Enemies"
+2d_physics/layer_2="Tilemap"
+2d_physics/layer_3="MarioBottomDetector"
+2d_physics/layer_5="Mario"
 
 [physics]
 

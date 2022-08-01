@@ -67,6 +67,8 @@ extents = Vector2( 24, 32 )
 extents = Vector2( 24, 2 )
 
 [node name="Thwomp" type="KinematicBody2D" groups=["Enemy"]]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource( 3 )
 vars = {
 "bounce": 9.0,
@@ -116,8 +118,8 @@ position = Vector2( -16, 0 )
 position = Vector2( 16, 0 )
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 visible = false

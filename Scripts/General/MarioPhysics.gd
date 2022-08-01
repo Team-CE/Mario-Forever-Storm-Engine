@@ -160,6 +160,12 @@ func _process_alive(delta) -> void:
     shoe.global_position = global_position
     bind_shoe(shoe.get_instance_id())
   
+  var bottom_collisions = $BottomDetector.get_overlapping_bodies()
+  if is_on_floor():
+    for collider in bottom_collisions:
+      if collider.has_method('_standing_on'):
+        collider._standing_on()
+
   var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
     movement_swimming(delta)
@@ -234,12 +240,6 @@ func _process_alive(delta) -> void:
     for collider in collisions:
       if collider.has_method('hit'):
         collider.hit(delta)
-        
-  var bottom_collisions = $BottomDetector.get_overlapping_bodies()
-  if is_on_floor():
-    for collider in bottom_collisions:
-      if collider.has_method('_standing_on'):
-        collider._standing_on()
 
   vertical_correction(5) # Corner correction like in original Mario games
   horizontal_correction(10) # One tile gap runover ability
