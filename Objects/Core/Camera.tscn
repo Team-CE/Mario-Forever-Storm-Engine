@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="Camera" type="Camera2D"]
+position = Vector2( 0, -15 )
+rotating = true
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 11000
+limit_bottom = 480
+smoothing_speed = 8.0
+editor_draw_limits = true

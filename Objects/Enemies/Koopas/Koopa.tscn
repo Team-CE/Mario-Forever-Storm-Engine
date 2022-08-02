@@ -17,10 +17,6 @@ region = Rect2( 0, 0, 32, 47 )
 atlas = ExtResource( 1 )
 region = Rect2( 32, 0, 32, 47 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 4 )
-region = Rect2( 99, 0, 33, 47 )
-
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 33, 47 )
@@ -34,6 +30,10 @@ atlas = ExtResource( 4 )
 region = Rect2( 66, 0, 33, 47 )
 
 [sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 4 )
+region = Rect2( 99, 0, 33, 47 )
+
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 4 )
 region = Rect2( 99, 0, 33, 47 )
 
@@ -54,15 +54,15 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 8 ) ],
-"loop": true,
-"name": "shell stopped",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 8 ) ],
+"loop": true,
+"name": "shell stopped",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -81,6 +81,7 @@ extents = Vector2( 24, 24 )
 extents = Vector2( 24, 14 )
 
 [node name="Koopa" type="KinematicBody2D" groups=["Enemy"]]
+collision_layer = 0
 script = ExtResource( 2 )
 vars = {
 "bounce": 9.0,
@@ -133,6 +134,7 @@ physics_process_parent = true
 
 [node name="KillDetector" type="Area2D" parent="."]
 visible = false
+collision_layer = 0
 
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, 4 )
@@ -141,6 +143,7 @@ shape = SubResource( 11 )
 [node name="KillZone" type="Area2D" parent="."]
 visible = false
 show_behind_parent = true
+collision_layer = 0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="KillZone"]
 modulate = Color( 1, 0.419608, 0.419608, 1 )
@@ -150,6 +153,7 @@ disabled = true
 
 [node name="QBlockZone" type="Area2D" parent="."]
 visible = false
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QBlockZone"]
 position = Vector2( 0, -16 )

@@ -25,7 +25,8 @@ var prelanding: bool = false
 enum Movement {
   DEFAULT,
   SWIMMING,
-  CLIMBING
+  CLIMBING,
+  NONE
  }
 
 var top_collider_counter: float = 0
@@ -159,12 +160,6 @@ func _process_alive(delta) -> void:
     Global.current_scene.add_child(shoe)
     shoe.global_position = global_position
     bind_shoe(shoe.get_instance_id())
-  
-  var bottom_collisions = $BottomDetector.get_overlapping_bodies()
-  if is_on_floor():
-    for collider in bottom_collisions:
-      if collider.has_method('_standing_on'):
-        collider._standing_on()
 
   var danimate: bool = false
   if movement_type == Movement.SWIMMING:  # Faster than match
@@ -177,9 +172,11 @@ func _process_alive(delta) -> void:
     if $AnimationPlayer.current_animation != 'RESET':
       $AnimationPlayer.play('RESET')
       $AnimationPlayer.stop(true)
-  else:
+  elif movement_type == Movement.DEFAULT:
     movement_default(delta)
     animate_shoe(delta)
+  
+  if movement_type == Movement.NONE: return
     
   if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin'):
     ready_powerup_scripts[Global.state]._process_mixin(self, delta)
@@ -188,6 +185,12 @@ func _process_alive(delta) -> void:
     allow_custom_animation = false
     $BottomDetector/CollisionBottom.scale.y = 0.5
   
+  
+  var bottom_collisions = $BottomDetector.get_overlapping_bodies()
+  if is_on_floor():
+    for collider in bottom_collisions:
+      if collider.has_method('_standing_on'):
+        collider._standing_on()
   
   if shield_star:
     star_logic()
@@ -198,7 +201,7 @@ func _process_alive(delta) -> void:
     $Sprite.material.set_shader_param('mixing', true)
     # Starman music Fade out
     
-    if shield_counter <= 125 and Global.musicBar > -100 and !faded:
+    if shield_counter <= 125 and Global.musicBar > 0 and !faded:
       MusicPlayer.fade_out(MusicPlayer.get_node('Star'), 3.0)
       faded = true
     if shield_counter <= 0:
@@ -828,6 +831,9 @@ func unkill() -> void:
   $BottomDetector/CollisionBottom.disabled = false
   $Sprite.position = Vector2.ZERO
   animate_sprite('Stopped')
+  MusicPlayer.get_node('Main').stream = Global.current_scene.music
+  MusicPlayer.get_node('Main').play()
+  MusicPlayer.play_on_pause()
 
 func star_logic() -> void:
   var overlaps = $InsideDetector.get_overlapping_bodies()

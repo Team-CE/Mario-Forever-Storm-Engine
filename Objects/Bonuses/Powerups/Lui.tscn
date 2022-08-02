@@ -67,6 +67,8 @@ animations = [ {
 extents = Vector2( 15, 15.5 )
 
 [node name="Lui" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource( 1 )
 vars = {
 "custom behavior": ExtResource( 5 ),
@@ -84,7 +86,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1, -15 )
 frames = SubResource( 13 )
-frame = 2
+frame = 10
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

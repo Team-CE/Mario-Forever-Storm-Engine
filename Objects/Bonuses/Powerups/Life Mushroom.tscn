@@ -18,6 +18,8 @@ animations = [ {
 extents = Vector2( 14.5, 15.5 )
 
 [node name="Life Mushroom" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource( 1 )
 vars = {
 "custom action": ExtResource( 4 ),

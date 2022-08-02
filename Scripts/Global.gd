@@ -1,6 +1,6 @@
 extends Node
 
-var GameName = "CloudEngine"
+var GameName = 'CloudEngine'
 var soundBar: float = 0.5                      # Game options
 var musicBar: float = 0.5
 var effects: bool = true

@@ -76,11 +76,14 @@ func _ready():
   elif not get_node_or_null('Mario'):
     worldEnv = setup_worldenv()
     tileMap = setup_tilemap()
-    var mario: Node2D = preload('res://Objects/Core/Mario.tscn').instance()
+    var mario: Node2D = load('res://Objects/Core/Mario.tscn').instance()
     mario.position = Vector2(48, 416)
     add_child(mario)
     mario.set_owner(self)
-    var hud: CanvasLayer = preload('res://Objects/Core/HUD.tscn').instance()
+    var camera: Camera2D = load('res://Objects/Core/Camera.tscn').instance()
+    mario.add_child(camera)
+    camera.set_owner(self)
+    var hud: CanvasLayer = load('res://Objects/Core/HUD.tscn').instance()
     add_child(hud)
     hud.set_owner(self)
 

@@ -56,7 +56,6 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -7 )
 frames = ExtResource( 1 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
@@ -72,6 +71,7 @@ bus = "Sounds"
 [node name="KillZone" type="Area2D" parent="."]
 visible = false
 show_behind_parent = true
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2( 0, -16 )
@@ -92,6 +92,7 @@ cast_to = Vector2( 0, 10 )
 
 [node name="QBlockZone" type="Area2D" parent="."]
 visible = false
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QBlockZone"]
 position = Vector2( 0, -16 )
@@ -100,6 +101,7 @@ disabled = true
 
 [node name="KillDetector" type="Area2D" parent="."]
 visible = false
+collision_layer = 0
 
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, 4 )

@@ -34,6 +34,8 @@ animations = [ {
 extents = Vector2( 16, 16 )
 
 [node name="PropellerMushroom" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource( 1 )
 vars = {
 "custom appearing": true,
@@ -51,7 +53,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1, -21 )
 frames = SubResource( 11 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -4,7 +4,7 @@ func _ready():
   $Mario.controls_enabled = false
   $Mario.get_node('Camera').limit_right = 640
   yield(get_tree(), 'idle_frame')
-  $Mario.velocity.x = 450
+  $Mario.velocity.x = 440
 
 func _process(_delta):
   if $Mario.velocity.x < 75 && $Mario.velocity.x > 1:

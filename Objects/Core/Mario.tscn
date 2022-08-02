@@ -191,17 +191,6 @@ powerup_scripts = {
 6: ExtResource( 15 )
 }
 
-[node name="Camera" type="Camera2D" parent="."]
-position = Vector2( 0, -15 )
-rotating = true
-current = true
-limit_left = 0
-limit_top = 0
-limit_right = 11000
-limit_bottom = 480
-smoothing_speed = 8.0
-editor_draw_limits = true
-
 [node name="DebugText" type="Label" parent="."]
 margin_left = -24.0
 margin_top = -91.0
@@ -209,9 +198,6 @@ margin_right = 70.0
 margin_bottom = -69.0
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 13 )
