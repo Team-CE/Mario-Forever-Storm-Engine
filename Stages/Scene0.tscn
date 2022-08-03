@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://Objects/Bonuses/QBlocksTypes/Common_QBlock.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Objects/Enemies/Koopas/Paratroopa Blue.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Objects/Enemies/Koopas/Paratroopa.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Objects/Core/Camera.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=33]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -68,6 +69,8 @@ powerup_scripts = {
 5: ExtResource( 9 ),
 6: ExtResource( 22 )
 }
+
+[node name="Camera" parent="Mario" instance=ExtResource( 26 )]
 
 [node name="Water" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1872, 224 )

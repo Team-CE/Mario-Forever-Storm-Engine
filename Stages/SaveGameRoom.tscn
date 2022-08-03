@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Scenery/Trees.png" type="Texture" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://GFX/SaveGameRoom/reset_powerup.png" type="Texture" id=25]
 [ext_resource path="res://Music/1-music-presentation.ogg" type="AudioStream" id=26]
 [ext_resource path="res://GFX/Scenery/Cloud.tres" type="SpriteFrames" id=27]
+[ext_resource path="res://Objects/Core/Camera.tscn" type="PackedScene" id=28]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -75,6 +76,8 @@ powerup_scripts = {
 3: ExtResource( 20 ),
 4: ExtResource( 21 )
 }
+
+[node name="Camera" parent="Mario" instance=ExtResource( 28 )]
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 visible = false

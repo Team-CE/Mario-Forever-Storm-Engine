@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://Scripts/General/CutsceneCave.gd" type="Script" id=23]
 [ext_resource path="res://Sounds/Main/lets_kuku_ruurururu.wav" type="AudioStream" id=24]
 [ext_resource path="res://Objects/Level/Warp.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Objects/Core/Camera.tscn" type="PackedScene" id=26]
 
 [sub_resource type="Gradient" id=121]
 colors = PoolColorArray( 0.372549, 0.501961, 0.713726, 1, 1, 1, 1, 1 )
@@ -101,6 +102,8 @@ powerup_scripts = {
 6: ExtResource( 20 )
 }
 
+[node name="Camera" parent="Mario" instance=ExtResource( 26 )]
+
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1.4079e-09, 240 )
 rotation = 1.5708
@@ -112,33 +115,34 @@ texture = SubResource( 122 )
 position = Vector2( 48, 208 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 2
 playing = true
 
 [node name="Cloud2" type="AnimatedSprite" parent="."]
 position = Vector2( 128, 48 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Cloud3" type="AnimatedSprite" parent="."]
 position = Vector2( 368, 32 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Cloud4" type="AnimatedSprite" parent="."]
 position = Vector2( 272, 240 )
 z_index = -1
 frames = ExtResource( 9 )
+frame = 1
 playing = true
 
 [node name="Cloud5" type="AnimatedSprite" parent="."]
 position = Vector2( 512, 144 )
 z_index = -1
 frames = ExtResource( 9 )
+frame = 1
 playing = true
 
 [node name="Sprite2" type="Sprite" parent="."]
@@ -160,7 +164,6 @@ modulate = Color( 0.498039, 1.14118, 0.670588, 1 )
 position = Vector2( 256, 400 )
 z_index = -1
 frames = SubResource( 123 )
-frame = 2
 playing = true
 
 [node name="Zabor" type="Sprite" parent="."]
