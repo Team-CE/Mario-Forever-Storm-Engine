@@ -1,6 +1,7 @@
 extends Node2D
 
 var sel: int = 0
+var selLimit: int = 4
 var counter: float = 1
 
 func _pseudo_ready():
@@ -30,15 +31,15 @@ func _process(delta):
   
   # CONTROLS
   
-  if Input.is_action_just_pressed('ui_down') and sel < 4:
+  if Input.is_action_just_pressed('ui_down'):
     get_node('sel' + str(sel)).frame = 0
     get_node('sel' + str(sel)).modulate.a = 1
-    sel += 1
+    sel = 0 if sel + 1 > selLimit else sel + 1
     get_node('../choose').play()
-  elif Input.is_action_just_pressed('ui_up') and sel > 0:
+  elif Input.is_action_just_pressed('ui_up'):
     get_node('sel' + str(sel)).frame = 0
     get_node('sel' + str(sel)).modulate.a = 1
-    sel -= 1
+    sel = selLimit if sel - 1 < 0 else sel - 1
     get_node('../choose').play()
   
   if Input.is_action_just_pressed('ui_accept') and counter > 0.15:
@@ -101,6 +102,7 @@ func _process(delta):
   if Input.is_action_just_pressed('ui_cancel') and counter > 1:
     $AnimationPlayer.play('FromOptions')
     saveOptions()
+    get_node('../enter').play()
     get_parent().options = false
 
 

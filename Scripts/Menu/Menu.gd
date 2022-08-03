@@ -24,13 +24,14 @@ var popup: CanvasLayer = null
 
 var fading_in = true
 var fading_out = false
-var circle_size = 0
+onready var circle_size = 0
 
 var pos_y: float
 var force_pos = true
 
 onready var controls_enabled: bool = false
 onready var controls_changing: bool = false
+onready var assigned: bool = false
 
 func _ready() -> void:
   pos_y = 359
@@ -105,21 +106,21 @@ func _process(delta) -> void:
       $Credits.position.y -= 1 * Global.get_delta(delta)
       $Credits.show()
     
+func onMenuCursorUpdate() -> void:
+  #if Global.effects:
+  #  var effect = MarioHeadEffect.new($S_Start.position)
+  #  add_child(effect)
+# warning-ignore:standalone_ternary
+  $select_main.play() if screen < 2 else $select_controls.play()
+  if screen == 1: updateNotes()
+    
 func controls() -> void:
-  if Input.is_action_just_pressed('ui_down') and sel < selLimit:
-    sel += 1
-    if Global.effects:
-      var effect = MarioHeadEffect.new($S_Start.position)
-      add_child(effect)
-    $select_main.play()
-    if screen == 1: updateNotes()
-  elif Input.is_action_just_pressed('ui_up') and sel > 0:
-    sel -= 1
-    if Global.effects:
-      var effect = MarioHeadEffect.new($S_Start.position)
-      add_child(effect)
-    $select_main.play()
-    if screen == 1: updateNotes()
+  if Input.is_action_just_pressed('ui_down'):
+    sel = 0 if sel + 1 > selLimit else sel + 1
+    onMenuCursorUpdate()
+  elif Input.is_action_just_pressed('ui_up'):
+    sel = selLimit if sel - 1 < 0 else sel - 1
+    onMenuCursorUpdate()
   
   match screen:
     0:    # _____ MAIN _____
@@ -260,6 +261,7 @@ func controls() -> void:
       elif Input.is_action_just_pressed('ui_cancel'):
         screen = 0
         sel = 1
+        $enter_options.play()
         updateControls()
         saveOptions()
     2:    # _____ CONTROLS _____
@@ -282,6 +284,7 @@ func controls() -> void:
         sel = 4
         controls_changing = false
         controls_enabled = true
+        $enter_options.play()
         updateControls()
         saveOptions()
     3:    # _____ CREDITS _____
@@ -292,17 +295,21 @@ func controls() -> void:
         MusicPlayer.get_node('Main').play()
 
 func _input(event) -> void:
-  if event is InputEventKey and event.pressed and controls_changing:
+  if event is InputEventKey and event.pressed and controls_changing and not event.echo:
     if not event.is_action('ui_cancel'):
       var scancode = OS.get_scancode_string(event.scancode)
       get_node('Label' + str(sel)).text = scancode
       for old_event in InputMap.get_action_list(CONTROLS_ARRAY[sel]):
         InputMap.action_erase_event(CONTROLS_ARRAY[sel], old_event)
       InputMap.action_add_event(CONTROLS_ARRAY[sel], event)
+      $select_main.play()
     else:
       updateControls()
+    assigned = true
+  if event is InputEventKey and not event.pressed and controls_changing and assigned:
     controls_changing = false
     controls_enabled = true
+    assigned = false
   
 func updateOptions() -> void:
   $Buttons/SoundBar.frame = round(Global.soundBar * 10.0)

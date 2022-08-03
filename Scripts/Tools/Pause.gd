@@ -1,6 +1,7 @@
 extends Node2D
 
 var sel: int = 0
+var selLimit: int = 5
 var counter: float = 1
 var scene
 var can_restart: bool = true
@@ -33,15 +34,15 @@ func _process(delta):
     
     # CONTROLS
     
-    if Input.is_action_just_pressed('ui_down') and sel < 5:
+    if Input.is_action_just_pressed('ui_down'):
       get_node('sel' + str(sel)).frame = 0
       get_node('sel' + str(sel)).modulate.a = 1
-      sel += 1
+      sel = 0 if sel + 1 > selLimit else sel + 1
       get_node('../choose').play()
-    elif Input.is_action_just_pressed('ui_up') and sel > 0:
+    elif Input.is_action_just_pressed('ui_up'):
       get_node('sel' + str(sel)).frame = 0
       get_node('sel' + str(sel)).modulate.a = 1
-      sel -= 1
+      sel = selLimit if sel - 1 < 0 else sel - 1
       get_node('../choose').play()
     
     if !can_restart and $sel1.frame != 2: $sel1.frame = 2

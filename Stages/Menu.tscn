@@ -293,6 +293,28 @@ texture = ExtResource( 18 )
 expand = true
 stretch_mode = 2
 
+[node name="Logo" type="VBoxContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -480.0
+grow_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="TextureRect" parent="Logo"]
+margin_right = 640.0
+margin_bottom = 162.0
+texture = ExtResource( 1 )
+stretch_mode = 4
+
+[node name="Credits" type="Sprite" parent="."]
+position = Vector2( 315.5, 1706.62 )
+scale = Vector2( 19.2813, 10.4609 )
+z_index = 1
+texture = ExtResource( 19 )
+
 [node name="BG4" type="TextureRect" parent="."]
 anchor_top = 1.0
 anchor_right = 1.0
@@ -326,97 +348,6 @@ rect_pivot_offset = Vector2( 56, 480 )
 texture = ExtResource( 21 )
 expand = true
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Logo" type="VBoxContainer" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = -480.0
-grow_vertical = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Logo" type="TextureRect" parent="Logo"]
-margin_right = 640.0
-margin_bottom = 162.0
-texture = ExtResource( 1 )
-stretch_mode = 4
-
-[node name="Label0" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 999.0
-margin_right = 448.0
-margin_bottom = 1031.0
-text = "Text"
-align = 1
-valign = 1
-clip_text = true
-
-[node name="Label1" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 1063.0
-margin_right = 448.0
-margin_bottom = 1095.0
-text = "Text"
-align = 1
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label2" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 1127.0
-margin_right = 448.0
-margin_bottom = 1159.0
-text = "Text"
-align = 1
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label3" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 1191.0
-margin_right = 448.0
-margin_bottom = 1223.0
-text = "Text"
-align = 1
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label4" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 1255.0
-margin_right = 448.0
-margin_bottom = 1287.0
-text = "Text"
-align = 1
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label5" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 1319.0
-margin_right = 448.0
-margin_bottom = 1351.0
-text = "Text"
-align = 1
-valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -521,6 +452,81 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Label0" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 999.0
+margin_right = 448.0
+margin_bottom = 1031.0
+text = "Text"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="Label1" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1063.0
+margin_right = 448.0
+margin_bottom = 1095.0
+text = "Text"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1127.0
+margin_right = 448.0
+margin_bottom = 1159.0
+text = "Text"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1191.0
+margin_right = 448.0
+margin_bottom = 1223.0
+text = "Text"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1255.0
+margin_right = 448.0
+margin_bottom = 1287.0
+text = "Text"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 1319.0
+margin_right = 448.0
+margin_bottom = 1351.0
+text = "Text"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="select_main" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 bus = "Sounds"
@@ -549,8 +555,3 @@ bus = "Sounds"
 [node name="tick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 bus = "Sounds"
-
-[node name="Credits" type="Sprite" parent="."]
-position = Vector2( 315.5, 1706.62 )
-scale = Vector2( 19.2813, 10.4609 )
-texture = ExtResource( 19 )
