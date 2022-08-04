@@ -50,6 +50,7 @@ func _ai_process(delta: float) -> void:
 func _on_custom_death():
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
+  # DO NOT use preload to avoid sharing 'vars' dictionary between different instances
   var koopa = load('res://Objects/Enemies/Koopas/Koopa Red.tscn').instance()
   koopa.position = owner.position
   owner.get_parent().add_child(koopa)
