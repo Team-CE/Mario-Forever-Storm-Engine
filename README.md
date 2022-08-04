@@ -14,6 +14,9 @@ Unlike some other implementations of Mario Forever, it respects original Mario p
 - JUE13
 - SuperMany
 
+#### [NOTICE]
+**Before using the engine, you must change your Godot indents to Spaces with size 2!**
+
 #### [CONTRIBUTING TO THIS ENGINE]
 This engine is still very unfinished, so all contributions are welcome! Feel free to open pull requests.
 Please follow the original style of code while doing a contribution.
@@ -30,4 +33,4 @@ of our engine.
 
 ##### YOU CANNOT:
 - Claim this engine or parts of it as your own work.
-- Use the code from this engine in your own engines / other stuff.
+- Use the code from this engine in your own engines / other stuff without explicit permission from the engine developers.
