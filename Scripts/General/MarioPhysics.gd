@@ -14,7 +14,7 @@ var inited_camera_addon
 
 var ready_powerup_scripts: Dictionary = {}
 
-var velocity: Vector2
+export var velocity: Vector2
 var jump_counter: int = 0
 var jump_internal_counter: float = 100
 var can_jump: bool = false
@@ -378,11 +378,7 @@ func movement_swimming(delta) -> void:
     velocity.y = 165
   
   if Input.is_action_just_pressed('mario_jump') and !crouch and !Input.is_action_pressed('mario_crouch'):
-    Global.play_base_sound('MAIN_Swim')
-    if Global.is_mario_collide_area_group('TopDetector', 'Water'):
-      velocity.y = -161.5
-    else:
-      velocity.y = -484.5
+    jump()
     
   if !Global.is_mario_collide_area_group('InsideDetector', 'Water'):
     movement_type = Movement.DEFAULT
@@ -404,11 +400,15 @@ func is_over_vine() -> bool:
 
 func jump() -> void:
   prelanding = false
-  velocity.y = -700 # 650
   jump_counter = 1
   can_jump = false
-  $BaseSounds/MAIN_Jump.play()
   jump_internal_counter = 0
+  if movement_type != Movement.SWIMMING:
+    velocity.y = -700 # 650
+    $BaseSounds/MAIN_Jump.play()
+  else:
+    velocity.y = -161.5 if Global.is_mario_collide_area_group('TopDetector', 'Water') else -484.5
+    $BaseSounds/MAIN_Swim.play()
 
 func controls(delta) -> void:
   if (
@@ -639,6 +639,7 @@ func animate_swimming(delta, start) -> void:
     shield_counter = 0
     $Sprite.visible = true
 
+  if allow_custom_animation: allow_custom_animation = false
 
 func animate_climbing(delta) -> void:
   if velocity.x <= -8 * Global.get_delta(delta):

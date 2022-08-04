@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/red.png-1977ba8c1c831c6b25021bba62f21af4.stex"
+path="res://.import/KoopaRed.png-2f37bf5e27aa3b2eb12f9b2e94558831.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/red.png"
-dest_files=[ "res://.import/red.png-1977ba8c1c831c6b25021bba62f21af4.stex" ]
+source_file="res://GFX/Enemies/KoopaRed.png"
+dest_files=[ "res://.import/KoopaRed.png-2f37bf5e27aa3b2eb12f9b2e94558831.stex" ]
 
 [params]
 

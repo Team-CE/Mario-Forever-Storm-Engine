@@ -2,17 +2,21 @@
 
 [ext_resource path="res://GFX/Enemies/redshell.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Enemies/redshell_falling.png" type="Texture" id=2]
-[ext_resource path="res://GFX/Enemies/red.png" type="Texture" id=3]
+[ext_resource path="res://GFX/Enemies/KoopaRed.png" type="Texture" id=3]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 31, 47 )
+region = Rect2( 0, 0, 31, 48 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 3 )
-region = Rect2( 31, 0, 31, 47 )
+region = Rect2( 31, 0, 31, 48 )
 
 [sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 99, 0, 33, 48 )
+
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
 region = Rect2( 99, 0, 33, 48 )
 
@@ -28,20 +32,11 @@ region = Rect2( 33, 0, 33, 48 )
 atlas = ExtResource( 1 )
 region = Rect2( 66, 0, 33, 48 )
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 99, 0, 33, 48 )
-
 [resource]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
 "name": "default",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "falling",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 3 ) ],
@@ -49,13 +44,18 @@ animations = [ {
 "name": "dead",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 3 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "shell moving",
-"speed": 20.0
+"name": "falling",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 7 ) ],
 "loop": true,
 "name": "shell stopped",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 3 ) ],
+"loop": true,
+"name": "shell moving",
+"speed": 20.0
 } ]

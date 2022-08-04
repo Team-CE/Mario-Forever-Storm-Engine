@@ -46,6 +46,7 @@ func _ai_process(delta: float) -> void:
     
     if owner.frozen:
       owner.get_node('Collision2').disabled = false
+      owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
     else:
       owner.animated_sprite.rotation = rotat
     return

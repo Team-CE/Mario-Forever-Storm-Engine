@@ -16,6 +16,7 @@ func _ai_process(delta: float) -> void:
   if owner.frozen:
     owner.get_node('Collision2').disabled = false
     owner.get_node('Collision').disabled = true
+    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
   
   if !owner.alive or owner.frozen:
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)

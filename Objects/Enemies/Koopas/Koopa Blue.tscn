@@ -12,13 +12,13 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 15.5 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 32, 47 )
+region = Rect2( 0, 0, 32, 48 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 8 )
-region = Rect2( 32, 0, 32, 47 )
+region = Rect2( 32, 0, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
@@ -42,7 +42,7 @@ region = Rect2( 99, 0, 33, 48 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -111,10 +111,9 @@ position = Vector2( 0, -15.5 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -7 )
 frames = SubResource( 9 )
 playing = true
-offset = Vector2( 0, -16 )
+offset = Vector2( 0, -24 )
 flip_h = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]

@@ -8,6 +8,7 @@ var inited_lakitu_addon
 var internal_result
 var custom_result_added: bool = false
 
+var on_freeze: bool = false
 var xspeed: float = 0
 var throw_counter: float = 0
 var blink_counter: float = 0
@@ -41,7 +42,10 @@ func _ai_process(delta:float) -> void:
   
   if owner.frozen:
     xspeed = 0
-    owner.velocity.x = 0
+#    if !on_freeze:
+#      on_freeze = true
+#      owner.velocity.x = 0
+    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
   
   if !owner.alive or owner.frozen:
     owner.velocity_enabled = true

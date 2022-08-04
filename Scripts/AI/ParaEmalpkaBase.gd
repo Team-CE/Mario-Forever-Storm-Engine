@@ -24,6 +24,9 @@ func _ai_process(delta: float) -> void:
   if !owner.is_on_floor():
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
+  if owner.frozen:
+    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
+
   if !owner.alive:
     owner.gravity_scale = 0.6
     return

@@ -35,11 +35,11 @@ glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 1.5
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=4]
 colors = PoolColorArray( 0.105882, 0, 0.733333, 1, 0.94902, 0.992157, 0.988235, 1 )
 
 [sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+gradient = SubResource( 4 )
 width = 640
 
 [node name="Level" type="Node2D"]
@@ -104,7 +104,7 @@ additional_options = {
 position = Vector2( 416, 336 )
 id = 16
 additional_options = {
-"set_scene_path": "res://Stages/Scene0.tscn"
+"set_scene_path": "res://Stages/Map.tscn"
 }
 
 [node name="Scenery" type="Node2D" parent="."]
@@ -161,6 +161,7 @@ __meta__ = {
 [node name="Cloud" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 208, 80 )
 frames = ExtResource( 27 )
+frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -169,6 +170,7 @@ __meta__ = {
 [node name="Cloud2" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 384, 128 )
 frames = ExtResource( 27 )
+frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -177,7 +179,7 @@ __meta__ = {
 [node name="Cloud3" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 592, 64 )
 frames = ExtResource( 27 )
-frame = 2
+frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -186,7 +188,7 @@ __meta__ = {
 [node name="Cloud4" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 736, 80 )
 frames = ExtResource( 27 )
-frame = 2
+frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -195,7 +197,6 @@ __meta__ = {
 [node name="Cloud5" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 1216, 32 )
 frames = ExtResource( 27 )
-frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -204,6 +205,7 @@ __meta__ = {
 [node name="Cloud6" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 1328, 112 )
 frames = ExtResource( 27 )
+frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -212,6 +214,7 @@ __meta__ = {
 [node name="Cloud7" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 1648, 48 )
 frames = ExtResource( 27 )
+frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -220,7 +223,7 @@ __meta__ = {
 [node name="Cloud8" type="AnimatedSprite" parent="Scenery"]
 position = Vector2( 448, 48 )
 frames = ExtResource( 27 )
-frame = 2
+frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -230,7 +233,7 @@ __meta__ = {
 
 [node name="Mushroom" parent="Powerups" instance=ExtResource( 10 )]
 position = Vector2( 816, 416 )
-collision_mask = 0
+collision_mask = 1
 vars = {
 "grow speed": 0.5,
 "set state": 1,
@@ -241,7 +244,7 @@ score = 0
 
 [node name="FireFlower" parent="Powerups" instance=ExtResource( 8 )]
 position = Vector2( 944, 416 )
-collision_mask = 0
+collision_mask = 1
 vars = {
 "grow speed": 0.5,
 "set state": 2,
@@ -252,7 +255,7 @@ score = 0
 
 [node name="Beetroot" parent="Powerups" instance=ExtResource( 9 )]
 position = Vector2( 1072, 416 )
-collision_mask = 0
+collision_mask = 1
 vars = {
 "grow speed": 0.5,
 "set state": 3,
@@ -263,7 +266,7 @@ score = 0
 
 [node name="Lui" parent="Powerups" instance=ExtResource( 23 )]
 position = Vector2( 1200, 416 )
-collision_mask = 0
+collision_mask = 1
 vars = {
 "grow speed": 0.5,
 "set state": 4,

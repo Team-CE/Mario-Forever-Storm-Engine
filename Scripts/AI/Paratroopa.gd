@@ -19,6 +19,7 @@ func _ai_process(delta: float) -> void:
   if owner.frozen:
     owner.get_node('Collision2').disabled = false
     owner.get_node('Collision').disabled = true
+    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
   
   if !owner.alive or owner.frozen:
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
@@ -49,7 +50,7 @@ func _ai_process(delta: float) -> void:
 func _on_custom_death():
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
-  var koopa = load('res://Objects/Enemies/Koopas/Koopa.tscn').instance()
+  var koopa = preload('res://Objects/Enemies/Koopas/Koopa.tscn').instance()
   koopa.position = owner.position
   owner.get_parent().add_child(koopa)
   owner.velocity_enabled = false

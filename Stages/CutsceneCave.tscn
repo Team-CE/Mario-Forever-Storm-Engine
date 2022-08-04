@@ -164,6 +164,7 @@ modulate = Color( 0.498039, 1.14118, 0.670588, 1 )
 position = Vector2( 256, 400 )
 z_index = -1
 frames = SubResource( 123 )
+frame = 1
 playing = true
 
 [node name="Zabor" type="Sprite" parent="."]
@@ -190,6 +191,6 @@ texture = ExtResource( 5 )
 position = Vector2( 480, 400 )
 direction = 2
 additional_options = {
-"set_scene_path": "res://Stages/Scene0.tscn"
+"set_scene_path": "res://Stages/TestLevel.tscn"
 }
 out_duration = 120.0

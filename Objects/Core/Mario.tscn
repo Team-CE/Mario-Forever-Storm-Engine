@@ -285,6 +285,7 @@ position = Vector2( -12, -23 )
 shape = SubResource( 11 )
 
 [node name="BaseSounds" parent="." instance=ExtResource( 4 )]
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "RESET"

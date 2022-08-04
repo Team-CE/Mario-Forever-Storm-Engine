@@ -3,6 +3,7 @@ extends Brain
 var shell_counter: float = 0
 var score_mp: int
 var upside_down_state: int = 0
+var on_freeze: bool = false
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
@@ -16,7 +17,6 @@ func _setup(b)-> void:
   # Upside-down behaviour
   if owner.vars['upside down']:
     owner.animated_sprite.flip_v = true
-    owner.animated_sprite.position.y -= 4
     owner.gravity_scale = 0 - owner.gravity_scale
 
 func _ai_process(delta: float) -> void:
@@ -34,12 +34,11 @@ func _ai_process(delta: float) -> void:
   if !owner.frozen:
     owner.velocity.x = (owner.vars['speed'] if !owner.vars['is shell'] else 0 if owner.vars['stopped'] else owner.vars['shell speed'] if upside_down_state != 2 else owner.vars['upside down shell speed']) * owner.dir
   else:
-    owner.velocity.x = 0
-    if !owner.vars['is shell']:
-      owner.get_node('Collision2').disabled = false
-      owner.get_node('Collision').disabled = true
-      owner.frozen_sprite.animation = 'medium'
-      owner.frozen_sprite.position.y = -32
+#    if !on_freeze:
+#      on_freeze = true
+#      owner.animated_sprite.position.y = 2
+#      owner.velocity.x = 0
+    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
     return
   
   var turn_if_no_break: bool = true
@@ -84,7 +83,6 @@ func _ai_process(delta: float) -> void:
       
     if upside_down_state == 1 and owner.is_on_floor():
       upside_down_state = 2
-      owner.animated_sprite.position.y += 4
       owner.dir = 1 if Global.Mario.position.x > owner.position.x else -1
       owner.animated_sprite.speed_scale = 0.75
       owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false

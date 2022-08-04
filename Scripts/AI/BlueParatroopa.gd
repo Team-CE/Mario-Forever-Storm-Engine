@@ -1,5 +1,7 @@
 extends Brain
 
+var on_freeze: bool = false
+
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
 
@@ -15,7 +17,10 @@ func _ai_process(delta: float) -> void:
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
     
   if owner.frozen:
-    owner.velocity.x = 0
+#    if !on_freeze:
+#      on_freeze = true
+#      owner.velocity.x = 0
+    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
     owner.get_node('Collision2').disabled = false
     owner.get_node('Collision').disabled = true
     return
@@ -48,7 +53,7 @@ func _ai_process(delta: float) -> void:
 func _on_custom_death():
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
-  var koopa = load('res://Objects/Enemies/Koopas/Koopa Blue.tscn').instance()
+  var koopa = preload('res://Objects/Enemies/Koopas/Koopa Blue.tscn').instance()
   koopa.position = owner.position
   owner.get_parent().add_child(koopa)
   owner.velocity_enabled = false

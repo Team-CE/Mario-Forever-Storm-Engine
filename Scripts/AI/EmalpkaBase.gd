@@ -1,5 +1,6 @@
 extends Brain
 
+var on_freeze: bool = false
 var counter: float = 0
 var counter_t: float = 0
 var move_multiplier: int = 1
@@ -26,7 +27,10 @@ func _ai_process(delta: float) -> void:
   if owner.frozen:
     owner.get_node('Collision2').disabled = false
     owner.get_node('CollisionShape2D').disabled = true
-    owner.velocity.x = 0
+#    if !on_freeze:
+#      on_freeze = true
+#      owner.velocity.x = 0
+    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
     return
   
   if !owner.alive:

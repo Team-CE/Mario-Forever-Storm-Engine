@@ -30,7 +30,7 @@ frame_6/delay_sec = 0.0
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 29.75 )
 
-[node name="Lava" type="Area2D"]
+[node name="Lava" type="Area2D" groups=["Lava"]]
 z_index = 5
 script = ExtResource( 8 )
 

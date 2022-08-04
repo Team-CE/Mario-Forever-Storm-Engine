@@ -8,10 +8,11 @@ func _ai_process(delta:float) -> void:
   if !owner.frozen:
     owner.velocity.x = owner.vars["speed"] * owner.dir
   else:
-    owner.velocity.x = 0
+    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
+    return
     
   if owner.is_on_wall():
     owner.turn()
     
-  if on_mario_collide('InsideDetector') and !owner.frozen:
+  if on_mario_collide('InsideDetector'):
     Global._ppd()

@@ -8,7 +8,7 @@
 [ext_resource path="res://GFX/Map/marioicon.png" type="Texture" id=6]
 [ext_resource path="res://Sounds/Menu/fade_out.wav" type="AudioStream" id=7]
 [ext_resource path="res://Scripts/Map/WorldText.gd" type="Script" id=8]
-[ext_resource path="res://Music/1-music-presentation.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Music/map_example.ogg" type="AudioStream" id=9]
 [ext_resource path="res://Scripts/Map/Camera.gd" type="Script" id=10]
 [ext_resource path="res://Prefabs/Mario/Beetroot.tres" type="SpriteFrames" id=11]
 [ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=12]
@@ -57,8 +57,8 @@ __meta__ = {
 "_edit_lock_": true
 }
 music = ExtResource( 9 )
-stop_points = [ 329 ]
-level_scenes = [ "res://Stages/Scene0.tscn" ]
+stop_points = [ 329, 768 ]
+level_scenes = [ "res://Stages/CutsceneCave.tscn", "res://Stages/CutsceneCave.tscn" ]
 
 [node name="map_looped" type="Sprite" parent="."]
 position = Vector2( 5000, 240 )

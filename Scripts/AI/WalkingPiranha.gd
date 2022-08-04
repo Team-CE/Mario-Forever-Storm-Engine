@@ -10,7 +10,7 @@ func _ai_process(delta:float) -> void:
   if !owner.is_on_floor():
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
-  if !owner.alive:
+  if !owner.alive or owner.frozen:
     return
     
   counter += 0.03 * Global.get_delta(delta)

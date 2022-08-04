@@ -1,5 +1,6 @@
 extends Brain
 
+var on_freeze: bool = false
 var inv_counter: float = 0
 
 func _ready_mixin() -> void:
@@ -16,7 +17,10 @@ func _ai_process(delta:float) -> void:
   if !owner.frozen:
     owner.velocity.x = owner.vars["speed"] * owner.dir
   else:
-    owner.velocity.x = 0
+#    if !on_freeze:
+#      on_freeze = true
+#      owner.velocity.x = 0
+    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
   
   if owner.animated_sprite.frame == 5 and owner.animated_sprite.animation == 'appear':
     owner.animated_sprite.animation = 'walk'
