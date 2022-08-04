@@ -32,6 +32,7 @@ func _process(delta: float) -> void:
     counter = 1
     Global.checkpoint_active = id
     Global.checkpoint_position = position
+    $Sprite.visible = true
     
   if counter > 0 and counter < 50:
     counter += 1 * Global.get_delta(delta)

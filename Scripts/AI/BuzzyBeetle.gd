@@ -39,6 +39,7 @@ func _ai_process(delta: float) -> void:
 #      owner.animated_sprite.position.y = 2
 #      owner.velocity.x = 0
     owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
+    owner.gravity_scale = 1
     return
   
   var turn_if_no_break: bool = true
@@ -46,7 +47,7 @@ func _ai_process(delta: float) -> void:
   for b in owner.get_node(owner.vars['kill zone']).get_overlapping_bodies():
     if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
       if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
-        if 'is shell' in b.vars and 'stopped' in b.vars and !b.vars['stopped'] and b.vars['is shell']:
+        if 'is shell' in b.vars and 'stopped' in b.vars and !b.vars['stopped'] and b.vars['is shell'] and !b.frozen:
           owner.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           b.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           return

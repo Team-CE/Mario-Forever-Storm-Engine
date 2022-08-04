@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://Objects/Liquids/Water.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=2]
@@ -41,9 +41,10 @@
 [ext_resource path="res://GFX/Scenery/Cloud.tres" type="SpriteFrames" id=39]
 [ext_resource path="res://Objects/Level/Warp.tscn" type="PackedScene" id=40]
 [ext_resource path="res://Objects/Level/Finish Line.tscn" type="PackedScene" id=41]
+[ext_resource path="res://Objects/Level/Checkpoint.tscn" type="PackedScene" id=42]
 
 [sub_resource type="GDScript" id=4]
-script/source = "func _camera_process(owner, _delta) -> void:
+script/source = "func _process_camera(owner, _delta) -> void:
   owner.sections_scroll = owner.position.y > 0
 "
 
@@ -142,18 +143,17 @@ margin_bottom = 192.0
 [node name="Cloud" type="AnimatedSprite" parent="."]
 position = Vector2( 1152, 96 )
 frames = ExtResource( 39 )
+frame = 1
 playing = true
 
 [node name="Cloud2" type="AnimatedSprite" parent="."]
 position = Vector2( 1504, 144 )
 frames = ExtResource( 39 )
-frame = 2
 playing = true
 
 [node name="Cloud3" type="AnimatedSprite" parent="."]
 position = Vector2( 2128, 80 )
 frames = ExtResource( 39 )
-frame = 2
 playing = true
 
 [node name="Goomba" parent="." instance=ExtResource( 12 )]
@@ -359,5 +359,16 @@ additional_options = {
 
 [node name="FinishLine" parent="." instance=ExtResource( 41 )]
 position = Vector2( 4096, 416 )
+
+[node name="Checkpoint" parent="." instance=ExtResource( 42 )]
+position = Vector2( 3136, 416 )
+
+[node name="Checkpoint2" parent="." instance=ExtResource( 42 )]
+position = Vector2( 3312, 352 )
+id = 1
+
+[node name="Checkpoint3" parent="." instance=ExtResource( 42 )]
+position = Vector2( 3616, 384 )
+id = 2
 
 [editable path="Water"]
