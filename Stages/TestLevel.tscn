@@ -143,17 +143,18 @@ margin_bottom = 192.0
 [node name="Cloud" type="AnimatedSprite" parent="."]
 position = Vector2( 1152, 96 )
 frames = ExtResource( 39 )
-frame = 1
 playing = true
 
 [node name="Cloud2" type="AnimatedSprite" parent="."]
 position = Vector2( 1504, 144 )
 frames = ExtResource( 39 )
+frame = 2
 playing = true
 
 [node name="Cloud3" type="AnimatedSprite" parent="."]
 position = Vector2( 2128, 80 )
 frames = ExtResource( 39 )
+frame = 2
 playing = true
 
 [node name="Goomba" parent="." instance=ExtResource( 12 )]
@@ -359,6 +360,8 @@ additional_options = {
 
 [node name="FinishLine" parent="." instance=ExtResource( 41 )]
 position = Vector2( 4096, 416 )
+set_level_id = 1
+map_scene = "res://Stages/Map.tscn"
 
 [node name="Checkpoint" parent="." instance=ExtResource( 42 )]
 position = Vector2( 3136, 416 )

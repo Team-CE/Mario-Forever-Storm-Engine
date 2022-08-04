@@ -26,7 +26,6 @@ var timer: Timer = null
 
 func _ready():
   if !Engine.editor_hint:
-    Global.currlevel = self
     Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
     if not $Mario.custom_die_stream or Global.deaths == 0:
       Global.time = time

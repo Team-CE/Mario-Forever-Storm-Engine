@@ -58,7 +58,6 @@ var debug_fly: bool = false
 var debug_inv: bool = false
 
 var level_ended: bool = false
-var currlevel: Node2D
 
 var levelID: int = 0
 
