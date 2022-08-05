@@ -2,7 +2,7 @@ extends CanvasLayer
 
 var straycount: int
 export var active: bool = true
-export var visible: bool = true
+#export var visible: bool = true
 
 func _ready() -> void:
   Global.HUD = self
