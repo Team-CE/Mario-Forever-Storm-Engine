@@ -49,13 +49,13 @@ vec4 hsv_to_rgb(float h, float s, float v, float a){
 
 void fragment() {
   if (mixing) {
-    float s = float(abs(int(TIME * 20.f) % 5)) / 4.f;
+    float s = float(abs(int(TIME * 20.0f) % 5)) / 4.0f;
     // vec4 f_color = texture(TEXTURE,UV) * texture(pallet,vec2(s,1)) * vec4(2.5,2.5,2.5,2.5);
     vec4 col_a = texture(TEXTURE, UV) + vec4(0.4, 0.4, 0.4, 0);
     // vec4 col_b = texture(pallet, vec2(s, 1)) * vec4(1.3, 1.3, 1.3, 0);
-    vec4 col_b = hsv_to_rgb(TIME * 1.f, 1, 1, 1) * vec4(1.3, 1.3, 1.3, 0);
+    vec4 col_b = hsv_to_rgb(TIME * 1.0f, 1, 1, 1) * vec4(1.3, 1.3, 1.3, 0);
     vec4 f_color;
-    if (int(TIME * 20.f) % 2 == 0) {
+    if (int(TIME * 20.0f) % 2 == 0) {
       f_color = col_a * col_b;
     } else {
       f_color = texture(TEXTURE, UV);

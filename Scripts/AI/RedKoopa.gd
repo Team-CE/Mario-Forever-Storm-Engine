@@ -35,7 +35,7 @@ func _ai_process(delta: float) -> void:
       owner.get_node('Collision2').disabled = false
       owner.get_node('Collision').disabled = true
       owner.frozen_sprite.animation = 'medium'
-      owner.frozen_sprite.offset.y = -24
+      owner.frozen_sprite.offset.y = -32
     return
     
   var turn_if_no_break: bool = true

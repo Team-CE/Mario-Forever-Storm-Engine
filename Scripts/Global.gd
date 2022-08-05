@@ -248,6 +248,7 @@ func _input(ev):
     HUD.visible = !HUD.visible
       
 # fix physics fps issues
+# warning-ignore:unused_argument
 func _process(delta: float):
   var temp = round((1 / delta) / 60) * 60
 # warning-ignore:integer_division
@@ -256,7 +257,7 @@ func _process(delta: float):
     p_fps_switch += 1 * get_delta(delta)
   else:
     p_fps_switch = 0
-  
+
   if p_fps_switch > 50:
     print('Updated engine iterations')
     Engine.iterations_per_second = temp

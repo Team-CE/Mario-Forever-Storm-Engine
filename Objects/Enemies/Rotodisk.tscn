@@ -18,15 +18,15 @@ texture = ExtResource( 2 )
 
 [node name="Node2D" type="Node2D" parent="."]
 use_parent_material = true
-rotation = 12.4692
+rotation = 0.482481
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D"]
 use_parent_material = true
 position = Vector2( 0, -150 )
-rotation = 0.0971381
+rotation = -0.482481
 z_index = 15
 frames = ExtResource( 1 )
-frame = 6
+frame = 2
 playing = true
 
 [node name="Area2D" type="Area2D" parent="Node2D/AnimatedSprite"]
@@ -41,7 +41,6 @@ shape = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="Node2D/AnimatedSprite"]
 visible = false
-rotation = -8.9407e-08
 z_index = 5
 texture = ExtResource( 4 )
 energy = 0.6

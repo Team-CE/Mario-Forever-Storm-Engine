@@ -1,51 +1,18 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Prefabs/Animations/RotodiskPoison.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://GFX/Enemies/Rotoball.png" type="Texture" id=2]
-[ext_resource path="res://Scripts/Enemies/Rotodisk.gd" type="Script" id=3]
-[ext_resource path="res://GFX/Effects/Light.png" type="Texture" id=4]
+[ext_resource path="res://Objects/Enemies/Rotodisk.tscn" type="PackedScene" id=2]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 16.0
-height = 2.0
-
-[node name="Rotodisk" type="Node2D"]
-script = ExtResource( 3 )
+[node name="RotodiskPoison" instance=ExtResource( 2 )]
+__meta__ = {
+"_edit_pinned_properties_": [ "instant_kill" ]
+}
 instant_kill = true
 
-[node name="Sprite" type="Sprite" parent="."]
-z_index = 1
-texture = ExtResource( 2 )
+[node name="Node2D" parent="." index="1"]
+rotation = 120.062
 
-[node name="Node2D" type="Node2D" parent="Sprite"]
-rotation = 3.74704
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite/Node2D"]
-position = Vector2( 0, -150 )
-rotation = 2.53614
-z_index = 15
+[node name="AnimatedSprite" parent="Node2D" index="0"]
+rotation = -0.681712
 frames = ExtResource( 1 )
-frame = 24
-playing = true
-
-[node name="Area2D" type="Area2D" parent="Sprite/Node2D/AnimatedSprite"]
-visible = false
-collision_layer = 3
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Node2D/AnimatedSprite/Area2D"]
-visible = false
-rotation = 1.5708
-shape = SubResource( 1 )
-
-[node name="Light2D" type="Light2D" parent="Sprite/Node2D/AnimatedSprite"]
-visible = false
-rotation = -8.9407e-08
-z_index = 5
-texture = ExtResource( 4 )
-energy = 0.6
-
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-visible = false
-rect = Rect2( -160, -160, 320, 320 )
-physics_process_parent = true
+frame = 8

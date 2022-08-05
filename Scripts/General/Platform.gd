@@ -32,7 +32,8 @@ func _physics_process(delta) -> void:
     movement(delta)
 
 func movement(delta) -> void:
-  offset += current_speed * Global.get_delta(delta)
+  if !is_nan(current_speed):
+    offset += current_speed * Global.get_delta(delta)
   
   if smooth_turn:
     var points = get_parent().curve.get_baked_points()
