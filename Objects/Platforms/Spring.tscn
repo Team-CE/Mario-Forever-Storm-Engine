@@ -37,7 +37,7 @@ extents = Vector2( 15.4831, 24 )
 
 [node name="Spring" type="KinematicBody2D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 6
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]

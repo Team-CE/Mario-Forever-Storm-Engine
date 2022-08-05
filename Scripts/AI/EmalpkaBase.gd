@@ -8,8 +8,9 @@ var throw_activated: bool = false
 var inv_counter: float = 0
 
 var initial_pos: Vector2
-
 var inited_throwable
+
+var rng: RandomNumberGenerator
 
 func _ready_mixin() -> void:
   owner.death_type = AliveObject.DEATH_TYPE.FALL
@@ -18,6 +19,8 @@ func _setup(b) -> void:
   ._setup(b)
   initial_pos = owner.position
   inited_throwable = owner.vars['throw_script'].new()
+  rng = RandomNumberGenerator.new()
+  rng.seed = 1
 
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)
@@ -47,7 +50,7 @@ func _ai_process(delta: float) -> void:
   else:
     counter = 0
 # warning-ignore:narrowing_conversion
-    move_multiplier = round(rand_range(-4, 14) / 10)
+    move_multiplier = round(rng.randf_range(-4, 14) / 10)
     if rand_range(1, 14) > 13 and owner.is_on_floor():
       owner.velocity.y = -400
   
