@@ -27,6 +27,8 @@ func _ready() -> void:
   Global.Mario.movement_type = Global.Mario.Movement.NONE
   MusicPlayer.get_node('Main').stream = music
   MusicPlayer.get_node('Main').play()
+  if Global.musicBar > 0.01:
+    AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
   MusicPlayer.play_on_pause()
   
   if Global.levelID > 0:

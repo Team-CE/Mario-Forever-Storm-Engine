@@ -88,7 +88,7 @@ func _ready() -> void:
   # Adding a debug inspector
   if debug:
     add_child(preload('res://Objects/Core/Inspector.tscn').instance())
-  timer.wait_time = 1.45
+  timer.wait_time = 1.5
   add_child(timer)
   
   var loadedData = loadInfo()

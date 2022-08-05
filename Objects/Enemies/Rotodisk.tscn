@@ -16,28 +16,30 @@ script = ExtResource( 3 )
 z_index = 1
 texture = ExtResource( 2 )
 
-[node name="Node2D" type="Node2D" parent="Sprite"]
-rotation = 1696.52
+[node name="Node2D" type="Node2D" parent="."]
+use_parent_material = true
+rotation = 12.4692
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite/Node2D"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D"]
+use_parent_material = true
 position = Vector2( 0, -150 )
-rotation = -0.0632825
+rotation = 0.0971381
 z_index = 15
 frames = ExtResource( 1 )
-frame = 16
+frame = 6
 playing = true
 
-[node name="Area2D" type="Area2D" parent="Sprite/Node2D/AnimatedSprite"]
+[node name="Area2D" type="Area2D" parent="Node2D/AnimatedSprite"]
 visible = false
 collision_layer = 3
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Node2D/AnimatedSprite/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/AnimatedSprite/Area2D"]
 visible = false
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="Light2D" type="Light2D" parent="Sprite/Node2D/AnimatedSprite"]
+[node name="Light2D" type="Light2D" parent="Node2D/AnimatedSprite"]
 visible = false
 rotation = -8.9407e-08
 z_index = 5
