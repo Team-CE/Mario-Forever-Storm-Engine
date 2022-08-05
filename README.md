@@ -15,7 +15,7 @@ Unlike some other implementations of Mario Forever, it respects original Mario p
 - SuperMany
 
 #### [NOTICE]
-This engine is compatible with **GODOT 3.4.5** only.
+This engine is compatible with **GODOT 3.5**.
 
 **Before using the engine, you must change your Godot indents to Spaces with size 2!**
 
