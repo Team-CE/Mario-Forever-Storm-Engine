@@ -55,7 +55,6 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-frame = 1
 playing = true
 offset = Vector2( 0, -24 )
 flip_h = true

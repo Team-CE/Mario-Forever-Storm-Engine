@@ -19,10 +19,6 @@ region = Rect2( 32, 0, 32, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 192, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 3 )
-region = Rect2( 64, 0, 32, 32 )
-
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 3 )
 region = Rect2( 64, 0, 32, 32 )
@@ -39,16 +35,20 @@ region = Rect2( 128, 0, 32, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 160, 0, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ SubResource( 13 ), SubResource( 14 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "default",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 15 ) ],
@@ -56,15 +56,15 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 20 ) ],
-"loop": true,
-"name": "shell stopped",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 20 ) ],
+"loop": true,
+"name": "shell stopped",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -85,13 +85,11 @@ vars = {
 "bounce": 9.0,
 "is shell": false,
 "kill zone": NodePath("KillZone"),
-"qblock zone": NodePath("QBlockZone"),
 "shell speed": 250.0,
 "speed": 50.0,
 "stopped": false,
 "upside down": false,
-"upside down shell speed": 175.0,
-"visibility_enabler": NodePath("VisibilityEnabler2D")
+"upside down shell speed": 175.0
 }
 AI = ExtResource( 1 )
 invincible_for_projectiles = [ "beetroot", "fireball" ]
@@ -103,7 +101,6 @@ frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 21 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
