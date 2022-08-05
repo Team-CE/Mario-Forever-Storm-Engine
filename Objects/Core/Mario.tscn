@@ -104,6 +104,7 @@ tracks/0/keys = {
 [node name="Mario" type="KinematicBody2D"]
 collision_layer = 0
 collision_mask = 18
+moving_platform_apply_velocity_on_leave = 1
 script = ExtResource( 2 )
 powerup_animations = {
 0: ExtResource( 1 ),
