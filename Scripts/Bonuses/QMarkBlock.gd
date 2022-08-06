@@ -219,7 +219,7 @@ func brick_break(idle_frame:bool = true) -> void:
     yield(get_tree(), 'idle_frame')
   queue_free()
 
-func hit(_delta, ignore_powerup = false, idle_frame: bool = true) -> void:
+func hit(ignore_powerup = false, idle_frame: bool = true) -> void:
   if not active: return
   active = false
   if qtype == BLOCK_TYPE.COMMON:

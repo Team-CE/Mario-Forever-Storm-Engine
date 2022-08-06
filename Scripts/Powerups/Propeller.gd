@@ -7,12 +7,12 @@ func _ready_mixin(_mario):
   isActivated = false
   prevVelocity = false
 
-func _process_mixin_physics(mario, delta):
+func _process_mixin_physics(mario, _delta):
   if flyingDown:
     var collides = mario.get_node('BottomDetector').get_overlapping_bodies()
     for i in collides:
       if i.has_method('hit'):
-        i.hit(delta, false, false)
+        i.hit(false, false)
 
 func _process_mixin(mario, delta):
   if Global.Mario.movement_type != Global.Mario.Movement.DEFAULT:
@@ -37,7 +37,7 @@ func _process_mixin(mario, delta):
       var collides = mario.get_node('BottomDetector').get_overlapping_bodies()
       for i in collides:
         if i.has_method('hit'):
-          i.hit(delta, false, false)
+          i.hit(false, false)
     
     if not flyingDown:
       if mario.velocity.y > 250:

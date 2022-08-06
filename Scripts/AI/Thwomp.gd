@@ -63,7 +63,7 @@ func _ai_process(delta: float) -> void:
     for i in range(len(g_overlaps)):
       if g_overlaps[i].has_method('hit'):
         if ('ignore hidden' in owner.vars and owner.vars['ignore hidden']) && !g_overlaps[i].visible: return
-        g_overlaps[i].hit(delta, true)
+        g_overlaps[i].hit(true)
         if g_overlaps[i].qtype == QBlock.BLOCK_TYPE.BRICK:
           hit_counter = 3
         

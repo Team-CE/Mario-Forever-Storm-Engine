@@ -52,7 +52,7 @@ func _process(delta) -> void:
         skip_frame = true
 
       if 'qtype' in overlaps[i]:
-        overlaps[i].hit(delta)
+        overlaps[i].hit()
   if overlaps.size() == 0:
     skip_frame = false
 

@@ -200,7 +200,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = nu
       else:
         csound.play()
       animated_sprite.set_animation('dead')
-      get_parent().add_child(ScoreText.new(score, position))
+      Global.current_scene.add_child(ScoreText.new(score, global_position))
       time = get_tree().create_timer(4.0, false)
       time.connect('timeout', self, 'instance_free')
     DEATH_TYPE.DISAPPEAR:
@@ -216,7 +216,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = nu
         score_mp = 0
       if score_mp == 6:
         Global.add_lives(1, false)
-      get_parent().add_child(ScoreText.new(score * multiplier_scores[score_mp], position))
+      Global.current_scene.add_child(ScoreText.new(score * multiplier_scores[score_mp], global_position))
       z_index = 10
       velocity.y = -180
       rotation = Global.Mario.rotation
@@ -249,7 +249,7 @@ func freeze() -> void:
     
   get_node('ice1').play()
   
-  get_parent().add_child(ScoreText.new(score, position))
+  Global.current_scene.add_child(ScoreText.new(score, global_position))
   
   frozen = true
   collision_layer = 3

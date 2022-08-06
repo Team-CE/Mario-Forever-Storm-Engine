@@ -242,7 +242,7 @@ func _process_alive(delta) -> void:
     var collisions = $TopDetector.get_overlapping_bodies()
     for collider in collisions:
       if collider.has_method('hit'):
-        collider.hit(delta)
+        collider.hit()
 
   vertical_correction(5) # Corner correction like in original Mario games
   horizontal_correction(10) # One tile gap runover ability
@@ -484,7 +484,7 @@ func controls(delta) -> void:
     var collisions = $TopDetector.get_overlapping_bodies()
     for collider in collisions:
       if collider.has_method('hit'):
-        collider.hit(delta)
+        collider.hit()
     
     var left_collide: bool = test_move(Transform2D(rotation, position + Vector2(-16, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
     var right_collide: bool = test_move(Transform2D(rotation, position + Vector2(16, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))

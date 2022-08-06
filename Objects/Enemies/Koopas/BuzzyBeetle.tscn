@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scripts/AI/BuzzyBeetle.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=2]
 [ext_resource path="res://GFX/Enemies/buzzybeetle.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/Bonuses/bump.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=7]
 [ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=8]
@@ -116,6 +117,11 @@ bus = "Sounds"
 
 [node name="Stomp" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
+bus = "Sounds"
+
+[node name="bump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+max_distance = 640.0
 bus = "Sounds"
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]

@@ -51,6 +51,7 @@ func _ai_process(delta: float) -> void:
           owner.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           b.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           return
+        if b.invincible: return
         b.kill(AliveObject.DEATH_TYPE.FALL, score_mp, null, null, true)
         if score_mp < 6:
           score_mp += 1
@@ -60,7 +61,7 @@ func _ai_process(delta: float) -> void:
   for b in owner.get_node('QBlockZone').get_overlapping_bodies():
     if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
       if b is QBlock and b.active:
-        b.hit(1, true)
+        b.hit(true)
         owner.turn()
         turn_if_no_break = false
   
@@ -90,6 +91,7 @@ func _ai_process(delta: float) -> void:
       owner.get_node('QBlockZone').get_child(0).disabled = false
       score_mp = 0
       to_moving_shell(false)
+      owner.get_node('bump').play()
       owner.get_parent().add_child(Explosion.new(owner.position + Vector2(0, -16)))
     
 

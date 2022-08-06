@@ -89,7 +89,7 @@ func _process_active(_delta) -> void:
 
   $Body.visible = visible
 
-func hit(_delta = 0, _a = false, _b = false) -> void:
+func hit(_a = false, _b = false) -> void:
   if not active or Block: return
   active = false
   triggered = true

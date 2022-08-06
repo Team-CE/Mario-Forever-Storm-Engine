@@ -49,7 +49,7 @@ func _process(delta) -> void:
         skip_frame = true
 
       if overlaps[i] is QBlock:
-        overlaps[i].hit(delta, true)
+        overlaps[i].hit(true, false)
   if overlaps.size() == 0:
     skip_frame = false
   
