@@ -377,7 +377,7 @@ func movement_swimming(delta) -> void:
   elif velocity.y > 165:
     velocity.y = 165
   
-  if Input.is_action_just_pressed('mario_jump') and !crouch and !Input.is_action_pressed('mario_crouch'):
+  if Input.is_action_just_pressed('mario_jump') and !crouch and !Input.is_action_pressed('mario_crouch') and controls_enabled:
     jump()
     
   if !Global.is_mario_collide_area_group('InsideDetector', 'Water'):

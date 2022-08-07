@@ -22,5 +22,5 @@ func _process(delta):
   counter += 1 * Global.get_delta(delta)
   if counter > 300:
     $AnimatedSprite.visible = int(counter / 2) % 2 == 0
-  if counter > 420:
+  if counter > 400:
     queue_free()

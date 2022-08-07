@@ -4,17 +4,19 @@ var approach_counter: float = 0
 var timer: float = 0
 var moving_up: bool = false
 var move_to: Vector2
+var limit_top: float
+
 var rng = RandomNumberGenerator.new()
 
 func _ready_mixin() -> void:
   owner.velocity_enabled = false
   owner.death_type = AliveObject.DEATH_TYPE.FALL
   rng.randomize()
-
-  var children = owner.get_parent().get_children()
-  for node in range(len(children)):
-    if 'AI' in children[node]:
-      owner.add_collision_exception_with(children[node])
+  
+  if 'limit_top' in owner.vars:
+    limit_top = owner.vars['limit_top']
+  else:
+    limit_top = Global.Mario.get_node('Camera').limit_top + 96
 
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)
@@ -34,7 +36,7 @@ func _ai_process(delta:float) -> void:
   if approach_counter >= 0:
     owner.animated_sprite.frame = 0
   
-  if (owner.position.y > Global.Mario.position.y - 48 and owner.position.y > Global.Mario.get_node('Camera').limit_top + 96) and approach_counter == 0:
+  if (owner.position.y > Global.Mario.position.y - 48 and owner.position.y > limit_top) and approach_counter == 0:
     moving_up = true
     move_to = owner.position
     tween.interpolate_property(owner, 'position',
@@ -42,8 +44,8 @@ func _ai_process(delta:float) -> void:
       Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
     tween.start()
     tween.seek(0.1)
-  if owner.position.y < Global.Mario.get_node('Camera').limit_top + 96 and moving_up:
-    approach_counter = 25
+  if owner.position.y < limit_top and moving_up:
+    approach_counter = 32
     owner.position.y += 1
   
   if timer < 8:
@@ -57,14 +59,14 @@ func _ai_process(delta:float) -> void:
   if moving_up:
     approach_counter += 1 * Global.get_delta(delta)
     
-    if approach_counter > 24:
+    if approach_counter > 32:
       moving_up = false
       owner.animated_sprite.frame = 1
-      approach_counter = -20
+      approach_counter = -24
       tween.stop_all()
       
   else:
-    owner.position.y += 2 * Global.get_delta(delta)
+    owner.position.y += 1.5 * Global.get_delta(delta)
     if approach_counter < 0:
       approach_counter += 1 * Global.get_delta(delta)
     elif approach_counter > 0 and approach_counter < 0.99:

@@ -1,5 +1,10 @@
 extends Brain
 
+func _setup(b) -> void:
+  ._setup(b)
+  if owner.dir == 1:
+    owner.animated_sprite.flip_h = owner.dir < 0
+
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)
   if !owner.alive:

@@ -35,10 +35,13 @@ animations = [ {
 } ]
 
 [node name="Blooper" type="KinematicBody2D" groups=["Enemy"]]
+z_index = 2
+collision_layer = 0
 script = ExtResource( 1 )
 vars = {
 "bounce": 9,
 "can_stomp": false,
+"limit_top": 96.0,
 "speed": 50.0
 }
 AI = ExtResource( 4 )
@@ -71,3 +74,5 @@ process_parent = true
 physics_process_parent = true
 
 [node name="Tween" type="Tween" parent="."]
+playback_speed = 0.8
+playback/speed = 0.8

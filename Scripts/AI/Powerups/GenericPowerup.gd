@@ -84,7 +84,7 @@ func _ai_process(delta: float) -> void:
         owner.queue_free()
       elif 'set lives' in owner.vars:
         Global.lives = owner.vars['set lives']
-    elif 'custom action' in owner.vars:
+    elif 'custom action' in owner.vars and appear_counter > 10:
       var action_class = owner.vars['custom action'].new()
       if !owner.death_signal_exception: owner.emit_signal('enemy_died')
       action_class.do_action(self)

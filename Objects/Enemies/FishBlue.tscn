@@ -5,7 +5,7 @@
 [ext_resource path="res://Scripts/AI/FishBlue.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15, 15 )
+extents = Vector2( 14, 14 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -24,6 +24,7 @@ animations = [ {
 } ]
 
 [node name="Blue Fish" type="KinematicBody2D" groups=["Enemy"]]
+collision_layer = 0
 script = ExtResource( 1 )
 vars = {
 "bounce": 9,
