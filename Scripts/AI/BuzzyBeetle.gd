@@ -12,7 +12,7 @@ func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
   if owner.vars['is shell']:
 # warning-ignore:standalone_ternary
-    to_stopped_shell() if owner.vars['stopped_shell'] else to_moving_shell()
+    to_stopped_shell() if owner.vars['stopped'] else to_moving_shell()
     
 func _setup(b)-> void:
   ._setup(b)
