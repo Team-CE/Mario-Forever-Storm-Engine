@@ -1,5 +1,7 @@
 extends Brain
 
+var is_shell: bool = false
+var stopped_shell: bool = false
 var shell_counter: float = 0
 var score_mp: int
 var upside_down_state: int = 0
@@ -10,7 +12,7 @@ func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
   if owner.vars['is shell']:
 # warning-ignore:standalone_ternary
-    to_stopped_shell() if owner.vars['stopped'] else to_moving_shell()
+    to_stopped_shell() if owner.vars['stopped_shell'] else to_moving_shell()
     
 func _setup(b)-> void:
   ._setup(b)
@@ -34,7 +36,7 @@ func _ai_process(delta: float) -> void:
   
   if !owner.frozen:
 # warning-ignore:incompatible_ternary
-    owner.velocity.x = (owner.vars['speed'] if !owner.vars['is shell'] else 0 if owner.vars['stopped'] else shell_speed) * owner.dir
+    owner.velocity.x = (owner.vars['speed'] if !is_shell else 0 if stopped_shell else shell_speed) * owner.dir
   else:
 #    if !on_freeze:
 #      on_freeze = true
@@ -47,9 +49,10 @@ func _ai_process(delta: float) -> void:
   var turn_if_no_break: bool = true
     
   for b in owner.get_node(owner.vars['kill zone']).get_overlapping_bodies():
-    if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
+    if is_shell && !stopped_shell && abs(owner.velocity.x) > 0:
       if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
-        if 'is shell' in b.vars and 'stopped' in b.vars and !b.vars['stopped'] and b.vars['is shell'] and !b.frozen:
+        var brain = b.get_node_or_null('Brain')
+        if is_instance_valid(brain) and 'stopped shell' in brain and !brain.stopped_shell and 'is shell' in brain and brain.is_shell and !b.frozen:
           owner.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           b.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           return
@@ -61,7 +64,7 @@ func _ai_process(delta: float) -> void:
           score_mp = 0
           
   for b in owner.get_node('QBlockZone').get_overlapping_bodies():
-    if owner.vars['is shell'] && !owner.vars['stopped'] && abs(owner.velocity.x) > 0:
+    if is_shell && !stopped_shell && abs(owner.velocity.x) > 0:
       if b is QBlock and b.active:
         b.hit(true)
         owner.turn()
@@ -101,7 +104,7 @@ func _ai_process(delta: float) -> void:
     shell_counter += 1 * Global.get_delta(delta)
     
   if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 && shell_counter >= 11 and upside_down_state != 1: 
-    if !owner.vars['is shell']:
+    if !is_shell:
       owner.get_parent().add_child(ScoreText.new(100, owner.position))
       to_stopped_shell()
     
@@ -110,7 +113,7 @@ func _ai_process(delta: float) -> void:
         Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
       else:
         Global.Mario.velocity.y = -owner.vars['bounce'] * 50
-    elif owner.vars['is shell'] && !owner.vars['stopped']: #Stops the shell
+    elif is_shell && !stopped_shell: #Stops the shell
       owner.get_parent().add_child(ScoreText.new(100, owner.position))
       to_stopped_shell()
       if upside_down_state == 2: upside_down_state = 3
@@ -120,11 +123,11 @@ func _ai_process(delta: float) -> void:
         Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
       else:
         Global.Mario.velocity.y = -owner.vars['bounce'] * 50
-  elif is_mario_collide('InsideDetector') and !owner.vars['stopped'] and shell_counter >= 31:
+  elif is_mario_collide('InsideDetector') and !stopped_shell and shell_counter >= 31:
     Global._ppd()
     
   if is_mario_collide('InsideDetector'):
-    if owner.vars['stopped'] && owner.vars['is shell'] && shell_counter >= 11:
+    if stopped_shell && is_shell && shell_counter >= 11:
       to_moving_shell()
       owner.dir = -1 if Global.Mario.position.x > owner.position.x else 1
       owner.alt_sound.pitch_scale = 0.9
@@ -139,17 +142,17 @@ func to_stopped_shell() -> void:
   owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
   owner.get_node('QBlockZone').get_child(0).disabled = false
   shell_counter = 0
-  owner.vars['is shell'] = true
+  is_shell = true
   score_mp = 0
-  owner.vars['stopped'] = true
+  stopped_shell = true
   owner.animated_sprite.animation = 'shell stopped'
   owner.get_node('VisibilityEnabler2D').rect = Rect2( -16, -32, 32, 32 )
   if !owner.death_signal_exception: owner.emit_signal('enemy_died')
   shell_speed = owner.vars['shell speed']
 
 func to_moving_shell(reset_counter: bool = true) -> void:
-  owner.vars['is shell'] = true
-  owner.vars['stopped'] = false
+  is_shell = true
+  stopped_shell = false
   owner.animated_sprite.animation = 'shell moving'
   owner.get_node('VisibilityEnabler2D').rect = Rect2( -480, -192, 960, 320 )
   

@@ -31,10 +31,13 @@ animations = [ {
 extents = Vector2( 15, 15 )
 
 [node name="PiranhaHead" type="Area2D"]
+collision_layer = 0
+monitorable = false
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 

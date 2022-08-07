@@ -99,7 +99,6 @@ animations = [ {
 extents = Vector2( 16, 16 )
 
 [node name="EmalpkaBeetle" instance=ExtResource( 1 )]
-collision_layer = 0
 moving_platform_apply_velocity_on_leave = 2
 vars = {
 "bounce": 9.0,

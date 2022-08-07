@@ -38,11 +38,11 @@ script/source = "func _process_camera(owner, _delta) -> void:
   owner.sections_scroll = owner.position.y > 0
 "
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=5]
 colors = PoolColorArray( 0.105882, 0, 0.733333, 1, 0.94902, 0.992157, 0.988235, 1 )
 
 [sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+gradient = SubResource( 5 )
 width = 640
 
 [sub_resource type="RectangleShape2D" id=1]
