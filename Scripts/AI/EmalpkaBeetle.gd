@@ -10,6 +10,9 @@ var inv_counter: float = 0
 var initial_pos: Vector2
 var inited_throwable
 
+var hide_timer: float = 0
+var beetle_scene: PackedScene = preload('res://Objects/Enemies/Koopas/BuzzyBeetle.tscn')
+
 var rng: RandomNumberGenerator
 
 func _ready_mixin() -> void:
@@ -28,11 +31,18 @@ func _ai_process(delta: float) -> void:
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
   if owner.frozen:
-    owner.get_node('Collision2').disabled = false
     owner.get_node('CollisionShape2D').disabled = true
-#    if !on_freeze:
-#      on_freeze = true
-#      owner.velocity.x = 0
+    if !on_freeze:
+      on_freeze = true
+      if 'holding' in owner.animated_sprite.animation:
+        owner.animated_sprite.animation = 'walk'
+      elif owner.animated_sprite.animation == 'hide' and owner.animated_sprite.frame == 1:
+        owner.get_node('Collision3').disabled = false
+        owner.frozen_sprite.animation = 'small'
+        owner.frozen_sprite.position.y = -16
+        return
+      
+      owner.get_node('Collision2').disabled = false
     owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
     return
   
@@ -50,9 +60,12 @@ func _ai_process(delta: float) -> void:
   else:
     counter = 0
 # warning-ignore:narrowing_conversion
-    move_multiplier = round(rng.randf_range(-4, 14) / 10)
+    if hide_timer == 0:
+      move_multiplier = round(rng.randf_range(-4, 14) / 10)
     if rand_range(1, 11) > 10 and owner.is_on_floor():
       owner.velocity.y = -400
+    if hide_timer == 0 and not throw_activated and rand_range(1, 7) > 6:
+      hide()
   
   if counter_t < 30:
     counter_t += 1 * Global.get_delta(delta)
@@ -67,21 +80,37 @@ func _ai_process(delta: float) -> void:
       throw_activated = false
       inited_throwable.throw(self)
       
-    if rand_range(1, 18) > 9 and !throw_was_activated:
+    if hide_timer == 0 and rand_range(1, 18) > 9 and !throw_was_activated:
       throw_activated = true
-      owner.animated_sprite.animation = 'holding'
-      
+      owner.animated_sprite.animation = 'holding shell' if owner.vars['shell_launch'] else 'holding'
+  
+  # Hiding from fireballs
+  beetle_logic()
+  
+  if hide_timer > 0.1:
+    hide_timer += 1 * Global.get_delta(delta)
+    if hide_timer > 40:
+      owner.animated_sprite.animation = 'show'
+    if hide_timer > 50:
+      hide_timer = 0
+      owner.animated_sprite.play('walk')
+  
   if abs((initial_pos - owner.position).x) > 70:
     owner.turn()
-    
+  
   owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
   
   if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 && inv_counter >= 11:
-    owner.kill(AliveObject.DEATH_TYPE.FALL, 0, owner.sound)
+    var beetle = beetle_scene.instance()
+    owner.get_parent().add_child(beetle)
+    beetle.vars = beetle.vars.duplicate(false)
+    beetle.get_node('Brain').to_stopped_shell()
+    beetle.global_position = owner.global_position
     if Input.is_action_pressed('mario_jump'):
       Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
     else:
       Global.Mario.velocity.y = -owner.vars["bounce"] * 50
+    owner.kill(AliveObject.DEATH_TYPE.BASIC, 0, owner.sound)
   elif on_mario_collide('InsideDetector') && inv_counter >= 21:
     Global._ppd()
     
@@ -90,4 +119,16 @@ func _ai_process(delta: float) -> void:
     if 'triggered' in g_overlaps[i] and g_overlaps[i].triggered:
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
   
-  
+func hide() -> void:
+  hide_timer = 1
+  owner.animated_sprite.play('hide')
+  move_multiplier = 0
+
+func beetle_logic() -> void:
+  for i in get_tree().get_nodes_in_group('Projectile'):
+    if 'Fireball' in i.name or 'Iceball' in i.name:
+      if i.global_position.x > owner.global_position.x - 128 and i.global_position.x < owner.global_position.x + 128:
+        throw_activated = false
+        if hide_timer == 0 or hide_timer > 40:
+          hide()
+        hide_timer = 1

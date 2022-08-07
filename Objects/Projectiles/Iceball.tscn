@@ -10,7 +10,7 @@ extents = Vector2( 3, 6 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 8 )
 
-[node name="Iceball" type="KinematicBody2D"]
+[node name="Iceball" type="KinematicBody2D" groups=["Projectile"]]
 z_index = 9
 script = ExtResource( 2 )
 

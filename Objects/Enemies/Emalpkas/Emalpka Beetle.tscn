@@ -1,0 +1,122 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Hammer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GFX/Enemies/emalpkametalHam.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Enemies/emalpkametal.png" type="Texture" id=3]
+[ext_resource path="res://GFX/Enemies/emalpkametalShell.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/AI/EmalpkaBeetle.gd" type="Script" id=5]
+[ext_resource path="res://GFX/Enemies/emalpkametalcrouch.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/AI/ThrowFunctions/Hammer.gd" type="Script" id=9]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 6 )
+region = Rect2( 48, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 53, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 4 )
+region = Rect2( 53, 0, 53, 64 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 6 )
+region = Rect2( 96, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 0, 48, 64 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ) ],
+"loop": false,
+"name": "hide",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "holding",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "holding shell",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"loop": false,
+"name": "show",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 16, 16 )
+
+[node name="EmalpkaBeetle" instance=ExtResource( 1 )]
+collision_layer = 0
+moving_platform_apply_velocity_on_leave = 2
+vars = {
+"bounce": 9.0,
+"shell_launch": false,
+"speed": 100.0,
+"throw_script": ExtResource( 9 )
+}
+AI = ExtResource( 5 )
+invincible_for_projectiles = [ "Fireball" ]
+
+[node name="AnimatedSprite" parent="." index="0"]
+position = Vector2( 0, 0 )
+frames = SubResource( 8 )
+offset = Vector2( 0, -32 )
+
+[node name="Collision3" type="CollisionShape2D" parent="." index="9"]
+visible = false
+position = Vector2( 0, -16 )
+shape = SubResource( 15 )
+disabled = true

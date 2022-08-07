@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 16 )
 
-[node name="Beetroot" type="Area2D"]
+[node name="Beetroot" type="Area2D" groups=["Projectile"]]
 z_index = 1
 script = ExtResource( 2 )
 

@@ -17,10 +17,6 @@ region = Rect2( 0, 0, 32, 47 )
 atlas = ExtResource( 1 )
 region = Rect2( 32, 0, 32, 47 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 4 )
-region = Rect2( 99, 0, 33, 47 )
-
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 33, 47 )
@@ -37,16 +33,20 @@ region = Rect2( 66, 0, 33, 47 )
 atlas = ExtResource( 4 )
 region = Rect2( 99, 0, 33, 47 )
 
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 4 )
+region = Rect2( 99, 0, 33, 47 )
+
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
@@ -54,15 +54,15 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 8 ) ],
-"loop": true,
-"name": "shell stopped",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 8 ) ],
+"loop": true,
+"name": "shell stopped",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -100,6 +100,7 @@ frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 9 )
+frame = 1
 playing = true
 offset = Vector2( 0, -23 )
 flip_h = true

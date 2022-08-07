@@ -4,6 +4,7 @@ var shell_counter: float = 0
 var score_mp: int
 var upside_down_state: int = 0
 var on_freeze: bool = false
+var shell_speed: float = 0
 
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
@@ -32,7 +33,8 @@ func _ai_process(delta: float) -> void:
     return
   
   if !owner.frozen:
-    owner.velocity.x = (owner.vars['speed'] if !owner.vars['is shell'] else 0 if owner.vars['stopped'] else owner.vars['shell speed'] if upside_down_state != 2 else owner.vars['upside down shell speed']) * owner.dir
+# warning-ignore:incompatible_ternary
+    owner.velocity.x = (owner.vars['speed'] if !owner.vars['is shell'] else 0 if owner.vars['stopped'] else shell_speed) * owner.dir
   else:
 #    if !on_freeze:
 #      on_freeze = true
@@ -143,6 +145,7 @@ func to_stopped_shell() -> void:
   owner.animated_sprite.animation = 'shell stopped'
   owner.get_node('VisibilityEnabler2D').rect = Rect2( -16, -32, 32, 32 )
   if !owner.death_signal_exception: owner.emit_signal('enemy_died')
+  shell_speed = owner.vars['shell speed']
 
 func to_moving_shell(reset_counter: bool = true) -> void:
   owner.vars['is shell'] = true
@@ -153,3 +156,6 @@ func to_moving_shell(reset_counter: bool = true) -> void:
   if reset_counter:
     shell_counter = 0
     owner.animated_sprite.speed_scale = 1
+  else:
+    shell_counter = 40
+    shell_speed = owner.vars['upside down shell speed']

@@ -216,7 +216,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = nu
         score_mp = 0
       if score_mp == 6:
         Global.add_lives(1, false)
-      Global.current_scene.add_child(ScoreText.new(score * multiplier_scores[score_mp], global_position))
+      Global.current_scene.add_child(ScoreText.new((score if !is_shell else 100) * multiplier_scores[score_mp], global_position))
       z_index = 10
       velocity.y = -180
       rotation = Global.Mario.rotation

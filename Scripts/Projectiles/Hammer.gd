@@ -25,7 +25,7 @@ func _process(delta) -> void:
       if i.is_in_group('Enemy') and i.has_method('kill'):
         i.kill(AliveObject.DEATH_TYPE.FALL, 0, null, self.name)
         
-  if belongs != 0 and is_mario_collide('InsideDetector'):
+  if belongs != 0 and Global.is_mario_collide('InsideDetector', $CollisionArea):
     Global._ppd()
 
   velocity.y += 0.33 * gravity_scale * Global.get_delta(delta)
@@ -34,10 +34,6 @@ func _process(delta) -> void:
   
   $Sprite.rotation_degrees += 6 * (-1 if velocity.x < 0 else 1) * Global.get_delta(delta)
   $Sprite.flip_h = velocity.x < 0
-  
-func is_mario_collide(_detector_name: String) -> bool:
-  var collisions = Global.Mario.get_node(_detector_name).get_overlapping_areas()
-  return collisions && collisions.has($CollisionArea)
 
 func _on_screen_exited() -> void:
   queue_free()

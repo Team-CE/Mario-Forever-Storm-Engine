@@ -2,6 +2,7 @@
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Platforms/AmazingHammerBroPlatform.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/AI/AmazingHammerBro.gd" type="Script" id=3]
 [ext_resource path="res://GFX/Platforms/AmazingBroPlat.png" type="Texture" id=4]
 [ext_resource path="res://GFX/Enemies/AmazingBro.png" type="Texture" id=5]
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=6]
@@ -26,53 +27,6 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 32, 16 )
-
-[sub_resource type="GDScript" id=12]
-script/source = "extends Brain
-
-var projectile: PackedScene
-var timer: float = 0
-
-func _ready_mixin():
-  owner.velocity_enabled = false
-  owner.death_type = AliveObject.DEATH_TYPE.FALL
-
-func _ai_process(delta):
-  ._ai_process(delta)
-  if owner.frozen:
-    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
-    return
-    
-  if !owner.alive:
-    owner.velocity.y += Global.gravity * 0.6 * Global.get_delta(delta)
-    owner.velocity_enabled = true
-    return
-  
-  timer += 1 * Global.get_delta(delta)
-  if timer >= 25:
-    timer = 0
-    owner.animated_sprite.flip_h = !owner.animated_sprite.flip_h
-# warning-ignore:return_value_discarded
-    var proj = projectile.instance()
-    proj.velocity = Vector2(-4, -1) if owner.animated_sprite.flip_h else Vector2(4, -1)
-    proj.belongs = 1
-    Global.current_scene.add_child(proj)
-    proj.global_position = owner.global_position + (Vector2(-20, -16) if owner.animated_sprite.flip_h else Vector2(20, -16))
-
-  if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0:
-    owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
-    if Input.is_action_pressed('mario_jump'):
-      Global.Mario.velocity.y = -(owner.vars[\"bounce\"] + 5) * 50
-    else:
-      Global.Mario.velocity.y = -owner.vars[\"bounce\"] * 50
-  elif on_mario_collide('InsideDetector'):
-    Global._ppd()
-    
-  var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
-  for i in g_overlaps:
-    if 'triggered' in i and i.triggered:
-      owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
-"
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
@@ -111,6 +65,7 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicPlatform"]
 frames = SubResource( 4 )
+frame = 1
 playing = true
 
 [node name="Collision" type="CollisionShape2D" parent="KinematicPlatform"]
@@ -132,7 +87,7 @@ vars = {
 "bounce": 9,
 "speed": 0.0
 }
-AI = SubResource( 12 )
+AI = ExtResource( 3 )
 gravity_scale = 0.0
 score = 200
 dir = 0.0

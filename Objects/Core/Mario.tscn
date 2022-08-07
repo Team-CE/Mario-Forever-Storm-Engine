@@ -106,6 +106,9 @@ collision_layer = 0
 collision_mask = 18
 moving_platform_apply_velocity_on_leave = 1
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_pinned_properties_": [ "powerup_animations", "powerup_scripts" ]
+}
 powerup_animations = {
 0: ExtResource( 1 ),
 1: ExtResource( 6 ),

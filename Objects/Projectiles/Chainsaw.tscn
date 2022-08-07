@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 14, 14 )
 
-[node name="Chainsaw" type="KinematicBody2D"]
+[node name="Chainsaw" type="KinematicBody2D" groups=["Projectile"]]
 z_index = 9
 script = ExtResource( 2 )
 
