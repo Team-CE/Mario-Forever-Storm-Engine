@@ -38,10 +38,6 @@ func _ready():
       mpStar.volume_db = 0
       AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
     
-    if Global.scroll > 0:
-      var cam = Global.current_camera as Camera2D
-      cam.smoothing_enabled = true
-      cam.smoothing_speed = 10
     if !Global.effects:
       $WorldEnvironment.environment.glow_enabled = false
     if Global.quality < 2:
@@ -71,6 +67,14 @@ func _ready():
     if is_instance_valid(get_node_or_null('/root/fadeout')):
       get_node('/root/fadeout').call_deferred('queue_free')
     Global.reset_audio_effects()
+
+    if Global.scroll > 0:
+      yield(get_tree(), 'idle_frame')
+      var cam = Global.current_camera as Camera2D
+      if !cam: return
+      cam.smoothing_enabled = true
+      cam.smoothing_speed = 10
+    
     print('[Level]: Ready!')
   elif not get_node_or_null('Mario'):
     worldEnv = setup_worldenv()

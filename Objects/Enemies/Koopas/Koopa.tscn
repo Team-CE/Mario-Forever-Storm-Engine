@@ -141,6 +141,7 @@ shape = SubResource( 11 )
 visible = false
 show_behind_parent = true
 collision_layer = 0
+collision_mask = 33
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="KillZone"]
 modulate = Color( 1, 0.419608, 0.419608, 1 )

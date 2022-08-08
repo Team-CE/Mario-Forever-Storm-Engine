@@ -11,6 +11,7 @@ z_index = 9
 script = ExtResource( 2 )
 
 [node name="CollisionArea" type="Area2D" parent="."]
+collision_mask = 33
 
 [node name="Collision" type="CollisionShape2D" parent="CollisionArea"]
 shape = SubResource( 2 )

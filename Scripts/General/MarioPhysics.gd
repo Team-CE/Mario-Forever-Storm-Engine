@@ -378,6 +378,12 @@ func movement_swimming(delta) -> void:
   if Input.is_action_just_pressed('mario_jump') and !crouch and !Input.is_action_pressed('mario_crouch') and controls_enabled:
     jump()
     
+  # Start climbing
+  if Input.is_action_pressed('mario_up') || (Input.is_action_pressed('mario_crouch') && !is_on_floor()) and controls_enabled:
+    if crouch || !is_over_vine(): return
+    if movement_type == Movement.SWIMMING:
+      movement_type = Movement.CLIMBING
+  
   if !Global.is_mario_collide_area_group('InsideDetector', 'Water'):
     movement_type = Movement.DEFAULT
 
@@ -387,7 +393,7 @@ func movement_climbing(delta) -> void:
   if animation_enabled: animate_climbing(delta)
   
   if !is_over_vine():
-    movement_type = Movement.DEFAULT
+    movement_type = Movement.DEFAULT if !Global.is_mario_collide_area_group('InsideDetector', 'Water') else Movement.SWIMMING
     
 func is_over_vine() -> bool:
   var overlaps = get_node('InsideDetector').get_overlapping_areas()

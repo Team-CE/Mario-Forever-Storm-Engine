@@ -331,6 +331,7 @@ zoom_out={
 2d_physics/layer_2="Tilemap"
 2d_physics/layer_3="MarioBottomDetector"
 2d_physics/layer_5="Mario"
+2d_physics/layer_6="EnemyKill"
 
 [physics]
 

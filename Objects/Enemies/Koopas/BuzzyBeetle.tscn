@@ -102,6 +102,7 @@ frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 21 )
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
@@ -140,6 +141,8 @@ shape = SubResource( 11 )
 [node name="KillZone" type="Area2D" parent="."]
 visible = false
 show_behind_parent = true
+collision_layer = 0
+collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2( 0, -16 )
@@ -148,6 +151,7 @@ disabled = true
 
 [node name="QBlockZone" type="Area2D" parent="."]
 visible = false
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QBlockZone"]
 position = Vector2( 0, -16 )
