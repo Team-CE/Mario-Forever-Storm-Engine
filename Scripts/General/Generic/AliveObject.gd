@@ -132,8 +132,10 @@ func _physics_process(delta:float) -> void:
   
   brain._ai_process(delta) #Calling brain cells
   
-  if is_instance_valid(Global.Mario):
-    if auto_destroy and (position.y > Global.Mario.get_node('Camera').limit_bottom + 32 and position.y < Global.Mario.get_node('Camera').limit_bottom + 200):
+  var camera = Global.current_camera
+  
+  if camera:
+    if auto_destroy and (position.y > camera.limit_bottom + 32 and position.y < camera.limit_bottom + 200):
       queue_free()
   # Fixing ceiling collision and is_on_floor() flickering
   if (is_on_floor() || is_on_ceiling()) && alive && velocity.y >= 0:

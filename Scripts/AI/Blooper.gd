@@ -4,7 +4,7 @@ var approach_counter: float = 0
 var timer: float = 0
 var moving_up: bool = false
 var move_to: Vector2
-var limit_top: float
+var limit_top: float = 0
 
 var rng = RandomNumberGenerator.new()
 
@@ -13,10 +13,13 @@ func _ready_mixin() -> void:
   owner.death_type = AliveObject.DEATH_TYPE.FALL
   rng.randomize()
   
+  yield(owner.get_tree(), 'idle_frame')
+  var camera = Global.current_camera
+  
   if 'limit_top' in owner.vars:
     limit_top = owner.vars['limit_top']
-  else:
-    limit_top = Global.Mario.get_node('Camera').limit_top + 96
+  elif camera:
+    limit_top = camera.limit_top + 96
 
 func _ai_process(delta:float) -> void:
   ._ai_process(delta)

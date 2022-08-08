@@ -52,7 +52,7 @@ func _ai_process(delta: float) -> void:
     if is_shell && !stopped_shell && abs(owner.velocity.x) > 0:
       if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
         var brain = b.get_node_or_null('Brain')
-        if is_instance_valid(brain) and 'stopped shell' in brain and !brain.stopped_shell and 'is shell' in brain and brain.is_shell and !b.frozen:
+        if is_instance_valid(brain) and 'stopped_shell' in brain and !brain.stopped_shell and 'is_shell' in brain and brain.is_shell and !b.frozen:
           owner.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           b.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
           return

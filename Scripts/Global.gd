@@ -34,6 +34,7 @@ var gravity: float = 20                      # Global gravity
 
 var HUD: CanvasLayer                         # ref HUD
 var Mario: Node2D                            # ref Mario
+var current_camera: Camera2D setget ,get_current_camera # ref current camera
 
 signal TimeTick                              # Called when time ticks
 signal OnPlayerLoseLife                      # Called when the player dies
@@ -406,21 +407,38 @@ func is_mario_collide_area_group(_detector_name: String, group: String) -> bool:
   return has
  
 func is_getting_closer(pix: float, pos: Vector2) -> bool:
-  var camera = Mario.get_node_or_null('Camera')
   return (
-    pos.x > camera.get_camera_screen_center().x - 320 + pix and
-    pos.x < camera.get_camera_screen_center().x + 320 - pix and
-    pos.y > camera.get_camera_screen_center().y - 240 + pix and
-    pos.y < camera.get_camera_screen_center().y + 240 - pix
+    pos.x > current_camera.get_camera_screen_center().x - 320 + pix and
+    pos.x < current_camera.get_camera_screen_center().x + 320 - pix and
+    pos.y > current_camera.get_camera_screen_center().y - 240 + pix and
+    pos.y < current_camera.get_camera_screen_center().y + 240 - pix
   )
 
 func goto_scene(path: String):
   call_deferred('_deferred_goto_scene', path)
 
 func _deferred_goto_scene(path: String):
+  if current_camera:
+    current_camera.free()
+  current_camera = null
   current_scene.free()
   var s = ResourceLoader.load(path)
   assert(is_instance_valid(s), 'ERROR: Cannot go to invalid or empty scene!')
   current_scene = s.instance()
   get_node('/root/GlobalViewport/Viewport').add_child(current_scene)
+  
   #get_tree().set_current_scene(current_scene)
+
+func get_current_camera():
+  var viewport = get_node('/root/GlobalViewport/Viewport')
+  if not viewport:
+    return null
+  if is_instance_valid(current_camera) and current_camera.current:
+    return current_camera
+  var camerasGroupName = "__cameras_%d" % viewport.get_viewport_rid().get_id()
+  var cameras = get_tree().get_nodes_in_group(camerasGroupName)
+  for camera in cameras:
+    if camera is Camera2D and camera.current: 
+      current_camera = camera
+      return camera
+  return null

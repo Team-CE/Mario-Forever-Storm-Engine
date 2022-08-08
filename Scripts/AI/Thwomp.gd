@@ -10,6 +10,8 @@ var is_smiling: bool = false
 var smile_counter: float = 0
 var laugh: bool = true
 
+var camera: Camera2D
+
 var initial_pos: Vector2
 var offset: Vector2
 
@@ -17,6 +19,8 @@ func _setup(b) -> void:
   ._setup(b)
   initial_pos = owner.position
   owner.get_node('CollisionShape2D').disabled = true
+  yield(owner.get_tree(), 'idle_frame')
+  camera = Global.current_camera
 
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)
@@ -69,13 +73,14 @@ func _ai_process(delta: float) -> void:
         
   if hit_counter > 0:
     hit_counter -= 1 * Global.get_delta(delta)
-    Global.Mario.get_node('Camera').set_offset(Vector2(
-      rand_range(-3.0, 3.0),
-      rand_range(-3.0, 3.0)
-    ))
+    if camera:
+      camera.set_offset(Vector2(
+        rand_range(-3.0, 3.0),
+        rand_range(-3.0, 3.0)
+      ))
     
   if hit_counter <= 0 and hit_counter > -99:
-    Global.Mario.get_node('Camera').set_offset(Vector2(0, 0))
+    if camera: camera.set_offset(Vector2(0, 0))
     hit_counter = -99
 
   var area_overlaps = owner.get_node('Area2D').get_overlapping_bodies()

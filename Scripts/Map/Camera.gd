@@ -1,8 +1,10 @@
-func _process_camera(owner, delta: float) -> void:
+func _process_camera(_owner, delta: float) -> void:
   if !Global.current_scene.stopped or Global.current_scene.fading_out:
     return
 
-  var cam = owner.get_node('Camera')
+  var cam = Global.current_camera
+  if !cam: return
+  
   if Input.is_action_pressed('mario_right'):
     cam.global_position.x += 5 + (int(Input.is_action_pressed('mario_fire')) * 5) * Global.get_delta(delta)
 

@@ -19,7 +19,7 @@ var is_lerping: bool = false
 var fading_out: bool = false
 var circle_size: float = 0.623
 
-onready var cam = Global.Mario.get_node('Camera')
+var cam
 onready var sprite = Global.Mario.get_node('Sprite')
 
 func _ready() -> void:
@@ -34,14 +34,20 @@ func _ready() -> void:
   if Global.levelID > 0:
     $MarioPath/PathFollow2D.offset = stop_points[Global.levelID - 1]
   
+  Global.call_deferred('reset_audio_effects')
+  Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+  
+  yield(get_tree(), 'idle_frame')
+  cam = Global.current_camera
+  if !cam: 
+    push_warning('Camera not found')
+    return
+  
   cam.limit_left = camera_left_limit
   cam.limit_right = camera_right_limit
   cam.limit_top = camera_top_limit
   cam.limit_bottom = camera_bottom_limit
   cam.smoothing_enabled = true
-  
-  Global.call_deferred('reset_audio_effects')
-  Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _process(delta: float) -> void:
   sprite.animation = 'Walking'

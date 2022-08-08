@@ -37,11 +37,11 @@ func _ready():
       mpStar.stop()
       mpStar.volume_db = 0
       AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
-  
-    var mario_cam = $Mario/Camera as Camera2D
+    
     if Global.scroll > 0:
-      mario_cam.smoothing_enabled = true
-      mario_cam.smoothing_speed = 10
+      var cam = Global.current_camera as Camera2D
+      cam.smoothing_enabled = true
+      cam.smoothing_speed = 10
     if !Global.effects:
       $WorldEnvironment.environment.glow_enabled = false
     if Global.quality < 2:

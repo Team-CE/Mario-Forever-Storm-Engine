@@ -1,6 +1,6 @@
 extends Brain
 
-var camera = Global.Mario.get_node('Camera')
+var camera: Camera2D
 
 var inited_throwable
 var inited_lakitu_addon
@@ -33,6 +33,9 @@ func _ready_mixin() -> void:
   
   if owner.vars['lakitu_addon']:
     inited_lakitu_addon = owner.vars['lakitu_addon'].new()
+  
+  yield(owner.get_tree(), 'idle_frame')
+  camera = Global.current_camera
   
 func _setup(b) -> void:
   ._setup(b)
@@ -86,7 +89,7 @@ func _ai_process(delta:float) -> void:
   
   owner.position.x += xspeed * Global.get_delta(delta)
   
-  if (!Global.Mario.dead and Global.Mario.position.x < camera.limit_right - owner.vars['px_before_leaving']):
+  if (!Global.Mario.dead and (camera and Global.Mario.position.x < camera.limit_right - owner.vars['px_before_leaving'])):
     if Global.is_getting_closer(-48, owner.position):
       throw_counter += 1 * Global.get_delta(delta)
     

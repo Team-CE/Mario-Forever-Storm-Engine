@@ -5,7 +5,8 @@ export var move_with_scroll: bool = false
 
 func _process(_delta):
   if move_with_scroll:
-    var cam = Global.Mario.get_node_or_null('Camera')
+    var cam = Global.current_camera
+    if !cam: return
     if position.x >= cam.limit_left and position.x <= cam.limit_right - 320:
       position.x = cam.get_camera_screen_center().x - 320
     if position.x < cam.limit_left:

@@ -25,7 +25,7 @@ func _process(delta) -> void:
       if i.is_in_group('Enemy') and i.has_method('kill'):
         i.kill(AliveObject.DEATH_TYPE.FALL, 0, null, self.name)
         
-  if belongs != 0 and Global.is_mario_collide('InsideDetector', $CollisionArea):
+  if belongs != 0 and Global.is_mario_collide_area('InsideDetector', $CollisionArea):
     Global._ppd()
 
   velocity.y += 0.33 * gravity_scale * Global.get_delta(delta)

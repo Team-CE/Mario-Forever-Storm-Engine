@@ -60,19 +60,15 @@ var faded: bool = false
 
 var gameovercont_node = load('res://Objects/Tools/PopupMenu/GameOver.tscn')
 
-onready var cam: Camera2D
-func get_camera() -> Camera2D:
-  return cam
-
-func change_camera_parent() -> void:
-  if cam.get_parent() != self:
-    get_tree().current_scene.remove_child(cam)
-    cam.set_owner(self)
-    add_child(cam)
-  else:
-    remove_child(cam)
-    cam.set_owner(get_tree().current_scene)
-    get_tree().current_scene.add_child(cam)
+#func change_camera_parent() -> void:
+#  if cam.get_parent() != self:
+#    Global.current_scene.remove_child(cam)
+#    cam.set_owner(self)
+#    add_child(cam)
+#  else:
+#    remove_child(cam)
+#    cam.set_owner(Global.current_scene)
+#    Global.current_scene.add_child(cam)
 
 func _ready() -> void:
   Global.Mario = self
@@ -219,17 +215,19 @@ func _process_alive(delta) -> void:
   if controls_enabled:
     controls(delta)
   
-  if position.y > $Camera.limit_bottom + 64 and controls_enabled:
-    if 'no_cliff' in get_parent() and get_parent().no_cliff:
+  var camera = Global.current_camera
+  
+  if camera and position.y > camera.limit_bottom + 64 and controls_enabled:
+    if 'no_cliff' in Global.current_scene and Global.current_scene.no_cliff:
       position.y -= 550
     else:
-      if 'sgr_scroll' in get_parent() and !get_parent().sgr_scroll:
+      if 'sgr_scroll' in Global.current_scene and !Global.current_scene.sgr_scroll:
         Global._pll()
       elif get_node_or_null('../StartWarp'):
         get_node('../StartWarp').active = true
         get_node('../StartWarp').counter = 61
       
-  if position.y < $Camera.limit_top - 64 and controls_enabled and 'no_cliff' in get_parent() and get_parent().no_cliff:
+  if camera and position.y < camera.limit_top - 64 and controls_enabled and 'no_cliff' in Global.current_scene and Global.current_scene.no_cliff:
     position.y += 570
 
   if top_collider_counter > 0:
@@ -878,19 +876,21 @@ func _process_debug_fly(delta: float) -> void:
 
 func _process_camera(delta: float) -> void:
   if dead: return
+  var camera = Global.current_camera
+  if !camera: return
   
   if sections_scroll:
     var base_y = floor((position.y + 240) / 960) * 960
-    $Camera.limit_top = base_y
-    $Camera.limit_bottom = base_y + 480
+    camera.limit_top = base_y
+    camera.limit_bottom = base_y + 480
   
   if inited_camera_addon and inited_camera_addon.has_method('_process_camera'):
     inited_camera_addon._process_camera(self, delta)
   
-  if 'sgr_scroll' in get_parent() and get_parent().sgr_scroll:
+  if 'sgr_scroll' in Global.current_scene and Global.current_scene.sgr_scroll:
     var base_x = floor(position.x / 640) * 640
-    $Camera.limit_left = base_x
-    $Camera.limit_right = base_x + 640
+    camera.limit_left = base_x
+    camera.limit_right = base_x + 640
     
 func _physics_process(delta: float) -> void:
   if inited_camera_addon and inited_camera_addon.has_method('_process_physics_camera'):
