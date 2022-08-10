@@ -115,7 +115,6 @@ frames = SubResource( 8 )
 offset = Vector2( 0, -32 )
 
 [node name="CollisionShape2D" parent="." index="1"]
-visible = true
 position = Vector2( 0, -16 )
 disabled = true
 

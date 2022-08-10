@@ -16,6 +16,8 @@ var dir: int = 1
 var active: bool = false
 var falling: bool = false
 var y_speed: float = 0
+var fall_position: Vector2
+var fall_bool: bool = false
 
 var skip_frame: bool = false
 
@@ -44,4 +46,9 @@ func movement(delta) -> void:
         
   if falling:
     y_speed += 0.2 * Global.get_delta(delta)
-    position += Vector2(0, y_speed).rotated(rotation) * Global.get_delta(delta)
+    if !fall_bool:
+      fall_bool = true
+      fall_position = position
+    fall_position += Vector2(0, y_speed).rotated(rotation) * Global.get_delta(delta)
+    position.y = fall_position.y
+    #position += Vector2(0, y_speed).rotated(rotation) * Global.get_delta(delta)

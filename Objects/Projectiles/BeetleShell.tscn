@@ -20,9 +20,9 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=4]
 
-[node name="BeetleShell" type="KinematicBody2D"]
+[node name="BeetleShell" type="KinematicBody2D" groups=["BeetleProjectile"]]
 position = Vector2( 0, -15 )
-collision_layer = 0
+collision_layer = 32
 collision_mask = 2
 script = ExtResource( 1 )
 

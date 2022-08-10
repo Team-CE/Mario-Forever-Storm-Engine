@@ -8,11 +8,18 @@ var upside_down_state: int = 0
 var on_freeze: bool = false
 var shell_speed: float = 0
 
+var kill_exceptions: Array
+
 func _ready_mixin():
   owner.death_type = AliveObject.DEATH_TYPE.NONE
   if owner.vars['is shell']:
 # warning-ignore:standalone_ternary
     to_stopped_shell() if owner.vars['stopped'] else to_moving_shell()
+  
+  yield(owner.get_tree(), 'idle_frame')
+  for n in kill_exceptions:
+    var inst = instance_from_id(n)
+    owner.add_collision_exception_with(inst)
     
 func _setup(b)-> void:
   ._setup(b)
@@ -51,6 +58,8 @@ func _ai_process(delta: float) -> void:
   for b in owner.get_node(owner.vars['kill zone']).get_overlapping_bodies():
     if is_shell && !stopped_shell && abs(owner.velocity.x) > 0:
       if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
+        if b.get_instance_id() in kill_exceptions:
+          return
         var brain = b.get_node_or_null('Brain')
         if is_instance_valid(brain) and 'stopped_shell' in brain and !brain.stopped_shell and 'is_shell' in brain and brain.is_shell and !b.frozen:
           owner.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
@@ -149,8 +158,11 @@ func to_stopped_shell() -> void:
   owner.get_node('VisibilityEnabler2D').rect = Rect2( -16, -32, 32, 32 )
   if !owner.death_signal_exception: owner.emit_signal('enemy_died')
   shell_speed = owner.vars['shell speed']
+  kill_exceptions = []
 
 func to_moving_shell(reset_counter: bool = true) -> void:
+  owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
+  owner.get_node('QBlockZone').get_child(0).disabled = false
   is_shell = true
   stopped_shell = false
   owner.animated_sprite.animation = 'shell moving'

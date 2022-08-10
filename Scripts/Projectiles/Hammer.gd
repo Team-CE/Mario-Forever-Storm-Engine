@@ -1,9 +1,9 @@
 extends Node2D
 
-var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
+var vis: VisibilityNotifier2D = VisibilityNotifier2D.new()
 
 var dir: int = 1
-var velocity: Vector2 = Vector2(7, -13)
+var velocity: Vector2 = Vector2(5, -10)
 var gravity_scale: float = 1
 
 var belongs: int = 0 # 0 - Mario, 1 - Bro
@@ -16,6 +16,10 @@ func _ready() -> void:
   vis.connect('tree_exited', self, '_on_tree_exited')
 
   add_child(vis)
+  
+  yield(get_tree(), 'idle_frame')
+  if !vis.is_on_screen():
+    queue_free()
 
 func _process(delta) -> void:
   var overlaps = $CollisionArea.get_overlapping_bodies()

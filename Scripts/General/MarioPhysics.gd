@@ -269,6 +269,7 @@ func _process_dead(delta) -> void:
   if not colDisabled:
     $TopDetector/CollisionTop.disabled = true
     $BottomDetector/CollisionBottom.disabled = true
+    $TopWaterDetector/Collision.disabled = true
     $Collision.disabled = true
     $CollisionBig.disabled = true
     $BottomDetector/CollisionBottom.disabled = true
@@ -411,7 +412,7 @@ func jump() -> void:
     velocity.y = -700 # 650
     $BaseSounds/MAIN_Jump.play()
   else:
-    velocity.y = -161.5 if Global.is_mario_collide_area_group('TopDetector', 'Water') else -484.5
+    velocity.y = -161.5 if Global.is_mario_collide_area_group('TopWaterDetector', 'Water') else -484.5
     $BaseSounds/MAIN_Swim.play()
 
 func controls(delta) -> void:
@@ -485,7 +486,7 @@ func controls(delta) -> void:
     is_stuck = false
   
   if is_stuck:
-    var collisions = $TopDetector.get_overlapping_bodies()
+    var collisions = $TopWaterDetector.get_overlapping_bodies()
     for collider in collisions:
       if collider.has_method('hit'):
         collider.hit()
@@ -833,6 +834,7 @@ func unkill() -> void:
   appear_counter = 0
   shield_counter = 0
   $TopDetector/CollisionTop.disabled = false
+  $TopWaterDetector/Collision.disabled = false
   $BottomDetector/CollisionBottom.disabled = false
   $Sprite.position = Vector2.ZERO
   animate_sprite('Stopped')

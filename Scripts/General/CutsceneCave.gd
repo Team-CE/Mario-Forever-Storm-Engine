@@ -7,7 +7,6 @@ func _ready():
   yield(get_tree(), 'idle_frame')
   $Mario.velocity.x = 440
   camera = Global.current_camera
-  if camera: camera.limit_right = 640
 
 func _process(_delta):
   if $Mario.velocity.x < 75 && $Mario.velocity.x > 1:

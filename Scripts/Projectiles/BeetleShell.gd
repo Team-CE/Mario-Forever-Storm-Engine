@@ -4,8 +4,9 @@ var shell_scene = preload('res://Objects/Enemies/Koopas/BuzzyBeetle.tscn')
 
 var belongs: int = 0
 
-var velocity := Vector2(3, -11)
+var velocity := Vector2(5, -10)
 var collision
+var parent: int
 
 func _ready():
   pass
@@ -48,7 +49,7 @@ func move_shell() -> void:
   shell.vars = shell.vars.duplicate(false)
   shell.get_node('Brain').to_moving_shell(false)
   shell.animated_sprite.speed_scale = 0.8
-  shell.collision_layer = 0
+  shell.get_node('Brain').kill_exceptions.append(parent)
   shell.position.y += 15
   if Global.Mario.position.x > shell.position.x:
     shell.dir *= -1

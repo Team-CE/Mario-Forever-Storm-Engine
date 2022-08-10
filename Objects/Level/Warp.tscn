@@ -8,9 +8,6 @@ extents = Vector2( 11.5, 13.5 )
 
 [node name="Warp" type="Area2D" groups=["Warp"]]
 script = ExtResource( 2 )
-additional_options = {
-"set_scene_path": ""
-}
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 0, 0, 1 )

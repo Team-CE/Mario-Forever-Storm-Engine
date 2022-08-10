@@ -64,7 +64,7 @@ func _ai_process(delta: float) -> void:
       move_multiplier = round(rng.randf_range(-4, 14) / 10)
     if rand_range(1, 11) > 10 and owner.is_on_floor():
       owner.velocity.y = -400
-    if hide_timer == 0 and not throw_activated and rand_range(1, 7) > 6:
+    if hide_timer == 0 and not throw_activated and rand_range(1, 10) > 9:
       hide()
   
   if counter_t < 30:

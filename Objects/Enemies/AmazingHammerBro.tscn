@@ -89,7 +89,7 @@ vars = {
 }
 AI = ExtResource( 3 )
 gravity_scale = 0.0
-score = 200
+score = 1000
 dir = 0.0
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")

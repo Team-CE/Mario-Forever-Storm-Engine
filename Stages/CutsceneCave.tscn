@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
@@ -9,19 +9,7 @@
 [ext_resource path="res://GFX/Scenery/Hill.png" type="Texture" id=7]
 [ext_resource path="res://GFX/Scenery/Tree2.png" type="Texture" id=8]
 [ext_resource path="res://GFX/Scenery/Cloud.tres" type="SpriteFrames" id=9]
-[ext_resource path="res://Prefabs/Mario/FireFlower.tres" type="SpriteFrames" id=10]
-[ext_resource path="res://Prefabs/Mario/Big.tres" type="SpriteFrames" id=11]
-[ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=12]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Scripts/Powerups/Beetroot.gd" type="Script" id=14]
-[ext_resource path="res://Scripts/Powerups/FireFlower.gd" type="Script" id=15]
-[ext_resource path="res://Prefabs/Mario/Propeller.tres" type="SpriteFrames" id=16]
-[ext_resource path="res://Prefabs/Mario/Beetroot.tres" type="SpriteFrames" id=17]
-[ext_resource path="res://Prefabs/Mario/IceFlower.tres" type="SpriteFrames" id=18]
-[ext_resource path="res://Prefabs/Mario/Lui.tres" type="SpriteFrames" id=19]
-[ext_resource path="res://Scripts/Powerups/Propeller.gd" type="Script" id=20]
-[ext_resource path="res://Scripts/Powerups/Lui.gd" type="Script" id=21]
-[ext_resource path="res://Scripts/Powerups/IceFlower.gd" type="Script" id=22]
 [ext_resource path="res://Scripts/General/CutsceneCave.gd" type="Script" id=23]
 [ext_resource path="res://Sounds/Main/lets_kuku_ruurururu.wav" type="AudioStream" id=24]
 [ext_resource path="res://Objects/Level/Warp.tscn" type="PackedScene" id=25]
@@ -85,24 +73,9 @@ bus = "Sounds"
 
 [node name="Mario" parent="." instance=ExtResource( 13 )]
 position = Vector2( -16, 416 )
-powerup_animations = {
-0: ExtResource( 12 ),
-1: ExtResource( 11 ),
-2: ExtResource( 10 ),
-3: ExtResource( 17 ),
-4: ExtResource( 19 ),
-5: ExtResource( 18 ),
-6: ExtResource( 16 )
-}
-powerup_scripts = {
-2: ExtResource( 15 ),
-3: ExtResource( 14 ),
-4: ExtResource( 21 ),
-5: ExtResource( 22 ),
-6: ExtResource( 20 )
-}
 
 [node name="Camera" parent="Mario" instance=ExtResource( 26 )]
+limit_right = 640
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1.4079e-09, 240 )
@@ -115,34 +88,33 @@ texture = SubResource( 122 )
 position = Vector2( 48, 208 )
 z_index = -1
 frames = ExtResource( 9 )
+frame = 1
 playing = true
 
 [node name="Cloud2" type="AnimatedSprite" parent="."]
 position = Vector2( 128, 48 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 2
 playing = true
 
 [node name="Cloud3" type="AnimatedSprite" parent="."]
 position = Vector2( 368, 32 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 2
 playing = true
 
 [node name="Cloud4" type="AnimatedSprite" parent="."]
 position = Vector2( 272, 240 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Cloud5" type="AnimatedSprite" parent="."]
 position = Vector2( 512, 144 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Sprite2" type="Sprite" parent="."]
@@ -164,7 +136,6 @@ modulate = Color( 0.498039, 1.14118, 0.670588, 1 )
 position = Vector2( 256, 400 )
 z_index = -1
 frames = SubResource( 123 )
-frame = 1
 playing = true
 
 [node name="Zabor" type="Sprite" parent="."]

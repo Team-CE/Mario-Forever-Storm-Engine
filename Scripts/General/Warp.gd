@@ -68,11 +68,12 @@ func _ready() -> void:
       counter = 61
       
     if trigger_finish:
-      if !is_instance_valid(Global.Mario.get_parent().get_node_or_null('FinishLine')):
+      if !is_instance_valid(Global.current_scene.get_node_or_null('FinishLine')):
         printerr('[CE ERROR] No Finish Line found on level. Create one or untick the checkbox for warp ID ' + str(id))
         trigger_finish = false
+        disabled = true
       else:
-        finishline = Global.Mario.get_parent().get_node_or_null('FinishLine')
+        finishline = Global.current_scene.get_node_or_null('FinishLine')
     
     if custom_warp_sound:
       custom_audio = AudioStreamPlayer.new()
@@ -145,7 +146,8 @@ func _process(delta) -> void:
       if Global.Mario.is_in_shoe:
         Global.Mario.shoe_node.z_index = -9
 
-      if counter > out_duration and not state_switched: # Warp Exit
+    # Warp Exit
+      if counter > out_duration and not state_switched:
         if out_node:
           state_switched = true
           Global.play_base_sound('MAIN_Pipe')

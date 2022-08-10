@@ -49,6 +49,16 @@ func _ready() -> void:
   cam.limit_bottom = camera_bottom_limit
   cam.smoothing_enabled = true
 
+func _input(ev):
+  if !Global.debug or !(ev is InputEventKey) or !ev.pressed:
+    return
+  
+  if Input.is_action_pressed('debug_shift'):
+    if ev.scancode == 52 and !ev.echo:
+      Global.levelID += 1
+      Global.lives += 1
+      Global._reset()
+
 func _process(delta: float) -> void:
   sprite.animation = 'Walking'
   sprite.speed_scale = 20 if !stopped else 5
