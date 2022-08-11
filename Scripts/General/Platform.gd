@@ -39,6 +39,7 @@ func movement(delta) -> void:
   
   if smooth_turn:
     var points = get_parent().curve.get_baked_points()
+    points.append(global_position)
     for point in points:
       var p_offset = get_parent().curve.get_closest_offset(point)
       if p_offset < smooth_turn_distance and p_offset != 0:
