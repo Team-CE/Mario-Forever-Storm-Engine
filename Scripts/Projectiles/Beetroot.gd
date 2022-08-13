@@ -33,10 +33,10 @@ func _process(delta) -> void:
     velocity.x = 0
 
   if overlaps.size() > 0 and bounce_count < 3 and !drown:
-    for i in range(overlaps.size()):
-      if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('kill'):
-        if not overlaps[i].invincible:
-          overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, 0)
+    for i in overlaps:
+      if i.is_in_group('Enemy') and i.has_method('kill'):
+        if not i.invincible:
+          i.kill(AliveObject.DEATH_TYPE.FALL if !i.force_death_type else i.death_type, 0, null, self.name)
           bounce()
           bounce_count += 1
           skip_frame = true
@@ -45,14 +45,14 @@ func _process(delta) -> void:
           bounce()
           bounce_count += 1
           skip_frame = true
-      elif (overlaps[i] is TileMap or overlaps[i].is_in_group('Solid')) and (overlaps[i].visible) and not skip_frame:
+      elif (i is TileMap or i.is_in_group('Solid')) and (i.visible) and not skip_frame:
         $Bounce.play()
         bounce()
         bounce_count += 1
         skip_frame = true
 
-      if 'qtype' in overlaps[i]:
-        overlaps[i].hit()
+      if 'qtype' in i:
+        i.hit()
   if overlaps.size() == 0:
     skip_frame = false
 

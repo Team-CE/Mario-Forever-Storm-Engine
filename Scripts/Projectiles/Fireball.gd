@@ -28,12 +28,9 @@ func _process(delta) -> void:
   var overlaps = $CollisionArea.get_overlapping_bodies()
 
   if overlaps.size() > 0 and belongs == 0:
-    for i in range(overlaps.size()):
-      if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('kill'):
-        if overlaps[i].force_death_type == false:
-          overlaps[i].kill(AliveObject.DEATH_TYPE.FALL, 0, null, self.name)
-        else:
-          overlaps[i].kill(overlaps[i].death_type, 0, null, self.name)
+    for i in overlaps:
+      if i.is_in_group('Enemy') and i.has_method('kill'):
+        i.kill(AliveObject.DEATH_TYPE.FALL if !i.force_death_type else i.death_type, 0, null, self.name)
         explode()
         
   if belongs != 0 and is_mario_collide('InsideDetector'):

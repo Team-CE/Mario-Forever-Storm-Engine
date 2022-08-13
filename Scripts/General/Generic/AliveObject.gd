@@ -176,7 +176,7 @@ func on_edge() -> bool:
   return (ray_L.is_colliding() && !ray_R.is_colliding()) || (ray_R.is_colliding() && !ray_L.is_colliding())
 
 # warning-ignore:shadowed_variable
-func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = null, is_shell: bool = false) -> void:
+func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, projectile = null, is_shell: bool = false) -> void:
   if invincible:
     return
   if invincible_for_shells and is_shell:
@@ -227,7 +227,7 @@ func kill(death_type: int = 0, score_mp: int = 0, csound = null, projectile = nu
       time.connect('timeout', self, 'instance_free')
     DEATH_TYPE.CUSTOM:
       if brain.has_method('_on_custom_death'):
-        brain._on_custom_death()
+        brain._on_custom_death(score_mp)
     DEATH_TYPE.UNFREEZE:
       visible = false
       if is_instance_valid(get_node_or_null('Collision')): $Collision.disabled = true

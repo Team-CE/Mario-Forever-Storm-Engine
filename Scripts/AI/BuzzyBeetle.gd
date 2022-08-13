@@ -62,11 +62,11 @@ func _ai_process(delta: float) -> void:
           return
         var brain = b.get_node_or_null('Brain')
         if is_instance_valid(brain) and 'stopped_shell' in brain and !brain.stopped_shell and 'is_shell' in brain and brain.is_shell and !b.frozen:
-          owner.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
-          b.kill(AliveObject.DEATH_TYPE.FALL, 0, null, null, true)
+          owner.kill(AliveObject.DEATH_TYPE.FALL if !owner.force_death_type else owner.death_type, 0, null, null, true)
+          b.kill(AliveObject.DEATH_TYPE.FALL if !b.force_death_type else b.death_type, 0, null, self.name)
           return
         if b.invincible: return
-        b.kill(AliveObject.DEATH_TYPE.FALL, score_mp, null, null, true)
+        b.kill(AliveObject.DEATH_TYPE.FALL if !b.force_death_type else b.death_type, score_mp, null, self.name)
         if score_mp < 6:
           score_mp += 1
         else:

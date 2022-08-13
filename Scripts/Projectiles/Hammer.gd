@@ -27,7 +27,7 @@ func _process(delta) -> void:
   if overlaps.size() > 0 and belongs == 0:
     for i in overlaps:
       if i.is_in_group('Enemy') and i.has_method('kill'):
-        i.kill(AliveObject.DEATH_TYPE.FALL, 0, null, self.name)
+        i.kill(AliveObject.DEATH_TYPE.FALL if !i.force_death_type else i.death_type, 0, null, self.name)
         
   if belongs != 0 and Global.is_mario_collide_area('InsideDetector', $CollisionArea):
     Global._ppd()

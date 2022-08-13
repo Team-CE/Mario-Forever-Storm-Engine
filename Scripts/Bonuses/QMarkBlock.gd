@@ -172,7 +172,8 @@ func _process(delta) -> void:
       
     if Empty:
       body.set_animation('empty')
-      collision.one_way_collision = false
+      if collision:
+        collision.one_way_collision = false
       #collision_layer = 0b11
       #collision_mask = 0b11
       visible = true

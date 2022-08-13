@@ -849,10 +849,7 @@ func star_logic() -> void:
     for i in overlaps:
       if i.is_in_group('Enemy') and i.has_method('kill'):
         if i.invincible: return
-        if i.force_death_type == false:
-          i.kill(AliveObject.DEATH_TYPE.FALL, star_kill_count)
-        else:
-          i.kill(i.death_type, star_kill_count)
+        i.kill(AliveObject.DEATH_TYPE.FALL if !overlaps.force_death_type else overlaps.death_type, star_kill_count)
         if star_kill_count < 6:
           star_kill_count += 1
         else:

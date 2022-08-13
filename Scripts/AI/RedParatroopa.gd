@@ -47,7 +47,7 @@ func _ai_process(delta: float) -> void:
     if 'triggered' in g_overlaps[i] and g_overlaps[i].triggered:
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
 
-func _on_custom_death():
+func _on_custom_death(_score_mp):
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
   # DO NOT use preload to avoid sharing 'vars' dictionary between different instances
