@@ -126,7 +126,7 @@ func hide() -> void:
 
 func beetle_logic() -> void:
   for i in get_tree().get_nodes_in_group('Projectile'):
-    if 'Fireball' in i.name or 'Iceball' in i.name:
+    if ('Fireball' in i.name or 'Iceball' in i.name) and i.belongs == 0:
       if i.global_position.x > owner.global_position.x - 128 and i.global_position.x < owner.global_position.x + 128:
         throw_activated = false
         if hide_timer == 0 or hide_timer > 40:

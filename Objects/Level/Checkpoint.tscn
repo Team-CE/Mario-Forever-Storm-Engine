@@ -57,6 +57,5 @@ bus = "Sounds"
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
 position = Vector2( 0, -88 )
-z_index = -1
 texture = ExtResource( 8 )
 script = ExtResource( 9 )
