@@ -29,7 +29,6 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-z_index = -1
 frames = ExtResource( 1 )
 flip_h = true
 

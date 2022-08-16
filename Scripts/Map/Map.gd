@@ -83,6 +83,9 @@ func _process(delta: float) -> void:
       pj.modulate.a += 0.1 * Global.get_delta(delta)
     else:
       pj.modulate.a = 1
+    var music_overlay = get_node_or_null('ParallaxBackground/Control')
+    if music_overlay and music_overlay.get_node('AnimationPlayer').current_animation_position < 4.0:
+      music_overlay.get_node('AnimationPlayer').seek(4)
 
   if Input.is_action_just_pressed('mario_jump') and !fading_out and stopped:
     fading_out = true

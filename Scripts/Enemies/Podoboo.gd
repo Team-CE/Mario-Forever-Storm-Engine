@@ -23,15 +23,24 @@ func _process(delta):
   counter += 1 * Global.get_delta(delta)
   if active:
     position += velocity.rotated(rotation) * Global.get_vector_delta(delta) # start y = -12.8
+    
     if apply_rotated_motion:
-      velocity += Vector2(0, 0.2).rotated(rotation) * Global.get_delta(delta)
+      velocity += Vector2(0, 0.2).rotated(-rotation) * Global.get_delta(delta)
+      
+      # Animation
+      $AnimatedSprite.flip_v = velocity.rotated(rotation).y > 0.2
+      if velocity.rotated(rotation).y > 0.2:
+        $AnimatedSprite.rotation = rotation * -2 if velocity.x > 0 else rotation * -2
+      else:
+        $AnimatedSprite.rotation = 0
     else:
       velocity += Vector2(0, 0.2) * Global.get_delta(delta)
       
-    $AnimatedSprite.flip_v = velocity.y > 0.2
+      # Animation
+      $AnimatedSprite.flip_v = velocity.y > 0.2
     
     # Hiding in lava
-    if velocity.y > 2:
+    if (velocity.y > 2 and !apply_rotated_motion) or (velocity.rotated(rotation).y > 2 and apply_rotated_motion):
       for i in get_overlapping_areas():
         if i.is_in_group('Lava'):
           lava_hide()
@@ -63,7 +72,7 @@ func _process(delta):
 
 func lava_hide(hide_splash = false) -> void:
   if !hide_splash:
-    var splash = preload('res://Scripts/Effects/LavaEffect.gd').new(position - Vector2(0, 24).rotated(rotation), rotation)
+    var splash = preload('res://Scripts/Effects/LavaEffect.gd').new(position - Vector2(0, 24).rotated(rotation), -rotation if apply_rotated_motion else rotation)
     get_parent().add_child(splash)
   if remove_in_lava:
     queue_free()

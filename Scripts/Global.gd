@@ -238,6 +238,8 @@ func _input(ev):
     
   # Trigger finish
     if ev.scancode == 52:
+      if !('death_height' in Global.current_scene):
+        return
       if !is_instance_valid(current_scene.get_node_or_null('FinishLine')):
         push_error('ERROR: Finish line not found')
         return
