@@ -35,7 +35,7 @@ func _ai_process(delta: float) -> void:
   if !owner.get_node('VisibilityNotifier2D').is_on_screen():
     return
   
-  var bowl = owner.get_node('../BowserLives/AnimatedSprite')
+  var bowl = Global.current_scene.get_node('BowserLives/AnimatedSprite')
   if bowl.position.y < 80:
     bowl.position.y += 4
   
