@@ -50,6 +50,7 @@ onready var launch_counter: float = 0
 onready var controls_enabled: bool = true
 onready var animation_enabled: bool = true
 onready var allow_custom_animation: bool = false
+onready var physics_enabled: bool = true
 onready var invulnerable: bool = false               # True while warping or finishing the level
 
 onready var shoe_node: Object = null
@@ -105,6 +106,9 @@ func is_over_platform() -> bool:
 func _process(delta) -> void:
   if get_node_or_null('Camera'):
     _process_camera(delta)
+  
+  if !physics_enabled:
+    return
   
   var target_gravity_enabled: bool = true
   var overlaps = $InsideDetector.get_overlapping_areas()

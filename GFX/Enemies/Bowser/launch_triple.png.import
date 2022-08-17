@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SpikeGray.png-285d19115b1f185c352227fa2f283140.stex"
+path="res://.import/launch_triple.png-62aea4102445ff13ac432d570d5f9a02.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/SpikeGray.png"
-dest_files=[ "res://.import/SpikeGray.png-285d19115b1f185c352227fa2f283140.stex" ]
+source_file="res://GFX/Enemies/Bowser/launch_triple.png"
+dest_files=[ "res://.import/launch_triple.png-62aea4102445ff13ac432d570d5f9a02.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

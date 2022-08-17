@@ -7,7 +7,7 @@
 radius = 12.0
 
 [node name="Popcorn" type="Area2D"]
-z_index = -1
+z_index = -2
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

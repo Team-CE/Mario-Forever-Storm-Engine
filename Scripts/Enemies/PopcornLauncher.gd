@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 export var motion_launch: Vector2 = Vector2(-6, 0)
 

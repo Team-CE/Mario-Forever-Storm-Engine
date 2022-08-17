@@ -6,7 +6,8 @@ var icounter = 120
 
 func _init(score: int, pos: Vector2 = Vector2.ZERO):
   texture = preload('res://GFX/Texts/Score.png')
-  rotation = Global.Mario.rotation
+# warning-ignore:incompatible_ternary
+  rotation = Global.Mario.rotation if is_instance_valid(Global.Mario) else 0
   position = pos + Vector2(0, -8).rotated(rotation)
   hframes = 8
   z_index = 50

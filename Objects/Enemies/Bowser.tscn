@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://GFX/Enemies/Bowser/walk.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Enemies/Bowser/killed.png" type="Texture" id=2]
@@ -8,10 +8,12 @@
 [ext_resource path="res://GFX/Enemies/Bowser/launch.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/AI/Bowser.gd" type="Script" id=7]
 [ext_resource path="res://Sounds/Enemies/flame.wav" type="AudioStream" id=8]
+[ext_resource path="res://GFX/Enemies/Bowser/hammer.png" type="Texture" id=9]
 [ext_resource path="res://GFX/Enemies/Bowser/jump.png" type="Texture" id=10]
 [ext_resource path="res://Sounds/Enemies/Bowserhit.wav" type="AudioStream" id=11]
 [ext_resource path="res://Sounds/Enemies/Bowserkill.wav" type="AudioStream" id=12]
 [ext_resource path="res://Sounds/Enemies/Bowserfall.wav" type="AudioStream" id=13]
+[ext_resource path="res://GFX/Enemies/Bowser/launch_triple.png" type="Texture" id=14]
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 2 )
@@ -20,6 +22,26 @@ region = Rect2( 0, 0, 64, 76 )
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 64, 76 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 72, 128, 72 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 144, 128, 72 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 216, 128, 72 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 72, 128, 72 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 128, 72 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 6 )
@@ -69,6 +91,18 @@ region = Rect2( 65, 0, 65, 72 )
 atlas = ExtResource( 10 )
 region = Rect2( 130, 0, 65, 72 )
 
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 64, 72 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 14 )
+region = Rect2( 64, 0, 64, 72 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 14 )
+region = Rect2( 128, 0, 64, 72 )
+
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 64, 72 )
@@ -94,6 +128,16 @@ animations = [ {
 "name": "falling",
 "speed": 15.0
 }, {
+"frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
+"loop": true,
+"name": "hammer fire",
+"speed": 25.0
+}, {
+"frames": [ SubResource( 34 ), SubResource( 35 ) ],
+"loop": false,
+"name": "hammer idle",
+"speed": 15.0
+}, {
 "frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 19 ), SubResource( 19 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
 "loop": false,
 "name": "holding",
@@ -103,6 +147,11 @@ animations = [ {
 "loop": false,
 "name": "jump",
 "speed": 15.0
+}, {
+"frames": [ SubResource( 36 ), SubResource( 37 ), SubResource( 38 ) ],
+"loop": true,
+"name": "triple",
+"speed": 60.0
 }, {
 "frames": [ SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,

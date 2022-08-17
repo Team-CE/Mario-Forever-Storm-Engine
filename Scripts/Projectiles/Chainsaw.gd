@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
 
@@ -9,17 +9,19 @@ var gravity_scale: float = 1
 
 var trail_counter: float = 0
 
-var belongs: int = 0 # 0 - Mario, 1 - Bro
+var belongs: int = 0 # 0 - Mario, 1 - Bro, 2 - Spikeball Launcher
 
 func _ready() -> void:
   velocity.x *= dir
 # warning-ignore:return_value_discarded
   vis.connect('screen_exited', self, '_on_screen_exited')
+# warning-ignore:return_value_discarded
+  vis.connect('tree_exited', self, '_on_tree_exited')
 
   add_child(vis)
 
 func _process(delta) -> void:
-  var overlaps = $CollisionArea.get_overlapping_bodies()
+  var overlaps = self.get_overlapping_bodies()
 
   if overlaps.size() > 0 and belongs == 0:
     for i in overlaps:
@@ -29,7 +31,10 @@ func _process(delta) -> void:
   if belongs != 0 and is_mario_collide('InsideDetector'):
     Global._ppd()
 
-  velocity.y += 12 * gravity_scale * Global.get_delta(delta)
+  if belongs == 2 and position.y > 512:
+    queue_free()
+
+  velocity.y += (12 if belongs == 1 else 5) * gravity_scale * Global.get_delta(delta)
 
   position += velocity / 50.0 * Global.get_delta(delta)
   
@@ -44,7 +49,7 @@ func _process(delta) -> void:
   
 func is_mario_collide(_detector_name: String) -> bool:
   var collisions = Global.Mario.get_node(_detector_name).get_overlapping_areas()
-  return collisions && collisions.has($CollisionArea)
+  return collisions && collisions.has(self)
 
 func explode() -> void:
   var explosion = Explosion.new(position)
@@ -52,9 +57,13 @@ func explode() -> void:
   queue_free()
 
 func _on_screen_exited() -> void:
+  if belongs == 2:
+    return
+  queue_free()
+  
+func _on_tree_exited() -> void:
   if belongs == 0:
     Global.projectiles_count -= 1
-  queue_free()
 
 func _on_level_complete() -> float:
   var score = 200
