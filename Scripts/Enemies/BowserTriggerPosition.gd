@@ -8,6 +8,8 @@ var music_switched: bool = false
 var camera: Camera2D
 
 func _process(delta): 
+  if !Global.is_getting_closer(-32, position):
+    return
   if Global.Mario.position.x > position.x and !music_switched:
     music_switched = true
     MusicPlayer.get_node('Main').stream = music

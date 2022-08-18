@@ -75,6 +75,10 @@ static func get_delta(delta) -> float:       # Delta by 50 FPS
 static func get_vector_delta(delta) -> Vector2: # Vector2 with delta values
   return Vector2(get_delta(delta), get_delta(delta))
 
+func _init() -> void:
+# warning-ignore:narrowing_conversion
+  Engine.iterations_per_second = OS.get_screen_refresh_rate()
+
 func _ready() -> void:
   var root = get_tree().get_root()
   current_scene = root.get_child(root.get_child_count() - 1)
@@ -253,17 +257,17 @@ func _input(ev):
 # fix physics fps issues
 # warning-ignore:unused_argument
 func _process(delta: float):
-  var temp = round((1 / delta) / 60) * 60
-# warning-ignore:integer_division
-  var temp2 = round(Engine.iterations_per_second / 60) * 60
-  if temp > 0 and temp2 != temp:
-    p_fps_switch += 1 * get_delta(delta)
-  else:
-    p_fps_switch = 0
-
-  if p_fps_switch > 50:
-    print('Updated engine iterations')
-    Engine.iterations_per_second = temp
+#  var temp = round((1 / delta) / 60) * 60
+## warning-ignore:integer_division
+#  var temp2 = round(Engine.iterations_per_second / 60) * 60
+#  if temp > 0 and temp2 != temp:
+#    p_fps_switch += 1 * get_delta(delta)
+#  else:
+#    p_fps_switch = 0
+#
+#  if p_fps_switch > 50:
+#    print('Updated engine iterations')
+#    Engine.iterations_per_second = temp
   
   # in case something goes wrong with volume
   if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > 1:

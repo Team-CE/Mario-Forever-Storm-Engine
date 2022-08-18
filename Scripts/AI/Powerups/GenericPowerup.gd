@@ -20,7 +20,7 @@ func _ready_mixin():
     initial_pos = owner.position
   
   # Replacing with mushroom if mario is small and state is provided
-  if 'set state' in owner.vars and 'from bonus' in owner.vars and Global.state == 0 and owner.vars['set state'] > 1:
+  if 'set state' in owner.vars and 'from bonus' in owner.vars and owner.vars['from bonus'] and Global.state == 0 and owner.vars['set state'] > 1:
     var mushroom = load('res://Objects/Bonuses/Powerups/Mushroom.tscn').instance()
     mushroom.transform = owner.transform
     owner.get_parent().add_child(mushroom)

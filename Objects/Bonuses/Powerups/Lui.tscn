@@ -86,7 +86,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1, -15 )
 frames = SubResource( 13 )
-frame = 11
+frame = 6
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

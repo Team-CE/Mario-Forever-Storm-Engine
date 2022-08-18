@@ -51,8 +51,10 @@ func resume() -> void:
     AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), i, bus_effect[i])
   AudioServer.set_bus_volume_db(AudioServer.get_bus_index('CompositedSounds'), composited_vol)
 
-  yield(get_tree().create_timer( darkness, false), 'timeout')
-  
+# warning-ignore:return_value_discarded
+  get_tree().create_timer( darkness, false).connect('timeout', self, '_next')
+
+func _next():
   $Sprite.modulate = Color.white
   
   if Global.current_scene.popup: Global.current_scene.popup = null

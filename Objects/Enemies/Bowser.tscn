@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://GFX/Enemies/Bowser/walk.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Enemies/Bowser/killed.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Sounds/Enemies/Bowserkill.wav" type="AudioStream" id=12]
 [ext_resource path="res://Sounds/Enemies/Bowserfall.wav" type="AudioStream" id=13]
 [ext_resource path="res://GFX/Enemies/Bowser/launch_triple.png" type="Texture" id=14]
+[ext_resource path="res://Sounds/Enemies/Bowserlavalove.wav" type="AudioStream" id=15]
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 2 )
@@ -176,6 +177,7 @@ AI = ExtResource( 7 )
 gravity_scale = 0.3
 score = 1000
 force_death_type = true
+auto_destroy = false
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
@@ -184,6 +186,7 @@ animated_sprite_pth = NodePath("AnimatedSprite")
 position = Vector2( 0, -20 )
 frames = SubResource( 16 )
 animation = "walk"
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
@@ -227,3 +230,7 @@ visible = false
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, 4 )
 shape = SubResource( 2 )
+
+[node name="LavaLove" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 15 )
+bus = "Sounds"

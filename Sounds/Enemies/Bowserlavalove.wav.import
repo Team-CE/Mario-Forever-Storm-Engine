@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/cannon_shoot.wav-adae05cf139ba984dd3daabc39d9592f.sample"
+path="res://.import/Bowserlavalove.wav-3dfa178061cdbf4cd9deb538e87458a7.sample"
 
 [deps]
 
-source_file="res://Sounds/Enemies/cannon_shoot.wav"
-dest_files=[ "res://.import/cannon_shoot.wav-adae05cf139ba984dd3daabc39d9592f.sample" ]
+source_file="res://Sounds/Enemies/Bowserlavalove.wav"
+dest_files=[ "res://.import/Bowserlavalove.wav-3dfa178061cdbf4cd9deb538e87458a7.sample" ]
 
 [params]
 

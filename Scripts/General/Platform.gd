@@ -3,11 +3,13 @@ class_name Platform
 
 export var speed: float = 1
 export var vertical_speed: float = 0
+export var vertical_teleport_point: float = 512
 export var smooth_turn: bool = false
 export var smooth_turn_distance: float = 48
 export var smooth_point: float
 export var can_fall: bool = false
 export var move_on_touch: bool = false
+export var custom_script: Script
 
 var current_speed: float = 0
 var max_offset: float
@@ -24,6 +26,8 @@ var y_speed: float = 0
 var fall_position: Vector2
 var fall_bool: bool = false
 
+var inited_script
+
 func _ready() -> void:
   process_priority = -100
   if not move_on_touch:
@@ -37,11 +41,19 @@ func _ready() -> void:
     
     if !smooth_point:
       smooth_point = max_offset / 2
+  
+  if custom_script:
+    inited_script = custom_script.new()
+    if inited_script.has_method('_ready_mixin'):
+      inited_script._ready_mixin(self)
     
 
 func _physics_process(delta) -> void:
   if active:
     movement(delta)
+  
+  if inited_script and inited_script.has_method('_process_mixin'):
+    inited_script._process_mixin(self, delta)
 
 func movement(delta) -> void:
   if !is_nan(current_speed) and !smooth_turn:
@@ -52,7 +64,7 @@ func movement(delta) -> void:
   
   if vertical_speed != 0:
     v_offset += vertical_speed * Global.get_delta(delta)
-    if (position.y > 512 and vertical_speed > 0) or (position.y < -32 and vertical_speed < 0):
+    if (position.y > vertical_teleport_point if vertical_speed > 0 else position.y < vertical_teleport_point):
       v_offset = 0
 # warning-ignore:return_value_discarded
   

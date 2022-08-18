@@ -50,8 +50,8 @@ stop_points = [ 320, 768 ]
 level_scenes = [ "res://Stages/CutsceneCave.tscn", "res://Stages/CutsceneCave.tscn" ]
 
 [node name="map_looped" type="Sprite" parent="."]
-position = Vector2( 5000, 240 )
 texture = ExtResource( 1 )
+centered = false
 __meta__ = {
 "_edit_lock_": true
 }
@@ -268,10 +268,10 @@ position = Vector2( 256, 384 )
 
 [node name="Dot25" parent="Node" instance=ExtResource( 24 )]
 position = Vector2( 256, 192 )
-frame = 0
+frame = 6
 
 [node name="Dot41" parent="Node" instance=ExtResource( 24 )]
 position = Vector2( 384, 256 )
-frame = 0
+frame = 6
 
 [editable path="ParallaxBackground/Control"]

@@ -19,11 +19,14 @@ var y_speed: float = 0
 var f_act: bool = false
 
 var rng
+var camera
 
 func _ready_mixin() -> void:
   owner.death_type = AliveObject.DEATH_TYPE.CUSTOM
   rng = RandomNumberGenerator.new()
   rng.randomize()
+  yield(owner.get_tree(), 'idle_frame')
+  camera = Global.current_camera
   
 func _setup(b) -> void:
   ._setup(b)
@@ -57,10 +60,11 @@ func _ai_process(delta: float) -> void:
       if !s_played:
         s_played = true
         owner.get_node('Fall').play()
-    if owner.position.y > 480 + 96 and !f_act:
-      owner.get_parent().get_node('FinishLine').act()
+    if owner.position.y > camera.limit_bottom and !f_act:
+      Global.current_scene.get_node('FinishLine').act()
+      #todo the lava love animation
       f_act = true
-      print('pizda')
+      print('fell')
     return
   
   if move_multiplier > 0:

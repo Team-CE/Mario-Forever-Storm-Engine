@@ -14,13 +14,13 @@ dest_files=[ "res://.import/map_looped.png-522453110384f6b00ac546f1508de2a3.stex
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.7
+compress/mode=1
+compress/lossy_quality=1.0
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
