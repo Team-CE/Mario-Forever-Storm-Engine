@@ -64,7 +64,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.3, 0.5, 1.5, 2.5, 3.5, 4, 4.3, 4.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 180.0, 204.5, 188.1, 171.7, 188.3, 171.7, 171.7, 204.7, 163.8 ]
+"values": [ 0.0, 24.5, 8.1, -8.3, 8.3, -8.3, -8.3, 24.7, -16.2 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -127,7 +127,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 180.0 ]
+"values": [ 0.0 ]
 }
 
 [node name="Control" type="Control"]
@@ -157,14 +157,14 @@ valign = 1
 
 [node name="MusicIcon" type="Sprite" parent="."]
 position = Vector2( -32, 455 )
-scale = Vector2( 0.05, 0.05 )
+scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 2 )
 
 [node name="MusicIcon2" type="Sprite" parent="."]
 position = Vector2( 672, 455 )
-rotation = 3.14159
-scale = Vector2( 0.05, -0.05 )
+scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 2 )
+flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Appear"

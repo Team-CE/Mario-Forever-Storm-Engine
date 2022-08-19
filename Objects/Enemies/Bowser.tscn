@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://GFX/Enemies/Bowser/walk.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Enemies/Bowser/killed.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Sounds/Enemies/Bowserfall.wav" type="AudioStream" id=13]
 [ext_resource path="res://GFX/Enemies/Bowser/launch_triple.png" type="Texture" id=14]
 [ext_resource path="res://Sounds/Enemies/Bowserlavalove.wav" type="AudioStream" id=15]
+[ext_resource path="res://Scripts/AI/ThrowFunctions/Hammer.gd" type="Script" id=16]
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 2 )
@@ -169,9 +170,17 @@ extents = Vector2( 14, 2 )
 [node name="Bowser" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 3 )
 vars = {
+"attack sequence": PoolStringArray( "flame", "flame", "flame", "flame", "triple", "hammer", "hammer", "hammer", "hammer", "hammer" ),
 "bounce": 9.0,
+"fire delay": 32,
+"flame speed": 4.0,
 "flame_pos": 240.0,
-"speed": 100.0
+"hammer count": 10,
+"hammer duration": 28,
+"hammer interval": 1,
+"jump strength": -250.0,
+"speed": 100.0,
+"throw_script": ExtResource( 16 )
 }
 AI = ExtResource( 7 )
 gravity_scale = 0.3
