@@ -37,8 +37,10 @@ frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 5 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
-rect = Rect2( -80, -80, 160, 160 )
+rect = Rect2( -16, -16, 32, 32 )
+process_parent = true

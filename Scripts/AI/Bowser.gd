@@ -15,6 +15,7 @@ var inited_throwable
 
 var invis_c: float = 0
 var mario_shift: float = 0
+var bowl: AnimatedSprite
 var lives: int = 8
 var fireball_lives: int = 0
 var initial_pos: Vector2
@@ -22,6 +23,7 @@ var modul_switch: bool = false
 
 var fc: float = 0
 var s_played: bool = false
+var w_created: bool = false
 var y_speed: float = 0
 var f_act: bool = false
 
@@ -34,6 +36,7 @@ func _ready_mixin() -> void:
   rng.randomize()
   if 'lives' in owner.vars:
     lives = owner.vars['lives']
+  bowl = Global.current_scene.get_node('BowserLives/AnimatedSprite')
 
   yield(owner.get_tree(), 'idle_frame')
   camera = Global.current_camera
@@ -49,7 +52,7 @@ func _ai_process(delta: float) -> void:
     return
   
   # Bowser Lives counter
-  var bowl = Global.current_scene.get_node('BowserLives/AnimatedSprite')
+  assert(is_instance_valid(bowl), 'Couldn\'t find BowserLives scene under level node.')
   if bowl.position.y < 80:
     bowl.position.y += 4
   
@@ -59,23 +62,37 @@ func _ai_process(delta: float) -> void:
     owner.velocity.x = 0
     fc += 1 * Global.get_delta(delta)
     
+    owner.velocity.y = 0
+    
     # Falling
-    if fc > 100:
+    if fc > 100 and fc < 10130:
       y_speed += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
-      owner.position.y += y_speed * delta
-      owner.get_node('CollisionShape2D').disabled = true
+      owner.velocity.y = y_speed
+      owner.collision_layer = 0
+      owner.collision_mask = 0b1000
       if !s_played:
         s_played = true
         owner.get_node('Fall').play()
-    else:
-      owner.velocity.y = 0
-    
-    # The end; winning
-    if owner.global_position.y > camera.limit_bottom and !f_act:
-      Global.current_scene.get_node('FinishLine').act()
-      #todo the lava love animation
-      f_act = true
-      print('fell')
+    # The end; lava love
+      if !w_created:
+        var overlaps = owner.get_node('Area2D').get_overlapping_areas()
+        for i in overlaps:
+          if i.is_in_group('Lava'):
+            w_created = true
+            for j in range(2):
+              var waver = preload('res://Objects/Liquids/LavaWaver.tscn').instance()
+              i.get_parent().add_child(waver)
+              waver.global_position = owner.global_position
+              waver.dir_right = bool(j)
+              lava_love()
+              
+    if fc > 10000:
+      if y_speed > 1:
+        y_speed -= 1 * Global.get_delta(delta)
+    if fc > 10130:
+      if !f_act:
+        Global.current_scene.get_node('FinishLine').act()
+        f_act = true
     return
   
   # Jumping gravity and animation
@@ -234,6 +251,7 @@ func bowser_damage() -> void:
     owner.get_node('Kill').play()
     MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 3.0)
     owner.velocity = Vector2.ZERO
+    bowl.frame = 0
 
 func _on_custom_death(_score_mp):
   if invis_c > 20: return
@@ -242,3 +260,20 @@ func _on_custom_death(_score_mp):
     fireball_lives += 1
   else:
     bowser_damage()
+
+func lava_love():
+  fc = 10000
+  owner.get_node('LavaLove').play()
+  owner.collision_mask = 0
+  
+  var lavap = preload('res://Objects/Effects/LavaParticles.tscn').instance()
+  lavap.preprocess = 0
+  owner.get_parent().add_child(lavap)
+  lavap.global_position = owner.global_position
+  lavap.process_material.emission_box_extents = Vector3(16, 16, 0)
+  var timer = Timer.new()
+  timer.autostart = true
+  timer.wait_time = 1
+  timer.connect('timeout', lavap, 'set', ['emitting', false])
+  timer.one_shot = true
+  lavap.add_child(timer)

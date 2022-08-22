@@ -164,8 +164,8 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 24, 28 )
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 14, 2 )
+[sub_resource type="RectangleShape2D" id=39]
+extents = Vector2( 8, 16 )
 
 [node name="Bowser" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 3 )
@@ -179,6 +179,7 @@ vars = {
 "hammer duration": 28,
 "hammer interval": 1,
 "jump strength": -250.0,
+"lives": 8,
 "speed": 100.0,
 "throw_script": ExtResource( 16 )
 }
@@ -233,13 +234,15 @@ bus = "Sounds"
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 visible = false
 
-[node name="KillDetector" type="Area2D" parent="."]
-visible = false
-
-[node name="Collision" type="CollisionShape2D" parent="KillDetector"]
-position = Vector2( 0, 4 )
-shape = SubResource( 2 )
-
 [node name="LavaLove" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 15 )
 bus = "Sounds"
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -32 )
+shape = SubResource( 39 )

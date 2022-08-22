@@ -19,25 +19,17 @@ func _ready():
   z_index = 0
   counter = timer - time_offset
 
-func _process(delta):
+func _physics_process(delta):
+  $CollisionShape2D.disabled = !active
+  
   counter += 1 * Global.get_delta(delta)
   if active:
-    position += velocity.rotated(rotation) * Global.get_vector_delta(delta) # start y = -12.8
+    position += velocity.rotated(rotation) * Global.get_delta(delta) # start y = -12.8
     
     if apply_rotated_motion:
       velocity += Vector2(0, 0.2).rotated(-rotation) * Global.get_delta(delta)
-      
-      # Animation
-      $AnimatedSprite.flip_v = velocity.rotated(rotation).y > 0.2
-      if velocity.rotated(rotation).y > 0.2:
-        $AnimatedSprite.rotation = rotation * -2 if velocity.x > 0 else rotation * -2
-      else:
-        $AnimatedSprite.rotation = 0
     else:
       velocity += Vector2(0, 0.2) * Global.get_delta(delta)
-      
-      # Animation
-      $AnimatedSprite.flip_v = velocity.y > 0.2
     
     # Hiding in lava
     if (velocity.y > 2 and !apply_rotated_motion) or (velocity.rotated(rotation).y > 2 and apply_rotated_motion):
@@ -54,11 +46,23 @@ func _process(delta):
     velocity.y = jump_strength
     counter = 0
   
+
+func _process(delta):
+  # Animation
+  if active:
+    if apply_rotated_motion:
+      $AnimatedSprite.flip_v = velocity.rotated(rotation).y > 0.2
+      if velocity.rotated(rotation).y > 0.2:
+        $AnimatedSprite.rotation = rotation * -2 if velocity.x > 0 else rotation * -2
+      else:
+        $AnimatedSprite.rotation = 0
+    else:
+      $AnimatedSprite.flip_v = velocity.y > 0.2
+  
   visible = active
   if inv_counter < 10:
     inv_counter += 1 * Global.get_delta(delta)
 
-  $CollisionShape2D.disabled = !active
   if Global.Mario.is_in_shoe and Global.Mario.shoe_type == 1:
     if Global.is_mario_collide_area('BottomDetector', self) and Global.Mario.velocity.y > 0:
       velocity += Vector2(0, 5).rotated(-rotation)

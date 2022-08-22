@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Objects/Liquids/BowserLavaSpring.tscn" type="PackedScene" id=1]
+
+[node name="BowserLava" type="Node2D"]
+
+[node name="BowserLavaSingle" parent="." instance=ExtResource( 1 )]
+position = Vector2( -240, 0 )
+
+[node name="BowserLavaSingle2" parent="." instance=ExtResource( 1 )]
+position = Vector2( -208, 0 )
+
+[node name="BowserLavaSingle3" parent="." instance=ExtResource( 1 )]
+position = Vector2( -176, 0 )
+
+[node name="BowserLavaSingle4" parent="." instance=ExtResource( 1 )]
+position = Vector2( -144, 0 )
+
+[node name="BowserLavaSingle5" parent="." instance=ExtResource( 1 )]
+position = Vector2( -112, 0 )
+
+[node name="BowserLavaSingle6" parent="." instance=ExtResource( 1 )]
+position = Vector2( -80, 0 )
+
+[node name="BowserLavaSingle7" parent="." instance=ExtResource( 1 )]
+position = Vector2( -48, 0 )
+
+[node name="BowserLavaSingle8" parent="." instance=ExtResource( 1 )]
+position = Vector2( -16, 0 )
+
+[node name="BowserLavaSingle9" parent="." instance=ExtResource( 1 )]
+position = Vector2( 16, 0 )
+
+[node name="BowserLavaSingle10" parent="." instance=ExtResource( 1 )]
+position = Vector2( 48, 0 )
+
+[node name="BowserLavaSingle11" parent="." instance=ExtResource( 1 )]
+position = Vector2( 80, 0 )
+
+[node name="BowserLavaSingle12" parent="." instance=ExtResource( 1 )]
+position = Vector2( 112, 0 )
+
+[node name="BowserLavaSingle13" parent="." instance=ExtResource( 1 )]
+position = Vector2( 144, 0 )
+
+[node name="BowserLavaSingle14" parent="." instance=ExtResource( 1 )]
+position = Vector2( 176, 0 )
+
+[node name="BowserLavaSingle15" parent="." instance=ExtResource( 1 )]
+position = Vector2( 208, 0 )
+
+[node name="BowserLavaSingle16" parent="." instance=ExtResource( 1 )]
+position = Vector2( 240, 0 )

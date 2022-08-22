@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://GFX/Effects/lavabubble.png" type="Texture" id=1]
+
+[sub_resource type="Curve" id=28]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -0.0914052, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=29]
+width = 128
+curve = SubResource( 28 )
+
+[sub_resource type="ParticlesMaterial" id=30]
+emission_shape = 2
+emission_box_extents = Vector3( 20, 0, 0 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 250.0
+initial_velocity_random = 0.6
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 29 )
+
+[node name="Particles2D" type="Particles2D"]
+z_as_relative = false
+amount = 25
+lifetime = 0.8
+preprocess = 0.3
+visibility_rect = Rect2( -128, -100, 256, 128 )
+process_material = SubResource( 30 )
+texture = ExtResource( 1 )

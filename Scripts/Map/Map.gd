@@ -60,7 +60,10 @@ func _input(ev):
       Global._reset()
 
 func _process(delta: float) -> void:
-  sprite.animation = 'Walking'
+  sprite.animation = 'Walking' if Global.shoe_type == 0 else 'Stopped'
+  if Global.shoe_type and !stopped and is_instance_valid(Global.Mario.shoe_node):
+    Global.Mario.get_node('AnimationPlayer').play('Small' if Global.state == 0 else 'Big')
+    Global.Mario.shoe_node.get_node('AnimatedSprite').offset.y = -12 if Global.state == 0 else 16
   sprite.speed_scale = 20 if !stopped else 5
   sprite.offset.y = 0 - sprite.frames.get_frame(sprite.animation, sprite.frame).get_size().y + 32 if Global.state > 0 else -12
 

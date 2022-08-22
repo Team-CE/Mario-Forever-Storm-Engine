@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://GFX/Fonts/LoliPop.tres" type="DynamicFont" id=1]
 [ext_resource path="res://GFX/Fonts/MusicIcon.svg" type="Texture" id=2]
+[ext_resource path="res://Scripts/Tools/MusicOverlay.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Appear"
@@ -138,6 +139,7 @@ anchor_bottom = 1.0
 margin_left = -320.0
 margin_top = -480.0
 margin_right = 320.0
+script = ExtResource( 3 )
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5

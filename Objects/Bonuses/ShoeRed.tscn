@@ -24,18 +24,20 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="ShoeRed" type="Node2D"]
+[node name="ShoeRed" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource( 1 )
 type = 1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, -15 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
+frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 

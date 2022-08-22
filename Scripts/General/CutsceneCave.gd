@@ -21,3 +21,5 @@ func _process(_delta):
     $Warp.warp_dir = Vector2(1, 0)
   if $Warp.counter > 36:
     $Mario/Sprite.visible = false
+    if is_instance_valid($Mario.shoe_node):
+      $Mario.shoe_node.get_node('AnimatedSprite').visible = false

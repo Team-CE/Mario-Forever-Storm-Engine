@@ -48,6 +48,7 @@ var score: int = 0                           # Score
 var coins: int = 0                           # Player coins
 var deaths: int = 0                          # Player deaths (for precision madness-like levels)
 var state: int = 0                           # Player powerup state
+var shoe_type: int = 0                       # Player kuribo's shoe state
 
 var projectiles_count: int = 0               # Number of player's projectiles on screen
 

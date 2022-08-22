@@ -53,9 +53,9 @@ onready var allow_custom_animation: bool = false
 onready var physics_enabled: bool = true
 onready var invulnerable: bool = false               # True while warping or finishing the level
 
-onready var shoe_node: Object = null
-onready var shoe_type: int = 0
-onready var is_in_shoe: bool = false
+var shoe_node: Object
+var shoe_type: int
+var is_in_shoe: bool
 
 var faded: bool = false
 
@@ -154,9 +154,15 @@ func _process_alive(delta) -> void:
     $Sprite.frames = powerup_animations[Global.state]
     if is_in_shoe:
       $AnimationPlayer.play('Small' if Global.state == 0 else 'Big')
+    if shield_counter > 0:
+      $Sprite.visible = true
   
-  if shoe_node != null and !is_instance_valid(shoe_node):
-    var shoe = load('res://Objects/Bonuses/ShoeRed.tscn').instance()
+  if Global.shoe_type != 0 and !is_instance_valid(shoe_node):
+    var shoe
+    if Global.shoe_type == 1:
+      shoe = load('res://Objects/Bonuses/ShoeRed.tscn').instance()
+    #elif Global.shoe_type == 2:
+    #  shoe = load('res://Objects/Bonuses/ShoeGreen.tscn').instance()
     Global.current_scene.add_child(shoe)
     shoe.global_position = global_position
     bind_shoe(shoe.get_instance_id())
@@ -558,12 +564,13 @@ func animate_default(delta) -> void:
   if allow_custom_animation: return
 
   if launch_counter > 0:
-    if Global.state > 1: animate_sprite('Launching')
+    if $Sprite.frames.has_animation('Launching'):
+      animate_sprite('Launching')
     launch_counter -= 1.01 * Global.get_delta(delta)
     return
 
   if crouch and not is_stuck:
-    if Global.state > 0:
+    if $Sprite.frames.has_animation('Crouching'):
       animate_sprite('Crouching')
     else:
       animate_sprite('Stopped')
@@ -605,7 +612,7 @@ func animate_swimming(delta, start) -> void:
     launch_counter -= 1.01 * Global.get_delta(delta)
 
   if crouch and not is_stuck:
-    if Global.state > 0:
+    if $Sprite.frames.has_animation('Crouching'):
       animate_sprite('Crouching')
     else:
       animate_sprite('Stopped')
@@ -722,10 +729,15 @@ func animate_shoe(delta) -> void:
 func bind_shoe(id: int):
   shoe_node = instance_from_id(id)
   shoe_type = shoe_node.type
+  Global.shoe_type = shoe_type
   is_in_shoe = true
+  shoe_node.is_free = false
+  $AnimationPlayer.play('Small' if Global.state == 0 else 'Big')
+  shoe_node.z_index = 11
 
 func unbind_shoe():
   shoe_node = null
+  Global.shoe_type = 0
   is_in_shoe = false
   $AnimationPlayer.play('RESET')
   $AnimationPlayer.stop()

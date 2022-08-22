@@ -18,15 +18,14 @@ texture = ExtResource( 2 )
 
 [node name="Node2D" type="Node2D" parent="."]
 use_parent_material = true
-rotation = 0.482481
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D"]
 use_parent_material = true
 position = Vector2( 0, -150 )
-rotation = -0.482481
+rotation = -1.94452
 z_index = 15
 frames = ExtResource( 1 )
-frame = 2
+frame = 25
 playing = true
 
 [node name="Area2D" type="Area2D" parent="Node2D/AnimatedSprite"]
