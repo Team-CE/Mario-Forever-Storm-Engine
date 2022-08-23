@@ -117,7 +117,7 @@ func _process(delta) -> void:
       target_gravity_enabled = false
       
   if target_gravity_enabled:
-    rotation = lerp_angle(rotation, deg2rad(target_gravity_angle), 0.15)
+    rotation = lerp_angle(rotation, deg2rad(target_gravity_angle), 0.35 * Global.get_delta(delta))
   else:
     target_gravity_angle = rotation_degrees
     

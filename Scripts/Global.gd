@@ -385,15 +385,6 @@ func _delay() -> void:
       _pll()
 
 # Generic Functions
-
-func enemy_bounce() -> void:
-  if Input.is_action_pressed('mario_jump'):
-    Mario.y_speed = -14
-  else:
-    Mario.y_speed = -9
-
-func lerpa(a, b, t):
-  return a - t * (b - a)
   
 func is_mario_collide(_detector_name: String, obj) -> bool:
   var collisions = Mario.get_node_or_null(_detector_name).get_overlapping_bodies()
@@ -414,11 +405,12 @@ func is_mario_collide_area_group(_detector_name: String, group: String) -> bool:
   return has
  
 func is_getting_closer(pix: float, pos: Vector2) -> bool:
+  var campos = current_camera.get_camera_screen_center()
   return (
-    pos.x > current_camera.get_camera_screen_center().x - 320 + pix and
-    pos.x < current_camera.get_camera_screen_center().x + 320 - pix and
-    pos.y > current_camera.get_camera_screen_center().y - 240 + pix and
-    pos.y < current_camera.get_camera_screen_center().y + 240 - pix
+    pos.x > campos.x - 320 + pix and
+    pos.x < campos.x + 320 - pix and
+    pos.y > campos.y - 240 + pix and
+    pos.y < campos.y + 240 - pix
   )
 
 func goto_scene(path: String):
