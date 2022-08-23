@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/AI/WalkingPiranha.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Enemies/WalkingPiranha.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
 [ext_resource path="res://GFX/Enemies/WalkingPiranhaFalling.png" type="Texture" id=6]
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -39,6 +40,9 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16, 16 )
 
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 17, 32 )
+
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 14, 2 )
 
@@ -49,14 +53,16 @@ vars = {
 "speed": 50.0
 }
 AI = ExtResource( 1 )
+can_freeze = true
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
+frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 2, -10 )
 frames = SubResource( 5 )
-frame = 1
+frame = 3
 playing = true
 offset = Vector2( 0, -16 )
 
@@ -65,6 +71,12 @@ visible = false
 show_behind_parent = true
 position = Vector2( 0, -16 )
 shape = SubResource( 6 )
+
+[node name="Collision2" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -32 )
+shape = SubResource( 8 )
+disabled = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
@@ -87,3 +99,9 @@ visible = false
 [node name="Collision" type="CollisionShape2D" parent="KillDetector"]
 position = Vector2( 0, 4 )
 shape = SubResource( 7 )
+
+[node name="IceSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -32 )
+frames = ExtResource( 7 )
+animation = "medium"

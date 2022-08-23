@@ -84,7 +84,7 @@ func _on_Coin_area_entered(area) -> void:
 
 func _on_Coin_body_entered(body) -> void:
   if appearing: return
-  if 'Iceball'.to_lower() in body.get_name().to_lower() and !frozen:
+  if 'Iceball'.to_lower() in body.get_name().to_lower() and 'belongs' in body and body.belongs != 0 and !frozen:
     freeze()
     body.explode()
   elif 'Fireball'.to_lower() in body.get_name().to_lower() and frozen:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Platforms/AmazingHammerBroPlatform.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=6]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sounds/Bonuses/bump.wav" type="AudioStream" id=8]
+[ext_resource path="res://Scripts/Enemies/AmazingHammerBroMain.gd" type="Script" id=9]
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=10]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
@@ -44,10 +46,14 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 24, 22 )
 
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 32, 31 )
+
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 31, 2 )
 
 [node name="Amazing Hammer Bro" type="Node2D"]
+script = ExtResource( 9 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 visible = false
@@ -91,9 +97,11 @@ AI = ExtResource( 3 )
 gravity_scale = 0.0
 score = 1000
 dir = 0.0
+can_freeze = true
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
+frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicPlatform/AmazingBro"]
 frames = SubResource( 8 )
@@ -104,6 +112,12 @@ offset = Vector2( 0, -16 )
 visible = false
 position = Vector2( 0, -16 )
 shape = SubResource( 9 )
+
+[node name="Collision2" type="CollisionShape2D" parent="KinematicPlatform/AmazingBro"]
+visible = false
+position = Vector2( 0, -25 )
+shape = SubResource( 11 )
+disabled = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="KinematicPlatform/AmazingBro"]
 stream = ExtResource( 7 )
@@ -120,3 +134,9 @@ position = Vector2( 0, -16 )
 [node name="Collision" type="CollisionShape2D" parent="KinematicPlatform/AmazingBro/KillDetector"]
 position = Vector2( 1, 27 )
 shape = SubResource( 10 )
+
+[node name="IceSprite" type="AnimatedSprite" parent="KinematicPlatform/AmazingBro"]
+visible = false
+position = Vector2( 0, -24 )
+frames = ExtResource( 10 )
+animation = "large"

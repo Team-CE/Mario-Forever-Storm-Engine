@@ -1,7 +1,5 @@
 extends Node2D
 
-export var projectile: PackedScene = preload('res://Objects/Projectiles/Hammer.tscn')
-
 #onready var platform = $KinematicPlatform
 onready var platform = self
 onready var bro = $'%AmazingBro'
@@ -11,9 +9,6 @@ var triggered: bool = false
 var t_counter: float = 0
 
 var died: bool = false
-
-func _ready():
-  bro.get_node('Brain').projectile = projectile
 
 func _process(delta):
   if triggered:

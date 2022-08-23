@@ -10,7 +10,8 @@ func _ready_mixin():
 func _ai_process(delta):
   ._ai_process(delta)
   if owner.frozen:
-    owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
+    owner.get_node('CollisionShape2D').disabled = true
+    owner.get_node('Collision2').disabled = false
     return
     
   if !owner.alive:
