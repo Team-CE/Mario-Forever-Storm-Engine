@@ -115,6 +115,8 @@ func _ready() -> void:
   if toSaveInfo.has('VSync') and typeof(toSaveInfo.VSync) == TYPE_BOOL: OS.vsync_enabled = toSaveInfo.VSync
   if toSaveInfo.has('Autopause') and typeof(toSaveInfo.Autopause) == TYPE_BOOL: autopause = toSaveInfo.Autopause
   
+  call_deferred('updateScale')
+  
   # Loading controls
   for action in controls:
     if controls[action] and controls[action] is String:
@@ -128,7 +130,6 @@ func _ready() -> void:
             InputMap.action_erase_event(action, toRemove)
         InputMap.action_add_event(action, key)
   
-  GlobalViewport.set_deferred('filter_enabled', ProjectSettings.get_setting("display/window/stretch/mode") == 'disable' )
   VisualServer.set_default_clear_color(Color.black)
   
   # Loading music
@@ -144,27 +145,51 @@ func saveInfo(content):
   file.open("user://" + GameName + ".cloudsav", File.WRITE)
   file.store_string(content)
   file.close()
-  
-  if scaling == ScalingType.FAST and ProjectSettings.get_setting("display/window/stretch/mode") != "viewport":
-    ProjectSettings.set_setting("display/window/stretch/mode", "viewport")
-# warning-ignore:return_value_discarded
-    ProjectSettings.save_custom("override.cfg")
-    restartNeeded = true
-    print('Need to restart')
+  updateScale()
 
-  elif scaling == ScalingType.FILTER and ProjectSettings.get_setting("display/window/stretch/mode") != "disable":
-    ProjectSettings.set_setting("display/window/stretch/mode", "disable")
-# warning-ignore:return_value_discarded
-    ProjectSettings.save_custom("override.cfg")
-    restartNeeded = true
-    print('Need to restart')
-    
-  elif scaling == ScalingType.FANCY and ProjectSettings.get_setting("display/window/stretch/mode") != "2d":
-    ProjectSettings.set_setting("display/window/stretch/mode", "2d")
-# warning-ignore:return_value_discarded
-    ProjectSettings.save_custom("override.cfg")
-    restartNeeded = true
-    print('Need to restart')
+func updateScale() -> void:
+#  if scaling == ScalingType.FAST and ProjectSettings.get_setting("display/window/stretch/mode") != "viewport":
+#    ProjectSettings.set_setting("display/window/stretch/mode", "viewport")
+## warning-ignore:return_value_discarded
+#    ProjectSettings.save_custom("override.cfg")
+#    restartNeeded = true
+#    print('Need to restart')
+#
+#  elif scaling == ScalingType.FILTER and ProjectSettings.get_setting("display/window/stretch/mode") != "disable":
+#    ProjectSettings.set_setting("display/window/stretch/mode", "disable")
+## warning-ignore:return_value_discarded
+#    ProjectSettings.save_custom("override.cfg")
+#    restartNeeded = true
+#    print('Need to restart')
+#
+#  elif scaling == ScalingType.FANCY and ProjectSettings.get_setting("display/window/stretch/mode") != "2d":
+#    ProjectSettings.set_setting("display/window/stretch/mode", "2d")
+## warning-ignore:return_value_discarded
+#    ProjectSettings.save_custom("override.cfg")
+#    restartNeeded = true
+#    print('Need to restart')
+  match scaling:
+    ScalingType.FAST:
+      get_tree().set_screen_stretch(
+        SceneTree.STRETCH_MODE_VIEWPORT,
+        SceneTree.STRETCH_ASPECT_KEEP,
+        Vector2(640, 480)
+      )
+      GlobalViewport.filter_enabled = false
+    ScalingType.FILTER:
+      get_tree().set_screen_stretch(
+        SceneTree.STRETCH_MODE_DISABLED,
+        SceneTree.STRETCH_ASPECT_KEEP,
+        Vector2(640, 480)
+      )
+      GlobalViewport.filter_enabled = true
+    ScalingType.FANCY:
+      get_tree().set_screen_stretch(
+        SceneTree.STRETCH_MODE_2D,
+        SceneTree.STRETCH_ASPECT_KEEP,
+        Vector2(640, 480)
+      )
+      GlobalViewport.set_deferred('filter_enabled', false)
 
 func loadInfo():
   var file = File.new()

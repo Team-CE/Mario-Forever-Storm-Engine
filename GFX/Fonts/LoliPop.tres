@@ -3,7 +3,7 @@
 [ext_resource path="res://GFX/Fonts/LoliPop.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 31
+size = 35
 outline_size = 2
 outline_color = Color( 0, 0, 0, 0.439216 )
 font_data = ExtResource( 1 )

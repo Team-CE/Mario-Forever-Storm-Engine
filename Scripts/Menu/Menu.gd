@@ -209,7 +209,7 @@ func controls() -> void:
               Global.quality += 1
               $change.play()
           6:
-            if Global.scaling < 2:
+            if Global.scaling < 1:
               Global.scaling += 1
               $change.play()
               saveOptions()

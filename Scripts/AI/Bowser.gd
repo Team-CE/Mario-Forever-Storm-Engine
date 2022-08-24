@@ -84,7 +84,7 @@ func _ai_process(delta: float) -> void:
               i.get_parent().add_child(waver)
               waver.global_position = owner.global_position
               waver.dir_right = bool(j)
-              lava_love()
+            lava_love()
               
     if fc > 10000:
       if y_speed > 1:
