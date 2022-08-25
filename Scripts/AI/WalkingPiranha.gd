@@ -24,6 +24,7 @@ func _ai_process(delta:float) -> void:
   owner.velocity.x = cos(counter) * 150 * owner.dir
   if owner.is_on_wall():
     owner.turn()
+    owner.animated_sprite.flip_h = false
   if on_mario_collide('InsideDetector'):
     Global._ppd()
     

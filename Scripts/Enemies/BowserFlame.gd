@@ -2,6 +2,7 @@ extends Area2D
 
 var target_pos_y: float
 var velocity: Vector2
+var inv_counter: float = 8
 
 onready var rng = RandomNumberGenerator.new()
 var rand_y: int
@@ -29,12 +30,19 @@ func _process(delta):
     position.y < target_pos_y + (rand_y * 32) + 3
     ):
       position.y = target_pos_y + (rand_y * 32)
+  
+  if inv_counter < 7:
+    inv_counter += Global.get_delta(delta)
 
 func kill(_a = false, _b = false, _c = false, _d = false, _e = false):
   return
 
 func _on_area_entered(area):
-  if area.is_in_group('Mario'):
+  if Global.shoe_type > 0 and area.name == 'BottomDetector':
+    Global.Mario.shoe_node.stomp()
+    inv_counter = 0
+    return
+  if area.is_in_group('Mario') and inv_counter >= 8:
     Global._ppd()
   if area.is_in_group('Projectile') and area.has_method('bounce') and area.belongs == 0 and area.bounce_count < 3:
     area.bounce()

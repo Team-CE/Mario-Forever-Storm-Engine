@@ -76,7 +76,7 @@ func _process(delta):
 
 func lava_hide(hide_splash = false) -> void:
   if !hide_splash:
-    var splash = preload('res://Scripts/Effects/LavaEffect.gd').new(position - Vector2(0, 24).rotated(rotation), -rotation if apply_rotated_motion else rotation)
+    var splash = preload('res://Scripts/Effects/LavaEffect.gd').new(position - Vector2(0, 16).rotated(rotation), -rotation if apply_rotated_motion else rotation)
     get_parent().add_child(splash)
   if remove_in_lava:
     queue_free()
