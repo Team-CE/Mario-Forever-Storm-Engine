@@ -30,7 +30,7 @@ texture = ExtResource( 1 )
 
 [node name="CrossingBar" type="Area2D" parent="."]
 position = Vector2( 202, -258 )
-z_as_relative = false
+z_index = 5
 
 [node name="Sprite" type="AnimatedSprite" parent="CrossingBar"]
 frames = SubResource( 1 )

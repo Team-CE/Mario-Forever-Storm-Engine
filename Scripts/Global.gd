@@ -218,7 +218,7 @@ func _physics_process(delta: float) -> void:
       
 # Fullscreen toggle
 func _input(ev):
-  if ev.is_action_pressed('ui_fullscreen'):
+  if ev.is_action_pressed('ui_fullscreen') and not ev.echo:
     OS.window_fullscreen = !OS.window_fullscreen
 
   if !debug or !(ev is InputEventKey) or !ev.pressed:

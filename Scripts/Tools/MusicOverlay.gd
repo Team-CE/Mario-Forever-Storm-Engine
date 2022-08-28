@@ -14,7 +14,7 @@ func _set_text(new) -> void:
   pass
 
 func _set_size(new) -> void:
-  var font: DynamicFont = preload('res://GFX/Fonts/LoliPop.tres')
+  var font: DynamicFont = preload('res://GFX/Fonts/LoliPop.tres').duplicate()
   font.size = new
   size = new
   $Label.set('custom_fonts/font', font)
