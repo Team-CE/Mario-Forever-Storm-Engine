@@ -51,7 +51,7 @@ func _on_custom_death(_score_mp):
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
   # DO NOT use preload to avoid sharing 'vars' dictionary between different instances
-  var koopa = load('res://Objects/Enemies/Koopas/Koopa.tscn').instance()
+  var koopa = preload('res://Objects/Enemies/Koopas/Koopa.tscn').instance()
   koopa.position = owner.position
   owner.get_parent().add_child(koopa)
   owner.velocity_enabled = false

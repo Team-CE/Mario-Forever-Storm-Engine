@@ -25,11 +25,11 @@ func _ai_process(delta: float) -> void:
     owner.get_node('Collision').disabled = true
     return
     
-  if owner.is_on_floor():
-    owner.velocity.y = -550
-  
   if !owner.alive:
     return
+  
+  if owner.is_on_floor():
+    owner.velocity.y = -550
   
   owner.velocity.x = owner.vars['speed'] * owner.dir
   
@@ -46,15 +46,15 @@ func _ai_process(delta: float) -> void:
     Global._ppd()
     
   var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
-  for i in range(len(g_overlaps)):
-    if 'triggered' in g_overlaps[i] and g_overlaps[i].triggered:
+  for i in g_overlaps:
+    if 'triggered' in i and i.triggered:
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
 
 func _on_custom_death(_score_mp):
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
   # DO NOT use preload to avoid sharing 'vars' dictionary between different instances
-  var koopa = load('res://Objects/Enemies/Koopas/Koopa Blue.tscn').instance()
+  var koopa = preload('res://Objects/Enemies/Koopas/Koopa Blue.tscn').instance()
   koopa.position = owner.position
   owner.get_parent().add_child(koopa)
   owner.velocity_enabled = false

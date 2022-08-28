@@ -66,6 +66,8 @@ func _ai_process(delta: float) -> void:
   
   if (owner.is_on_wall() || (owner.on_edge() && !is_shell)) && turn_if_no_break:
     owner.turn()
+    if is_shell:
+      owner.animated_sprite.flip_h = false
   
   if shell_counter < 41:
     shell_counter += 1 * Global.get_delta(delta)

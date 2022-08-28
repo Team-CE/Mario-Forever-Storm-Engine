@@ -4,7 +4,7 @@ class_name AliveObject, "res://GFX/Editor/AliveBody.png"
 signal enemy_died
 
 const multiplier_scores = [1, 2, 5, 10, 20, 50, 0.01]
-const pitch_md = [1, 1.05, 1.1, 1.15, 1.20, 1.25, 1.30, 1.35]
+const pitch_md = [1, 1.1, 1.25, 1.4, 1.6, 1.8, 2]
 
 enum DEATH_TYPE {
   BASIC,
@@ -210,10 +210,10 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
     DEATH_TYPE.FALL:
       if !csound:
         alt_sound.play()
-        alt_sound.pitch_scale = 1 + score_mp * 0.125
+        alt_sound.pitch_scale = pitch_md[score_mp]
       else:
         csound.play()
-        csound.pitch_scale = 1 + score_mp * 0.125
+        csound.pitch_scale = pitch_md[score_mp]
       if score_mp > len(multiplier_scores) - 1:
         score_mp = 0
       if score_mp == 6:
