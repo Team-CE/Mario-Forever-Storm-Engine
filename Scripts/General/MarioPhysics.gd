@@ -104,6 +104,8 @@ func is_over_platform() -> bool:
     return false
 
 func _physics_process(delta) -> void:
+  
+  
   if get_node_or_null('Camera'):
     _process_camera(delta)
   
@@ -117,7 +119,17 @@ func _physics_process(delta) -> void:
       target_gravity_enabled = false
       
   if target_gravity_enabled:
-    rotation = lerp_angle(rotation, deg2rad(target_gravity_angle), 0.35 * Global.get_delta(delta))
+    $Sprite.rotation = lerp_angle($Sprite.rotation, deg2rad(0), 0.35 * Global.get_delta(delta))
+    if is_instance_valid(Global.current_camera):
+      Global.current_camera.rotation = lerp_angle(Global.current_camera.rotation, deg2rad(0), 0.35 * Global.get_delta(delta))
+    if round(rotation_degrees * 10) != round(target_gravity_angle * 10):
+      #print('rotate', rotation_degrees, target_gravity_angle)
+      if abs(round(rotation_degrees - target_gravity_angle)) > 10:
+        $Sprite.rotation_degrees = rotation_degrees - target_gravity_angle
+        if is_instance_valid(Global.current_camera):
+          Global.current_camera.rotation_degrees = rotation_degrees - target_gravity_angle
+      rotation_degrees = target_gravity_angle
+    #rotation = lerp_angle(rotation, deg2rad(target_gravity_angle), 0.35 * Global.get_delta(delta))
   else:
     target_gravity_angle = rotation_degrees
     
