@@ -22,6 +22,8 @@ var crouch: bool = false
 var is_stuck: bool = false
 var prelanding: bool = false
 
+var ignore_stuck: bool = false # Set to true if there are issues with mario getting stuck
+
 enum Movement {
   DEFAULT,
   SWIMMING,
@@ -103,7 +105,7 @@ func is_over_platform() -> bool:
   else:
     return false
 
-func _physics_process(delta) -> void:
+func _process(delta) -> void:
   
   
   if get_node_or_null('Camera'):
@@ -150,6 +152,7 @@ func _physics_process(delta) -> void:
 
   if jump_internal_counter < 100:
     jump_internal_counter += 1 * Global.get_delta(delta)
+
 
 func _process_alive(delta) -> void:
   if selected_state != Global.state:
@@ -331,15 +334,19 @@ func _process_dead(delta) -> void:
       MusicPlayer.stop_on_pause()
       get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
       dead_gameover = true
-      yield(get_tree().create_timer( 5.0, false ), 'timeout')
-      if Global.current_scene.popup == null:
-        Global.current_scene.popup = Global.current_scene.popup_node.instance()
-        var gameovercont = gameovercont_node.instance()
-        get_parent().add_child(Global.current_scene.popup)
-        Global.current_scene.popup.add_child(gameovercont)
+    if dead_gameover:
+# warning-ignore:return_value_discarded
+      get_tree().create_timer( 5.0, false ).connect('timeout', self, '_game_over_screen')
 
-        get_parent().get_tree().paused = true
-      
+func _game_over_screen():
+  Global.current_scene.popup = Global.current_scene.popup_node.instance()
+  var gameovercont = gameovercont_node.instance()
+  get_parent().add_child(Global.current_scene.popup)
+  Global.current_scene.popup.add_child(gameovercont)
+  MusicPlayer.play_on_pause()
+
+  get_parent().get_tree().paused = true
+
 func movement_default(delta) -> void:
   if Global.is_mario_collide_area_group('InsideDetector', 'Water'):
     movement_type = Movement.SWIMMING
@@ -491,7 +498,7 @@ func controls(delta) -> void:
       if !test_move(global_transform, Vector2(0, -6).rotated(rotation)):
         crouch = false
         is_stuck = false
-      else:
+      elif !ignore_stuck:
         is_stuck = true
         velocity = Vector2.DOWN
   else:

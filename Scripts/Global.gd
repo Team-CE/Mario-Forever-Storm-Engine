@@ -217,12 +217,13 @@ func _physics_process(delta: float) -> void:
     projectiles_count = 0
       
 # Fullscreen toggle
-func _input(ev):
+func _unhandled_input(ev):
   if ev.is_action_pressed('ui_fullscreen') and not ev.echo:
     OS.window_fullscreen = !OS.window_fullscreen
-
-  if !debug or !(ev is InputEventKey) or !ev.pressed:
+  
+  if !(ev is InputEventKey) or !debug or !ev.pressed:
     return
+    
   if Input.is_action_pressed('debug_shift'):
   # Hotkey for restarting current level
     if ev.is_action_pressed('debug_f2'):
@@ -294,6 +295,15 @@ func _process(delta: float):
 #  if p_fps_switch > 50:
 #    print('Updated engine iterations')
 #    Engine.iterations_per_second = temp
+  
+  if debug and Input.is_action_pressed('debug_shift'):
+    if Input.is_action_just_released('zoom_out'):
+      current_camera.zoom += Vector2(0.2, 0.2)
+      print(current_camera.zoom)
+    
+    if Input.is_action_just_released('zoom_in') and current_camera.zoom.x > 0.4:
+      current_camera.zoom -= Vector2(0.2, 0.2)
+      print(current_camera.zoom)
   
   # in case something goes wrong with volume
   if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > 1:
@@ -430,6 +440,7 @@ func is_mario_collide_area_group(_detector_name: String, group: String) -> bool:
   return has
  
 func is_getting_closer(pix: float, pos: Vector2) -> bool:
+  if !current_camera: return false
   var campos = current_camera.get_camera_screen_center()
   return (
     pos.x > campos.x - 320 + pix and
