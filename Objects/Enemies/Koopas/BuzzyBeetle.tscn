@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/AI/BuzzyBeetle.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=2]
@@ -80,17 +80,19 @@ extents = Vector2( 24, 24 )
 [sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 24, 14 )
 
+[sub_resource type="RectangleShape2D" id=23]
+extents = Vector2( 80, 240 )
+
 [node name="BuzzyBeetle" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 2 )
 vars = {
 "bounce": 9.0,
 "is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
+"shell speed": 300.0,
 "speed": 50.0,
 "stopped": false,
 "upside down": false,
-"upside down shell speed": 175.0
+"upside down shell speed": 200.0
 }
 AI = ExtResource( 1 )
 invincible_for_projectiles = [ "beetroot", "fireball" ]
@@ -102,7 +104,6 @@ frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 21 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true
@@ -163,3 +164,12 @@ visible = false
 position = Vector2( 0, -16 )
 frames = ExtResource( 8 )
 animation = "small"
+
+[node name="TriggerZone" type="Area2D" parent="."]
+visible = false
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerZone"]
+position = Vector2( 0, 192 )
+shape = SubResource( 23 )

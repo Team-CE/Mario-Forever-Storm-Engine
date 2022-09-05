@@ -36,7 +36,7 @@ func _ai_process(delta: float) -> void:
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
   if !owner.alive:
-    owner.get_node(owner.vars['kill zone']).get_child(0).disabled = true
+    owner.get_node('KillZone').get_child(0).disabled = true
     owner.get_node('QBlockZone').get_child(0).disabled = true
     owner.animated_sprite.flip_v = false
     return
@@ -55,7 +55,7 @@ func _ai_process(delta: float) -> void:
   
   var turn_if_no_break: bool = true
     
-  for b in owner.get_node(owner.vars['kill zone']).get_overlapping_bodies():
+  for b in owner.get_node('KillZone').get_overlapping_bodies():
     if is_shell && !stopped_shell && abs(owner.velocity.x) > 0:
       if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
         if b.get_instance_id() in kill_exceptions:
@@ -81,27 +81,30 @@ func _ai_process(delta: float) -> void:
   
   if owner.is_on_wall() and turn_if_no_break:
     owner.turn()
-    
+    if is_shell:
+      owner.animated_sprite.flip_h = false
   
   # Upside-down behaviour
   if owner.vars['upside down']:
-    if (
-      Global.Mario.position.x > owner.position.x - 80 and
-      Global.Mario.position.x < owner.position.x + 80 and
-      Global.Mario.position.y > owner.position.y - 96 and
-      Global.Mario.position.y < owner.position.y + 500 and
-      upside_down_state == 0
-    ):
+    if Global.is_mario_collide_area('InsideDetector', owner.get_node('TriggerZone')) and upside_down_state == 0:
+#    if (
+#      Global.Mario.position.x > owner.position.x - 80 and
+#      Global.Mario.position.x < owner.position.x + 80 and
+#      Global.Mario.position.y > owner.position.y - 96 and
+#      Global.Mario.position.y < owner.position.y + 500 and
+#      upside_down_state == 0
+#    ):
       upside_down_state = 1
       owner.animated_sprite.animation = 'shell stopped'
       owner.vars['speed'] = 0
       owner.gravity_scale = 0 - owner.gravity_scale
+      owner.get_node('TriggerZone/CollisionShape2D').set_deferred('disabled', true)
       
     if upside_down_state == 1 and owner.is_on_floor():
       upside_down_state = 2
       owner.dir = 1 if Global.Mario.position.x > owner.position.x else -1
       owner.animated_sprite.speed_scale = 0.75
-      owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
+      owner.get_node('KillZone').get_child(0).disabled = false
       owner.get_node('QBlockZone').get_child(0).disabled = false
       score_mp = 0
       to_moving_shell(false)
@@ -148,7 +151,7 @@ func _ai_process(delta: float) -> void:
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
 
 func to_stopped_shell() -> void:
-  owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
+  owner.get_node('KillZone').get_child(0).disabled = false
   owner.get_node('QBlockZone').get_child(0).disabled = false
   shell_counter = 0
   is_shell = true
@@ -161,7 +164,7 @@ func to_stopped_shell() -> void:
   kill_exceptions = []
 
 func to_moving_shell(reset_counter: bool = true) -> void:
-  owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
+  owner.get_node('KillZone').get_child(0).disabled = false
   owner.get_node('QBlockZone').get_child(0).disabled = false
   is_shell = true
   stopped_shell = false

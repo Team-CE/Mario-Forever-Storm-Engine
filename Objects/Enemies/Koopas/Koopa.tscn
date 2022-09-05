@@ -85,9 +85,7 @@ script = ExtResource( 2 )
 vars = {
 "bounce": 9.0,
 "is shell": false,
-"kill zone": NodePath("KillZone"),
-"qblock zone": NodePath("QBlockZone"),
-"shell speed": 250.0,
+"shell speed": 300.0,
 "speed": 50.0,
 "stopped": false
 }
@@ -100,6 +98,7 @@ frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 9 )
+frame = 1
 playing = true
 offset = Vector2( 0, -23 )
 flip_h = true

@@ -147,7 +147,7 @@ func _ai_process(delta: float) -> void:
   # Stomping and hurting Mario
   if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 and invis_c <= 20:
     Global.Mario.velocity.y = -owner.vars["bounce"] * 50
-    mario_shift = 10 if Global.Mario.velocity.x > 0 else -10
+    mario_shift = -10 if Global.Mario.get_node('Sprite').flip_h else 10
     bowser_damage()
   elif on_mario_collide('InsideDetector') and invis_c < 115:
     Global._ppd()

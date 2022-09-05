@@ -72,7 +72,7 @@ collision_mask = 2
 script = ExtResource( 3 )
 vars = {
 "bounce": 9.0,
-"ignore qblocks": false,
+"ignore hidden": false,
 "speed": 50.0
 }
 AI = ExtResource( 1 )

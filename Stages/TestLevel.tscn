@@ -190,37 +190,20 @@ qtype = 1
 
 [node name="Koopa5" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1552, 32 )
-vars = {
-"bounce": 9.0,
-"is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
-"speed": 50.0,
-"stopped": false
-}
 
 [node name="Koopa4" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1200, 352 )
-vars = {
-"bounce": 9.0,
-"is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
-"speed": 50.0,
-"stopped": false
-}
 
 [node name="BuzzyBeetle" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1712, 192 )
 vars = {
 "bounce": 9.0,
 "is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
+"shell speed": 300.0,
 "speed": 50.0,
 "stopped": false,
 "upside down": true,
-"upside down shell speed": 175.0
+"upside down shell speed": 200.0
 }
 
 [node name="Paratroopa Red" parent="." instance=ExtResource( 6 )]

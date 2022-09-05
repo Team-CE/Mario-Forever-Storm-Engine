@@ -65,7 +65,7 @@ func _on_tree_exited() -> void:
   if belongs == 0:
     Global.projectiles_count -= 1
 
-func _on_level_complete() -> float:
+func _on_level_complete() -> int:
   var score = 200
   var score_text = ScoreText.new(score, position)
   get_parent().add_child(score_text)

@@ -22,7 +22,7 @@ func _ai_process(delta: float) -> void:
     owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
   
   if !owner.alive:
-    owner.get_node(owner.vars['kill zone']).get_child(0).disabled = true
+    owner.get_node('KillZone').get_child(0).disabled = true
     owner.get_node('QBlockZone').get_child(0).disabled = true
     return
   
@@ -42,7 +42,7 @@ func _ai_process(delta: float) -> void:
     
   var turn_if_no_break: bool = true
     
-  for b in owner.get_node(owner.vars['kill zone']).get_overlapping_bodies():
+  for b in owner.get_node('KillZone').get_overlapping_bodies():
     if is_shell && !stopped_shell && abs(owner.velocity.x) > 0:
       if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'):
         var brain = b.get_node_or_null('Brain')
@@ -107,7 +107,7 @@ func _ai_process(delta: float) -> void:
       owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
 
 func to_stopped_shell() -> void:
-  owner.get_node(owner.vars['kill zone']).get_child(0).disabled = false
+  owner.get_node('KillZone').get_child(0).disabled = false
   owner.get_node('QBlockZone').get_child(0).disabled = false
   shell_counter = 0
   is_shell = true

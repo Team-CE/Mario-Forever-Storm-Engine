@@ -27,8 +27,7 @@ script = ExtResource( 3 )
 vars = {
 "bounce": 9.0,
 "is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
+"shell speed": 300.0,
 "speed": 50.0,
 "stopped": false
 }
@@ -55,7 +54,6 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-frame = 1
 playing = true
 offset = Vector2( 0, -24 )
 flip_h = true

@@ -35,7 +35,7 @@ func _process(delta) -> void:
       counter = 0
       $CrossingBar.position.y = initial_position
     
-    if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has($CrossingBar) or (Global.Mario.position.x >= position.x + 24 and Global.Mario.velocity.y == 0 and Global.Mario.position.y < position.y + 128):
+    if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has($CrossingBar) or (Global.Mario.position.x >= position.x + 24 and Global.Mario.is_on_floor() and Global.Mario.position.y < position.y + 128):
       if Global.Mario.get_node('InsideDetector').get_overlapping_areas().has($CrossingBar):
         bar_enabled = true
         $CrossingBar/Sprite.set_animation('crossed')
@@ -69,15 +69,15 @@ func _process(delta) -> void:
         $CrossingBar.position.y += bar_accel * Global.get_delta(delta)
         bar_accel += 0.2 * Global.get_delta(delta)
         $CrossingBar.rotation_degrees += 17 * Global.get_delta(delta)
-        
+
 func finish_process(delta):
   counter += 1 * Global.get_delta(delta)
   if counter > 400:
     if Global.time > 0:
 # warning-ignore:narrowing_conversion
-      Global.time -= round(5 * Global.get_delta(delta))
+      Global.time -= round(9 * Global.get_delta(delta))
 # warning-ignore:narrowing_conversion
-      Global.add_score(round(50 * Global.get_delta(delta)))
+      Global.add_score(round(90 * Global.get_delta(delta)))
       Global.emit_signal('TimeTick')
       if not Global.HUD.get_node('ScoreSound').playing:
         Global.HUD.get_node('ScoreSound').play()
@@ -85,6 +85,7 @@ func finish_process(delta):
       Global.time = 0
       Global.emit_signal('TimeTick')
       Global.score = final_score
+      Global.HUD.get_node('Score').text = str(final_score)
       Global.emit_signal('OnScoreChange')
       wait_counter -= 1 * Global.get_delta(delta)
       if wait_counter < 0:
@@ -112,5 +113,7 @@ func act(warp_finish_enabled: bool = false) -> void:
   for i in Global.current_scene.get_children():
     if i is KinematicBody2D and i.has_method('_on_level_complete'):
       var score = i._on_level_complete()
-      if score and typeof(score) == TYPE_REAL:
-        final_score += score
+      if score and typeof(score) == TYPE_INT:
+# warning-ignore:narrowing_conversion
+        final_score += abs(score)
+        Global.add_score(score)

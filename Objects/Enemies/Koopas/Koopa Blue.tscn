@@ -65,5 +65,4 @@ animations = [ {
 
 [node name="Sprite" parent="." index="0"]
 frames = SubResource( 17 )
-frame = 1
 offset = Vector2( 0, -24 )

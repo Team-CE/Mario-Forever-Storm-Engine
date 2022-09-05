@@ -67,7 +67,7 @@ func _process(delta):
           get_node('../Options')._pseudo_ready()
           get_parent().options = true
         3:
-          scene = ProjectSettings.get_setting('application/config/sgr_scene')
+          scene = ProjectSettings.get_setting('application/config/save_game_room_scene')
           AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
           Global.goto_scene(scene)
           MusicPlayer.get_node('Main').stop()
