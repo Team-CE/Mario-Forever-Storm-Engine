@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Prefabs/Mario/Small.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/General/MarioPhysics.gd" type="Script" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://Prefabs/Mario/Propeller.tres" type="SpriteFrames" id=14]
 [ext_resource path="res://Scripts/Powerups/Propeller.gd" type="Script" id=15]
 [ext_resource path="res://GFX/Effects/Shaders/StarmanEffect.gdshader" type="Shader" id=16]
+[ext_resource path="res://Prefabs/Mario/Boomerang.tres" type="SpriteFrames" id=17]
+[ext_resource path="res://Scripts/Powerups/Boomerang.gd" type="Script" id=18]
 
 [sub_resource type="ShaderMaterial" id=13]
 shader = ExtResource( 16 )
@@ -116,14 +118,16 @@ powerup_animations = {
 3: ExtResource( 7 ),
 4: ExtResource( 10 ),
 5: ExtResource( 12 ),
-6: ExtResource( 14 )
+6: ExtResource( 14 ),
+7: ExtResource( 17 )
 }
 powerup_scripts = {
 2: ExtResource( 8 ),
 3: ExtResource( 9 ),
 4: ExtResource( 11 ),
 5: ExtResource( 13 ),
-6: ExtResource( 15 )
+6: ExtResource( 15 ),
+7: ExtResource( 18 )
 }
 
 [node name="DebugText" type="Label" parent="."]

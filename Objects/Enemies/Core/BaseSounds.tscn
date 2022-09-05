@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=1]
 [ext_resource path="res://Sounds/Main/jump.wav" type="AudioStream" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Sounds/Main/propeller_down.wav" type="AudioStream" id=12]
 [ext_resource path="res://Sounds/Bonuses/switch.wav" type="AudioStream" id=13]
 [ext_resource path="res://Sounds/Main/swim.wav" type="AudioStream" id=14]
+[ext_resource path="res://Sounds/Enemies/throw.wav" type="AudioStream" id=15]
 
 [node name="BaseSounds" type="Node2D"]
 
@@ -55,6 +56,10 @@ bus = "Sounds"
 
 [node name="MAIN_Shoot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
+bus = "Sounds"
+
+[node name="MAIN_Throw" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 15 )
 bus = "Sounds"
 
 [node name="DEBUG_Toggle" type="AudioStreamPlayer2D" parent="."]

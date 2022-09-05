@@ -176,15 +176,15 @@ func on_edge() -> bool:
   return (ray_L.is_colliding() && !ray_R.is_colliding()) || (ray_R.is_colliding() && !ray_L.is_colliding())
 
 # warning-ignore:shadowed_variable
-func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, projectile = null, is_shell: bool = false) -> void:
+func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, projectile = null, is_shell: bool = false) -> bool:
   if invincible:
-    return
+    return false
   if invincible_for_shells and is_shell:
-    return
+    return false
   if projectile: 
     for proj_exception in invincible_for_projectiles:
       if proj_exception.to_lower() in projectile.to_lower():
-        return
+        return false
   if not force_death_type:
     alive = false
     collision_layer = 0
@@ -205,8 +205,10 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
       Global.current_scene.add_child(ScoreText.new(score, global_position))
       time = get_tree().create_timer(4.0, false)
       time.connect('timeout', self, 'instance_free')
+      return true
     DEATH_TYPE.DISAPPEAR:
       queue_free()
+      return true
     DEATH_TYPE.FALL:
       if !csound:
         alt_sound.play()
@@ -225,9 +227,11 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
       animated_sprite.set_animation('falling')
       time = get_tree().create_timer(2.5, false)
       time.connect('timeout', self, 'instance_free')
+      return true
     DEATH_TYPE.CUSTOM:
       if brain.has_method('_on_custom_death'):
         brain._on_custom_death(score_mp)
+      return true
     DEATH_TYPE.UNFREEZE:
       visible = false
       if is_instance_valid(get_node_or_null('Collision')): $Collision.disabled = true
@@ -240,11 +244,13 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
         get_parent().add_child(debris_effect)
       time = get_tree().create_timer(2.0, false)
       time.connect('timeout', self, 'instance_free')
+      return true
   just_died = true
   if !death_signal_exception: emit_signal('enemy_died')
   yield(get_tree(), 'idle_frame')
   just_died = false
-        
+  return false
+  
 func freeze() -> void:
   if !can_freeze || frozen:
     return
