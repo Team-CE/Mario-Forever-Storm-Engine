@@ -108,6 +108,7 @@ func _process(delta) -> void:
 # warning-ignore:standalone_ternary
         Global.play_base_sound('MAIN_Pipe') if !custom_audio else custom_audio.play()
         warp_dir = Vector2.UP
+        Global.Mario.animate_sprite('Jumping')
         Global.Mario.get_node('Sprite').visible = true
       elif direction == DIRS.RIGHT and Input.is_action_pressed('mario_right'):
         calc_pos = Vector2(position.x - 16, position.y + 16)

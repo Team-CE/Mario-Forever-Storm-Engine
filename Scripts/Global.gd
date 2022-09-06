@@ -88,8 +88,8 @@ func _ready() -> void:
     root.call_deferred('remove_child', current_scene)
     get_node('/root/GlobalViewport/Viewport').call_deferred('add_child', current_scene)
   
-  #if OS.is_debug_build():
-  #  debug = true
+  if OS.is_debug_build():
+    debug = true
   
   # Adding a debug inspector
   if debug:

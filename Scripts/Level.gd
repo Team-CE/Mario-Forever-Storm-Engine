@@ -50,14 +50,17 @@ func _ready():
       #$WorldEnvironment.environment.glow_bicubic_upscale = false
       for node in get_children():
         if node.is_class('Particles2D'):
-          node.queue_free()
+          node.emitting = false
+          node.visible = false
         if 'Particles' in node.name:
           for part in node.get_children():
             if part.is_class('Particles2D'):
-              part.queue_free()
+              part.emitting = false
+              part.visible = false
         if node.is_class('Light2D') and node.shadow_enabled:
           node.shadow_filter = 1
           node.shadow_buffer_size = 512
+          node.shadow_enabled = false
     $Mario.invulnerable = false
     
     get_parent().world.environment = null
