@@ -17,6 +17,7 @@ var throw_was_activated: bool = false
 var odchowanie: bool = false
 var is_blinking: bool = false
 
+var newlakitu = load('res://Scripts/Enemies/NewLakitu.gd')
 var new_lakitu_summoned: bool = false
 
 var rng = RandomNumberGenerator.new()
@@ -173,7 +174,7 @@ func new_lakitu():
   else:
     node = Node.new()
     node.name = 'NewLakitu'
-    node.script = preload('res://Scripts/Enemies/NewLakitu.gd')
+    node.script = newlakitu
     Global.current_scene.add_child(node)
   node.throw_script = owner.vars['throw_script']
   node.throw_delay = owner.vars['throw_delay']

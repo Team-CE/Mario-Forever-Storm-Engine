@@ -110,8 +110,8 @@ func act(warp_finish_enabled: bool = false) -> void:
   counter = 0
   warp_finish = warp_finish_enabled
   final_score = Global.score + (Global.time * 10)
-  for i in Global.current_scene.get_children():
-    if i is KinematicBody2D and i.has_method('_on_level_complete'):
+  for i in get_tree().get_nodes_in_group('Projectile'):
+    if i.has_method('_on_level_complete'):
       var score = i._on_level_complete()
       if score and typeof(score) == TYPE_INT:
 # warning-ignore:narrowing_conversion

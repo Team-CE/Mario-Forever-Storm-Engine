@@ -3,8 +3,6 @@ extends Brain
 signal on_appearing_ended
 signal on_mario_collided
 
-const mush = preload('res://Objects/Bonuses/Powerups/Mushroom.tscn')
-
 var appearing: bool = true
 var appear_counter: float = 0
 
@@ -20,24 +18,12 @@ func _ready_mixin():
   owner.velocity_enabled = false
   if !initial_pos:
     initial_pos = owner.position
-  
-  # Replacing with mushroom if mario is small and state is provided
-  if 'set state' in owner.vars and 'from bonus' in owner.vars and owner.vars['from bonus'] and Global.state == 0 and owner.vars['set state'] > 1:
-    var mushroom = mush.instance()
-    mushroom.transform = owner.transform
-    owner.get_parent().add_child(mushroom)
-    owner.queue_free()
     
   if 'custom behavior' in owner.vars:
     custom_script = owner.vars['custom behavior'].new()
   
   if 'custom appearing' in owner.vars:
     custom_appearing = true
-  
-  var children = owner.get_parent().get_children()
-  for node in children:
-    if node is KinematicBody2D:
-      owner.add_collision_exception_with(node)
   
 func _ai_process(delta: float) -> void:
   ._ai_process(delta)

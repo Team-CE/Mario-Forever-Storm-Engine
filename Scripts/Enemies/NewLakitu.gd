@@ -5,7 +5,7 @@ var throw_delay
 var lakitu_addon
 var result
 var time
-var inst = load('res://Objects/Enemies/Lakito.tscn')
+const inst = preload('res://Objects/Enemies/Lakito.tscn')
 
 func _ready() -> void:
   time = get_tree().create_timer(7.0, false)
@@ -20,7 +20,3 @@ func newlakitu():
   if result: lakitu.vars['result'] = result
   lakitu.position = Vector2(camera.global_position.x + 520, camera.limit_top + 80 + rand_range(-16, 16))
   get_parent().add_child(lakitu)
-
-#func _exit_tree():
-#  if lakitu and is_instance_valid(lakitu):
-#    lakitu.queue_free()

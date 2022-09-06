@@ -8,6 +8,7 @@ radius = 18.0
 
 [node name="Boomerang" type="Area2D" groups=["Projectile"]]
 z_index = 9
+collision_mask = 33
 script = ExtResource( 2 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]

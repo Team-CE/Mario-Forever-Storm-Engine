@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
-[ext_resource path="res://Scripts/AI/Powerups/GenericPowerup.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/AI/Powerups/Mushroom.gd" type="Script" id=2]
 [ext_resource path="res://GFX/Bonuses/Mushroom.png" type="Texture" id=3]
 [ext_resource path="res://GFX/Effects/Light.png" type="Texture" id=4]
 

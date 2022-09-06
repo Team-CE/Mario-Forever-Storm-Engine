@@ -83,7 +83,7 @@ func _ai_process(delta: float) -> void:
 func _on_custom_death(_score_mp):
   owner.sound.play()
   owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
-  var malpka = load('res://Objects/Enemies/Emalpkas/Emalpka Hammer.tscn').instance()
+  var malpka = preload('res://Objects/Enemies/Emalpkas/Emalpka Hammer.tscn').instance()
   malpka.position = owner.position
   owner.get_parent().add_child(malpka)
   owner.velocity_enabled = false

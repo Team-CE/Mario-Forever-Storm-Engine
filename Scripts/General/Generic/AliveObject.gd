@@ -57,7 +57,6 @@ var velocity: Vector2
 var alive: bool = true
 var death_type: int
 var velocity_enabled: bool = true
-var just_died: bool = false
 
 onready var time = get_tree().create_timer(0)
 
@@ -159,11 +158,13 @@ func _physics_process(delta:float) -> void:
       frozen_sprite.frame = 0
     
     if Global.is_mario_collide('TopDetector', self) and Global.Mario.is_on_floor():
+# warning-ignore:return_value_discarded
       kill(DEATH_TYPE.UNFREEZE)
     
   if freeze_counter > 300:
     frozen_sprite.visible = int(freeze_counter / 2) % 2 == 0
   if freeze_counter > 360:
+# warning-ignore:return_value_discarded
     kill(DEATH_TYPE.UNFREEZE)
 
 # Useful functions
@@ -195,6 +196,9 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
     self.death_type = death_type
   if brain.has_method('_on_any_death'):
     brain._on_any_death()
+    
+  if !death_signal_exception: emit_signal('enemy_died')
+  
   match self.death_type:       # TEMP
     DEATH_TYPE.BASIC:
       if !csound:
@@ -245,10 +249,7 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
       time = get_tree().create_timer(2.0, false)
       time.connect('timeout', self, 'instance_free')
       return true
-  just_died = true
-  if !death_signal_exception: emit_signal('enemy_died')
-  yield(get_tree(), 'idle_frame')
-  just_died = false
+      
   return false
   
 func freeze() -> void:
