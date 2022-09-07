@@ -44,8 +44,9 @@ func _ready():
       $WorldEnvironment.environment.glow_high_quality = false
       for node in get_children():
         if node.is_class('Light2D') and node.shadow_enabled:
-          node.shadow_filter = 3
-          node.shadow_buffer_size = 1024
+          node.shadow_filter = 0
+          node.shadow_buffer_size = 512
+          print(node)
     if Global.quality == 0:
       #$WorldEnvironment.environment.glow_bicubic_upscale = false
       for node in get_children():
@@ -58,7 +59,7 @@ func _ready():
               part.emitting = false
               part.visible = false
         if node.is_class('Light2D') and node.shadow_enabled:
-          node.shadow_filter = 1
+          node.shadow_filter = 0
           node.shadow_buffer_size = 512
           node.shadow_enabled = false
     $Mario.invulnerable = false

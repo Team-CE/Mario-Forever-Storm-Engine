@@ -90,7 +90,7 @@ func _ai_process(delta: float) -> void:
       if y_speed > 1:
         y_speed -= 1 * Global.get_delta(delta)
     if fc > 10130:
-      if !f_act:
+      if !f_act and !Global.Mario.dead:
         Global.current_scene.get_node('FinishLine').act()
         f_act = true
     return
@@ -114,8 +114,8 @@ func _ai_process(delta: float) -> void:
   if invis_c > 0:
     invis_c -= 1 * Global.get_delta(delta)
     
-    owner.animated_sprite.modulate.a += (-0.05 if !modul_switch else 0.05) * Global.get_delta(delta)
-    if !modul_switch and owner.animated_sprite.modulate.a <= 0:
+    owner.animated_sprite.modulate.a += (-0.04 if !modul_switch else 0.04) * Global.get_delta(delta)
+    if !modul_switch and owner.animated_sprite.modulate.a <= 0.25:
       modul_switch = true
     if modul_switch and owner.animated_sprite.modulate.a >= 1:
       modul_switch = false
