@@ -93,6 +93,8 @@ func _ready():
     var hud: CanvasLayer = load('res://Objects/Core/HUD.tscn').instance()
     add_child(hud)
     hud.set_owner(self)
+    var brush = Brush2D.new()
+    add_child(brush)
 
 func setup_worldenv() -> WorldEnvironment:
   var newWE = WorldEnvironment.new()
