@@ -44,15 +44,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Effects/BrickEffect.gd"
 }, {
+"base": "Node2D",
+"class": "Brush2D",
+"language": "GDScript",
+"path": "res://addons/brush2d/brush2d.gd"
+}, {
 "base": "StaticBody2D",
 "class": "Cannon",
 "language": "GDScript",
 "path": "res://Scripts/Enemies/Cannon.gd"
 }, {
+"base": "Area2D",
+"class": "Coin",
+"language": "GDScript",
+"path": "res://Scripts/Bonuses/Coin.gd"
+}, {
 "base": "AnimatedSprite",
 "class": "CoinEffect",
 "language": "GDScript",
 "path": "res://Scripts/Effects/CoinEffect.gd"
+}, {
+"base": "Control",
+"class": "ComponentView",
+"language": "GDScript",
+"path": "res://addons/component_view/src/tab/component_view.gd"
 }, {
 "base": "Reference",
 "class": "Discord",
@@ -127,8 +142,11 @@ _global_script_class_icons={
 "BlockPartySoundPlayer": "",
 "Brain": "",
 "BrickEffect": "",
+"Brush2D": "res://addons/brush2d/icon.png",
 "Cannon": "res://GFX/Editor/Enemy.png",
+"Coin": "",
 "CoinEffect": "",
+"ComponentView": "",
 "Discord": "",
 "Explosion": "",
 "IceExplosion": "",
@@ -172,6 +190,10 @@ window/size/height=480
 window/vsync/vsync_via_compositor=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/brush2d/plugin.cfg", "res://addons/component_view/plugin.cfg" )
 
 [importer_defaults]
 

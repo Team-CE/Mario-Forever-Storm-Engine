@@ -28,6 +28,7 @@ func _ready() -> void:
 
 func _process(delta) -> void:
   var overlaps = self.get_overlapping_bodies()
+  var overlaps_area = self.get_overlapping_areas()
 
   if overlaps.size() > 0 and belongs == 0:
     for i in overlaps:
@@ -35,6 +36,11 @@ func _process(delta) -> void:
         var killed = i.kill(AliveObject.DEATH_TYPE.FALL if !i.force_death_type else i.death_type, 0, null, self.name)
         if killed:
           explode()
+  
+  if overlaps_area.size() > 0 and belongs == 0:
+    for i in overlaps_area:
+      if i is Coin:
+        i.trigger_fly()
         
   if is_mario_collide('InsideDetector'):
     if belongs != 0:

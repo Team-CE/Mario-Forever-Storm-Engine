@@ -50,7 +50,7 @@ func _update_view():
   _update_pixel_scale(_calculate_pixel_scale(target_scale))
 
 func _calculate_pixel_scale(scale):
-  var pixel_scale = floor(min(scale.x, scale.y))
+  var pixel_scale = ceil(min(scale.x, scale.y))
   if pixel_scale == 0.0:
     return 1.0
   return pixel_scale

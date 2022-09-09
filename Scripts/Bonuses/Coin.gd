@@ -1,4 +1,5 @@
 extends Area2D
+class_name Coin
 
 var appearing = false
 
@@ -41,12 +42,15 @@ func _process(delta) -> void:
     if !brick.is_in_group('Breakable'):
       return
     if brick.triggered and brick.t_counter < 12:
-      Global.add_coins(1)
-      Global.add_score(200)
-      Global.HUD.get_node('CoinSound').play()
-      var coin_effect = CoinEffect.new(position, rotation)
-      get_parent().add_child(coin_effect)
-      queue_free()
+      trigger_fly()
+
+func trigger_fly():
+  Global.add_coins(1)
+  Global.add_score(200)
+  Global.HUD.get_node('CoinSound').play()
+  var coin_effect = CoinEffect.new(position, rotation)
+  get_parent().add_child(coin_effect)
+  queue_free()
 
 func freeze() -> void:
   frozen = true
