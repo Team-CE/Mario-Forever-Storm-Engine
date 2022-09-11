@@ -14,34 +14,34 @@ onready var counter: float = wait_for_next_ejection - 50
 onready var rng = RandomNumberGenerator.new()
 
 func _ready():
-  $Sprite.free()
-  rng.randomize()
+	$Sprite.free()
+	rng.randomize()
 
 func _process(delta):
-  if !Global.is_getting_closer(-256, position):
-    return
-    
-  if podo_left <= 0:
-    counter += Global.get_delta(delta)
-  else:
-    counter2 += Global.get_delta(delta)
-    if counter2 > launch_delay:
-      podo_left -= 1
-      counter2 = 0
-      
-      var podo = podo_scene.instance()
-      podo.global_transform = global_transform
-      Global.current_scene.add_child(podo)
-      podo.remove_in_lava = true
-      
-      podo.velocity.x = rng.randi_range(-4, 4)
-      podo.velocity.y = launch_strength
-      if lower_up_when_diagonal:
-        podo.velocity.y += abs(podo.velocity.x) / 2
-      podo.active = true
-      $shoot.play()
-    
-  if counter > wait_for_next_ejection:
-    podo_left = podoboo_count
-    counter = 0
+	if !Global.is_getting_closer(-256, position):
+		return
+		
+	if podo_left <= 0:
+		counter += Global.get_delta(delta)
+	else:
+		counter2 += Global.get_delta(delta)
+		if counter2 > launch_delay:
+			podo_left -= 1
+			counter2 = 0
+			
+			var podo = podo_scene.instance()
+			podo.global_transform = global_transform
+			Global.current_scene.add_child(podo)
+			podo.remove_in_lava = true
+			
+			podo.velocity.x = rng.randi_range(-4, 4)
+			podo.velocity.y = launch_strength
+			if lower_up_when_diagonal:
+				podo.velocity.y += abs(podo.velocity.x) / 2
+			podo.active = true
+			$shoot.play()
+		
+	if counter > wait_for_next_ejection:
+		podo_left = podoboo_count
+		counter = 0
 

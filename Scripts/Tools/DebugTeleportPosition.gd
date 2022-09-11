@@ -4,7 +4,7 @@ extends Position2D
 export var key_scancode: int
 
 func _input(event) -> void:
-  if !Global.debug: return
+	if !Global.debug: return
 
-  if 'scancode' in event and event.scancode == key_scancode and event.pressed:
-    Global.Mario.position = position
+	if 'scancode' in event and event.scancode == key_scancode and event.pressed:
+		Global.Mario.position = position

@@ -29,87 +29,87 @@ var fall_bool: bool = false
 var inited_script
 
 func _ready() -> void:
-  process_priority = -100
-  if not move_on_touch:
-    active = true
-    current_speed = speed
-  if smooth_turn:
-    var old_offset = offset
-    unit_offset = 1.0
-    max_offset = offset
-    offset = old_offset
-    
-    if !smooth_point:
-      smooth_point = max_offset / 2
-  
-  if custom_script:
-    inited_script = custom_script.new()
-    if inited_script.has_method('_ready_mixin'):
-      inited_script._ready_mixin(self)
-    
+	process_priority = -100
+	if not move_on_touch:
+		active = true
+		current_speed = speed
+	if smooth_turn:
+		var old_offset = offset
+		unit_offset = 1.0
+		max_offset = offset
+		offset = old_offset
+		
+		if !smooth_point:
+			smooth_point = max_offset / 2
+	
+	if custom_script:
+		inited_script = custom_script.new()
+		if inited_script.has_method('_ready_mixin'):
+			inited_script._ready_mixin(self)
+		
 
 func _physics_process(delta) -> void:
-  if active:
-    movement(delta)
-  
-  if inited_script and inited_script.has_method('_process_mixin'):
-    inited_script._process_mixin(self, delta)
+	if active:
+		movement(delta)
+	
+	if inited_script and inited_script.has_method('_process_mixin'):
+		inited_script._process_mixin(self, delta)
 
 func movement(delta) -> void:
-  if !is_nan(current_speed) and !smooth_turn:
-    offset += current_speed * Global.get_delta(delta)
-  
-  if smooth_turn:
-    smooth_turn_movement(delta)
-  
-  if vertical_speed != 0:
-    v_offset += vertical_speed * Global.get_delta(delta)
-    if (position.y > vertical_teleport_point if vertical_speed > 0 else position.y < vertical_teleport_point):
-      v_offset = 0
+	if !is_nan(current_speed) and !smooth_turn:
+		offset += current_speed * Global.get_delta(delta)
+	
+	if smooth_turn:
+		smooth_turn_movement(delta)
+	
+	if vertical_speed != 0:
+		v_offset += vertical_speed * Global.get_delta(delta)
+		if (position.y > vertical_teleport_point if vertical_speed > 0 else position.y < vertical_teleport_point):
+			v_offset = 0
 # warning-ignore:return_value_discarded
-  
-  if falling:
-    y_speed += 0.2 * Global.get_delta(delta)
-    if !fall_bool:
-      fall_bool = true
-      fall_position = position
-    fall_position += Vector2(0, y_speed).rotated(rotation) * Global.get_delta(delta)
-    position.y = fall_position.y
+	
+	if falling:
+		y_speed += 0.2 * Global.get_delta(delta)
+		if !fall_bool:
+			fall_bool = true
+			fall_position = position
+		fall_position += Vector2(0, y_speed).rotated(rotation) * Global.get_delta(delta)
+		position.y = fall_position.y
 
 func smooth_turn_movement(delta) -> void:
-  if !tween:
-    tween = new_tw()
-    tween.tween_property(self, 'offset', offset + smooth_turn_distance, 1.8 / speed).set_ease(Tween.EASE_IN)
-    if offset > smooth_point - smooth_turn_distance:
-      tween_state = 2
-  
-  if tween_state == 1:
-    offset += current_speed * Global.get_delta(delta)
-    if offset > smooth_point - smooth_turn_distance:
-      tween = new_tw()
+	if !tween:
+		tween = new_tw()
+		tween.tween_property(self, 'offset', offset + smooth_turn_distance, 1.8 / speed).set_ease(Tween.EASE_IN)
+		if offset > smooth_point - smooth_turn_distance:
+			tween_state = 2
+	
+	if tween_state == 1:
+		offset += current_speed * Global.get_delta(delta)
+		if offset > smooth_point - smooth_turn_distance:
+			tween = new_tw()
 # warning-ignore:return_value_discarded
-      tween.tween_property(self, 'offset', smooth_point, 1.8 / speed).set_ease(Tween.EASE_OUT)
+			tween.tween_property(self, 'offset', smooth_point, 1.8 / speed).set_ease(Tween.EASE_OUT)
 # warning-ignore:return_value_discarded
-      tween.tween_property(self, 'offset', smooth_point + smooth_turn_distance, 1.8 / speed).set_ease(Tween.EASE_IN)
-      tween_state += 1
-  elif tween_state == 3:
-    offset += current_speed * Global.get_delta(delta)
-    if offset > max_offset - smooth_turn_distance:
-      tween = new_tw()
+			tween.tween_property(self, 'offset', smooth_point + smooth_turn_distance, 1.8 / speed).set_ease(Tween.EASE_IN)
+			tween_state += 1
+	elif tween_state == 3:
+		offset += current_speed * Global.get_delta(delta)
+		if offset > max_offset - smooth_turn_distance:
+			tween = new_tw()
 # warning-ignore:return_value_discarded
-      tween.tween_property(self, 'offset', max_offset, 1.8 / speed).set_ease(Tween.EASE_OUT)
+			tween.tween_property(self, 'offset', max_offset, 1.8 / speed).set_ease(Tween.EASE_OUT)
 # warning-ignore:return_value_discarded
-      tween.tween_property(self, 'offset', max_offset + smooth_turn_distance, 1.8 / speed).set_ease(Tween.EASE_IN)
-      tween_state += 1
+			tween.tween_property(self, 'offset', max_offset + smooth_turn_distance, 1.8 / speed).set_ease(Tween.EASE_IN)
+			tween_state += 1
 
 func new_tw() -> SceneTreeTween:
-  var tw = create_tween()
-  tw.connect('finished', self, '_on_tween_finish')
-  tw.set_trans(Tween.TRANS_SINE)
-  tw.set_process_mode(0)
-  return tw
+	var tw = create_tween()
+	tw.connect('finished', self, '_on_tween_finish')
+	tw.set_trans(Tween.TRANS_SINE)
+	tw.set_process_mode(0)
+	return tw
 
 func _on_tween_finish() -> void:
-  tween_state += 1
-  if tween_state == 5:
-    tween_state = 1
+	tween_state += 1
+	if tween_state == 5:
+		tween_state = 1
