@@ -97,19 +97,7 @@ func _process(_delta) ->void:
 		button.visible = false
 
 func get_selected_control():
-	#print(find_node_by_class_path(get_editor_interface().get_base_control(), ['VBoxContainer', 'HSplitContainer', 'VSplitContainer', 'TabContainer', 'Components']))
-	#print(get_editor_interface().get_base_control().get_child(0).get_child(1).get_child(0).get_child(0).get_child(0))
-	#print(get_editor_interface().get_base_control().get_child(0).get_child(1).get_child(0).get_child(0).get_node(''))
-	var components = find_node_by_class_path(
-		get_editor_interface().get_base_control(),
-		[
-			'VBoxContainer',
-			'HSplitContainer',
-			'VSplitContainer',
-			'TabContainer',
-			'Control'
-		]
-	)
+	var components = get_editor_interface().get_base_control().find_node('Components', true, false)
 	var item_list = components.get_node('VBoxContainer2/ScrollContainer/ItemList') as ItemList
 	var sel = item_list.get_selected_items()
 	if len(sel) == 0:
