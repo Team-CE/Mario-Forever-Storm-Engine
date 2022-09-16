@@ -7,20 +7,16 @@
 The most modern and powerful Mario Forever engine. Created with the intention to replace lots of engines made in Clickteam Fusion.
 Unlike some other implementations of Mario Forever, it respects original Mario physics and players won't be able to notice any difference in them when comparing to the CTF version.
 
-#### VERSION : 0.8
-
 #### [CREATED BY]
 - ReflexGURU
 - JUE13
 - SuperMany
 
 #### [NOTICE]
-This engine is compatible with **GODOT 3.5**.
-
-**Before using the engine, you must change your Godot indents to Spaces with size 2!**
+This engine is only compatible with **GODOT 3.5.x**.
 
 #### [CONTRIBUTING TO THIS ENGINE]
-This engine is still very unfinished, so all contributions are welcome! Feel free to open pull requests.
+This engine is still in development, so all contributions are welcome! Feel free to open pull requests.
 Please follow the original style of code while doing a contribution.
 
 #### [DISCLAIMER]
