@@ -894,7 +894,7 @@ func debug() -> void:
 	if Input.is_action_just_pressed('mouse_middle'):
 		$DebugText.visible = !$DebugText.visible
 
-	$DebugText.text = 'x speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($Sprite.animation).to_lower() + '\nmovement: ' + str(Movement.keys()[movement_type].to_lower()) + '\nfps: ' + str(Engine.get_frames_per_second())
+	$DebugText.text = 'x = ' + str(position.x) + '\ny = ' + str(position.y) + '\nx speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($Sprite.animation).to_lower() + '\nmovement: ' + str(Movement.keys()[movement_type].to_lower()) + '\nfps: ' + str(Engine.get_frames_per_second())
 
 func _process_debug_fly(delta: float) -> void:
 	var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10) - (int( Input.is_action_pressed('debug_shift') ) * 9)
