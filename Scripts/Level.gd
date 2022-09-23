@@ -18,11 +18,8 @@ onready var worldEnv: WorldEnvironment
 onready var mpMain = MusicPlayer.get_node('Main')
 onready var mpStar = MusicPlayer.get_node('Star')
 
-const popup_node = preload('res://Objects/Tools/PopupMenu.tscn')
-const pause_node = preload('res://Objects/Tools/PopupMenu/Pause.tscn')
-const options_node = preload('res://Objects/Tools/PopupMenu/Options.tscn')
-var popup: CanvasLayer = null
-var timer: Timer = null
+func get_class(): return 'Level'
+func is_class(name) -> bool: return name == 'Level' or .is_class(name) 
 
 func _ready():
 	if !Engine.editor_hint:
@@ -131,47 +128,7 @@ func _input(event):
 			Global.state = event.scancode - 49
 			Global.Mario.appear_counter = 60
 			
-	if event.is_action_pressed('ui_pause'):
-		if popup == null:
-			popup = popup_node.instance()
-			var pause = pause_node.instance()
-			var options = options_node.instance()
-			add_child(popup)
-			popup.add_child(pause)
-			popup.add_child(options)
-			pause.get_node('pause').play()
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-			get_tree().paused = true
-
-func _notification(what):
-	if Engine.editor_hint: return
-	if !Global.autopause: return
-	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
-		if popup == null:
-			timer = Timer.new()
-			timer.wait_time = 0.2
-			timer.one_shot = true
-			timer.autostart = true
-# warning-ignore:return_value_discarded
-			timer.connect('timeout', self, '_on_timeout')
-			call_deferred('add_child', timer)
-	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
-		if popup == null and is_instance_valid(timer):
-			timer.queue_free()
-
-func _on_timeout():
-	popup = popup_node.instance()
-	var pause = pause_node.instance()
-	var options = options_node.instance()
-	call_deferred('add_child', popup)
-	popup.call_deferred('add_child', pause)
-	popup.call_deferred('add_child', options)
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if is_instance_valid(timer):
-		timer.call_deferred('queue_free')
-
-	get_tree().paused = true
 
 func activate_event(name: String, args: Array):
 	if custom_scripts[name]:

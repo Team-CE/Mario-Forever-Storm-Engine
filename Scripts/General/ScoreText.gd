@@ -43,6 +43,6 @@ func _init(score: int, pos: Vector2 = Vector2.ZERO):
 func _process(delta) -> void:
 	counter += 1 * Global.get_delta(delta)
 	if counter < 36:
-		position += Vector2(0, -1).rotated(rotation) * Global.get_vector_delta(delta)
+		position += Vector2(0, -1).rotated(rotation) * Global.get_delta(delta)
 	if counter > icounter:
 		queue_free()

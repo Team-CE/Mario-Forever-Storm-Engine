@@ -238,9 +238,9 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 			return true
 		DEATH_TYPE.UNFREEZE:
 			visible = false
-			if is_instance_valid(get_node_or_null('Collision')): $Collision.disabled = true
-			if is_instance_valid(get_node_or_null('CollisionShape2D')): $CollisionShape2D.disabled = true
-			if is_instance_valid(get_node_or_null('KillDetector/Collision')): $KillDetector/Collision.disabled = true
+			if is_instance_valid(get_node_or_null('Collision')): $Collision.set_deferred('disabled', true)
+			if is_instance_valid(get_node_or_null('CollisionShape2D')): $CollisionShape2D.set_deferred('disabled', true)
+			if is_instance_valid(get_node_or_null('KillDetector/Collision')): $KillDetector/Collision.set_deferred('disabled', true)
 			get_node('ice2').play()
 			var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
 			for i in range(4):
@@ -261,8 +261,8 @@ func freeze() -> void:
 	Global.current_scene.add_child(ScoreText.new(score, global_position))
 	
 	frozen = true
-	collision_layer = 3
-	collision_mask = 3
+	collision_layer = 0b100011
+	collision_mask = 0b11
 	
 	death_type = DEATH_TYPE.UNFREEZE
 	animated_sprite.playing = false

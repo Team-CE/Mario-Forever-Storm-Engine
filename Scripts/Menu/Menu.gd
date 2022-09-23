@@ -18,9 +18,9 @@ var sel = 0
 var screen = 0
 var selLimit
 var screen_changed = 0
-const popup_node = preload('res://Objects/Tools/PopupMenu.tscn')
-const prompt_node = preload('res://Objects/Tools/PopupMenu/RestartPrompt.tscn')
-var popup: CanvasLayer = null
+#const popup_node = preload('res://Objects/Tools/PopupMenu.tscn')
+#const prompt_node = preload('res://Objects/Tools/PopupMenu/RestartPrompt.tscn')
+#var popup: CanvasLayer = null
 
 var fading_in = true
 var fading_out = false
@@ -32,6 +32,9 @@ var force_pos = true
 onready var controls_enabled: bool = false
 onready var controls_changing: bool = false
 onready var assigned: bool = false
+
+func get_class(): return 'Menu'
+func is_class(name) -> bool: return name == 'Menu' or .is_class(name)
 
 func _ready() -> void:
 	pos_y = 359
@@ -360,12 +363,13 @@ func assign_value(key) -> String:
 	return out
 
 func promptRestart() -> void:
-	popup = popup_node.instance()
-	var prompt = prompt_node.instance()
-	get_parent().add_child(popup)
-	popup.add_child(prompt)
-	
-	get_parent().get_tree().paused = true
+	pass
+#	popup = popup_node.instance()
+#	var prompt = prompt_node.instance()
+#	get_parent().add_child(popup)
+#	popup.add_child(prompt)
+#
+#	get_parent().get_tree().paused = true
 
 func freeRestartPrompt() -> void:
 	screen = 0

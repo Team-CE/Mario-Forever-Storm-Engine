@@ -1,15 +1,14 @@
 extends Node2D
 
-var scene
-
 var sel: int = 0
 var counter: float = 0
 	
 func _ready():
 	$no.frame = 1
+	modulate.a = 0
 	
 func _process(delta):
-	modulate.a += (1 - modulate.a) * 0.05 * Global.get_delta(delta)
+	modulate.a += (1 - modulate.a) * 0.1 * Global.get_delta(delta)
 
 	counter += 0.15 * Global.get_delta(delta)
 	var sinalpha = sin(counter) * 0.3 + 0.7
@@ -36,11 +35,13 @@ func _process(delta):
 		if sel: # No
 			Global.reset_all_values()
 			Global.goto_scene(ProjectSettings.get_setting('application/config/main_menu_scene'))
-			get_parent().queue_free()
+			Global.popup.queue_free()
+			Global.popup = null
 		else:	 # Yes
 # warning-ignore:return_value_discarded
 			Global.reset_all_values()
 			Global.goto_scene(Global.current_scene.filename)
-			get_parent().queue_free()
+			Global.popup.queue_free()
+			Global.popup = null
 # warning-ignore:return_value_discarded
 		get_parent().get_parent().get_tree().paused = false

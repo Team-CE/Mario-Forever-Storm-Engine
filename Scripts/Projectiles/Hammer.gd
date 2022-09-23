@@ -34,7 +34,7 @@ func _process(delta) -> void:
 
 	velocity.y += 0.33 * gravity_scale * Global.get_delta(delta)
 
-	position += velocity * Global.get_vector_delta(delta)
+	position += velocity * Global.get_delta(delta)
 	
 	$Sprite.rotation_degrees += 6 * (-1 if velocity.x < 0 else 1) * Global.get_delta(delta)
 	$Sprite.flip_h = velocity.x < 0

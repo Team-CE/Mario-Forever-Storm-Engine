@@ -13,7 +13,7 @@ func _ready():
 func _process(delta):
 	if !visible: return
 	
-	position += velocity * Global.get_vector_delta(delta)
+	position += velocity * Global.get_delta(delta)
 	if velocity.y < 0:
 		velocity.y += 0.4 * Global.get_delta(delta)
 		

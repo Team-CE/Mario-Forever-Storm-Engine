@@ -19,6 +19,8 @@ func _ready() -> void:
 	vis.connect('screen_exited', self, '_on_screen_exited')
 # warning-ignore:return_value_discarded
 	vis.connect('tree_exited', self, '_on_tree_exited')
+# warning-ignore:return_value_discarded
+	$CollisionArea.connect('body_entered', self, '_on_body_entered')
 
 	add_child(vis)
 	
@@ -26,23 +28,28 @@ func _ready() -> void:
 		if node is KinematicBody2D and ('AI' in node or 'belongs' in node):
 			add_collision_exception_with(node)
 
-func _process(delta) -> void:
-	var overlaps = $CollisionArea.get_overlapping_bodies()
+func _on_body_entered(body):
+	if belongs != 0:
+		return
 
-	if overlaps.size() > 0 and belongs == 0:
-		for i in range(overlaps.size()):
-			if overlaps[i].is_in_group('Enemy') and overlaps[i].has_method('freeze'):
-				overlaps[i].freeze()
-				explode()
-				
+	if body.is_in_group('Enemy') and body.has_method('freeze'):
+		body.freeze()
+		explode()
+
+func _process(delta) -> void:
+#	var overlaps = $CollisionArea.get_overlapping_bodies()
+#
+#	if overlaps.size() > 0 and belongs == 0:
+#		for i in overlaps:
+#			if i.is_in_group('Enemy') and i.has_method('freeze'):
+#				i.freeze()
+#				explode()
+	
 	if belongs != 0 and is_mario_collide('InsideDetector'):
 		Global._ppd()
 
 	if is_on_floor() and belongs != 1:
-		counter += 1
-		velocity.y = -350
-		if counter > 2:
-			explode()
+		iceball_bounce()
 
 	velocity.y += 24 * gravity_scale * Global.get_delta(delta)
 
@@ -65,6 +72,12 @@ func explode() -> void:
 	var explosion = IceExplosion.new(position)
 	get_parent().add_child(explosion)
 	queue_free()
+
+func iceball_bounce() -> void:
+	counter += 1
+	velocity.y = -350
+	if counter > 2:
+		explode()
 
 func _on_screen_exited() -> void:
 	queue_free()

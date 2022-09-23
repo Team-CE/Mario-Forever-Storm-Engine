@@ -19,7 +19,10 @@ export(DIRS) var direction: int = DIRS.DOWN
 export(TYPES) var type: int = TYPES.IN
 export var immediate: bool = false
 export var trigger_finish: bool = false
-export var additional_options: Dictionary = { 'set_scene_path': '' }
+export var additional_options: Dictionary = {
+	'set_scene_path': '',
+	'add_scene': PackedScene
+}
 export var out_duration: float = 60
 export var custom_warp_sound: Resource
 
@@ -29,8 +32,6 @@ var in_icon: StreamTexture = preload('res://GFX/Editor/WarpIcon.png')
 var out_icon: StreamTexture = preload('res://GFX/Editor/WarpOutIcon.png')
 
 var disabled: bool = false
-
-var generic_warp: bool = true
 
 var active: bool = false
 var counter: float = 0
@@ -42,7 +43,6 @@ var warp_dir: Vector2 = Vector2.ZERO
 
 var out_node
 var finishline = null
-var why = false
 
 var custom_audio: AudioStreamPlayer = null
 
@@ -50,10 +50,10 @@ func _ready() -> void:
 	var nodes = get_tree().get_nodes_in_group('Warp')
 
 	for node in nodes:
-		if node.id == id and node.type == TYPES.OUT and 'generic_warp' in node:
+		if node.id == id and node.type == TYPES.OUT:
 			out_node = node
 			
-	disabled = not out_node and (not 'set_scene_path' in additional_options or additional_options['set_scene_path'] == '') and not trigger_finish
+	disabled = not out_node and ((not 'set_scene_path' in additional_options or additional_options['set_scene_path'] == '') and (not 'add_scene' in additional_options or not additional_options['add_scene'].is_class('PackedScene'))) and not trigger_finish
 	
 	if disabled:
 		printerr('[CE ERROR] No out warp assigned for ID ' + str(id) + ', it will not be functional. Create an out warp or set an additional option.')
@@ -136,7 +136,7 @@ func _process(delta) -> void:
 			Global.Mario.animation_enabled = false
 			Global.Mario.position = calc_pos
 			Global.Mario.velocity = Vector2.ZERO
-			calc_pos += warp_dir * Global.get_vector_delta(delta)
+			calc_pos += warp_dir * Global.get_delta(delta)
 			counter += 1 * Global.get_delta(delta)
 			if warp_dir == Vector2.LEFT or warp_dir == Vector2.RIGHT:
 				mario_sprite.visible = counter < 36 or counter > 23 + out_duration
@@ -149,41 +149,23 @@ func _process(delta) -> void:
 
 		# Warp Exit
 			if counter > out_duration and not state_switched:
-				if out_node:
+				if 'add_scene' in additional_options and additional_options['add_scene'].is_class('PackedScene'):
 					state_switched = true
-					Global.play_base_sound('MAIN_Pipe')
+					var instanced_node = additional_options['add_scene'].instance()
+					Global.current_scene.add_child(instanced_node)
+					call_deferred('warp_exit')
 
-					if out_node.direction == DIRS.DOWN:
-						Global.Mario.crouch = false
-						calc_pos = Vector2(out_node.position.x, out_node.position.y - 40 + (24 if Global.state != 0 else 0))
-						warp_dir = Vector2.DOWN
-						Global.Mario.animate_sprite('Jumping')
-					elif out_node.direction == DIRS.UP:
-						Global.Mario.crouch = true
-						calc_pos = Vector2(out_node.position.x, out_node.position.y + 44)
-						warp_dir = Vector2.UP
-						Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
-					elif out_node.direction == DIRS.RIGHT:
-						Global.Mario.crouch = false
-						calc_pos = Vector2(out_node.position.x - 44, out_node.position.y + 15.9)
-						warp_dir = Vector2.RIGHT
-						Global.Mario.animate_sprite('Walking')
-						mario_sprite.speed_scale = 5
-						mario_sprite.flip_h = false
-					elif out_node.direction == DIRS.LEFT:
-						Global.Mario.crouch = false
-						calc_pos = Vector2(out_node.position.x + 44, out_node.position.y + 15.9)
-						warp_dir = Vector2.LEFT
-						Global.Mario.animate_sprite('Walking')
-						mario_sprite.speed_scale = 5
-						mario_sprite.flip_h = true
+				elif out_node:
+					state_switched = true
+					warp_exit()
+
 				elif 'set_scene_path' in additional_options and additional_options['set_scene_path'] != '':
 					Global.goto_scene(additional_options['set_scene_path'])
+
 				elif trigger_finish:
-					if !why:
-						finishline.act(true)
-						Global.Mario.visible = false
-						why = true
+					state_switched = true
+					finishline.act(true)
+					Global.Mario.visible = false
 			
 			if counter >= out_duration + 60 and Global.Mario.get_slide_count() == 0 and not trigger_finish:
 				Global.Mario.get_node('Sprite').z_index = 10
@@ -195,3 +177,31 @@ func _process(delta) -> void:
 				Global.Mario.invulnerable = false
 				if Global.Mario.is_in_shoe:
 					Global.Mario.shoe_node.z_index = 11
+
+func warp_exit():
+	Global.play_base_sound('MAIN_Pipe')
+
+	if out_node.direction == DIRS.DOWN:
+		Global.Mario.crouch = false
+		calc_pos = Vector2(out_node.position.x, out_node.position.y - 40 + (24 if Global.state != 0 else 0))
+		warp_dir = Vector2.DOWN
+		Global.Mario.animate_sprite('Jumping')
+	elif out_node.direction == DIRS.UP:
+		Global.Mario.crouch = true
+		calc_pos = Vector2(out_node.position.x, out_node.position.y + 44)
+		warp_dir = Vector2.UP
+		Global.Mario.animate_sprite('Crouching' if Global.state > 0 else 'Stopped')
+	elif out_node.direction == DIRS.RIGHT:
+		Global.Mario.crouch = false
+		calc_pos = Vector2(out_node.position.x - 44, out_node.position.y + 15.9)
+		warp_dir = Vector2.RIGHT
+		Global.Mario.animate_sprite('Walking')
+		mario_sprite.speed_scale = 5
+		mario_sprite.flip_h = false
+	elif out_node.direction == DIRS.LEFT:
+		Global.Mario.crouch = false
+		calc_pos = Vector2(out_node.position.x + 44, out_node.position.y + 15.9)
+		warp_dir = Vector2.LEFT
+		Global.Mario.animate_sprite('Walking')
+		mario_sprite.speed_scale = 5
+		mario_sprite.flip_h = true

@@ -13,7 +13,7 @@ func _ready():
 
 func _physics_process(delta):
 	timer += speed * Global.get_delta(delta)
-	position += vector_dir.rotated(rotation) * Vector2(speed, speed) * Global.get_vector_delta(delta)
+	position += vector_dir.rotated(rotation) * Vector2(speed, speed) * Global.get_delta(delta)
 	if timer > life_time / 1.267:
 		$Body.visible = int(timer) % 2 == 0
 	if timer > life_time:

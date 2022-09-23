@@ -22,6 +22,9 @@ var circle_size: float = 0.623
 var cam
 onready var sprite = Global.Mario.get_node('Sprite')
 
+func get_class(): return 'Map'
+func is_class(name) -> bool: return name == 'Map' or .is_class(name)
+
 func _ready() -> void:
 	Global.Mario.invulnerable = true
 	Global.Mario.movement_type = Global.Mario.Movement.NONE

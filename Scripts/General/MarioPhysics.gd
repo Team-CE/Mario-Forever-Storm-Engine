@@ -63,16 +63,6 @@ var faded: bool = false
 
 var gameovercont_node = load('res://Objects/Tools/PopupMenu/GameOver.tscn')
 
-#func change_camera_parent() -> void:
-#	if cam.get_parent() != self:
-#		Global.current_scene.remove_child(cam)
-#		cam.set_owner(self)
-#		add_child(cam)
-#	else:
-#		remove_child(cam)
-#		cam.set_owner(Global.current_scene)
-#		Global.current_scene.add_child(cam)
-
 func _ready() -> void:
 	Global.Mario = self
 # warning-ignore:return_value_discarded
@@ -326,26 +316,26 @@ func _process_dead(delta) -> void:
 	#$TopDetector/CollisionTop.shape = null
 
 	if dead_counter > 180:
-		if Global.lives > 0:
+		if Global.lives > 0 and not dead_gameover:
 			Global._reset()
 		elif not dead_gameover:
 			MusicPlayer.get_node('Main').stream = gameover_music
 			MusicPlayer.get_node('Main').play()
 			MusicPlayer.stop_on_pause()
-			get_parent().get_node('HUD').get_node('GameoverSprite').visible = true
+			Global.HUD.get_node('GameoverSprite').visible = true
 			dead_gameover = true
 		if dead_gameover:
 # warning-ignore:return_value_discarded
 			get_tree().create_timer( 5.0, false ).connect('timeout', self, '_game_over_screen')
 
 func _game_over_screen():
-	Global.current_scene.popup = Global.current_scene.popup_node.instance()
+	Global.popup = Global.popup_node.instance()
 	var gameovercont = gameovercont_node.instance()
-	get_parent().add_child(Global.current_scene.popup)
-	Global.current_scene.popup.add_child(gameovercont)
+	Global.add_child(Global.popup)
+	Global.popup.add_child(gameovercont)
 	MusicPlayer.play_on_pause()
 
-	get_parent().get_tree().paused = true
+	get_tree().paused = true
 
 func movement_default(delta) -> void:
 	if Global.is_mario_collide_area_group('InsideDetector', 'Water'):
@@ -523,11 +513,11 @@ func controls(delta) -> void:
 		var left_collide: bool = test_move(Transform2D(rotation, position + Vector2(-16, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
 		var right_collide: bool = test_move(Transform2D(rotation, position + Vector2(16, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
 		if left_collide and right_collide:
-			position += Vector2(1, 0).rotated(rotation) * Global.get_vector_delta(delta) if $Sprite.flip_h else Vector2(-1, 0).rotated(rotation) * Global.get_vector_delta(delta)
+			position += Vector2(1, 0).rotated(rotation) * Global.get_delta(delta) if $Sprite.flip_h else Vector2(-1, 0).rotated(rotation) * Global.get_delta(delta)
 		if left_collide and !right_collide:
-			position += Vector2(1, 0).rotated(rotation) * Global.get_vector_delta(delta)
+			position += Vector2(1, 0).rotated(rotation) * Global.get_delta(delta)
 		if right_collide and !left_collide:
-			position += Vector2(-1, 0).rotated(rotation) * Global.get_vector_delta(delta)
+			position += Vector2(-1, 0).rotated(rotation) * Global.get_delta(delta)
 
 	if Input.is_action_pressed('mario_right') and not crouch:
 		if velocity.x > -20 and velocity.x < 20:

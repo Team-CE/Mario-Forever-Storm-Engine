@@ -25,23 +25,25 @@ func _process(delta):
 	if isPaused:
 		if $Sprite.modulate.v > 0.355:
 			$Sprite.modulate.v += (darkness - $Sprite.modulate.v) * speed * Global.get_delta(delta)
-			if env: env.set_shader_param('amount', env.get_shader_param('amount') + (darkness - env.get_shader_param('amount')) * darkness * Global.get_delta(delta))
-			
+			if env:
+				env.set_shader_param('amount', (env.get_shader_param('amount') + (0.75 - env.get_shader_param('amount')) * 0.75) * Global.get_delta(delta))
 		else:
 			if !why:
 				for node in get_children():
 					if node.get_class() == 'Node2D':
 						node.modulate.a = 1
 				$Sprite.modulate.v = darkness
+				if env and env.get_shader_param('amount') > 0.8:
+					env.set_shader_param('amount', 0.75)
 				why = true
+
+		if Input.is_action_just_pressed('ui_fullscreen'):
+			OS.window_fullscreen = !OS.window_fullscreen
 
 	else:
 		$Sprite.modulate.v += (1 - $Sprite.modulate.v) * speed * Global.get_delta(delta)
-		if env: env.set_shader_param('amount', env.get_shader_param('amount') + (0 - env.get_shader_param('amount')) * speed * Global.get_delta(delta))
-
-func _input(ev):
-	if isPaused and ev.is_action_pressed('ui_fullscreen'):
-		OS.window_fullscreen = !OS.window_fullscreen
+		if env:
+			env.set_shader_param('amount', env.get_shader_param('amount') + (0 - env.get_shader_param('amount')) * speed * Global.get_delta(delta))
 
 func resume() -> void:
 	isPaused = false
@@ -57,5 +59,5 @@ func resume() -> void:
 func _next():
 	$Sprite.modulate = Color.white
 	
-	if Global.current_scene.popup: Global.current_scene.popup = null
+	if Global.popup: Global.popup = null
 	queue_free()

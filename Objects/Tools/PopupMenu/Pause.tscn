@@ -10,20 +10,28 @@
 [ext_resource path="res://GFX/Menu/Poptions.png" type="Texture" id=8]
 [ext_resource path="res://Sounds/Main/pause.wav" type="AudioStream" id=9]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 320, 32 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 32, 320, 32 )
-
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 320, 32 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
+region = Rect2( 0, 32, 320, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 29, 120, 29 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 120, 29 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 320, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
 region = Rect2( 0, 32, 320, 32 )
 
 [sub_resource type="AtlasTexture" id=16]
@@ -46,32 +54,29 @@ region = Rect2( 0, 0, 320, 32 )
 atlas = ExtResource( 7 )
 region = Rect2( 0, 32, 320, 32 )
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 320, 32 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
 region = Rect2( 0, 32, 320, 32 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 29, 120, 29 )
-
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 120, 29 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ) ],
-"loop": true,
-"name": "save",
-"speed": 0.0
-}, {
 "frames": [ SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "menu",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 22 ), SubResource( 23 ) ],
+"loop": true,
+"name": "options",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "quit",
 "speed": 0.0
 }, {
 "frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
@@ -84,15 +89,10 @@ animations = [ {
 "name": "resume",
 "speed": 0.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
 "loop": true,
-"name": "quit",
+"name": "save",
 "speed": 0.0
-}, {
-"frames": [ SubResource( 22 ), SubResource( 23 ) ],
-"loop": true,
-"name": "options",
-"speed": 5.0
 } ]
 
 [node name="Pause" type="Node2D"]

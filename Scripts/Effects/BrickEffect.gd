@@ -25,13 +25,13 @@ func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO, te
 	else:
 		position += Vector2(6, 0).rotated(rotation)
 	
-	yield(Global.Mario.get_tree(), 'idle_frame')
+	yield(Global.get_tree(), 'idle_frame')
 	if !vis.is_on_screen():
 		queue_free()
 
 func _process(delta) -> void:
 	y_accel += 0.4 * Global.get_delta(delta)
-	position += Vector2(accel.x, accel.y + y_accel).rotated(local_rotation) * Global.get_vector_delta(delta)
+	position += Vector2(accel.x, accel.y + y_accel).rotated(local_rotation) * Global.get_delta(delta)
 	#position.x += accel.x * Global.get_delta(delta)
 	#position.y += (accel.y + y_accel) * Global.get_delta(delta)
 

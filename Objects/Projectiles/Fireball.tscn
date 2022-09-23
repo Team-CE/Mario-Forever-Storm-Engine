@@ -18,6 +18,7 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="CollisionArea" type="Area2D" parent="."]
+collision_layer = 0
 collision_mask = 33
 
 [node name="Collision" type="CollisionShape2D" parent="CollisionArea"]

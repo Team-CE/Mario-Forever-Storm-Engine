@@ -67,14 +67,17 @@ var p_fps_switch: float = 0
 
 var current_scene = null
 
+const popup_node = preload('res://Objects/Tools/PopupMenu.tscn')
+const pause_node = preload('res://Objects/Tools/PopupMenu/Pause.tscn')
+const options_node = preload('res://Objects/Tools/PopupMenu/Options.tscn')
+var popup: CanvasLayer = null
+var pause_timer: Timer = null
+
 # Create a new timer for delay
 onready var timer: Timer = Timer.new()
 
 static func get_delta(delta) -> float:			 # Delta by 50 FPS
 	return 50 / (1 / (delta if not delta == 0 else 0.0001))
-
-static func get_vector_delta(delta) -> Vector2: # Vector2 with delta values
-	return Vector2(get_delta(delta), get_delta(delta))
 
 func _init() -> void:
 # warning-ignore:narrowing_conversion
@@ -310,11 +313,57 @@ func _process(delta: float):
 		push_warning('Too high music volume!')
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), 0)
 
+func _input(event):
+	if current_scene.get_class() in ['Menu', 'Intro']:
+		return
+	if event.is_action_pressed('ui_pause'):
+		if popup == null:
+			popup = popup_node.instance()
+			var pause = pause_node.instance()
+			var options = options_node.instance()
+			add_child(popup)
+			popup.add_child(pause)
+			popup.add_child(options)
+			pause.get_node('pause').play()
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+			get_tree().paused = true
+
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		if DiscordManager.core:
 			DiscordManager.destroy_core()
 			print('[Discord]: Core destroyed.')
+
+	if !autopause: return
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+		if current_scene.get_class() in ['Menu', 'Map', 'Intro']:
+			return
+		if popup == null:
+			pause_timer = Timer.new()
+			pause_timer.wait_time = 0.2
+			pause_timer.one_shot = true
+			pause_timer.autostart = true
+# warning-ignore:return_value_discarded
+			pause_timer.connect('timeout', self, '_on_timeout')
+			call_deferred('add_child', pause_timer)
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
+		if popup == null and is_instance_valid(pause_timer):
+			pause_timer.queue_free()
+
+func _on_timeout():
+	if popup == null:
+		popup = popup_node.instance()
+		var pause = pause_node.instance()
+		var options = options_node.instance()
+		call_deferred('add_child', popup)
+		popup.call_deferred('add_child', pause)
+		popup.call_deferred('add_child', options)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		get_tree().paused = true
+
+	if is_instance_valid(pause_timer):
+		pause_timer.call_deferred('queue_free')
 
 # warning-ignore:shadowed_variable
 func add_score(score: int) -> void:
@@ -459,6 +508,10 @@ func _deferred_goto_scene(path: String):
 	current_scene.free()
 	var s = ResourceLoader.load(path)
 	assert(is_instance_valid(s), 'ERROR: Cannot go to invalid or empty scene!')
+	if is_instance_valid(popup):
+		popup.queue_free()
+		set_deferred('popup', null)
+	if get_tree().paused: get_tree().paused = false
 	current_scene = s.instance()
 	get_node('/root/GlobalViewport/Viewport').add_child(current_scene)
 	

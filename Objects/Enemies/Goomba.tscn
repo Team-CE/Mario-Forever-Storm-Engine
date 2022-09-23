@@ -14,6 +14,7 @@ extents = Vector2( 16, 16 )
 extents = Vector2( 14, 2 )
 
 [node name="Goomba" type="KinematicBody2D" groups=["Enemy"]]
+collision_layer = 33
 script = ExtResource( 3 )
 vars = {
 "bounce": 9.0,
@@ -29,7 +30,6 @@ frozen_sprite_pth = NodePath("IceSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
 animation = "walk"
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 
