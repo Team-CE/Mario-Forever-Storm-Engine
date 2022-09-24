@@ -41,7 +41,7 @@ func _process(delta):
 			OS.window_fullscreen = !OS.window_fullscreen
 
 	else:
-		$Sprite.modulate.v += (1 - $Sprite.modulate.v) * speed * Global.get_delta(delta)
+		$Sprite.modulate.v += (1 - $Sprite.modulate.v) * 0.2 * Global.get_delta(delta)
 		if env:
 			env.set_shader_param('amount', env.get_shader_param('amount') + (0 - env.get_shader_param('amount')) * speed * Global.get_delta(delta))
 

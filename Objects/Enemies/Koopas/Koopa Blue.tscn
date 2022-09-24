@@ -13,25 +13,25 @@ region = Rect2( 0, 0, 32, 48 )
 atlas = ExtResource( 8 )
 region = Rect2( 32, 0, 32, 48 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 33, 48 )
+region = Rect2( 0, 0, 32, 48 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 3 )
-region = Rect2( 33, 0, 33, 48 )
+region = Rect2( 32, 0, 32, 48 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 3 )
-region = Rect2( 66, 0, 33, 48 )
+region = Rect2( 64, 0, 32, 48 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 3 )
-region = Rect2( 99, 0, 33, 48 )
+region = Rect2( 96, 0, 32, 48 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 3 )
-region = Rect2( 99, 0, 33, 48 )
+region = Rect2( 96, 0, 32, 48 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
@@ -50,12 +50,12 @@ animations = [ {
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
 "loop": true,
 "name": "shell moving",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 12 ) ],
+"frames": [ SubResource( 22 ) ],
 "loop": true,
 "name": "shell stopped",
 "speed": 5.0
@@ -65,4 +65,5 @@ animations = [ {
 
 [node name="Sprite" parent="." index="0"]
 frames = SubResource( 17 )
+frame = 1
 offset = Vector2( 0, -24 )

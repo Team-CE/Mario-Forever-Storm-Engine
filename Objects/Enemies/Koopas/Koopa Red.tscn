@@ -23,6 +23,7 @@ extents = Vector2( 14, 2 )
 extents = Vector2( 16, 32 )
 
 [node name="RedKoopa" type="KinematicBody2D" groups=["Enemy"]]
+collision_mask = 65
 script = ExtResource( 3 )
 vars = {
 "bounce": 9.0,
@@ -82,12 +83,14 @@ visible = false
 position = Vector2( -16, 0 )
 enabled = true
 cast_to = Vector2( 0, 10 )
+collision_mask = 65
 
 [node name="RayCastR" type="RayCast2D" parent="."]
 visible = false
 position = Vector2( 16, 0 )
 enabled = true
 cast_to = Vector2( 0, 10 )
+collision_mask = 65
 
 [node name="QBlockZone" type="Area2D" parent="."]
 visible = false

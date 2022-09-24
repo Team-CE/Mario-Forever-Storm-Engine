@@ -331,7 +331,7 @@ func _process_dead(delta) -> void:
 func _game_over_screen():
 	Global.popup = Global.popup_node.instance()
 	var gameovercont = gameovercont_node.instance()
-	Global.add_child(Global.popup)
+	GlobalViewport.vp.add_child(Global.popup)
 	Global.popup.add_child(gameovercont)
 	MusicPlayer.play_on_pause()
 

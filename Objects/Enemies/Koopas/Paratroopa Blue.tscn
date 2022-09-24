@@ -24,14 +24,14 @@ region = Rect2( 32, 0, 32, 48 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 1 ) ],
@@ -50,11 +50,8 @@ extents = Vector2( 14, 2 )
 script = ExtResource( 2 )
 vars = {
 "bounce": 9.0,
-"is shell": false,
-"kill zone": NodePath("KillZone"),
-"shell speed": 250.0,
-"speed": 50.0,
-"stopped": false
+"jump_strength": 550,
+"speed": 50.0
 }
 AI = ExtResource( 4 )
 can_freeze = true
@@ -83,7 +80,6 @@ disabled = true
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 frames = SubResource( 4 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 flip_h = true

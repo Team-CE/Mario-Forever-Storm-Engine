@@ -1,5 +1,8 @@
 extends ViewportContainer
 
+# Define GlobalViewport.vp as the viewport
+onready var vp = $Viewport
+
 var filter_enabled = true setget _on_filter_change
 
 onready var RESOLUTION = $Viewport.size
