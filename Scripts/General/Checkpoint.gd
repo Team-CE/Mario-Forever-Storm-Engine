@@ -12,7 +12,7 @@ func _ready() -> void:
 	if Global.checkpoint_active == id:
 		active = true
 		$AnimatedSprite.animation = 'active'
-		Global.Mario.set_deferred('position', position)
+		Global.Mario.position = position
 		var level = Global.current_scene
 		if (
 			'time_after_checkpoint' in level

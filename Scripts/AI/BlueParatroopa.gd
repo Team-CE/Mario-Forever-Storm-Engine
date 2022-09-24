@@ -3,7 +3,7 @@ extends Brain
 var on_freeze: bool = false
 
 func _ready_mixin():
-	owner.death_type = AliveObject.DEATH_TYPE.NONE
+	owner.death_type = owner.DEATH_TYPE.FALL
 
 func _setup(b)-> void:
 	._setup(b)
@@ -29,15 +29,15 @@ func _ai_process(delta: float) -> void:
 		return
 	
 	if owner.is_on_floor():
-		owner.velocity.y = -550
+		owner.velocity.y = -owner.vars['jump_strength']
 	
 	owner.velocity.x = owner.vars['speed'] * owner.dir
 	
-	if owner.is_on_wall():
+	if owner.is_on_wall() and not owner.is_on_ceiling():
 		owner.turn()
 		
 	if on_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0: 
-		owner.kill(AliveObject.DEATH_TYPE.CUSTOM, 0)
+		owner.kill(owner.DEATH_TYPE.CUSTOM, 0)
 		if Input.is_action_pressed('mario_jump'):
 			Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
 		else:
@@ -48,12 +48,11 @@ func _ai_process(delta: float) -> void:
 	var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()
 	for i in g_overlaps:
 		if 'triggered' in i and i.triggered:
-			owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
+			owner.kill(owner.DEATH_TYPE.FALL, 0)
 
 func _on_custom_death(_score_mp):
 	owner.sound.play()
 	owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
-	# DO NOT use preload to avoid sharing 'vars' dictionary between different instances
 	var koopa = preload('res://Objects/Enemies/Koopas/Koopa Blue.tscn').instance()
 	koopa.position = owner.position
 	owner.get_parent().add_child(koopa)

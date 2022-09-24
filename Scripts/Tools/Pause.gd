@@ -83,7 +83,7 @@ func _process(delta):
 
 	else:
 		# FADE OUT
-		modulate.a += (0 - modulate.a) * 0.15 * Global.get_delta(delta)
+		modulate.a += (0 - modulate.a) * 0.2 * Global.get_delta(delta)
 
 func _goto_scene(scene: String) -> void:
 	AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)

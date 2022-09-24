@@ -116,6 +116,7 @@ func to_stopped_shell() -> void:
 	owner.animated_sprite.animation = 'shell stopped'
 	owner.get_node('VisibilityEnabler2D').rect = Rect2( -16, -32, 32, 32 )
 	if !owner.death_signal_exception: owner.emit_signal('enemy_died')
+	owner.collision_mask = 1
 
 func to_moving_shell() -> void:
 	is_shell = true
@@ -123,3 +124,4 @@ func to_moving_shell() -> void:
 	owner.animated_sprite.animation = 'shell moving'
 	owner.get_node('VisibilityEnabler2D').rect = Rect2( -480, -192, 960, 320 )
 	shell_counter = 0
+	owner.collision_mask = 1
