@@ -3,7 +3,7 @@ extends Node2D
 export var motion_launch: Vector2 = Vector2(-6, 0)
 
 const popcorn_scene = preload('res://Objects/Enemies/Popcorn.tscn')
-var timer_delay: float
+var timer_delay: float = 200
 var left_to_launch: int
 var launch_timer: float
 
@@ -11,7 +11,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	if Global.is_getting_closer(-16, position):
+	if not Global.is_getting_closer(-16, global_position):
 		return
 	timer_delay += Global.get_delta(delta)
 	if timer_delay > 200:
