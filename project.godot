@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/brush2d/brush2d.gd"
 }, {
+"base": "Reference",
+"class": "CHammerThrow",
+"language": "GDScript",
+"path": "res://Games/2022/Scripts/CHammer Throw.gd"
+}, {
 "base": "StaticBody2D",
 "class": "Cannon",
 "language": "GDScript",
@@ -143,6 +148,7 @@ _global_script_class_icons={
 "Brain": "",
 "BrickEffect": "",
 "Brush2D": "res://addons/brush2d/icon.png",
+"CHammerThrow": "",
 "Cannon": "res://GFX/Editor/Enemy.png",
 "Coin": "",
 "CoinEffect": "",
