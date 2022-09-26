@@ -327,3 +327,13 @@ func _process(_delta):
 		
 	free_preview()
 	update()
+
+func _init():
+	if Engine.editor_hint: return
+	
+	for child in get_children():
+		var new_child = child.duplicate()
+		new_child.owner = Global.current_scene
+		remove_child(child)
+		child.queue_free()
+		Global.current_scene.call_deferred('add_child', new_child)
