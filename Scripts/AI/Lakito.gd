@@ -35,6 +35,9 @@ func _ready_mixin() -> void:
 	if owner.vars['lakitu_addon']:
 		inited_lakitu_addon = owner.vars['lakitu_addon'].new()
 	
+		if inited_lakitu_addon.has_method('_ready_lakitu'):
+			inited_lakitu_addon._ready_lakitu(self)
+	
 	yield(owner.get_tree(), 'idle_frame')
 	camera = Global.current_camera
 	
@@ -61,8 +64,9 @@ func _ai_process(delta:float) -> void:
 			new_lakitu()
 		return
 	
-	if inited_lakitu_addon and inited_lakitu_addon.has_method('_process_lakitu'):
-		inited_lakitu_addon._process_lakitu(self, delta)
+	if inited_lakitu_addon:
+		if inited_lakitu_addon.has_method('_process_lakitu'):
+			inited_lakitu_addon._process_lakitu(self, delta)
 	
 	if blink_counter < 10:
 		blink_counter += 1 * Global.get_delta(delta)
