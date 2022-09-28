@@ -331,7 +331,7 @@ func _input(event):
 
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		if DiscordManager.core:
+		if is_instance_valid(DiscordManager) and DiscordManager.core:
 			DiscordManager.destroy_core()
 			print('[Discord]: Core destroyed.')
 

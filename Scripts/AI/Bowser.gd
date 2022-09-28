@@ -145,11 +145,11 @@ func _ai_process(delta: float) -> void:
 	owner.animated_sprite.flip_h = owner.global_position.x > Global.Mario.position.x
 	
 	# Stomping and hurting Mario
-	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 and invis_c <= 20:
+	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 and invis_c <= 15:
 		Global.Mario.velocity.y = -owner.vars["bounce"] * 50
 		mario_shift = -10 if Global.Mario.get_node('Sprite').flip_h else 10
 		bowser_damage()
-	elif on_mario_collide('InsideDetector') and invis_c < 115:
+	elif on_mario_collide('InsideDetector') and invis_c < 110:
 		Global._ppd()
 	
 	# Lives counter update
@@ -242,7 +242,7 @@ func launch_flame() -> Node2D:
 
 func bowser_damage() -> void:
 	owner.animated_sprite.modulate.a = 1
-	invis_c = 120
+	invis_c = 115
 	owner.get_node('Hit').play()
 	lives -= 1
 	fireball_lives = 0
@@ -254,7 +254,7 @@ func bowser_damage() -> void:
 		bowl.frame = 0
 
 func _on_custom_death(_score_mp):
-	if invis_c > 20: return
+	if invis_c > 15: return
 	owner.alt_sound.play()
 	if fireball_lives < 4:
 		fireball_lives += 1

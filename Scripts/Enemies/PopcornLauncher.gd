@@ -1,4 +1,4 @@
-extends Node2D
+extends StaticBody2D
 
 export var motion_launch: Vector2 = Vector2(-6, 0)
 
@@ -20,7 +20,7 @@ func _process(delta):
 		$Fire.play()
 	if left_to_launch > 0:
 		launch_timer += 1
-		if launch_timer > 3:
+		if launch_timer > 3.5:
 			launch_timer = 0
 			left_to_launch -= 1
 			var popcorn = popcorn_scene.instance()

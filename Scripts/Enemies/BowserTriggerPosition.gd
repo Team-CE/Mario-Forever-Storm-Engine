@@ -2,10 +2,16 @@ extends Node2D
 
 export var music: Resource
 export var autoscroll_speed: float = 1
+export var music_overlay_name: String = ''
 
 var triggered: bool = false
 var music_switched: bool = false
 var camera: Camera2D
+
+func _ready():
+	if music_overlay_name != '' and !is_instance_valid(Global.current_scene.get_node_or_null('HUD/Control')):
+		push_error('Please add a Music Overlay as a child node of HUD and name it Control')
+		music_overlay_name = ''
 
 func _process(delta): 
 	if !Global.is_getting_closer(-32, position):
@@ -20,6 +26,8 @@ func _process(delta):
 		camera.get_parent().remove_child(camera)
 		add_child(camera)
 		triggered = true
+		if music_overlay_name != '':
+			Global.HUD.get_node('Control').display_text(music_overlay_name)
 
 	if triggered:
 		if !camera: return

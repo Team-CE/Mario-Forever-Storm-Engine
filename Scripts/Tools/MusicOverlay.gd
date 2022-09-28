@@ -18,3 +18,8 @@ func _set_size(new) -> void:
 	font.size = new
 	size = new
 	$Label.set('custom_fonts/font', font)
+
+func display_text(string: String):
+	$Label.text = string
+	$AnimationPlayer.seek(0)
+	$AnimationPlayer.play()

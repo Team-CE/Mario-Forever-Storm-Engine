@@ -3,7 +3,7 @@ extends Node2D
 export var motion_launch_add: Vector2
 
 const popcorn_scene = preload('res://Objects/Projectiles/Chainsaw.tscn')
-var timer_delay: float
+var timer_delay: float = 100
 var launch_timer: float
 var velocity: Vector2
 
@@ -28,5 +28,5 @@ func _process(delta):
 		popcorn.global_transform = global_transform
 		var explosion = Explosion.new(position + Vector2(0, 32))
 		add_child(explosion)
-		explosion.z_index = 1
+		explosion.z_index = 2
 		
