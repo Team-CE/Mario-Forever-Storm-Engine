@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=83 format=2]
 
 [ext_resource path="res://GFX/Menu/Logo.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Menu/Selector.gd" type="Script" id=2]
@@ -34,6 +34,7 @@
 [ext_resource path="res://GFX/Menu/NoteScaling.png" type="Texture" id=32]
 [ext_resource path="res://GFX/Menu/NoteEffects.png" type="Texture" id=33]
 [ext_resource path="res://GFX/Menu/NoteControls.png" type="Texture" id=34]
+[ext_resource path="res://GFX/Fonts/LoliPop.ttf" type="DynamicFontData" id=35]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 5 )
@@ -91,17 +92,17 @@ animations = [ {
 "speed": 35.0
 } ]
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=64]
 atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 63, 36 )
+region = Rect2( 0, 0, 64, 36 )
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=65]
 atlas = ExtResource( 12 )
-region = Rect2( 0, 36, 63, 36 )
+region = Rect2( 0, 36, 64, 36 )
 
-[sub_resource type="SpriteFrames" id=16]
+[sub_resource type="SpriteFrames" id=57]
 animations = [ {
-"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"frames": [ SubResource( 64 ), SubResource( 65 ) ],
 "loop": true,
 "name": "default",
 "speed": 0.0
@@ -142,22 +143,6 @@ region = Rect2( 0, 68, 158, 34 )
 [sub_resource type="SpriteFrames" id=56]
 animations = [ {
 "frames": [ SubResource( 45 ), SubResource( 61 ), SubResource( 62 ) ],
-"loop": true,
-"name": "default",
-"speed": 0.0
-} ]
-
-[sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 63, 36 )
-
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 12 )
-region = Rect2( 0, 36, 63, 36 )
-
-[sub_resource type="SpriteFrames" id=57]
-animations = [ {
-"frames": [ SubResource( 43 ), SubResource( 44 ) ],
 "loop": true,
 "name": "default",
 "speed": 0.0
@@ -275,6 +260,12 @@ shader_param/circle_size = 0.623
 shader_param/screen_width = 1.0
 shader_param/screen_height = 1.0
 
+[sub_resource type="DynamicFont" id=66]
+size = 27
+outline_size = 2
+outline_color = Color( 0, 0, 0, 0.439216 )
+font_data = ExtResource( 35 )
+
 [node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -335,9 +326,6 @@ rect_pivot_offset = Vector2( 56, 480 )
 texture = ExtResource( 20 )
 expand = true
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BG6" type="TextureRect" parent="."]
 anchor_top = 1.0
@@ -376,15 +364,15 @@ position = Vector2( 334, 688 )
 texture = ExtResource( 13 )
 
 [node name="Effects" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 483, 593 )
-frames = SubResource( 16 )
+position = Vector2( 482, 593 )
+frames = SubResource( 57 )
 
 [node name="Quality" type="AnimatedSprite" parent="Buttons"]
 position = Vector2( 490, 707 )
 frames = SubResource( 39 )
 
 [node name="Scaling" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 530, 744 )
+position = Vector2( 529, 744 )
 frames = SubResource( 56 )
 
 [node name="VSync" type="AnimatedSprite" parent="Buttons"]
@@ -397,15 +385,15 @@ texture = ExtResource( 14 )
 script = ExtResource( 22 )
 
 [node name="SoundBar" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 498, 518 )
+position = Vector2( 497, 518 )
 frames = SubResource( 28 )
 
 [node name="MusicBar" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 498, 555 )
+position = Vector2( 497, 555 )
 frames = SubResource( 28 )
 
 [node name="Scroll" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 539, 630 )
+position = Vector2( 538, 630 )
 frames = SubResource( 32 )
 
 [node name="Keyboard" type="Sprite" parent="Buttons"]
@@ -413,7 +401,7 @@ position = Vector2( 72, 1032 )
 texture = ExtResource( 25 )
 
 [node name="Controls" type="Sprite" parent="Buttons"]
-position = Vector2( 320, 1200 )
+position = Vector2( 288, 1200 )
 texture = ExtResource( 24 )
 
 [node name="VSyncNote" type="Sprite" parent="Buttons"]
@@ -453,79 +441,87 @@ __meta__ = {
 }
 
 [node name="Label0" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 999.0
-margin_right = 448.0
-margin_bottom = 1031.0
-text = "Text"
-align = 1
+margin_left = 368.0
+margin_top = 976.0
+margin_right = 608.0
+margin_bottom = 1008.0
+custom_fonts/font = SubResource( 66 )
+text = "text"
+align = 2
 valign = 1
-clip_text = true
+max_lines_visible = 1
 
 [node name="Label1" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 1063.0
-margin_right = 448.0
-margin_bottom = 1095.0
-text = "Text"
-align = 1
+margin_left = 368.0
+margin_top = 1024.0
+margin_right = 608.0
+margin_bottom = 1056.0
+custom_fonts/font = SubResource( 66 )
+text = "text"
+align = 2
 valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+max_lines_visible = 1
 
 [node name="Label2" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 1127.0
-margin_right = 448.0
-margin_bottom = 1159.0
-text = "Text"
-align = 1
+margin_left = 368.0
+margin_top = 1072.0
+margin_right = 608.0
+margin_bottom = 1104.0
+custom_fonts/font = SubResource( 66 )
+text = "text"
+align = 2
 valign = 1
-clip_text = true
+max_lines_visible = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label3" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 1191.0
-margin_right = 448.0
-margin_bottom = 1223.0
-text = "Text"
-align = 1
+margin_left = 368.0
+margin_top = 1120.0
+margin_right = 608.0
+margin_bottom = 1152.0
+custom_fonts/font = SubResource( 66 )
+text = "text"
+align = 2
 valign = 1
-clip_text = true
+max_lines_visible = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label4" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 1255.0
-margin_right = 448.0
-margin_bottom = 1287.0
-text = "Text"
-align = 1
+margin_left = 320.0
+margin_top = 1168.0
+margin_right = 608.0
+margin_bottom = 1200.0
+custom_fonts/font = SubResource( 66 )
+text = "text"
+align = 2
 valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+max_lines_visible = 1
 
 [node name="Label5" type="Label" parent="."]
-margin_left = 192.0
-margin_top = 1319.0
-margin_right = 448.0
-margin_bottom = 1351.0
-text = "Text"
-align = 1
+margin_left = 368.0
+margin_top = 1216.0
+margin_right = 608.0
+margin_bottom = 1248.0
+custom_fonts/font = SubResource( 66 )
+text = "text"
+align = 2
 valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+max_lines_visible = 1
+
+[node name="Label6" type="Label" parent="."]
+margin_left = 368.0
+margin_top = 1264.0
+margin_right = 608.0
+margin_bottom = 1296.0
+custom_fonts/font = SubResource( 66 )
+text = "text"
+align = 2
+valign = 1
+max_lines_visible = 1
 
 [node name="select_main" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )

@@ -6,7 +6,8 @@ const CONTROLS_ARRAY = [
 	'mario_left',
 	'mario_right',
 	'mario_jump',
-	'mario_fire'
+	'mario_fire',
+	'ui_pause'
 ]
 const CONTROLS_VALUES: Dictionary = {}
 
@@ -99,9 +100,9 @@ func _process(delta) -> void:
 			updateOptions()
 			$Credits.hide()
 		2:
-			pos_y = 987 + (64 * sel) if sel < 7 else 1415
-			$S_Start.position.x = 172
-			selLimit = 7
+			pos_y = 988 + (48 * sel) if sel < 7 else 1004 + (48 * sel)
+			$S_Start.position.x = 156
+			selLimit = 8
 		3:
 			pos_y = 1920 + 216
 			$S_Start.position.x = 240
@@ -268,20 +269,20 @@ func controls() -> void:
 				updateControls()
 				saveOptions()
 		2:		# _____ CONTROLS _____
-			if Input.is_action_just_pressed('ui_accept') and sel < 6:
-				get_node('Label' + str(sel)).text = 'PRESS A KEY TO ASSIGN'
+			if Input.is_action_just_pressed('ui_accept') and sel < 7:
+				get_node('Label' + str(sel)).text = '...'
 				controls_changing = true
 				controls_enabled = false
 				get_tree().set_input_as_handled()
 			
-			if Input.is_action_just_pressed('ui_accept') and sel == 6:
+			if Input.is_action_just_pressed('ui_accept') and sel == 7:
 				InputMap.load_from_globals()
 				updateControls()
 				$enter_options.play()
 			if (
 				Input.is_action_just_pressed('ui_cancel') or
 				Input.is_action_just_pressed('ui_accept') and
-				sel == 7
+				sel == 8
 			) and not controls_changing:
 				screen = 1
 				sel = 4
@@ -299,7 +300,7 @@ func controls() -> void:
 
 func _input(event) -> void:
 	if event is InputEventKey and event.pressed and controls_changing and not event.echo:
-		if not event.is_action('ui_cancel'):
+		if not event.is_action('ui_cancel') or sel == 6:
 			var scancode = OS.get_scancode_string(event.scancode)
 			get_node('Label' + str(sel)).text = scancode
 			for old_event in InputMap.get_action_list(CONTROLS_ARRAY[sel]):
@@ -336,7 +337,7 @@ func updateControls() -> void:
 		var val = assign_value(i)
 		CONTROLS_VALUES[i] = val
 	
-	for i in 6:
+	for i in 7:
 		get_node('Label' + str(i)).text = CONTROLS_VALUES[CONTROLS_ARRAY[i]]
 
 func saveOptions() -> void:
