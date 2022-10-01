@@ -10,7 +10,7 @@ func _process(delta):
 	if !cam: return
 	position.x -= speed * Global.get_delta(delta)
 	fake_pos.x = init_pos + cam.get_camera_screen_center().x - 320
-	if position.x >= fake_pos.x + 32:
+	while position.x >= fake_pos.x + 32:
 		position.x -= 32
-	if position.x < fake_pos.x - 32:
+	while position.x < fake_pos.x - 32:
 		position.x += 32
