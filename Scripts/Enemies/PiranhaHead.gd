@@ -46,6 +46,7 @@ func _on_area_entered(area):
 
 func killpiranha():
 	var explosion = Explosion.new(position)
+	get_parent().add_child(explosion)
 	queue_free()
 
 func _process_shooting(_delta):

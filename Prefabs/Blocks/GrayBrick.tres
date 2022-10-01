@@ -1,13 +1,19 @@
-[gd_resource type="SpriteFrames" load_steps=3 format=2]
+[gd_resource type="SpriteFrames" load_steps=4 format=2]
 
 [ext_resource path="res://GFX/Bonuses/GrayBrick.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Bonuses/EmptyBlock.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Bonuses/GrayBrickDebris.png" type="Texture" id=3]
 
 [resource]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "empty",
+"name": "brick",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "debris",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 1 ) ],
@@ -15,8 +21,8 @@ animations = [ {
 "name": "default",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "brick",
-"speed": 0.0
+"name": "empty",
+"speed": 5.0
 } ]

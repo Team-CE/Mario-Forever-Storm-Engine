@@ -1,4 +1,4 @@
-extends Sprite
+extends AnimatedSprite
 class_name BrickEffect
 
 var y_accel: float = 0
@@ -7,9 +7,9 @@ var local_rotation: float
 
 var vis: VisibilityNotifier2D
 
-func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO, textureindex: int = 0, rotat: float = Global.Mario.rotation) -> void:
-	var textures = [preload('res://GFX/Bonuses/BrickDebris.png'), preload('res://GFX/Bonuses/IceBrickDebris.png'), preload('res://GFX/Bonuses/GrayBrickDebris.png')]
-	texture = textures[textureindex]
+func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO, texture: SpriteFrames = preload('res://Prefabs/Blocks/Question Block.tres'), rotat: float = Global.Mario.rotation) -> void:
+	frames = texture
+	animation = 'debris'
 	position = pos
 	accel = acceleration
 	z_index = 3

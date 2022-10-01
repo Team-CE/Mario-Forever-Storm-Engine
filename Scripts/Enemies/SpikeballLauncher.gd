@@ -26,7 +26,7 @@ func _process(delta):
 		popcorn.velocity = (velocity + motion_launch_add) * 50
 		Global.current_scene.add_child(popcorn)
 		popcorn.global_transform = global_transform
-		var explosion = Explosion.new(position + Vector2(0, 32))
-		add_child(explosion)
+		var explosion = Explosion.new(position)
+		Global.current_scene.add_child(explosion)
 		explosion.z_index = 2
 		

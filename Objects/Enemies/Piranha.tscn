@@ -50,7 +50,6 @@ disabled = true
 [node name="Sprite" type="AnimatedSprite" parent="."]
 z_index = -1
 frames = ExtResource( 2 )
-frame = 1
 playing = true
 offset = Vector2( 0, -32 )
 

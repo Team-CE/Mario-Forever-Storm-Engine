@@ -15,12 +15,6 @@ enum BLOCK_TYPE {
 	RESET_POWERUP
 }
 
-enum DEBRIS_TYPE {
-	BROWN,
-	ICE,
-	GRAY
- }
-
 export(VISIBILITY_TYPE) var Visible: int
 
 var PrevResult: Resource
@@ -34,8 +28,6 @@ export(int, 1, 100) var Count: int = 1
 export(bool) var Empty: bool
 
 export(BLOCK_TYPE) var qtype: int = BLOCK_TYPE.COMMON
-
-export(DEBRIS_TYPE) var debris: int = DEBRIS_TYPE.BROWN
 
 var blockShape: Shape2D
 var collision: CollisionShape2D
@@ -211,8 +203,8 @@ func _process_active(_delta) -> void:
 func brick_break(idle_frame:bool = true) -> void:
 	Global.play_base_sound('MAIN_BrickBreak')
 	var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
-	for i in range(4):
-		var debris_effect = BrickEffect.new(position + Vector2(0, -16).rotated(rotation), speeds[i], debris)
+	for i in 4:
+		var debris_effect = BrickEffect.new(position + Vector2(0, -16).rotated(rotation), speeds[i], body.frames)
 		get_parent().add_child(debris_effect)
 	Global.add_score(50)
 	body.visible = false
@@ -294,8 +286,8 @@ func _on_hit():
 	if qtype == BLOCK_TYPE.COMMON:
 		Global.play_base_sound('MAIN_BrickBreak')
 		var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
-		for i in range(4):
-			var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i], debris)
+		for i in 4:
+			var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i], body.frames)
 			get_parent().add_child(debris_effect)
 		Global.add_score(50)
 		queue_free()

@@ -5,7 +5,7 @@ var counter: float = 6
 var first_pos: Vector2
 
 func _init(pos: Vector2 = Vector2.ZERO, rotat: float = 0):
-	frames = preload('res://Prefabs/Bonuses/CoinEffect.tres')
+	frames = preload('res://Prefabs/Blocks/CoinEffect.tres')
 	first_pos = pos
 	position = pos
 	rotation = rotat

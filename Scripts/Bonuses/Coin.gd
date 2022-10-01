@@ -11,16 +11,19 @@ func _ready() -> void:
 	if appearing:
 		Global.play_base_sound('MAIN_Coin')
 		Global.add_coins(1)
-		var coin_effect = CoinEffect.new(position + Vector2(0, -32).rotated(rotation), rotation)
+		var coin_effect = CoinEffect.new(position + Vector2(0, -48).rotated(rotation), rotation)
 		get_parent().add_child(coin_effect)
 		queue_free()
 
 func _process(delta) -> void:
 	if frozen:
-		freeze_counter += 1 * Global.get_delta(delta)
+		if freeze_counter >= 0:
+			freeze_counter += 1 * Global.get_delta(delta)
+			
 		freeze_sprite_counter += 1 * Global.get_delta(delta)
 		if freeze_counter < 300:
 			$IceSprite.visible = true
+			
 		if freeze_sprite_counter > 80:
 			freeze_sprite_counter = 0
 			$IceSprite.frame = 0
@@ -41,7 +44,7 @@ func _process(delta) -> void:
 		brick = g_overlaps[0]
 		if !brick.is_in_group('Breakable'):
 			return
-		if brick.triggered and brick.t_counter < 12:
+		if brick.triggered and !frozen and brick.t_counter < 12:
 			trigger_fly()
 
 func trigger_fly():
@@ -52,7 +55,9 @@ func trigger_fly():
 	get_parent().add_child(coin_effect)
 	queue_free()
 
-func freeze() -> void:
+func freeze(forever: bool = false) -> void:
+	if forever:
+		freeze_counter = -1
 	frozen = true
 	$IceSprite.visible = true
 	$IceSprite.playing = true
@@ -73,8 +78,8 @@ func unfreeze() -> void:
 	freeze_counter = 0
 	freeze_sprite_counter = 0
 	var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
-	for i in range(4):
-		var debris_effect = BrickEffect.new(position, speeds[i], 1)
+	for i in 4:
+		var debris_effect = BrickEffect.new(position, speeds[i], $IceSprite.frames)
 		get_parent().add_child(debris_effect)
 
 func _on_Coin_area_entered(area) -> void:
@@ -88,8 +93,8 @@ func _on_Coin_area_entered(area) -> void:
 
 func _on_Coin_body_entered(body) -> void:
 	if appearing: return
-	if 'Iceball'.to_lower() in body.get_name().to_lower() and 'belongs' in body and body.belongs != 0 and !frozen:
-		freeze()
+	if 'Iceball'.to_lower() in body.get_name().to_lower() and 'belongs' in body and !frozen:
+		freeze(bool(body.belongs))
 		body.explode()
 	elif 'Fireball'.to_lower() in body.get_name().to_lower() and frozen:
 		unfreeze()

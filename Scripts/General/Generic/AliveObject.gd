@@ -243,8 +243,8 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 			if is_instance_valid(get_node_or_null('KillDetector/Collision')): $KillDetector/Collision.set_deferred('disabled', true)
 			get_node('ice2').play()
 			var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
-			for i in range(4):
-				var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i], 1)
+			for i in 4:
+				var debris_effect = BrickEffect.new(position + Vector2(0, -16), speeds[i], frozen_sprite.frames)
 				get_parent().add_child(debris_effect)
 			time = get_tree().create_timer(2.0, false)
 			time.connect('timeout', self, 'instance_free')

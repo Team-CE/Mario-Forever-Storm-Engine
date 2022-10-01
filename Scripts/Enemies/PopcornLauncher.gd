@@ -19,8 +19,8 @@ func _process(delta):
 		left_to_launch = 16
 		$Fire.play()
 	if left_to_launch > 0:
-		launch_timer += 1
-		if launch_timer > 3.5:
+		launch_timer += 1 * Global.get_delta(delta)
+		if launch_timer > 3:
 			launch_timer = 0
 			left_to_launch -= 1
 			var popcorn = popcorn_scene.instance()

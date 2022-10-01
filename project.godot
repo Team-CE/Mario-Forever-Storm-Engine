@@ -39,7 +39,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/AI/Brain.gd"
 }, {
-"base": "Sprite",
+"base": "AnimatedSprite",
 "class": "BrickEffect",
 "language": "GDScript",
 "path": "res://Scripts/Effects/BrickEffect.gd"
