@@ -28,7 +28,7 @@ func _ai_process(delta: float) -> void:
 		owner.velocity += Vector2(0, 40 * owner.gravity_scale * Global.get_delta(delta))
 
 	if Global.Mario.is_in_shoe and Global.Mario.shoe_type == 1:
-		if Global.is_mario_collide_area('BottomDetector', owner.get_node('Hitbox')) and Global.Mario.velocity.y > 0:
+		if Global.is_mario_collide_area('BottomDetector', owner.get_node('Hitbox')) and Global.Mario.velocity.y >= -1:
 			inv_counter = 0
 			Global.Mario.shoe_node.stomp()
 			return

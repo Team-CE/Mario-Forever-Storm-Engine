@@ -45,7 +45,7 @@ func _on_area_entered(area):
 		Global._ppd()
 
 func killpiranha():
-	var explosion = Explosion.new(position)
+	var explosion = Explosion.new(position - Vector2(0, 16))
 	get_parent().add_child(explosion)
 	queue_free()
 

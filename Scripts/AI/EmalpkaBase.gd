@@ -76,7 +76,7 @@ func _ai_process(delta: float) -> void:
 		
 	owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
 	
-	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 && inv_counter >= 11:
+	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 && inv_counter >= 11:
 		owner.kill(AliveObject.DEATH_TYPE.FALL, 0, owner.sound)
 		owner.velocity = Vector2.ZERO
 		if Input.is_action_pressed('mario_jump'):

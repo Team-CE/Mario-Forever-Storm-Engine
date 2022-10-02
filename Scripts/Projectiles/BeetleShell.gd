@@ -28,7 +28,7 @@ func _process(delta):
 				i.kill(AliveObject.DEATH_TYPE.FALL if !i.force_death_type else i.death_type, 0, null, self.name)
 				
 	if belongs != 0:
-		if Global.is_mario_collide('BottomDetector', self) and Global.Mario.velocity.y > 0:
+		if Global.is_mario_collide('BottomDetector', self) and Global.Mario.velocity.y >= -1:
 			stop_shell(delta)
 			Global.current_scene.add_child(ScoreText.new(100, global_position))
 			Global.play_base_sound('ENEMY_Stomp')

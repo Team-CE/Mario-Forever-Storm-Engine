@@ -54,11 +54,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Enemies/Cannon.gd"
 }, {
-"base": "Area2D",
-"class": "Coin",
-"language": "GDScript",
-"path": "res://Scripts/Bonuses/Coin.gd"
-}, {
 "base": "AnimatedSprite",
 "class": "CoinEffect",
 "language": "GDScript",
@@ -144,7 +139,6 @@ _global_script_class_icons={
 "BrickEffect": "",
 "Brush2D": "res://addons/brush2d/icon.png",
 "Cannon": "res://GFX/Editor/Enemy.png",
-"Coin": "",
 "CoinEffect": "",
 "ComponentView": "",
 "Discord": "",

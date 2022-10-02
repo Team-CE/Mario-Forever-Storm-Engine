@@ -64,7 +64,7 @@ func _process(delta):
 		inv_counter += 1 * Global.get_delta(delta)
 
 	if Global.Mario.is_in_shoe and Global.Mario.shoe_type == 1:
-		if Global.is_mario_collide_area('BottomDetector', self) and Global.Mario.velocity.y > 0:
+		if Global.is_mario_collide_area('BottomDetector', self) and Global.Mario.velocity.y >= -1:
 			velocity += Vector2(0, 5).rotated(-rotation)
 			inv_counter = 0
 			Global.Mario.shoe_node.stomp()

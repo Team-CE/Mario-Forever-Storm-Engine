@@ -39,7 +39,7 @@ func _process(delta) -> void:
 	
 	if overlaps_area.size() > 0 and belongs == 0:
 		for i in overlaps_area:
-			if i is Coin:
+			if 'Coin' in i.name:
 				i.trigger_fly()
 				
 	if is_mario_collide('InsideDetector'):

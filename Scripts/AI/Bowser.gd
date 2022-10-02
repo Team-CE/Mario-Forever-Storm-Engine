@@ -145,7 +145,7 @@ func _ai_process(delta: float) -> void:
 	owner.animated_sprite.flip_h = owner.global_position.x > Global.Mario.position.x
 	
 	# Stomping and hurting Mario
-	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 and invis_c <= 15:
+	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 and invis_c <= 15:
 		Global.Mario.velocity.y = -owner.vars["bounce"] * 50
 		mario_shift = -10 if Global.Mario.get_node('Sprite').flip_h else 10
 		bowser_damage()

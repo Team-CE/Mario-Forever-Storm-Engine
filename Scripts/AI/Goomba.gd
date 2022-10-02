@@ -26,7 +26,7 @@ func _ai_process(delta:float) -> void:
 	if inv_counter < 11:
 		inv_counter += 1 * Global.get_delta(delta)
 		
-	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y > 0 and inv_counter >= 8:
+	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 and inv_counter >= 8:
 		owner.kill()
 		if Input.is_action_pressed('mario_jump'):
 			Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50

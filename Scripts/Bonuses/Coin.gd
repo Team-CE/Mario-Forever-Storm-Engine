@@ -1,9 +1,8 @@
 extends Area2D
-class_name Coin
 
 var appearing = false
 
-var frozen: bool = false
+export var frozen: bool = false
 var freeze_counter: float
 var freeze_sprite_counter: float
 
@@ -14,6 +13,14 @@ func _ready() -> void:
 		var coin_effect = CoinEffect.new(position + Vector2(0, -48).rotated(rotation), rotation)
 		get_parent().add_child(coin_effect)
 		queue_free()
+	
+	if frozen:
+		freeze_counter = -1
+		$IceSprite.visible = true
+		$IceSprite.playing = true
+		$Sprite.playing = false
+		$CollisionShape2D.set_deferred('disabled', true)
+		$StaticBody2D/Collision2.set_deferred('disabled', false)
 
 func _process(delta) -> void:
 	if frozen:

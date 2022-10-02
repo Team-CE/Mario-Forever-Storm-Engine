@@ -33,8 +33,8 @@ func _process(delta):
 	elif colliding && !isCol:
 		colliding = false
 
-func create_platform(delta):
-	if !is_instance_valid(get_node_or_null('../ArrowMovingPlatform')):
+func create_platform(_delta):
+	if is_instance_valid(get_node_or_null('../ArrowMovingPlatform')):
 		get_node('../ArrowMovingPlatform').free()
 	var moving_platform = preload('res://Objects/Platforms/ArrowMovingPlatform.tscn').instance()
 	moving_platform.set_name('ArrowMovingPlatform')
