@@ -13,12 +13,15 @@ var freeze_sprite_counter: float
 var frozen: bool = true
 
 func _ready():
-	pass
+	if !Engine.editor_hint:
+		$IceSprite.playing = true
 
 func _physics_process(delta):
-	if !frozen: return
-# warning-ignore:incompatible_ternary
-	freeze_sprite_counter += 1 * Global.get_delta(delta) if !Engine.editor_hint else 1
+	if Engine.editor_hint:
+		return
+	if !frozen:
+		return
+	freeze_sprite_counter += 1 * Global.get_delta(delta)
 		
 	if freeze_sprite_counter > 80:
 		freeze_sprite_counter = 0
