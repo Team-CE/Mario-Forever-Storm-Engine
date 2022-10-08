@@ -99,6 +99,7 @@ func _ready():
 		collision.position.y -= 16
 		collision.visible = false
 		
+		
 		add_child(collision)
 		collision.set_owner(self)
 
@@ -147,6 +148,8 @@ func _process(delta) -> void:
 
 	if triggered:
 		_process_trigger(delta)
+	
+	preview.visible = false
 	
 	if coin_counter >= 1 and coin_counter <= 6:
 		coin_counter += 0.02 * Global.get_delta(delta)
