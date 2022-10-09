@@ -36,7 +36,7 @@ animations = [ {
 
 [node name="Blooper" type="KinematicBody2D" groups=["Enemy"]]
 z_index = 2
-collision_layer = 0
+collision_layer = 32
 script = ExtResource( 1 )
 vars = {
 "bounce": 9,

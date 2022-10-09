@@ -3,7 +3,7 @@ extends Sprite
 export var speed: float = 1
 var fake_pos := Vector2.ZERO
 
-onready var init_pos = 320
+export var init_pos = 320
 
 func _process(delta):
 	var cam = Global.current_camera

@@ -20,6 +20,10 @@ func _ready_mixin() -> void:
 		limit_top = owner.vars['limit_top']
 	elif camera:
 		limit_top = camera.limit_top + 96
+	
+	for node in get_tree().get_nodes_in_group('Enemy'):
+		if node is KinematicBody2D:
+			owner.add_collision_exception_with(node)
 
 func _ai_process(delta:float) -> void:
 	._ai_process(delta)

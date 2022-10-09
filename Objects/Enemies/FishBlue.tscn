@@ -24,7 +24,7 @@ animations = [ {
 } ]
 
 [node name="Blue Fish" type="KinematicBody2D" groups=["Enemy"]]
-collision_layer = 0
+collision_layer = 32
 script = ExtResource( 1 )
 vars = {
 "bounce": 9,
@@ -41,7 +41,6 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-frame = 1
 playing = true
 flip_h = true
 
