@@ -9,6 +9,7 @@ var quality: int = 2
 var scaling: int = ScalingType.FAST
 var controls: Dictionary
 var autopause: bool = true
+const stage_location: String = 'res://Stages/'
 
 var toSaveInfo = {
 	"SoundVol": soundBar,
@@ -272,7 +273,7 @@ func _unhandled_input(ev):
 		
 	# Trigger finish
 		if ev.scancode == 52:
-			if !('death_height' in Global.current_scene):
+			if !('death_height' in current_scene):
 				return
 			if !is_instance_valid(current_scene.get_node_or_null('FinishLine')):
 				push_error('ERROR: Finish line not found')
