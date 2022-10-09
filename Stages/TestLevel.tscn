@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Objects/Liquids/Water.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=2]
@@ -15,7 +15,8 @@
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=13]
 [ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Beetle.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=15]
-[ext_resource path="res://Scripts/AI/ThrowFunctions/BeetleShell.gd" type="Script" id=16]
+[ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Boomerang.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scripts/AI/ThrowFunctions/BeetleShell.gd" type="Script" id=17]
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=21]
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Objects/Enemies/FishBlue.tscn" type="PackedScene" id=29]
@@ -281,17 +282,14 @@ id = 1
 position = Vector2( 3616, 384 )
 id = 2
 
-[node name="EmalpkaBeetle" parent="." instance=ExtResource( 14 )]
-position = Vector2( 368, 416 )
+[node name="EmalpkaBeetle2" parent="." instance=ExtResource( 14 )]
+position = Vector2( 800, 128 )
 vars = {
 "bounce": 9.0,
 "shell_launch": true,
 "speed": 100.0,
-"throw_script": ExtResource( 16 )
+"throw_script": ExtResource( 17 )
 }
-
-[node name="EmalpkaBeetle2" parent="." instance=ExtResource( 14 )]
-position = Vector2( 800, 128 )
 
 [node name="QBlock8" parent="." instance=ExtResource( 3 )]
 position = Vector2( 304, 304 )
@@ -308,5 +306,8 @@ qtype = 1
 [node name="QBlock12" parent="." instance=ExtResource( 3 )]
 position = Vector2( 336, 304 )
 qtype = 1
+
+[node name="EmalpkaBoomerang" parent="." instance=ExtResource( 16 )]
+position = Vector2( 432, 416 )
 
 [editable path="Water"]

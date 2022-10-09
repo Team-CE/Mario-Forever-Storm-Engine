@@ -115,13 +115,6 @@ script = ExtResource( 8 )
 
 [node name="Control" parent="ParallaxBackground" instance=ExtResource( 11 )]
 
-[node name="Label" parent="ParallaxBackground/Control" index="0"]
-margin_left = 0.0
-margin_top = 496.0
-margin_right = 640.0
-margin_bottom = 543.999
-text = "C. Helbock - Whale's Voyage 2"
-
 [node name="fadeout" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 bus = "Sounds"
@@ -268,10 +261,8 @@ position = Vector2( 256, 384 )
 
 [node name="Dot25" parent="Node" instance=ExtResource( 24 )]
 position = Vector2( 256, 192 )
-frame = 6
+frame = 10
 
 [node name="Dot41" parent="Node" instance=ExtResource( 24 )]
 position = Vector2( 384, 256 )
-frame = 6
-
-[editable path="ParallaxBackground/Control"]
+frame = 10

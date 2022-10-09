@@ -1,6 +1,7 @@
 extends Area2D
 
 const mariospr = preload('res://GFX/Enemies/boomermario.png')
+const emalpkaspr = preload('res://GFX/Enemies/boomerenemy.png')
 
 var vis: VisibilityEnabler2D = VisibilityEnabler2D.new()
 
@@ -9,9 +10,8 @@ var velocity: Vector2 = Vector2(10, -6)
 var flag2: bool = false
 var gravity_scale: float = 1
 
-var trail_counter: float = 0
-
 var belongs: int = 0 # 0 - Mario, 1 - Bro, 2 - Spikeball Launcher
+var emalpka_owner = null
 
 func _ready() -> void:
 	velocity.x *= dir
@@ -24,18 +24,23 @@ func _ready() -> void:
 	
 	if belongs == 0:
 		$Sprite.texture = mariospr
-	print(dir)
+	else:
+		$Sprite.texture = emalpkaspr
 
 func _process(delta) -> void:
 	var overlaps = self.get_overlapping_bodies()
 	var overlaps_area = self.get_overlapping_areas()
 
-	if overlaps.size() > 0 and belongs == 0:
+	if overlaps.size() > 0:
 		for i in overlaps:
-			if i.is_in_group('Enemy') and i.has_method('kill'):
-				var killed = i.kill(AliveObject.DEATH_TYPE.FALL if !i.force_death_type else i.death_type, 0, null, self.name)
-				if killed:
-					explode()
+			if belongs == 0:
+				if i.is_in_group('Enemy') and i.has_method('kill'):
+					var killed = i.kill(AliveObject.DEATH_TYPE.FALL if !i.force_death_type else i.death_type, 0, null, self.name)
+					if killed:
+						explode()
+			elif belongs == 1 and emalpka_owner and flag2:
+				if i.get_node_or_null('Brain') and i.get_node('Brain').get_instance_id() == emalpka_owner:
+					queue_free()
 	
 	if overlaps_area.size() > 0 and belongs == 0:
 		for i in overlaps_area:
