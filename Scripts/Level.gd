@@ -92,6 +92,8 @@ func _ready():
 		hud.set_owner(self)
 		var brush = Brush2D.new()
 		add_child(brush)
+		brush.set_owner(self)
+		brush.set_name('Brush2D')
 
 func setup_worldenv() -> WorldEnvironment:
 	var newWE = WorldEnvironment.new()

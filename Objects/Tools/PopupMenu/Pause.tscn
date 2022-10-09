@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scripts/Tools/Pause.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Menu/Pmainmenu.png" type="Texture" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://GFX/Menu/Presume.png" type="Texture" id=7]
 [ext_resource path="res://GFX/Menu/Poptions.png" type="Texture" id=8]
 [ext_resource path="res://Sounds/Main/pause.wav" type="AudioStream" id=9]
+[ext_resource path="res://GFX/Menu/Prestart_warn1.png" type="Texture" id=10]
+[ext_resource path="res://GFX/Menu/Prestart_warn2.png" type="Texture" id=11]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
@@ -95,6 +97,24 @@ animations = [ {
 "speed": 0.0
 } ]
 
+[sub_resource type="SpriteFrames" id=24]
+animations = [ {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "blocked",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "empty",
+"speed": 5.0
+} ]
+
 [node name="Pause" type="Node2D"]
 modulate = Color( 1, 1, 1, 0.0980392 )
 script = ExtResource( 1 )
@@ -136,3 +156,8 @@ animation = "options"
 [node name="pause" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 bus = "Sounds"
+
+[node name="sub" type="AnimatedSprite" parent="."]
+position = Vector2( 320, 448 )
+frames = SubResource( 24 )
+animation = "empty"

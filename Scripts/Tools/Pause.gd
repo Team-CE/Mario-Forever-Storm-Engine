@@ -5,6 +5,8 @@ var selLimit: int = 5
 var counter: float = 1
 var can_restart: bool = true
 
+var is_dead: bool = false
+
 func _ready():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar) - 6)
 	if Global.lives == 0 || !is_instance_valid(Global.Mario) || (is_instance_valid(Global.Mario) && !Global.Mario.controls_enabled) || Global.current_scene.get_class() in 'Map':
@@ -12,6 +14,8 @@ func _ready():
 		$sel1.frame = 2
 	if 'sgr_scroll' in Global.current_scene and Global.current_scene.sgr_scroll:
 		can_restart = false
+	
+	is_dead = is_instance_valid(Global.Mario) and Global.Mario.dead
 
 func _process(delta):
 	#if Input.is_action_just_pressed('ui_fullscreen'):
@@ -30,6 +34,15 @@ func _process(delta):
 		get_node('sel' + str(sel)).modulate.a = sinalpha
 		
 		if sel != 1 or (sel == 1 and can_restart): get_node('sel' + str(sel)).frame = 1
+		
+		$sub.visible = sel == 1
+		if sel == 1:
+			if can_restart and !is_dead:
+				$sub.animation = 'default'
+			elif Global.lives == 0 and is_instance_valid(Global.Mario):
+				$sub.animation = 'blocked'
+			else:
+				$sub.animation = 'empty'
 		
 		# CONTROLS
 		
@@ -55,7 +68,7 @@ func _process(delta):
 				1:
 					if !can_restart: return
 					AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
-					if is_instance_valid(Global.Mario) and Global.Mario.dead:
+					if is_dead:
 						Global._reset()
 						get_node('../enter').play()
 					else:
