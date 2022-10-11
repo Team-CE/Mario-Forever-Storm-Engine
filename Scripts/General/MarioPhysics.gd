@@ -97,8 +97,6 @@ func is_over_platform() -> bool:
 		return false
 
 func _process(delta) -> void:
-	
-	
 	if get_node_or_null('Camera'):
 		_process_camera(delta)
 	
