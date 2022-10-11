@@ -81,7 +81,7 @@ func _ready() -> void:
 			custom_audio.stream = custom_warp_sound
 			add_child(custom_audio)
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	if Engine.editor_hint:
 		$Sprite.texture = in_icon if type == TYPES.IN else out_icon
 		
@@ -134,6 +134,7 @@ func _process(delta) -> void:
 		if active:
 			Global.Mario.controls_enabled = false
 			Global.Mario.animation_enabled = false
+			Global.Mario.motion_disabled = true
 			Global.Mario.position = calc_pos
 			Global.Mario.velocity = Vector2.ZERO
 			calc_pos += warp_dir * Global.get_delta(delta)
@@ -166,8 +167,7 @@ func _process(delta) -> void:
 					state_switched = true
 					finishline.act(true)
 					Global.Mario.visible = false
-			
-			if counter >= out_duration + 60 and Global.Mario.get_slide_count() == 0 and not trigger_finish:
+			if counter >= out_duration + 60 and not trigger_finish and !Global.Mario.test_move(Global.Mario.transform, Vector2.ZERO):
 				Global.Mario.get_node('Sprite').z_index = 10
 				state_switched = false
 				counter = 0
@@ -175,6 +175,7 @@ func _process(delta) -> void:
 				Global.Mario.controls_enabled = true
 				Global.Mario.animation_enabled = true
 				Global.Mario.invulnerable = false
+				Global.Mario.motion_disabled = false
 				if Global.Mario.is_in_shoe:
 					Global.Mario.shoe_node.z_index = 11
 

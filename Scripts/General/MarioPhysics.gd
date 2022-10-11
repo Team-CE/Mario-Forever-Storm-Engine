@@ -21,6 +21,7 @@ var can_jump: bool = false
 var crouch: bool = false
 var is_stuck: bool = false
 var prelanding: bool = false
+var motion_disabled: bool = false
 
 var ignore_stuck: bool = false # Set to true if there are issues with mario getting stuck
 
@@ -260,7 +261,8 @@ func _process_alive(delta) -> void:
 	vertical_correction(5) # Corner correction like in original Mario games
 	horizontal_correction(10) # One tile gap runover ability
 	var old_velocity = Vector2.ZERO + velocity # Fix for slopes
-	velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation) * (8 if !(jump_counter or movement_type == Movement.CLIMBING) else 1), Vector2(0, -1).rotated(rotation), true, 4, 0.96, false).rotated(-rotation)
+	if !motion_disabled:
+		velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation) * (8 if !(jump_counter or movement_type == Movement.CLIMBING) else 1), Vector2(0, -1).rotated(rotation), true, 4, 0.96, false).rotated(-rotation)
 	if !is_on_wall():
 		velocity.x = old_velocity.x
 	

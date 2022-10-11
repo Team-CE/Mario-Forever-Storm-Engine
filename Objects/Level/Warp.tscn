@@ -7,6 +7,7 @@
 extents = Vector2( 11.5, 13.5 )
 
 [node name="Warp" type="Area2D" groups=["Warp"]]
+process_priority = 1
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
