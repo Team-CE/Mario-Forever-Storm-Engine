@@ -1,6 +1,6 @@
 var hammer_scene = preload('res://Objects/Projectiles/Boomerang.tscn')
 
-func throw(ai, vel_y: float = rand_range(0.6, 1)) -> void:
+func throw(ai) -> void:
 	var inst = hammer_scene.instance()
 	inst.position = ai.owner.position - Vector2(0, 32).rotated(ai.owner.rotation)
 	inst.belongs = 1

@@ -55,8 +55,8 @@ animations = [ {
 "speed": 25.0
 } ]
 
-[node name="Dot" type="AnimatedSprite"]
+[node name="X mark" type="AnimatedSprite"]
 frames = SubResource( 12 )
-frame = 3
+frame = 9
 playing = true
 script = ExtResource( 1 )

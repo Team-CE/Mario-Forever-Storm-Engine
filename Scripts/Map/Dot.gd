@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 		collided = true
 	
 	if collided:
-		counter += get_parent().get_parent().current_speed * Global.get_delta(delta)
+		counter += Global.current_scene.current_speed * Global.get_delta(delta)
 		
 		if counter > 15:
 			visible = true
