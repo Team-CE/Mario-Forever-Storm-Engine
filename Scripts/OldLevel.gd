@@ -1,5 +1,5 @@
 extends Node2D
-class_name Level
+class_name OldLevel
 tool
 
 export var time: int = 360

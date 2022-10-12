@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=2]
 
-[ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/OldLevel.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Scenery/Trees.png" type="Texture" id=2]
 [ext_resource path="res://GFX/Scenery/Hill.png" type="Texture" id=3]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=4]
@@ -29,6 +29,7 @@
 [ext_resource path="res://GFX/Scenery/Cloud.tres" type="SpriteFrames" id=27]
 [ext_resource path="res://Objects/Core/Camera.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Scripts/SaveGameRoom/SGRScript.gd" type="Script" id=29]
+
 
 [sub_resource type="Environment" id=1]
 background_mode = 4

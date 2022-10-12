@@ -1,4 +1,4 @@
-extends KinematicBody2D
+class_name Mario extends KinematicBody2D
 
 var gameover_music: Resource = preload('res://Music/1-music-gameover.ogg')
 
@@ -927,3 +927,6 @@ func _physics_process(delta: float) -> void:
 		inited_camera_addon._process_physics_camera(self, delta)
 	if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin_physics') and not dead:
 		ready_powerup_scripts[Global.state]._process_mixin_physics(self, delta)
+
+func get_class():
+	return 'Mario'

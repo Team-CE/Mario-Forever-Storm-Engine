@@ -261,8 +261,6 @@ position = Vector2( 256, 384 )
 
 [node name="Dot25" parent="Node" instance=ExtResource( 24 )]
 position = Vector2( 256, 192 )
-frame = 10
 
 [node name="Dot41" parent="Node" instance=ExtResource( 24 )]
 position = Vector2( 384, 256 )
-frame = 10
