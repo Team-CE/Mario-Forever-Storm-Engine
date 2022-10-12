@@ -70,6 +70,8 @@ scale = Vector2( 0.5, 0.5 )
 camera_addon = ExtResource( 10 )
 
 [node name="Camera" parent="MarioPath/PathFollow2D/Mario" instance=ExtResource( 23 )]
+limit_right = 4000
+smoothing_enabled = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 layer = 100
@@ -261,8 +263,8 @@ position = Vector2( 256, 384 )
 
 [node name="Dot25" parent="Node" instance=ExtResource( 24 )]
 position = Vector2( 256, 192 )
-frame = 10
+frame = 4
 
 [node name="Dot41" parent="Node" instance=ExtResource( 24 )]
 position = Vector2( 384, 256 )
-frame = 10
+frame = 4

@@ -7,10 +7,9 @@ export var mario_speed: float = 1
 export var mario_fast_speed: float = 15
 export var stop_points: Array = []
 export var level_scenes: Array = []
-export var camera_left_limit: int = 0
-export var camera_right_limit: int = 10000
-export var camera_top_limit: int = 0
-export var camera_bottom_limit: int = 480
+
+export var save_script: Script
+var inited_save_script
 
 var current_speed: float = mario_speed
 var stopped: bool = false
@@ -19,7 +18,6 @@ var is_lerping: bool = false
 var fading_out: bool = false
 var circle_size: float = 0.623
 
-var cam
 onready var sprite = Global.Mario.get_node('Sprite')
 
 func get_class(): return 'Map'
@@ -30,27 +28,21 @@ func _ready() -> void:
 	Global.Mario.movement_type = Global.Mario.Movement.NONE
 	MusicPlayer.get_node('Main').stream = music
 	MusicPlayer.get_node('Main').play()
+	
 	if Global.musicBar > 0.01:
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
 	MusicPlayer.play_on_pause()
-	
-	if Global.levelID > 0:
-		$MarioPath/PathFollow2D.offset = stop_points[Global.levelID - 1]
-	
+
 	Global.call_deferred('reset_audio_effects')
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
-	yield(get_tree(), 'idle_frame')
-	cam = Global.current_camera
-	if !cam: 
-		push_warning('Camera not found')
-		return
+	if save_script:
+		inited_save_script = save_script.new()
+		if inited_save_script.has_method('_ready_mixin'):
+			inited_save_script._ready_mixin(self)
 	
-	cam.limit_left = camera_left_limit
-	cam.limit_right = camera_right_limit
-	cam.limit_top = camera_top_limit
-	cam.limit_bottom = camera_bottom_limit
-	cam.smoothing_enabled = true
+	if Global.levelID > 0:
+		$MarioPath/PathFollow2D.offset = stop_points[Global.levelID - 1]
 
 func _input(ev):
 	if !Global.debug or !(ev is InputEventKey) or !ev.pressed:
@@ -69,6 +61,9 @@ func _process(delta: float) -> void:
 		Global.Mario.shoe_node.get_node('AnimatedSprite').offset.y = -12 if Global.state == 0 else 16
 	sprite.speed_scale = 20 if !stopped else 5
 	sprite.offset.y = 0 - sprite.frames.get_frame(sprite.animation, sprite.frame).get_size().y + 32 if Global.state > 0 else -12
+
+	if inited_save_script and inited_save_script.has_method('_process_mixin'):
+		inited_save_script._process_mixin(self, delta)
 
 	if $MarioPath/PathFollow2D.offset < stop_points[Global.levelID]:
 		$MarioPath/PathFollow2D.offset += current_speed * Global.get_delta(delta)
