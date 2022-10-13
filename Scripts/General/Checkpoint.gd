@@ -14,6 +14,9 @@ func _ready() -> void:
 		$AnimatedSprite.animation = 'active'
 		Global.Mario.position = position
 		var level = Global.current_scene
+		if Global.collectible_saved:
+			for node in get_tree().get_nodes_in_group('Collectible'):
+				node.queue_free()
 		if (
 			'time_after_checkpoint' in level
 			and level.time_after_checkpoint.size() > 0
@@ -33,6 +36,8 @@ func _process(delta: float) -> void:
 		Global.checkpoint_active = id
 		Global.checkpoint_position = position
 		$Sprite.visible = true
+		if Global.collectible_obtained:
+			Global.collectible_saved = true
 		
 	if counter > 0 and counter < 50:
 		counter += 1 * Global.get_delta(delta)

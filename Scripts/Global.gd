@@ -41,6 +41,7 @@ signal OnPlayerLoseLife											# Called when the player dies
 signal OnScoreChange												 # Called when score gets changed
 signal OnLivesAdded													# Called when a life gets added
 signal OnCoinCollected											 # Called when coins get collected
+signal OnCollectibleObtain									# Called when a collectible gets collected
 
 var lives: int = 4													 # Player lives
 var time: int = 999													# Time left
@@ -55,6 +56,11 @@ var projectiles_count: int = 0							 # Number of player's projectiles on screen
 var checkpoint_active: int = -1							 # Self explanable
 var checkpoint_position: Vector2
 
+var collectibles: int = 0
+var collectibles_array: Array = []
+var collectible_obtained: bool = false
+var collectible_saved: bool = false
+
 var debug: bool = false											 # Debug
 var debug_fly: bool = false
 var debug_inv: bool = false
@@ -62,8 +68,6 @@ var debug_inv: bool = false
 var level_ended: bool = false
 
 var levelID: int = 0
-
-var p_fps_switch: float = 0
 
 var current_scene = null
 
@@ -206,6 +210,7 @@ func loadInfo():
 func _reset() -> void:	 # Level Restart
 	lives -= 1
 	projectiles_count = 0
+	collectible_obtained = false
 	if is_instance_valid(Mario):
 		Mario.invulnerable = false
 		Mario.dead = false
@@ -283,21 +288,9 @@ func _unhandled_input(ev):
 	if ev.is_action_pressed('debug_hud'):
 		if !is_instance_valid(HUD): return
 		HUD.visible = !HUD.visible
-			
-# fix physics fps issues
+
 # warning-ignore:unused_argument
 func _process(delta: float):
-#	var temp = round((1 / delta) / 60) * 60
-## warning-ignore:integer_division
-#	var temp2 = round(Engine.iterations_per_second / 60) * 60
-#	if temp > 0 and temp2 != temp:
-#		p_fps_switch += 1 * get_delta(delta)
-#	else:
-#		p_fps_switch = 0
-#
-#	if p_fps_switch > 50:
-#		print('Updated engine iterations')
-#		Engine.iterations_per_second = temp
 	
 	if debug and Input.is_action_pressed('debug_shift'):
 		if Input.is_action_just_released('zoom_out'):
@@ -394,6 +387,11 @@ func add_coins(coins: int) -> void:
 	HUD.get_node('Coins').text = str(self.coins)
 	emit_signal('OnCoinCollected')
 
+func add_collectible() -> void:
+	collectible_obtained = true
+	HUD.get_node('Collectibles/Counter').text = str(collectibles + 1)
+	emit_signal('OnCollectibleObtain')
+
 func play_base_sound(sound: String) -> void:
 	if is_instance_valid(Mario):
 		Mario.get_node('BaseSounds').get_node(sound).play()
@@ -408,6 +406,8 @@ func reset_all_values(reset_state: bool = true) -> void:
 	checkpoint_position = Vector2.ZERO
 	level_ended = false
 	levelID = 0
+	collectible_obtained = false
+	collectible_saved = false
 	if reset_state: state = 0
 	if is_instance_valid(Mario):
 		Mario.invulnerable = false

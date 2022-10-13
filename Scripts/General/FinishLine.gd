@@ -94,6 +94,10 @@ func finish_process(delta):
 				Global.Mario.visible = true
 				Global.deaths = 0
 				Global.level_ended = false
+				if Global.collectible_saved or Global.collectible_obtained:
+					Global.collectibles += 1
+					Global.collectible_saved = true
+					Global.collectible_obtained = false
 				Global.goto_scene(map_scene)
 	
 func act(warp_finish_enabled: bool = false) -> void:

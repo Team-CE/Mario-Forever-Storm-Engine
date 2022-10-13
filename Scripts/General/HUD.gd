@@ -15,6 +15,9 @@ func _ready() -> void:
 	$Coins.text = str(Global.coins)
 	$Score.text = str(Global.score)
 	$Lives.text = str(Global.lives)
+	$Collectibles/Counter.text = str(Global.collectibles + int(Global.collectible_saved))
+	if Global.collectibles + int(Global.collectible_saved) > 0:
+		$Collectibles.modulate.a = 1
 	$DebugOrphaneNodes.visible = false
 # warning-ignore:return_value_discarded
 	Global.connect('TimeTick', self, '_time')

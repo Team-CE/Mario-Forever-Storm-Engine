@@ -44,16 +44,6 @@ func _ready() -> void:
 	if Global.levelID > 0:
 		$MarioPath/PathFollow2D.offset = stop_points[Global.levelID - 1]
 
-func _input(ev):
-	if !Global.debug or !(ev is InputEventKey) or !ev.pressed:
-		return
-	
-	if Input.is_action_pressed('debug_shift'):
-		if ev.scancode == 52 and !ev.echo:
-			Global.levelID += 1
-			Global.lives += 1
-			Global._reset()
-
 func _process(delta: float) -> void:
 	sprite.animation = 'Walking' if Global.shoe_type == 0 else 'Stopped'
 	if Global.shoe_type and !stopped and is_instance_valid(Global.Mario.shoe_node):
