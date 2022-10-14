@@ -753,7 +753,8 @@ func unbind_shoe():
 	$Sprite.position = Vector2.ZERO
 
 func animate_sprite(anim_name) -> void:
-	$Sprite.set_animation(anim_name)
+	if $Sprite.frames.has_animation(anim_name):
+		$Sprite.set_animation(anim_name)
 
 func update_collisions() -> void:
 	var is_small: bool = (Global.state > 0 && !crouch)

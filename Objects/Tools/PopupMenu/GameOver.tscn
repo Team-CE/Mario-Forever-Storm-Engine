@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Menu/GameOverContinue.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Menu/wudulike.png" type="Texture" id=2]
 [ext_resource path="res://GFX/Menu/GOyes.png" type="Texture" id=3]
 [ext_resource path="res://GFX/Menu/GOno.png" type="Texture" id=4]
+[ext_resource path="res://GFX/Menu/GOgameover.png" type="Texture" id=5]
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 3 )
@@ -38,11 +39,14 @@ animations = [ {
 } ]
 
 [node name="GameOver" type="Node2D"]
-modulate = Color( 1, 1, 1, 0.0980392 )
 script = ExtResource( 1 )
 
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 320, 64 )
+texture = ExtResource( 5 )
+
 [node name="Sprite2" type="Sprite" parent="."]
-position = Vector2( 320, 128 )
+position = Vector2( 320, 144 )
 texture = ExtResource( 2 )
 
 [node name="yes" type="AnimatedSprite" parent="."]
