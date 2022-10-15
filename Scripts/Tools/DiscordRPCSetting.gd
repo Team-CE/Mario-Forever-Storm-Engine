@@ -10,6 +10,10 @@ export var set_timestamp: bool
 var just_created: bool = false
 
 func _ready() -> void:
+	if !Global.rpc:
+		if DiscordManager.core:
+			DiscordManager.call_deferred('destroy_core')
+		return
 	call_deferred('configure_rpc')
 
 func configure_rpc() -> void:

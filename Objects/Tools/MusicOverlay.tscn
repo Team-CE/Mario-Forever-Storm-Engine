@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://GFX/Fonts/LoliPop.tres" type="DynamicFont" id=1]
+[ext_resource path="res://GFX/Fonts/LoliPop.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://GFX/Fonts/MusicIcon.svg" type="Texture" id=2]
 [ext_resource path="res://Scripts/Tools/MusicOverlay.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=3]
+size = 35
+outline_size = 2
+outline_color = Color( 0, 0, 0, 0.439216 )
+font_data = ExtResource( 1 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "Appear"
@@ -152,7 +158,7 @@ margin_right = 320.0
 margin_bottom = 63.999
 grow_horizontal = 2
 grow_vertical = 2
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "MUSIC NAME"
 align = 1
 valign = 1

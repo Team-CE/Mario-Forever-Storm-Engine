@@ -8,7 +8,10 @@ var scroll: int = 0
 var quality: int = 2
 var scaling: int = ScalingType.FAST
 var controls: Dictionary
+var rpc: bool = true
 var autopause: bool = true
+var overlay: bool = true
+var autosave: bool = true
 
 var toSaveInfo = {
 	"SoundVol": soundBar,
@@ -19,7 +22,10 @@ var toSaveInfo = {
 	"Scaling": scaling,
 	"Controls": controls,
 	"VSync": OS.vsync_enabled,
-	"Autopause": autopause
+	"RPC": rpc,
+	"Autopause": autopause,
+	"Overlay": overlay,
+	"Autosave": autosave
 }
 var restartNeeded: bool = false
 var saveFileExists: bool = false
@@ -120,7 +126,10 @@ func _ready() -> void:
 	if toSaveInfo.has('Scaling') and typeof(toSaveInfo.Scaling) == TYPE_REAL: scaling = toSaveInfo.Scaling
 	if toSaveInfo.has('Controls') and typeof(toSaveInfo.Controls) == TYPE_DICTIONARY: controls = toSaveInfo.Controls
 	if toSaveInfo.has('VSync') and typeof(toSaveInfo.VSync) == TYPE_BOOL: OS.vsync_enabled = toSaveInfo.VSync
+	if toSaveInfo.has('RPC') and typeof(toSaveInfo.RPC) == TYPE_BOOL: rpc = toSaveInfo.RPC
 	if toSaveInfo.has('Autopause') and typeof(toSaveInfo.Autopause) == TYPE_BOOL: autopause = toSaveInfo.Autopause
+	if toSaveInfo.has('Overlay') and typeof(toSaveInfo.Overlay) == TYPE_BOOL: overlay = toSaveInfo.Overlay
+	if toSaveInfo.has('Autosave') and typeof(toSaveInfo.Autosave) == TYPE_BOOL: autosave = toSaveInfo.Autosave
 	
 	call_deferred('updateScale')
 	

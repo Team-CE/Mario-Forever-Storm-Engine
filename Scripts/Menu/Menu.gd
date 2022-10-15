@@ -27,6 +27,8 @@ var fading_in = true
 var fading_out = false
 onready var circle_size = 0
 
+onready var pointer = $Buttons/Control/Pointer
+var pointer_pos: float
 var pos_y: float
 var force_pos = true
 
@@ -93,12 +95,16 @@ func _process(delta) -> void:
 			pos_y = 359 + (29 * sel)
 			$S_Start.position.x = 248
 			selLimit = 2
+			pointer_pos = 0
+			pointer.position.y = 0
 		1:
-			pos_y = 518 + (37.5 * sel)
-			$S_Start.position.x = 208
-			selLimit = 9
+			$S_Start.position.x = 188
+			selLimit = 13
 			updateOptions()
 			$Credits.hide()
+			pointer_pos = max(-(selLimit * 37.5) + 340, min(0, -(sel * 37.5) + 160))
+			pointer.position.y += (pointer_pos - pointer.position.y) * 0.4 * Global.get_delta(delta)
+			pos_y = 506 + (37.5 * sel) + pointer_pos
 		2:
 			pos_y = 988 + (48 * sel) if sel < 7 else 1004 + (48 * sel)
 			$S_Start.position.x = 156
@@ -119,10 +125,10 @@ func onMenuCursorUpdate() -> void:
 	if screen == 1: updateNotes()
 		
 func controls() -> void:
-	if Input.is_action_just_pressed('ui_down'):
+	if Input.is_action_just_pressed('ui_down') and screen != 3:
 		sel = 0 if sel + 1 > selLimit else sel + 1
 		onMenuCursorUpdate()
-	elif Input.is_action_just_pressed('ui_up'):
+	elif Input.is_action_just_pressed('ui_up') and screen != 3:
 		sel = selLimit if sel - 1 < 0 else sel - 1
 		onMenuCursorUpdate()
 	
@@ -165,7 +171,7 @@ func controls() -> void:
 						screen = 2
 						sel = 0
 						$enter_options.play()
-					8:
+					12:
 						$enter_options.play()
 						if credits_scene:
 							Global.goto_scene(credits_scene)
@@ -175,7 +181,7 @@ func controls() -> void:
 							$Credits.position.y = 1920 + $Credits.texture.get_height() / 2
 							MusicPlayer.get_node('Main').stream = music_credits
 							MusicPlayer.get_node('Main').play()
-					9:
+					13:
 						$enter_options.play()
 						saveOptions()
 						if Global.restartNeeded:
@@ -223,6 +229,22 @@ func controls() -> void:
 						if !OS.vsync_enabled:
 							OS.vsync_enabled = true
 							$change.play()
+					8:
+						if !Global.rpc:
+							Global.rpc = true
+							$change.play()
+					9:
+						if !Global.autopause:
+							Global.autopause = true
+							$change.play()
+					10:
+						if !Global.overlay:
+							Global.overlay = true
+							$change.play()
+					11:
+						if !Global.autosave:
+							Global.autosave = true
+							$change.play()
 							
 			elif Input.is_action_just_pressed('ui_left'):
 				match sel:
@@ -261,6 +283,22 @@ func controls() -> void:
 					7:
 						if OS.vsync_enabled:
 							OS.vsync_enabled = false
+							$change.play()
+					8:
+						if Global.rpc:
+							Global.rpc = false
+							$change.play()
+					9:
+						if Global.autopause:
+							Global.autopause = false
+							$change.play()
+					10:
+						if Global.overlay:
+							Global.overlay = false
+							$change.play()
+					11:
+						if Global.autosave:
+							Global.autosave = false
 							$change.play()
 			elif Input.is_action_just_pressed('ui_cancel'):
 				screen = 0
@@ -316,21 +354,26 @@ func _input(event) -> void:
 		assigned = false
 	
 func updateOptions() -> void:
-	$Buttons/SoundBar.frame = round(Global.soundBar * 10.0)
-	$Buttons/MusicBar.frame = round(Global.musicBar * 10.0)
-	$Buttons/Effects.frame = Global.effects
-	$Buttons/Scroll.frame = Global.scroll
-	$Buttons/Quality.frame = Global.quality
-	$Buttons/Scaling.frame = Global.scaling
-	$Buttons/VSync.frame = OS.vsync_enabled
+	pointer.get_node('SoundBar').frame = round(Global.soundBar * 10.0)
+	pointer.get_node('MusicBar').frame = round(Global.musicBar * 10.0)
+	pointer.get_node('Effects').frame = Global.effects
+	pointer.get_node('Scroll').frame = Global.scroll
+	pointer.get_node('Quality').frame = Global.quality
+	pointer.get_node('Scaling').frame = Global.scaling
+	pointer.get_node('VSync').frame = OS.vsync_enabled
+	pointer.get_node('RPC').frame = Global.rpc
+	pointer.get_node('Autopause').frame = Global.autopause
+	pointer.get_node('Overlay').frame = Global.overlay
+	pointer.get_node('Autosave').frame = Global.autosave
 
 func updateNotes() -> void:
-	$Buttons/EffectsNote.visible = sel == 2
-	$Buttons/ControlsNote.visible = sel == 4
-	$Buttons/QualityNote.visible = sel == 5
-	$Buttons/ScalingNote.visible = sel == 6
-	$Buttons/ScalingNote.frame = Global.scaling
-	$Buttons/VSyncNote.visible = sel == 7
+	var note = $Buttons/Note
+	if note.frames.has_animation(str(sel)):
+		note.animation = str(sel)
+		note.visible = true
+	else:
+		note.visible = false
+	note.frame = 0 if sel != 6 else Global.scaling
 
 func updateControls() -> void:
 	for i in CONTROLS_ARRAY:
@@ -352,7 +395,10 @@ func saveOptions() -> void:
 		'Scaling': Global.scaling,
 		'Controls': Global.controls,
 		'VSync': OS.vsync_enabled,
-		'Autopause': Global.autopause
+		'RPC': Global.rpc,
+		'Autopause': Global.autopause,
+		'Overlay': Global.overlay,
+		'Autosave': Global.autosave
 	}
 	Global.saveInfo(JSON.print(Global.toSaveInfo))
 

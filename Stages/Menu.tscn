@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=90 format=2]
 
 [ext_resource path="res://GFX/Menu/Logo.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Menu/Selector.gd" type="Script" id=2]
@@ -35,6 +35,10 @@
 [ext_resource path="res://GFX/Menu/NoteEffects.png" type="Texture" id=33]
 [ext_resource path="res://GFX/Menu/NoteControls.png" type="Texture" id=34]
 [ext_resource path="res://GFX/Fonts/LoliPop.ttf" type="DynamicFontData" id=35]
+[ext_resource path="res://GFX/Menu/NotePause.png" type="Texture" id=36]
+[ext_resource path="res://GFX/Menu/NoteSave.png" type="Texture" id=37]
+[ext_resource path="res://GFX/Menu/NoteRPC.png" type="Texture" id=38]
+[ext_resource path="res://GFX/Menu/NoteMusicOverlay.png" type="Texture" id=39]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 5 )
@@ -148,6 +152,22 @@ animations = [ {
 "speed": 0.0
 } ]
 
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 63, 36 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 36, 63, 36 )
+
+[sub_resource type="SpriteFrames" id=70]
+animations = [ {
+"frames": [ SubResource( 43 ), SubResource( 44 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.0
+} ]
+
 [sub_resource type="AtlasTexture" id=48]
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 91, 32 )
@@ -220,23 +240,63 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=58]
+[sub_resource type="AtlasTexture" id=67]
 atlas = ExtResource( 32 )
 region = Rect2( 0, 0, 567, 64 )
 
-[sub_resource type="AtlasTexture" id=59]
+[sub_resource type="AtlasTexture" id=68]
 atlas = ExtResource( 32 )
 region = Rect2( 0, 64, 567, 64 )
 
-[sub_resource type="AtlasTexture" id=60]
+[sub_resource type="AtlasTexture" id=69]
 atlas = ExtResource( 32 )
 region = Rect2( 0, 128, 567, 64 )
 
-[sub_resource type="SpriteFrames" id=63]
+[sub_resource type="SpriteFrames" id=71]
 animations = [ {
-"frames": [ SubResource( 58 ), SubResource( 59 ), SubResource( 60 ) ],
+"frames": [ ExtResource( 39 ) ],
 "loop": true,
-"name": "default",
+"name": "10",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 37 ) ],
+"loop": true,
+"name": "11",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 34 ) ],
+"loop": true,
+"name": "4",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 29 ) ],
+"loop": true,
+"name": "5",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 67 ), SubResource( 68 ), SubResource( 69 ) ],
+"loop": false,
+"name": "6",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 30 ) ],
+"loop": true,
+"name": "7",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 38 ) ],
+"loop": true,
+"name": "8",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 36 ) ],
+"loop": true,
+"name": "9",
 "speed": 5.0
 } ]
 
@@ -355,46 +415,71 @@ limit_bottom = 1280
 
 [node name="Buttons" type="Control" parent="."]
 
+[node name="Control" type="Control" parent="Buttons"]
+margin_left = 160.0
+margin_top = 480.0
+margin_right = 640.0
+margin_bottom = 864.0
+rect_clip_content = true
+
+[node name="Pointer" type="Node2D" parent="Buttons/Control"]
+
+[node name="Options" type="Sprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 160, 272 )
+texture = ExtResource( 13 )
+
+[node name="Effects" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 323, 99 )
+frames = SubResource( 57 )
+
+[node name="Quality" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 331, 214 )
+frames = SubResource( 39 )
+
+[node name="Scaling" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 370, 251 )
+frames = SubResource( 56 )
+
+[node name="VSync" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 323, 288 )
+frames = SubResource( 57 )
+
+[node name="RPC" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 323, 326 )
+frames = SubResource( 70 )
+
+[node name="Autopause" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 323, 364 )
+frames = SubResource( 70 )
+
+[node name="Overlay" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 323, 402 )
+frames = SubResource( 70 )
+
+[node name="Autosave" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 323, 440 )
+frames = SubResource( 70 )
+
+[node name="SoundBar" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 338, 24 )
+frames = SubResource( 28 )
+
+[node name="MusicBar" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 338, 61 )
+frames = SubResource( 28 )
+
+[node name="Scroll" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 379, 136 )
+frames = SubResource( 32 )
+
 [node name="Start" type="Sprite" parent="Buttons"]
 position = Vector2( 320, 388 )
 texture = ExtResource( 4 )
-
-[node name="Options" type="Sprite" parent="Buttons"]
-position = Vector2( 334, 688 )
-texture = ExtResource( 13 )
-
-[node name="Effects" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 482, 593 )
-frames = SubResource( 57 )
-
-[node name="Quality" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 490, 707 )
-frames = SubResource( 39 )
-
-[node name="Scaling" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 529, 744 )
-frames = SubResource( 56 )
-
-[node name="VSync" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 482, 781 )
-frames = SubResource( 57 )
 
 [node name="OptionsString" type="Sprite" parent="Buttons"]
 position = Vector2( 79, 564 )
 texture = ExtResource( 14 )
 script = ExtResource( 22 )
-
-[node name="SoundBar" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 497, 518 )
-frames = SubResource( 28 )
-
-[node name="MusicBar" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 497, 555 )
-frames = SubResource( 28 )
-
-[node name="Scroll" type="AnimatedSprite" parent="Buttons"]
-position = Vector2( 538, 630 )
-frames = SubResource( 32 )
 
 [node name="Keyboard" type="Sprite" parent="Buttons"]
 position = Vector2( 72, 1032 )
@@ -404,30 +489,10 @@ texture = ExtResource( 25 )
 position = Vector2( 288, 1200 )
 texture = ExtResource( 24 )
 
-[node name="VSyncNote" type="Sprite" parent="Buttons"]
-visible = false
-position = Vector2( 320, 916 )
-texture = ExtResource( 30 )
-
-[node name="EffectsNote" type="Sprite" parent="Buttons"]
-visible = false
-position = Vector2( 320, 917 )
-texture = ExtResource( 33 )
-
-[node name="ScalingNote" type="AnimatedSprite" parent="Buttons"]
-visible = false
-position = Vector2( 320, 920 )
-frames = SubResource( 63 )
-
-[node name="QualityNote" type="Sprite" parent="Buttons"]
-visible = false
-position = Vector2( 320, 920 )
-texture = ExtResource( 29 )
-
-[node name="ControlsNote" type="Sprite" parent="Buttons"]
-visible = false
-position = Vector2( 320, 920 )
-texture = ExtResource( 34 )
+[node name="Note" type="AnimatedSprite" parent="Buttons"]
+position = Vector2( 320, 912 )
+frames = SubResource( 71 )
+animation = "2"
 
 [node name="Transition" type="Sprite" parent="."]
 modulate = Color( 0, 0, 0, 1 )
