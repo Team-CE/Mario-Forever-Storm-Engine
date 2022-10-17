@@ -95,8 +95,12 @@ func _ai_process(delta: float) -> void:
 			hide_timer = 0
 			owner.animated_sprite.play('walk')
 	
-	if abs((initial_pos - owner.position).x) > 70:
-		owner.turn()
+	if (initial_pos - owner.position).x > 70:
+		owner.dir = -1
+		owner.velocity.x = owner.vars["speed"] * owner.dir
+	elif (initial_pos - owner.position).x < -70:
+		owner.dir = 1
+		owner.velocity.x = owner.vars["speed"] * owner.dir
 	
 	owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
 	

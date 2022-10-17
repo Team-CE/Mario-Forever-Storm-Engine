@@ -5,9 +5,10 @@ export var text: String = 'MUSIC NAME' setget _set_text
 export var size: int = 35 setget _set_size
 
 func _ready():
-	visible = Global.overlay
 	$Label.text = text
 	$Label.rect_position = Vector2(0, 496)
+	if !Engine.editor_hint:
+		visible = Global.overlay
 
 func _set_text(new) -> void:
 	$Label.text = new

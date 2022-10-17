@@ -71,8 +71,12 @@ func _ai_process(delta: float) -> void:
 			throw_activated = true
 			owner.animated_sprite.animation = 'holding'
 			
-	if abs((initial_pos - owner.position).x) > 70:
-		owner.turn()
+	if (initial_pos - owner.position).x > 70:
+		owner.dir = -1
+		owner.velocity.x = owner.vars["speed"] * owner.dir
+	elif (initial_pos - owner.position).x < -70:
+		owner.dir = 1
+		owner.velocity.x = owner.vars["speed"] * owner.dir
 		
 	owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
 	

@@ -9,7 +9,10 @@ enum TYPES {
 export var id: int = 0
 export(TYPES) var type: int = TYPES.IN
 export var trigger_finish: bool = false
-export var additional_options: Dictionary = { 'set_scene_path': '' }
+export var additional_options: Dictionary = {
+	'set_scene_path': '',
+	'add_scene': PackedScene
+}
 
 var counter: float = 0
 var active: bool = false
@@ -31,7 +34,7 @@ func _ready() -> void:
 		if node.id == id and node.type == TYPES.OUT and 'door_warp' in node:
 			out_node = node
 			
-	disabled = not out_node and (not 'set_scene_path' in additional_options or additional_options['set_scene_path'] == '') and not trigger_finish
+	disabled = not out_node and (not 'set_scene_path' in additional_options or additional_options['set_scene_path'] == '') and (not 'add_scene' in additional_options or not additional_options['add_scene'].is_class('PackedScene')) and not trigger_finish
 	
 	if disabled:
 		printerr('[CE ERROR] No out door-warp assigned for id ' + str(id) + ', it will not be functional. Create an out door-warp or set an additional option.')
@@ -66,6 +69,11 @@ func _process(delta: float) -> void:
 			Global.Mario.get_node('Sprite').modulate.a -= 0.03 * Global.get_delta(delta)
 			
 		if counter >= 40:
+			if 'add_scene' in additional_options and additional_options['add_scene'].is_class('PackedScene'):
+				if !switch:
+					var instanced_node = additional_options['add_scene'].instance()
+					Global.current_scene.add_child(instanced_node)
+
 			if out_node:
 				if !switch:
 					switch = true
@@ -74,10 +82,12 @@ func _process(delta: float) -> void:
 				counter += 1 * Global.get_delta(delta)
 				if Global.Mario.get_node('Sprite').modulate.a < 0.99:
 					Global.Mario.get_node('Sprite').modulate.a += 0.03 * Global.get_delta(delta)
+
 			elif 'set_scene_path' in additional_options and additional_options['set_scene_path'] != '':
 				Global.goto_scene(additional_options['set_scene_path'])
 				disabled = true
 				active = false
+
 			elif trigger_finish:
 				finishline.act(true)
 				Global.Mario.visible = false
@@ -88,8 +98,12 @@ func _process(delta: float) -> void:
 			Global.Mario.get_node('Sprite').modulate.a = 1
 			Global.Mario.controls_enabled = true
 			Global.Mario.animation_enabled = true
-			disabled = true
 			active = false
 			Global.Mario.invulnerable = false
+			if 'add_scene' in additional_options and additional_options['add_scene'].is_class('PackedScene'):
+				switch = false
+				counter = 0
+			else:
+				disabled = true
 			
 

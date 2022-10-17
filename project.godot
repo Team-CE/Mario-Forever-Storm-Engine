@@ -163,7 +163,7 @@ run/main_scene="res://Stages/Menu.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/main_menu_scene="res://Stages/Menu.tscn"
-config/save_game_room_scene="res://Stages/SaveGameRoom.tscn"
+config/save_game_room_scene="res://Games/TheMultiverse2/Stages/CSaveGameRoom.tscn"
 
 [autoload]
 
@@ -343,6 +343,7 @@ common/enable_object_picking=false
 
 [rendering]
 
+quality/driver/fallback_to_gles2=true
 2d/snapping/use_gpu_pixel_snap=true
 quality/reflections/texture_array_reflections=false
 environment/default_clear_color=Color( 0.333333, 0.333333, 0.333333, 1 )
