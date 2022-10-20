@@ -9,7 +9,7 @@ var music_switched: bool = false
 var camera: Camera2D
 
 func _ready():
-	if music_overlay_name != '' and !is_instance_valid(Global.current_scene.get_node_or_null('HUD/Control')):
+	if music_overlay_name != '' and Global.current_scene.has_node('HUD/Control'):
 		push_error('Please add a Music Overlay as a child node of HUD and name it Control')
 		music_overlay_name = ''
 

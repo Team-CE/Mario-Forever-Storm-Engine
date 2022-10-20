@@ -41,19 +41,19 @@ func _ready() -> void:
 
 	if not Engine.editor_hint:
 		if trigger_finish:
-			if !is_instance_valid(Global.current_scene.get_node_or_null('FinishLine')):
+			if !Global.current_scene.has_node('FinishLine'):
 				printerr('[CE ERROR] No Finish Line found on level. Create one or untick the checkbox for warp ID ' + str(id))
 				trigger_finish = false
 				disabled = true
 			else:
-				finishline = Global.current_scene.get_node_or_null('FinishLine')
+				finishline = Global.current_scene.get_node('FinishLine')
 
 func _process(delta: float) -> void:
 	if Engine.editor_hint:
 		$Label.text = str(id) + '\n' + ('IN' if type == TYPES.IN else 'OUT')
 	else:
 		# Door Warp Enter
-		if Input.is_action_pressed('mario_up') and Global.is_mario_collide_area('InsideDetector', self) and type == TYPES.IN and not disabled:
+		if Input.is_action_pressed('mario_up') and Global.is_mario_collide_area('InsideDetector', self) and type == TYPES.IN and not disabled and not active:
 			active = true
 			Global.Mario.position = position
 			Global.Mario.controls_enabled = false

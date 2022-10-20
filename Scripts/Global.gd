@@ -38,40 +38,43 @@ enum ScalingType {
 
 var gravity: float = 20											# Global gravity
 
-var HUD: CanvasLayer												 # ref HUD
+var HUD: CanvasLayer												# ref HUD
 var Mario: Node2D														# ref Mario
 var current_camera: Camera2D setget ,get_current_camera # ref current camera
 
 signal TimeTick															# Called when time ticks
 signal OnPlayerLoseLife											# Called when the player dies
-signal OnScoreChange												 # Called when score gets changed
+signal OnScoreChange												# Called when score gets changed
 signal OnLivesAdded													# Called when a life gets added
-signal OnCoinCollected											 # Called when coins get collected
+signal OnCoinCollected											# Called when coins get collected
 signal OnCollectibleObtain									# Called when a collectible gets collected
 
-var lives: int = 4													 # Player lives
+var lives: int = 4													# Player lives
 var time: int = 999													# Time left
-var score: int = 0													 # Score
-var coins: int = 0													 # Player coins
+var score: int = 0													# Score
+var coins: int = 0													# Player coins
 var deaths: int = 0													# Player deaths (for precision madness-like levels)
-var state: int = 0													 # Player powerup state
-var shoe_type: int = 0											 # Player kuribo's shoe state
+var state: int = 0													# Player powerup state
+var shoe_type: int = 0											# Player kuribo's shoe state
 
-var projectiles_count: int = 0							 # Number of player's projectiles on screen
+var projectiles_count: int = 0							# Number of player's projectiles on screen
 
-var checkpoint_active: int = -1							 # Self explanable
-var checkpoint_position: Vector2
+var checkpoint_active: int = -1							# -1 means no active checkpoint, higher values are checkpoint IDs
+var checkpoint_position: Vector2						# In case the checkpoint doesn't have a fixed position in level
 
-var collectibles: int = 0
-var collectibles_array: Array = []
-var collectible_obtained: bool = false
-var collectible_saved: bool = false
+var save_contents: ConfigFile								# Use this variable to load and save your game save file
+var save_overwrite: bool = true							# Emergency variable
+var collectibles: int = 0										# This number is shown in HUD
+var collectibles_array: Array = []					# Array of levels where a collectible was collected
+var collectibles_scrolltext: Dictionary = {}# Info shown after you collect a certain amount of stars
+var collectible_obtained: bool = false			# Updated immediately when player grabs the collectible
+var collectible_saved: bool = false					# Saves the collectible when player reaches a checkpoint
 
-var debug: bool = false											 # Debug
-var debug_fly: bool = false
-var debug_inv: bool = false
+var debug: bool = false											# Debug
+var debug_fly: bool = false									# Shift + 1
+var debug_inv: bool = false									# Shift + 2
 
-var level_ended: bool = false
+var level_ended: bool = false								# Shift + 4
 
 var levelID: int = 0
 
@@ -254,6 +257,7 @@ func _unhandled_input(ev):
 			else:
 				print('[CE OUTPUT]: No stray nodes yet, we\'re fine!')
 
+
 		if !is_instance_valid(Mario): return
 	# Toggle fly mode
 		if ev.scancode == 49:
@@ -288,7 +292,7 @@ func _unhandled_input(ev):
 		if ev.scancode == 52:
 			if !('death_height' in Global.current_scene):
 				return
-			if !is_instance_valid(current_scene.get_node_or_null('FinishLine')):
+			if !current_scene.has_node('FinishLine'):
 				push_error('ERROR: Finish line not found')
 				return
 			current_scene.get_node('FinishLine').act()

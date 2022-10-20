@@ -32,7 +32,7 @@ func _process(delta) -> void:
 	if belongs != 0 and Global.is_mario_collide_area('InsideDetector', $CollisionArea):
 		Global._ppd()
 
-	velocity.y += 0.33 * gravity_scale * Global.get_delta(delta)
+	velocity.y += 0.3 * gravity_scale * Global.get_delta(delta)
 
 	position += velocity * Global.get_delta(delta)
 	

@@ -28,10 +28,7 @@ func _ai_process(delta:float) -> void:
 		
 	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 and inv_counter >= 8:
 		owner.kill()
-		if Input.is_action_pressed('mario_jump'):
-			Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
-		else:
-			Global.Mario.velocity.y = -owner.vars["bounce"] * 50
+		Global.Mario.enemy_stomp()
 	elif on_mario_collide('InsideDetector') and inv_counter >= 11:
 		Global._ppd()
 		

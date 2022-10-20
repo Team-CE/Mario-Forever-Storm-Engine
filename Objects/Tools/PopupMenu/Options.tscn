@@ -14,14 +14,6 @@
 [ext_resource path="res://Scripts/Menu/PauseOptions.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Menu/OptionsWave.gd" type="Script" id=13]
 
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 28, 76, 28 )
-
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 76, 28 )
-
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 5 )
 region = Rect2( 0, 29, 333, 29 )
@@ -30,13 +22,13 @@ region = Rect2( 0, 29, 333, 29 )
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 333, 29 )
 
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 29, 96, 29 )
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 28, 76, 28 )
 
-[sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 96, 29 )
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 76, 28 )
 
 [sub_resource type="AtlasTexture" id=33]
 atlas = ExtResource( 3 )
@@ -45,6 +37,14 @@ region = Rect2( 0, 28, 90, 28 )
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 90, 28 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 29, 96, 29 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 96, 29 )
 
 [sub_resource type="AtlasTexture" id=35]
 atlas = ExtResource( 7 )
@@ -56,24 +56,24 @@ region = Rect2( 0, 0, 94, 29 )
 
 [sub_resource type="SpriteFrames" id=37]
 animations = [ {
-"frames": [ SubResource( 27 ), SubResource( 28 ) ],
-"loop": true,
-"name": "back",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 29 ), SubResource( 30 ) ],
 "loop": true,
 "name": "autopause",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 31 ), SubResource( 32 ) ],
+"frames": [ SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
-"name": "sound",
+"name": "back",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 33 ), SubResource( 34 ) ],
 "loop": true,
 "name": "music",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 31 ), SubResource( 32 ) ],
+"loop": true,
+"name": "sound",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 35 ), SubResource( 36 ) ],

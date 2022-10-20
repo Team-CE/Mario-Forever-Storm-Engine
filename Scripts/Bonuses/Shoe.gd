@@ -47,9 +47,6 @@ func hit():
 
 func stomp():
 	$stomp.play()
-	if Input.is_action_pressed('mario_jump'):
-		Global.Mario.velocity.y = -700
-	else:
-		Global.Mario.velocity.y = -450
+	Global.Mario.enemy_stomp()
 	var explosion = preload('res://Scripts/Effects/StompEffect.gd').new(Global.Mario.position)
 	get_parent().add_child(explosion)

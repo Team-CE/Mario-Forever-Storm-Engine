@@ -15,7 +15,7 @@ func _process(delta):
 	if $Mario.velocity.x < 125 && $Mario.velocity.x > 1:
 		$Mario.velocity.x = 125
 	# Jump
-	if get_node_or_null('JumpPos') and $Mario.position.x > $JumpPos.position.x:
+	if has_node('JumpPos') and $Mario.position.x > $JumpPos.position.x:
 		$JumpPos.queue_free()
 		$Mario.jump()
 		yield(get_tree(), 'idle_frame')

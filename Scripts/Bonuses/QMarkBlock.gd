@@ -49,7 +49,7 @@ func _ready():
 		queue_free()
 
 	# If alrady loaded
-	if get_node_or_null('Body') != null:
+	if has_node('Body'):
 		if !Engine.editor_hint: collision = $Collision
 		body = $Body
 		preview = $Preview

@@ -11,7 +11,7 @@ var belongs: int = 0 # 0 - Mario, 1 - Fire Piranha Plant, 2 - Fire Bro
 
 func _ready() -> void:
 	velocity.x *= dir
-	if Global.quality == 0 and get_node_or_null('Light2D'):
+	if Global.quality == 0 and has_node('Light2D'):
 		$Light2D.queue_free()
 # warning-ignore:return_value_discarded
 	vis.connect('screen_exited', self, '_on_screen_exited')
@@ -22,9 +22,8 @@ func _ready() -> void:
 
 	add_child(vis)
 	
-	for node in get_parent().get_children():
-		if node is KinematicBody2D and ('AI' in node or 'belongs' in node):
-			add_collision_exception_with(node)
+	for node in get_tree().get_nodes_in_group('Enemy'):
+		add_collision_exception_with(node)
 
 func _on_body_entered(body):
 	if belongs != 0:
@@ -47,14 +46,14 @@ func _process(delta) -> void:
 		Global._ppd()
 
 	if is_on_floor() and belongs != 1:
-		velocity.y = -300
+		velocity.y = -250
 
-	velocity.y += 24 * gravity_scale * Global.get_delta(delta)
+	velocity.y += 20 * gravity_scale * Global.get_delta(delta)
 
 	if belongs != 1:
 		velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation)).rotated(-rotation)
 	else:
-		position += velocity * Vector2(delta, delta)
+		position += velocity * Global.get_delta(delta) / 50.0
 
 	if (is_on_wall() or velocity.x == 0) and belongs != 1:
 		explode()

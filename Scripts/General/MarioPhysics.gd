@@ -97,7 +97,7 @@ func is_over_platform() -> bool:
 		return false
 
 func _process(delta) -> void:
-	if get_node_or_null('Camera'):
+	if has_node('Camera'):
 		_process_camera(delta)
 	
 	if !physics_enabled:
@@ -237,7 +237,7 @@ func _process_alive(delta) -> void:
 		else:
 			if 'sgr_scroll' in Global.current_scene and !Global.current_scene.sgr_scroll:
 				Global._pll()
-			elif get_node_or_null('../StartWarp'):
+			elif has_node('../StartWarp'):
 				get_node('../StartWarp').active = true
 				get_node('../StartWarp').counter = 61
 			
@@ -433,6 +433,12 @@ func jump() -> void:
 	else:
 		velocity.y = -161.5 if Global.is_mario_collide_area_group('TopWaterDetector', 'Water') else -484.5
 		$BaseSounds/MAIN_Swim.play()
+
+func enemy_stomp() -> void:
+	if Input.is_action_pressed('mario_jump'):
+		Global.Mario.velocity.y = -700
+	else:
+		Global.Mario.velocity.y = -450
 
 func controls(delta) -> void:
 	if (

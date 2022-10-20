@@ -39,7 +39,7 @@ func _process(delta) -> void:
 					if killed:
 						explode()
 			elif belongs == 1 and emalpka_owner and flag2:
-				if i.get_node_or_null('Brain') and i.get_node('Brain').get_instance_id() == emalpka_owner:
+				if i.has_node('Brain') and i.get_node('Brain').get_instance_id() == emalpka_owner:
 					queue_free()
 	
 	if overlaps_area.size() > 0 and belongs == 0:

@@ -15,7 +15,7 @@ enum DEATH_TYPE {
 	UNFREEZE
 }
 
-export var vars: Dictionary = {"speed":50.0, "bounce":9}
+export var vars: Dictionary = {"speed":50.0}
 export var AI: Script
 
 export var gravity_scale: float = 1
@@ -238,9 +238,9 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 			return true
 		DEATH_TYPE.UNFREEZE:
 			visible = false
-			if is_instance_valid(get_node_or_null('Collision')): $Collision.set_deferred('disabled', true)
-			if is_instance_valid(get_node_or_null('CollisionShape2D')): $CollisionShape2D.set_deferred('disabled', true)
-			if is_instance_valid(get_node_or_null('KillDetector/Collision')): $KillDetector/Collision.set_deferred('disabled', true)
+			if has_node('Collision'): $Collision.set_deferred('disabled', true)
+			if has_node('CollisionShape2D'): $CollisionShape2D.set_deferred('disabled', true)
+			if has_node('KillDetector/Collision'): $KillDetector/Collision.set_deferred('disabled', true)
 			get_node('ice2').play()
 			var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
 			for i in 4:

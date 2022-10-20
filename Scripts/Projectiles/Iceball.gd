@@ -13,7 +13,7 @@ var belongs: int = 0 # 0 - Mario, 1 - Piranha Plant, 2 - Bro
 
 func _ready() -> void:
 	velocity.x *= dir
-	if Global.quality == 0 and get_node_or_null('Light2D'):
+	if Global.quality == 0 and has_node('Light2D'):
 		$Light2D.queue_free()
 # warning-ignore:return_value_discarded
 	vis.connect('screen_exited', self, '_on_screen_exited')
@@ -24,9 +24,8 @@ func _ready() -> void:
 
 	add_child(vis)
 	
-	for node in get_parent().get_children():
-		if node is KinematicBody2D and ('AI' in node or 'belongs' in node):
-			add_collision_exception_with(node)
+	for node in get_tree().get_nodes_in_group('Enemy'):
+		add_collision_exception_with(node)
 
 func _on_body_entered(body):
 	if belongs != 0:

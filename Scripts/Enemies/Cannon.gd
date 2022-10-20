@@ -7,6 +7,7 @@ var counter: float = 0
 export var delay: float = 25
 export var result: PackedScene = preload('res://Objects/Enemies/Bullet.tscn')
 export var custom_sound: Resource
+export var bullet_speed: float = 0
 
 var rng = RandomNumberGenerator.new()
 
@@ -33,6 +34,8 @@ func _process(delta) -> void:
 		var explosion = Explosion.new(explosionPos)
 		get_parent().add_child(bullet)
 		get_parent().add_child(explosion)
+		if bullet_speed > 0 and bullet.has_node('Brain') and 'speed' in bullet.get_node('Brain'):
+			bullet.get_node('Brain').speed = bullet_speed
 
 func _on_screen_entered() -> void:
 	on_screen = true

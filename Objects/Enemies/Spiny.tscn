@@ -8,14 +8,6 @@
 [ext_resource path="res://GFX/Enemies/Spiny_appear.png" type="Texture" id=6]
 [ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=7]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 33, 31 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 33, 0, 33, 31 )
-
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 31, 31 )
@@ -40,8 +32,21 @@ region = Rect2( 124, 0, 31, 31 )
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 33, 31 )
 
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 33, 31 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 33, 0, 33, 31 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": false,
+"name": "appear",
+"speed": 30.0
+}, {
 "frames": [ SubResource( 1 ), SubResource( 2 ) ],
 "loop": true,
 "name": "default",
@@ -56,11 +61,6 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 6.0
-}, {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
-"loop": false,
-"name": "appear",
-"speed": 30.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]
@@ -83,6 +83,7 @@ frozen_sprite_pth = NodePath("IceSprite")
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -15 )
 frames = SubResource( 3 )
+frame = 1
 playing = true
 flip_h = true
 

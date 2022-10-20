@@ -32,10 +32,7 @@ func _process(delta):
 			stop_shell(delta)
 			Global.current_scene.add_child(ScoreText.new(100, global_position))
 			Global.play_base_sound('ENEMY_Stomp')
-			if Input.is_action_pressed('mario_jump'):
-				Global.Mario.velocity.y = -(9 + 5) * 50
-			else:
-				Global.Mario.velocity.y = -9 * 50
+			Global.Mario.enemy_stomp()
 		elif Global.is_mario_collide('InsideDetector', self):
 			Global._ppd()
 	

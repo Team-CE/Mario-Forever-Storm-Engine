@@ -105,7 +105,7 @@ func _process_shooting(_delta):
 			fireball = preload('res://Objects/Projectiles/Iceball.tscn').instance()
 		else:
 			fireball = preload('res://Objects/Projectiles/Fireball.tscn').instance()
-		fireball.velocity = Vector2(rng.randf_range(-200.0, 200.0), rng.randf_range(-70, -600)).rotated(owner.rotation)
+		fireball.velocity = Vector2(rng.randf_range(-250.0, 250.0), rng.randf_range(-150.0, -600.0)).rotated(owner.rotation)
 		fireball.position = owner.position + Vector2(0, -32).rotated(owner.rotation)
 		fireball.belongs = 1
 		fireball.gravity_scale = 0.5

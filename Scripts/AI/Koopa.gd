@@ -42,7 +42,7 @@ func _ai_process(delta: float) -> void:
 	
 	var turn_if_no_break: bool = true
 		
-	for b in owner.get_node_or_null('KillZone').get_overlapping_bodies():
+	for b in owner.get_node('KillZone').get_overlapping_bodies():
 		if is_shell && !stopped_shell && abs(owner.velocity.x) > 0:
 			if b.is_class('KinematicBody2D') && b != owner && b.has_method('kill'): #&& Global.is_getting_closer(-32, owner.position):
 				var brain = b.get_node_or_null('Brain')
@@ -78,19 +78,13 @@ func _ai_process(delta: float) -> void:
 			to_stopped_shell()
 		
 			owner.sound.play()
-			if Input.is_action_pressed('mario_jump'):
-				Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
-			else:
-				Global.Mario.velocity.y = -owner.vars['bounce'] * 50
+			Global.Mario.enemy_stomp()
 		elif is_shell && !stopped_shell: #Stops the shell
 			owner.get_parent().add_child(ScoreText.new(100, owner.position))
 			to_stopped_shell()
 		
 			owner.sound.play()
-			if Input.is_action_pressed('mario_jump'):
-				Global.Mario.velocity.y = -(owner.vars['bounce'] + 5) * 50
-			else:
-				Global.Mario.velocity.y = -owner.vars['bounce'] * 50
+			Global.Mario.enemy_stomp()
 	elif is_mario_collide('InsideDetector') and !stopped_shell and shell_counter >= 31:
 		Global._ppd()
 		

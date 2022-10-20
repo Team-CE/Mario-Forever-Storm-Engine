@@ -165,14 +165,11 @@ func _ai_process(delta:float) -> void:
 		
 	if is_mario_collide('BottomDetector') and !owner.frozen and Global.Mario.position.y < owner.position.y - 32 and Global.Mario.velocity.y >= -1:
 		owner.kill(AliveObject.DEATH_TYPE.FALL, 0, owner.sound)
-		if Input.is_action_pressed('mario_jump'):
-			Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
-		else:
-			Global.Mario.velocity.y = -owner.vars["bounce"] * 50
+		Global.Mario.enemy_stomp()
 
 func new_lakitu():
 	var node: Node
-	if is_instance_valid(Global.current_scene.get_node_or_null('NewLakitu')):
+	if Global.current_scene.has_node('NewLakitu'):
 		node = Global.current_scene.get_node('NewLakitu')
 		node._ready()
 	else:

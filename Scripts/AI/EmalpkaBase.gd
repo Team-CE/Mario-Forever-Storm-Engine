@@ -72,10 +72,10 @@ func _ai_process(delta: float) -> void:
 			owner.animated_sprite.animation = 'holding'
 			
 	if (initial_pos - owner.position).x > 70:
-		owner.dir = -1
+		owner.dir = 1
 		owner.velocity.x = owner.vars["speed"] * owner.dir
 	elif (initial_pos - owner.position).x < -70:
-		owner.dir = 1
+		owner.dir = -1
 		owner.velocity.x = owner.vars["speed"] * owner.dir
 		
 	owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
@@ -83,10 +83,7 @@ func _ai_process(delta: float) -> void:
 	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 && inv_counter >= 11:
 		owner.kill(AliveObject.DEATH_TYPE.FALL, 0, owner.sound)
 		owner.velocity = Vector2.ZERO
-		if Input.is_action_pressed('mario_jump'):
-			Global.Mario.velocity.y = -(owner.vars["bounce"] + 5) * 50
-		else:
-			Global.Mario.velocity.y = -owner.vars["bounce"] * 50
+		Global.Mario.enemy_stomp()
 	elif on_mario_collide('InsideDetector') && inv_counter >= 21:
 		Global._ppd()
 		

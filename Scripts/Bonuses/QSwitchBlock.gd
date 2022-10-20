@@ -22,7 +22,7 @@ func _ready():
 	initial_position = position
 
 	# If alrady loaded
-	if get_node_or_null('Body') != null:
+	if has_node('Body'):
 		collision = $Collision
 		body = $Body
 		return

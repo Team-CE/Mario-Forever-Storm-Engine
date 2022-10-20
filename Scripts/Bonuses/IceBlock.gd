@@ -54,8 +54,8 @@ func _on_body_entered(body) -> void:
 func unfreeze():
 	visible = false
 	frozen = false
-	if is_instance_valid(get_node_or_null('CollisionShape2D')): $CollisionShape2D.set_deferred('disabled', true)
-	if is_instance_valid(get_node_or_null('Area2D/CollisionShape2D')): $Area2D/CollisionShape2D.set_deferred('disabled', true)
+	if has_node('CollisionShape2D'): $CollisionShape2D.set_deferred('disabled', true)
+	if has_node('Area2D/CollisionShape2D'): $Area2D/CollisionShape2D.set_deferred('disabled', true)
 	get_node('ice2').play()
 	var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
 	for i in 4:

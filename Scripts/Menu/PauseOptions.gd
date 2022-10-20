@@ -122,6 +122,9 @@ func saveOptions() -> void:
 		'Scaling': Global.scaling,
 		'Controls': Global.controls,
 		'VSync': OS.vsync_enabled,
-		'Autopause': Global.autopause
+		'RPC': Global.rpc,
+		'Autopause': Global.autopause,
+		'Overlay': Global.overlay,
+		'Autosave': Global.autosave
 	}
 	Global.saveInfo(JSON.print(Global.toSaveInfo))
