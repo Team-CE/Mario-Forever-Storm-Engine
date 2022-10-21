@@ -23,7 +23,8 @@ func _ready() -> void:
 	add_child(vis)
 	
 	for node in get_tree().get_nodes_in_group('Enemy'):
-		add_collision_exception_with(node)
+		if node is KinematicBody2D:
+			add_collision_exception_with(node)
 
 func _on_body_entered(body):
 	if belongs != 0:

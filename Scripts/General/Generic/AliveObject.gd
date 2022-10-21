@@ -213,6 +213,7 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 				csound.play()
 			collision_mask = 0b10
 			velocity.x = 0
+			gravity_scale = 1.7
 			animated_sprite.set_animation('dead')
 			Global.current_scene.add_child(ScoreText.new(score, global_position))
 			if visen != null:

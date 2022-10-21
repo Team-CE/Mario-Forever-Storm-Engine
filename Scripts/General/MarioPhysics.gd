@@ -868,6 +868,7 @@ func unkill() -> void:
 	dead_hasJumped = false
 	appear_counter = 0
 	shield_counter = 0
+	controls_enabled = true
 	$TopDetector/CollisionTop.disabled = false
 	$TopWaterDetector/Collision.disabled = false
 	$BottomDetector/CollisionBottom.disabled = false
