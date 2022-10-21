@@ -9,6 +9,8 @@ func _ai_process(delta:float) -> void:
 		owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
 	
 	if !owner.alive:
+		owner.gravity_scale = 1.7
+		owner.velocity.x = 0
 		return
 	
 	if !owner.frozen:

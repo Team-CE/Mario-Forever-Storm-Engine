@@ -47,6 +47,7 @@ var animated_sprite: AnimatedSprite
 var frozen_sprite: AnimatedSprite
 var sound: AudioStreamPlayer2D
 var alt_sound: AudioStreamPlayer2D
+var visen: VisibilityEnabler2D
 
 var freeze_sound = preload('res://Sounds/Main/ice1.wav')
 var unfreeze_sound = preload('res://Sounds/Main/ice2.wav')
@@ -87,6 +88,11 @@ func _ready() -> void:
 		
 	if !frozen_sprite_pth.is_empty():
 		frozen_sprite = get_node(frozen_sprite_pth)
+	
+	if visen == null:
+		for n in get_children():
+			if n is VisibilityEnabler2D:
+				visen = n
 		
 	if can_freeze:
 		var ice1 = AudioStreamPlayer2D.new()
@@ -126,7 +132,7 @@ func _ready() -> void:
 	temp = false
 
 func _physics_process(delta:float) -> void:
-	if !alive && death_type != DEATH_TYPE.FALL && !force_death_type:
+	if !alive && death_type != DEATH_TYPE.FALL && death_type != DEATH_TYPE.BASIC && !force_death_type:
 		return
 	
 	brain._ai_process(delta) #Calling brain cells
@@ -205,8 +211,14 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 				sound.play()
 			else:
 				csound.play()
+			collision_mask = 0b10
+			velocity.x = 0
 			animated_sprite.set_animation('dead')
 			Global.current_scene.add_child(ScoreText.new(score, global_position))
+			if visen != null:
+				visen.process_parent = false
+				visen.physics_process_parent = false
+			
 			time = get_tree().create_timer(4.0, false)
 			time.connect('timeout', self, 'instance_free')
 			return true
@@ -229,6 +241,10 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 			velocity.y = -180
 			rotation = Global.Mario.rotation
 			animated_sprite.set_animation('falling')
+			if visen != null:
+				visen.process_parent = false
+				visen.physics_process_parent = false
+
 			time = get_tree().create_timer(2.5, false)
 			time.connect('timeout', self, 'instance_free')
 			return true

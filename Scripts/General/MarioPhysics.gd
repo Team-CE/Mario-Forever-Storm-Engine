@@ -787,9 +787,11 @@ func update_collisions() -> void:
 
 func vertical_correction(amount: int):
 	var delta = get_process_delta_time()
-	if velocity.y < 0 and test_move(global_transform,
-	Vector2(0, velocity.y * delta).rotated(rotation)
-	):
+	var collide = move_and_collide(Vector2(0, velocity.y * delta).rotated(rotation), true, true, true)
+	if velocity.y < 0 and collide and 'collider' in collide:
+		if 'visible' in collide.collider and collide.collider.visible == false:
+			return
+		
 		for i in range(1, amount * 2 + 1):
 			for j in [-1.0, 1.0]:
 				if !test_move(global_transform.translated(Vector2(i * j / 2, 0)),
@@ -801,10 +803,11 @@ func vertical_correction(amount: int):
 
 func horizontal_correction(amount: int):
 	var delta = get_process_delta_time()
-	if velocity.y > 0 and (velocity.x > 1 or velocity.x < -1) and test_move(
-		global_transform,
-		Vector2(velocity.x * delta, 0).rotated(rotation)
-	):
+	var collide = move_and_collide(Vector2(velocity.x * delta, 0).rotated(rotation), true, true, true)
+	if velocity.y > 0 and (velocity.x > 1 or velocity.x < -1) and collide and 'collider' in collide:
+		if 'visible' in collide.collider and collide.collider.visible == false:
+			return
+		
 		for i in range(1, amount * 2 + 1):
 			for j in [-1.0, 0]:
 				var coll = move_and_collide(
