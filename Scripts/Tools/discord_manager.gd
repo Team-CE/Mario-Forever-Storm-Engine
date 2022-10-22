@@ -15,6 +15,8 @@ var networking: Discord.NetworkManager
 #	call_deferred("create_core")
 
 func _process(_delta: float) -> void:
+	if !Global.rpc:
+		return
 	if core:
 		var result: int = core.run_callbacks()
 		if result != Discord.Result.OK:

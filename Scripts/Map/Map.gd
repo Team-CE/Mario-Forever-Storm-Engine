@@ -8,9 +8,6 @@ export var mario_fast_speed: float = 15
 export var stop_points: Array = []
 export var level_scenes: Array = []
 
-export var save_script: Script
-var inited_save_script
-
 var current_speed: float = mario_speed
 var stopped: bool = false
 var is_lerping: bool = false
@@ -36,13 +33,12 @@ func _ready() -> void:
 	Global.call_deferred('reset_audio_effects')
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
-	if save_script:
-		inited_save_script = save_script.new()
-		if inited_save_script.has_method('_ready_mixin'):
-			inited_save_script._ready_mixin(self)
-	
 	if Global.levelID > 0:
 		$MarioPath/PathFollow2D.offset = stop_points[Global.levelID - 1]
+	
+	yield(get_tree(), 'idle_frame')
+	var cam = Global.get_current_camera()
+	cam.smoothing_enabled = true
 
 func _process(delta: float) -> void:
 	sprite.animation = 'Walking' if Global.shoe_type == 0 else 'Stopped'
@@ -51,9 +47,6 @@ func _process(delta: float) -> void:
 		Global.Mario.shoe_node.get_node('AnimatedSprite').offset.y = -12 if Global.state == 0 else 16
 	sprite.speed_scale = 20 if !stopped else 5
 	sprite.offset.y = 0 - sprite.frames.get_frame(sprite.animation, sprite.frame).get_size().y + 32 if Global.state > 0 else -12
-
-	if inited_save_script and inited_save_script.has_method('_process_mixin'):
-		inited_save_script._process_mixin(self, delta)
 
 	if $MarioPath/PathFollow2D.offset < stop_points[Global.levelID]:
 		$MarioPath/PathFollow2D.offset += current_speed * Global.get_delta(delta)

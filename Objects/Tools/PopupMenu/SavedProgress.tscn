@@ -1,0 +1,334 @@
+[gd_scene load_steps=55 format=2]
+
+[ext_resource path="res://GFX/Menu/GOyes.png" type="Texture" id=1]
+[ext_resource path="res://GFX/Menu/GOno.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Menu/GOsaved.png" type="Texture" id=3]
+[ext_resource path="res://GFX/Menu/GOerase.png" type="Texture" id=4]
+[ext_resource path="res://GFX/Menu/clearyour.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Menu/SavedProgress.gd" type="Script" id=6]
+[ext_resource path="res://GFX/NULLTEXTURE.png" type="Texture" id=7]
+[ext_resource path="res://GFX/Mario/Walk.png" type="Texture" id=8]
+[ext_resource path="res://GFX/Mario/BigWalk.png" type="Texture" id=9]
+[ext_resource path="res://GFX/Menu/wudulike.png" type="Texture" id=10]
+[ext_resource path="res://GFX/Mario/BeetrootWalk.png" type="Texture" id=11]
+[ext_resource path="res://GFX/Mario/FlowerWalk.png" type="Texture" id=12]
+[ext_resource path="res://GFX/Mario/BoomerangWalk.png" type="Texture" id=13]
+[ext_resource path="res://GFX/Mario/PropellerWalk.png" type="Texture" id=14]
+[ext_resource path="res://GFX/Mario/LuiWalk.png" type="Texture" id=15]
+[ext_resource path="res://GFX/Mario/IceWalking.png" type="Texture" id=16]
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 36, 72, 36 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 72, 36 )
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ SubResource( 11 ), SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.0
+} ]
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 40, 63, 40 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 63, 40 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 14 ), SubResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.0
+} ]
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 31, 108, 31 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 108, 31 )
+
+[sub_resource type="SpriteFrames" id=41]
+animations = [ {
+"frames": [ SubResource( 40 ), SubResource( 39 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.0
+} ]
+
+[sub_resource type="Animation" id=42]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( -640, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=43]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=44]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -640, 0 ) ]
+}
+
+[sub_resource type="SpriteFrames" id=45]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "0",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "1",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 8 )
+region = Rect2( 30, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 8 )
+region = Rect2( 60, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 31, 59 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 9 )
+region = Rect2( 31, 0, 31, 59 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 9 )
+region = Rect2( 62, 0, 31, 59 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 31, 59 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 12 )
+region = Rect2( 31, 0, 31, 59 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 12 )
+region = Rect2( 62, 0, 31, 59 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 31, 62 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 11 )
+region = Rect2( 31, 0, 31, 62 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 11 )
+region = Rect2( 62, 0, 31, 62 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 32, 59 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 15 )
+region = Rect2( 32, 0, 32, 59 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 15 )
+region = Rect2( 64, 0, 32, 59 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 16 )
+region = Rect2( 0, 0, 31, 59 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 16 )
+region = Rect2( 31, 0, 31, 59 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 16 )
+region = Rect2( 62, 0, 31, 59 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 33, 71 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 14 )
+region = Rect2( 33, 0, 33, 71 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 14 )
+region = Rect2( 66, 0, 33, 71 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 33, 61 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 13 )
+region = Rect2( 33, 0, 33, 61 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 13 )
+region = Rect2( 66, 0, 33, 61 )
+
+[sub_resource type="SpriteFrames" id=38]
+animations = [ {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 4 ) ],
+"loop": true,
+"name": "0",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"loop": true,
+"name": "1",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "2",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
+"loop": true,
+"name": "3",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"loop": true,
+"name": "4",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "5",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
+"loop": true,
+"name": "6",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
+"loop": true,
+"name": "7",
+"speed": 15.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "8",
+"speed": 5.0
+} ]
+
+[node name="SavedProgress" type="Node2D"]
+script = ExtResource( 6 )
+__meta__ = {
+"_editor_description_": "Put this scene instance in Save Room. You can make it invisible if needed.
+You must have an AnimatedSprite node as a child to SavedProgress scene,
+named as an icon pack code prefixed with \"Level\", positioned at (320, 240).
+Animation names should be zero-based level indexes.
+See child node \"LevelDummy\" as an example."
+}
+
+[node name="Text" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Text"]
+position = Vector2( 320, 48 )
+texture = ExtResource( 3 )
+
+[node name="Sprite2" type="Sprite" parent="Text"]
+position = Vector2( 320, 128 )
+texture = ExtResource( 10 )
+
+[node name="Sprite3" type="Sprite" parent="Text"]
+position = Vector2( 960, 128 )
+texture = ExtResource( 5 )
+
+[node name="sel0" type="AnimatedSprite" parent="Text"]
+position = Vector2( 128, 416 )
+frames = SubResource( 12 )
+
+[node name="sel1" type="AnimatedSprite" parent="Text"]
+position = Vector2( 320, 416 )
+frames = SubResource( 15 )
+
+[node name="sel2" type="AnimatedSprite" parent="Text"]
+position = Vector2( 512, 416 )
+frames = SubResource( 41 )
+
+[node name="sel3" type="AnimatedSprite" parent="Text"]
+position = Vector2( 848, 416 )
+frames = SubResource( 12 )
+
+[node name="sel4" type="AnimatedSprite" parent="Text"]
+position = Vector2( 1072, 416 )
+frames = SubResource( 15 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Text")
+anims/FromOptions = SubResource( 42 )
+anims/RESET = SubResource( 43 )
+anims/ToOptions = SubResource( 44 )
+
+[node name="LevelDummy" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 320, 240 )
+frames = SubResource( 45 )
+animation = "0"
+__meta__ = {
+"_editor_description_": "This is an example of an icon pack."
+}
+
+[node name="KtoryMarian" type="AnimatedSprite" parent="."]
+position = Vector2( 320, 336 )
+frames = SubResource( 38 )
+animation = "0"
+frame = 1
+playing = true

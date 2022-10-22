@@ -23,7 +23,7 @@ func _process(delta):
 		popcorn.belongs = 2
 		velocity.x = rng.randi_range(-2, 2)
 		velocity.y = -5 - rng.randf_range(0, 3)
-		popcorn.velocity = (velocity + motion_launch_add) * 50
+		popcorn.velocity = (velocity.rotated(rotation) + motion_launch_add.rotated(rotation)) * 50
 		Global.current_scene.add_child(popcorn)
 		popcorn.global_transform = global_transform
 		var explosion = Explosion.new(position)

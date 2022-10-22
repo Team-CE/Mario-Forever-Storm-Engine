@@ -625,27 +625,6 @@ func animate_swimming(delta, start) -> void:
 		
 	if launch_counter > 0:
 		launch_counter -= 1.01 * Global.get_delta(delta)
-
-	if crouch and not is_stuck:
-		if $Sprite.frames.has_animation('Crouching'):
-			animate_sprite('Crouching')
-		else:
-			animate_sprite('Stopped')
-		return
-	
-	if $Sprite.animation == 'Walking':
-		$Sprite.speed_scale = abs(velocity.x / 50) * 2.5 + 4
-	
-	if velocity.x <= -0.16 * Global.get_delta(delta):
-		if (is_on_floor() or $Sprite.animation == 'Launching') and $Sprite.animation != 'Appearing':
-			animate_sprite('Walking')
-
-	if velocity.x >= 0.16 * Global.get_delta(delta):
-		if (is_on_floor() or $Sprite.animation == 'Launching') and $Sprite.animation != 'Appearing':
-			animate_sprite('Walking')
-
-	if abs(velocity.x) < 0.08 and (is_on_floor() or is_over_platform()) and $Sprite.animation != 'Appearing' and $Sprite.animation != 'Launching':
-		animate_sprite('Stopped')
 	
 	if appear_counter > 0:
 		if not allow_custom_animation:
@@ -671,6 +650,27 @@ func animate_swimming(delta, start) -> void:
 		$Sprite.visible = true
 
 	if allow_custom_animation: allow_custom_animation = false
+
+	if crouch and not is_stuck:
+		if $Sprite.frames.has_animation('Crouching'):
+			animate_sprite('Crouching')
+		else:
+			animate_sprite('Stopped')
+		return
+	
+	if $Sprite.animation == 'Walking':
+		$Sprite.speed_scale = abs(velocity.x / 50) * 2.5 + 4
+	
+	if velocity.x <= -0.16 * Global.get_delta(delta):
+		if (is_on_floor() or $Sprite.animation == 'Launching') and $Sprite.animation != 'Appearing':
+			animate_sprite('Walking')
+
+	if velocity.x >= 0.16 * Global.get_delta(delta):
+		if (is_on_floor() or $Sprite.animation == 'Launching') and $Sprite.animation != 'Appearing':
+			animate_sprite('Walking')
+
+	if abs(velocity.x) < 0.08 and (is_on_floor() or is_over_platform()) and $Sprite.animation != 'Appearing' and $Sprite.animation != 'Launching':
+		animate_sprite('Stopped')
 
 func animate_climbing(delta) -> void:
 	if velocity.x <= -8 * Global.get_delta(delta):

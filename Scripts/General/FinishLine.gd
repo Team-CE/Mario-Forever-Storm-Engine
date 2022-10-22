@@ -121,3 +121,11 @@ func act(warp_finish_enabled: bool = false) -> void:
 # warning-ignore:narrowing_conversion
 				final_score += abs(score)
 				Global.add_score(score)
+	
+	var scrtext: int = 0
+	if Global.collectibles + int(Global.collectible_obtained) in Global.collectibles_scrolltext:
+		scrtext = Global.collectibles + int(Global.collectible_obtained)
+	if Global.collectible_obtained and scrtext:
+		var scroll = preload('res://Objects/Tools/ScrollText.tscn').instance()
+		Global.HUD.add_child(scroll)
+		scroll.text = Global.collectibles_scrolltext[scrtext]
