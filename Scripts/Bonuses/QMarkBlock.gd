@@ -159,9 +159,9 @@ func _process(delta) -> void:
 		if qtype == BLOCK_TYPE.RESET_POWERUP:
 			body.animation = 'reset' if active else 'empty'
 			if !Engine.editor_hint:
-				active = Global.state != 0
-				if is_instance_valid(Global.current_scene.get_node_or_null('reset_powerup')):
-					Global.current_scene.get_node('reset_powerup').visible = Global.state != 0
+				active = Global.state != 0 or Global.starman_saved
+				if Global.current_scene.has_node('reset_powerup'):
+					Global.current_scene.get_node('reset_powerup').visible = Global.state != 0 or Global.starman_saved
 			
 		if Empty:
 			body.set_animation('empty')
@@ -268,6 +268,10 @@ func hit(ignore_powerup = false, idle_frame: bool = true) -> void:
 		Global.state = 0
 		Global.Mario.appear_counter = 60
 		Global.lives = 4
+		Global.Mario.shield_star = false
+		Global.Mario.shield_counter = 0
+		Global.Mario.get_node('Sprite').material.set_shader_param('mixing', false)
+		Global.starman_saved = false
 		t_counter = 0
 
 func _process_trigger(delta) -> void:

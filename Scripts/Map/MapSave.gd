@@ -18,7 +18,8 @@ func _ready():
 	assert(icon_pack != '', 'icon_pack must not be empty.')
 	if Global.levelID > 0 or Global.save_overwrite:
 		var lvl = load_config()
-		save_config(lvl)
+		if lvl != 99:
+			save_config(lvl)
 	
 #func _process(delta):
 #	pass
@@ -28,7 +29,7 @@ func load_config() -> int:
 
 	if !(config is ConfigFile) or config == null:
 		push_error('WTF save is null')
-		return 0
+		return 99
 
 	if config.has_section('last_saved_progress') and config.has_section_key('last_saved_progress', 'data'):
 		progress = config.get_value('last_saved_progress', 'data')
@@ -77,7 +78,8 @@ func save_config(lvl):
 	Global.save_overwrite = false
 	
 	var err = config.save_encrypted_pass('user://save.cloudsav', password)
-	config.save('user://save_test.cloudsav') # FOR TESTING PURPOSES
+	if Global.debug:
+		config.save('user://save_test.cloudsav') # FOR TESTING PURPOSES
 	print('GAME SAVED: levels: ', level_to_save, ', stars: ', Global.collectibles_array)
 	
 	if err:

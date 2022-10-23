@@ -88,8 +88,8 @@ func finish_process(delta):
 			Global.HUD.get_node('Score').text = str(final_score)
 			Global.emit_signal('OnScoreChange')
 			wait_counter -= 1 * Global.get_delta(delta)
+			Global.levelID = set_level_id
 			if wait_counter < 0:
-				Global.levelID = set_level_id
 				Global.reset_audio_effects()
 				Global.Mario.visible = true
 				Global.deaths = 0

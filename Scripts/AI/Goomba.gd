@@ -9,6 +9,8 @@ func _ai_process(delta:float) -> void:
 		owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
 	
 	if !owner.alive:
+		if !owner.frozen and owner.collision_mask == 0b10:
+			owner.velocity.x = lerp(owner.velocity.x, 0, 0.1 * Global.get_delta(delta))
 		return
 	
 	if !owner.frozen:

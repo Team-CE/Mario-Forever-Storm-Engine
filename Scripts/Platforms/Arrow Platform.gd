@@ -1,5 +1,7 @@
 extends StaticBody2D
 
+var plat = preload('res://Objects/Platforms/ArrowMovingPlatform.tscn')
+
 enum DIRECTION {
 	UP,
 	LEFT,
@@ -24,25 +26,25 @@ func _ready():
 		_:
 			vector_dir = Vector2.UP
 	
-func _process(delta):
-	var isCol: bool = Global.is_mario_collide('BottomDetector', self)
+func _process(_delta):
+	var isCol: bool = Global.is_mario_collide('BottomDetector', self) and Global.Mario.is_on_floor()
 	if !colliding && isCol:
 		colliding = true
-		create_platform(delta)
+		create_platform()
 		return
 	elif colliding && !isCol:
 		colliding = false
 
-func create_platform(_delta):
-	if is_instance_valid(get_node_or_null('../ArrowMovingPlatform')):
-		get_node('../ArrowMovingPlatform').free()
-	var moving_platform = preload('res://Objects/Platforms/ArrowMovingPlatform.tscn').instance()
-	moving_platform.set_name('ArrowMovingPlatform')
-	get_parent().add_child(moving_platform)
-	get_node('../ArrowMovingPlatform').position = position - Vector2(0, 0.1) + vector_dir.rotated(rotation)
-	get_node('../ArrowMovingPlatform').vector_dir = vector_dir
-	get_node('../ArrowMovingPlatform').speed = speed
-	get_node('../ArrowMovingPlatform').life_time = life_time
-	get_node('../ArrowMovingPlatform').timer = 0
-	get_node('../ArrowMovingPlatform/Body').animation = $Body.animation
-	return true
+func create_platform():
+	for i in get_tree().get_nodes_in_group('ArrowMovingPlatform'):
+		i.queue_free()
+	var moving_platform = plat.instance()
+	add_child(moving_platform)
+	moving_platform.vector_dir = vector_dir
+	moving_platform.speed = speed
+	moving_platform.life_time = life_time
+	moving_platform.timer = 0
+	moving_platform.position += Vector2(0, -0.1) + vector_dir.rotated(rotation)
+	moving_platform.get_node('Body').animation = $Body.animation
+#	return true
+#Global.current_scene.get_node('../ArrowMovingPlatform')

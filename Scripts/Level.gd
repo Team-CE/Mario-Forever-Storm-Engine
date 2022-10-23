@@ -28,11 +28,12 @@ func _ready():
 			Global.time = time
 			MusicPlayer.get_node('TweenOut').remove_all()
 			mpMain.stream = music
-			mpMain.play()
-			MusicPlayer.play_on_pause()
 			mpMain.volume_db = 0
-			mpStar.stop()
-			mpStar.volume_db = 0
+			if !Global.starman_saved:
+				mpMain.play()
+				MusicPlayer.play_on_pause()
+				mpStar.stop()
+				mpStar.volume_db = 0
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
 		
 		if !Global.effects:
@@ -75,6 +76,17 @@ func _ready():
 			if !cam: return
 			cam.smoothing_enabled = true
 			cam.smoothing_speed = 10
+		
+		if Global.starman_saved:
+			yield(get_tree(), 'idle_frame')
+			mpMain.stop()
+			mpStar.play()
+			mpStar.volume_db = 0
+			Global.Mario.get_node('Sprite').material.set_shader_param('mixing', true)
+			Global.Mario.shield_star = true
+			Global.Mario.shield_counter = 750
+			Global.Mario.faded = false
+			Global.starman_saved = false
 		
 		print('[Level]: Ready!')
 	elif not has_node('Mario'):

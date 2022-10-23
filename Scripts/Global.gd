@@ -56,6 +56,7 @@ var coins: int = 0													# Player coins
 var deaths: int = 0													# Player deaths (for precision madness-like levels)
 var state: int = 0													# Player powerup state
 var shoe_type: int = 0											# Player kuribo's shoe state
+var starman_saved: bool = false							# Starman from save game room
 
 var projectiles_count: int = 0							# Number of player's projectiles on screen
 
@@ -371,29 +372,26 @@ func _on_timeout():
 	if is_instance_valid(pause_timer):
 		pause_timer.call_deferred('queue_free')
 
-# warning-ignore:shadowed_variable
-func add_score(score: int) -> void:
+func add_score(added_score: int) -> void:
 # warning-ignore:narrowing_conversion
-	self.score += abs(score)
+	self.score += abs(added_score)
 	HUD.get_node('Score').text = str(self.score)
 	emit_signal('OnScoreChange')
 
-# warning-ignore:shadowed_variable
-func add_lives(lives: int, create_scoretext: bool) -> void:
+func add_lives(added_lives: int, create_scoretext: bool) -> void:
 	var scorePos = Mario.position + Vector2(0, -32).rotated(Mario.rotation)
 	if create_scoretext:
 		var ScoreT = ScoreText.new(1, scorePos)
 		Mario.get_parent().add_child(ScoreT)
 # warning-ignore:narrowing_conversion
-	self.lives += abs(lives)
+	self.lives += abs(added_lives)
 	HUD.get_node('LifeSound').play()
 	HUD.get_node('Lives').text = str(self.lives)
 	emit_signal('OnLivesAdded')
 
-# warning-ignore:shadowed_variable
-func add_coins(coins: int) -> void:
+func add_coins(added_coins: int) -> void:
 # warning-ignore:narrowing_conversion
-	self.coins += abs(coins)
+	self.coins += abs(added_coins)
 	if self.coins >= 100:
 		add_lives(1, true)
 		self.coins = 0

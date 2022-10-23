@@ -40,7 +40,7 @@ func _ai_process(delta: float) -> void:
 		return
 		
 	owner.velocity.x = owner.vars["speed"] * owner.dir * move_multiplier
-	owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
+	owner.animated_sprite.flip_h = owner.global_position.x > Global.Mario.position.x
 	
 	if inv_counter < 31:
 		inv_counter += 1 * Global.get_delta(delta)
@@ -78,7 +78,7 @@ func _ai_process(delta: float) -> void:
 		owner.dir = -1
 		owner.velocity.x = owner.vars["speed"] * owner.dir
 		
-	owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
+	owner.animated_sprite.flip_h = owner.global_position.x > Global.Mario.position.x
 	
 	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 && inv_counter >= 11:
 		owner.kill(AliveObject.DEATH_TYPE.FALL, 0, owner.sound)

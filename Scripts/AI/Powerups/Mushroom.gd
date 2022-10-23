@@ -63,7 +63,6 @@ func _ai_process(delta: float) -> void:
 	if on_mario_collide('InsideDetector'):
 		if 'set state' in owner.vars:
 			if owner.score > 0:
-				Global.add_score(owner.score)
 				owner.get_parent().add_child(ScoreText.new(owner.score, owner.position))
 			if owner.vars['set state'] != Global.state and (not (owner.vars['set state'] == 1 and Global.state > 1) or owner.vars['sgr behavior']):
 				Global.Mario.appear_counter = 60
