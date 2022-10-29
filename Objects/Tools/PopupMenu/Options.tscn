@@ -204,48 +204,48 @@ position = Vector2( 640, 0 )
 script = ExtResource( 12 )
 
 [node name="sel0" type="AnimatedSprite" parent="."]
-position = Vector2( 168, 160 )
+position = Vector2( 120, 160 )
 frames = SubResource( 37 )
 animation = "sound"
 
 [node name="sel1" type="AnimatedSprite" parent="."]
-position = Vector2( 165, 208 )
+position = Vector2( 117, 208 )
 frames = SubResource( 37 )
 animation = "music"
 
 [node name="sel2" type="AnimatedSprite" parent="."]
-position = Vector2( 285, 256 )
+position = Vector2( 237, 256 )
 frames = SubResource( 37 )
 animation = "autopause"
 
 [node name="sel3" type="AnimatedSprite" parent="."]
-position = Vector2( 167, 304 )
+position = Vector2( 119, 304 )
 frames = SubResource( 37 )
 animation = "vsync"
 
 [node name="sel4" type="AnimatedSprite" parent="."]
-position = Vector2( 158, 352 )
+position = Vector2( 110, 352 )
 frames = SubResource( 37 )
 animation = "back"
 
 [node name="SoundBar" type="AnimatedSprite" parent="."]
-position = Vector2( 472, 160 )
+position = Vector2( 520, 160 )
 frames = SubResource( 56 )
 
 [node name="MusicBar" type="AnimatedSprite" parent="."]
-position = Vector2( 472, 208 )
+position = Vector2( 520, 208 )
 frames = SubResource( 56 )
 
 [node name="VSync" type="AnimatedSprite" parent="."]
-position = Vector2( 488, 304 )
+position = Vector2( 536, 304 )
 frames = SubResource( 57 )
 
 [node name="AutoPause" type="AnimatedSprite" parent="."]
-position = Vector2( 488, 256 )
+position = Vector2( 536, 256 )
 frames = SubResource( 47 )
 
 [node name="OptionsString" type="Sprite" parent="."]
-position = Vector2( 72, 86 )
+position = Vector2( 320, 80 )
 texture = ExtResource( 2 )
 script = ExtResource( 13 )
 
