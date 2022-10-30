@@ -30,6 +30,7 @@ func _on_window_resized():
 
 func _update_view():
 	var window_size = OS.window_size
+	if window_size.y == 0 || window_size.x == 0: return
 	var window_aspect_radio = window_size.x / window_size.y
 
 	var target_position
