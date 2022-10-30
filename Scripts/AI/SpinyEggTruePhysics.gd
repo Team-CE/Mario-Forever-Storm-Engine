@@ -1,11 +1,12 @@
 extends Brain
 var spiny_node = preload('res://Objects/Enemies/Spiny.tscn')
 
-var speed: float
+var speed: float = 0
 
 func _ready_mixin() -> void:
 	owner.death_type = AliveObject.DEATH_TYPE.NONE
-	owner.velocity.x = (( (owner.global_position.x - Global.Mario.global_position.x) / -40 ) + (Global.Mario.velocity.x / 50 + rand_range(-5, 5)) * 0.1) * 50
+	speed = (( (owner.global_position.x - Global.Mario.global_position.x) / -40 ) + (Global.Mario.velocity.x / 50 + rand_range(-5, 5)) * 0.1) * 50
+	owner.velocity.x = speed
 
 func _ai_process(delta:float) -> void:
 	._ai_process(delta)
@@ -20,7 +21,8 @@ func _ai_process(delta:float) -> void:
 		owner.velocity.y = 400
 	
 	if owner.is_on_wall():
-		owner.turn()
+		speed = -speed
+		owner.velocity.x = speed
 		
 	if owner.is_on_floor():
 		var spiny = spiny_node.instance()

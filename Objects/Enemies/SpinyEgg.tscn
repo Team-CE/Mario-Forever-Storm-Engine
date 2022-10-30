@@ -27,9 +27,6 @@ extents = Vector2( 14, 2 )
 
 [node name="SpinyEgg" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 5 )
-vars = {
-"speed": 50.0
-}
 AI = ExtResource( 1 )
 gravity_scale = 0.35
 alt_sound_pth = NodePath("Kick")
@@ -52,7 +49,8 @@ stream = ExtResource( 4 )
 bus = "Sounds"
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-visible = false
+position = Vector2( 1.90735e-06, 16 )
+scale = Vector2( 2, 2 )
 rect = Rect2( -32, -48, 64, 64 )
 process_parent = true
 physics_process_parent = true
