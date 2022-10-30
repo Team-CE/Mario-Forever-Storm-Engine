@@ -36,7 +36,10 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
 	if Global.levelID > 0:
-		$MarioPath/PathFollow2D.offset = stop_points[Global.levelID - 1]
+		while $MarioPath/PathFollow2D.offset < stop_points[Global.levelID - 1]:
+			$MarioPath/PathFollow2D.offset += 4
+			for dot in $Dots.get_children():
+				dot._process(1)
 	
 	yield(get_tree(), 'idle_frame')
 	var cam = Global.get_current_camera()
@@ -53,9 +56,8 @@ func _process(delta: float) -> void:
 	if $MarioPath/PathFollow2D.offset < stop_points[Global.levelID]:
 		$MarioPath/PathFollow2D.offset += current_speed * Global.get_delta(delta)
 		
-		if Input.is_action_just_pressed('mario_jump'):
-			if !is_lerping:
-				is_lerping = true
+		if Input.is_action_just_pressed('mario_jump') && !is_lerping:
+			is_lerping = true
 	if is_lerping:
 		current_speed = lerp(current_speed, mario_fast_speed, 0.1 * Global.get_delta(delta))
 
