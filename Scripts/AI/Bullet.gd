@@ -28,7 +28,9 @@ func _ai_process(delta: float) -> void:
 		owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
 		if !temp:
 			speed = owner.velocity.rotated(old_rotation).x * owner.dir
-			#owner.animated_sprite.flip_v = false
+			if owner.animated_sprite.flip_v:
+				owner.animated_sprite.flip_h = !owner.animated_sprite.flip_h
+				owner.animated_sprite.flip_v = false
 			temp = true
 		#owner.animated_sprite.flip_h = owner.velocity.rotated(old_rotation).x * -owner.dir < 0
 		if speed_modifier < speed:
