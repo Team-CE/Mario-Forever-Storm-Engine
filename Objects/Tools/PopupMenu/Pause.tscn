@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Scripts/Tools/Pause.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Menu/Pmainmenu.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Sounds/Main/pause.wav" type="AudioStream" id=9]
 [ext_resource path="res://GFX/Menu/Prestart_warn1.png" type="Texture" id=10]
 [ext_resource path="res://GFX/Menu/Prestart_warn2.png" type="Texture" id=11]
+[ext_resource path="res://GFX/Menu/Pskip.png" type="Texture" id=12]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
@@ -64,6 +65,14 @@ region = Rect2( 0, 0, 320, 32 )
 atlas = ExtResource( 4 )
 region = Rect2( 0, 32, 320, 32 )
 
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 28, 209, 28 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 209, 28 )
+
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
 "frames": [ SubResource( 3 ), SubResource( 4 ) ],
@@ -95,6 +104,11 @@ animations = [ {
 "loop": true,
 "name": "save",
 "speed": 0.0
+}, {
+"frames": [ SubResource( 25 ), SubResource( 26 ) ],
+"loop": true,
+"name": "skip",
+"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=24]
