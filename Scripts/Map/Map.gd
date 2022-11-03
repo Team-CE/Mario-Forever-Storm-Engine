@@ -45,6 +45,14 @@ func _ready() -> void:
 	var cam = Global.get_current_camera()
 	cam.smoothing_enabled = true
 
+func _input(event):
+	if !Global.debug:
+		return
+	if event is InputEventKey and event.pressed and !event.is_echo():
+		if Input.is_action_pressed('debug_shift') and event.scancode == 52:
+			Global.levelID += 1
+			Global.goto_scene(Global.current_scene.filename)
+
 func _process(delta: float) -> void:
 	sprite.animation = 'Walking' if Global.shoe_type == 0 else 'Stopped'
 	if Global.shoe_type and !stopped and is_instance_valid(Global.Mario.shoe_node):

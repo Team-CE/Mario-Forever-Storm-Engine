@@ -2,6 +2,9 @@ extends Node2D
 
 var camera
 
+func get_class(): return 'Cutscene'
+func is_class(name) -> bool: return name == 'Cutscene' or .is_class(name) 
+
 func _ready():
 	$Mario.controls_enabled = false
 	yield(get_tree(), 'idle_frame')
@@ -11,7 +14,9 @@ func _ready():
 		Global.Mario.get_node('Sprite').material.set_shader_param('mixing', true)
 
 func _process(_delta):
-	if $Mario.velocity.x < 75 && $Mario.velocity.x > 1:
+	if !camera:
+		return
+	if $Mario.velocity.x < 75:
 		$Mario.velocity.x = 75
 	if $Mario.get_node('InsideDetector').get_overlapping_areas().has($Warp) and not $Warp.active:
 		$letspipe.play()

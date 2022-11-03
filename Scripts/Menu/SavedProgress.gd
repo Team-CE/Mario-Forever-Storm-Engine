@@ -46,7 +46,7 @@ func load_data() -> bool:
 		if has_node('Level' + saved_progress.icon_pack):
 			get_node('Level' + saved_progress.icon_pack).animation = str(saved_progress.levelid)
 		else:
-			push_warning('Invalid icon pack, could not open saved progress popup')
+			push_warning('Invalid icon pack "' + saved_progress.icon_pack + '", could not open saved progress popup')
 			return false
 		for i in get_children():
 			if 'Level' in i.name and not 'Level' + saved_progress.icon_pack in i.name:

@@ -6,10 +6,10 @@ func _process_camera(_owner, delta: float) -> void:
 	if !cam: return
 	
 	if Input.is_action_pressed('mario_right'):
-		cam.global_position.x += 5 + (int(Input.is_action_pressed('mario_fire')) * 5) * Global.get_delta(delta)
+		cam.global_position.x += 5 * Global.get_delta(delta) + (int(Input.is_action_pressed('mario_fire')) * 5) * Global.get_delta(delta)
 
 	if Input.is_action_pressed('mario_left'):
-		cam.global_position.x -= 5 - (int(Input.is_action_pressed('mario_fire')) * -5) * Global.get_delta(delta)
+		cam.global_position.x -= 5 * Global.get_delta(delta) - (int(Input.is_action_pressed('mario_fire')) * -5) * Global.get_delta(delta)
 
 	if cam.global_position.x < 320:
 		cam.global_position.x = 320

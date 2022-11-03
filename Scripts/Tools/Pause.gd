@@ -4,6 +4,7 @@ var sel: int = 0
 var selLimit: int = 5
 var counter: float = 1
 var can_restart: bool = true
+var is_cutscene: bool = false
 
 var is_dead: bool = false
 
@@ -14,6 +15,10 @@ func _ready():
 		$sel1.frame = 2
 	if 'sgr_scroll' in Global.current_scene and Global.current_scene.sgr_scroll:
 		can_restart = false
+	elif Global.current_scene.is_class('Cutscene'):
+		is_cutscene = true
+		$sel1.animation = 'skip'
+		$sel1.frame = 0
 	
 	is_dead = is_instance_valid(Global.Mario) and Global.Mario.dead
 
@@ -33,16 +38,20 @@ func _process(delta):
 		var sinalpha = sin(counter) * 0.3 + 0.7
 		get_node('sel' + str(sel)).modulate.a = sinalpha
 		
-		if sel != 1 or (sel == 1 and can_restart): get_node('sel' + str(sel)).frame = 1
+		if !is_cutscene:
+			if sel != 1 or (sel == 1 and can_restart): get_node('sel' + str(sel)).frame = 1
+			if !can_restart and $sel1.frame != 2: $sel1.frame = 2
 		
-		$sub.visible = sel == 1
-		if sel == 1:
-			if can_restart and !is_dead:
-				$sub.animation = 'default'
-			elif Global.lives == 0 and is_instance_valid(Global.Mario):
-				$sub.animation = 'blocked'
-			else:
-				$sub.animation = 'empty'
+			$sub.visible = sel == 1
+			if sel == 1:
+				if can_restart and !is_dead:
+					$sub.animation = 'default'
+				elif Global.lives == 0 and is_instance_valid(Global.Mario):
+					$sub.animation = 'blocked'
+				else:
+					$sub.animation = 'empty'
+		else:
+			get_node('sel' + str(sel)).frame = 1
 		
 		# CONTROLS
 		
@@ -57,7 +66,6 @@ func _process(delta):
 			sel = selLimit if sel - 1 < 0 else sel - 1
 			get_node('../choose').play()
 		
-		if !can_restart and $sel1.frame != 2: $sel1.frame = 2
 		
 		if Input.is_action_just_pressed('ui_accept') and counter > 1:
 			match sel:
@@ -66,15 +74,32 @@ func _process(delta):
 					get_parent().resume()
 					get_tree().paused = false
 				1:
-					if !can_restart: return
-					AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
-					if is_dead:
-						Global._reset()
-						get_node('../enter').play()
-					else:
-						Global._pll()
+					if is_cutscene:
+						var to_jump
+						if 'change_to_scene' in Global.current_scene and Global.current_scene.change_to_scene != '':
+							to_jump = Global.current_scene.change_to_scene
+						elif 'scene' in Global.current_scene and Global.current_scene.scene != '':
+							to_jump = Global.current_scene.scene
+						else:
+							for i in Global.current_scene.get_tree().get_nodes_in_group('Warp'):
+								if 'set_scene_path' in i.additional_options and i.additional_options['set_scene_path'] != '':
+									to_jump = i.additional_options['set_scene_path']
+									break
+						if !to_jump:
+							return
+						_goto_scene(to_jump, false)
 						get_node('../enter').play()
 						get_parent().resume()
+							
+					elif can_restart:
+						AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
+						if is_dead:
+							Global._reset()
+							get_node('../enter').play()
+						else:
+							Global._pll()
+							get_node('../enter').play()
+							get_parent().resume()
 					get_tree().set_deferred('paused', false)
 				2:
 					get_node('../enter').play()
@@ -98,12 +123,13 @@ func _process(delta):
 		# FADE OUT
 		modulate.a += (0 - modulate.a) * 0.2 * Global.get_delta(delta)
 
-func _goto_scene(scene: String) -> void:
+func _goto_scene(scene: String, reset_values: bool = true) -> void:
 	AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
 	Global.goto_scene(scene)
 	MusicPlayer.get_node('Main').stop()
 	MusicPlayer.get_node('Star').stop()
-	Global.reset_all_values()
+	if reset_values:
+		Global.reset_all_values()
 	Global.popup.queue_free()
 	Global.popup = null
 	get_tree().paused = false

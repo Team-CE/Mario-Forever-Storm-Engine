@@ -4,6 +4,9 @@ export var change_to_scene: String
 var camera
 var touched_water: bool
 
+func get_class(): return 'Cutscene'
+func is_class(name) -> bool: return name == 'Cutscene' or .is_class(name) 
+
 func _ready():
 	$Mario.controls_enabled = false
 	yield(get_tree(), 'idle_frame')
@@ -12,7 +15,7 @@ func _ready():
 
 func _process(delta):
 	# Constant speed
-	if $Mario.velocity.x < 125 && $Mario.velocity.x > 1:
+	if $Mario.velocity.x < 125:
 		$Mario.velocity.x = 125
 	# Jump
 	if has_node('JumpPos') and $Mario.position.x > $JumpPos.position.x:
