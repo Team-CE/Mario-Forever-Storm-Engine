@@ -11,6 +11,7 @@ export var level_scenes: Array = []
 var current_speed: float = mario_speed
 var stopped: bool = false
 var is_lerping: bool = false
+var is_swimming: bool = false
 
 var fading_out: bool = false
 var circle_size: float = 0.623
@@ -53,12 +54,28 @@ func _input(event):
 			Global.levelID += 1
 			Global.goto_scene(Global.current_scene.filename)
 
+func _on_swim():
+	if !is_swimming:
+		return
+	sprite.animation = 'SwimmingStart'
+
 func _process(delta: float) -> void:
-	sprite.animation = 'Walking' if Global.shoe_type == 0 else 'Stopped'
-	if Global.shoe_type and !stopped and is_instance_valid(Global.Mario.shoe_node):
-		Global.Mario.get_node('AnimationPlayer').play('Small' if Global.state == 0 else 'Big')
-		Global.Mario.shoe_node.get_node('AnimatedSprite').offset.y = -12 if Global.state == 0 else 16
-	sprite.speed_scale = 20 if !stopped else 5
+	if Global.shoe_type == 0:
+		if !is_swimming:
+			sprite.animation = 'Walking'
+			sprite.speed_scale = 20 if !stopped else 5
+		else:
+			sprite.speed_scale = 1
+			if sprite.frame > 5:
+				sprite.animation = 'SwimmingLoop'
+# warning-ignore:return_value_discarded
+				get_tree().create_timer(1.0, false).connect('timeout', self, '_on_swim')
+	else:
+		sprite.animation = 'Stopped'
+		if !stopped and is_instance_valid(Global.Mario.shoe_node):
+			Global.Mario.get_node('AnimationPlayer').play('Small' if Global.state == 0 else 'Big')
+			Global.Mario.shoe_node.get_node('AnimatedSprite').offset.y = -12 if Global.state == 0 else 16
+
 	sprite.offset.y = 0 - sprite.frames.get_frame(sprite.animation, sprite.frame).get_size().y + 32 if Global.state > 0 else -12
 
 	if $MarioPath/PathFollow2D.offset < stop_points[Global.levelID]:
