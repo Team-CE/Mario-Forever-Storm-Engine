@@ -14,7 +14,7 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	rng.randomize()
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	if (position.x > Global.Mario.position.x + 80 or position.x < Global.Mario.position.x - 80):
 		counter += 1 * Global.get_delta(delta)
 	

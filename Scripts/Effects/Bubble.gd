@@ -11,7 +11,7 @@ func _ready() -> void:
 	elif type == 0 and !is_in_water():
 		queue_free()
 	
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	if $AnimatedSprite.animation == 'disappear':
 		if $AnimatedSprite.frame > 6:
 			queue_free()

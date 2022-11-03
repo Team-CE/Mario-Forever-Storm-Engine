@@ -27,7 +27,7 @@ func _ready() -> void:
 	else:
 		$Sprite.texture = emalpkaspr
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	var overlaps = self.get_overlapping_bodies()
 	var overlaps_area = self.get_overlapping_areas()
 

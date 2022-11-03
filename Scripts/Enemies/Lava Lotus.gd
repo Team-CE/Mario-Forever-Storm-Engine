@@ -18,7 +18,7 @@ func _ready():
 # warning-ignore:return_value_discarded
 	connect('body_entered',self,"_on_body_enter")
 
-func _process(_delta):
+func _physics_process(_delta):
 	var id_overlaps = Global.Mario.get_node_or_null('InsideDetector').get_overlapping_areas()
 	if id_overlaps and id_overlaps.has(self):
 		Global._ppd()

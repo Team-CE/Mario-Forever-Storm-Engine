@@ -16,7 +16,7 @@ func _ready():
 	if !velocity:
 		velocity.x = 4
 
-func _process(delta):
+func _physics_process(delta):
 	position += velocity * Global.get_delta(delta)
 	$AnimatedSprite.flip_h = velocity.x < 0
 

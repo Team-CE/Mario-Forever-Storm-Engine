@@ -10,7 +10,7 @@ func _init(pos: Vector2 = Vector2.ZERO, rotat: float = 0):
 	position = pos
 	rotation = rotat
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	play('default')
 	if counter > 0:
 		counter -= 0.25 * Global.get_delta(delta)

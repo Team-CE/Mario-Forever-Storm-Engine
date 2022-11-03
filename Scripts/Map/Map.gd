@@ -39,13 +39,13 @@ func _ready() -> void:
 		while $MarioPath/PathFollow2D.offset < stop_points[Global.levelID - 1]:
 			$MarioPath/PathFollow2D.offset += 4
 			for dot in $Dots.get_children():
-				dot._process(1)
+				dot._physics_process(1)
 	
 	yield(get_tree(), 'idle_frame')
 	var cam = Global.get_current_camera()
 	cam.smoothing_enabled = true
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	sprite.animation = 'Walking' if Global.shoe_type == 0 else 'Stopped'
 	if Global.shoe_type and !stopped and is_instance_valid(Global.Mario.shoe_node):
 		Global.Mario.get_node('AnimationPlayer').play('Small' if Global.state == 0 else 'Big')

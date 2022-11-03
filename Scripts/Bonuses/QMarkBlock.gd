@@ -142,7 +142,22 @@ func set_preview() -> StreamTexture:
 	result_inst.free()
 	return res
 
-func _process(delta) -> void:
+
+func _physics_process(delta) -> void:
+	if preview:
+		preview.visible = Engine.editor_hint || (Global.debug and (is_instance_valid(Global.HUD) and Global.HUD.visible))
+	
+	if !Engine.editor_hint and 'debug' in Global && Global.debug && (Result != null || PrevResult != null) && Result != PrevResult:
+		preview.texture = set_preview()
+	
+	if Frames != null && Frames != PrevFrames:
+		body.frames = Frames
+		PrevFrames = Frames
+
+	if Engine.editor_hint:
+		editor()
+		return
+	
 	if active:
 		_process_active(delta)
 
@@ -170,22 +185,6 @@ func _process(delta) -> void:
 			#collision_layer = 0b11
 			#collision_mask = 0b11
 			visible = true
-
-
-func _physics_process(_delta) -> void:
-	if preview:
-		preview.visible = Engine.editor_hint || (Global.debug and (is_instance_valid(Global.HUD) and Global.HUD.visible))
-	
-	if !Engine.editor_hint and 'debug' in Global && Global.debug && (Result != null || PrevResult != null) && Result != PrevResult:
-		preview.texture = set_preview()
-	
-	if Frames != null && Frames != PrevFrames:
-		body.frames = Frames
-		PrevFrames = Frames
-
-	if Engine.editor_hint:
-		editor()
-		return
 
 func _process_active(_delta) -> void:
 	if Engine.editor_hint:

@@ -22,7 +22,7 @@ func _ready() -> void:
 		$CollisionShape2D.set_deferred('disabled', true)
 		$StaticBody2D/Collision2.set_deferred('disabled', false)
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	if frozen:
 		if freeze_counter >= 0:
 			freeze_counter += 1 * Global.get_delta(delta)

@@ -29,7 +29,7 @@ func _init(pos: Vector2 = Vector2.ZERO, acceleration: Vector2 = Vector2.ZERO, te
 	if !vis.is_on_screen():
 		queue_free()
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	y_accel += 0.4 * Global.get_delta(delta)
 	position += Vector2(accel.x, accel.y + y_accel).rotated(local_rotation) * Global.get_delta(delta)
 	#position.x += accel.x * Global.get_delta(delta)

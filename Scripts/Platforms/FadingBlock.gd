@@ -10,7 +10,7 @@ var counter: float = 0
 func _ready() -> void:
 	counter = offset
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if $Sprite.texture != sprite:
 		$Sprite.texture = sprite
 	if !Engine.editor_hint:

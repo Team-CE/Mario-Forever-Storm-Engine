@@ -26,7 +26,7 @@ func _ready():
 		_:
 			vector_dir = Vector2.UP
 	
-func _process(_delta):
+func _physics_process(_delta):
 	var isCol: bool = Global.is_mario_collide('BottomDetector', self) and Global.Mario.is_on_floor()
 	if !colliding && isCol:
 		colliding = true

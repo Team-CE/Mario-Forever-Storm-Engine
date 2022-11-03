@@ -14,7 +14,7 @@ var networking: Discord.NetworkManager
 #func _ready() -> void:
 #	call_deferred("create_core")
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if !Global.rpc:
 		return
 	if core:

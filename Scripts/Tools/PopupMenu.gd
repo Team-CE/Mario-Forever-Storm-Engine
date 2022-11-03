@@ -21,7 +21,7 @@ func _ready():
 	composited_vol = AudioServer.get_bus_volume_db(AudioServer.get_bus_index('CompositedSounds'))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('CompositedSounds'), 0)
 
-func _process(delta):
+func _physics_process(delta):
 	if isPaused:
 		if $Sprite.modulate.v > 0.355:
 			$Sprite.modulate.v += (darkness - $Sprite.modulate.v) * speed * Global.get_delta(delta)

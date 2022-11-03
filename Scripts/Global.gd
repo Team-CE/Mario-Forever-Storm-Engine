@@ -95,7 +95,12 @@ static func get_delta(delta) -> float:			 # Delta by 50 FPS
 
 func _init() -> void:
 # warning-ignore:narrowing_conversion
-	Engine.iterations_per_second = OS.get_screen_refresh_rate()
+	var rate = OS.get_screen_refresh_rate()
+	if rate < 119 && quality > 0:
+		Engine.iterations_per_second = rate * 2
+		print('Using double fps for physics')
+	else:
+		Engine.iterations_per_second = rate
 
 func _ready() -> void:
 	var root = get_tree().get_root()
@@ -236,6 +241,20 @@ func _physics_process(delta: float) -> void:
 		timer.start()
 	if projectiles_count < 0:
 		projectiles_count = 0
+	
+	if debug and Input.is_action_pressed('debug_shift'):
+		if Input.is_action_just_released('zoom_out'):
+			current_camera.zoom += Vector2(0.2, 0.2)
+			print(current_camera.zoom)
+		
+		if Input.is_action_just_released('zoom_in') and current_camera.zoom.x > 0.4:
+			current_camera.zoom -= Vector2(0.2, 0.2)
+			print(current_camera.zoom)
+	
+	# in case something goes wrong with volume
+	if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > 1:
+		push_warning('Too high music volume!')
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), 0)
 			
 # Fullscreen toggle
 func _unhandled_input(ev):
@@ -302,23 +321,6 @@ func _unhandled_input(ev):
 	if ev.is_action_pressed('debug_hud'):
 		if !is_instance_valid(HUD): return
 		HUD.visible = !HUD.visible
-
-# warning-ignore:unused_argument
-func _process(delta: float):
-	
-	if debug and Input.is_action_pressed('debug_shift'):
-		if Input.is_action_just_released('zoom_out'):
-			current_camera.zoom += Vector2(0.2, 0.2)
-			print(current_camera.zoom)
-		
-		if Input.is_action_just_released('zoom_in') and current_camera.zoom.x > 0.4:
-			current_camera.zoom -= Vector2(0.2, 0.2)
-			print(current_camera.zoom)
-	
-	# in case something goes wrong with volume
-	if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')) > 1:
-		push_warning('Too high music volume!')
-		AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), 0)
 
 func _input(event):
 	if current_scene.get_class() in ['Menu', 'Intro']:

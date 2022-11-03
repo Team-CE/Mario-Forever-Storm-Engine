@@ -40,7 +40,7 @@ func _init(score: int, pos: Vector2 = Vector2.ZERO):
 	if score >= 100:
 		Global.add_score(score)
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	counter += 1 * Global.get_delta(delta)
 	if counter < 36:
 		position += Vector2(0, -1).rotated(rotation) * Global.get_delta(delta)

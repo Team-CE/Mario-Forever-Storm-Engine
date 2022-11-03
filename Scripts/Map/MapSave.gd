@@ -20,9 +20,6 @@ func _ready():
 		var lvl = load_config()
 		if lvl != 99:
 			save_config(lvl)
-	
-#func _process(delta):
-#	pass
 
 func load_config() -> int:
 	var config = Global.save_contents

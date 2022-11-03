@@ -17,7 +17,7 @@ func _ready():
 	
 	is_dead = is_instance_valid(Global.Mario) and Global.Mario.dead
 
-func _process(delta):
+func _physics_process(delta):
 	#if Input.is_action_just_pressed('ui_fullscreen'):
 	#	OS.window_fullscreen = !OS.window_fullscreen
 		

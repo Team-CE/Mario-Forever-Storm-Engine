@@ -21,7 +21,7 @@ func _ready() -> void:
 	if Engine.editor_hint: return
 	$Node2D/AnimatedSprite/Light2D.visible = true
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	if dead:
 		return
 	if flower_movement:

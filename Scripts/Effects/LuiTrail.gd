@@ -8,7 +8,7 @@ func _init(pos: Vector2 = Vector2.ZERO, r: float = 0):
 	rotation_degrees = r
 	position = pos
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	counter += 3 * Global.get_delta(delta)
 	modulate.a = 1 - counter / 100.0
 	

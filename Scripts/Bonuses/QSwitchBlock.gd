@@ -69,15 +69,14 @@ func editor() -> void:
 		
 		body.material.set_shader_param('Shift_Hue', hsv_shift / 100.0)
 
-func _process(delta) -> void:
+
+func _physics_process(delta) -> void:
 	if active:
 		_process_active(delta)
 
 	if triggered:
 		_process_trigger(delta)
-
-
-func _physics_process(_delta) -> void:
+		
 	editor()
 
 func _process_active(_delta) -> void:

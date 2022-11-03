@@ -24,7 +24,7 @@ func _ready() -> void:
 	initial_position = $CrossingBar.position.y
 	win_music.loop = false
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	if not crossed:
 		counter += 1 * Global.get_delta(delta)
 		if counter < 75:

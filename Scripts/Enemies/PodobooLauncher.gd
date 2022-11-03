@@ -17,7 +17,7 @@ func _ready():
 	$Sprite.free()
 	rng.randomize()
 
-func _process(delta):
+func _physics_process(delta):
 	if !Global.is_getting_closer(-256, position):
 		return
 		

@@ -7,7 +7,7 @@ func _ready() -> void:
 # warning-ignore:return_value_discarded
 	connect('animation_finished', self, 'animends')
 
-func _process(_delta):
+func _physics_process(_delta):
 	# Random Blinking
 	if !playing && time.time_left <= 0.0:
 		randomize()																	 # For full random

@@ -34,7 +34,7 @@ func _on_body_entered(body):
 		body.kill(body.DEATH_TYPE.FALL if !body.force_death_type else body.death_type, 0, null, self.name)
 		explode()
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 #	var overlaps = $CollisionArea.get_overlapping_bodies()
 #
 #	if overlaps.size() > 0 and belongs == 0:

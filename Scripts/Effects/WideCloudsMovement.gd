@@ -5,7 +5,7 @@ var fake_pos := Vector2.ZERO
 
 export var init_pos = 320
 
-func _process(delta):
+func _physics_process(delta):
 	var cam = Global.current_camera
 	if !cam: return
 	position.x -= speed * Global.get_delta(delta)

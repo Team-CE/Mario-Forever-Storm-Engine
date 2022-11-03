@@ -26,7 +26,7 @@ func _ready() -> void:
 	
 	rng.randomize()
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	var overlaps = get_overlapping_bodies()
 
 	if overlaps.size() > 0:

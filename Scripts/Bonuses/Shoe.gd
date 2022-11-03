@@ -14,7 +14,7 @@ var velocity := Vector2.ZERO
 func _ready():
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	if dead:
 		position += velocity.rotated(rotation) * Global.get_delta(delta)
 		velocity += Vector2(0, 0.4).rotated(rotation) * Global.get_delta(delta)

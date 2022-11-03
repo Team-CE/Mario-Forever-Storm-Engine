@@ -10,7 +10,7 @@ var has_rotated: bool = false
 func _ready():
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	if !visible: return
 	
 	position += velocity * Global.get_delta(delta)

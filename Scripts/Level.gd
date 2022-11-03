@@ -129,10 +129,6 @@ func setup_tilemap() -> TileMap:
 	newTM.update_bitmask_area(Vector2(1, 13))
 	return newTM
 
-# warning-ignore:unused_argument
-#func _physics_process(delta):
-#	pass
-
 func _input(event):
 	if Engine.editor_hint: return
 	

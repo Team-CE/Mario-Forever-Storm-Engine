@@ -7,7 +7,7 @@ var timer: float
 func _ready():
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	if !Global.is_getting_closer(-32, position):
 		return
 	if timer < 5:

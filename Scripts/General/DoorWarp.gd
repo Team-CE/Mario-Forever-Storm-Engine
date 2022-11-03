@@ -48,7 +48,7 @@ func _ready() -> void:
 			else:
 				finishline = Global.current_scene.get_node('FinishLine')
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Engine.editor_hint:
 		$Label.text = str(id) + '\n' + ('IN' if type == TYPES.IN else 'OUT')
 	else:

@@ -2,7 +2,7 @@ extends Sprite
 
 var y_speed: float = 0
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	y_speed += 0.4 * Global.get_delta(delta)
 	
 	if position.y > -190 + 240:

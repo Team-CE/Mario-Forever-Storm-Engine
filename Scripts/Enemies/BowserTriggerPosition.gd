@@ -13,7 +13,7 @@ func _ready():
 		push_error('Please add a Music Overlay as a child node of HUD and name it Control')
 		music_overlay_name = ''
 
-func _process(delta): 
+func _physics_process(delta): 
 	if !Global.is_getting_closer(-32, position):
 		return
 	if Global.Mario.position.x > position.x and !music_switched:

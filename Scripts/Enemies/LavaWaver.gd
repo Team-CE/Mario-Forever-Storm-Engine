@@ -3,7 +3,7 @@ extends Area2D
 var motion_wave: float = 16
 var dir_right: bool = false
 
-func _process(delta):
+func _physics_process(delta):
 	if dir_right:
 		position.x += 2 * Global.get_delta(delta)
 	else:

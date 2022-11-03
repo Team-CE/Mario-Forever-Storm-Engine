@@ -9,7 +9,7 @@ export var disable_physics: bool = false
 func _ready() -> void:
 	add_collision_exception_with(Global.Mario)
 	
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	$Sprite.playing = $Sprite.frame < 4
 	
 	if !disable_physics:

@@ -10,7 +10,7 @@ func _ready():
 	$Mario.velocity.x = 125
 	camera = Global.current_camera
 
-func _process(delta):
+func _physics_process(delta):
 	# Constant speed
 	if $Mario.velocity.x < 125 && $Mario.velocity.x > 1:
 		$Mario.velocity.x = 125

@@ -55,7 +55,7 @@ func load_data() -> bool:
 		return true
 	return false
 
-func _process(delta):
+func _physics_process(delta):
 	if !ready:
 		return
 	if get_parent().isPaused:

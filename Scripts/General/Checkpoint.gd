@@ -25,7 +25,7 @@ func _ready() -> void:
 			yield(get_tree(), 'idle_frame')
 			Global.time = level.time_after_checkpoint[id]
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	rng.randi_range(0, 1)
 	
 	if is_instance_valid(self) and is_instance_valid(Global.Mario) and Global.is_mario_collide_area('InsideDetector', self) and !active:

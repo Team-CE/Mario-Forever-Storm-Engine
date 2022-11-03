@@ -131,7 +131,7 @@ func _ready() -> void:
 	
 	temp = false
 
-func _physics_process(delta:float) -> void:
+func _physics_process(delta: float) -> void:
 	if !alive && death_type != DEATH_TYPE.FALL && death_type != DEATH_TYPE.BASIC && !force_death_type:
 		return
 	

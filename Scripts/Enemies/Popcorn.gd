@@ -6,7 +6,7 @@ var timer: float = 0
 func _ready():
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	if Global.is_mario_collide_area('InsideDetector', self):
 		Global._ppd()
 	

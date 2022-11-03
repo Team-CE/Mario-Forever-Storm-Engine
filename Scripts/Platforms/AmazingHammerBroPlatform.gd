@@ -10,13 +10,6 @@ var t_counter: float = 0
 
 var died: bool = false
 
-func _process(delta):
-	if triggered:
-		t_counter += 1 * Global.get_delta(delta)
-		if t_counter > 12:
-			t_counter = 0
-			triggered = false
-
 func _physics_process(delta):
 	timer += 0.08 * Global.get_delta(delta)
 	platform.position.x = first_pos.x + 64 * cos(timer / 2)
@@ -31,6 +24,12 @@ func _physics_process(delta):
 				died = true
 		else:
 			bro.global_position = platform.global_position
+	
+	if triggered:
+		t_counter += 1 * Global.get_delta(delta)
+		if t_counter > 12:
+			t_counter = 0
+			triggered = false
 
 func hit(_a = false, _b = false):
 	if triggered: return

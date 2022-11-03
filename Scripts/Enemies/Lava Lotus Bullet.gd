@@ -8,7 +8,7 @@ func _ready():
 	$AnimationPlayer.play('New Anim')
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	if !moving: return
 	if $AnimationPlayer.is_playing():
 		$AnimationPlayer.seek(2, true)

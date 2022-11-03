@@ -6,7 +6,7 @@ var counter: float = 0
 func _ready():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
 
-func _process(delta):
+func _physics_process(delta):
 	if get_parent().isPaused:
 		modulate.a += (1 - modulate.a) * 0.05 * Global.get_delta(delta)
 		counter += 0.15 * Global.get_delta(delta)

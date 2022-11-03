@@ -14,7 +14,7 @@ func _pseudo_ready():
 			i.frame = 0
 			i.modulate.a = 1
 
-func _process(delta):
+func _physics_process(delta):
 	if $AnimationPlayer.is_playing():
 		get_node('../Pause').position = position - Vector2(640, 0)
 		

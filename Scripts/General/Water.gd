@@ -3,7 +3,7 @@ extends Area2D
 export var move_with_scroll: bool = false
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	if move_with_scroll:
 		var cam = Global.current_camera
 		if !cam: return

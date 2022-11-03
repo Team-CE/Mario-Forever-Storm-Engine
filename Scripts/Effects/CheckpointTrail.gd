@@ -9,7 +9,7 @@ func _init(pos: Vector2 = Vector2.ZERO, long_fade: bool = false):
 		modulate.a = 0.55
 	fade = long_fade
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	modulate.a -= 0.1 * Global.get_delta(delta) if !fade else 0.05 * Global.get_delta(delta) 
 	if modulate.a <= 0.01:
 		queue_free()

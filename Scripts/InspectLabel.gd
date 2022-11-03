@@ -5,7 +5,7 @@ var lastBody : Node2D
 func _ready() -> void:
 	$InspectLabel.visible = false
 
-func _process(_delta) -> void:
+func _physics_process(_delta) -> void:
 	var newPos = get_global_mouse_position()
 	set_position(newPos)
 #	newPos.y += 10

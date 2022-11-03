@@ -5,7 +5,7 @@ onready var init_pos = position.y
 var timer: float
 var wave: float
 
-func _process(delta):
+func _physics_process(delta):
 	if !moving: return
 	
 	timer += 0.1 * Global.get_delta(delta)

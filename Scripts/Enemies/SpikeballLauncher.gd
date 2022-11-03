@@ -12,7 +12,7 @@ onready var rng = RandomNumberGenerator.new()
 func _ready():
 	rng.randomize()
 
-func _process(delta):
+func _physics_process(delta):
 	if not Global.is_getting_closer(-16, global_position):
 		return
 	timer_delay += Global.get_delta(delta)

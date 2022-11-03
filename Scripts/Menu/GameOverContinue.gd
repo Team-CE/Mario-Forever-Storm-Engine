@@ -7,7 +7,7 @@ func _ready():
 	$no.frame = 1
 	modulate.a = 0
 	
-func _process(delta):
+func _physics_process(delta):
 	modulate.a += (1 - modulate.a) * 0.1 * Global.get_delta(delta)
 
 	counter += 0.15 * Global.get_delta(delta)

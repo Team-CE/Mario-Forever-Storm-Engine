@@ -96,7 +96,7 @@ func is_over_platform() -> bool:
 	else:
 		return false
 
-func _process(delta) -> void:
+func _physics_process(delta) -> void:
 	if has_node('Camera'):
 		_process_camera(delta)
 	
@@ -141,6 +141,11 @@ func _process(delta) -> void:
 
 	if jump_internal_counter < 100:
 		jump_internal_counter += 1 * Global.get_delta(delta)
+	
+	if inited_camera_addon and inited_camera_addon.has_method('_process_physics_camera'):
+		inited_camera_addon._process_physics_camera(self, delta)
+	if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin_physics') and not dead:
+		ready_powerup_scripts[Global.state]._process_mixin_physics(self, delta)
 
 
 func _process_alive(delta) -> void:
@@ -932,9 +937,3 @@ func _process_camera(delta: float) -> void:
 		var base_x = floor(position.x / 640) * 640
 		camera.limit_left = base_x
 		camera.limit_right = base_x + 640
-		
-func _physics_process(delta: float) -> void:
-	if inited_camera_addon and inited_camera_addon.has_method('_process_physics_camera'):
-		inited_camera_addon._process_physics_camera(self, delta)
-	if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin_physics') and not dead:
-		ready_powerup_scripts[Global.state]._process_mixin_physics(self, delta)

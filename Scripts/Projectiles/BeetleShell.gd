@@ -11,7 +11,7 @@ var parent: int
 func _ready():
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	collision = move_and_collide(velocity * Global.get_delta(delta))
 	if collision and 'collider' in collision:
 		if collision.collider.has_method('hit'):

@@ -27,7 +27,7 @@ func _ready():
 	elif type == TYPES.ICE:
 		$AnimatedSprite.animation = 'ice'
 
-func _process(delta):
+func _physics_process(delta):
 	if type > 0:
 		_process_shooting(delta)
 	

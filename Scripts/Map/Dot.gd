@@ -9,7 +9,7 @@ func _ready():
 	visible = false
 	playing = true
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if !proc:
 		visible = position.x < mario.global_position.x
 		proc = true
