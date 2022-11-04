@@ -184,12 +184,12 @@ func controls() -> void:
 					13:
 						$enter_options.play()
 						saveOptions()
-						if Global.restartNeeded:
-							Global.restartNeeded = false
-							promptRestart()
-						else:
-							screen = 0
-							sel = 1
+						#if Global.restartNeeded:
+						#	Global.restartNeeded = false
+						#	promptRestart()
+						#else:
+						screen = 0
+						sel = 1
 			if Input.is_action_just_pressed('ui_right'):
 				match sel:
 					0:

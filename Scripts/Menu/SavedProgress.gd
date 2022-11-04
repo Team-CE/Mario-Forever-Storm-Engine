@@ -94,6 +94,7 @@ func _physics_process(delta):
 					Global.coins = saved_progress.coins
 					Global.state = saved_progress.state
 					Global.levelID = saved_progress.levelid
+					if 'restartNeeded' in saved_progress: Global.restartNeeded = saved_progress.restartNeeded
 					Global.popup.queue_free()
 					Global.popup = null
 					Global.goto_scene(saved_progress.scene)
