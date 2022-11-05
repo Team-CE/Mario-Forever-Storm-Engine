@@ -91,7 +91,7 @@ func _ai_process(delta: float) -> void:
 				y_speed -= 1 * Global.get_delta(delta)
 		if fc > 10130:
 			if !f_act and !Global.Mario.dead:
-				Global.current_scene.get_node('FinishLine').act()
+				Global.current_scene.finish_node.act()
 				f_act = true
 		return
 	

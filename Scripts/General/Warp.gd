@@ -68,12 +68,12 @@ func _ready() -> void:
 			counter = 61
 			
 		if trigger_finish:
-			if !Global.current_scene.has_node('FinishLine'):
+			if !Global.current_scene.finish_node:
 				printerr('[CE ERROR] No Finish Line found on level. Create one or untick the checkbox for warp ID ' + str(id))
 				trigger_finish = false
 				disabled = true
 			else:
-				finishline = Global.current_scene.get_node('FinishLine')
+				finishline = Global.current_scene.finish_node
 		
 		if custom_warp_sound:
 			custom_audio = AudioStreamPlayer.new()

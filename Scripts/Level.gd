@@ -18,6 +18,8 @@ onready var worldEnv: WorldEnvironment
 onready var mpMain = MusicPlayer.get_node('Main')
 onready var mpStar = MusicPlayer.get_node('Star')
 
+var finish_node: Node2D
+
 func get_class(): return 'Level'
 func is_class(name) -> bool: return name == 'Level' or .is_class(name) 
 

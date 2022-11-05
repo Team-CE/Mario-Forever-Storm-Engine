@@ -23,6 +23,9 @@ func _init():
 func _ready() -> void:
 	initial_position = $CrossingBar.position.y
 	win_music.loop = false
+	
+	if 'finish_node' in Global.current_scene:
+		Global.current_scene.finish_node = self
 
 func _physics_process(delta) -> void:
 	if not crossed:

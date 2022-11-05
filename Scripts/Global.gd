@@ -312,10 +312,10 @@ func _unhandled_input(ev):
 		if ev.scancode == 52:
 			if !('death_height' in Global.current_scene):
 				return
-			if !current_scene.has_node('FinishLine'):
+			if !Global.current_scene.finish_node:
 				push_error('ERROR: Finish line not found')
 				return
-			current_scene.get_node('FinishLine').act()
+			Global.current_scene.finish_node.act()
 			
 	# Toggle HUD visibility (without shift key)
 	if ev.is_action_pressed('debug_hud'):
