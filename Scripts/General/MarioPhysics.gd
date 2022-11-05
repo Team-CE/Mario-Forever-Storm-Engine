@@ -928,7 +928,7 @@ func _process_camera(delta: float) -> void:
 	if !camera: return
 	
 	if sections_scroll:
-		var base_y = floor((position.y + 240) / 960) * 960
+		var base_y = max(0, floor((position.y + 240) / 960) * 960)
 		camera.limit_top = base_y
 		camera.limit_bottom = base_y + 480
 	

@@ -44,14 +44,17 @@ bus = "Sounds"
 
 [node name="MAIN_Pipe" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
+volume_db = 3.0
 bus = "Sounds"
 
 [node name="MAIN_Bump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
+volume_db = 3.0
 bus = "Sounds"
 
 [node name="MAIN_BrickBreak" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
+volume_db = 3.0
 bus = "Sounds"
 
 [node name="MAIN_Shoot" type="AudioStreamPlayer2D" parent="."]
