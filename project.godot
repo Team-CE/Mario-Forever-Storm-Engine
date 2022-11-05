@@ -15,26 +15,6 @@ _global_script_classes=[ {
 "path": "res://Scripts/General/Generic/AliveObject.gd"
 }, {
 "base": "Node",
-"class": "BlockPartyGlobals",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/globals/Global.gd"
-}, {
-"base": "Node2D",
-"class": "BlockPartyLevel",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/Level.gd"
-}, {
-"base": "Node",
-"class": "BlockPartyPlacements",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/globals/Placements.gd"
-}, {
-"base": "Node",
-"class": "BlockPartySoundPlayer",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/globals/SoundPlayer.gd"
-}, {
-"base": "Node",
 "class": "Brain",
 "language": "GDScript",
 "path": "res://Scripts/AI/Brain.gd"
@@ -78,11 +58,6 @@ _global_script_classes=[ {
 "class": "IceExplosion",
 "language": "GDScript",
 "path": "res://Scripts/Effects/IceExplosion.gd"
-}, {
-"base": "Area2D",
-"class": "Interactive",
-"language": "GDScript",
-"path": "res://Games/TheMultiverse2/BlockParty/Engine/scripts/Block.gd"
 }, {
 "base": "Node2D",
 "class": "Level",
@@ -136,10 +111,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AliveObject": "res://GFX/Editor/AliveBody.png",
-"BlockPartyGlobals": "",
-"BlockPartyLevel": "",
-"BlockPartyPlacements": "",
-"BlockPartySoundPlayer": "",
 "Brain": "",
 "BrickEffect": "",
 "Brush2D": "res://addons/brush2d/icon.png",
@@ -149,7 +120,6 @@ _global_script_class_icons={
 "Discord": "",
 "Explosion": "",
 "IceExplosion": "",
-"Interactive": "",
 "Level": "",
 "LuiTrail": "",
 "MarioHeadEffect": "",

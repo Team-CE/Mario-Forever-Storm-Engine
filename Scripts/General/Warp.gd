@@ -66,20 +66,21 @@ func _ready() -> void:
 			active = true
 			out_node = self
 			counter = 61
-			
-		if trigger_finish:
-			if !Global.current_scene.finish_node:
-				printerr('[CE ERROR] No Finish Line found on level. Create one or untick the checkbox for warp ID ' + str(id))
-				trigger_finish = false
-				disabled = true
-			else:
-				finishline = Global.current_scene.finish_node
 		
 		if custom_warp_sound:
 			custom_audio = AudioStreamPlayer.new()
 			custom_audio.bus = 'Sounds'
 			custom_audio.stream = custom_warp_sound
 			add_child(custom_audio)
+			
+		if trigger_finish:
+			yield(get_tree(), 'idle_frame')
+			if !Global.current_scene.finish_node:
+				printerr('[CE ERROR] No Finish Line found on level. Create one or untick the checkbox for warp ID ' + str(id))
+				trigger_finish = false
+				disabled = true
+			else:
+				finishline = Global.current_scene.finish_node
 
 func _physics_process(delta) -> void:
 	if Engine.editor_hint:

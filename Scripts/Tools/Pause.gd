@@ -90,6 +90,7 @@ func _physics_process(delta):
 						_goto_scene(to_jump, false)
 						get_node('../enter').play()
 						get_parent().resume()
+						get_tree().set_deferred('paused', false)
 							
 					elif can_restart:
 						AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
@@ -100,7 +101,7 @@ func _physics_process(delta):
 							Global._pll()
 							get_node('../enter').play()
 							get_parent().resume()
-					get_tree().set_deferred('paused', false)
+						get_tree().set_deferred('paused', false)
 				2:
 					get_node('../enter').play()
 					get_node('../Options')._pseudo_ready()
