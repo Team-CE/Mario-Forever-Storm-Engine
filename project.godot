@@ -138,7 +138,7 @@ config/name="Mario Forever Storm Engine"
 run/main_scene="res://Stages/Menu.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
-config/save_game_room_scene="res://Games/TheMultiverse2/Stages/CSaveGameRoom.tscn"
+config/save_game_room_scene="res://Stages/SaveGameRoom.tscn"
 config/main_menu_scene="res://Stages/Menu.tscn"
 
 [autoload]

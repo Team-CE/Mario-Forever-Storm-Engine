@@ -332,7 +332,7 @@ func controls() -> void:
 		3:		# _____ CREDITS _____
 			if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept'):
 				screen = 1
-				sel = 8
+				sel = 12
 				MusicPlayer.get_node('Main').stream = music
 				MusicPlayer.get_node('Main').play()
 
