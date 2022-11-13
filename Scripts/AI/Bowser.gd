@@ -54,7 +54,9 @@ func _ai_process(delta: float) -> void:
 	# Bowser Lives counter
 	assert(is_instance_valid(bowl), 'Couldn\'t find BowserLives scene under level node.')
 	if bowl.position.y < 80:
-		bowl.position.y += 4
+		bowl.position.y += 4 * Global.get_delta(delta)
+	elif bowl.position.y > 81:
+		bowl.position.y = 80
 	
 	# Death sequence
 	if !owner.alive:

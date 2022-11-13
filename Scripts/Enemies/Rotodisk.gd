@@ -14,9 +14,10 @@ export var flower_speed: float = 5
 export var instant_kill: bool = false
 
 func _ready() -> void:
+	yield(get_tree(), 'idle_frame')
 	if not flower_movement:
 		$Node2D/AnimatedSprite.position.y = 0 - radius
-	$Node2D.rotation_degrees += angle
+	$Node2D.rotation_degrees = angle
 	
 	if Engine.editor_hint: return
 	if !Global.quality:
@@ -26,7 +27,7 @@ func _physics_process(delta) -> void:
 	if dead:
 		return
 	if flower_movement:
-		counter += flower_speed * get_delta(delta)
+		counter += flower_speed * get_delta(delta) if Engine.editor_hint else flower_speed * Global.get_delta(delta)
 		if counter >= radius:
 			counter = 0
 			if dir:
@@ -96,11 +97,13 @@ static func get_delta(delta) -> float:			 # Delta by 50 FPS
 
 func reset_speed(new_speed):
 	speed = new_speed
+	if !Engine.editor_hint: return
 	reset_all()
 	return
 
 func reset_angle(new_angle):
 	angle = new_angle
+	if !Engine.editor_hint: return
 	reset_all()
 	return
 
