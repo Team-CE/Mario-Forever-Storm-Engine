@@ -3,6 +3,8 @@ extends Node2D
 var sel: int = 0
 var selLimit: int = 7
 var counter: float = 1
+var update_ql: bool = false
+var update_ov: bool = false
 
 func _pseudo_ready():
 	$AnimationPlayer.play('ToOptions')
@@ -43,11 +45,6 @@ func _physics_process(delta):
 		get_node('../choose').play()
 		updateNotes()
 	
-	if Input.is_action_just_pressed('ui_accept') and counter > 0.15 and sel == 7:
-		$AnimationPlayer.play('FromOptions')
-		saveOptions()
-		get_node('../enter').play()
-		get_parent().options = false
 	if Input.is_action_just_pressed('ui_right'):
 		match sel:
 			0:
@@ -68,6 +65,7 @@ func _physics_process(delta):
 				if Global.quality < 2:
 					Global.quality += 1
 					$change.play()
+					update_ql = true
 			3:
 				if !OS.vsync_enabled:
 					OS.vsync_enabled = true
@@ -80,6 +78,7 @@ func _physics_process(delta):
 				if !Global.overlay:
 					Global.overlay = true
 					$change.play()
+					update_ov = true
 			6:
 				if !Global.autosave:
 					Global.autosave = true
@@ -106,6 +105,7 @@ func _physics_process(delta):
 				if Global.quality > 0:
 					Global.quality -= 1
 					$change.play()
+					update_ql = true
 			3:
 				if OS.vsync_enabled:
 					OS.vsync_enabled = false
@@ -118,11 +118,18 @@ func _physics_process(delta):
 				if Global.overlay:
 					Global.overlay = false
 					$change.play()
+					update_ov = true
 			6:
 				if Global.autosave:
 					Global.autosave = false
 					$change.play()
 		updateOptions()
+	
+	if Input.is_action_just_pressed('ui_accept') and counter > 0.15 and sel == 7:
+		$AnimationPlayer.play('FromOptions')
+		saveOptions()
+		get_node('../enter').play()
+		get_parent().options = false
 		
 	if Input.is_action_just_pressed('ui_cancel') and counter > 1:
 		$AnimationPlayer.play('FromOptions')
@@ -138,7 +145,6 @@ func updateNotes() -> void:
 		note.visible = true
 	else:
 		note.visible = false
-	note.frame = 0 if sel != 6 else Global.scaling
 
 func updateOptions() -> void:
 	$SoundBar.frame = round(Global.soundBar * 10.0)
@@ -165,3 +171,7 @@ func saveOptions() -> void:
 		'Autosave': Global.autosave
 	}
 	Global.saveInfo(JSON.print(Global.toSaveInfo))
+	if update_ql:
+		Global.current_scene.emit_signal('quality_changed')
+	if update_ov:
+		Global.current_scene.emit_signal('overlay_changed')

@@ -2,6 +2,11 @@ extends Node2D
 class_name Level
 tool
 
+# warning-ignore:unused_signal
+signal overlay_changed
+# warning-ignore:unused_signal
+signal quality_changed
+
 export var time: int = 360
 export var time_after_checkpoint: Array = []
 export var music: Resource
@@ -19,6 +24,7 @@ onready var mpMain = MusicPlayer.get_node('Main')
 onready var mpStar = MusicPlayer.get_node('Star')
 
 var finish_node: Node2D
+var overlay: Control = null # Music overlay
 
 func get_class(): return 'Level'
 func is_class(name) -> bool: return name == 'Level' or .is_class(name) 
@@ -38,26 +44,7 @@ func _ready():
 				mpStar.volume_db = 0
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
 		
-		if !Global.effects:
-			$WorldEnvironment.environment.glow_enabled = false
-			for node in get_children():
-				if node.is_class('Particles2D'):
-					node.emitting = false
-					node.visible = false
-				if 'Particles' in node.name:
-					for part in node.get_children():
-						if part.is_class('Particles2D'):
-							part.emitting = false
-							part.visible = false
-		if Global.quality < 2:
-			$WorldEnvironment.environment.glow_high_quality = false
-		if Global.quality == 0:
-			#$WorldEnvironment.environment.glow_bicubic_upscale = false
-			for node in get_children():
-				if node.is_class('Light2D') and node.shadow_enabled:
-					node.shadow_filter = 0
-					node.shadow_buffer_size = 512
-					node.shadow_enabled = false
+		update_quality()
 		$Mario.invulnerable = false
 		
 		get_parent().world.environment = null
@@ -145,3 +132,24 @@ func activate_event(name: String, args: Array):
 		var inited_script = custom_scripts[name].new()
 		if inited_script.has_method('_on_activation'):
 			inited_script._on_activation(self, args)
+
+func update_quality():
+	if !Global.effects:
+		$WorldEnvironment.environment.glow_enabled = false
+		for node in get_children():
+			if node.is_class('Particles2D'):
+				node.emitting = false
+				node.visible = false
+			if 'Particles' in node.name:
+				for part in node.get_children():
+					if part.is_class('Particles2D'):
+						part.emitting = false
+						part.visible = false
+	$WorldEnvironment.environment.glow_high_quality = Global.quality == 2
+	if Global.quality == 0:
+		#$WorldEnvironment.environment.glow_bicubic_upscale = false
+		for node in get_children():
+			if node.is_class('Light2D') and node.shadow_enabled:
+				node.shadow_filter = 0
+				node.shadow_buffer_size = 512
+				node.shadow_enabled = false

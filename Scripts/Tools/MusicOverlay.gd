@@ -9,12 +9,10 @@ func _ready():
 	$Label.rect_position = Vector2(0, 496)
 	if !Engine.editor_hint:
 		visible = Global.overlay
-
-func _physics_process(delta):
-	if Engine.editor_hint:
-		return
-	if Global.overlay != visible:
-		visible = Global.overlay
+		if 'overlay' in Global.current_scene:
+			Global.current_scene.overlay = self
+			if !Global.current_scene.is_connected('overlay_changed', self, '_on_overlay_toggled'):
+				Global.current_scene.connect('overlay_changed', self, '_on_overlay_toggled')
 
 func _set_text(new) -> void:
 	$Label.text = new
@@ -33,3 +31,7 @@ func display_text(string: String):
 	$Label.text = string
 	$AnimationPlayer.seek(0)
 	$AnimationPlayer.play()
+
+func _on_overlay_toggled():
+	if visible != Global.overlay:
+		visible = Global.overlay

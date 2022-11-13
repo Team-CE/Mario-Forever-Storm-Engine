@@ -19,7 +19,8 @@ func _ready() -> void:
 	$Node2D.rotation_degrees += angle
 	
 	if Engine.editor_hint: return
-	$Node2D/AnimatedSprite/Light2D.visible = true
+	if !Global.quality:
+		$Node2D/AnimatedSprite/Light2D.visible = true
 
 func _physics_process(delta) -> void:
 	if dead:

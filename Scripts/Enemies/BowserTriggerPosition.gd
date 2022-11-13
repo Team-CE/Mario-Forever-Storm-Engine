@@ -9,8 +9,8 @@ var music_switched: bool = false
 var camera: Camera2D
 
 func _ready():
-	if music_overlay_name != '' and !Global.current_scene.has_node('HUD/Control'):
-		push_error('Please add a Music Overlay as a child node of HUD and name it Control')
+	if music_overlay_name != '' and !Global.current_scene.overlay:
+		push_error('Please add a Music Overlay to the scene as a child node of HUD.')
 		music_overlay_name = ''
 
 func _physics_process(delta): 
@@ -27,7 +27,7 @@ func _physics_process(delta):
 		add_child(camera)
 		triggered = true
 		if music_overlay_name != '':
-			Global.HUD.get_node('Control').display_text(music_overlay_name)
+			Global.current_scene.overlay.display_text(music_overlay_name)
 
 	if triggered:
 		if !camera: return
