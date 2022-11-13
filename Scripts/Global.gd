@@ -214,7 +214,7 @@ func updateScale() -> void:
 				SceneTree.STRETCH_ASPECT_KEEP,
 				Vector2(640, 480)
 			)
-			GlobalViewport.set_deferred('filter_enabled', false)
+			GlobalViewport.filter_enabled = false
 
 func loadInfo():
 	var file = File.new()

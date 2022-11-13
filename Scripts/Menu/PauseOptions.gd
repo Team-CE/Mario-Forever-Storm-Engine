@@ -1,7 +1,7 @@
 extends Node2D
 
 var sel: int = 0
-var selLimit: int = 4
+var selLimit: int = 7
 var counter: float = 1
 
 func _pseudo_ready():
@@ -13,6 +13,7 @@ func _pseudo_ready():
 		if 'sel' in i.name:
 			i.frame = 0
 			i.modulate.a = 1
+	updateNotes()
 
 func _physics_process(delta):
 	if $AnimationPlayer.is_playing():
@@ -26,8 +27,6 @@ func _physics_process(delta):
 	get_node('sel' + str(sel)).modulate.a = sinalpha
 	# Text selection
 	get_node('sel' + str(sel)).frame = 1
-	# VSync Subtitle
-	$VSyncNote.visible = sel == 3
 	
 	# CONTROLS
 	
@@ -36,17 +35,19 @@ func _physics_process(delta):
 		get_node('sel' + str(sel)).modulate.a = 1
 		sel = 0 if sel + 1 > selLimit else sel + 1
 		get_node('../choose').play()
+		updateNotes()
 	elif Input.is_action_just_pressed('ui_up'):
 		get_node('sel' + str(sel)).frame = 0
 		get_node('sel' + str(sel)).modulate.a = 1
 		sel = selLimit if sel - 1 < 0 else sel - 1
 		get_node('../choose').play()
+		updateNotes()
 	
-	if Input.is_action_just_pressed('ui_accept') and counter > 0.15:
-		if sel == 4:
-			$AnimationPlayer.play('FromOptions')
-			get_node('../enter').play()
-			get_parent().options = false
+	if Input.is_action_just_pressed('ui_accept') and counter > 0.15 and sel == 7:
+		$AnimationPlayer.play('FromOptions')
+		saveOptions()
+		get_node('../enter').play()
+		get_parent().options = false
 	if Input.is_action_just_pressed('ui_right'):
 		match sel:
 			0:
@@ -64,12 +65,24 @@ func _physics_process(delta):
 					$tick.play()
 					print('MusVol: ', AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')))
 			2:
-				if !Global.autopause:
-					Global.autopause = true
+				if Global.quality < 2:
+					Global.quality += 1
 					$change.play()
 			3:
 				if !OS.vsync_enabled:
 					OS.vsync_enabled = true
+					$change.play()
+			4:
+				if !Global.autopause:
+					Global.autopause = true
+					$change.play()
+			5:
+				if !Global.overlay:
+					Global.overlay = true
+					$change.play()
+			6:
+				if !Global.autosave:
+					Global.autosave = true
 					$change.play()
 		updateOptions()
 					
@@ -90,12 +103,24 @@ func _physics_process(delta):
 					$tick.play()
 					print('MusVol: ', AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')))
 			2:
-				if Global.autopause:
-					Global.autopause = false
+				if Global.quality > 0:
+					Global.quality -= 1
 					$change.play()
 			3:
 				if OS.vsync_enabled:
 					OS.vsync_enabled = false
+					$change.play()
+			4:
+				if Global.autopause:
+					Global.autopause = false
+					$change.play()
+			5:
+				if Global.overlay:
+					Global.overlay = false
+					$change.play()
+			6:
+				if Global.autosave:
+					Global.autosave = false
 					$change.play()
 		updateOptions()
 		
@@ -106,11 +131,23 @@ func _physics_process(delta):
 		get_parent().options = false
 
 
+func updateNotes() -> void:
+	var note = $Note
+	if note.frames.has_animation(str(sel)):
+		note.animation = str(sel)
+		note.visible = true
+	else:
+		note.visible = false
+	note.frame = 0 if sel != 6 else Global.scaling
+
 func updateOptions() -> void:
 	$SoundBar.frame = round(Global.soundBar * 10.0)
 	$MusicBar.frame = round(Global.musicBar * 10.0)
-	$AutoPause.frame = Global.autopause
+	get_node('Quality').frame = Global.quality
 	$VSync.frame = OS.vsync_enabled
+	$Autopause.frame = Global.autopause
+	get_node('Overlay').frame = Global.overlay
+	get_node('Autosave').frame = Global.autosave
 	
 func saveOptions() -> void:
 	Global.toSaveInfo = {

@@ -10,6 +10,12 @@ func _ready():
 	if !Engine.editor_hint:
 		visible = Global.overlay
 
+func _physics_process(delta):
+	if Engine.editor_hint:
+		return
+	if Global.overlay != visible:
+		visible = Global.overlay
+
 func _set_text(new) -> void:
 	$Label.text = new
 	text = new

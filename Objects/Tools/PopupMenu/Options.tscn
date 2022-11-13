@@ -1,7 +1,7 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://GFX/Menu/ONoteVsync.png" type="Texture" id=1]
-[ext_resource path="res://GFX/Menu/options_string.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Menu/NotePause.png" type="Texture" id=2]
 [ext_resource path="res://GFX/Menu/Omusic.png" type="Texture" id=3]
 [ext_resource path="res://GFX/Menu/toggle.png" type="Texture" id=4]
 [ext_resource path="res://GFX/Menu/Oautopause.png" type="Texture" id=5]
@@ -13,6 +13,14 @@
 [ext_resource path="res://GFX/Menu/Osound.png" type="Texture" id=11]
 [ext_resource path="res://Scripts/Menu/PauseOptions.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Menu/OptionsWave.gd" type="Script" id=13]
+[ext_resource path="res://GFX/Menu/NoteMusicOverlay.png" type="Texture" id=14]
+[ext_resource path="res://GFX/Menu/NoteQuality.png" type="Texture" id=15]
+[ext_resource path="res://GFX/Menu/Oquality.png" type="Texture" id=16]
+[ext_resource path="res://GFX/Menu/NoteSave.png" type="Texture" id=17]
+[ext_resource path="res://GFX/Menu/maxminmed.png" type="Texture" id=18]
+[ext_resource path="res://GFX/Menu/Oautosave.png" type="Texture" id=19]
+[ext_resource path="res://GFX/Menu/options_pause.png" type="Texture" id=20]
+[ext_resource path="res://GFX/Menu/OmusicOverlay.png" type="Texture" id=21]
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 5 )
@@ -21,6 +29,14 @@ region = Rect2( 0, 29, 333, 29 )
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 333, 29 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 27, 150, 27 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 0, 150, 27 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 6 )
@@ -37,6 +53,22 @@ region = Rect2( 0, 28, 90, 28 )
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 90, 28 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 21 )
+region = Rect2( 0, 28, 241, 28 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 21 )
+region = Rect2( 0, 0, 241, 28 )
+
+[sub_resource type="AtlasTexture" id=65]
+atlas = ExtResource( 16 )
+region = Rect2( 0, 30, 116, 30 )
+
+[sub_resource type="AtlasTexture" id=66]
+atlas = ExtResource( 16 )
+region = Rect2( 0, 0, 116, 30 )
 
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 11 )
@@ -61,6 +93,11 @@ animations = [ {
 "name": "autopause",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 61 ), SubResource( 62 ) ],
+"loop": true,
+"name": "autosave",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
 "name": "back",
@@ -69,6 +106,16 @@ animations = [ {
 "frames": [ SubResource( 33 ), SubResource( 34 ) ],
 "loop": true,
 "name": "music",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 63 ), SubResource( 64 ) ],
+"loop": true,
+"name": "overlay",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 65 ), SubResource( 66 ) ],
+"loop": true,
+"name": "quality",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 31 ), SubResource( 32 ) ],
@@ -166,6 +213,26 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=67]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 32, 82, 32 )
+
+[sub_resource type="AtlasTexture" id=68]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 64, 82, 32 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 0, 82, 32 )
+
+[sub_resource type="SpriteFrames" id=69]
+animations = [ {
+"frames": [ SubResource( 67 ), SubResource( 68 ), SubResource( 38 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.0
+} ]
+
 [sub_resource type="Animation" id=58]
 length = 0.6
 tracks/0/type = "value"
@@ -183,6 +250,18 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=59]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 0.5 ),
+"update": 0,
+"values": [ Vector2( 640, 0 ) ]
+}
 
 [sub_resource type="Animation" id=60]
 length = 0.6
@@ -199,54 +278,124 @@ tracks/0/keys = {
 "values": [ Vector2( 640, 0 ), Vector2( 0, 0 ) ]
 }
 
+[sub_resource type="SpriteFrames" id=70]
+animations = [ {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "3",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "4",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "5",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "6",
+"speed": 5.0
+} ]
+
 [node name="Options" type="Node2D"]
 position = Vector2( 640, 0 )
 script = ExtResource( 12 )
 
 [node name="sel0" type="AnimatedSprite" parent="."]
-position = Vector2( 120, 160 )
+position = Vector2( 64, 72 )
 frames = SubResource( 37 )
 animation = "sound"
+centered = false
 
 [node name="sel1" type="AnimatedSprite" parent="."]
-position = Vector2( 117, 208 )
+position = Vector2( 64, 112 )
 frames = SubResource( 37 )
 animation = "music"
+centered = false
 
 [node name="sel2" type="AnimatedSprite" parent="."]
-position = Vector2( 237, 256 )
+position = Vector2( 64, 152 )
 frames = SubResource( 37 )
-animation = "autopause"
+animation = "quality"
+centered = false
 
 [node name="sel3" type="AnimatedSprite" parent="."]
-position = Vector2( 119, 304 )
+position = Vector2( 64, 192 )
 frames = SubResource( 37 )
 animation = "vsync"
+centered = false
 
 [node name="sel4" type="AnimatedSprite" parent="."]
-position = Vector2( 110, 352 )
+position = Vector2( 62, 232 )
+frames = SubResource( 37 )
+animation = "autopause"
+centered = false
+
+[node name="sel5" type="AnimatedSprite" parent="."]
+position = Vector2( 63, 272 )
+frames = SubResource( 37 )
+animation = "overlay"
+centered = false
+
+[node name="sel6" type="AnimatedSprite" parent="."]
+position = Vector2( 63, 312 )
+frames = SubResource( 37 )
+animation = "autosave"
+centered = false
+
+[node name="sel7" type="AnimatedSprite" parent="."]
+position = Vector2( 64, 352 )
 frames = SubResource( 37 )
 animation = "back"
+centered = false
 
 [node name="SoundBar" type="AnimatedSprite" parent="."]
-position = Vector2( 520, 160 )
+position = Vector2( 480, 69 )
 frames = SubResource( 56 )
+centered = false
 
 [node name="MusicBar" type="AnimatedSprite" parent="."]
-position = Vector2( 520, 208 )
+position = Vector2( 480, 109 )
 frames = SubResource( 56 )
+centered = false
 
 [node name="VSync" type="AnimatedSprite" parent="."]
-position = Vector2( 536, 304 )
+position = Vector2( 483, 187 )
 frames = SubResource( 57 )
+centered = false
 
-[node name="AutoPause" type="AnimatedSprite" parent="."]
-position = Vector2( 536, 256 )
+[node name="Autopause" type="AnimatedSprite" parent="."]
+position = Vector2( 483, 227 )
 frames = SubResource( 47 )
+centered = false
+
+[node name="Overlay" type="AnimatedSprite" parent="."]
+position = Vector2( 483, 267 )
+frames = SubResource( 47 )
+centered = false
+
+[node name="Autosave" type="AnimatedSprite" parent="."]
+position = Vector2( 483, 307 )
+frames = SubResource( 47 )
+centered = false
+
+[node name="Quality" type="AnimatedSprite" parent="."]
+position = Vector2( 480, 152 )
+frames = SubResource( 69 )
+centered = false
 
 [node name="OptionsString" type="Sprite" parent="."]
-position = Vector2( 320, 80 )
-texture = ExtResource( 2 )
+position = Vector2( 320, 42 )
+texture = ExtResource( 20 )
 script = ExtResource( 13 )
 
 [node name="tick" type="AudioStreamPlayer" parent="."]
@@ -257,11 +406,12 @@ bus = "Sounds"
 stream = ExtResource( 10 )
 bus = "Sounds"
 
-[node name="VSyncNote" type="Sprite" parent="."]
-position = Vector2( 320, 424 )
-texture = ExtResource( 1 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FromOptions = SubResource( 58 )
 anims/RESET = SubResource( 59 )
 anims/ToOptions = SubResource( 60 )
+
+[node name="Note" type="AnimatedSprite" parent="."]
+position = Vector2( 320, 432 )
+frames = SubResource( 70 )
+animation = "5"

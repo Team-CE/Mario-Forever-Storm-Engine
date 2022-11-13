@@ -135,7 +135,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Mario Forever Storm Engine"
-run/main_scene="res://Stages/Menu.tscn"
+run/main_scene="res://Games/TheMultiverse2/Stages/Intro.tscn"
+run/delta_sync_after_draw=true
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/save_game_room_scene="res://Stages/SaveGameRoom.tscn"
@@ -322,6 +323,7 @@ common/enable_object_picking=false
 quality/driver/fallback_to_gles2=true
 2d/snapping/use_gpu_pixel_snap=true
 quality/reflections/texture_array_reflections=false
+gles3/shaders/shader_compilation_mode=1
 environment/default_clear_color=Color( 0.333333, 0.333333, 0.333333, 1 )
 environment/default_environment="res://default_env.tres"
 quality/2d/use_pixel_snap=true

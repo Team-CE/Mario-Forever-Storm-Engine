@@ -40,15 +40,6 @@ func _ready():
 		
 		if !Global.effects:
 			$WorldEnvironment.environment.glow_enabled = false
-		if Global.quality < 2:
-			$WorldEnvironment.environment.glow_high_quality = false
-			for node in get_children():
-				if node.is_class('Light2D') and node.shadow_enabled:
-					node.shadow_filter = 0
-					node.shadow_buffer_size = 512
-					print(node)
-		if Global.quality == 0:
-			#$WorldEnvironment.environment.glow_bicubic_upscale = false
 			for node in get_children():
 				if node.is_class('Particles2D'):
 					node.emitting = false
@@ -58,6 +49,11 @@ func _ready():
 						if part.is_class('Particles2D'):
 							part.emitting = false
 							part.visible = false
+		if Global.quality < 2:
+			$WorldEnvironment.environment.glow_high_quality = false
+		if Global.quality == 0:
+			#$WorldEnvironment.environment.glow_bicubic_upscale = false
+			for node in get_children():
 				if node.is_class('Light2D') and node.shadow_enabled:
 					node.shadow_filter = 0
 					node.shadow_buffer_size = 512
@@ -73,9 +69,12 @@ func _ready():
 		Global.reset_audio_effects()
 
 		if Global.scroll > 0:
-			yield(get_tree(), 'idle_frame')
 			var cam = Global.current_camera as Camera2D
-			if !cam: return
+			yield(get_tree(), 'idle_frame')
+			if !cam: 
+				cam = Global.current_camera
+			if !cam:
+				return
 			cam.smoothing_enabled = true
 			cam.smoothing_speed = 10
 		
@@ -139,7 +138,6 @@ func _input(event):
 			Global.play_base_sound('DEBUG_Toggle')
 			Global.state = event.scancode - 49
 			Global.Mario.appear_counter = 60
-			
 
 
 func activate_event(name: String, args: Array):
@@ -147,4 +145,3 @@ func activate_event(name: String, args: Array):
 		var inited_script = custom_scripts[name].new()
 		if inited_script.has_method('_on_activation'):
 			inited_script._on_activation(self, args)
-			

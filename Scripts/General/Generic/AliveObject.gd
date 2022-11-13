@@ -89,10 +89,10 @@ func _ready() -> void:
 	if !frozen_sprite_pth.is_empty():
 		frozen_sprite = get_node(frozen_sprite_pth)
 	
-	if visen == null:
-		for n in get_children():
-			if n is VisibilityEnabler2D:
-				visen = n
+#	if visen == null:
+#		for n in get_children():
+#			if n is VisibilityEnabler2D:
+#				visen = n
 		
 	if can_freeze:
 		var ice1 = AudioStreamPlayer2D.new()
@@ -216,9 +216,9 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 			gravity_scale = 1.7
 			animated_sprite.set_animation('dead')
 			Global.current_scene.add_child(ScoreText.new(score, global_position))
-			if visen != null:
-				visen.process_parent = false
-				visen.physics_process_parent = false
+#			if visen != null:
+#				visen.set_enabler(VisibilityEnabler2D.ENABLER_PARENT_PROCESS, false)
+#				visen.set_enabler(VisibilityEnabler2D.ENABLER_PARENT_PHYSICS_PROCESS, false)
 			
 			time = get_tree().create_timer(4.0, false)
 			time.connect('timeout', self, 'instance_free')
@@ -242,9 +242,9 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 			velocity.y = -180
 			rotation = Global.Mario.rotation
 			animated_sprite.set_animation('falling')
-			if visen != null:
-				visen.process_parent = false
-				visen.physics_process_parent = false
+#			if visen != null:
+#				visen.set_enabler(VisibilityEnabler2D.ENABLER_PARENT_PROCESS, false)
+#				visen.set_enabler(VisibilityEnabler2D.ENABLER_PARENT_PHYSICS_PROCESS, false)
 
 			time = get_tree().create_timer(2.5, false)
 			time.connect('timeout', self, 'instance_free')
