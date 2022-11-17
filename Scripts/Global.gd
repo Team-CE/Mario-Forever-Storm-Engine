@@ -316,7 +316,14 @@ func _unhandled_input(ev):
 				push_error('ERROR: Finish line not found')
 				return
 			Global.current_scene.finish_node.act()
-			
+		
+		if ev.scancode == 54:
+			if is_instance_valid(HUD):
+				time = 10
+
+		if ev.scancode == 55:
+			if is_instance_valid(HUD):
+				lives = 0
 	# Toggle HUD visibility (without shift key)
 	if ev.is_action_pressed('debug_hud'):
 		if !is_instance_valid(HUD): return

@@ -327,7 +327,8 @@ func _process_dead(delta) -> void:
 			MusicPlayer.get_node('Main').stream = gameover_music
 			MusicPlayer.get_node('Main').play()
 			MusicPlayer.stop_on_pause()
-			Global.HUD.get_node('GameoverSprite').visible = true
+			if Global.HUD.has_method('on_game_over'):
+				Global.HUD.on_game_over()
 			dead_gameover = true
 		if dead_gameover:
 # warning-ignore:return_value_discarded

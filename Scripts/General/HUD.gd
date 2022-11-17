@@ -2,13 +2,12 @@ extends CanvasLayer
 
 var straycount: int
 export var active: bool = true
-#export var visible: bool = true
 
 func _ready() -> void:
 	Global.HUD = self
 
 	if not active:
-		self.scale = Vector2.ZERO
+		visible = false
 		queue_free()
 	
 	AnimPlayed = 0
@@ -23,7 +22,6 @@ func _ready() -> void:
 	Global.connect('TimeTick', self, '_time')
 # warning-ignore:return_value_discarded
 	Global.connect('OnPlayerLoseLife', self, '_life_lose')
-	$GameoverSprite.visible = false
 		
 func _physics_process(_delta: float) -> void:
 	
@@ -34,17 +32,18 @@ func _physics_process(_delta: float) -> void:
 		straycount = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
 		$DebugOrphaneNodes.visible = true if straycount > 0 else false
 		$DebugOrphaneNodes.text = str(straycount)
-	
-	if not visible:
-		self.scale = Vector2.ZERO
-	else:
-		self.scale = Vector2(1, 1)
 
 func _time() -> void:
 	if Global.time == 99 and not Global.level_ended and visible:
 		$TimeSprite.playing = true
 		$TimeoutSound.play()
 	$Time.text = str(abs(Global.time))
+	if Global.time <= 0 and not $GameoverText.visible:
+# warning-ignore:return_value_discarded
+		get_tree().create_timer(1.2, false).connect('timeout', self, 'on_timeout')
+		$GameoverText.text = 'time up!'
+		$GameoverText.rect_position.y = -32
+		$GameoverText.visible = true
 
 func _life_lose() -> void:
 	print('Died!')
@@ -58,3 +57,12 @@ func _on_anim_finish() -> void:
 		AnimPlayed += 1
 	else:
 		$TimeSprite.playing = false
+
+func on_game_over() -> void:
+	$GameoverText.text = 'game over'
+	$GameoverText.rect_position.y = 224
+	$GameoverText.visible = true
+
+func on_timeout() -> void:
+# warning-ignore:return_value_discarded
+	get_tree().create_tween().tween_property($GameoverText, 'rect_position:y', 224.0, 0.3)
