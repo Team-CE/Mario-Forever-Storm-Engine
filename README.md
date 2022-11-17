@@ -25,10 +25,4 @@ and is not created for any sort of profit. We also do not condone commercial use
 of our engine.
 
 #### [USING THIS ENGINE]
-##### YOU CAN:
-- Fork this repository and make your own Mario Forever game.
-- Fork this repository, modify the engine and/or make a pull request.
-
-##### YOU CANNOT:
-- Claim this engine or parts of it as your own work.
-- Use the code from this engine in your own engines / other stuff without explicit permission from the engine developers.
+See LICENSE.
