@@ -132,3 +132,5 @@ func act(warp_finish_enabled: bool = false) -> void:
 		var scroll = preload('res://Objects/Tools/ScrollText.tscn').instance()
 		Global.HUD.add_child(scroll)
 		scroll.text = Global.collectibles_scrolltext[scrtext]
+	
+	Global.reset_audio_effects()
