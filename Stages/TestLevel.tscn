@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Objects/Liquids/Water.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=2]
@@ -17,12 +17,14 @@
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=15]
 [ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Boomerang.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Scripts/AI/ThrowFunctions/BeetleShell.gd" type="Script" id=17]
+[ext_resource path="res://Objects/Tools/MusicLoader.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Music/example-level.xm" type="Resource" id=19]
+[ext_resource path="res://Objects/Bonuses/Star.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=21]
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Objects/Enemies/FishBlue.tscn" type="PackedScene" id=29]
 [ext_resource path="res://Objects/Enemies/Lava Lotus.tscn" type="PackedScene" id=30]
 [ext_resource path="res://Objects/Enemies/PiranhaHead.tscn" type="PackedScene" id=31]
-[ext_resource path="res://Music/level_example.ogg" type="AudioStream" id=32]
 [ext_resource path="res://Objects/Bonuses/Powerups/Ice Flower.tscn" type="PackedScene" id=33]
 [ext_resource path="res://Sounds/Enemies/cannon_shoot_alt.wav" type="AudioStream" id=34]
 [ext_resource path="res://Objects/Enemies/BulletHoming.tscn" type="PackedScene" id=35]
@@ -55,7 +57,10 @@ script = ExtResource( 13 )
 __meta__ = {
 "_edit_lock_": true
 }
-music = ExtResource( 32 )
+
+[node name="MusicLoader" parent="." instance=ExtResource( 18 )]
+file = ExtResource( 19 )
+volume_offset = -100.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 21 )
@@ -124,19 +129,17 @@ margin_bottom = 192.0
 [node name="Cloud" type="AnimatedSprite" parent="."]
 position = Vector2( 1152, 96 )
 frames = ExtResource( 39 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud2" type="AnimatedSprite" parent="."]
 position = Vector2( 1504, 144 )
 frames = ExtResource( 39 )
-frame = 1
 playing = true
 
 [node name="Cloud3" type="AnimatedSprite" parent="."]
 position = Vector2( 2128, 80 )
 frames = ExtResource( 39 )
-frame = 1
 playing = true
 
 [node name="Goomba" parent="." instance=ExtResource( 12 )]
@@ -311,5 +314,9 @@ qtype = 1
 
 [node name="EmalpkaBoomerang" parent="." instance=ExtResource( 16 )]
 position = Vector2( 432, 416 )
+
+[node name="QBlock10" parent="." instance=ExtResource( 3 )]
+position = Vector2( 208, 304 )
+Result = ExtResource( 20 )
 
 [editable path="Water"]

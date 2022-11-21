@@ -1,0 +1,13 @@
+[remap]
+
+importer="libopenmpt.modimporter"
+type="Resource"
+path="res://.import/complete-level.it-371a12bccc9848d0e5bfac2abbb3084c.res"
+
+[deps]
+
+source_file="res://Music/complete-level.it"
+dest_files=[ "res://.import/complete-level.it-371a12bccc9848d0e5bfac2abbb3084c.res" ]
+
+[params]
+

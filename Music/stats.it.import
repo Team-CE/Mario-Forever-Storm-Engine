@@ -1,0 +1,13 @@
+[remap]
+
+importer="libopenmpt.modimporter"
+type="Resource"
+path="res://.import/stats.it-11aad3e970c8505017d57eeb53c5a80e.res"
+
+[deps]
+
+source_file="res://Music/stats.it"
+dest_files=[ "res://.import/stats.it-11aad3e970c8505017d57eeb53c5a80e.res" ]
+
+[params]
+

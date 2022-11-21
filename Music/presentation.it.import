@@ -1,0 +1,13 @@
+[remap]
+
+importer="libopenmpt.modimporter"
+type="Resource"
+path="res://.import/presentation.it-abb7656eae1691203dc1c94d21a22ae8.res"
+
+[deps]
+
+source_file="res://Music/presentation.it"
+dest_files=[ "res://.import/presentation.it-abb7656eae1691203dc1c94d21a22ae8.res" ]
+
+[params]
+

@@ -9,7 +9,6 @@ signal quality_changed
 
 export var time: int = 360
 export var time_after_checkpoint: Array = []
-export var music: Resource
 export var death_height: float = 512
 export var no_cliff: bool = false
 export var sgr_scroll: bool = false
@@ -35,14 +34,6 @@ func _ready():
 		if not $Mario.custom_die_stream or Global.deaths == 0:
 			Global.time = time
 			MusicPlayer.get_node('TweenOut').remove_all()
-			mpMain.stream = music
-			mpMain.volume_db = 0
-			if !Global.starman_saved:
-				mpMain.play()
-				MusicPlayer.play_on_pause()
-				mpStar.stop()
-				mpStar.volume_db = 0
-			AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
 		
 		update_quality()
 		$Mario.invulnerable = false

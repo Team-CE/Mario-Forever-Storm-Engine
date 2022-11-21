@@ -467,9 +467,7 @@ func _pll() -> void: # Player Death
 		Mario.shoe_node.queue_free()
 		Mario.unbind_shoe()
 	if not Mario.custom_die_stream:
-		MusicPlayer.get_node('Main').volume_db = 0
-		MusicPlayer.get_node('Main').stream = Mario.die_music
-		MusicPlayer.get_node('Main').play()
+		MusicPlayer.play_file(Mario.die_music.resource_path, 0, false, 0)
 		MusicPlayer.stop_on_pause()
 		MusicPlayer.get_node('Star').stop()
 	else:

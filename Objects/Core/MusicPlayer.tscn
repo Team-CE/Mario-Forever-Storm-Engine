@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Music/1-music-starman.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/General/MusicPlayer.gd" type="Script" id=2]
+[ext_resource path="res://gdnative/libopenmpt-godot.gdns" type="Script" id=3]
+
+[sub_resource type="AudioStreamGenerator" id=1]
+buffer_length = 0.1
 
 [node name="MusicPlayer" type="Node"]
 pause_mode = 2
@@ -12,7 +15,7 @@ bus = "Music"
 
 [node name="Star" type="AudioStreamPlayer" parent="."]
 pause_mode = 1
-stream = ExtResource( 1 )
+stream = SubResource( 1 )
 bus = "Music"
 
 [node name="TweenOut" type="Tween" parent="."]
@@ -20,6 +23,12 @@ pause_mode = 1
 
 [node name="TweenIn" type="Tween" parent="."]
 pause_mode = 1
+
+[node name="Openmpt" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Starmpt" type="Node2D" parent="."]
+script = ExtResource( 3 )
 
 [connection signal="finished" from="Main" to="." method="_on_Main_finished"]
 [connection signal="tween_completed" from="TweenOut" to="." method="_on_TweenOut_tween_completed"]

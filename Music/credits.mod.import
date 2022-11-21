@@ -1,0 +1,13 @@
+[remap]
+
+importer="libopenmpt.modimporter"
+type="Resource"
+path="res://.import/credits.mod-c4a0bfaa32d65db6f5d5f6feccbed563.res"
+
+[deps]
+
+source_file="res://Music/credits.mod"
+dest_files=[ "res://.import/credits.mod-c4a0bfaa32d65db6f5d5f6feccbed563.res" ]
+
+[params]
+

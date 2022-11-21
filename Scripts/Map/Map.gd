@@ -7,7 +7,6 @@ signal quality_changed
 
 var internal_offset: float = 0
 
-export var music: Resource
 export var mario_speed: float = 1
 export var mario_fast_speed: float = 15
 export var stop_points: Array = []
@@ -31,13 +30,9 @@ func is_class(name) -> bool: return name == 'Map' or .is_class(name)
 func _ready() -> void:
 	Global.Mario.invulnerable = true
 	Global.Mario.movement_type = Global.Mario.Movement.NONE
-	MusicPlayer.get_node('Main').stream = music
-	MusicPlayer.get_node('Main').play()
 	if Global.starman_saved:
 		Global.Mario.get_node('Sprite').material.set_shader_param('mixing', true)
-	
-	if Global.musicBar > 0.01:
-		AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
+		
 	MusicPlayer.play_on_pause()
 
 	Global.call_deferred('reset_audio_effects')

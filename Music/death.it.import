@@ -1,0 +1,13 @@
+[remap]
+
+importer="libopenmpt.modimporter"
+type="Resource"
+path="res://.import/death.it-a507b0c6f657dc5d1b7c688ea8d267fa.res"
+
+[deps]
+
+source_file="res://Music/death.it"
+dest_files=[ "res://.import/death.it-a507b0c6f657dc5d1b7c688ea8d267fa.res" ]
+
+[params]
+

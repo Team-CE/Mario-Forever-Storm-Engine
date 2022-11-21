@@ -1,0 +1,13 @@
+[remap]
+
+importer="libopenmpt.modimporter"
+type="Resource"
+path="res://.import/example-level.xm-25194282c903c746e8d53f5d7c7682d6.res"
+
+[deps]
+
+source_file="res://Music/example-level.xm"
+dest_files=[ "res://.import/example-level.xm-25194282c903c746e8d53f5d7c7682d6.res" ]
+
+[params]
+

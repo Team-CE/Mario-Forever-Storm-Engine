@@ -1,0 +1,13 @@
+[remap]
+
+importer="libopenmpt.modimporter"
+type="Resource"
+path="res://.import/mainmenu.it-47282adef9b195b28e3c463854c0db0f.res"
+
+[deps]
+
+source_file="res://Music/mainmenu.it"
+dest_files=[ "res://.import/mainmenu.it-47282adef9b195b28e3c463854c0db0f.res" ]
+
+[params]
+

@@ -1,13 +1,13 @@
 extends KinematicBody2D
 
-var gameover_music: Resource = preload('res://Music/1-music-gameover.ogg')
+var gameover_music: Resource = preload('res://Music/gameover.it')
 
 export var powerup_animations: Dictionary = {}
 export var powerup_scripts: Dictionary = {}
 export var target_gravity_angle: float = 0
 export var sections_scroll: bool = true
 export var camera_addon: Script
-export var die_music: Resource = preload('res://Music/1-music-die.ogg')
+export var die_music: Resource = preload('res://Music/death.it')
 export var custom_die_stream: Resource
 
 var inited_camera_addon
@@ -324,8 +324,7 @@ func _process_dead(delta) -> void:
 		if Global.lives > 0 and not dead_gameover:
 			Global._reset()
 		elif not dead_gameover:
-			MusicPlayer.get_node('Main').stream = gameover_music
-			MusicPlayer.get_node('Main').play()
+			MusicPlayer.play_file(gameover_music.resource_path, 0, false, 0)
 			MusicPlayer.stop_on_pause()
 			if Global.HUD.has_method('on_game_over'):
 				Global.HUD.on_game_over()
@@ -880,8 +879,7 @@ func unkill() -> void:
 	$BottomDetector/CollisionBottom.disabled = false
 	$Sprite.position = Vector2.ZERO
 	animate_sprite('Stopped')
-	MusicPlayer.get_node('Main').stream = Global.current_scene.music
-	MusicPlayer.get_node('Main').play()
+	MusicPlayer.play_file(Global.current_scene.music.resource_path, 0, true, 0)
 	MusicPlayer.play_on_pause()
 
 func star_logic() -> void:

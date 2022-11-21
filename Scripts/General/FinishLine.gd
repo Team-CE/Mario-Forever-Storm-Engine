@@ -3,7 +3,7 @@ extends Node2D
 export var set_level_id: int = 0
 export var map_scene: String = ''
 
-var win_music = preload('res://Music/1-music-complete-level.ogg')
+export var win_music: Resource = preload('res://Music/complete-level.it')
 
 var initial_position: float
 var counter: float = 0
@@ -17,12 +17,8 @@ var bar_accel: float = -6
 var final_score: int
 onready var wait_counter: float = 30
 
-func _init():
-	win_music.loop = false
-
 func _ready() -> void:
 	initial_position = $CrossingBar.position.y
-	win_music.loop = false
 	
 	if 'finish_node' in Global.current_scene:
 		Global.current_scene.finish_node = self
@@ -106,8 +102,7 @@ func finish_process(delta):
 func act(warp_finish_enabled: bool = false) -> void:
 	Global.level_ended = true
 	crossed = true
-	MusicPlayer.get_node('Main').stream = win_music
-	MusicPlayer.get_node('Main').play()
+	MusicPlayer.play_file(win_music.resource_path, 0, false, 0)
 	MusicPlayer.stop_on_pause()
 	MusicPlayer.get_node('Star').stop()
 	Global.checkpoint_active = -1

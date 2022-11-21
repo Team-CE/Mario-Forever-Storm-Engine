@@ -164,7 +164,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/brush2d/plugin.cfg", "res://addons/component_view/plugin.cfg", "res://addons/metadata_inspector/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/brush2d/plugin.cfg", "res://addons/component_view/plugin.cfg", "res://addons/libopenmpt_importer/plugin.cfg", "res://addons/metadata_inspector/plugin.cfg" )
 
 [importer_defaults]
 

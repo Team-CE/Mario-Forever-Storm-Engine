@@ -1,0 +1,13 @@
+[remap]
+
+importer="libopenmpt.modimporter"
+type="Resource"
+path="res://.import/example-map.mod-65070a37da1e86afad89bc0d870f706f.res"
+
+[deps]
+
+source_file="res://Music/example-map.mod"
+dest_files=[ "res://.import/example-map.mod-65070a37da1e86afad89bc0d870f706f.res" ]
+
+[params]
+

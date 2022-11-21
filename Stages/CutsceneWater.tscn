@@ -1195,7 +1195,7 @@ modulate = Color( 0.498039, 1.14118, 0.670588, 1 )
 position = Vector2( 256, 400 )
 z_index = -1
 frames = SubResource( 123 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Zabor" type="Sprite" parent="."]

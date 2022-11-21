@@ -1,0 +1,13 @@
+[remap]
+
+importer="libopenmpt.modimporter"
+type="Resource"
+path="res://.import/bowser-battle.it-cef073188706ddc3e8d851e692abee3b.res"
+
+[deps]
+
+source_file="res://Music/bowser-battle.it"
+dest_files=[ "res://.import/bowser-battle.it-cef073188706ddc3e8d851e692abee3b.res" ]
+
+[params]
+

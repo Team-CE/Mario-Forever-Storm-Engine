@@ -1,0 +1,13 @@
+[remap]
+
+importer="libopenmpt.modimporter"
+type="Resource"
+path="res://.import/starman.it-c2795f876e4df2b58c3b4e014cb16d0d.res"
+
+[deps]
+
+source_file="res://Music/starman.it"
+dest_files=[ "res://.import/starman.it-c2795f876e4df2b58c3b4e014cb16d0d.res" ]
+
+[params]
+
