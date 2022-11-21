@@ -1,7 +1,6 @@
 onready var init = false
 var delay_counter: float = 45
 
-var mpStar = MusicPlayer.get_node('Star')
 var mario = Global.Mario
 
 func _process_movement(brain, delta):
@@ -29,10 +28,12 @@ func do_action(brain):
 	mario.faded = false
 	mario.get_node('Sprite').visible = true
 	Global.play_base_sound('MAIN_Powerup')
-	MusicPlayer.get_node('Main').stop()
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
-	mpStar.play()
-	mpStar.volume_db = 0
-	MusicPlayer.get_node('TweenOut').remove(mpStar)
+	MusicPlayer.main.stop()
+	MusicPlayer.openmpt.stop()
+	MusicPlayer.starmpt.start(true)
+	MusicPlayer.star.play()
+# warning-ignore:return_value_discarded
+	MusicPlayer.tween_out.remove(MusicPlayer.star)
+	MusicPlayer.star.volume_db = 0
 	brain.owner.get_parent().add_child(ScoreText.new(brain.owner.score, brain.owner.position))
 	brain.owner.queue_free()

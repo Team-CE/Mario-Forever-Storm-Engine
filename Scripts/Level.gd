@@ -19,9 +19,6 @@ export var custom_scripts: Dictionary = {
 onready var tileMap: TileMap
 onready var worldEnv: WorldEnvironment
 
-onready var mpMain = MusicPlayer.get_node('Main')
-onready var mpStar = MusicPlayer.get_node('Star')
-
 var finish_node: Node2D
 var overlay: Control = null # Music overlay
 
@@ -58,9 +55,11 @@ func _ready():
 		
 		if Global.starman_saved:
 			yield(get_tree(), 'idle_frame')
-			mpMain.stop()
-			mpStar.play()
-			mpStar.volume_db = 0
+			MusicPlayer.main.stop()
+			MusicPlayer.openmpt.stop()
+			MusicPlayer.starmpt.start()
+			MusicPlayer.star.play()
+			MusicPlayer.star.volume_db = 0
 			Global.Mario.get_node('Sprite').material.set_shader_param('mixing', true)
 			Global.Mario.shield_star = true
 			Global.Mario.shield_counter = 750

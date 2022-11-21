@@ -217,12 +217,14 @@ func _process_alive(delta) -> void:
 		# Starman music Fade out
 		
 		if shield_counter <= 125 and Global.musicBar > 0 and !faded:
-			MusicPlayer.fade_out(MusicPlayer.get_node('Star'), 3.0)
+			MusicPlayer.fade_out(MusicPlayer.star, 3.0)
 			faded = true
 		if shield_counter <= 0:
-			if not MusicPlayer.get_node('Main').playing:
-				MusicPlayer.get_node('Star').stop()
-				MusicPlayer.get_node('Main').play()
+			if not MusicPlayer.main.playing:
+				MusicPlayer.star.stop()
+				MusicPlayer.starmpt.stop()
+				MusicPlayer.main.play()
+				MusicPlayer.openmpt.start(false)
 			$BottomDetector.collision_layer = 0b111 # All 3 layers
 			$BottomDetector.collision_mask = 0b111
 			$Sprite.material.set_shader_param('mixing', false)

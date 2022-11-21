@@ -127,7 +127,7 @@ func _physics_process(delta):
 func _goto_scene(scene: String, reset_values: bool = true) -> void:
 	AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
 	Global.goto_scene(scene)
-	MusicPlayer.get_node('Main').stop()
+	MusicPlayer.main.stop()
 	MusicPlayer.get_node('Star').stop()
 	if reset_values:
 		Global.reset_all_values()

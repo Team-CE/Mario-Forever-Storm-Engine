@@ -140,7 +140,7 @@ func controls() -> void:
 						if !Global.saveFileExists:
 							saveOptions()
 						$letsgo.play()
-						MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 5.0)
+						MusicPlayer.fade_out(MusicPlayer.main, 5.0)
 						yield(get_tree().create_timer( 2.5 ), 'timeout')
 						var fadeout = $fadeout.duplicate()
 						get_node('/root').add_child(fadeout)
@@ -157,7 +157,7 @@ func controls() -> void:
 					2:
 						controls_enabled = false
 						$enter_options.play()
-						MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 3.0)
+						MusicPlayer.fade_out(MusicPlayer.main, 3.0)
 						yield(get_tree().create_timer( 1 ), 'timeout')
 						fading_out = true
 						yield(get_tree().create_timer( 1.2 ), 'timeout')

@@ -107,7 +107,7 @@ func _physics_process(delta: float) -> void:
 		var fadeout = $fadeout.duplicate()
 		get_node('/root').add_child(fadeout)
 		fadeout.play()
-		MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 2.0)
+		MusicPlayer.fade_out(MusicPlayer.main, 2.0)
 	
 	if fading_out:
 		circle_size -= 0.012 * Global.get_delta(delta)

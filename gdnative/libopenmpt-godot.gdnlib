@@ -11,4 +11,4 @@ Windows.64="res://gdnative/libopenmpt/windows/libopenmptgodot.dll"
 
 [dependencies]
 
-Windows.64=[  ]
+Windows.64=[ "res://gdnative/libopenmpt/windows/libopenmpt.dll", "res://gdnative/libopenmpt/windows/libopenmptgodot.dll", "res://gdnative/libopenmpt/windows/openmpt-mpg123.dll", "res://gdnative/libopenmpt/windows/openmpt-ogg.dll", "res://gdnative/libopenmpt/windows/openmpt-vorbis.dll", "res://gdnative/libopenmpt/windows/openmpt-zlib.dll" ]

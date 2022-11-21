@@ -10,7 +10,7 @@ func _ready():
 	MusicPlayer.play_file(file.resource_path, interpolation, loop, volume_offset)
 	if !Global.starman_saved:
 		MusicPlayer.play_on_pause()
-		MusicPlayer.get_node('Star').stop()
-		MusicPlayer.get_node('Star').volume_db = 0
+		MusicPlayer.star.stop()
+		MusicPlayer.star.volume_db = 0
 	else:
-		MusicPlayer.get_node('Main').stop()
+		MusicPlayer.main.stop()

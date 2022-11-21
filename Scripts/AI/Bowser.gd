@@ -251,7 +251,7 @@ func bowser_damage() -> void:
 	if lives <= 0:
 		owner.alive = false
 		owner.get_node('Kill').play()
-		MusicPlayer.fade_out(MusicPlayer.get_node('Main'), 3.0)
+		MusicPlayer.fade_out(MusicPlayer.main, 3.0)
 		owner.velocity = Vector2.ZERO
 		bowl.frame = 0
 

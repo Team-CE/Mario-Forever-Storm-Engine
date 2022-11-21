@@ -1,6 +1,6 @@
 extends Node2D
 
-export var music: Resource
+export var music: Resource = preload('res://Music/bowser-battle.it')
 export var autoscroll_speed: float = 1
 export var music_overlay_name: String = ''
 
