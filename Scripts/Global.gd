@@ -80,6 +80,7 @@ var level_ended: bool = false								# Shift + 4
 var levelID: int = 0
 
 var current_scene = null
+var music_loader = null
 
 const popup_node = preload('res://Objects/Tools/PopupMenu.tscn')
 const pause_node = preload('res://Objects/Tools/PopupMenu/Pause.tscn')
@@ -467,13 +468,13 @@ func _pll() -> void: # Player Death
 		Mario.shoe_node.queue_free()
 		Mario.unbind_shoe()
 	if not Mario.custom_die_stream:
-		MusicPlayer.play_file(Mario.die_music.resource_path, 0, false, 0)
+		MusicPlayer.play_file(Mario.die_music, 0, false, 0)
 		MusicPlayer.stop_on_pause()
 		MusicPlayer.get_node('Star').stop()
 	else:
 		var dieMusPlayer = AudioStreamPlayer.new()
 		dieMusPlayer.set_stream(Mario.custom_die_stream)
-		add_child(dieMusPlayer)
+		current_scene.add_child(dieMusPlayer)
 		dieMusPlayer.play()
 	
 	Mario.dead = true

@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/General/Generic/AliveObject.gd"
 }, {
+"base": "Resource",
+"class": "AudioTrackerModule",
+"language": "GDScript",
+"path": "res://addons/libopenmpt_importer/tracker_resource.gd"
+}, {
 "base": "Node",
 "class": "Brain",
 "language": "GDScript",
@@ -111,6 +116,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AliveObject": "res://GFX/Editor/AliveBody.png",
+"AudioTrackerModule": "res://addons/libopenmpt_importer/icon.png",
 "Brain": "",
 "BrickEffect": "",
 "Brush2D": "res://addons/brush2d/icon.png",

@@ -1,8 +1,3 @@
 extends Resource
-#tool
-#
-#export(PoolByteArray) var buffer
-#
-#func _init(p_buffer = PoolByteArray()):
-#	buffer = p_buffer
-#
+class_name AudioTrackerModule, 'res://addons/libopenmpt_importer/icon.png'
+export var data := PoolByteArray()

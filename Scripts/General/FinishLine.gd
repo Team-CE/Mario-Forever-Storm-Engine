@@ -3,8 +3,6 @@ extends Node2D
 export var set_level_id: int = 0
 export var map_scene: String = ''
 
-export var win_music: Resource = preload('res://Music/complete-level.it')
-
 var initial_position: float
 var counter: float = 0
 
@@ -102,9 +100,9 @@ func finish_process(delta):
 func act(warp_finish_enabled: bool = false) -> void:
 	Global.level_ended = true
 	crossed = true
-	MusicPlayer.play_file(win_music.resource_path, 0, false, 0)
+	MusicPlayer.play_file(MusicPlayer.mus_win, 0, false, 0)
 	MusicPlayer.stop_on_pause()
-	MusicPlayer.get_node('Star').stop()
+	MusicPlayer.star.stop()
 	Global.checkpoint_active = -1
 	Global.checkpoint_position = Vector2.ZERO
 	Global.Mario.controls_enabled = false

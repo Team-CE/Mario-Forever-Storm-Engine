@@ -50,8 +50,9 @@ func import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	if err != OK:
 		return err
 	
-	#var buffer = file.get_buffer(file.get_len())
+	var buffer = file.get_buffer(file.get_len())
 	file.close()
 	var resource = load('res://addons/libopenmpt_importer/tracker_resource.gd').new()
+	resource.data = buffer
 	
 	return ResourceSaver.save("%s.%s" % [save_path, get_save_extension()], resource)

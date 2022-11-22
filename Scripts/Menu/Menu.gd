@@ -47,7 +47,7 @@ func _ready() -> void:
 	yield(get_tree().create_timer( 1.2 ), 'timeout')
 	if !Global.saveFileExists:
 		saveOptions()
-	MusicPlayer.play_file(music.resource_path, 0, true, 0)
+	MusicPlayer.play_file(music, 0, true, 0)
 	MusicPlayer.play_on_pause()
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
 	
@@ -70,9 +70,9 @@ func _physics_process(delta) -> void:
 		circle_size += 0.012 * Global.get_delta(delta)
 		$Transition.visible = true
 		$Transition.material.set_shader_param('circle_size', circle_size)
-		if circle_size > 0.623:
+		if circle_size > 0.624:
 			$Transition.visible = false
-			circle_size = 0.623
+			circle_size = 0.624
 			fading_in = false
 			controls_enabled = true
 	
@@ -178,7 +178,7 @@ func controls() -> void:
 							screen = 3
 							sel = 0
 							$Credits.position.y = 1920 + $Credits.texture.get_height() / 2
-							MusicPlayer.play_file(music_credits.resource_path, 0, true, 0)
+							MusicPlayer.play_file(music_credits, 0, true, 0)
 					13:
 						$enter_options.play()
 						saveOptions()
@@ -331,7 +331,7 @@ func controls() -> void:
 			if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept'):
 				screen = 1
 				sel = 12
-				MusicPlayer.play_file(music.resource_path, 0, true, 0)
+				MusicPlayer.play_file(music, 0, true, 0)
 
 func _input(event) -> void:
 	if event is InputEventKey and event.pressed and controls_changing and not event.echo:

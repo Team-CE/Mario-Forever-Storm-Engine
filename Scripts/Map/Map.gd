@@ -18,7 +18,7 @@ var is_lerping: bool = false
 var is_swimming: bool = false
 
 var fading_out: bool = false
-var circle_size: float = 0.623
+var circle_size: float = 0.624
 
 var overlay: Control = null # Music overlay
 

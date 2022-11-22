@@ -18,7 +18,7 @@ func _physics_process(delta):
 		return
 	if Global.Mario.position.x > position.x and !music_switched:
 		music_switched = true
-		MusicPlayer.play_file(music.resource_path, 0, true, 0)
+		MusicPlayer.play_file(music, 0, true, 0)
 		$StaticBody2D.collision_layer = 0b10
 		camera = Global.current_camera
 		if !camera: return

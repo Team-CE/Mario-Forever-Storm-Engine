@@ -1,13 +1,11 @@
 extends KinematicBody2D
 
-var gameover_music: Resource = preload('res://Music/gameover.it')
-
 export var powerup_animations: Dictionary = {}
 export var powerup_scripts: Dictionary = {}
 export var target_gravity_angle: float = 0
 export var sections_scroll: bool = true
 export var camera_addon: Script
-export var die_music: Resource = preload('res://Music/death.it')
+export var die_music: Resource
 export var custom_die_stream: Resource
 
 var inited_camera_addon
@@ -65,6 +63,8 @@ var faded: bool = false
 var gameovercont_node = load('res://Objects/Tools/PopupMenu/GameOver.tscn')
 
 func _ready() -> void:
+	if !die_music:
+		die_music = MusicPlayer.mus_death
 	Global.Mario = self
 # warning-ignore:return_value_discarded
 	Global.connect('OnPlayerLoseLife', self, 'kill')
@@ -326,7 +326,7 @@ func _process_dead(delta) -> void:
 		if Global.lives > 0 and not dead_gameover:
 			Global._reset()
 		elif not dead_gameover:
-			MusicPlayer.play_file(gameover_music.resource_path, 0, false, 0)
+			MusicPlayer.play_file(MusicPlayer.mus_gameover, 0, false, 0)
 			MusicPlayer.stop_on_pause()
 			if Global.HUD.has_method('on_game_over'):
 				Global.HUD.on_game_over()
@@ -881,8 +881,9 @@ func unkill() -> void:
 	$BottomDetector/CollisionBottom.disabled = false
 	$Sprite.position = Vector2.ZERO
 	animate_sprite('Stopped')
-	MusicPlayer.play_file(Global.current_scene.music.resource_path, 0, true, 0)
-	MusicPlayer.play_on_pause()
+	if Global.music_loader:
+		Global.music_loader.play_again()
+		MusicPlayer.play_on_pause()
 
 func star_logic() -> void:
 	var overlaps = $InsideDetector.get_overlapping_bodies()
