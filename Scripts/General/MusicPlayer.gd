@@ -67,9 +67,7 @@ func init_stream(audio: AudioStream) -> void:
 	print('[MusicPlayer] Loaded stream audio')
 
 func init_tracker(audio: Resource) -> void:
-	OS.alert('loading module data...')
 	openmpt.load_module_data(audio.data)
-	OS.alert('module data loaded')
 	
 	if !openmpt.is_module_loaded():
 		printerr('[MusicPlayer] Failed to load file using tracker loader')
@@ -87,7 +85,6 @@ func init_tracker(audio: Resource) -> void:
 	
 	main.volume_db = audio.volume_offset
 	main.play()
-	print('audio is now being processed')
 
 # Put this to audio_stream: MusicPlayer.main
 func fade_out(audio_stream: Object, duration: float, from_vol: float = 0, to_vol: float = -80) -> void:
