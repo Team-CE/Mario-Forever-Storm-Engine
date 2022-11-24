@@ -37,7 +37,19 @@ func get_preset_name(preset):
 func get_import_options(preset):
 	match preset:
 		Presets.DEFAULT:
-			return []
+			return [{
+							"name": "interpolation",
+							"default_value": 0,
+							"property_hint": PROPERTY_HINT_ENUM,
+							"hint_string": "Default,Nothing,Linear,Cubic:4,Sinc:8"
+						}, {
+							"name": "loop",
+							"default_value": true,
+						}, {
+							"name": "volume_offset",
+							"default_value": 0.0,
+						}
+			]
 		_:
 			return []
 
@@ -54,5 +66,8 @@ func import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	file.close()
 	var resource = load('res://addons/libopenmpt_importer/tracker_resource.gd').new()
 	resource.data = buffer
+	resource.interpolation = options.interpolation
+	resource.loop = options.loop
+	resource.volume_offset = options.volume_offset
 	
 	return ResourceSaver.save("%s.%s" % [save_path, get_save_extension()], resource)

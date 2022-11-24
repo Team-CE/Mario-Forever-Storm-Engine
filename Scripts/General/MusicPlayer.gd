@@ -9,11 +9,11 @@ onready var star: AudioStreamPlayer = $Star
 
 # Loading typical music used everywhere right after the game boots.
 # Reference these variables instead of loading them in scripts.
-var mus_win: AudioTrackerModule = preload('res://Music/complete-level.it')    #Level complete
-var mus_death: AudioTrackerModule = preload('res://Music/death.it')           #Mario death
-var mus_gameover: AudioTrackerModule = preload('res://Music/gameover.it')     #Game over
-var mus_starman: AudioTrackerModule = preload('res://Music/starman.it')       #Starman
-var mus_complete: AudioTrackerModule = preload('res://Music/stats.it')        #Map complete
+var mus_win: Resource = preload('res://Music/complete-level.it')    #Level complete
+var mus_death: Resource = preload('res://Music/death.it')           #Mario death
+var mus_gameover: Resource = preload('res://Music/gameover.it')     #Game over
+var mus_starman: Resource = preload('res://Music/starman.it')       #Starman
+var mus_complete: Resource = preload('res://Music/stats.it')        #Map complete
 
 # List of every extension libopenmpt 6 can support.
 # Constant is unused for now, comments were left for reference.
@@ -43,31 +43,33 @@ func _ready() -> void:
 	starmpt.set_render_interpolation(INTERPOLATION.LINEAR)
 	#starmpt.start()
 
-func play_file(file: Resource, interpolation: int, loop: bool, volume_offset: float) -> void:
+func play_file(file: Resource) -> void:
 	if !file:
 		printerr('[MusicPlayer] Invalid resource')
 		return
+	openmpt.stop()
+	main.stop()
 	if ClassDB.get_parent_class(file.get_class()) == 'AudioStream':
-		init_stream(file, loop, volume_offset)
+		init_stream(file)
 	else:
 		if 'data' in file:
-			init_tracker(file.data, interpolation, loop, volume_offset)
+			init_tracker(file)
 		else:
 			printerr('[MusicPlayer] No audio data found in tracker')
 
-func init_stream(audio: AudioStream, loop: bool, volume_offset: float) -> void:
+func init_stream(audio: AudioStream) -> void:
 	if !audio:
 		printerr('[MusicPlayer] Failed to load file using stream loader')
 		return
 	
 	main.stream = audio
-	main.stream.loop = loop
-	main.volume_db = volume_offset
 	main.play()
 	print('[MusicPlayer] Loaded stream audio')
 
-func init_tracker(audio: PoolByteArray, interpolation: int, loop: bool, volume_offset: float) -> void:
-	openmpt.load_module_data(audio)
+func init_tracker(audio: Resource) -> void:
+	OS.alert('loading module data...')
+	openmpt.load_module_data(audio.data)
+	OS.alert('module data loaded')
 	
 	if !openmpt.is_module_loaded():
 		printerr('[MusicPlayer] Failed to load file using tracker loader')
@@ -79,18 +81,13 @@ func init_tracker(audio: PoolByteArray, interpolation: int, loop: bool, volume_o
 	main.stream = generator
 	
 	openmpt.set_audio_generator_playback(main)
-	openmpt.set_render_interpolation(interpolation)
-	openmpt.set_repeat_count(0 if !loop else -1)
+	openmpt.set_render_interpolation(audio.interpolation)
+	openmpt.set_repeat_count(0 if !audio.loop else -1)
 	openmpt.start()
 	
-	main.volume_db = volume_offset
+	main.volume_db = audio.volume_offset
 	main.play()
-
-#func is_tracker_type(filepath: String) -> bool:
-#	var extension = filepath.get_extension()
-#	if !extension:
-#		return false
-#	return extension in TRACKER_EXTENSIONS
+	print('audio is now being processed')
 
 # Put this to audio_stream: MusicPlayer.main
 func fade_out(audio_stream: Object, duration: float, from_vol: float = 0, to_vol: float = -80) -> void:

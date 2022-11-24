@@ -11,3 +11,6 @@ dest_files=[ "res://.import/mainmenu.it-47282adef9b195b28e3c463854c0db0f.res" ]
 
 [params]
 
+interpolation=4
+loop=true
+volume_offset=0.0

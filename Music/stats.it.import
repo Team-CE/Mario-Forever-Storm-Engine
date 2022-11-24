@@ -11,3 +11,6 @@ dest_files=[ "res://.import/stats.it-11aad3e970c8505017d57eeb53c5a80e.res" ]
 
 [params]
 
+interpolation=2
+loop=true
+volume_offset=0.0

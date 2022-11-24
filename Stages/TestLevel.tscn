@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Objects/Liquids/Water.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Music/example-level.xm" type="Resource" id=19]
 [ext_resource path="res://Objects/Bonuses/Star.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=21]
+[ext_resource path="res://Games/TheMultiverse2/Music/ykyrococ.mod" type="Resource" id=22]
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Objects/Enemies/FishBlue.tscn" type="PackedScene" id=29]
 [ext_resource path="res://Objects/Enemies/Lava Lotus.tscn" type="PackedScene" id=30]
@@ -60,7 +61,7 @@ __meta__ = {
 
 [node name="MusicLoader" parent="." instance=ExtResource( 18 )]
 file = ExtResource( 19 )
-volume_offset = -100.0
+music_list = [ ExtResource( 19 ), ExtResource( 22 ) ]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 21 )

@@ -11,3 +11,6 @@ dest_files=[ "res://.import/bowser-battle.it-cef073188706ddc3e8d851e692abee3b.re
 
 [params]
 
+interpolation=1
+loop=true
+volume_offset=0.0

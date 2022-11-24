@@ -11,3 +11,6 @@ dest_files=[ "res://.import/gameover.it-99caab2ed96f9e4aa3f6efc844734d7e.res" ]
 
 [params]
 
+interpolation=2
+loop=false
+volume_offset=0.0

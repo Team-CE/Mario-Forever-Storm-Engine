@@ -11,3 +11,6 @@ dest_files=[ "res://.import/example-map.mod-65070a37da1e86afad89bc0d870f706f.res
 
 [params]
 
+interpolation=1
+loop=true
+volume_offset=0.0

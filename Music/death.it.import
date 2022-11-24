@@ -11,3 +11,6 @@ dest_files=[ "res://.import/death.it-a507b0c6f657dc5d1b7c688ea8d267fa.res" ]
 
 [params]
 
+interpolation=2
+loop=false
+volume_offset=0.0

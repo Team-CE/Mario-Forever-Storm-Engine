@@ -100,7 +100,7 @@ func finish_process(delta):
 func act(warp_finish_enabled: bool = false) -> void:
 	Global.level_ended = true
 	crossed = true
-	MusicPlayer.play_file(MusicPlayer.mus_win, 0, false, 0)
+	MusicPlayer.play_file(MusicPlayer.mus_win)
 	MusicPlayer.stop_on_pause()
 	MusicPlayer.star.stop()
 	Global.checkpoint_active = -1

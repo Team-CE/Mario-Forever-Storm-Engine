@@ -11,3 +11,6 @@ dest_files=[ "res://.import/presentation.it-abb7656eae1691203dc1c94d21a22ae8.res
 
 [params]
 
+interpolation=2
+loop=true
+volume_offset=0.0

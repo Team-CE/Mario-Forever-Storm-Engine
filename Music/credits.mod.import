@@ -11,3 +11,6 @@ dest_files=[ "res://.import/credits.mod-c4a0bfaa32d65db6f5d5f6feccbed563.res" ]
 
 [params]
 
+interpolation=1
+loop=true
+volume_offset=6.0
