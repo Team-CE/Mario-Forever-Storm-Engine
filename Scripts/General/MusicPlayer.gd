@@ -64,6 +64,7 @@ func init_stream(audio: AudioStream) -> void:
 		return
 	
 	main.stream = audio
+	main.volume_db = audio.volume_offset
 	if !star.playing:
 		main.play()
 	print('[MusicPlayer] Loaded stream audio')
