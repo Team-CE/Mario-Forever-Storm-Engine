@@ -48,7 +48,6 @@ func _ready():
 			yield(get_tree(), 'idle_frame')
 			if !cam: 
 				cam = Global.current_camera
-			if !cam:
 				return
 			cam.smoothing_enabled = true
 			cam.smoothing_speed = 10
