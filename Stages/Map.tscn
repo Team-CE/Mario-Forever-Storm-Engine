@@ -50,8 +50,7 @@ stop_points = [ 320, 768 ]
 level_scenes = [ "res://Stages/CutsceneCave.tscn", "res://Stages/CutsceneCave.tscn" ]
 
 [node name="MusicLoader" parent="." instance=ExtResource( 12 )]
-file = ExtResource( 13 )
-interpolation = 1
+music_list = [ ExtResource( 13 ) ]
 
 [node name="map_looped" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -267,8 +266,8 @@ position = Vector2( 256, 384 )
 
 [node name="Dot25" parent="Dots" instance=ExtResource( 24 )]
 position = Vector2( 256, 192 )
-frame = 8
+frame = 1
 
 [node name="Dot41" parent="Dots" instance=ExtResource( 24 )]
 position = Vector2( 384, 256 )
-frame = 8
+frame = 1

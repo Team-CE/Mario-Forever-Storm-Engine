@@ -60,7 +60,6 @@ __meta__ = {
 }
 
 [node name="MusicLoader" parent="." instance=ExtResource( 18 )]
-file = ExtResource( 19 )
 music_list = [ ExtResource( 19 ), ExtResource( 22 ) ]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

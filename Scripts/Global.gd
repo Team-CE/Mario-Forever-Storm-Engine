@@ -437,7 +437,6 @@ func reset_all_values(reset_state: bool = true) -> void:
 func reset_audio_effects() -> void:
 	AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('CompositedSounds'), 0)
-	MusicPlayer.main.volume_db = 0
 
 func _ppd() -> void: # Player Powerdown
 	if Mario.shield_counter > 0 or debug_inv or debug_fly or Mario.invulnerable:

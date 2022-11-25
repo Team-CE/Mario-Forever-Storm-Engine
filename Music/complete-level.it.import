@@ -11,6 +11,6 @@ dest_files=[ "res://.import/complete-level.it-371a12bccc9848d0e5bfac2abbb3084c.r
 
 [params]
 
-interpolation=2
+interpolation=0
 loop=false
 volume_offset=0.0

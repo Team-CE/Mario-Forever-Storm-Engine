@@ -25,8 +25,7 @@ func set_current_index(new_index):
 		new_index = list_size
 		printerr('[MusicLoader] Index out of bounds: %i is more than the maximum of %i' % [new_index, list_size])
 	current_index = new_index
-	if playing and not MusicPlayer.star.playing:
-		play()
+	play()
 
 func play():
 	MusicPlayer.play_file(music_list[current_index])
