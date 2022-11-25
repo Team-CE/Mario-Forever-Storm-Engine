@@ -330,5 +330,4 @@ __meta__ = {
 position = Vector2( 320, 336 )
 frames = SubResource( 38 )
 animation = "0"
-frame = 1
 playing = true

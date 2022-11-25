@@ -88,12 +88,12 @@ region = Rect2( 576, 0, 32, 44 )
 animations = [ {
 "frames": [  ],
 "loop": true,
-"name": "default",
+"name": "dead",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
-"name": "dead",
+"name": "default",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
@@ -107,8 +107,8 @@ animations = [ {
 "speed": 30.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+[sub_resource type="RectangleShape2D" id=24]
+extents = Vector2( 15, 15 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 14, 2 )
@@ -136,8 +136,8 @@ offset = Vector2( 0, -16 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 show_behind_parent = true
-position = Vector2( 0, -16 )
-shape = SubResource( 1 )
+position = Vector2( 0, -15 )
+shape = SubResource( 24 )
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )

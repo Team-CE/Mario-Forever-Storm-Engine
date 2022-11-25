@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://GFX/Menu/ONoteVsync.png" type="Texture" id=1]
 [ext_resource path="res://GFX/Menu/NotePause.png" type="Texture" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://Sounds/Menu/change.wav" type="AudioStream" id=10]
 [ext_resource path="res://GFX/Menu/Osound.png" type="Texture" id=11]
 [ext_resource path="res://Scripts/Menu/PauseOptions.gd" type="Script" id=12]
-[ext_resource path="res://Scripts/Menu/OptionsWave.gd" type="Script" id=13]
 [ext_resource path="res://GFX/Menu/NoteMusicOverlay.png" type="Texture" id=14]
 [ext_resource path="res://GFX/Menu/NoteQuality.png" type="Texture" id=15]
 [ext_resource path="res://GFX/Menu/Oquality.png" type="Texture" id=16]
@@ -394,9 +393,8 @@ frames = SubResource( 69 )
 centered = false
 
 [node name="OptionsString" type="Sprite" parent="."]
-position = Vector2( 320, 42 )
+position = Vector2( 320, 36 )
 texture = ExtResource( 20 )
-script = ExtResource( 13 )
 
 [node name="tick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )

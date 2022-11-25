@@ -1,6 +1,5 @@
 extends Node
 
-export var file: Resource #DEPRECATED
 export(Array, Resource) var music_list = [null]
 export var current_index: int = 0 setget set_current_index
 export var playing: bool = true
@@ -26,7 +25,7 @@ func set_current_index(new_index):
 		new_index = list_size
 		printerr('[MusicLoader] Index out of bounds: %i is more than the maximum of %i' % [new_index, list_size])
 	current_index = new_index
-	if playing:
+	if playing and not MusicPlayer.star.playing:
 		play()
 
 func play():

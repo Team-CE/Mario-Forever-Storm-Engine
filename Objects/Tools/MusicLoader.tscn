@@ -4,3 +4,6 @@
 
 [node name="MusicLoader" type="Node"]
 script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "Change current_index property in scripts to pick music from the array."
+}
