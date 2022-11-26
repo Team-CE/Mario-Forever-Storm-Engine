@@ -156,10 +156,6 @@ GlobalEditor="*res://Scripts/GlobalEditor.gd"
 DiscordManager="*res://Scripts/Tools/discord_manager.gd"
 GlobalViewport="*res://Objects/Core/ViewportContainer.tscn"
 
-[debug]
-
-settings/stdout/print_fps=true
-
 [display]
 
 window/size/width=640
