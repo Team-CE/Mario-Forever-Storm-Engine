@@ -41,7 +41,7 @@ func is_class(name) -> bool: return name == 'Menu' or .is_class(name)
 
 func _ready() -> void:
 	pos_y = 359
-	$Transition.material.set_shader_param('circle_size', circle_size)
+	$TransitionLayer/Transition.material.set_shader_param('circle_size', circle_size)
 	
 	$fadeout.play()
 	yield(get_tree().create_timer( 1.2 ), 'timeout')
@@ -61,17 +61,17 @@ func _physics_process(delta) -> void:
 	
 	if fading_out:
 		circle_size -= 0.012 * Global.get_delta(delta)
-		$Transition.visible = true
-		$Transition.material.set_shader_param('circle_size', circle_size)
+		$TransitionLayer/Transition.visible = true
+		$TransitionLayer/Transition.material.set_shader_param('circle_size', circle_size)
 	else:
-		$Transition.visible = false
+		$TransitionLayer/Transition.visible = false
 	
 	if fading_in:
 		circle_size += 0.012 * Global.get_delta(delta)
-		$Transition.visible = true
-		$Transition.material.set_shader_param('circle_size', circle_size)
+		$TransitionLayer/Transition.visible = true
+		$TransitionLayer/Transition.material.set_shader_param('circle_size', circle_size)
 		if circle_size > 0.624:
-			$Transition.visible = false
+			$TransitionLayer/Transition.visible = false
 			circle_size = 0.624
 			fading_in = false
 			controls_enabled = true

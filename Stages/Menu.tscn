@@ -314,7 +314,7 @@ void fragment() {
 	COLOR.a = step(circle_size, dist);
 }"
 
-[sub_resource type="ShaderMaterial" id=35]
+[sub_resource type="ShaderMaterial" id=72]
 shader = SubResource( 40 )
 shader_param/circle_size = 0.623
 shader_param/screen_width = 1.0
@@ -494,9 +494,12 @@ position = Vector2( 320, 912 )
 frames = SubResource( 71 )
 animation = "2"
 
-[node name="Transition" type="Sprite" parent="."]
+[node name="TransitionLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Transition" type="Sprite" parent="TransitionLayer"]
 modulate = Color( 0, 0, 0, 1 )
-material = SubResource( 35 )
+material = SubResource( 72 )
 position = Vector2( 0, -80 )
 scale = Vector2( 6.21359, 6.21359 )
 texture = ExtResource( 15 )
