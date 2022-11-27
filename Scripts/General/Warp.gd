@@ -2,6 +2,8 @@ extends Area2D
 class_name Warp
 tool
 
+signal half_warped
+
 enum DIRS {
 	DOWN,
 	UP,
@@ -181,6 +183,7 @@ func _physics_process(delta) -> void:
 					Global.Mario.shoe_node.z_index = 11
 
 func warp_exit():
+	emit_signal('half_warped')
 	Global.play_base_sound('MAIN_Pipe')
 
 	if out_node.direction == DIRS.DOWN:
