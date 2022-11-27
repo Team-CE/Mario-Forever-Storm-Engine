@@ -147,6 +147,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/save_game_room_scene="res://Stages/SaveGameRoom.tscn"
 config/main_menu_scene="res://Stages/Menu.tscn"
+config/auto_export_version_script="res://Scripts/version.gd"
 
 [autoload]
 

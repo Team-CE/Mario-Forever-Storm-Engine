@@ -53,7 +53,6 @@ func _ready():
 			cam.smoothing_speed = 10
 		
 		if Global.starman_saved:
-			yield(get_tree(), 'idle_frame')
 			MusicPlayer.main.stop()
 			MusicPlayer.openmpt.stop()
 			MusicPlayer.starmpt.start()

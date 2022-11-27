@@ -879,7 +879,7 @@ func unkill() -> void:
 	$Sprite.position = Vector2.ZERO
 	animate_sprite('Stopped')
 	if Global.music_loader:
-		Global.music_loader.play_again()
+		Global.music_loader.play()
 		MusicPlayer.play_on_pause()
 
 func star_logic() -> void:

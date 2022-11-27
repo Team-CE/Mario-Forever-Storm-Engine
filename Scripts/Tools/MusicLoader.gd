@@ -10,14 +10,11 @@ func _ready():
 	if current_index > music_list.size():
 		current_index = music_list.size()
 
-	if !Global.starman_saved:
-		if playing:
-			MusicPlayer.play_file(music_list[current_index])
-		MusicPlayer.play_on_pause()
-		MusicPlayer.star.stop()
-		MusicPlayer.star.volume_db = 0
-	else:
-		MusicPlayer.main.stop()
+	if playing:
+		MusicPlayer.play_file(music_list[current_index])
+	MusicPlayer.play_on_pause()
+	MusicPlayer.star.stop()
+	MusicPlayer.star.volume_db = 0
 
 func set_current_index(new_index):
 	var list_size = music_list.size()
