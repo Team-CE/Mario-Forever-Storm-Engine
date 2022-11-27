@@ -17,8 +17,13 @@ func _ready():
 		velocity.x = 4
 
 func _physics_process(delta):
-	position += velocity * Global.get_delta(delta)
+	position += velocity.rotated(rotation) * Global.get_delta(delta)
 	$AnimatedSprite.flip_h = velocity.x < 0
+	
+	if inv_counter < 7:
+		inv_counter += Global.get_delta(delta)
+
+	if rotation_degrees != 0: return
 
 	if position.y > target_pos_y + (rand_y * 32):
 		position.y -= 4 * Global.get_delta(delta)
@@ -30,9 +35,6 @@ func _physics_process(delta):
 		position.y < target_pos_y + (rand_y * 32) + 3
 		):
 			position.y = target_pos_y + (rand_y * 32)
-	
-	if inv_counter < 7:
-		inv_counter += Global.get_delta(delta)
 
 func kill(_a = false, _b = false, _c = false, _d = false, _e = false):
 	return
