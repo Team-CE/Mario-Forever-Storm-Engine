@@ -6,4 +6,5 @@ func _ready_camera(owner):
 	Global.deaths = 0
 	Global.shoe_type = 0
 	Global.starman_saved = false
+	Global.restartNeeded = false
 	owner.shoe_node = null
