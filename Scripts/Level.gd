@@ -66,18 +66,26 @@ func _ready():
 		
 		print('[Level]: Ready!')
 	elif not has_node('Mario'):
+		var music_loader: Node = load('res://Objects/Tools/MusicLoader.tscn').instance()
+		add_child(music_loader)
+		music_loader.set_owner(self)
+		
 		worldEnv = setup_worldenv()
 		tileMap = setup_tilemap()
+		
 		var mario: Node2D = load('res://Objects/Core/Mario.tscn').instance()
 		mario.position = Vector2(48, 416)
 		add_child(mario)
 		mario.set_owner(self)
+		
 		var camera: Camera2D = load('res://Objects/Core/Camera.tscn').instance()
 		mario.add_child(camera)
 		camera.set_owner(self)
+		
 		var hud: CanvasLayer = load('res://Objects/Core/HUD.tscn').instance()
 		add_child(hud)
 		hud.set_owner(self)
+		
 		var brush = Brush2D.new()
 		add_child(brush)
 		brush.set_owner(self)
@@ -98,7 +106,6 @@ func setup_tilemap() -> TileMap:
 	newTM.set_owner(self)
 	newTM.set_name('TileMap')
 	newTM.set_collision_layer_bit(1, true)
-	newTM.set_collision_mask_bit(1, true)
 	newTM.set_cell_size(Vector2(32, 32))
 	newTM.add_to_group('Solid', true)
 	newTM.set_cell(1, 13, 0)

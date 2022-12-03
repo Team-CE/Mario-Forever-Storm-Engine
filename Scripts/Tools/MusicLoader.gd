@@ -10,7 +10,7 @@ func _ready():
 	if current_index > music_list.size():
 		current_index = music_list.size()
 
-	if playing:
+	if playing and music_list[current_index] != null:
 		MusicPlayer.play_file(music_list[current_index])
 	MusicPlayer.play_on_pause()
 	MusicPlayer.star.stop()
@@ -25,6 +25,8 @@ func set_current_index(new_index):
 	play()
 
 func play():
+	if music_list[current_index] == null:
+		return
 	MusicPlayer.play_file(music_list[current_index])
 	playing = true
 
