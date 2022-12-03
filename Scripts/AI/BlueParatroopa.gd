@@ -55,5 +55,5 @@ func _on_custom_death(_score_mp):
 	owner.get_parent().add_child(koopa)
 	owner.velocity_enabled = false
 	owner.visible = false
-	yield(get_tree().create_timer(0.5), 'timeout')
+	yield(get_tree().create_timer(0.5, false), 'timeout')
 	owner.queue_free()
