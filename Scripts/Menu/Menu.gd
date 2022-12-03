@@ -40,6 +40,21 @@ func get_class(): return 'Menu'
 func is_class(name) -> bool: return name == 'Menu' or .is_class(name)
 
 func _ready() -> void:
+	if Global.restartNeeded:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		fading_in = false
+		controls_enabled = true
+		
+		updateControls()
+		updateNotes()
+		screen = 1
+		sel = 12
+		Global.restartNeeded = false
+		
+		MusicPlayer.play_file(music)
+		MusicPlayer.play_on_pause()
+		return
+
 	pos_y = 359
 	$TransitionLayer/Transition.material.set_shader_param('circle_size', circle_size)
 	
@@ -173,6 +188,8 @@ func controls() -> void:
 					12:
 						$enter_options.play()
 						if credits_scene:
+							if !Global.saveFileExists:
+								saveOptions()
 							Global.goto_scene(credits_scene)
 						else:
 							screen = 3

@@ -351,6 +351,16 @@ func _notification(what):
 		if is_instance_valid(DiscordManager) and DiscordManager.core:
 			DiscordManager.destroy_core()
 			print('[Discord]: Core destroyed.')
+		if is_instance_valid(MusicPlayer.openmpt):
+			MusicPlayer.openmpt.stop()
+			MusicPlayer.openmpt.queue_free()
+			MusicPlayer.openmpt = null
+			MusicPlayer.main.stop()
+			MusicPlayer.main.queue_free()
+		if is_instance_valid(MusicPlayer.starmpt):
+			MusicPlayer.starmpt.stop()
+			MusicPlayer.starmpt.queue_free()
+			MusicPlayer.starmpt = null
 
 	if !autopause: return
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:

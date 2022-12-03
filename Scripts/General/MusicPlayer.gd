@@ -41,6 +41,11 @@ func _ready() -> void:
 	starmpt.load_module_data(mus_starman.data)
 	starmpt.set_audio_generator_playback(star)
 	starmpt.set_render_interpolation(INTERPOLATION.LINEAR)
+	
+	var generator = AudioStreamGenerator.new()
+	generator.mix_rate = 44100
+	main.stream = generator
+	openmpt.set_audio_generator_playback(main)
 
 func play_file(file: Resource) -> void:
 	if !file:
