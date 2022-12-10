@@ -1,5 +1,7 @@
 extends Label
 
+export var free_on_end: bool = true
+
 func _ready():
 	var tw: SceneTreeTween = create_tween()
 # warning-ignore:return_value_discarded
@@ -10,4 +12,5 @@ func _ready():
 	tw.tween_property(self, 'rect_position:y', 520.0, 1.0).set_ease(Tween.EASE_IN).set_delay(2.5).set_trans(Tween.TRANS_CUBIC)
 
 func _on_loop_finished():
-	queue_free()
+	if free_on_end:
+		queue_free()

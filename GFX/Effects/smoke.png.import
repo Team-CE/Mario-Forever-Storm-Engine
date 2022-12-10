@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PowBlow_V1.png-24a2d70639cf2d2711995fdd2bddf2a0.stex"
+path="res://.import/smoke.png-24fa2799276f42fd67cded0683b76a53.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/Enemies/Experemental/PowBlow_V1.png"
-dest_files=[ "res://.import/PowBlow_V1.png-24a2d70639cf2d2711995fdd2bddf2a0.stex" ]
+source_file="res://GFX/Effects/smoke.png"
+dest_files=[ "res://.import/smoke.png-24fa2799276f42fd67cded0683b76a53.stex" ]
 
 [params]
 

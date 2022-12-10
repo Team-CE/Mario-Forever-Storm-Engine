@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Enemies/DryBones.png" type="Texture" id=2]
+[ext_resource path="res://Sounds/Bonuses/break.wav" type="AudioStream" id=3]
+[ext_resource path="res://Games/TheMultiverse2/Scripts/DryBones.gd" type="Script" id=4]
+[ext_resource path="res://GFX/Enemies/DryBonesCrash.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 5 )
+region = Rect2( 48, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 48 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": false,
+"name": "crash",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 2 ) ],
+"loop": false,
+"name": "uncrash",
+"speed": 5.0
+} ]
+
+[node name="DryBones" type="KinematicBody2D" groups=["Enemy"]]
+collision_mask = 3
+script = ExtResource( 1 )
+AI = ExtResource( 4 )
+invincible_for_projectiles = [ "fireball", "iceball", "beetroot" ]
+force_death_type = true
+sound_pth = NodePath("AudioStreamPlayer2D")
+alt_sound_pth = NodePath("AudioStreamPlayer2D")
+animated_sprite_pth = NodePath("AnimatedSprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -16 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 8 )
+frame = 1
+playing = true
+offset = Vector2( 0, -24 )
+flip_h = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+max_distance = 1000.0
+bus = "Sounds"
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+rect = Rect2( -16, -48, 32, 48 )
+process_parent = true
+physics_process_parent = true

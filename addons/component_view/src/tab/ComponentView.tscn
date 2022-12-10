@@ -106,7 +106,7 @@
 [ext_resource path="res://Games/TheMultiverse2/GFX/Misc/platformTile.png" type="Texture" id=104]
 [ext_resource path="res://Games/TheMultiverse2/GFX/Tilesets/Level7/BlackSpike.png" type="Texture" id=105]
 [ext_resource path="res://Games/TheMultiverse2/GFX/Enemies/BigFish.png" type="Texture" id=106]
-[ext_resource path="res://Games/TheMultiverse2/GFX/Enemies/DryBones.png" type="Texture" id=107]
+[ext_resource path="res://GFX/Enemies/DryBones.png" type="Texture" id=107]
 [ext_resource path="res://GFX/Scenery/Lamp.png" type="Texture" id=108]
 [ext_resource path="res://Games/TheMultiverse2/GFX/Misc/PricklyBush.png" type="Texture" id=109]
 [ext_resource path="res://Games/TheMultiverse2/GFX/Sun/smallSun.png" type="Texture" id=110]
@@ -114,6 +114,7 @@
 [ext_resource path="res://Games/TheMultiverse2/GFX/Misc/vine-unsaturated.png" type="Texture" id=112]
 [ext_resource path="res://Games/TheMultiverse2/GFX/Sun/sunRay.png" type="Texture" id=113]
 [ext_resource path="res://GFX/Bonuses/Mushroom.png" type="Texture" id=114]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 16 )

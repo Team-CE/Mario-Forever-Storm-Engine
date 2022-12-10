@@ -240,7 +240,7 @@ texture = ExtResource( 2 )
 light_mask = 0
 position = Vector2( 254, 43 )
 frames = SubResource( 42 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="DebugFlySprite" type="Sprite" parent="."]
@@ -265,7 +265,7 @@ texture = ExtResource( 13 )
 [node name="CollectibleSprite" type="AnimatedSprite" parent="Collectibles"]
 position = Vector2( 244, 23 )
 frames = SubResource( 49 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="Counter" type="Label" parent="Collectibles"]

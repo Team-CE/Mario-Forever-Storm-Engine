@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://GFX/Effects/skirpich.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Sprite
+
+var motion: Vector2 = Vector2.ZERO
+
+func _process(delta):
+  rotation_degrees += 12 * (-1 if motion.x < 0 else 1) * Global.get_delta(delta)
+  motion.y += 0.2 * Global.get_delta(delta)
+  position += motion * Global.get_delta(delta)
+  
+  if !Global.is_getting_closer(-32, position):
+    queue_free()
+"
+
+[node name="Sprite2" type="Sprite"]
+texture = ExtResource( 1 )
+script = SubResource( 1 )
