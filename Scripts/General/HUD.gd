@@ -65,4 +65,4 @@ func on_game_over() -> void:
 
 func on_timeout() -> void:
 # warning-ignore:return_value_discarded
-	get_tree().create_tween().tween_property($GameoverText, 'rect_position:y', 224.0, 0.3)
+	get_tree().create_tween().tween_property($GameoverText, 'rect_position:y', 224.0, 0.5)

@@ -4,6 +4,8 @@ extends Node2D
 signal overlay_changed
 # warning-ignore:unused_signal
 signal quality_changed
+# warning-ignore:unused_signal
+signal press_jump_text_appeared
 
 var internal_offset: float = 0
 
@@ -14,6 +16,7 @@ export var level_scenes: Array = []
 
 var current_speed: float = mario_speed
 var stopped: bool = false
+var ooawel: bool = false
 var is_lerping: bool = false
 var is_swimming: bool = false
 
@@ -91,6 +94,9 @@ func _physics_process(delta: float) -> void:
 	if $MarioPath/PathFollow2D.offset > stop_points[Global.levelID]:
 		$MarioPath/PathFollow2D.offset = stop_points[Global.levelID]
 		stopped = true
+		if !ooawel:
+			emit_signal('press_jump_text_appeared')
+			ooawel = true
 		
 	if stopped and not fading_out:
 		var pj = $ParallaxBackground/ParallaxLayer/PressJump

@@ -38,14 +38,21 @@ enum INTERPOLATION {
 }
 
 func _ready() -> void:
-	starmpt.load_module_data(mus_starman.data)
-	starmpt.set_audio_generator_playback(star)
-	starmpt.set_render_interpolation(INTERPOLATION.LINEAR)
+	if starmpt.has_method('load_module_data'):
+		starmpt.load_module_data(mus_starman.data)
+		starmpt.set_audio_generator_playback(star)
+		starmpt.set_render_interpolation(INTERPOLATION.LINEAR)
 	
-	var generator = AudioStreamGenerator.new()
-	generator.mix_rate = 44100
-	main.stream = generator
-	openmpt.set_audio_generator_playback(main)
+		var generator = AudioStreamGenerator.new()
+		generator.mix_rate = 44100
+		main.stream = generator
+		openmpt.set_audio_generator_playback(main)
+	else:
+		OS.alert("""Error loading music library.
+
+Make sure you have VCRedist 2022 x64 installed on your computer.
+
+The game will now continue to work without music, until the problem is fixed.""")
 
 func play_file(file: Resource) -> void:
 	if !file:

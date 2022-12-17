@@ -30,3 +30,5 @@ pull.cmd
 Games/
 override.cfg
 
+# I am tired of changing project.godot multiple times before exporting the project and pushing changes to engine repo
+*.~godot

@@ -1,6 +1,8 @@
 extends Node
 
 var GameName = 'CloudEngine'
+var save_key = 'secure-contain-protect'
+
 var soundBar: float = 0.5											# Game options
 var musicBar: float = 0.5
 var effects: bool = true
@@ -364,6 +366,8 @@ func _notification(what):
 
 	if !autopause: return
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+		if !current_scene:
+			return
 		if current_scene.get_class() in ['Menu', 'Map', 'Intro']:
 			return
 		if popup == null:

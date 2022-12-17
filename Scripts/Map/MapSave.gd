@@ -41,7 +41,7 @@ func load_config() -> int:
 
 func save_config(lvl):
 	var config = Global.save_contents
-	var password = OS.get_unique_id() #Works only on user's pc
+	var password = Global.save_key
 	
 	var level_to_save: int = Global.levelID if Global.levelID > lvl else lvl
 	

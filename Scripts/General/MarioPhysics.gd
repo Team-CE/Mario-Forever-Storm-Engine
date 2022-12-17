@@ -796,12 +796,12 @@ func vertical_correction(amount: int):
 		if 'visible' in collide.collider and collide.collider.visible == false:
 			return
 		
-		for i in range(1, amount * 2 + 1):
+		for i in range(1, amount + 1):
 			for j in [-1.0, 1.0]:
-				if !test_move(global_transform.translated(Vector2(i * j / 2, 0)),
+				if !test_move(global_transform.translated(Vector2(i * j, 0)),
 				Vector2(0, velocity.y * delta).rotated(rotation)
 				):
-					translate(Vector2(i * j / 2, 0).rotated(rotation))
+					translate(Vector2(i * j, 0).rotated(rotation))
 					if velocity.x * j < 0: velocity.x = 0
 					return
 
@@ -812,7 +812,7 @@ func horizontal_correction(amount: int):
 		if 'visible' in collide.collider and collide.collider.visible == false:
 			return
 		
-		for i in range(1, amount * 2 + 1):
+		for i in range(1, amount + 1):
 			for j in [-1.0, 0]:
 				var coll = move_and_collide(
 					Vector2(velocity.x * delta, 0).rotated(rotation),
@@ -827,10 +827,10 @@ func horizontal_correction(amount: int):
 					normal = coll.normal.rotated(-rotation)
 
 				if !test_move(
-					global_transform.translated(Vector2(0, i * j / 2)),
+					global_transform.translated(Vector2(0, i * j)),
 					Vector2(velocity.x * delta, 0).rotated(rotation)
 				) && !is_on_floor() && 'normal' in coll && (normal.x == -1 || normal.x == 1) && normal.y < 0.1 && normal.y > -0.1:
-					translate(Vector2(0, i * j / 2).rotated(rotation))
+					translate(Vector2(0, i * j).rotated(rotation))
 					if velocity.y * j < 0: velocity.y = 0
 					return
 
