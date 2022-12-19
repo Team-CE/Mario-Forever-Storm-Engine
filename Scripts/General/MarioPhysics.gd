@@ -783,56 +783,53 @@ func update_collisions() -> void:
 		return
 	else:
 		is_big_collision = not $TopDetector/CollisionTopBig.disabled
-#		on_big_collision_change()
 
-#func on_big_collision_change():
-#	if test_move(global_transform, Vector2(0, -1).rotated(rotation)):
-#		if test_move(global_transform, Vector2(0, 1).rotated(rotation))
-
+# Correction while jumping upwards like in original Mario games (exclusive feature)
 func vertical_correction(amount: int):
+	if velocity.y >= 0: return
+	
 	var delta = get_physics_process_delta_time()
 	var collide = move_and_collide(Vector2(0, velocity.y * delta).rotated(rotation), true, true, true)
-	if velocity.y < 0 and collide and 'collider' in collide:
-		if 'visible' in collide.collider and collide.collider.visible == false:
-			return
-		
-		for i in range(1, amount + 1):
-			for j in [-1.0, 1.0]:
-				if !test_move(global_transform.translated(Vector2(i * j, 0)),
+	
+	if not collide: return
+	if not ('collider' in collide): return
+	if 'visible' in collide.collider and collide.collider.visible == false: return
+	
+	for i in range(1, amount + 1):
+		for j in [-1.0, 1.0]:
+			if !test_move(
+				global_transform.translated(Vector2(i * j, 0)),
 				Vector2(0, velocity.y * delta).rotated(rotation)
-				):
-					translate(Vector2(i * j, 0).rotated(rotation))
-					if velocity.x * j < 0: velocity.x = 0
-					return
+			):
+				translate(Vector2(i * j, 0).rotated(rotation))
+				if velocity.x * j < 0: velocity.x = 0
+				return
 
+# One tile gap runover
 func horizontal_correction(amount: int):
+	if is_on_floor(): return
+	if velocity.y <= 0 or abs(velocity.x) <= 1: return
+	
 	var delta = get_physics_process_delta_time()
 	var collide = move_and_collide(Vector2(velocity.x * delta, 0).rotated(rotation), true, true, true)
-	if velocity.y > 0 and (velocity.x > 1 or velocity.x < -1) and collide and 'collider' in collide:
-		if 'visible' in collide.collider and collide.collider.visible == false:
-			return
+	
+	if not collide: return
+	if not ('collider' in collide): return
+	if 'visible' in collide.collider and collide.collider.visible == false: return
+	
+	var normal = collide.normal.rotated(-rotation)
+	if not (normal.x == -1 or normal.x == 1): return
+	if abs(normal.y) >= 0.1: return
 		
-		for i in range(1, amount + 1):
-			for j in [-1.0, 0]:
-				var coll = move_and_collide(
-					Vector2(velocity.x * delta, 0).rotated(rotation),
-					true,
-					true,
-					true
-				)
-				
-				var normal = Vector2(0, 0)
-				
-				if ('normal' in coll):
-					normal = coll.normal.rotated(-rotation)
-
-				if !test_move(
-					global_transform.translated(Vector2(0, i * j)),
-					Vector2(velocity.x * delta, 0).rotated(rotation)
-				) && !is_on_floor() && 'normal' in coll && (normal.x == -1 || normal.x == 1) && normal.y < 0.1 && normal.y > -0.1:
-					translate(Vector2(0, i * j).rotated(rotation))
-					if velocity.y * j < 0: velocity.y = 0
-					return
+	for i in range(1, amount + 1):
+		for j in [-1.0, 0]:
+			if !test_move(
+				global_transform.translated(Vector2(0, i * j)),
+				Vector2(velocity.x * delta, 0).rotated(rotation)
+			):
+				translate(Vector2(0, i * j).rotated(rotation))
+				if velocity.y * j < 0: velocity.y = 0
+				return
 
 func fix_velocity_y(delta) -> void:
 	var coll = move_and_collide(
@@ -842,19 +839,18 @@ func fix_velocity_y(delta) -> void:
 		true
 	)
 
-	if coll:
-		if !is_on_floor() or velocity.y > -1: return
-		var normal = Vector2.ZERO
-		if 'normal' in coll:
-			normal = coll.normal.rotated(-rotation)
-			#prints(coll.normal, ' and ', normal)
-			if (normal.x >= 0 and velocity.x > 1) or (normal.x <= 0 and velocity.x < -1):
-				velocity.y = 0
-			elif (
-				is_zero_approx(normal.x)
-				and is_equal_approx(normal.y, -1)
-			):
-				velocity.y = 0
+	if !coll: return
+	if !is_on_floor() or velocity.y > -1: return
+	if !('normal' in coll): return
+	var normal = coll.normal.rotated(-rotation)
+	#prints(coll.normal, ' and ', normal)
+	if (normal.x >= 0 and velocity.x > 1) or (normal.x <= 0 and velocity.x < -1):
+		velocity.y = 0
+	elif (
+		is_zero_approx(normal.x)
+		and is_equal_approx(normal.y, -1)
+	):
+		velocity.y = 0
 
 func kill() -> void:
 	dead = true

@@ -93,8 +93,8 @@ var pause_timer: Timer = null
 # Create a new timer for delay
 onready var timer: Timer = Timer.new()
 
-static func get_delta(delta) -> float:			 # Delta by 50 FPS
-	return 50 / (1 / (delta if not delta == 0 else 0.0001))
+func get_delta(delta) -> float:			 # Delta by 50 FPS
+	return 50 * delta
 
 func _init() -> void:
 # warning-ignore:narrowing_conversion
