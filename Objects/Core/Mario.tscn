@@ -238,6 +238,7 @@ visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "RESET"
+playback_process_mode = 0
 anims/Big = SubResource( 16 )
 anims/RESET = SubResource( 15 )
 anims/Small = SubResource( 14 )
