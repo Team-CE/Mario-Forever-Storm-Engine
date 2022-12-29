@@ -34,4 +34,3 @@ position = Vector2( 48, 416 )
 script = ExtResource( 5 )
 
 [node name="MusicLoader" parent="." instance=ExtResource( 6 )]
-path = ".s3m"

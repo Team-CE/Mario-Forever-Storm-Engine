@@ -1,16 +1,16 @@
 shader_type canvas_item;
-
 /*
 This can be used to keep pixels well defined at higher resolutions. Integer
 values will work best. Should only be greater than or equal to 1.
 */
 uniform float pixel_scale = 1.0;
+uniform vec2 texture_size;
 
 // Based on https://en.wikipedia.org/wiki/Bilinear_filtering
 void fragment()
 {
-	vec2 textureSize = vec2(textureSize(TEXTURE, 0)) * pixel_scale;
-	vec2 texturePosition = UV * textureSize - vec2(0.5);
+	vec2 texSize = texture_size * pixel_scale;
+	vec2 texturePosition = UV * texSize - vec2(0.5);
 	float x1 = floor(texturePosition.x);
 	float xFrac = texturePosition.x - x1;
 	float y1 = floor(texturePosition.y);
@@ -18,10 +18,10 @@ void fragment()
 	float x2 = x1 + 1.0;
 	float y2 = y1 + 1.0;
 
-	float x1Uv = (x1 + 0.5)/textureSize.x;
-	float y1Uv = (y1 + 0.5)/textureSize.y;
-	float x2Uv = (x2 + 0.5)/textureSize.x;
-	float y2Uv = (y2 + 0.5)/textureSize.y;
+	float x1Uv = (x1 + 0.5)/texSize.x;
+	float y1Uv = (y1 + 0.5)/texSize.y;
+	float x2Uv = (x2 + 0.5)/texSize.x;
+	float y2Uv = (y2 + 0.5)/texSize.y;
 
 	vec3 z11 = texture(TEXTURE, vec2(x1Uv, y1Uv)).rgb;
 	vec3 z12 = texture(TEXTURE, vec2(x1Uv, y2Uv)).rgb;

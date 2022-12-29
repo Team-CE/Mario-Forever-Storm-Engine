@@ -5,3 +5,4 @@
 [resource]
 shader = ExtResource( 1 )
 shader_param/pixel_scale = 1.0
+shader_param/texture_size = null

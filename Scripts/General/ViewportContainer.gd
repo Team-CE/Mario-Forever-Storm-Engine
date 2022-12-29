@@ -51,6 +51,7 @@ func _update_view():
 	rect_position = target_position
 	rect_size = target_size
 	rect_scale = target_scale
+	material.set_shader_param("texture_size", target_size)
 	_update_pixel_scale(_calculate_pixel_scale(target_scale))
 
 func _calculate_pixel_scale(scale):
@@ -68,3 +69,4 @@ func _reset_values():
 	rect_position = Vector2.ZERO
 	rect_size = Vector2(640, 480)
 	rect_scale = Vector2.ONE
+	#material.set_shader_param("texture_size", rect_size)
