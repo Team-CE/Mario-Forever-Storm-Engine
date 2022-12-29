@@ -8,12 +8,11 @@
 extents = Vector2( 16, 16 )
 
 [sub_resource type="ShaderMaterial" id=4]
-resource_local_to_scene = true
 shader = ExtResource( 2 )
 shader_param/Shift_Hue = 0.0
 
-[sub_resource type="OccluderPolygon2D" id=2]
-polygon = PoolVector2Array( -16, -32, 16, -32, 16, 0, -16, 0 )
+[sub_resource type="OccluderPolygon2D" id=5]
+polygon = PoolVector2Array( -16, 0, -16, -32, 16, -32, 16, 0 )
 
 [node name="QBlock" type="StaticBody2D" groups=["Breakable", "Solid"]]
 collision_layer = 3
@@ -30,6 +29,7 @@ shape = SubResource( 1 )
 material = SubResource( 4 )
 z_index = 1
 frames = ExtResource( 3 )
+frame = 2
 playing = true
 offset = Vector2( 0, -16 )
 
@@ -41,4 +41,5 @@ process_parent = true
 physics_process_parent = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-occluder = SubResource( 2 )
+visible = false
+occluder = SubResource( 5 )

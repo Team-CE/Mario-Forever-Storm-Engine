@@ -90,6 +90,9 @@ const options_node = preload('res://Objects/Tools/PopupMenu/Options.tscn')
 var popup: CanvasLayer = null
 var pause_timer: Timer = null
 
+# Whether user runs the game on mobile phone or not
+var mobile: bool = false
+
 # Create a new timer for delay
 onready var timer: Timer = Timer.new()
 
@@ -121,6 +124,18 @@ func _ready() -> void:
 		add_child(preload('res://Objects/Core/Inspector.tscn').instance())
 	timer.wait_time = 1.5
 	add_child(timer)
+	
+	match OS.get_name():
+		'iOS', 'Android':
+			mobile = true
+			add_child(preload('res://Objects/Core/Touchscreen.tscn').instance())
+	
+	# Default settings for mobile phone
+	if mobile:
+		toSaveInfo.quality = 0
+		quality = 0
+		toSaveInfo.RPC = false
+		rpc = false
 	
 	var loadedData = loadInfo()
 	if !loadedData:

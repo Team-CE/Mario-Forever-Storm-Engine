@@ -111,14 +111,14 @@ func _physics_process(delta) -> void:
 			$S_Start.position.x = 248
 			selLimit = 2
 			pointer_pos = 0
-			pointer.position.y = 0
+			pointer.rect_position.y = 0
 		1:
 			$S_Start.position.x = 188
 			selLimit = 13
 			updateOptions()
 			$Credits.hide()
 			pointer_pos = max(-(selLimit * 37.5) + 340, min(0, -(sel * 37.5) + 160))
-			pointer.position.y += (pointer_pos - pointer.position.y) * 0.4 * Global.get_delta(delta)
+			pointer.rect_position.y += (pointer_pos - pointer.rect_position.y) * 0.4 * Global.get_delta(delta)
 			pos_y = 506 + (37.5 * sel) + pointer_pos
 		2:
 			pos_y = 988 + (48 * sel) if sel < 7 else 1004 + (48 * sel)

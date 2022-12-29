@@ -41,6 +41,9 @@ func _ready() -> void:
 	Global.call_deferred('reset_audio_effects')
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
+	if Global.levelID == 99:
+		Global.levelID = 0
+	
 	if Global.levelID > 0:
 		while $MarioPath/PathFollow2D.offset < stop_points[Global.levelID - 1]:
 			$MarioPath/PathFollow2D.offset += 4

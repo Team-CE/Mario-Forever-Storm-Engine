@@ -31,6 +31,9 @@ func _ready_mixin():
 		owner.get_node('Light2D').visible = true
 	else:
 		owner.get_node('Light2D').queue_free()
+	
+	if Global.quality < 2:
+		owner.get_node('Light2D').queue_free()
 		
 	var children = owner.get_parent().get_children()
 	for node in children:

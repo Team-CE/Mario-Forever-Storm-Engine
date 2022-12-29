@@ -35,8 +35,7 @@ void fragment() {
 		color_rgb=c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 	}
 
-// Output:0
-	texture_color = vec4(color_rgb.rgb,texture_color.a);
-	COLOR.rgba = texture_color;
+	COLOR.rgb = color_rgb;
+	COLOR.a = texture_color.a;
 
 }"
