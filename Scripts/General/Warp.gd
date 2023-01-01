@@ -170,6 +170,7 @@ func _physics_process(delta) -> void:
 					state_switched = true
 					finishline.act(true)
 					Global.Mario.visible = false
+					warp_dir = Vector2.ZERO
 			if counter >= out_duration + 60 and not trigger_finish and !Global.Mario.test_move(Global.Mario.transform, Vector2.ZERO):
 				Global.Mario.get_node('Sprite').z_index = 10
 				state_switched = false

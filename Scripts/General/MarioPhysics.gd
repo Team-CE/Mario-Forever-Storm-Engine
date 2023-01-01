@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal bottom_collider
+
 export var powerup_animations: Dictionary = {}
 export var powerup_scripts: Dictionary = {}
 export var target_gravity_angle: float = 0
@@ -201,6 +203,7 @@ func _process_alive(delta) -> void:
 	var bottom_collisions = $BottomDetector.get_overlapping_bodies()
 	if is_on_floor():
 		for collider in bottom_collisions:
+			emit_signal('bottom_collider', collider)
 			if collider.has_method('_standing_on'):
 				collider._standing_on()
 	
@@ -273,7 +276,8 @@ func _process_alive(delta) -> void:
 	update_collisions()
 		
 	if animation_enabled and danimate: animate_default(delta)
-	debug()
+	if Global.debug:
+		debug()
 	
 	$Sprite.offset.y = 0 - $Sprite.frames.get_frame($Sprite.animation, $Sprite.frame).get_size().y
 	$Sprite.offset.x = 0 - $Sprite.frames.get_frame($Sprite.animation, $Sprite.frame).get_size().x / 2
@@ -417,6 +421,12 @@ func movement_climbing(delta) -> void:
 	if animation_enabled: animate_climbing(delta)
 	
 	if !is_over_vine():
+		var overlaps = $BottomDetector.get_overlapping_areas()
+		for c in overlaps:
+			if c.is_in_group('Climbable'):
+				position.y -= velocity.y / 50 * Global.get_delta(delta)
+				velocity.y = 0
+				return
 		movement_type = Movement.DEFAULT if !Global.is_mario_collide_area_group('InsideDetector', 'Water') else Movement.SWIMMING
 		
 func is_over_vine() -> bool:
@@ -707,7 +717,7 @@ func animate_climbing(delta) -> void:
 		launch_counter -= 1.01 * Global.get_delta(delta)
 	
 	if $Sprite.animation == 'Climbing':
-		$Sprite.speed_scale = 2 if abs(velocity.y + velocity.x) > 5 else 0
+		$Sprite.speed_scale = 2 if abs(velocity.y) + abs(velocity.x) > 5 else 0
 	else:
 		animate_sprite('Climbing')
 

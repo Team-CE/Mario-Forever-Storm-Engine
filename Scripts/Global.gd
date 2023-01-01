@@ -42,7 +42,7 @@ var gravity: float = 20											# Global gravity
 
 var HUD: CanvasLayer												# ref HUD
 var Mario: Node2D														# ref Mario
-var current_camera: Camera2D setget ,get_current_camera # ref current camera
+var current_camera: Camera2D #setget ,get_current_camera # ref current camera
 
 signal TimeTick															# Called when time ticks
 signal OnPlayerLoseLife											# Called when the player dies
@@ -565,16 +565,16 @@ func _deferred_goto_scene(path: String):
 	
 	#get_tree().set_current_scene(current_scene)
 
-func get_current_camera():
-	var viewport = get_node('/root/GlobalViewport/Viewport')
-	if not viewport:
-		return null
-	if is_instance_valid(current_camera) and current_camera.current:
-		return current_camera
-	var camerasGroupName = "__cameras_%d" % viewport.get_viewport_rid().get_id()
-	var cameras = get_tree().get_nodes_in_group(camerasGroupName)
-	for camera in cameras:
-		if camera is Camera2D and camera.current: 
-			current_camera = camera
-			return camera
-	return null
+#func get_current_camera():
+#	var viewport = get_node('/root/GlobalViewport/Viewport')
+#	if not viewport:
+#		return null
+#	if is_instance_valid(current_camera) and current_camera.current:
+#		return current_camera
+#	var camerasGroupName = "__cameras_%d" % viewport.get_viewport_rid().get_id()
+#	var cameras = get_tree().get_nodes_in_group(camerasGroupName)
+#	for camera in cameras:
+#		if camera is Camera2D and camera.current: 
+#			current_camera = camera
+#			return camera
+#	return null
