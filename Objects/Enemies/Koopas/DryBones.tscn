@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Enemies/DryBones.png" type="Texture" id=2]
 [ext_resource path="res://Sounds/Bonuses/break.wav" type="AudioStream" id=3]
-[ext_resource path="res://Games/TheMultiverse2/Scripts/DryBones.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/AI/DryBones.gd" type="Script" id=4]
 [ext_resource path="res://GFX/Enemies/DryBonesCrash.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]

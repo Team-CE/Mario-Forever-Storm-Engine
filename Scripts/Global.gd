@@ -139,6 +139,7 @@ func _ready() -> void:
 	
 	var loadedData = loadInfo()
 	if !loadedData:
+		_after_config_load()
 		return
 	saveFileExists = true
 	
@@ -158,8 +159,6 @@ func _ready() -> void:
 	if toSaveInfo.has('Overlay') and typeof(toSaveInfo.Overlay) == TYPE_BOOL: overlay = toSaveInfo.Overlay
 	if toSaveInfo.has('Autosave') and typeof(toSaveInfo.Autosave) == TYPE_BOOL: autosave = toSaveInfo.Autosave
 	
-	call_deferred('updateScale')
-	
 	# Loading controls
 	for action in controls:
 		if controls[action] and controls[action] is String:
@@ -173,6 +172,11 @@ func _ready() -> void:
 						InputMap.action_erase_event(action, toRemove)
 				InputMap.action_add_event(action, key)
 	
+	_after_config_load()
+	
+func _after_config_load() -> void:
+	call_deferred('updateScale')
+	
 	VisualServer.set_default_clear_color(Color.black)
 	
 	# Loading music
@@ -181,7 +185,7 @@ func _ready() -> void:
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(musicBar))
 	if soundBar <= 1.0:
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), linear2db(soundBar))
-
+	
 func saveInfo(content):
 	var file = File.new()
 	

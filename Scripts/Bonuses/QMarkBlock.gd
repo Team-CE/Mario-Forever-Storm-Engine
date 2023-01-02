@@ -236,7 +236,7 @@ func hit(ignore_powerup = false, idle_frame: bool = true) -> void:
 				powerup.appearing = true
 			powerup.rotation = rotation
 			get_parent().add_child(powerup)
-			if 'vars' in powerup and powerup.brain.appearing and powerup is KinematicBody2D:
+			if 'vars' in powerup and powerup is KinematicBody2D:
 				Global.play_base_sound('MAIN_PowerupGrow')
 			elif powerup.get_node_or_null('Grow') is AudioStreamPlayer2D:
 				powerup.get_node('Grow').play()
