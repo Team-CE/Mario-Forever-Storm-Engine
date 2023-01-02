@@ -141,7 +141,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Mario Forever Storm Engine"
-run/main_scene="res://Games/PyramidRush/Stages/Level17.tscn"
+run/main_scene="res://Stages/Menu.tscn"
 run/delta_sync_after_draw=true
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
