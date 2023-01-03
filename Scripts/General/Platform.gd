@@ -29,6 +29,9 @@ var fall_bool: bool = false
 var inited_script
 
 func _ready() -> void:
+	_ready_mixin()
+	
+func _ready_mixin() -> void:
 	process_priority = -100
 	if not move_on_touch:
 		active = true

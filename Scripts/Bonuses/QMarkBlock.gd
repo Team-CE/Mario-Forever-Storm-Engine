@@ -29,6 +29,8 @@ export(bool) var Empty: bool
 
 export(BLOCK_TYPE) var qtype: int = BLOCK_TYPE.COMMON
 
+export(bool) var result_to_parent: bool = true
+
 var blockShape: Shape2D
 var collision: CollisionShape2D
 var preview: Sprite
@@ -229,13 +231,18 @@ func hit(ignore_powerup = false, idle_frame: bool = true) -> void:
 		if !powerup or (!('vars' in powerup) and !('appearing' in powerup)):
 			Global.play_base_sound('MAIN_Bump')
 		else:
-			powerup.position = position + Vector2(1, 0).rotated(rotation)
 			if 'vars' in powerup:
 				powerup.vars['from bonus'] = true
 			elif 'appearing' in powerup:
 				powerup.appearing = true
-			powerup.rotation = rotation
-			get_parent().add_child(powerup)
+			if result_to_parent:
+				powerup.position = position + Vector2(1, 0).rotated(rotation)
+				powerup.rotation = rotation
+				get_parent().add_child(powerup)
+			else:
+				powerup.global_position = global_position + Vector2(1, 0).rotated(global_rotation)
+				powerup.global_rotation = global_rotation
+				Global.current_scene.add_child(powerup)
 			if 'vars' in powerup and powerup is KinematicBody2D:
 				Global.play_base_sound('MAIN_PowerupGrow')
 			elif powerup.get_node_or_null('Grow') is AudioStreamPlayer2D:

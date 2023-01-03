@@ -100,11 +100,11 @@ func hit(_a = false, _b = false) -> void:
 	toggle_switches()
 
 func toggle_switches() -> void:
-	var nodes = get_parent().get_children()
+	var nodes = get_tree().get_nodes_in_group('Switch Block')
 	
-	for node in nodes:
-		if 'Enabled' in node and 'Block' in node and node.Block and 'id' in node and node.id == id:
-			node.Enabled = !node.Enabled
+	for n in nodes:
+		if 'Enabled' in n and 'Block' in n and n.Block and 'id' in n and n.id == id:
+			n.Enabled = !n.Enabled
 
 func _process_trigger(delta) -> void:
 	t_counter += (1 if t_counter < 200 else 0) * Global.get_delta(delta)

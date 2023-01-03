@@ -53,7 +53,7 @@ func crushed(delta) -> void:
 		c_wake_bool = true
 	if c_wake > 250:
 		c_wake = 0
-    c_wake_bool = false
+		c_wake_bool = false
 		owner.alive = true
 		owner.animated_sprite.set_animation('default')
 		owner.gravity_scale = 1
