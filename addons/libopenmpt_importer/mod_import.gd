@@ -2,7 +2,6 @@ tool
 extends EditorPlugin
 
 var import_plugin
-var export_plugin
 
 func _enter_tree():
 	add_custom_type('TrackerAudio', 'Resource', preload('res://addons/libopenmpt_importer/tracker_resource.gd'), preload('res://addons/libopenmpt_importer/icon.png'))

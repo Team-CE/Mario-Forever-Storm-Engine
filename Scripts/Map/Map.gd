@@ -51,7 +51,7 @@ func _ready() -> void:
 				dot._physics_process(1)
 	
 	yield(get_tree(), 'idle_frame')
-	var cam = Global.get_current_camera()
+	var cam = Global.current_camera
 	cam.smoothing_enabled = true
 
 func _input(event):
