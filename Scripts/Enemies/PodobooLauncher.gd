@@ -34,10 +34,10 @@ func _physics_process(delta):
 			Global.current_scene.add_child(podo)
 			podo.remove_in_lava = true
 			
-			podo.velocity.x = rng.randi_range(-4, 4)
-			podo.velocity.y = launch_strength
+			podo._velocity.x = rng.randi_range(-4, 4)
+			podo._velocity.y = launch_strength
 			if lower_up_when_diagonal:
-				podo.velocity.y += abs(podo.velocity.x) / 2
+				podo._velocity.y += abs(podo._velocity.x) / 2
 			podo.active = true
 			$shoot.play()
 		
