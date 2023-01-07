@@ -1,7 +1,11 @@
 extends Node2D
+signal end_sequence_triggered
 
 export var set_level_id: int = 0
 export var map_scene: String = ''
+export var custom_script: Script
+
+var inited_script
 
 var initial_position: float
 var counter: float = 0
@@ -20,6 +24,11 @@ func _ready() -> void:
 	
 	if 'finish_node' in Global.current_scene:
 		Global.current_scene.finish_node = self
+	
+	if custom_script:
+		inited_script = custom_script.new()
+		if inited_script.has_method('_ready_mixin'):
+			inited_script._ready_mixin(self)
 
 func _physics_process(delta) -> void:
 	if not crossed:
@@ -100,6 +109,7 @@ func finish_process(delta):
 func act(warp_finish_enabled: bool = false) -> void:
 	Global.level_ended = true
 	crossed = true
+	emit_signal('end_sequence_triggered', self)
 	MusicPlayer.play_file(MusicPlayer.mus_win)
 	MusicPlayer.stop_on_pause()
 	MusicPlayer.star.stop()

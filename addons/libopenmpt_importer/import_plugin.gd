@@ -64,7 +64,7 @@ func import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	
 	var buffer = file.get_buffer(file.get_len())
 	file.close()
-	var resource = load('res://addons/libopenmpt_importer/tracker_resource.gd').new()
+	var resource = preload('res://addons/libopenmpt_importer/tracker_resource.gd').new()
 	resource.data = buffer
 	resource.interpolation = options.interpolation
 	resource.loop = options.loop

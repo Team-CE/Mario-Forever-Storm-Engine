@@ -16,6 +16,7 @@ extents = Vector2( 17, 17 )
 extents = Vector2( 17, 32 )
 
 [node name="Piranha" type="KinematicBody2D" groups=["Enemy"]]
+collision_layer = 32
 script = ExtResource( 1 )
 vars = {
 "no fireballs above screen": false,

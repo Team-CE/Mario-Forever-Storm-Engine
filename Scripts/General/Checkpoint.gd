@@ -1,14 +1,20 @@
 extends Area2D
-
+signal checkpoint_activated
 
 var active: bool = false
 export var id: int = 0
+export var custom_script: Script
 
+var inited_script
 var counter: float = 0
-
 var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
+	if custom_script:
+		inited_script = custom_script.new()
+		if inited_script.has_method('_ready_mixin'):
+			inited_script._ready_mixin(self)
+		
 	if Global.checkpoint_active == id:
 		active = true
 		$AnimatedSprite.animation = 'active'
@@ -30,6 +36,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_instance_valid(self) and is_instance_valid(Global.Mario) and Global.is_mario_collide_area('InsideDetector', self) and !active:
 		active = true
+		emit_signal('checkpoint_activated', self)
 		$AnimatedSprite.animation = 'active'
 		$Sound.play()
 		counter = 1
