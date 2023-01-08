@@ -19,7 +19,7 @@ func _physics_process(delta):
 	if Global.Mario.position.x > position.x and !music_switched:
 		music_switched = true
 		MusicPlayer.play_file(music)
-		$StaticBody2D.collision_layer = 0b10
+		$StaticBody2D.collision_layer = 0b10000
 		camera = Global.current_camera
 		if !camera: return
 		camera.get_parent().remove_child(camera)
@@ -30,7 +30,7 @@ func _physics_process(delta):
 
 	if triggered:
 		if !camera: return
-		$StaticBody2D.collision_layer = 0b10 if Global.Mario.controls_enabled else 0
+		$StaticBody2D.collision_layer = 0b10000 if Global.Mario.controls_enabled else 0
 		if position.x > camera.limit_right - 320:
 			return
 		position.x += autoscroll_speed * Global.get_delta(delta)
