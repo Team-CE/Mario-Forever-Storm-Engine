@@ -415,15 +415,14 @@ limit_bottom = 1280
 
 [node name="Buttons" type="Control" parent="."]
 
-[node name="Control" type="ScrollContainer" parent="Buttons"]
+[node name="Control" type="Control" parent="Buttons"]
 margin_left = 160.0
 margin_top = 480.0
-margin_right = 624.0
+margin_right = 640.0
 margin_bottom = 864.0
-follow_focus = true
-scroll_horizontal_enabled = false
+rect_clip_content = true
 
-[node name="Pointer" type="VBoxContainer" parent="Buttons/Control"]
+[node name="Pointer" type="Node2D" parent="Buttons/Control"]
 
 [node name="Options" type="Sprite" parent="Buttons/Control/Pointer"]
 position = Vector2( 160, 272 )
