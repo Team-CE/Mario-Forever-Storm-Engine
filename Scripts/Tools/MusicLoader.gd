@@ -9,7 +9,9 @@ func _ready():
 	
 	if current_index > music_list.size():
 		current_index = music_list.size()
-
+	
+	if Global.starman_saved and Global.current_scene.is_class('Level'): return
+	
 	if playing and music_list[current_index] != null:
 		MusicPlayer.play_file(music_list[current_index])
 	MusicPlayer.play_on_pause()

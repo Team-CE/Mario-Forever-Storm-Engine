@@ -220,11 +220,10 @@ func _process_alive(delta) -> void:
 			MusicPlayer.fade_out(MusicPlayer.star, 3.0)
 			faded = true
 		if shield_counter <= 0:
-			if not MusicPlayer.main.playing:
-				MusicPlayer.star.stop()
-				MusicPlayer.starmpt.stop()
-				MusicPlayer.main.play()
-				MusicPlayer.openmpt.start(false)
+			MusicPlayer.star.stop()
+			MusicPlayer.starmpt.stop()
+			if Global.music_loader and Global.music_loader.playing:
+				Global.music_loader.play()
 			$BottomDetector.collision_layer = 0b111 # All 3 layers
 			$BottomDetector.collision_mask = 0b111
 			$Sprite.material.set_shader_param('mixing', false)
