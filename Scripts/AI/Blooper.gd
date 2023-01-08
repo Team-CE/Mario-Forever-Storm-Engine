@@ -47,12 +47,12 @@ func _ai_process(delta:float) -> void:
 		moving_up = true
 		move_to = owner.position
 		tween.interpolate_property(owner, 'position',
-			owner.position, move_to + Vector2(72 * owner.dir, -96), 0.65,
+			owner.position, move_to + Vector2(72 * owner.dir, -96), 0.85,
 			Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 		tween.start()
 		tween.seek(0.1)
 	if owner.position.y < limit_top and moving_up:
-		approach_counter = 32
+		approach_counter = 40
 		owner.position.y += 1
 	
 	if timer < 8:
@@ -66,14 +66,14 @@ func _ai_process(delta:float) -> void:
 	if moving_up:
 		approach_counter += 1 * Global.get_delta(delta)
 		
-		if approach_counter > 32:
+		if approach_counter > 40:
 			moving_up = false
 			owner.animated_sprite.frame = 1
-			approach_counter = -24
+			approach_counter = -28
 			tween.stop_all()
 			
 	else:
-		owner.position.y += 1.5 * Global.get_delta(delta)
+		owner.position.y += 1.35 * Global.get_delta(delta)
 		if approach_counter < 0:
 			approach_counter += 1 * Global.get_delta(delta)
 		elif approach_counter > 0 and approach_counter < 0.99:
