@@ -21,6 +21,7 @@ func _ready() -> void:
 		$Sprite.playing = false
 		$CollisionShape2D.set_deferred('disabled', true)
 		$StaticBody2D/Collision2.set_deferred('disabled', false)
+		$IceBlockDetc/Collision.set_deferred('disabled', false)
 
 func _physics_process(delta) -> void:
 	if frozen:
@@ -72,6 +73,7 @@ func freeze(forever: bool = false) -> void:
 	$Sprite.playing = false
 	$CollisionShape2D.set_deferred('disabled', true)
 	$StaticBody2D/Collision2.set_deferred('disabled', false)
+	$IceBlockDetc/Collision.set_deferred('disabled', false)
 
 func unfreeze() -> void:
 	frozen = false
@@ -81,6 +83,7 @@ func unfreeze() -> void:
 	$Sprite.playing = true
 	$CollisionShape2D.set_deferred('disabled', false)
 	$StaticBody2D/Collision2.set_deferred('disabled', true)
+	$IceBlockDetc/Collision.set_deferred('disabled', true)
 	
 	freeze_counter = 0
 	freeze_sprite_counter = 0
@@ -103,6 +106,11 @@ func _on_Coin_body_entered(body) -> void:
 	if 'Iceball'.to_lower() in body.get_name().to_lower() and 'belongs' in body and !frozen:
 		freeze(bool(body.belongs))
 		body.explode()
-	elif 'Fireball'.to_lower() in body.get_name().to_lower() and frozen:
+
+
+func _on_IceBlockDetc_body_entered(body) -> void:
+	print(body)
+	if appearing: return
+	if 'Fireball'.to_lower() in body.get_name().to_lower() and frozen:
 		unfreeze()
 		body.explode()
