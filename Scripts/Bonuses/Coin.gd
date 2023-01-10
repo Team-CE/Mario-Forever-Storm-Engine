@@ -101,16 +101,13 @@ func _on_Coin_area_entered(area) -> void:
 		queue_free()
 
 
-func _on_Coin_body_entered(body) -> void:
+func _on_IceBlockDetc_area_entered(area) -> void:
 	if appearing: return
-	if 'Iceball'.to_lower() in body.get_name().to_lower() and 'belongs' in body and !frozen:
-		freeze(bool(body.belongs))
-		body.explode()
-
-
-func _on_IceBlockDetc_body_entered(body) -> void:
-	print(body)
-	if appearing: return
-	if 'Fireball'.to_lower() in body.get_name().to_lower() and frozen:
+	
+	var root: Node2D = area.owner
+	if 'Iceball'.to_lower() in root.get_name().to_lower() and 'belongs' in root and !frozen:
+		freeze(bool(root.belongs))
+		root.explode()
+	elif 'Fireball'.to_lower() in root.get_name().to_lower() and frozen:
 		unfreeze()
-		body.explode()
+		root.explode()

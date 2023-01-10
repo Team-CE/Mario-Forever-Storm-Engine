@@ -12,6 +12,7 @@ extents = Vector2( 8, 8 )
 
 [node name="Fireball" type="KinematicBody2D" groups=["Projectile"]]
 z_index = 9
+collision_layer = 0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -40.0 ]

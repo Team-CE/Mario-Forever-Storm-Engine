@@ -67,8 +67,8 @@ shape = SubResource( 5 )
 
 [node name="IceBlockDetc" type="Area2D" parent="."]
 visible = false
-collision_layer = 2
-collision_mask = 3
+collision_layer = 0
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="IceBlockDetc"]
 shape = SubResource( 9 )
@@ -106,5 +106,4 @@ max_distance = 600.0
 bus = "Sounds"
 
 [connection signal="area_entered" from="." to="." method="_on_Coin_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_Coin_body_entered"]
-[connection signal="body_entered" from="IceBlockDetc" to="." method="_on_IceBlockDetc_body_entered"]
+[connection signal="area_entered" from="IceBlockDetc" to="." method="_on_IceBlockDetc_area_entered"]

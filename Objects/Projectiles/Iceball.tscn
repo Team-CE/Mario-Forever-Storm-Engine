@@ -12,6 +12,7 @@ extents = Vector2( 8, 8 )
 
 [node name="Iceball" type="KinematicBody2D" groups=["Projectile"]]
 z_index = 9
+collision_layer = 0
 script = ExtResource( 2 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
