@@ -57,6 +57,7 @@ occluder = SubResource( 7 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -105,5 +106,6 @@ stream = ExtResource( 4 )
 max_distance = 600.0
 bus = "Sounds"
 
+[connection signal="area_entered" from="." to="." method="_on_IceBlockDetc_area_entered"]
 [connection signal="area_entered" from="." to="." method="_on_Coin_area_entered"]
 [connection signal="area_entered" from="IceBlockDetc" to="." method="_on_IceBlockDetc_area_entered"]

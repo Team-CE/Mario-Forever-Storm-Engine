@@ -94,20 +94,23 @@ func unfreeze() -> void:
 
 func _on_Coin_area_entered(area) -> void:
 	if appearing or frozen: return
+	
 	if area.is_in_group('Mario'):
 		Global.add_coins(1)
 		Global.add_score(200)
 		Global.HUD.get_node('CoinSound').play()
 		queue_free()
+	
+	var root: Node2D = area.owner
+	if 'Iceball'.to_lower() in root.get_name().to_lower() and 'belongs' in root and !frozen:
+		freeze(bool(root.belongs))
+		root.explode()
 
 
 func _on_IceBlockDetc_area_entered(area) -> void:
 	if appearing: return
 	
 	var root: Node2D = area.owner
-	if 'Iceball'.to_lower() in root.get_name().to_lower() and 'belongs' in root and !frozen:
-		freeze(bool(root.belongs))
-		root.explode()
-	elif 'Fireball'.to_lower() in root.get_name().to_lower() and frozen:
+	if 'Fireball'.to_lower() in root.get_name().to_lower() and frozen:
 		unfreeze()
 		root.explode()
