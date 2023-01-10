@@ -101,16 +101,36 @@ func _on_Coin_area_entered(area) -> void:
 		Global.HUD.get_node('CoinSound').play()
 		queue_free()
 	
-	var root: Node2D = area.owner
-	if 'Iceball'.to_lower() in root.get_name().to_lower() and 'belongs' in root and !frozen:
+	var root: Node2D = area.owner if 'owner' in area else null
+	if root == null: return
+	
+	if 'Iceball'.to_lower() in root.get_name().to_lower() and 'belongs' in root:
 		freeze(bool(root.belongs))
 		root.explode()
 
 
 func _on_IceBlockDetc_area_entered(area) -> void:
-	if appearing: return
+	if appearing or not frozen: return
 	
-	var root: Node2D = area.owner
-	if 'Fireball'.to_lower() in root.get_name().to_lower() and frozen:
+	var root: Node2D = area.owner if 'owner' in area else null
+	if root == null: return
+	
+	if 'Fireball'.to_lower() in root.get_name().to_lower():
 		unfreeze()
 		root.explode()
+
+func queue_free() -> void:
+	hide()
+	$CollisionShape2D.set_deferred('disabled', true)
+	$StaticBody2D/Collision2.set_deferred('disabled', true)
+	$IceBlockDetc/Collision.set_deferred('disabled', true)
+	$BlockDetector/Collision.set_deferred('disabled', true)
+	if $ice1.playing:
+# warning-ignore:return_value_discarded
+		$ice1.connect('finished', self, 'queue_free')
+		return
+	elif $ice2.playing:
+# warning-ignore:return_value_discarded
+		$ice2.connect('finished', self, 'queue_free')
+		return
+	.queue_free()

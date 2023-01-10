@@ -19,13 +19,16 @@ func _physics_process(delta):
 	if timer_delay > 150:
 		timer_delay = 0
 		$Fire.play()
+		
 		var popcorn = popcorn_scene.instance()
 		popcorn.belongs = 2
 		velocity.x = rng.randi_range(-2, 2)
-		velocity.y = -5 - rng.randf_range(0, 3)
+		var vel_y_correction = cos(rotation) / 2 + 0.5
+		velocity.y = (-5 * vel_y_correction) - rng.randf_range(0, 3)
 		popcorn.velocity = (velocity.rotated(rotation) + motion_launch_add.rotated(rotation)) * 50
 		Global.current_scene.add_child(popcorn)
 		popcorn.global_transform = global_transform
+		
 		var explosion = Explosion.new(position)
 		Global.current_scene.add_child(explosion)
 		explosion.z_index = 2

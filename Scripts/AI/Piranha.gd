@@ -75,9 +75,6 @@ func _ai_process(delta: float) -> void:
 		projectile_timer -= 1 * Global.get_delta(delta)
 
 	piranha_counter += 1 * Global.get_delta(delta)
-	
-	if piranha_counter == 0:
-		offset_pos = Vector2.ZERO
 
 	if piranha_counter < 64:
 		offset_pos += Vector2(0, -1).rotated(owner.rotation) * Global.get_delta(delta)
@@ -93,6 +90,7 @@ func _ai_process(delta: float) -> void:
 	
 	if piranha_counter >= 260 and (Global.Mario.position.x < owner.position.x - 80 or Global.Mario.position.x > owner.position.x + 80):
 		piranha_counter = 0
+		offset_pos = Vector2.ZERO
 		
 	owner.position = initial_pos + offset_pos
 	
@@ -108,7 +106,9 @@ func _process_shooting(_delta):
 			fireball = preload('res://Objects/Projectiles/Iceball.tscn').instance()
 		else:
 			fireball = preload('res://Objects/Projectiles/Fireball.tscn').instance()
-		fireball.velocity = Vector2(rng.randf_range(-250.0, 250.0), rng.randf_range(-150.0, -600.0)).rotated(owner.rotation)
+		var vel_y_min = cos(owner.rotation) / 2 + 0.5
+		var vel_y_max = cos(owner.rotation) / 4 + 0.75
+		fireball.velocity = Vector2(rng.randf_range(-250.0, 250.0), rng.randf_range(-150.0 * vel_y_min, -600.0 * vel_y_max)).rotated(owner.rotation)
 		fireball.position = owner.position + Vector2(0, -32).rotated(owner.rotation)
 		fireball.belongs = 1
 		fireball.gravity_scale = 0.5
