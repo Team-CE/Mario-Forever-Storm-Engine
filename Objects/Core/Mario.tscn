@@ -150,6 +150,7 @@ offset = Vector2( -14, -31 )
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( 0, -13 )
+z_index = 10
 shape = SubResource( 1 )
 
 [node name="CollisionBig" type="CollisionShape2D" parent="."]

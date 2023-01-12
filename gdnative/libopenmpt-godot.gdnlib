@@ -12,5 +12,5 @@ X11.64="res://gdnative/libopenmpt/linux/libopenmptgodot.so"
 
 [dependencies]
 
-Windows.64=[ "res://gdnative/libopenmpt/windows/libopenmpt.dll", "res://gdnative/libopenmpt/windows/libopenmptgodot.dll", "res://gdnative/libopenmpt/windows/openmpt-mpg123.dll", "res://gdnative/libopenmpt/windows/openmpt-ogg.dll", "res://gdnative/libopenmpt/windows/openmpt-vorbis.dll", "res://gdnative/libopenmpt/windows/openmpt-zlib.dll" ]
+Windows.64=[ "res://gdnative/libopenmpt/windows/libopenmpt.dll", "res://gdnative/libopenmpt/windows/libopenmptgodot.dll", "res://gdnative/libopenmpt/windows/msvcp140.dll", "res://gdnative/libopenmpt/windows/openmpt-mpg123.dll", "res://gdnative/libopenmpt/windows/openmpt-ogg.dll", "res://gdnative/libopenmpt/windows/openmpt-vorbis.dll", "res://gdnative/libopenmpt/windows/openmpt-zlib.dll", "res://gdnative/libopenmpt/windows/vcruntime140.dll", "res://gdnative/libopenmpt/windows/vcruntime140_1.dll" ]
 X11.64=[ "res://gdnative/libopenmpt/linux/libopenmpt.so.0" ]

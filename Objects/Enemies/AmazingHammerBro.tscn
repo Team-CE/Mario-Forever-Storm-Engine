@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Platforms/AmazingHammerBroPlatform.gd" type="Script" id=2]
@@ -7,21 +7,22 @@
 [ext_resource path="res://GFX/Enemies/AmazingBro.png" type="Texture" id=5]
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=6]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=7]
-[ext_resource path="res://Sounds/Bonuses/bump.wav" type="AudioStream" id=8]
 [ext_resource path="res://Scripts/Enemies/AmazingHammerBroMain.gd" type="Script" id=9]
 [ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=10]
+[ext_resource path="res://GFX/Platforms/AmazingBroPlatWings.png" type="Texture" id=11]
+[ext_resource path="res://Scripts/Platforms/AmazingHammerBroPlatformBlock.gd" type="Script" id=12]
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 11 )
 region = Rect2( 0, 0, 84, 80 )
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 11 )
 region = Rect2( 84, 0, 84, 80 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -29,6 +30,9 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 32, 16 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 16, 16 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
@@ -79,9 +83,29 @@ position = Vector2( 0, 24 )
 shape = SubResource( 5 )
 one_way_collision_margin = 8.0
 
-[node name="bump" type="AudioStreamPlayer2D" parent="KinematicPlatform"]
-stream = ExtResource( 8 )
-bus = "Sounds"
+[node name="StaticBody2D" type="StaticBody2D" parent="KinematicPlatform"]
+position = Vector2( -16, 24 )
+collision_layer = 0
+collision_mask = 3
+script = ExtResource( 12 )
+
+[node name="Sprite" type="Sprite" parent="KinematicPlatform/StaticBody2D"]
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicPlatform/StaticBody2D"]
+shape = SubResource( 14 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="KinematicPlatform"]
+position = Vector2( 16, 24 )
+collision_layer = 0
+collision_mask = 3
+script = ExtResource( 12 )
+
+[node name="Sprite" type="Sprite" parent="KinematicPlatform/StaticBody2D2"]
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicPlatform/StaticBody2D2"]
+shape = SubResource( 14 )
 
 [node name="AmazingBro" type="KinematicBody2D" parent="KinematicPlatform" groups=["Enemy"]]
 unique_name_in_owner = true

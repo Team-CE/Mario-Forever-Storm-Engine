@@ -50,7 +50,7 @@ func _ready() -> void:
 	else:
 		OS.alert("""Error loading music library.
 
-Make sure you have VCRedist 2022 x64 installed on your computer.
+Make sure you have all external DLLs bundled into the game archive.
 
 The game will now continue to work without music, until the problem is fixed.""")
 
@@ -58,9 +58,8 @@ func play_file(file: Resource) -> void:
 	if !file:
 		printerr('[MusicPlayer] Invalid resource')
 		return
-	if !star.playing:
-		openmpt.stop()
-		main.stop()
+	openmpt.stop()
+	main.stop()
 	if ClassDB.get_parent_class(file.get_class()) == 'AudioStream':
 		init_stream(file)
 	else:
@@ -76,8 +75,7 @@ func init_stream(audio: AudioStream) -> void:
 	
 	main.stream = audio
 	main.volume_db = 0
-	if !star.playing:
-		main.play()
+	main.play()
 	print('[MusicPlayer] Loaded stream audio')
 
 func init_tracker(audio: Resource) -> void:
@@ -97,9 +95,8 @@ func init_tracker(audio: Resource) -> void:
 	openmpt.set_repeat_count(0 if !audio.loop else -1)
 	main.volume_db = audio.volume_offset
 	
-	if !star.playing:
-		openmpt.start()
-		main.play()
+	openmpt.start()
+	main.play()
 
 # Put this to audio_stream: MusicPlayer.main
 func fade_out(audio_stream: Object, duration: float, from_vol: float = 0, to_vol: float = -80) -> void:

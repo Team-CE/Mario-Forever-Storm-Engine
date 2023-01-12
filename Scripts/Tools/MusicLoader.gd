@@ -28,9 +28,11 @@ func set_current_index(new_index):
 
 func play():
 	if music_list[current_index] == null:
+		push_warning('[MusicLoader] Skipping missing index')
 		return
 	MusicPlayer.play_file(music_list[current_index])
 	playing = true
+	print('played')
 
 func _enter_tree():
 	Global.music_loader = self

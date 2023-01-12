@@ -25,13 +25,3 @@ func _physics_process(delta):
 		else:
 			bro.global_position = platform.global_position
 	
-	if triggered:
-		t_counter += 1 * Global.get_delta(delta)
-		if t_counter > 12:
-			t_counter = 0
-			triggered = false
-
-func hit(_a = false, _b = false):
-	if triggered: return
-	triggered = true
-	platform.get_node('bump').play()

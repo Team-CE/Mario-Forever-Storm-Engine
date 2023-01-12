@@ -168,6 +168,10 @@ window/stretch/aspect="keep"
 
 enabled=PoolStringArray( "res://addons/brush2d/plugin.cfg", "res://addons/component_view/plugin.cfg", "res://addons/libopenmpt_importer/plugin.cfg", "res://addons/metadata_inspector/plugin.cfg" )
 
+[gdnative]
+
+singletons=[  ]
+
 [importer_defaults]
 
 texture={
