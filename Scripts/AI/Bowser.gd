@@ -27,6 +27,12 @@ var w_created: bool = false
 var y_speed: float = 0
 var f_act: bool = false
 
+var freeze_counter: float = 0
+var freeze_x: float
+var freeze_level: int
+var initial_col_layer
+var initial_col_mask
+
 var rng
 var camera
 
@@ -40,7 +46,8 @@ func _ready_mixin() -> void:
 
 	yield(owner.get_tree(), 'idle_frame')
 	camera = Global.current_camera
-	owner.can_freeze = false
+	initial_col_layer = owner.collision_layer
+	initial_col_mask = owner.collision_mask
 	
 func _setup(b) -> void:
 	._setup(b)
@@ -50,6 +57,46 @@ func _setup(b) -> void:
 func _ai_process(delta: float) -> void:
 	._ai_process(delta)
 	if !owner.get_node('VisibilityNotifier2D').is_on_screen() and owner.alive:
+		return
+	
+	if owner.frozen:
+		owner.animated_sprite.visible = true
+		if !freeze_x:
+			freeze_x = owner.position.x
+		
+		if freeze_counter < 50:
+			freeze_counter += 1 * Global.get_delta(delta)
+		else:
+			freeze_level += 1
+			owner.frozen = false
+			owner.frozen_sprite.visible = false
+			owner.get_node('ice2').play()
+			owner.collision_layer = initial_col_layer
+			owner.collision_mask = initial_col_mask
+			owner.animated_sprite.playing = true
+			owner.death_type = AliveObject.DEATH_TYPE.CUSTOM
+			owner.frozen_sprite.playing = false
+			owner.freeze_counter = 0
+			owner.freeze_sprite_counter = 0
+			freeze_counter = 0
+			freeze_x = 0
+			var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
+			for i in 4:
+				var debris_effect = BrickEffect.new(owner.position + Vector2(0, -16).rotated(owner.rotation), speeds[i], owner.frozen_sprite.frames)
+				owner.get_parent().add_child(debris_effect)
+			
+			owner.clipper.rect_clip_content = false
+			
+			if freeze_level > 2:
+				freeze_level = 0
+				bowser_damage()
+			else:
+				invis_c = 40
+		
+		if freeze_counter > 20:
+			owner.position.x = freeze_x + rand_range(-2, 2)
+		
+		owner.velocity.x = 0
 		return
 	
 	# Bowser Lives counter
@@ -124,6 +171,7 @@ func _ai_process(delta: float) -> void:
 			modul_switch = false
 	else:
 		owner.animated_sprite.modulate.a = 1
+		owner.can_freeze = true
 	
 	# Mario shift after stomping
 	if mario_shift > 0:
@@ -246,6 +294,7 @@ func launch_flame() -> Node2D:
 func bowser_damage() -> void:
 	owner.animated_sprite.modulate.a = 1
 	invis_c = 115
+	owner.can_freeze = false
 	owner.get_node('Hit').play()
 	lives -= 1
 	fireball_lives = 0

@@ -282,18 +282,20 @@ func freeze() -> void:
 	
 	
 	# Clipping
-	clipper = Control.new()
-	var anim_parent: Node = animated_sprite.get_parent()
+	if !clipper:
+		clipper = Control.new()
+		var anim_parent: Node = animated_sprite.get_parent()
+		
+		anim_parent.add_child(clipper)
+		anim_parent.remove_child(animated_sprite)
+		clipper.add_child(animated_sprite)
+		animated_sprite_pth = animated_sprite.get_path()
+		
+		animated_sprite_position = animated_sprite.position
+		set_clipper_position(Vector2.ZERO)
+		frozen_sprite.raise()
 	
-	anim_parent.add_child(clipper)
-	anim_parent.remove_child(animated_sprite)
-	clipper.add_child(animated_sprite)
-	#animated_sprite_pth = animated_sprite.get_path()
-	
-	animated_sprite_position = animated_sprite.position
-	set_clipper_position(Vector2.ZERO)
 	clipper.rect_clip_content = true
-	frozen_sprite.raise()
 
 func set_clipper_position(new) -> void:
 	if not frozen_sprite or not animated_sprite:
