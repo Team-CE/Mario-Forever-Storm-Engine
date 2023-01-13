@@ -40,6 +40,7 @@ func _ready_mixin() -> void:
 
 	yield(owner.get_tree(), 'idle_frame')
 	camera = Global.current_camera
+	owner.can_freeze = false
 	
 func _setup(b) -> void:
 	._setup(b)
@@ -254,6 +255,7 @@ func bowser_damage() -> void:
 		MusicPlayer.fade_out(MusicPlayer.main, 3.0)
 		owner.velocity = Vector2.ZERO
 		bowl.frame = 0
+		Global.timer.stop()
 
 func _on_custom_death(_score_mp):
 	if invis_c > 15: return

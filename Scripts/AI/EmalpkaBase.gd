@@ -30,6 +30,8 @@ func _ai_process(delta: float) -> void:
 	if owner.frozen:
 		owner.get_node('Collision2').disabled = false
 		owner.get_node('CollisionShape2D').disabled = true
+		if owner.animated_sprite.animation == 'holding':
+			owner.animated_sprite.animation = 'walk'
 #		if !on_freeze:
 #			on_freeze = true
 #			owner.velocity.x = 0

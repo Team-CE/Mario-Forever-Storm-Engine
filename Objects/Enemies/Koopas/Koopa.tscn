@@ -97,9 +97,9 @@ animated_sprite_pth = NodePath("Sprite")
 frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -23 )
 frames = SubResource( 9 )
 playing = true
-offset = Vector2( 0, -23 )
 flip_h = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]

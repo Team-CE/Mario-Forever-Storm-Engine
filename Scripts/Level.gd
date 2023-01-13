@@ -34,6 +34,7 @@ func _ready():
 		
 		update_quality()
 		$Mario.invulnerable = false
+		Global.timer.start()
 		
 		get_parent().world.environment = null
 		#get_parent().world.environment = $WorldEnvironment.environment.duplicate(true)

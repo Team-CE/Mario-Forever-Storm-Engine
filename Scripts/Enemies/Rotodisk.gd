@@ -23,7 +23,7 @@ func _ready() -> void:
 	if Global.quality:
 		$Node2D/AnimatedSprite/Light2D.visible = true
 
-func _physics_process(delta) -> void:
+func _process(delta) -> void:
 	if dead:
 		return
 	if flower_movement:
@@ -38,7 +38,10 @@ func _physics_process(delta) -> void:
 	
 	$Node2D.rotation += (speed / 100) * get_delta(delta)
 	$Node2D/AnimatedSprite.global_rotation = 0
-	
+
+func _physics_process(_delta):
+	if dead:
+		return
 	if Engine.editor_hint:
 		return
 	
@@ -92,8 +95,8 @@ func reset_flower(new_bool):
 	$Node2D/AnimatedSprite.position.y = 0 if flower_movement else 0 - radius
 	return
 
-static func get_delta(delta) -> float:			 # Delta by 50 FPS
-	return 50 / (1 / (delta if not delta == 0 else 0.0001))
+func get_delta(delta) -> float:			 # Delta by 50 FPS
+	return 50 * delta
 
 func reset_speed(new_speed):
 	speed = new_speed

@@ -1,13 +1,17 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=1]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=2]
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scripts/AI/Blooper.gd" type="Script" id=4]
 [ext_resource path="res://GFX/Enemies/blooper.png" type="Texture" id=5]
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 15, 31.5 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 5 )
@@ -45,19 +49,24 @@ vars = {
 "speed": 50.0
 }
 AI = ExtResource( 4 )
+can_freeze = true
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
+frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
+[node name="Collision2" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -15.5 )
+shape = SubResource( 6 )
+disabled = true
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -16, -32 )
 frames = SubResource( 4 )
-centered = false
+offset = Vector2( 0, -16 )
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
@@ -76,3 +85,9 @@ physics_process_parent = true
 [node name="Tween" type="Tween" parent="."]
 playback_speed = 0.8
 playback/speed = 0.8
+
+[node name="IceSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -16 )
+frames = ExtResource( 6 )
+animation = "medium"

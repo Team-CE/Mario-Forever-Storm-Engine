@@ -110,9 +110,8 @@ AI = ExtResource( 5 )
 invincible_for_projectiles = [ "Fireball" ]
 
 [node name="AnimatedSprite" parent="." index="0"]
-position = Vector2( 0, 0 )
 frames = SubResource( 8 )
-offset = Vector2( 0, -32 )
+frame = 0
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 0, -16 )

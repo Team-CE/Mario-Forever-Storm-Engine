@@ -54,9 +54,10 @@ position = Vector2( 0, -15.5 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -24 )
 frames = ExtResource( 1 )
+frame = 1
 playing = true
-offset = Vector2( 0, -24 )
 flip_h = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]

@@ -1,17 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Prefabs/Animations/Bullet.res" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/AI/BulletHoming.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=3]
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=4]
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 12 )
+extents = Vector2( 15, 15.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 8 )
 
-[node name="BulletHoming" type="KinematicBody2D"]
+[node name="BulletHoming" type="KinematicBody2D" groups=["Enemy"]]
 position = Vector2( 0, -14 )
 script = ExtResource( 3 )
 vars = {
@@ -20,11 +21,14 @@ vars = {
 "speed": 200.0
 }
 AI = ExtResource( 2 )
+can_freeze = true
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
+frozen_sprite_pth = NodePath("IceSprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 show_behind_parent = true
+position = Vector2( 0, -1.5 )
 shape = SubResource( 1 )
 disabled = true
 
@@ -35,6 +39,8 @@ flip_h = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 show_behind_parent = true
+collision_layer = 33
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource( 2 )
@@ -46,3 +52,9 @@ rect = Rect2( -128, -96, 256, 160 )
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 bus = "Sounds"
+
+[node name="IceSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -2 )
+frames = ExtResource( 5 )
+animation = "small"

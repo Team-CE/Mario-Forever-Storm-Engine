@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Sounds/Main/stomp.wav" type="AudioStream" id=1]
 [ext_resource path="res://GFX/Enemies/Goomba.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/General/Generic/AliveObject.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/AI/ShoeGoomba.gd" type="Script" id=4]
 [ext_resource path="res://Sounds/Main/kick.wav" type="AudioStream" id=5]
+[ext_resource path="res://Prefabs/Blocks/IceBlock.tres" type="SpriteFrames" id=6]
 [ext_resource path="res://GFX/Enemies/Goomba_falling.png" type="Texture" id=7]
 [ext_resource path="res://GFX/Bonuses/ShoeRed.png" type="Texture" id=8]
 
@@ -20,12 +21,12 @@ region = Rect2( 0, 0, 31, 32 )
 animations = [ {
 "frames": [  ],
 "loop": true,
-"name": "default",
+"name": "dead",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
-"name": "dead",
+"name": "default",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 24 ) ],
@@ -65,7 +66,7 @@ animations = [ {
 resource_name = "hi"
 length = 1.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:position")
+tracks/0/path = NodePath("AnimatedSprite:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -74,7 +75,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -20 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, -16 ), Vector2( 0, -36 ), Vector2( 0, -16 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:temp")
@@ -97,9 +98,11 @@ vars = {
 }
 AI = ExtResource( 4 )
 gravity_scale = 0.7
+can_freeze = true
 sound_pth = NodePath("Stomp")
 alt_sound_pth = NodePath("Kick")
 animated_sprite_pth = NodePath("AnimatedSprite")
+frozen_sprite_pth = NodePath("IceSprite")
 temp = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -137,9 +140,14 @@ shape = SubResource( 2 )
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 frames = SubResource( 28 )
-frame = 1
 playing = true
 offset = Vector2( 0, -16 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/hi = SubResource( 29 )
+
+[node name="IceSprite" type="AnimatedSprite" parent="."]
+visible = false
+frames = ExtResource( 6 )
+animation = "small"
+offset = Vector2( 0, -16 )

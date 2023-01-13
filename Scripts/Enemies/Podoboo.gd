@@ -83,4 +83,36 @@ func lava_hide(hide_splash = false) -> void:
 		return
 	active = false
 	position = firstpos
+
+func freeze() -> void:
+	# Lava particles
+	var lavap = preload('res://Objects/Effects/LavaParticles.tscn').instance()
+	lavap.preprocess = 0
+	get_parent().add_child(lavap)
+	lavap.global_position = global_position
+	lavap.process_material.emission_box_extents = Vector3(8, 12, 0)
+	var time = Timer.new()
+	time.autostart = true
+	time.wait_time = 0.3
+	time.connect('timeout', lavap, 'set', ['emitting', false])
+	time.one_shot = true
+	lavap.add_child(time)
 	
+# warning-ignore:return_value_discarded
+	get_tree().create_timer(3.0, false).connect('timeout', self, 'queue_free')
+	
+	var score = ScoreText.new(200, global_position)
+	get_parent().add_child(score)
+	$ice1.play()
+	active = false
+	counter = -99999
+
+func _on_Podoboo_area_entered(area):
+	if !active: return
+	
+	var root: Node2D = area.owner if 'owner' in area else null
+	if root == null: return
+	
+	if 'Iceball'.to_lower() in root.get_name().to_lower():
+		freeze()
+		root.explode()

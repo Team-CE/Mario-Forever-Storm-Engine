@@ -34,8 +34,10 @@ func _physics_process(delta) -> void:
 
 	if overlaps.size() > 0 and bounce_count < 3 and !drown:
 		for i in overlaps:
+			if i.has_method('hit'):
+				i.hit()
 			if i.is_in_group('Enemy') and i.has_method('kill'):
-				if not i.invincible:
+				if not i.invincible and not ('invincible_for_projectiles' in i and 'beetroot' in i.invincible_for_projectiles):
 					i.kill(AliveObject.DEATH_TYPE.FALL if !i.force_death_type else i.death_type, 0, null, self.name)
 					bounce()
 					bounce_count += 1
@@ -51,8 +53,6 @@ func _physics_process(delta) -> void:
 				bounce_count += 1
 				skip_frame = true
 
-			if 'qtype' in i:
-				i.hit()
 	if overlaps.size() == 0:
 		skip_frame = false
 

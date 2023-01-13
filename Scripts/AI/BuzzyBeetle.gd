@@ -74,7 +74,7 @@ func _ai_process(delta: float) -> void:
 					
 	for b in owner.get_node('QBlockZone').get_overlapping_bodies():
 		if is_shell && !stopped_shell && abs(owner.velocity.x) > 0:
-			if b is QBlock and b.active:
+			if b.has_method('hit'):
 				b.hit(true)
 				owner.turn()
 				turn_if_no_break = false

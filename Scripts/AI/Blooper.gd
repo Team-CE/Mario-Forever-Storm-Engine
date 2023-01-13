@@ -6,6 +6,7 @@ var moving_up: bool = false
 var move_to: Vector2
 var limit_top: float = 0
 
+var ooawel: bool
 var rng = RandomNumberGenerator.new()
 
 func _ready_mixin() -> void:
@@ -31,7 +32,15 @@ func _ai_process(delta:float) -> void:
 	if owner.frozen or !owner.alive:
 		tween.stop_all()
 		owner.velocity_enabled = true
-		owner.velocity.x = 0
+		if owner.frozen:
+			owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
+			owner.get_node('Collision2').disabled = false
+			owner.get_node('CollisionShape2D').disabled = true
+			if !ooawel:
+				owner.set_clipper_position(Vector2(0, -32))
+				ooawel = true
+		else:
+			owner.velocity.x = 0
 		if !owner.is_on_floor():
 			owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
 		return

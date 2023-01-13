@@ -30,8 +30,10 @@ func play():
 	if music_list[current_index] == null:
 		push_warning('[MusicLoader] Skipping missing index')
 		return
-	MusicPlayer.play_file(music_list[current_index])
 	playing = true
+	if is_instance_valid(Global.Mario) and Global.Mario.shield_star:
+		return
+	MusicPlayer.play_file(music_list[current_index])
 	print('played')
 
 func _enter_tree():

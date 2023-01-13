@@ -78,10 +78,9 @@ shape = SubResource( 7 )
 disabled = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -8 )
 frames = SubResource( 4 )
 playing = true
-offset = Vector2( 0, -16 )
+offset = Vector2( 0, -24 )
 flip_h = true
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]

@@ -14,6 +14,12 @@ func _ai_process(delta:float) -> void:
 		owner.velocity.x = owner.vars["speed"] * owner.dir
 	else:
 		owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
+		owner.get_node('Collision2').disabled = false
+		owner.get_node('Collision').disabled = true
+		owner.gravity_scale = 0.5
+		owner.invincible = false
+		if !owner.is_on_floor():
+			owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
 		return
 		
 	if owner.is_on_wall():

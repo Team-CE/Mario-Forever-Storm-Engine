@@ -5,6 +5,7 @@ var stopped_shell: bool = false
 var on_freeze: bool = false
 var shell_counter: float = 0
 var score_mp: int
+var ooawel: bool = false
 
 func _ready_mixin():
 	owner.death_type = AliveObject.DEATH_TYPE.NONE
@@ -38,6 +39,9 @@ func _ai_process(delta: float) -> void:
 			owner.get_node('Collision').disabled = true
 			owner.frozen_sprite.animation = 'medium'
 			owner.frozen_sprite.offset.y = -32
+			if !ooawel:
+				owner.set_clipper_position(Vector2(0, -32))
+				ooawel = true
 		return
 	
 	var turn_if_no_break: bool = true

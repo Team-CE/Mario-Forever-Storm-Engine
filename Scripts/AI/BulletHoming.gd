@@ -6,6 +6,7 @@ const speed_cap: int = 200
 var temp: bool = false
 var old_rotation: float = 0
 var inv_counter: float = 0
+var just_frozen: bool = false
 
 func _setup(b)-> void:
 	._setup(b)
@@ -15,8 +16,29 @@ func _setup(b)-> void:
 
 func _ai_process(delta: float) -> void:
 	._ai_process(delta)
+	if !Global.is_getting_closer(-300, owner.position):
+		owner.queue_free()
+	
+	if owner.frozen:
+		if !just_frozen:
+			just_frozen = true
+			owner.get_node('CollisionShape2D').disabled = false
+			#owner.invincible_for_projectiles.remove('Fireball')
+			owner.velocity_enabled = true
+			if owner.animated_sprite.flip_v:
+				owner.frozen_sprite.flip_v = true
+				owner.frozen_sprite.flip_h = true
+				owner.velocity.x = -owner.velocity.x
+				owner.animated_sprite.modulate = Color.white
+		
+		if !owner.is_on_floor():
+			owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
+		owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
+		return
+	
 	if owner.velocity.y < 0:
 		owner.velocity.y = 0
+	
 	# Animation
 	owner.animated_sprite.modulate.r += 0.15 * Global.get_delta(delta)
 	owner.animated_sprite.modulate.g -= 0.15 * Global.get_delta(delta)
@@ -24,9 +46,6 @@ func _ai_process(delta: float) -> void:
 	if owner.animated_sprite.modulate.r > 1.5:
 		owner.animated_sprite.modulate = Color.white
 	
-	if !Global.is_getting_closer(-300, owner.position):
-		owner.queue_free()
-		
 	owner.velocity.x = (speed - speed_modifier) * owner.dir
 	if inv_counter < 7:
 		inv_counter += 1 * Global.get_delta(delta)
@@ -61,9 +80,24 @@ func _ai_process(delta: float) -> void:
 func _on_hitbox_enter(a) -> void:
 	if !owner.alive:
 		return
-	if a.name == 'BottomDetector' and !owner.invincible:
-		inv_counter = 0
-		Global.Mario.enemy_stomp()
-		owner.kill(AliveObject.DEATH_TYPE.FALL)
-	elif a.name == 'InsideDetector' and inv_counter > 5:
-		Global._ppd()
+	if !owner.frozen:
+		if a.name == 'BottomDetector' and !owner.invincible:
+			inv_counter = 0
+			Global.Mario.enemy_stomp()
+			owner.call_deferred('kill', AliveObject.DEATH_TYPE.FALL)
+			return
+		elif a.name == 'InsideDetector' and inv_counter > 5:
+			Global._ppd()
+			return
+
+	var root: Node2D = a.owner if 'owner' in a else null
+	if root == null: return
+	
+	if owner.frozen:
+		if 'Fireball'.to_lower() in root.get_name().to_lower():
+			owner.kill(owner.DEATH_TYPE.UNFREEZE)
+			root.explode()
+	else:
+		if 'Iceball'.to_lower() in root.get_name().to_lower() and 'belongs' in root:
+			owner.freeze()
+			root.explode()

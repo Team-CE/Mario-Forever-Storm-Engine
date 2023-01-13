@@ -47,6 +47,7 @@ func _ai_process(delta:float) -> void:
 			inv_counter = 0
 			Global.Mario.shoe_node.stomp()
 			owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
+			owner.velocity.y = 0
 			return
 		elif on_mario_collide('InsideDetector') and !owner.frozen and inv_counter >= 8:
 			Global._ppd()

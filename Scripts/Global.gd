@@ -122,8 +122,14 @@ func _ready() -> void:
 	# Adding a debug inspector
 	if debug:
 		add_child(preload('res://Objects/Core/Inspector.tscn').instance())
-	timer.wait_time = 1.5
+	
+	# In-game timer
+	timer.wait_time = 0.5
+	timer.autostart = true
+	timer.process_mode = Timer.TIMER_PROCESS_PHYSICS
 	add_child(timer)
+# warning-ignore:return_value_discarded
+	timer.connect('timeout', self, '_delay')
 	
 	match OS.get_name():
 		'iOS', 'Android':
@@ -258,9 +264,6 @@ func _reset() -> void:	 # Level Restart
 
 # warning-ignore:unused_argument
 func _physics_process(delta: float) -> void:
-	if timer.time_left <= 1 && time != -1: # Wait for delaying
-		_delay()
-		timer.start()
 	if projectiles_count < 0:
 		projectiles_count = 0
 	
@@ -479,7 +482,7 @@ func _ppd() -> void: # Player Powerdown
 		_pll()
 	elif Mario.is_in_shoe:
 		Mario.shoe_node.get_node('hit').play()
-		Mario.shoe_node.hit()
+		Mario.shoe_node.shoe_hit()
 		Mario.unbind_shoe()
 		Mario.shield_counter = 150
 	else:
@@ -513,6 +516,8 @@ func _pll() -> void: # Player Death
 
 func _delay() -> void:
 	if !is_instance_valid(Mario):
+		return
+	if time < 0:
 		return
 	if !Mario.dead and Mario.controls_enabled:
 		emit_signal('TimeTick')

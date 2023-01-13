@@ -40,7 +40,7 @@ func get_inside():
 	#Global.Mario.get_node('AnimationPlayer').play('Small' if Global.state == 0 else 'Big')
 	#z_index = 11
 
-func hit():
+func shoe_hit():
 	dead = true
 	velocity = Vector2(2 if $AnimatedSprite.flip_h else -2, -8).rotated(rotation)
 	$AnimatedSprite.flip_v = true

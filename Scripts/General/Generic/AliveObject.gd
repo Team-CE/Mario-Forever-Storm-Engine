@@ -19,7 +19,7 @@ export var vars: Dictionary = {"speed":50.0}
 export var AI: Script
 
 export var gravity_scale: float = 1
-export var score: int					 = 100
+export var score: int = 100
 export var smart_turn: bool
 export var invincible: bool
 export var invincible_for_projectiles: Array = []
@@ -43,11 +43,12 @@ export var temp: bool = false # For AnimationPlayers
 
 var ray_L: RayCast2D
 var ray_R: RayCast2D
-var animated_sprite: AnimatedSprite
-var frozen_sprite: AnimatedSprite
 var sound: AudioStreamPlayer2D
 var alt_sound: AudioStreamPlayer2D
-var visen: VisibilityEnabler2D
+var animated_sprite: AnimatedSprite
+var frozen_sprite: AnimatedSprite
+
+var clipper: Control
 
 var freeze_sound = preload('res://Sounds/Main/ice1.wav')
 var unfreeze_sound = preload('res://Sounds/Main/ice2.wav')
@@ -58,11 +59,11 @@ var velocity: Vector2
 var alive: bool = true
 var death_type: int
 var velocity_enabled: bool = true
+var animated_sprite_position: Vector2
 
-onready var time = get_tree().create_timer(0)
+var time: SceneTreeTimer
 
-onready var first_pos: Vector2 = position	 # For pirahna plant and other enemies
-onready var brain: Brain = Brain.new()			# Shell for AI
+onready var brain: Brain = Brain.new()      # Shell for AI
 
 var rng = RandomNumberGenerator.new()
 
@@ -88,11 +89,6 @@ func _ready() -> void:
 		
 	if !frozen_sprite_pth.is_empty():
 		frozen_sprite = get_node(frozen_sprite_pth)
-	
-#	if visen == null:
-#		for n in get_children():
-#			if n is VisibilityEnabler2D:
-#				visen = n
 		
 	if can_freeze:
 		var ice1 = AudioStreamPlayer2D.new()
@@ -216,11 +212,9 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 			gravity_scale = 1.7
 			animated_sprite.set_animation('dead')
 			Global.current_scene.add_child(ScoreText.new(score, global_position))
-#			if visen != null:
-#				visen.set_enabler(VisibilityEnabler2D.ENABLER_PARENT_PROCESS, false)
-#				visen.set_enabler(VisibilityEnabler2D.ENABLER_PARENT_PHYSICS_PROCESS, false)
 			
 			time = get_tree().create_timer(4.0, false)
+# warning-ignore:return_value_discarded
 			time.connect('timeout', self, 'instance_free')
 			return true
 		DEATH_TYPE.DISAPPEAR:
@@ -246,7 +240,8 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 #				visen.set_enabler(VisibilityEnabler2D.ENABLER_PARENT_PROCESS, false)
 #				visen.set_enabler(VisibilityEnabler2D.ENABLER_PARENT_PHYSICS_PROCESS, false)
 
-			time = get_tree().create_timer(2.5, false)
+			time = get_tree().create_timer(4.0, false)
+# warning-ignore:return_value_discarded
 			time.connect('timeout', self, 'instance_free')
 			return true
 		DEATH_TYPE.CUSTOM:
@@ -258,12 +253,13 @@ func kill(death_type: int = self.death_type, score_mp: int = 0, csound = null, p
 			if has_node('Collision'): $Collision.set_deferred('disabled', true)
 			if has_node('CollisionShape2D'): $CollisionShape2D.set_deferred('disabled', true)
 			if has_node('KillDetector/Collision'): $KillDetector/Collision.set_deferred('disabled', true)
-			get_node('ice2').play()
+			$ice2.play()
 			var speeds = [Vector2(2, -8), Vector2(4, -7), Vector2(-2, -8), Vector2(-4, -7)]
 			for i in 4:
 				var debris_effect = BrickEffect.new(position + Vector2(0, -16).rotated(rotation), speeds[i], frozen_sprite.frames)
 				get_parent().add_child(debris_effect)
 			time = get_tree().create_timer(2.0, false)
+# warning-ignore:return_value_discarded
 			time.connect('timeout', self, 'instance_free')
 			return true
 			
@@ -273,7 +269,7 @@ func freeze() -> void:
 	if !can_freeze || frozen:
 		return
 		
-	get_node('ice1').play()
+	$ice1.play()
 	
 	Global.current_scene.add_child(ScoreText.new(score, global_position))
 	
@@ -284,6 +280,31 @@ func freeze() -> void:
 	death_type = DEATH_TYPE.UNFREEZE
 	animated_sprite.playing = false
 	
+	
+	# Clipping
+	clipper = Control.new()
+	var anim_parent: Node = animated_sprite.get_parent()
+	
+	anim_parent.add_child(clipper)
+	anim_parent.remove_child(animated_sprite)
+	clipper.add_child(animated_sprite)
+	#animated_sprite_pth = animated_sprite.get_path()
+	
+	animated_sprite_position = animated_sprite.position
+	set_clipper_position(Vector2.ZERO)
+	clipper.rect_clip_content = true
+	frozen_sprite.raise()
+
+func set_clipper_position(new) -> void:
+	if not frozen_sprite or not animated_sprite:
+		return
+	animated_sprite.position = animated_sprite_position
+	var frame_size: Vector2 = frozen_sprite.frames.get_frame(frozen_sprite.animation, frozen_sprite.frame).get_size()
+	clipper.rect_size = frame_size - new
+	clipper.rect_position = frozen_sprite.offset - (frame_size / 2) + frozen_sprite.position
+	clipper.rect_position += new
+	animated_sprite.position = -clipper.rect_position + frozen_sprite.position - animated_sprite.offset + animated_sprite_position
+
 func instance_free():
 	queue_free()
 
