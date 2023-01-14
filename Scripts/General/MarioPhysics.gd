@@ -509,9 +509,9 @@ func controls(delta) -> void:
 			if !test_move(global_transform, Vector2(0, -6).rotated(global_rotation)) or ignore_stuck:
 				crouch = false
 				is_stuck = false
-			#elif !ignore_stuck:
-			#	is_stuck = true
-			#	velocity = Vector2.DOWN
+			elif !ignore_stuck:
+				is_stuck = true
+				velocity = Vector2.DOWN
 	else:
 		if !test_move(global_transform, Vector2(0, -6).rotated(global_rotation)):
 			crouch = false
