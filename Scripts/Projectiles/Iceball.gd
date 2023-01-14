@@ -37,14 +37,6 @@ func _on_body_entered(body):
 		explode()
 
 func _physics_process(delta) -> void:
-#	var overlaps = $CollisionArea.get_overlapping_bodies()
-#
-#	if overlaps.size() > 0 and belongs == 0:
-#		for i in overlaps:
-#			if i.is_in_group('Enemy') and i.has_method('freeze'):
-#				i.freeze()
-#				explode()
-	
 	if belongs != 0 and is_mario_collide('InsideDetector'):
 		Global._ppd()
 
@@ -55,9 +47,9 @@ func _physics_process(delta) -> void:
 
 	if belongs != 1:
 		velocity.x = lerp(velocity.x, 0, 0.015 * Global.get_delta(delta))
-		velocity = move_and_slide(velocity, Vector2.UP)
+		velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation)).rotated(-rotation)
 	else:
-		position += velocity * Vector2(delta, delta)
+		position += velocity * delta
 
 	if (is_on_wall() or velocity.x == 0) and belongs != 1:
 		explode()

@@ -58,8 +58,7 @@ func _physics_process(delta) -> void:
 
 	velocity.y += 0.4 * Global.get_delta(delta)
 
-	position.x += velocity.x * Global.get_delta(delta)
-	position.y += velocity.y * Global.get_delta(delta)
+	position += velocity.rotated(rotation) * Global.get_delta(delta)
 
 func bounce() -> void:
 	velocity.y = -9

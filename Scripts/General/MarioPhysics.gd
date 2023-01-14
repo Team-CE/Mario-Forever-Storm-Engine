@@ -806,6 +806,9 @@ func vertical_correction(amount: int):
 	if not ('collider' in collide): return
 	if 'visible' in collide.collider and collide.collider.visible == false: return
 	
+	var normal = collide.normal.rotated(-rotation)
+	if abs(normal.x) >= 0.4: return
+	
 	for i in range(1, amount + 1):
 		for j in [-1.0, 1.0]:
 			if !test_move(
@@ -829,7 +832,7 @@ func horizontal_correction(amount: int):
 	if 'visible' in collide.collider and collide.collider.visible == false: return
 	
 	var normal = collide.normal.rotated(-rotation)
-	if not (normal.x == -1 or normal.x == 1): return
+	if not abs(normal.x) == 1: return
 	if abs(normal.y) >= 0.1: return
 		
 	for i in range(1, amount + 1):
