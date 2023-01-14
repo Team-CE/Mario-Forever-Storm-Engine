@@ -506,14 +506,14 @@ func controls(delta) -> void:
 			if velocity.x < 0:
 				velocity.x += 6.25 * Global.get_delta(delta) if !Input.is_action_pressed('mario_left') else 2.5 * Global.get_delta(delta)
 		else:
-			if !test_move(global_transform, Vector2(0, -6).rotated(rotation)):
+			if !test_move(global_transform, Vector2(0, -6).rotated(global_rotation)) or ignore_stuck:
 				crouch = false
 				is_stuck = false
-			elif !ignore_stuck:
-				is_stuck = true
-				velocity = Vector2.DOWN
+			#elif !ignore_stuck:
+			#	is_stuck = true
+			#	velocity = Vector2.DOWN
 	else:
-		if !test_move(global_transform, Vector2(0, -6).rotated(rotation)):
+		if !test_move(global_transform, Vector2(0, -6).rotated(global_rotation)):
 			crouch = false
 			is_stuck = false
 		#else:
@@ -524,6 +524,7 @@ func controls(delta) -> void:
 	if Global.state == 0:
 		crouch = false
 		is_stuck = false
+
 	
 	if is_stuck:
 		var collisions = $TopWaterDetector.get_overlapping_bodies()

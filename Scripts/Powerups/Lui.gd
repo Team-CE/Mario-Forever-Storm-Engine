@@ -11,5 +11,5 @@ func _process_mixin(mario, delta):
 	trail_counter += 1 * Global.get_delta(delta)
 	
 	if trail_counter > 2 and mario.get_node('Sprite').animation == 'Jumping' and Global.Mario.controls_enabled:
-		mario.get_parent().add_child(LuiTrail.new(mario.position - Vector2(0, 28), mario.get_node('Sprite').flip_h))
+		mario.get_parent().add_child(LuiTrail.new(mario.position.rotated(mario.global_rotation), mario.get_node('Sprite').flip_h, mario.global_rotation))
 		trail_counter = 0

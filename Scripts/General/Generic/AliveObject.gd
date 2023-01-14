@@ -159,7 +159,7 @@ func _physics_process(delta: float) -> void:
 			freeze_sprite_counter = 0
 			frozen_sprite.frame = 0
 		
-		if Global.is_mario_collide('TopDetector', self) and Global.Mario.is_on_floor():
+		if Global.is_mario_collide('TopDetector', self) and Global.Mario.is_on_floor() and not force_death_type:
 # warning-ignore:return_value_discarded
 			kill(DEATH_TYPE.UNFREEZE)
 		
