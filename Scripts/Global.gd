@@ -462,7 +462,6 @@ func reset_all_values(reset_state: bool = true) -> void:
 	checkpoint_active = -1
 	checkpoint_position = Vector2.ZERO
 	level_ended = false
-	levelID = 0
 	collectible_obtained = false
 	collectible_saved = false
 	if reset_state: state = 0
