@@ -75,6 +75,7 @@ func _ai_process(delta: float) -> void:
 	# Ice Flower logic
 	if owner.frozen:
 		frozen_logic(delta)
+		bowl.frame = lives
 		return
 
 	# Jumping gravity and animation
