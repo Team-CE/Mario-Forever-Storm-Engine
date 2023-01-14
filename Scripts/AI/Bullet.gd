@@ -25,10 +25,12 @@ func _ai_process(delta: float) -> void:
 			owner.get_node('CollisionShape2D').disabled = false
 			#owner.invincible_for_projectiles.remove('Fireball')
 			owner.velocity_enabled = true
+			owner.invincible = false
+			owner.velocity.x = owner.velocity.rotated(old_rotation).x# * owner.dir
 			if owner.animated_sprite.flip_v:
 				owner.frozen_sprite.flip_v = true
 				owner.frozen_sprite.flip_h = true
-				owner.velocity.x = -owner.velocity.x
+				#xowner.velocity.x = -owner.velocity.x
 		
 		if !owner.is_on_floor():
 			owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)

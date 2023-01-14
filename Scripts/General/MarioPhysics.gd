@@ -224,7 +224,7 @@ func _process_alive(delta) -> void:
 			MusicPlayer.starmpt.stop()
 # warning-ignore:return_value_discarded
 			MusicPlayer.tween_out.stop_all()
-			if Global.music_loader and Global.music_loader.playing:
+			if Global.music_loader and Global.music_loader.playing and not Global.level_ended:
 				Global.music_loader.call_deferred('play')
 			$BottomDetector.collision_layer = 0b111 # All 3 layers
 			$BottomDetector.collision_mask = 0b111
