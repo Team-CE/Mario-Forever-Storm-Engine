@@ -10,7 +10,10 @@ func _ai_process(delta:float) -> void:
 	if !owner.is_on_floor():
 		owner.velocity.y += Global.gravity * owner.gravity_scale * Global.get_delta(delta)
 	
-	if owner.frozen: return
+	if owner.frozen:
+		owner.get_node('AnimationPlayer').stop(true)
+		owner.animated_sprite.visible = false
+		return
 	
 	if !owner.alive:
 		if not death_bool:

@@ -271,7 +271,8 @@ func freeze() -> void:
 		
 	$ice1.play()
 	
-	Global.current_scene.add_child(ScoreText.new(score, global_position))
+	if score > 0:
+		Global.current_scene.add_child(ScoreText.new(score, global_position))
 	
 	frozen = true
 	collision_layer = 0b100011

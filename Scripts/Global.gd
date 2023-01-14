@@ -305,7 +305,7 @@ func _unhandled_input(ev):
 
 		if !is_instance_valid(Mario): return
 	# Toggle fly mode
-		if ev.scancode == 49:
+		if ev.scancode == KEY_1:
 			if Mario.dead_gameover: return
 			Mario.get_node('Sprite').modulate.a = 0.5 * (1 + int(debug_fly))
 			debug_fly = !debug_fly
@@ -316,14 +316,14 @@ func _unhandled_input(ev):
 			play_base_sound('DEBUG_Toggle')
 			
 	# Toggle invisible mode
-		if ev.scancode == 50:
+		if ev.scancode == KEY_2:
 			debug_inv = !debug_inv
 			if debug_inv and debug_fly:
 				debug_fly = false
 			play_base_sound('DEBUG_Toggle')
 	
 	# Toggle shoe
-		if ev.scancode == 51:
+		if ev.scancode == KEY_3:
 			if Mario.shoe_node == null:
 				var shoe = load('res://Objects/Bonuses/ShoeRed.tscn').instance()
 				current_scene.add_child(shoe)
@@ -334,7 +334,7 @@ func _unhandled_input(ev):
 			play_base_sound('DEBUG_Toggle')
 		
 	# Trigger finish
-		if ev.scancode == 52:
+		if ev.scancode == KEY_4:
 			if !('death_height' in Global.current_scene):
 				return
 			if !Global.current_scene.finish_node:
@@ -342,11 +342,11 @@ func _unhandled_input(ev):
 				return
 			Global.current_scene.finish_node.act()
 		
-		if ev.scancode == 54:
+		if ev.scancode == KEY_6:
 			if is_instance_valid(HUD):
 				time = 10
 
-		if ev.scancode == 55:
+		if ev.scancode == KEY_7:
 			if is_instance_valid(HUD):
 				lives = 0
 	# Toggle HUD visibility (without shift key)
