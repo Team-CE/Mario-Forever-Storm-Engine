@@ -71,6 +71,7 @@ vars = {
 "fly radius": 50.0,
 "fly speed": 2.0,
 "speed": 100.0,
+"throw_delay": 30,
 "throw_script": ExtResource( 9 )
 }
 AI = ExtResource( 6 )
@@ -85,6 +86,7 @@ frozen_sprite_pth = NodePath("IceSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 11 )
 animation = "walk"
+frame = 1
 playing = true
 offset = Vector2( 0, -32 )
 flip_h = true

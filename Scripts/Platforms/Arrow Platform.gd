@@ -36,8 +36,7 @@ func _physics_process(_delta):
 		colliding = false
 
 func create_platform():
-	for i in get_tree().get_nodes_in_group('ArrowMovingPlatform'):
-		i.queue_free()
+	get_tree().call_group_flags(SceneTree.GROUP_CALL_REALTIME, 'ArrowMovingPlatform', 'queue_free')
 	var moving_platform = plat.instance()
 	add_child(moving_platform)
 	moving_platform.vector_dir = vector_dir

@@ -21,8 +21,7 @@ func _ready() -> void:
 		Global.Mario.position = position
 		var level = Global.current_scene
 		if Global.collectible_saved:
-			for node in get_tree().get_nodes_in_group('Collectible'):
-				node.queue_free()
+			get_tree().call_group('Collectible', 'queue_free')
 		if (
 			'time_after_checkpoint' in level
 			and level.time_after_checkpoint.size() > 0

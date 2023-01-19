@@ -53,7 +53,7 @@ func _ai_process(delta: float) -> void:
 		if rand_range(1, 14) > 13 and owner.is_on_floor():
 			owner.velocity.y = -400
 			
-	if counter_throw < 30:
+	if counter_throw < owner.vars['throw_delay']:
 		counter_throw += 1 * Global.get_delta(delta)
 	else:
 		counter_throw = 0
