@@ -144,9 +144,9 @@ func _physics_process(delta: float) -> void:
 	
 	if velocity_enabled:
 		if !frozen:
-			velocity = move_and_slide(velocity.rotated(rotation), Vector2.UP.rotated(rotation), false, 4, 0.802852, false).rotated(-rotation)
+			velocity = move_and_slide_with_snap(velocity.rotated(rotation), (Vector2.DOWN * (8 if velocity.y >= 0 else 0)).rotated(rotation), Vector2.UP.rotated(rotation), false, 4, 0.802852, false).rotated(-rotation)
 		else:
-			velocity = move_and_slide(velocity, Vector2.UP, false, 4, 0.802852, false)
+			velocity = move_and_slide_with_snap(velocity, (Vector2.DOWN * (8 if velocity.y >= 0 else 0)).rotated(rotation), Vector2.UP, false, 4, 0.802852, false)
 	# Freeze
 	if frozen_sprite && frozen:
 		if freeze_counter < 300:
