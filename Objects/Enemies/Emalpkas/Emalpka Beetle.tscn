@@ -104,6 +104,7 @@ vars = {
 "bounce": 9.0,
 "shell_launch": false,
 "speed": 100.0,
+"throw_delay": 30,
 "throw_script": ExtResource( 9 )
 }
 AI = ExtResource( 5 )
@@ -111,7 +112,6 @@ invincible_for_projectiles = [ "Fireball" ]
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 8 )
-frame = 0
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 0, -16 )

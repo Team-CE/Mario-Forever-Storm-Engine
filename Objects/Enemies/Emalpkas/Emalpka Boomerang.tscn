@@ -58,8 +58,10 @@ animations = [ {
 vars = {
 "bounce": 9.0,
 "speed": 100.0,
+"throw_delay": 30,
 "throw_script": ExtResource( 2 )
 }
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 6 )
+frame = 1
