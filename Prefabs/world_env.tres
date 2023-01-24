@@ -2,7 +2,6 @@
 
 [resource]
 background_mode = 4
-auto_exposure_enabled = true
 auto_exposure_scale = 0.05
 auto_exposure_min_luma = 0.1
 auto_exposure_max_luma = 0.3

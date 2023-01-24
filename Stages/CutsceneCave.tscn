@@ -88,33 +88,34 @@ texture = SubResource( 122 )
 position = Vector2( 48, 208 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 2
 playing = true
 
 [node name="Cloud2" type="AnimatedSprite" parent="."]
 position = Vector2( 128, 48 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Cloud3" type="AnimatedSprite" parent="."]
 position = Vector2( 368, 32 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Cloud4" type="AnimatedSprite" parent="."]
 position = Vector2( 272, 240 )
 z_index = -1
 frames = ExtResource( 9 )
+frame = 1
 playing = true
 
 [node name="Cloud5" type="AnimatedSprite" parent="."]
 position = Vector2( 512, 144 )
 z_index = -1
 frames = ExtResource( 9 )
+frame = 1
 playing = true
 
 [node name="Sprite2" type="Sprite" parent="."]
@@ -136,6 +137,7 @@ modulate = Color( 0.498039, 1.14118, 0.670588, 1 )
 position = Vector2( 256, 400 )
 z_index = -1
 frames = SubResource( 123 )
+frame = 1
 playing = true
 
 [node name="Zabor" type="Sprite" parent="."]
@@ -164,4 +166,4 @@ direction = 2
 additional_options = {
 "set_scene_path": "res://Stages/TestLevel.tscn"
 }
-out_duration = 120.0
+show_scene_transition = true

@@ -33,5 +33,5 @@ func _physics_process(delta):
 			$Mario.velocity.y = 50
 	
 	# Jump to next scene
-	if $Mario.position.y > 720:
-		Global.goto_scene(change_to_scene)
+	if $Mario.position.y > 700:
+		Global.goto_scene_with_transition(change_to_scene)

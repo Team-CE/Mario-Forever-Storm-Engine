@@ -27,6 +27,7 @@ export var additional_options: Dictionary = {
 }
 export var out_duration: float = 60
 export var custom_warp_sound: Resource
+export var show_scene_transition: bool = false
 
 var mario_sprite
 
@@ -161,10 +162,16 @@ func _physics_process(delta) -> void:
 
 				elif out_node:
 					state_switched = true
+					if show_scene_transition:
+						SceneTransition.start_transition('FadePixelate', 1.0, true)
+						Global.get_tree().paused = true
 					warp_exit()
 
 				elif 'set_scene_path' in additional_options and additional_options['set_scene_path'] != '':
-					Global.goto_scene(additional_options['set_scene_path'])
+					if show_scene_transition:
+						Global.goto_scene_with_transition(additional_options['set_scene_path'])
+					else:
+						Global.goto_scene(additional_options['set_scene_path'])
 
 				elif trigger_finish:
 					state_switched = true

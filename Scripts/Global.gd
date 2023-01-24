@@ -570,8 +570,16 @@ func _deferred_goto_scene(path: String):
 	if get_tree().paused: get_tree().paused = false
 	current_scene = s.instance()
 	get_node('/root/GlobalViewport/Viewport').add_child(current_scene)
-	
-	#get_tree().set_current_scene(current_scene)
+
+func goto_scene_with_transition(path: String, trans_name = 'FadePixelate', speed: float = 1.0, repeat_backwards: bool = true, pause: bool = true):
+	SceneTransition.start_transition(trans_name, speed, repeat_backwards)
+	if pause:
+		if is_instance_valid(popup):
+			popup.queue_free()
+			set_deferred('popup', null)
+		get_tree().paused = true
+# warning-ignore:return_value_discarded
+	SceneTransition.connect('fade_in_ended', self, 'goto_scene', [path], CONNECT_ONESHOT)
 
 #func get_current_camera():
 #	var viewport = get_node('/root/GlobalViewport/Viewport')

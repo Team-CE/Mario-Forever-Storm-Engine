@@ -16,12 +16,12 @@ func _on_filter_change(val):
 		material = preload('res://Prefabs/ViewportContainer.tres')
 		_update_view()
 # warning-ignore:return_value_discarded
-		if !get_node('/root').is_connected('size_changed', self, '_on_window_resized'):
-			get_node('/root').connect('size_changed', self, '_on_window_resized')
+		if !$'/root'.is_connected('size_changed', self, '_on_window_resized'):
+			$'/root'.connect('size_changed', self, '_on_window_resized')
 	else:
-		if get_node('/root').is_connected('size_changed', self, '_on_window_resized'):
+		if $'/root'.is_connected('size_changed', self, '_on_window_resized'):
 # warning-ignore:return_value_discarded
-			get_node('/root').disconnect('size_changed', self, '_on_window_resized')
+			$'/root'.disconnect('size_changed', self, '_on_window_resized')
 		material = null
 		_reset_values()
 

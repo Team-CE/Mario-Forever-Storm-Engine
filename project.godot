@@ -155,6 +155,7 @@ Global="*res://Scripts/Global.gd"
 GlobalEditor="*res://Scripts/GlobalEditor.gd"
 DiscordManager="*res://Scripts/Tools/discord_manager.gd"
 GlobalViewport="*res://Objects/Core/ViewportContainer.tscn"
+SceneTransition="*res://Objects/Core/SceneTransition.tscn"
 
 [display]
 
