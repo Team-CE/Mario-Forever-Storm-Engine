@@ -13,6 +13,7 @@ export var additional_options: Dictionary = {
 	'set_scene_path': '',
 	'add_scene': PackedScene
 }
+export var show_scene_transition: bool = false
 
 var counter: float = 0
 var active: bool = false
@@ -77,6 +78,9 @@ func _physics_process(delta: float) -> void:
 			if out_node:
 				if !switch:
 					switch = true
+					if show_scene_transition:
+						SceneTransition.start_transition('FadePixelate', 1.0, true)
+						Global.get_tree().paused = true
 					Global.Mario.get_node('Sprite').modulate.a = 0
 					Global.Mario.position = out_node.position
 				counter += 1 * Global.get_delta(delta)
@@ -84,7 +88,10 @@ func _physics_process(delta: float) -> void:
 					Global.Mario.get_node('Sprite').modulate.a += 0.03 * Global.get_delta(delta)
 
 			elif 'set_scene_path' in additional_options and additional_options['set_scene_path'] != '':
-				Global.goto_scene(additional_options['set_scene_path'])
+				if not show_scene_transition:
+					Global.goto_scene(additional_options['set_scene_path'])
+				else:
+					Global.goto_scene_with_transition(additional_options['set_scene_path'])
 				disabled = true
 				active = false
 

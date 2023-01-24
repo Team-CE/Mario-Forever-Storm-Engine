@@ -7,10 +7,6 @@
 [ext_resource path="res://GFX/Mario/Climb.png" type="Texture" id=5]
 [ext_resource path="res://GFX/Mario/Swim.png" type="Texture" id=6]
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 4 )
-region = Rect2( 60, 0, 30, 31 )
-
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 31, 57 )
@@ -23,21 +19,17 @@ region = Rect2( 62, 0, 31, 57 )
 atlas = ExtResource( 3 )
 region = Rect2( 31, 0, 31, 57 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 27, 30 )
+region = Rect2( 0, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 5 )
-region = Rect2( 27, 0, 27, 30 )
+region = Rect2( 32, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 30, 31 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 4 )
-region = Rect2( 30, 0, 30, 31 )
+region = Rect2( 60, 0, 30, 31 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 6 )
@@ -71,27 +63,25 @@ region = Rect2( 124, 0, 31, 32 )
 atlas = ExtResource( 6 )
 region = Rect2( 155, 0, 31, 32 )
 
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 30, 31 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 4 )
+region = Rect2( 30, 0, 30, 31 )
+
 [resource]
 animations = [ {
-"frames": [ SubResource( 4 ) ],
-"loop": true,
-"name": "Stopped",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "Appearing",
 "speed": 25.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 17 ), SubResource( 18 ) ],
 "loop": true,
 "name": "Climbing",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 4 ) ],
-"loop": true,
-"name": "Walking",
-"speed": 1.0
 }, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
@@ -103,6 +93,11 @@ animations = [ {
 "name": "Jumping",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "Stopped",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "SwimmingLoop",
@@ -112,4 +107,9 @@ animations = [ {
 "loop": false,
 "name": "SwimmingStart",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 4 ) ],
+"loop": true,
+"name": "Walking",
+"speed": 1.0
 } ]
