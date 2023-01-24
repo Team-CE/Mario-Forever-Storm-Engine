@@ -118,19 +118,17 @@ margin_bottom = 192.0
 [node name="Cloud" type="AnimatedSprite" parent="."]
 position = Vector2( 1152, 96 )
 frames = ExtResource( 39 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Cloud2" type="AnimatedSprite" parent="."]
 position = Vector2( 1504, 144 )
 frames = ExtResource( 39 )
-frame = 1
 playing = true
 
 [node name="Cloud3" type="AnimatedSprite" parent="."]
 position = Vector2( 2128, 80 )
 frames = ExtResource( 39 )
-frame = 1
 playing = true
 
 [node name="Goomba" parent="." instance=ExtResource( 12 )]

@@ -3,6 +3,10 @@ extends CanvasLayer
 signal fade_in_ended
 signal fade_out_ended
 
+func _ready():
+	get_parent().call_deferred('remove_child', self)
+	GlobalViewport.vp.call_deferred('add_child', self)
+
 func start_transition(trans_name: String, speed: float = 1.0, repeat_backwards: bool = true) -> void:
 	if $AnimationPlayer.is_playing():
 		push_error('[SceneTransition] Transition is already in process.')

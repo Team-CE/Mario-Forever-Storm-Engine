@@ -130,9 +130,15 @@ func _ai_process(delta: float) -> void:
 	
 	# Stomping and hurting Mario
 	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 and invis_c <= 15:
-		Global.Mario.velocity.y = -450
+		if !Global.Mario.is_in_shoe:
+			Global.Mario.velocity.y = -450
+		else:
+			Global.Mario.shoe_node.stomp()
 		mario_shift = -10 if Global.Mario.get_node('Sprite').flip_h else 10
 		bowser_damage()
+	elif Global.Mario.is_in_shoe and is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 and invis_c > 15:
+		Global.Mario.shoe_node.stomp()
+		mario_shift = -10 if Global.Mario.get_node('Sprite').flip_h else 10
 	elif on_mario_collide('InsideDetector') and invis_c < 110:
 		Global._ppd()
 	
@@ -173,8 +179,8 @@ func dead_logic(delta: float) -> void:
 					lava_love()
 						
 	if fc > 10000:
-		if y_speed > 1:
-			y_speed -= 1 * Global.get_delta(delta)
+		if y_speed > 100:
+			y_speed -= 50 * Global.get_delta(delta)
 	if fc > 10130:
 		if !f_act and !Global.Mario.dead:
 			Global.current_scene.finish_node.act()
@@ -342,6 +348,7 @@ func lava_love():
 	fc = 10000
 	owner.get_node('LavaLove').play()
 	owner.collision_mask = 0
+	owner.velocity.y = 1
 	
 	var lavap = preload('res://Objects/Effects/LavaParticles.tscn').instance()
 	lavap.preprocess = 0
