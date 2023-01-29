@@ -222,6 +222,7 @@ func _process_alive(delta) -> void:
 		if shield_counter <= 0:
 			MusicPlayer.star.stop()
 			MusicPlayer.starmpt.stop()
+			MusicPlayer.star.pause_mode = PAUSE_MODE_STOP
 # warning-ignore:return_value_discarded
 			MusicPlayer.tween_out.stop_all()
 			if Global.music_loader and Global.music_loader.playing and not Global.level_ended:

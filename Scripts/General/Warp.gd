@@ -164,6 +164,7 @@ func _physics_process(delta) -> void:
 					state_switched = true
 					if show_scene_transition:
 						SceneTransition.start_transition('FadePixelate', 1.0, true)
+						MusicPlayer.star.pause_mode = PAUSE_MODE_PROCESS
 						Global.get_tree().paused = true
 					warp_exit()
 
@@ -193,6 +194,7 @@ func _physics_process(delta) -> void:
 func warp_exit():
 	emit_signal('half_warped')
 	Global.play_base_sound('MAIN_Pipe')
+	MusicPlayer.star.pause_mode = PAUSE_MODE_STOP
 
 	if out_node.direction == DIRS.DOWN:
 		Global.Mario.crouch = false

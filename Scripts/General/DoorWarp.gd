@@ -80,9 +80,11 @@ func _physics_process(delta: float) -> void:
 					switch = true
 					if show_scene_transition:
 						SceneTransition.start_transition('FadePixelate', 1.0, true)
+						MusicPlayer.star.pause_mode = PAUSE_MODE_PROCESS
 						Global.get_tree().paused = true
 					Global.Mario.get_node('Sprite').modulate.a = 0
 					Global.Mario.position = out_node.position
+					MusicPlayer.star.pause_mode = PAUSE_MODE_STOP
 				counter += 1 * Global.get_delta(delta)
 				if Global.Mario.get_node('Sprite').modulate.a < 0.99:
 					Global.Mario.get_node('Sprite').modulate.a += 0.03 * Global.get_delta(delta)

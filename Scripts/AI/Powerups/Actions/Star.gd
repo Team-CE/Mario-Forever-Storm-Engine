@@ -32,6 +32,7 @@ func do_action(brain):
 	MusicPlayer.openmpt.stop()
 	MusicPlayer.starmpt.start(true)
 	MusicPlayer.star.play()
+	MusicPlayer.star.pause_mode = Node.PAUSE_MODE_STOP
 # warning-ignore:return_value_discarded
 	MusicPlayer.tween_out.remove(MusicPlayer.star)
 	MusicPlayer.star.volume_db = 0
