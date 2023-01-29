@@ -26,3 +26,19 @@ func _physics_process(_delta):
 		$Mario/Sprite.visible = false
 		if is_instance_valid($Mario.shoe_node):
 			$Mario.shoe_node.get_node('AnimatedSprite').visible = false
+
+func _input(event):
+	if 'echo' in event and event.echo: return
+	if !Input.is_action_just_pressed('mario_jump'): return
+	
+	var to_jump
+	for i in Global.current_scene.get_tree().get_nodes_in_group('Warp'):
+		if 'set_scene_path' in i.additional_options and i.additional_options['set_scene_path'] != '':
+			to_jump = i.additional_options['set_scene_path']
+			break
+	if !to_jump:
+		return
+	$letsgo.pause_mode = PAUSE_MODE_PROCESS
+	MusicPlayer.pause_mode = PAUSE_MODE_PROCESS
+	MusicPlayer.fade_out($letsgo, 0.5)
+	Global.goto_scene_with_transition(to_jump)

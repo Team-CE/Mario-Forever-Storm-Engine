@@ -80,7 +80,7 @@ func _on_hitbox_enter(a) -> void:
 		if 'Fireball'.to_lower() in root.get_name().to_lower():
 			owner.kill(owner.DEATH_TYPE.UNFREEZE)
 			root.explode()
-	else:
+	elif 'belongs' in root and root.belongs == 0:
 		if 'Iceball'.to_lower() in root.get_name().to_lower() and 'belongs' in root:
 			owner.freeze()
 			root.explode()
