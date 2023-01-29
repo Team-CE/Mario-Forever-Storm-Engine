@@ -132,3 +132,31 @@ visible = false
 position = Vector2( 0, -32 )
 frames = ExtResource( 10 )
 animation = "medium"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false
+position = Vector2( -16, -44 )
+enabled = true
+cast_to = Vector2( 0, -8 )
+collision_mask = 2
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+visible = false
+position = Vector2( 16, -44 )
+enabled = true
+cast_to = Vector2( 0, -8 )
+collision_mask = 2
+
+[node name="RayCast2D3" type="RayCast2D" parent="."]
+visible = false
+position = Vector2( -16, -4 )
+enabled = true
+cast_to = Vector2( 0, 8 )
+collision_mask = 2
+
+[node name="RayCast2D4" type="RayCast2D" parent="."]
+visible = false
+position = Vector2( 16, -4 )
+enabled = true
+cast_to = Vector2( 0, 8 )
+collision_mask = 2

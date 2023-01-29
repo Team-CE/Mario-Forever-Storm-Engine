@@ -7,13 +7,26 @@ var move_multiplier: int = 1
 var throw_activated: bool = false
 var inv_counter: float = 0
 
+var jumping_down: bool = false
+var exceptions: Array = []
+
 var initial_pos: Vector2
 var inited_throwable
 
 var rng: RandomNumberGenerator
+var rng2: RandomNumberGenerator
+
+onready var ray1: RayCast2D 
+onready var ray2: RayCast2D
+onready var ray3: RayCast2D
+onready var ray4: RayCast2D
 
 func _ready_mixin() -> void:
 	owner.death_type = AliveObject.DEATH_TYPE.FALL
+	ray1 = owner.get_node('RayCast2D')
+	ray2 = owner.get_node('RayCast2D2')
+	ray3 = owner.get_node('RayCast2D3')
+	ray4 = owner.get_node('RayCast2D4')
 	
 func _setup(b) -> void:
 	._setup(b)
@@ -21,6 +34,8 @@ func _setup(b) -> void:
 	inited_throwable = owner.vars['throw_script'].new()
 	rng = RandomNumberGenerator.new()
 	rng.seed = 1
+	rng2 = RandomNumberGenerator.new()
+	rng2.randomize()
 
 func _ai_process(delta: float) -> void:
 	._ai_process(delta)
@@ -47,14 +62,7 @@ func _ai_process(delta: float) -> void:
 	if inv_counter < 31:
 		inv_counter += 1 * Global.get_delta(delta)
 		
-	if counter < 20:
-		counter += 1 * Global.get_delta(delta)
-	else:
-		counter = 0
-# warning-ignore:narrowing_conversion
-		move_multiplier = round(rng.randf_range(-4, 14) / 10)
-		if rand_range(1, 11) > 10 and owner.is_on_floor():
-			owner.velocity.y = -400
+	jumping_ai(Global.get_delta(delta))
 	
 	if counter_t < owner.vars['throw_delay']:
 		counter_t += 1 * Global.get_delta(delta)
@@ -93,5 +101,68 @@ func _ai_process(delta: float) -> void:
 	for i in range(len(g_overlaps)):
 		if 'triggered' in g_overlaps[i] and g_overlaps[i].triggered:
 			owner.kill(AliveObject.DEATH_TYPE.FALL, 0)
+
+
+func jumping_ai(delta) -> void:
+	if ray1 == null or ray2 == null or ray3 == null or ray4 == null:
+		return
 	
+	if not jumping_down:
+		if owner.velocity.y > 0:
+			clear_exceptions()
+		
+		if owner.velocity.y < 0:
+# warning-ignore:return_value_discarded
+			collide_ray(ray1)
+# warning-ignore:return_value_discarded
+			collide_ray(ray2)
+	else:
+		var collided_once: bool
+		if owner.velocity.y > 0:
+			collided_once = collide_ray(ray3) or collide_ray(ray4)
+		if owner.velocity.y == 0 and collided_once:
+			clear_exceptions()
+
+	if counter < 20:
+		counter += 1 * delta
+	else:
+		counter = 0
+# warning-ignore:narrowing_conversion
+		move_multiplier = round(rng.randf_range(-4, 14) / 10)
+		if owner.is_on_floor() and rng2.randi_range(1, 11) > 10:
+			jumping_down = false
+			owner.velocity.y = -400
+			return
+		if owner.is_on_floor() and rng2.randi_range(1, 11) > 10 and (qblock_below(ray3) or qblock_below(ray4)):
+			jumping_down = true
+			owner.velocity.y = -150
+
+func collide_ray(ray: RayCast2D) -> bool:
+	var collider = ray.get_collider()
+	if qblock_below(ray):
+		if !exceptions.has(collider.get_instance_id()):
+			exceptions.append(collider.get_instance_id())
+			owner.add_collision_exception_with(collider)
+			ray.add_exception(collider)
+			return true
+	return false
+
+func clear_exceptions() -> void:
+	if exceptions.empty(): return
+	for body in exceptions:
+		owner.remove_collision_exception_with(instance_from_id(body))
+	ray1.clear_exceptions()
+	ray2.clear_exceptions()
+	ray3.clear_exceptions()
+	ray4.clear_exceptions()
+	exceptions.clear()
+	jumping_down = false
+
+func qblock_below(ray: RayCast2D) -> bool:
+	if !ray.is_colliding():
+		return false
 	
+	var collider = ray.get_collider()
+	if collider is QBlock:
+		return true
+	return false

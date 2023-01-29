@@ -34,3 +34,5 @@ func _physics_process(delta):
 		if position.x > camera.limit_right - 320:
 			return
 		position.x += autoscroll_speed * Global.get_delta(delta)
+		if not Global.Mario.dead and Global.Mario.global_position.x < global_position.x - 352:
+			Global._pll()
