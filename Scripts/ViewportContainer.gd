@@ -1,10 +1,8 @@
 extends ViewportContainer
 
-# Define GlobalViewport.vp as the viewport
-onready var vp = $Viewport
-
 var filter_enabled = true setget _on_filter_change
 
+onready var vp = $Viewport
 onready var RESOLUTION = $Viewport.size
 onready var ASPECT_RATIO = RESOLUTION.x / RESOLUTION.y
 
@@ -70,3 +68,38 @@ func _reset_values():
 	rect_size = Vector2(640, 480)
 	rect_scale = Vector2.ONE
 	#material.set_shader_param("texture_size", rect_size)
+
+
+
+# -----------------------------------------------------------------------------
+
+
+
+export var main_scene_node_path: NodePath = ''
+export var auto_ready: bool = true
+
+func reset():
+	auto_ready = true
+	main_scene_node_path = ''
+	
+	for node in vp.get_children():
+		if node is Node2D: continue
+		node.queue_free()
+
+#func _ready():
+#	var root = get_tree().get_root()
+#	Global.current_scene = root.get_child(root.get_child_count() - 1)
+#
+#	#if auto_ready:
+#		#Global.current_scene.connect('ready', self, '_on_scene_ready')
+#
+#	# Move the scene to viewport with shader if one launches it using the F6 key in Godot
+#	if Global.current_scene.get_parent() == root:
+#		root.call_deferred('remove_child', Global.current_scene)
+#		print('delered')
+
+#func _on_scene_ready():
+#	print(main_scene_node_path)
+#
+#	vp.get_node(main_scene_node_path).call_deferred('add_child', Global.current_scene)
+#	print('ok')

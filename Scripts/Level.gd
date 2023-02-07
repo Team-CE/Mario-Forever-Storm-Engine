@@ -28,15 +28,15 @@ func is_class(name) -> bool: return name == 'Level' or .is_class(name)
 func _ready():
 	if !Engine.editor_hint:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-		if not $Mario.custom_die_stream or Global.deaths == 0:
+		if not Global.Mario.custom_die_stream or Global.deaths == 0:
 			Global.time = time
 			MusicPlayer.get_node('TweenOut').remove_all()
 		
 		update_quality()
-		$Mario.invulnerable = false
+		Global.Mario.invulnerable = false
 		Global.timer.start()
 		
-		get_parent().world.environment = null
+		GlobalViewport.vp.world.environment = null
 		#get_parent().world.environment = $WorldEnvironment.environment.duplicate(true)
 		#$WorldEnvironment.queue_free()
 		

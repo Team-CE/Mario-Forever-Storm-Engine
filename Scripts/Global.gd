@@ -102,7 +102,7 @@ func get_delta(delta) -> float:			 # Delta by 50 FPS
 func _init() -> void:
 # warning-ignore:narrowing_conversion
 	var rate = OS.get_screen_refresh_rate()
-	if rate < 119 && quality > 0:
+	if rate < 119:
 		Engine.iterations_per_second = rate * 2
 		print('Using double fps for physics')
 	else:
@@ -110,11 +110,13 @@ func _init() -> void:
 
 func _ready() -> void:
 	var root = get_tree().get_root()
-	current_scene = root.get_child(root.get_child_count() - 1)
+	Global.current_scene = root.get_child(root.get_child_count() - 1)
 	# Move the scene to viewport with shader if one launches it using the F6 key in Godot
-	if current_scene.get_parent() == root:
-		root.call_deferred('remove_child', current_scene)
-		get_node('/root/GlobalViewport/Viewport').call_deferred('add_child', current_scene)
+	if Global.current_scene.get_parent() == root:
+		root.call_deferred('remove_child', Global.current_scene)
+		print('deleted')
+	#get_tree().call_deferred('connect', 'idle_frame', GlobalViewport, '_on_scene_ready', [], CONNECT_ONESHOT)
+	GlobalViewport.vp.call_deferred('add_child', Global.current_scene)
 	
 	if OS.is_debug_build():
 		debug = true
@@ -569,7 +571,9 @@ func _deferred_goto_scene(path: String):
 		set_deferred('popup', null)
 	if get_tree().paused: get_tree().paused = false
 	current_scene = s.instance()
-	get_node('/root/GlobalViewport/Viewport').add_child(current_scene)
+	get_node('/root/GlobalViewport/Viewport/' + GlobalViewport.main_scene_node_path).call_deferred('add_child', current_scene)
+
+# + GlobalViewport.main_scene_node_path
 
 func goto_scene_with_transition(path: String, trans_name = 'FadePixelate', speed: float = 1.0, repeat_backwards: bool = true, pause: bool = true):
 	SceneTransition.start_transition(trans_name, speed, repeat_backwards)

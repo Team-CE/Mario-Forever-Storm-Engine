@@ -17,7 +17,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=15]
 [ext_resource path="res://Sounds/Main/scoreing.wav" type="AudioStream" id=16]
 [ext_resource path="res://Scripts/Menu/Menu.gd" type="Script" id=17]
-[ext_resource path="res://GFX/Menu/menu_bg.png" type="Texture" id=18]
+[ext_resource path="res://GFX/Map/map_looped.png" type="Texture" id=18]
 [ext_resource path="res://GFX/Menu/вав.png" type="Texture" id=19]
 [ext_resource path="res://GFX/Menu/options_bg.png" type="Texture" id=20]
 [ext_resource path="res://GFX/Menu/credits_bg.png" type="Texture" id=21]
@@ -335,6 +335,7 @@ music = ExtResource( 27 )
 music_credits = ExtResource( 26 )
 
 [node name="BG" type="TextureRect" parent="."]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -350,9 +351,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -480.0
 grow_vertical = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Logo" type="TextureRect" parent="Logo"]
 margin_right = 640.0
