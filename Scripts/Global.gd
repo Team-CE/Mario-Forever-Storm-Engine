@@ -111,13 +111,12 @@ func _init() -> void:
 
 func _ready() -> void:
 	var root = get_tree().get_root()
-	Global.current_scene = root.get_child(root.get_child_count() - 1)
+	current_scene = root.get_child(root.get_child_count() - 1)
 	# Move the scene to viewport with shader if one launches it using the F6 key in Godot
-	if Global.current_scene.get_parent() == root:
-		root.call_deferred('remove_child', Global.current_scene)
+	if current_scene.get_parent() == root:
+		root.call_deferred('remove_child', current_scene)
 
-	#get_tree().call_deferred('connect', 'idle_frame', GlobalViewport, '_on_scene_ready', [], CONNECT_ONESHOT)
-	GlobalViewport.vp.call_deferred('add_child', Global.current_scene)
+	GlobalViewport.vp.call_deferred('add_child', current_scene)
 
 	if OS.is_debug_build():
 		debug = true
@@ -134,10 +133,10 @@ func _ready() -> void:
 # warning-ignore:return_value_discarded
 	timer.connect('timeout', self, '_delay')
 	
-	match OS.get_name():
-		'iOS', 'Android':
-			mobile = true
-			add_child(preload('res://Objects/Core/Touchscreen.tscn').instance())
+#	match OS.get_name():
+#		'iOS', 'Android':
+#			mobile = true
+#			add_child(preload('res://Objects/Core/Touchscreen.tscn').instance())
 	
 	# Default settings for mobile phone
 	if mobile:
@@ -338,12 +337,12 @@ func _unhandled_input(ev):
 		
 	# Trigger finish
 		if ev.scancode == KEY_4:
-			if !('death_height' in Global.current_scene):
+			if !('death_height' in current_scene):
 				return
-			if !Global.current_scene.finish_node:
+			if !current_scene.finish_node:
 				push_error('ERROR: Finish line not found')
 				return
-			Global.current_scene.finish_node.act()
+			current_scene.finish_node.act()
 		
 		if ev.scancode == KEY_6:
 			if is_instance_valid(HUD):

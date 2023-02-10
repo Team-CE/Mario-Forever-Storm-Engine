@@ -85,6 +85,7 @@ func _physics_process(delta: float) -> void:
 					Global.Mario.get_node('Sprite').modulate.a = 0
 					Global.Mario.position = out_node.position
 					MusicPlayer.star.pause_mode = PAUSE_MODE_STOP
+				
 				counter += 1 * Global.get_delta(delta)
 				if Global.Mario.get_node('Sprite').modulate.a < 0.99:
 					Global.Mario.get_node('Sprite').modulate.a += 0.03 * Global.get_delta(delta)
