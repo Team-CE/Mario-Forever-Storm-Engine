@@ -81,7 +81,8 @@ var level_ended: bool = false								# Shift + 4
 
 var levelID: int = 0
 
-var current_scene = null
+var current_scene: Node = null
+var _current_scene_buffer: PackedScene = null
 var music_loader = null
 
 const popup_node = preload('res://Objects/Tools/PopupMenu.tscn')
@@ -114,10 +115,10 @@ func _ready() -> void:
 	# Move the scene to viewport with shader if one launches it using the F6 key in Godot
 	if Global.current_scene.get_parent() == root:
 		root.call_deferred('remove_child', Global.current_scene)
-		print('deleted')
+
 	#get_tree().call_deferred('connect', 'idle_frame', GlobalViewport, '_on_scene_ready', [], CONNECT_ONESHOT)
 	GlobalViewport.vp.call_deferred('add_child', Global.current_scene)
-	
+
 	if OS.is_debug_build():
 		debug = true
 	
@@ -557,21 +558,32 @@ func is_getting_closer(pix: float, pos: Vector2) -> bool:
 	)
 
 func goto_scene(path: String):
+	if path == current_scene.filename && _current_scene_buffer != null:
+		call_deferred('_deferred_reload_scene')
+		return
 	call_deferred('_deferred_goto_scene', path)
+
+func reload_scene() -> void:
+	call_deferred('_deferred_reload_scene')
+
+func _deferred_reload_scene() -> void:
+	current_scene.free()
+	current_scene = _current_scene_buffer.instance()
+	$'/root/GlobalViewport/Viewport/'.call_deferred('add_child', current_scene)
 
 func _deferred_goto_scene(path: String):
 	if current_camera:
 		current_camera.free()
 	current_camera = null
 	current_scene.free()
-	var s = ResourceLoader.load(path)
-	assert(is_instance_valid(s), 'ERROR: Cannot go to invalid or empty scene!')
+	_current_scene_buffer = ResourceLoader.load(path)
+	assert(is_instance_valid(_current_scene_buffer), 'ERROR: Cannot go to invalid or empty scene!')
 	if is_instance_valid(popup):
 		popup.queue_free()
 		set_deferred('popup', null)
 	if get_tree().paused: get_tree().paused = false
-	current_scene = s.instance()
-	get_node('/root/GlobalViewport/Viewport/' + GlobalViewport.main_scene_node_path).call_deferred('add_child', current_scene)
+	current_scene = _current_scene_buffer.instance()
+	$'/root/GlobalViewport/Viewport/'.call_deferred('add_child', current_scene)
 
 # + GlobalViewport.main_scene_node_path
 
