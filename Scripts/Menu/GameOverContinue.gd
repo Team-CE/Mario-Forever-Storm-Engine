@@ -40,7 +40,7 @@ func _physics_process(delta):
 		else:	 # Yes
 # warning-ignore:return_value_discarded
 			Global.reset_all_values()
-			Global.goto_scene(Global.current_scene.filename)
+			Global.reload_scene()
 			Global.popup.queue_free()
 			Global.popup = null
 # warning-ignore:return_value_discarded

@@ -96,11 +96,10 @@ func _physics_process(delta):
 						AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(Global.musicBar))
 						if is_dead:
 							Global._reset()
-							get_node('../enter').play()
 						else:
 							Global._pll()
-							get_node('../enter').play()
-							get_parent().resume()
+						get_node('../enter').play()
+						get_parent().resume()
 						get_tree().set_deferred('paused', false)
 				2:
 					get_node('../enter').play()
@@ -126,7 +125,6 @@ func _physics_process(delta):
 
 func _goto_scene(scene: String, reset_values: bool = true) -> void:
 	AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index('Sounds'), 0, false)
-	Global.goto_scene(scene)
 	MusicPlayer.main.stop()
 	MusicPlayer.star.stop()
 	if reset_values:
@@ -134,3 +132,4 @@ func _goto_scene(scene: String, reset_values: bool = true) -> void:
 	Global.popup.queue_free()
 	Global.popup = null
 	get_tree().paused = false
+	Global.goto_scene(scene)
