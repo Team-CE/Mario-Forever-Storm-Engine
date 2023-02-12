@@ -92,6 +92,8 @@ func _ai_process(delta: float) -> void:
 		owner.kill(AliveObject.DEATH_TYPE.FALL, 0, owner.sound)
 		owner.velocity = Vector2.ZERO
 		Global.Mario.enemy_stomp()
+		owner.collision_mask = 0
+		owner.collision_layer = 0
 	elif on_mario_collide('InsideDetector') && inv_counter >= 21:
 		Global._ppd()
 		

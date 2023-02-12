@@ -131,7 +131,7 @@ func activate_event(name: String, args: Array):
 
 func update_quality():
 	if !Global.effects:
-		$WorldEnvironment.environment.glow_enabled = false
+		#$WorldEnvironment.environment.glow_enabled = false
 		for node in get_children():
 			if node.is_class('Particles2D'):
 				node.emitting = false
@@ -141,9 +141,9 @@ func update_quality():
 					if part.is_class('Particles2D'):
 						part.emitting = false
 						part.visible = false
-	$WorldEnvironment.environment.glow_high_quality = Global.quality == 2
+	if Global.quality != 2:
+		$WorldEnvironment.environment.glow_high_quality = false
 	if Global.quality == 0:
-		#$WorldEnvironment.environment.glow_bicubic_upscale = false
 		for node in get_children():
 			if node.is_class('Light2D') and node.shadow_enabled:
 				node.shadow_filter = 0

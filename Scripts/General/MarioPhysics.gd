@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal bottom_collider
+signal jumped
 
 export var powerup_animations: Dictionary = {}
 export var powerup_scripts: Dictionary = {}
@@ -109,9 +110,9 @@ func _physics_process(delta) -> void:
 			target_gravity_enabled = false
 			
 	if target_gravity_enabled:
-		$Sprite.rotation = lerp_angle($Sprite.rotation, deg2rad(0), 0.35 * Global.get_delta(delta))
+		$Sprite.rotation = lerp_angle($Sprite.rotation, deg2rad(0.0), 0.35 * Global.get_delta(delta))
 		if is_instance_valid(Global.current_camera):
-			Global.current_camera.rotation = lerp_angle(Global.current_camera.rotation, deg2rad(0), 0.35 * Global.get_delta(delta))
+			Global.current_camera.rotation = lerp_angle(Global.current_camera.rotation, deg2rad(0.0), 0.35 * Global.get_delta(delta))
 		if round(rotation_degrees * 10) != round(target_gravity_angle * 10):
 			#print('rotate', rotation_degrees, target_gravity_angle)
 			if abs(round(rotation_degrees - target_gravity_angle)) > 10:
@@ -439,6 +440,7 @@ func is_over_vine() -> bool:
 	return false
 
 func jump() -> void:
+	emit_signal('jumped')
 	prelanding = false
 	jump_counter = 1
 	can_jump = false

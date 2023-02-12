@@ -12,6 +12,7 @@ func _ready():
 		if 'overlay' in Global.current_scene:
 			Global.current_scene.overlay = self
 			if !Global.current_scene.is_connected('overlay_changed', self, '_on_overlay_toggled'):
+# warning-ignore:return_value_discarded
 				Global.current_scene.connect('overlay_changed', self, '_on_overlay_toggled')
 
 func _set_text(new) -> void:

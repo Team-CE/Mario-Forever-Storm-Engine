@@ -59,5 +59,6 @@ func resume() -> void:
 func _next():
 	$Sprite.modulate = Color.white
 	
-	if Global.popup: Global.popup = null
+	if Global.popup and Global.popup == self:
+		Global.popup = null
 	queue_free()

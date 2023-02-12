@@ -510,7 +510,9 @@ func _pll() -> void: # Player Death
 	else:
 		var dieMusPlayer = AudioStreamPlayer.new()
 		dieMusPlayer.set_stream(Mario.custom_die_stream)
-		current_scene.add_child(dieMusPlayer)
+		dieMusPlayer.bus = 'Sounds'
+		add_child(dieMusPlayer)
+		dieMusPlayer.connect('finished', dieMusPlayer, 'queue_free')
 		dieMusPlayer.play()
 	
 	Mario.dead = true

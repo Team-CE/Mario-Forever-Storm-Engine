@@ -34,7 +34,7 @@ func play():
 	if is_instance_valid(Global.Mario) and Global.Mario.shield_star:
 		return
 	MusicPlayer.play_file(music_list[current_index])
-	print('played')
+	#print('played')
 
 func _enter_tree():
 	Global.music_loader = self

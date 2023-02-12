@@ -84,6 +84,7 @@ frozen_sprite_pth = NodePath("IceSprite")
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 11 )
 animation = "walk"
+frame = 1
 playing = true
 offset = Vector2( 0, -32 )
 flip_h = true

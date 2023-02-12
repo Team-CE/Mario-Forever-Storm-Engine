@@ -50,7 +50,7 @@ func _ready() -> void:
 		screen = 1
 		sel = 12
 		Global.restartNeeded = false
-		$TransitionLayer/Transition.material.set_shader_param('circle_size', 0.624)
+		circle_size = 0.624
 		
 		MusicPlayer.play_file(music)
 		MusicPlayer.play_on_pause()
