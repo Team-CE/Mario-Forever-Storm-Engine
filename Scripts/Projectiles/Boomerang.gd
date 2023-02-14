@@ -67,6 +67,10 @@ func _physics_process(delta) -> void:
 	
 	if (velocity.x > -10 and dir == 1) or (velocity.x < 10 and dir == -1):
 		velocity.x -= 0.2 * dir * Global.get_delta(delta)
+	if velocity.x <= 2.0 and velocity.x >= -2.0 and dir == 1:
+		velocity.x = -2
+	if velocity.x >= -2.0 and velocity.x <= 2.0 and dir == -1:
+		velocity.x = 2
 
 	position += velocity.rotated(rotation) * Global.get_delta(delta)
 	

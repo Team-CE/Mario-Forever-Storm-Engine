@@ -14,6 +14,7 @@ export var custom_script: Script
 var current_speed: float = 0
 var max_offset: float
 var tween: SceneTreeTween
+#var tween_rotating: SceneTreeTween
 var tween_state: int
 
 var velocity: Vector2
@@ -95,6 +96,14 @@ func smooth_turn_movement(delta) -> void:
 # warning-ignore:return_value_discarded
 			tween.tween_property(self, 'offset', smooth_point + smooth_turn_distance, 1.8 / speed).set_ease(Tween.EASE_IN)
 			tween_state += 1
+			
+			if rotate:
+				rotate = false
+				var tween_rotating = new_tw(false)
+				tween_rotating.tween_property(self, 'rotation', rotation + deg2rad(90), 1.8 / speed).set_ease(Tween.EASE_IN)
+				tween_rotating.tween_property(self, 'rotation', rotation + deg2rad(180), 1.8 / speed).set_ease(Tween.EASE_OUT)
+				tween_rotating.tween_callback(self, '_turn_on_rotate')
+			
 	elif tween_state == 3:
 		offset += current_speed * Global.get_delta(delta)
 		if offset > max_offset - smooth_turn_distance:
@@ -104,10 +113,19 @@ func smooth_turn_movement(delta) -> void:
 # warning-ignore:return_value_discarded
 			tween.tween_property(self, 'offset', max_offset + smooth_turn_distance, 1.8 / speed).set_ease(Tween.EASE_IN)
 			tween_state += 1
+			
+			if rotate:
+				rotate = false
+				var tween_rotating = new_tw(false)
+				tween_rotating.tween_property(self, 'rotation', rotation + deg2rad(90), 1.8 / speed).set_ease(Tween.EASE_IN)
+				tween_rotating.tween_property(self, 'rotation', rotation + deg2rad(180), 1.8 / speed).set_ease(Tween.EASE_OUT)
+				tween_rotating.tween_callback(self, '_turn_on_rotate')
+	
+				
 
-func new_tw() -> SceneTreeTween:
+func new_tw(connect_signal: bool = true) -> SceneTreeTween:
 	var tw = create_tween()
-	tw.connect('finished', self, '_on_tween_finish')
+	if connect_signal: tw.connect('finished', self, '_on_tween_finish')
 	tw.set_trans(Tween.TRANS_SINE)
 	tw.set_process_mode(0)
 	return tw
@@ -116,3 +134,6 @@ func _on_tween_finish() -> void:
 	tween_state += 1
 	if tween_state == 5:
 		tween_state = 1
+
+func _turn_on_rotate() -> void:
+	rotate = true

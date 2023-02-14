@@ -453,10 +453,14 @@ func jump() -> void:
 		$BaseSounds/MAIN_Swim.play()
 
 func enemy_stomp() -> void:
+	prelanding = false
+	jump_counter = 1
+	can_jump = false
+	jump_internal_counter = 0
 	if Input.is_action_pressed('mario_jump'):
 		Global.Mario.velocity.y = -700
 	else:
-		Global.Mario.velocity.y = -450
+		Global.Mario.velocity.y = -500
 
 func controls(delta) -> void:
 	if (

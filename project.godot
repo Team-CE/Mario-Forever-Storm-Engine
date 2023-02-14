@@ -144,7 +144,6 @@ config/name="Mario Forever Storm Engine"
 run/main_scene="res://Stages/Menu.tscn"
 run/delta_sync_after_draw=true
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://icon.png"
 config/save_game_room_scene="res://Stages/SaveGameRoom.tscn"
 config/main_menu_scene="res://Stages/Menu.tscn"
 
@@ -332,6 +331,7 @@ common/enable_object_picking=false
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 2d/snapping/use_gpu_pixel_snap=true
+threads/thread_model=2
 quality/reflections/texture_array_reflections=false
 gles3/shaders/shader_compilation_mode=1
 environment/default_clear_color=Color( 0.333333, 0.333333, 0.333333, 1 )

@@ -56,6 +56,8 @@ func freeze() -> void:
 	time.one_shot = true
 	lavap.add_child(time)
 	hide()
+	set_deferred('collision_layer', 0)
+	set_deferred('collision_mask', 0)
 	
 # warning-ignore:return_value_discarded
 	get_tree().create_timer(3.0, false).connect('timeout', self, 'queue_free')
@@ -94,4 +96,4 @@ func _on_body_entered(body):
 
 
 func _on_VisibilityNotifier2D_screen_exited():
-	queue_free()
+	call_deferred('queue_free')
