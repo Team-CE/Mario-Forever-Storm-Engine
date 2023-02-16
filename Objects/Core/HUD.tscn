@@ -265,7 +265,7 @@ texture = ExtResource( 13 )
 [node name="CollectibleSprite" type="AnimatedSprite" parent="Collectibles"]
 position = Vector2( 244, 23 )
 frames = SubResource( 49 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="Counter" type="Label" parent="Collectibles"]

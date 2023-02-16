@@ -323,9 +323,6 @@ func _process_dead(delta) -> void:
 		
 	$Sprite.position += Vector2(0, velocity.y * delta)
 
-	#$BottomDetector/CollisionBottom.shape = null
-	#$TopDetector/CollisionTop.shape = null
-
 	if dead_counter > 180:
 		if Global.lives > 0 and not dead_gameover:
 			Global._reset()
