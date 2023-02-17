@@ -91,7 +91,7 @@ func _ai_process(delta: float) -> void:
 	if piranha_counter >= 130 and piranha_counter < 193:
 		offset_pos += Vector2(0, 1).rotated(owner.rotation) * Global.get_delta(delta)
 	
-	if piranha_counter >= 260 and (Global.Mario.position.x < owner.position.x - 80 or Global.Mario.position.x > owner.position.x + 80):
+	if piranha_counter >= 260 and (Global.Mario.global_position.x < owner.global_position.x - 80 or Global.Mario.global_position.x > owner.global_position.x + 80):
 		piranha_counter = 0
 		offset_pos = Vector2.ZERO
 		

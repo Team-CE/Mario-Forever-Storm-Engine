@@ -520,11 +520,14 @@ func controls(delta) -> void:
 		if !test_move(global_transform, Vector2(0, -6).rotated(global_rotation)):
 			crouch = false
 			is_stuck = false
-		#else:
-		#	crouch = true
-		#	is_stuck = true
-	#if not Input.is_action_pressed('mario_crouch'):
-	#	crouch = false
+		elif velocity.y >= 500 && !$InsideDetector/CollisionBig.disabled && !is_stuck:
+			$InsideDetector/CollisionBig.disabled = true
+			$InsideDetector/CollisionSmall.disabled = false
+			crouch = true
+			is_stuck = true
+			velocity.y = 500
+			position += Vector2(0, 32).rotated(rotation) * Global.get_delta(delta)
+
 	if Global.state == 0:
 		crouch = false
 		is_stuck = false
