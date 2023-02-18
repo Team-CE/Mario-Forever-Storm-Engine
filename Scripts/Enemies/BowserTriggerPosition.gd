@@ -18,14 +18,15 @@ func _physics_process(delta):
 		return
 	if Global.Mario.position.x > position.x and !music_switched:
 		music_switched = true
-		MusicPlayer.play_file(music)
+		if music != null:
+			MusicPlayer.play_file(music)
 		$StaticBody2D.collision_layer = 0b10000
 		camera = Global.current_camera
 		if !camera: return
 		camera.get_parent().remove_child(camera)
 		add_child(camera)
 		triggered = true
-		if music_overlay_name != '':
+		if music_overlay_name != '' && music != null:
 			Global.current_scene.overlay.display_text(music_overlay_name)
 
 	if triggered:

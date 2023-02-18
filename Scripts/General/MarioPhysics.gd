@@ -6,6 +6,7 @@ signal jumped
 export var powerup_animations: Dictionary = {}
 export var powerup_scripts: Dictionary = {}
 export var target_gravity_angle: float = 0
+export var interpolated_rotation: bool = true
 export var sections_scroll: bool = true
 export var camera_addon: Script
 export var custom_die_stream: Resource
@@ -109,7 +110,7 @@ func _physics_process(delta) -> void:
 		if 'gravity_point' in i and i.gravity_point:
 			target_gravity_enabled = false
 			
-	if target_gravity_enabled:
+	if target_gravity_enabled && interpolated_rotation:
 		$Sprite.rotation = lerp_angle($Sprite.rotation, deg2rad(0.0), 0.35 * Global.get_delta(delta))
 		if is_instance_valid(Global.current_camera):
 			Global.current_camera.rotation = lerp_angle(Global.current_camera.rotation, deg2rad(0.0), 0.35 * Global.get_delta(delta))
