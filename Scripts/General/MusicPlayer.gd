@@ -100,6 +100,8 @@ func init_tracker(audio: Resource) -> void:
 
 # Put this to audio_stream: MusicPlayer.main
 func fade_out(audio_stream: Object, duration: float, from_vol: float = 0, to_vol: float = -80) -> void:
+	if from_vol == 0 && audio_stream.volume_db != 0:
+		from_vol = audio_stream.volume_db
 # warning-ignore:return_value_discarded
 	tween_out.interpolate_property(audio_stream, 'volume_db', from_vol, to_vol, duration, Tween.TRANS_SINE, Tween.EASE_IN, 0)
 # warning-ignore:return_value_discarded
@@ -107,6 +109,8 @@ func fade_out(audio_stream: Object, duration: float, from_vol: float = 0, to_vol
 	print('[MusicPlayer] Fading out for ', duration, 's...')
 
 func fade_in(audio_stream: Object, duration: float, from_vol: float = -80, to_vol: float = 0) -> void:
+	if to_vol == 0 && audio_stream.volume_db != 0:
+		to_vol = audio_stream.volume_db
 # warning-ignore:return_value_discarded
 	tween_in.interpolate_property(audio_stream, 'volume_db', from_vol, to_vol, duration, Tween.TRANS_SINE, Tween.EASE_OUT, 0)
 # warning-ignore:return_value_discarded

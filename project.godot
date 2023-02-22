@@ -150,6 +150,7 @@ config/main_menu_scene="res://Stages/Menu.tscn"
 [autoload]
 
 MusicPlayer="*res://Objects/Core/MusicPlayer.tscn"
+Classes="*res://Scripts/Classes.gd"
 GlobalViewport="*res://Objects/Core/ViewportContainer.tscn"
 Global="*res://Scripts/Global.gd"
 GlobalEditor="*res://Scripts/GlobalEditor.gd"

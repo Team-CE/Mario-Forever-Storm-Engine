@@ -258,7 +258,7 @@ func _process_alive(delta) -> void:
 	if top_collider_counter > 0:
 		top_collider_counter -= 1 * Global.get_delta(delta)
 
-	if is_on_ceiling():
+	if is_on_ceiling() && velocity.y <= 50:
 		top_collider_counter = 3
 
 	if top_collider_counter > 0:
@@ -845,7 +845,7 @@ func horizontal_correction(amount: int):
 	if abs(normal.y) >= 0.1: return
 		
 	for i in range(1, amount + 1):
-		for j in [-1.0, 0]:
+		for j in [-1.0, 0.0]:
 			if !test_move(
 				global_transform.translated(Vector2(0, i * j)),
 				Vector2(velocity.x * delta, 0).rotated(rotation)
