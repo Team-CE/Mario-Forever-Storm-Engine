@@ -126,3 +126,10 @@ visible = false
 show_behind_parent = true
 position = Vector2( 0, -32 )
 shape = SubResource( 9 )
+
+[node name="VisibilityNotifier2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+position = Vector2( 0, -16 )
+scale = Vector2( 12.8, 12.8 )
+process_parent = true
+physics_process_parent = true
