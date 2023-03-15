@@ -6,6 +6,7 @@ tool
 signal overlay_changed
 # warning-ignore:unused_signal
 signal quality_changed
+signal level_ready
 
 export var time: int = 360
 export var time_after_checkpoint: Array = []
@@ -20,6 +21,7 @@ onready var tileMap: TileMap
 onready var worldEnv: WorldEnvironment
 
 var finish_node: Node2D
+var checkpoint_nodes: Array
 var overlay: Control = null # Music overlay
 
 func get_class(): return 'Level'
@@ -65,6 +67,7 @@ func _ready():
 			Global.Mario.faded = false
 			Global.starman_saved = false
 		
+		emit_signal('level_ready')
 		print('[Level]: Ready!')
 	elif not has_node('Mario'):
 		var music_loader: Node = load('res://Objects/Tools/MusicLoader.tscn').instance()

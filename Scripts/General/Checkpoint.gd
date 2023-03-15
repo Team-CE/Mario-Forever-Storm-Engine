@@ -10,6 +10,10 @@ var counter: float = 0
 var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
+	var level = Global.current_scene
+	if 'checkpoint_nodes' in level:
+		level.checkpoint_nodes.append(self)
+		
 	if custom_script:
 		inited_script = custom_script.new()
 		if inited_script.has_method('_ready_mixin'):
@@ -19,7 +23,6 @@ func _ready() -> void:
 		active = true
 		$AnimatedSprite.animation = 'active'
 		Global.Mario.position = position
-		var level = Global.current_scene
 		if Global.collectible_saved:
 			get_tree().call_group('Collectible', 'queue_free')
 		if (
