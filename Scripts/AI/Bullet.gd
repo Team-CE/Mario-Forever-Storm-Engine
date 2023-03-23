@@ -16,7 +16,7 @@ func _setup(b)-> void:
 
 func _ai_process(delta: float) -> void:
 	._ai_process(delta)
-	if !Global.is_getting_closer(-300, owner.position):
+	if !Global.is_getting_closer(-300, owner.global_position):
 		owner.queue_free()
 	
 	if owner.frozen:
