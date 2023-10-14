@@ -77,13 +77,13 @@ func _physics_process(delta) -> void:
 				$CrossingBar.rotation_degrees += 17 * Global.get_delta(delta)
 
 func finish_process(delta):
-	counter += 1 * Global.get_delta(delta)
+	counter += 1 * Global.get_corrected_delta(delta)
 	if counter > 400:
 		if Global.time > 0:
 # warning-ignore:narrowing_conversion
-			Global.time -= round(9 * Global.get_delta(delta))
+			Global.time -= round(9 * Global.get_corrected_delta(delta))
 # warning-ignore:narrowing_conversion
-			Global.add_score(round(90 * Global.get_delta(delta)))
+			Global.add_score(round(90 * Global.get_corrected_delta(delta)))
 			Global.emit_signal('TimeTick')
 			if not Global.HUD.get_node('ScoreSound').playing:
 				Global.HUD.get_node('ScoreSound').play()

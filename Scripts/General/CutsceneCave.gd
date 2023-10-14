@@ -7,13 +7,15 @@ func is_class(name) -> bool: return name == 'Cutscene' or .is_class(name)
 func _ready():
 	$Mario.controls_enabled = false
 	yield(get_tree(), 'idle_frame')
-	$Mario.velocity.x = 440
+	$Mario.velocity.x = 325
 	if Global.starman_saved:
 		Global.Mario.get_node('Sprite').material.set_shader_param('mixing', true)
 	
-func _physics_process(_delta):
+func _physics_process(delta):
 	if $Mario.velocity.x < 75:
 		$Mario.velocity.x = 75
+	else:
+		$Mario.velocity.x += 2.5 * Global.get_delta(delta)
 	if $Mario.get_node('InsideDetector').get_overlapping_areas().has($Warp) and not $Warp.active:
 		$letspipe.play()
 		$Warp.calc_pos = Vector2($Warp.position.x - 16, $Warp.position.y + 16)

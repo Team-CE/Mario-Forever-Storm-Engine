@@ -3,6 +3,7 @@ extends Node2D
 export var change_to_scene: String
 var camera
 var touched_water: bool
+var effect = preload('res://Scripts/Effects/WaterEffect.gd')
 
 func get_class(): return 'Cutscene'
 func is_class(name) -> bool: return name == 'Cutscene' or .is_class(name) 
@@ -30,6 +31,9 @@ func _physics_process(delta):
 	if $Mario.movement_type == $Mario.Movement.SWIMMING:
 		if !touched_water:
 			touched_water = true
+			var water_effect = effect.new($Mario.global_position + Vector2(0, -16))
+			add_child(water_effect)
+			water_effect.z_index = 11
 			$Mario.velocity.y = 50
 	
 	# Jump to next scene

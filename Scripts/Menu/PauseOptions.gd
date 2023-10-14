@@ -168,7 +168,8 @@ func saveOptions() -> void:
 		'RPC': Global.rpc,
 		'Autopause': Global.autopause,
 		'Overlay': Global.overlay,
-		'Autosave': Global.autosave
+		'Autosave': Global.autosave,
+		'Framerate': Global.framerate
 	}
 	Global.saveInfo(JSON.print(Global.toSaveInfo))
 	if update_ql:

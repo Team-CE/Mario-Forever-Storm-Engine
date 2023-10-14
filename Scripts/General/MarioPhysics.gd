@@ -306,11 +306,11 @@ func _process_dead(delta) -> void:
 		$Sprite.material.set_shader_param('mixing', false)
 		colDisabled = true
 
-	dead_counter += 1 * Global.get_delta(delta)
+	dead_counter += 1 * Global.get_corrected_delta(delta)
 	$Sprite.set_animation('Dead')
 	velocity.x = 0
 	
-	velocity.y += 25 * Global.get_delta(delta)
+	velocity.y += 25 * Global.get_corrected_delta(delta)
 	
 	if shield_counter > 0:
 		$Sprite.visible = true

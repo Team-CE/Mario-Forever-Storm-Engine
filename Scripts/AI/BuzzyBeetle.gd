@@ -43,7 +43,8 @@ func _ai_process(delta: float) -> void:
 	
 	if !owner.frozen:
 # warning-ignore:incompatible_ternary
-		owner.velocity.x = (owner.vars['speed'] if !is_shell else 0 if stopped_shell else shell_speed) * owner.dir
+		if upside_down_state != 1:
+			owner.velocity.x = (owner.vars['speed'] if !is_shell else 0 if stopped_shell else shell_speed) * owner.dir
 	else:
 #		if !on_freeze:
 #			on_freeze = true
@@ -96,7 +97,7 @@ func _ai_process(delta: float) -> void:
 #		):
 			upside_down_state = 1
 			owner.animated_sprite.animation = 'shell stopped'
-			owner.vars['speed'] = 0
+			owner.velocity.x = 0
 			owner.gravity_scale = 0 - owner.gravity_scale
 			owner.get_node('TriggerZone/CollisionShape2D').set_deferred('disabled', true)
 			

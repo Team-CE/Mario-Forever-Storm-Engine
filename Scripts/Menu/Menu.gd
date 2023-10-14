@@ -70,6 +70,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	updateControls()
+	Engine.time_scale = 1.0 if !Global.framerate else 1.2
 	
 func _physics_process(delta) -> void:
 	if controls_enabled:
@@ -93,7 +94,8 @@ func _physics_process(delta) -> void:
 			controls_enabled = true
 	
 	if (not force_pos):
-		$S_Start.position.y += (pos_y - $S_Start.position.y) * 0.4 * Global.get_delta(delta)
+		$S_Start.position.y += (pos_y - $S_Start.position.y) * 0.4 * Global.get_delta(delta) \
+			/ (Engine.time_scale if Engine.time_scale > 1.0 else 1.0)
 	else:
 		$S_Start.position.y = pos_y # Used to fix cursor position between transitions
 		force_pos = false
@@ -114,11 +116,12 @@ func _physics_process(delta) -> void:
 			pointer.position.y = 0
 		1:
 			$S_Start.position.x = 188
-			selLimit = 13
+			selLimit = 14
 			updateOptions()
 			$Credits.hide()
 			pointer_pos = max(-(selLimit * 37.5) + 340, min(0, -(sel * 37.5) + 160))
-			pointer.position.y += (pointer_pos - pointer.position.y) * 0.4 * Global.get_delta(delta)
+			pointer.position.y += (pointer_pos - pointer.position.y) * 0.4 * Global.get_delta(delta) \
+				/ (Engine.time_scale if Engine.time_scale > 1.0 else 1.0)
 			pos_y = 506 + (37.5 * sel) + pointer_pos
 		2:
 			pos_y = 988 + (48 * sel) if sel < 7 else 1004 + (48 * sel)
@@ -186,7 +189,7 @@ func controls() -> void:
 						screen = 2
 						sel = 0
 						$enter_options.play()
-					12:
+					13:
 						$enter_options.play()
 						if credits_scene:
 							if !Global.saveFileExists:
@@ -197,7 +200,7 @@ func controls() -> void:
 							sel = 0
 							$Credits.position.y = 1920 + $Credits.texture.get_height() / 2
 							MusicPlayer.play_file(music_credits)
-					13:
+					14:
 						$enter_options.play()
 						saveOptions()
 						#if Global.restartNeeded:
@@ -261,7 +264,12 @@ func controls() -> void:
 						if !Global.autosave:
 							Global.autosave = true
 							$change.play()
-							
+					12:
+						if !Global.framerate:
+							Global.framerate = true
+							$change.play()
+							Engine.time_scale = 1.2
+					
 			elif Input.is_action_just_pressed('ui_left'):
 				match sel:
 					0:
@@ -316,6 +324,12 @@ func controls() -> void:
 						if Global.autosave:
 							Global.autosave = false
 							$change.play()
+					12:
+						if Global.framerate:
+							Global.framerate = false
+							$change.play()
+							Engine.time_scale = 1.0
+					
 			elif Input.is_action_just_pressed('ui_cancel'):
 				screen = 0
 				sel = 1
@@ -348,7 +362,7 @@ func controls() -> void:
 		3:		# _____ CREDITS _____
 			if Input.is_action_just_pressed('ui_cancel') or Input.is_action_just_pressed('ui_accept'):
 				screen = 1
-				sel = 12
+				sel = 13
 				MusicPlayer.play_file(music)
 
 func _input(event) -> void:
@@ -380,6 +394,7 @@ func updateOptions() -> void:
 	pointer.get_node('Autopause').frame = Global.autopause
 	pointer.get_node('Overlay').frame = Global.overlay
 	pointer.get_node('Autosave').frame = Global.autosave
+	pointer.get_node('Framerate').frame = Global.framerate
 
 func updateNotes() -> void:
 	var note = $Buttons/Note
@@ -413,7 +428,8 @@ func saveOptions() -> void:
 		'RPC': Global.rpc,
 		'Autopause': Global.autopause,
 		'Overlay': Global.overlay,
-		'Autosave': Global.autosave
+		'Autosave': Global.autosave,
+		'Framerate': Global.framerate
 	}
 	Global.saveInfo(JSON.print(Global.toSaveInfo))
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=2]
+[gd_scene load_steps=95 format=2]
 
 [ext_resource path="res://GFX/Menu/Logo.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Menu/Selector.gd" type="Script" id=2]
@@ -39,6 +39,8 @@
 [ext_resource path="res://GFX/Menu/NoteSave.png" type="Texture" id=37]
 [ext_resource path="res://GFX/Menu/NoteRPC.png" type="Texture" id=38]
 [ext_resource path="res://GFX/Menu/NoteMusicOverlay.png" type="Texture" id=39]
+[ext_resource path="res://GFX/Menu/game_speed.png" type="Texture" id=40]
+[ext_resource path="res://GFX/Menu/NoteFullscreen.png" type="Texture" id=41]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 5 )
@@ -168,6 +170,22 @@ animations = [ {
 "speed": 0.0
 } ]
 
+[sub_resource type="AtlasTexture" id=73]
+atlas = ExtResource( 40 )
+region = Rect2( 0, 36, 87, 36 )
+
+[sub_resource type="AtlasTexture" id=74]
+atlas = ExtResource( 40 )
+region = Rect2( 0, 0, 87, 36 )
+
+[sub_resource type="SpriteFrames" id=75]
+animations = [ {
+"frames": [ SubResource( 73 ), SubResource( 74 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.0
+} ]
+
 [sub_resource type="AtlasTexture" id=48]
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 91, 32 )
@@ -254,6 +272,16 @@ region = Rect2( 0, 128, 567, 64 )
 
 [sub_resource type="SpriteFrames" id=71]
 animations = [ {
+"frames": [ ExtResource( 41 ) ],
+"loop": true,
+"name": "0",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 41 ) ],
+"loop": true,
+"name": "1",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 39 ) ],
 "loop": true,
 "name": "10",
@@ -423,8 +451,9 @@ rect_clip_content = true
 [node name="Pointer" type="Node2D" parent="Buttons/Control"]
 
 [node name="Options" type="Sprite" parent="Buttons/Control/Pointer"]
-position = Vector2( 160, 272 )
+position = Vector2( 56, 12 )
 texture = ExtResource( 13 )
+centered = false
 
 [node name="Effects" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
 position = Vector2( 323, 99 )
@@ -458,6 +487,10 @@ frames = SubResource( 70 )
 position = Vector2( 323, 440 )
 frames = SubResource( 70 )
 
+[node name="Framerate" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
+position = Vector2( 333, 478 )
+frames = SubResource( 75 )
+
 [node name="SoundBar" type="AnimatedSprite" parent="Buttons/Control/Pointer"]
 position = Vector2( 338, 24 )
 frames = SubResource( 28 )
@@ -487,10 +520,16 @@ texture = ExtResource( 25 )
 position = Vector2( 288, 1200 )
 texture = ExtResource( 24 )
 
+[node name="ColorRect" type="ColorRect" parent="Buttons"]
+margin_top = 864.0
+margin_right = 640.0
+margin_bottom = 960.0
+color = Color( 0, 0, 0, 0.313726 )
+
 [node name="Note" type="AnimatedSprite" parent="Buttons"]
 position = Vector2( 320, 912 )
 frames = SubResource( 71 )
-animation = "2"
+animation = "1"
 
 [node name="TransitionLayer" type="CanvasLayer" parent="."]
 layer = 100

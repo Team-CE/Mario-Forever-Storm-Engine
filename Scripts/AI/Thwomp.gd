@@ -23,6 +23,7 @@ func _setup(b) -> void:
 	yield(owner.get_tree(), 'idle_frame')
 	camera = Global.current_camera
 	visi = owner.get_node('VisibilityNotifier2D')
+# warning-ignore:return_value_discarded
 	visi.connect('screen_exited',self,'_on_screen_exited')
 
 func _ai_process(delta: float) -> void:

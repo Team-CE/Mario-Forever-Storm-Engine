@@ -14,6 +14,7 @@ var rpc: bool = true
 var autopause: bool = true
 var overlay: bool = true
 var autosave: bool = true
+var framerate: bool = false
 
 var toSaveInfo = {
 	"SoundVol": soundBar,
@@ -27,7 +28,8 @@ var toSaveInfo = {
 	"RPC": rpc,
 	"Autopause": autopause,
 	"Overlay": overlay,
-	"Autosave": autosave
+	"Autosave": autosave,
+	"Framerate": framerate
 }
 var restartNeeded: bool = false
 var saveFileExists: bool = false
@@ -97,8 +99,11 @@ var mobile: bool = false
 # Create a new timer for delay
 onready var timer: Timer = Timer.new()
 
-func get_delta(delta) -> float:			 # Delta by 50 FPS
+func get_delta(delta) -> float:			 # Delta by 50 FPS (60 FPS, if Game Speed is set to 1.2x)
 	return 50 * delta
+
+func get_corrected_delta(delta) -> float:		# Delta always by 50 FPS, no matter what
+	return 50 * delta / (Engine.time_scale if Engine.time_scale > 1.0 else 1.0)
 
 func _init() -> void:
 # warning-ignore:narrowing_conversion
@@ -166,6 +171,7 @@ func _ready() -> void:
 	if toSaveInfo.has('Autopause') and typeof(toSaveInfo.Autopause) == TYPE_BOOL: autopause = toSaveInfo.Autopause
 	if toSaveInfo.has('Overlay') and typeof(toSaveInfo.Overlay) == TYPE_BOOL: overlay = toSaveInfo.Overlay
 	if toSaveInfo.has('Autosave') and typeof(toSaveInfo.Autosave) == TYPE_BOOL: autosave = toSaveInfo.Autosave
+	if toSaveInfo.has('Framerate') and typeof(toSaveInfo.Framerate) == TYPE_BOOL: framerate = toSaveInfo.Framerate
 	
 	# Loading controls
 	for action in controls:
@@ -193,6 +199,8 @@ func _after_config_load() -> void:
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), linear2db(musicBar))
 	if soundBar <= 1.0:
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Sounds'), linear2db(soundBar))
+	
+	Engine.time_scale = 1.2 if Global.framerate else 1.0
 	
 func saveInfo(content):
 	var file = File.new()

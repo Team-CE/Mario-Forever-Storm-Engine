@@ -81,10 +81,8 @@ __meta__ = {
 
 [node name="Mario" parent="." instance=ExtResource( 2 )]
 position = Vector2( 144, 416 )
-sections_scroll = false
 
 [node name="Camera" parent="Mario" instance=ExtResource( 10 )]
-limit_top = -480
 limit_right = 4570
 __meta__ = {
 "_edit_lock_": true
@@ -121,18 +119,17 @@ margin_bottom = 192.0
 [node name="Cloud" type="AnimatedSprite" parent="."]
 position = Vector2( 1152, 96 )
 frames = ExtResource( 39 )
+frame = 1
 playing = true
 
 [node name="Cloud2" type="AnimatedSprite" parent="."]
 position = Vector2( 1504, 144 )
 frames = ExtResource( 39 )
-frame = 2
 playing = true
 
 [node name="Cloud3" type="AnimatedSprite" parent="."]
 position = Vector2( 2128, 80 )
 frames = ExtResource( 39 )
-frame = 2
 playing = true
 
 [node name="Goomba" parent="." instance=ExtResource( 12 )]
@@ -270,9 +267,6 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Thwomp/Area2D"]
 position = Vector2( 0, 64 )
 shape = SubResource( 6 )
-
-[node name="EmalpkaHammer" parent="." instance=ExtResource( 17 )]
-position = Vector2( 400, 416 )
 
 [node name="EmalpkaHammer2" parent="." instance=ExtResource( 17 )]
 position = Vector2( 496, 288 )
