@@ -89,6 +89,7 @@ func _ai_process(delta: float) -> void:
 		
 			owner.sound.play()
 			Global.Mario.enemy_stomp()
+		return
 	elif is_mario_collide('InsideDetector') and !stopped_shell and shell_counter >= 31:
 		Global._ppd()
 		

@@ -349,9 +349,18 @@ func _game_over_screen():
 func movement_default(delta) -> void:
 	if Global.is_mario_collide_area_group('InsideDetector', 'Water'):
 		movement_type = Movement.SWIMMING
+		if !Global.is_mario_collide_area_group('TopWaterDetector', 'Water'):
+			var water_splash = preload('res://Scripts/Effects/WaterEffect.gd').new(
+				position - Vector2(0, 8)
+			)
+			Global.current_scene.add_child(water_splash)
 	
 	if velocity.y < 550 and !is_on_floor():
-		if Input.is_action_pressed('mario_jump') and !Input.is_action_pressed('mario_crouch') and velocity.y < 0 and controls_enabled:
+		if (
+			Input.is_action_pressed('mario_jump') and
+			!Input.is_action_pressed('mario_crouch') and
+			velocity.y < 0 and controls_enabled
+		):
 			if abs(velocity.x) < 1:
 				velocity.y -= 20 * Global.get_delta(delta)
 			else:
@@ -455,10 +464,13 @@ func enemy_stomp() -> void:
 	jump_counter = 1
 	can_jump = false
 	jump_internal_counter = 0
+	if movement_type == Movement.SWIMMING:
+		Global.Mario.velocity.y = -150
+		return
 	if Input.is_action_pressed('mario_jump'):
 		Global.Mario.velocity.y = -700
 	else:
-		Global.Mario.velocity.y = -500
+		Global.Mario.velocity.y = -450
 
 func controls(delta) -> void:
 	if (
@@ -540,8 +552,8 @@ func controls(delta) -> void:
 			if collider.has_method('hit'):
 				collider.hit()
 		
-		var left_collide: bool = test_move(Transform2D(rotation, position + Vector2(-16, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
-		var right_collide: bool = test_move(Transform2D(rotation, position + Vector2(16, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
+		var left_collide: bool = test_move(Transform2D(rotation, position + Vector2(-12, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
+		var right_collide: bool = test_move(Transform2D(rotation, position + Vector2(12, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
 		if left_collide and right_collide:
 			position += Vector2(1, 0).rotated(rotation) * Global.get_delta(delta) if $Sprite.flip_h else Vector2(-1, 0).rotated(rotation) * Global.get_delta(delta)
 		if left_collide and !right_collide:
@@ -569,7 +581,7 @@ func controls(delta) -> void:
 		elif velocity.x > -350 and Input.is_action_pressed('mario_fire') and movement_type != Movement.SWIMMING:
 			velocity.x -= 12.5 * Global.get_delta(delta)
 
-	if Input.is_action_just_pressed('mario_fire') and not crouch and Global.state > 1:
+	if Input.is_action_just_pressed('mario_fire') and (not crouch or is_stuck) and Global.state > 1:
 		if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('do_action'):
 			ready_powerup_scripts[Global.state].do_action(self)
 
@@ -631,8 +643,24 @@ func animate_default(delta) -> void:
 	if $Sprite.animation == 'Walking':
 		$Sprite.speed_scale = abs(velocity.x / 50) * 2.5 + 4
 
+var bubble = preload('res://Objects/Effects/BubbleEffect.tscn')
+var bubble_delay: float = 25
+
 func animate_swimming(delta, start) -> void:
-	if start or (!start and $Sprite.animation != 'SwimmingLoop' and $Sprite.animation != 'SwimmingStart' and !is_on_floor()) and $Sprite.animation != 'Appearing':
+	if bubble_delay < 0:
+		bubble_delay = rand_range(0.4 * 50, 3.0 * 50)
+		var bub = bubble.instance()
+		Global.current_scene.add_child(bub)
+		bub.global_position = global_position.rotated(rotation) + Vector2(6, -12).rotated(rotation)
+	else:
+		bubble_delay -= 1 * Global.get_delta(delta)
+
+	# Animation
+	if start or (
+		!start and
+		$Sprite.animation != 'SwimmingLoop' and
+		$Sprite.animation != 'SwimmingStart' and !is_on_floor()
+	) and $Sprite.animation != 'Appearing':
 		$Sprite.animation = 'SwimmingStart'
 		$Sprite.frame = 0
 		$Sprite.speed_scale = 1

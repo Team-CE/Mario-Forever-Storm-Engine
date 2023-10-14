@@ -496,10 +496,7 @@ func _ppd() -> void: # Player Powerdown
 		Mario.shield_counter = 150
 	else:
 		play_base_sound('MAIN_Pipe')
-		if state > 1:
-			state = 1
-		else:
-			state = 0
+		state = 1 if state > 1 else 0
 		Mario.appear_counter = 60
 		Mario.shield_counter = 100
 
