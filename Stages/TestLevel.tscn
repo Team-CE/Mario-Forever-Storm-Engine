@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Objects/Liquids/Water.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Core/Mario.tscn" type="PackedScene" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Objects/Enemies/Emalpkas/Emalpka Hammer.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Objects/Tools/MusicLoader.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Music/example-level.xm" type="Resource" id=19]
+[ext_resource path="res://Objects/Enemies/Piranha.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=21]
 [ext_resource path="res://Objects/Bonuses/Coin.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Objects/Enemies/FishBlue.tscn" type="PackedScene" id=29]
@@ -72,7 +73,7 @@ cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( -1834966, 6, 0, -1834965, 6, 0, -1834964, 6, 0, -1834963, 6, 0, -1834962, 6, 0, -1769430, 6, 0, -1769429, 6, 0, -1769428, 6, 0, -1769427, 6, 0, -1703896, 5, 0, -1703895, 5, 1, -1703894, 5, 1, -1703893, 5, 1, -1703892, 5, 2, -1638360, 5, 65536, -1638359, 5, 65537, -1638358, 5, 65537, -1638357, 5, 65537, -1638356, 5, 65538, -1572824, 5, 65536, -1572823, 5, 65537, -1572822, 5, 65537, -1572821, 5, 65537, -1572820, 5, 65538, -1507289, 5, 0, -1507288, 5, 5, -1507287, 5, 65537, -1507286, 5, 65537, -1507285, 5, 65537, -1507284, 5, 65538, -1441753, 5, 65536, -1441752, 5, 65537, -1441751, 5, 65537, -1441750, 5, 65537, -1441749, 5, 65537, -1441748, 5, 65538, -1376217, 5, 65536, -1376216, 5, 65537, -1376215, 5, 65537, -1376214, 5, 65537, -1376213, 5, 65540, -1376212, 5, 131074, -1310681, 5, 65536, -1310680, 5, 65537, -1310679, 5, 65537, -1310678, 5, 65537, -1310677, 5, 65538, -1245145, 5, 65536, -1245144, 5, 65537, -1245143, 5, 65540, -1245142, 5, 131073, -1245141, 5, 131074, -1179609, 5, 131072, -1179608, 5, 131073, -1179607, 5, 131074 )
+tile_data = PoolIntArray( -1834966, 6, 0, -1834965, 6, 0, -1834964, 6, 0, -1834963, 6, 0, -1834962, 6, 0, -1769430, 6, 0, -1769429, 6, 0, -1769428, 6, 0, -1769427, 6, 0, -1703896, 5, 0, -1703895, 5, 1, -1703894, 5, 1, -1703893, 5, 1, -1703892, 5, 2, -1638360, 5, 65536, -1638359, 5, 65537, -1638358, 5, 65537, -1638357, 5, 65537, -1638356, 5, 65538, -1572824, 5, 65536, -1572823, 5, 65537, -1572822, 5, 65537, -1572821, 5, 65537, -1572820, 5, 65538, -1507289, 5, 0, -1507288, 5, 5, -1507287, 5, 65537, -1507286, 5, 65537, -1507285, 5, 65537, -1507284, 5, 65538, -1441753, 5, 65536, -1441752, 5, 65537, -1441751, 5, 65537, -1441750, 5, 65537, -1441749, 5, 65537, -1441748, 5, 65538, -1376217, 5, 65536, -1376216, 5, 65537, -1376215, 5, 65537, -1376214, 5, 65537, -1376213, 5, 65540, -1376212, 5, 131074, -1310681, 5, 65536, -1310680, 5, 65537, -1310679, 5, 65537, -1310678, 5, 65537, -1310677, 5, 65538, -1245145, 5, 65536, -1245144, 5, 65537, -1245143, 5, 65540, -1245142, 5, 131073, -1245141, 5, 131074, -1179609, 5, 131072, -1179608, 5, 131073, -1179607, 5, 131074, -786403, 2, 0, -720867, 3, 0 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -159,38 +160,6 @@ Result = ExtResource( 16 )
 position = Vector2( 2544, 320 )
 Visible = 2
 Result = ExtResource( 5 )
-
-[node name="QBlock24" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2576, 192 )
-Visible = 2
-
-[node name="QBlock30" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2576, 160 )
-Visible = 2
-
-[node name="QBlock31" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2576, 128 )
-Visible = 2
-
-[node name="QBlock25" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2576, 224 )
-Visible = 2
-
-[node name="QBlock26" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2576, 256 )
-Visible = 2
-
-[node name="QBlock27" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2576, 288 )
-Visible = 2
-
-[node name="QBlock28" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2576, 320 )
-Visible = 2
-
-[node name="QBlock29" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2576, 352 )
-Visible = 2
 
 [node name="QBlock5" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1872, 96 )
@@ -372,5 +341,10 @@ qtype = 1
 [node name="QBlock23" parent="." instance=ExtResource( 3 )]
 position = Vector2( 560, 192 )
 qtype = 1
+
+[node name="Piranha" parent="." instance=ExtResource( 20 )]
+position = Vector2( 904, 452 )
+rotation = 0.785397
+z_index = -1
 
 [editable path="Water"]

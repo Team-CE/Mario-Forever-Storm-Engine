@@ -17,9 +17,9 @@ func _ai_process(delta:float) -> void:
 	if !owner.frozen:
 		owner.velocity.x = owner.vars["speed"] * owner.dir
 	else:
-#		if !on_freeze:
-#			on_freeze = true
-#			owner.velocity.x = 0
+		if !on_freeze:
+			on_freeze = true
+			owner.invincible = false
 		owner.velocity.x = lerp(owner.velocity.x, 0, 0.05 * Global.get_delta(delta))
 	
 	if owner.animated_sprite.frame == 5 and owner.animated_sprite.animation == 'appear':

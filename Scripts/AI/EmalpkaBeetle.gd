@@ -104,7 +104,7 @@ func _ai_process(delta: float) -> void:
 	
 	owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
 	
-	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 && inv_counter >= 11:
+	if is_mario_collide('BottomDetector') && inv_counter >= 11:
 		var beetle = beetle_scene.instance()
 		owner.get_parent().add_child(beetle)
 		beetle.vars = beetle.vars.duplicate(false)
@@ -112,7 +112,7 @@ func _ai_process(delta: float) -> void:
 		beetle.global_position = owner.global_position
 		Global.Mario.enemy_stomp()
 		owner.kill(AliveObject.DEATH_TYPE.BASIC, 0, owner.sound)
-	elif on_mario_collide('InsideDetector') && inv_counter >= 21:
+	elif on_mario_collide('InsideDetector') && inv_counter >= 21 && !is_mario_collide('BottomDetector'):
 		Global._ppd()
 		
 	var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()

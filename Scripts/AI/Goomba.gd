@@ -28,10 +28,10 @@ func _ai_process(delta:float) -> void:
 	if inv_counter < 11:
 		inv_counter += 1 * Global.get_delta(delta)
 		
-	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 and inv_counter >= 8:
+	if is_mario_collide('BottomDetector') and inv_counter >= 8:
 		owner.kill()
 		Global.Mario.enemy_stomp()
-	elif on_mario_collide('InsideDetector') and inv_counter >= 11:
+	elif on_mario_collide('InsideDetector') and inv_counter >= 11 && !is_mario_collide('BottomDetector'):
 		Global._ppd()
 		
 	var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()

@@ -36,9 +36,10 @@ func _ai_process(delta: float) -> void:
 	if owner.is_on_wall() and not owner.is_on_ceiling():
 		owner.turn()
 		
-	if on_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1: 
+	if on_mario_collide('BottomDetector'): 
 		owner.kill(owner.DEATH_TYPE.CUSTOM, 0)
 		Global.Mario.enemy_stomp()
+		return
 	elif is_mario_collide('InsideDetector') && !is_mario_collide('BottomDetector'):
 		Global._ppd()
 		

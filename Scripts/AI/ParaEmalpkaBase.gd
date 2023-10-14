@@ -72,10 +72,11 @@ func _ai_process(delta: float) -> void:
 		
 	owner.animated_sprite.flip_h = owner.position.x > Global.Mario.position.x
 	
-	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1:
+	if is_mario_collide('BottomDetector'):
 		owner.kill(AliveObject.DEATH_TYPE.CUSTOM, 0, owner.sound)
 		Global.Mario.enemy_stomp()
-	elif on_mario_collide('InsideDetector'):
+		return
+	elif on_mario_collide('InsideDetector') && !is_mario_collide('BottomDetector'):
 		Global._ppd()
 		
 	var g_overlaps = owner.get_node('KillDetector').get_overlapping_bodies()

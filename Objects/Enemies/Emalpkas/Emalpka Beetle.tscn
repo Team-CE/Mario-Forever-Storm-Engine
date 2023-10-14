@@ -112,6 +112,7 @@ invincible_for_projectiles = [ "Fireball" ]
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 8 )
+frame = 1
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 0, -16 )

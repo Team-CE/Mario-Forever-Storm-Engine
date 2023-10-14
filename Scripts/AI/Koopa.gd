@@ -72,25 +72,22 @@ func _ai_process(delta: float) -> void:
 		owner.turn()
 		if is_shell:
 			owner.animated_sprite.flip_h = false
-
+	
 	if shell_counter < 41:
 		shell_counter += 1 * Global.get_delta(delta)
-		
-	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 && shell_counter >= 11: 
-		if !is_shell:
-			owner.get_parent().add_child(ScoreText.new(100, owner.position))
-			to_stopped_shell()
-		
-			owner.sound.play()
-			Global.Mario.enemy_stomp()
-		elif is_shell && !stopped_shell: #Stops the shell
-			owner.get_parent().add_child(ScoreText.new(100, owner.position))
-			to_stopped_shell()
-		
-			owner.sound.play()
-			Global.Mario.enemy_stomp()
-	elif is_mario_collide('InsideDetector') and !stopped_shell and shell_counter >= 31:
+	
+	if is_mario_collide('InsideDetector') && !is_mario_collide('BottomDetector') \
+	and !stopped_shell and shell_counter >= 31:
 		Global._ppd()
+		return
+	elif is_mario_collide('BottomDetector') && shell_counter >= 11 && !stopped_shell:
+		to_stopped_shell()
+		owner.velocity.x = 0
+		owner.get_parent().add_child(ScoreText.new(100, owner.position))
+	
+		owner.sound.play()
+		Global.Mario.enemy_stomp()
+		return
 		
 	if is_mario_collide('InsideDetector'):
 		if stopped_shell && is_shell && shell_counter >= 11:
