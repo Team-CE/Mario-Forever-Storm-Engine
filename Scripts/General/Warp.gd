@@ -58,8 +58,8 @@ func _ready() -> void:
 			
 	disabled = not out_node and ((not 'set_scene_path' in additional_options or additional_options['set_scene_path'] == '') and (not 'add_scene' in additional_options or not additional_options['add_scene'].is_class('PackedScene'))) and not trigger_finish
 	
-	if disabled:
-		printerr('[CE ERROR] No out warp assigned for ID ' + str(id) + ', it will not be functional. Create an out warp or set an additional option.')
+	if disabled && is_inside_tree():
+		printerr('[SE ERROR] No out warp assigned for ID ' + str(id) + ', it will not be functional. Create an out warp or set an additional option.')
 		
 	if not Engine.editor_hint:
 		$Sprite.visible = false
@@ -79,7 +79,7 @@ func _ready() -> void:
 		if trigger_finish:
 			yield(get_tree(), 'idle_frame')
 			if !Global.current_scene.finish_node:
-				printerr('[CE ERROR] No Finish Line found on level. Create one or untick the checkbox for warp ID ' + str(id))
+				printerr('[SE ERROR] No Finish Line found on level. Create one or untick the checkbox for warp ID ' + str(id))
 				trigger_finish = false
 				disabled = true
 			else:

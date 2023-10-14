@@ -38,7 +38,7 @@ func _time() -> void:
 		$TimeSprite.playing = true
 		$TimeoutSound.play()
 	$Time.text = str(abs(Global.time))
-	if Global.time <= 0 and not $GameoverText.visible:
+	if Global.time <= 0 and not $GameoverText.visible and Global.Mario.dead:
 # warning-ignore:return_value_discarded
 		get_tree().create_timer(1.2, false).connect('timeout', self, 'on_timeout')
 		$GameoverText.text = 'time up!'

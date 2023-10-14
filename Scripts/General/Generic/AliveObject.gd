@@ -83,7 +83,7 @@ func _ready() -> void:
 		alt_sound = get_node(alt_sound_pth)
 		
 	if animated_sprite_pth.is_empty():	# Animated sprite init
-		push_warning('[CE WARNING] Cannot load Animated sprite at:' + str(self))
+		push_warning('[SE WARNING] Cannot load Animated sprite at:' + str(self))
 	else:
 		animated_sprite = get_node(animated_sprite_pth)
 		
@@ -113,13 +113,13 @@ func _ready() -> void:
 		brain.set_script(AI)
 		brain._setup(self)
 	else:
-		printerr('[CE ERROR] AliveObject' + str(self) + ': No AI script assigned!')
+		printerr('[SE ERROR] AliveObject' + str(self) + ': No AI script assigned!')
 
 	if brain.has_method('_ready_mixin'):
 		brain._ready_mixin()
 
 	if death_type == DEATH_TYPE.CUSTOM && !brain.has_method('_on_custom_death'):
-		printerr('[CE ERROR] AliveObject' + str(self) + ': No custom death function provided.')
+		printerr('[SE ERROR] AliveObject' + str(self) + ': No custom death function provided.')
 	
 	if !death_signal_exception:
 # warning-ignore:return_value_discarded

@@ -48,16 +48,23 @@ func _ready() -> void:
 		main.stream = generator
 		openmpt.set_audio_generator_playback(main)
 	else:
-		OS.alert("""Error loading music library.
+		OS.alert("""Could not load music library.
 
-Make sure you have all external DLLs bundled into the game archive.
+Make sure you have all external libraries located
+alongside the game executable.
 
-The game will now continue to work without music, until the problem is fixed.""")
+The game will now continue to work without music.
+Reload the game to try again.""")
+
+#If you think this is an error, contact the game developer
+#on Discord: @Usered#6888, or use the Discord server
+#invite link: https://discord.gg/VwgV6GmwXv
 
 func play_file(file: Resource) -> void:
 	if !file:
 		printerr('[MusicPlayer] Invalid resource')
 		return
+	if !openmpt or !openmpt.has_method('stop'): return
 	openmpt.stop()
 	main.stop()
 	if ClassDB.get_parent_class(file.get_class()) == 'AudioStream':
@@ -118,9 +125,11 @@ func fade_in(audio_stream: Object, duration: float, from_vol: float = -80, to_vo
 	print('[MusicPlayer] Fading in for ', duration, 's...')
 
 func stop_on_pause():
+	if !is_instance_valid(main): return
 	main.pause_mode = PAUSE_MODE_STOP
 
 func play_on_pause():
+	if !is_instance_valid(main): return
 	main.pause_mode = PAUSE_MODE_INHERIT
 
 func _on_TweenOut_tween_completed(object, _key):
@@ -133,5 +142,6 @@ func _on_TweenOut_tween_step(_object, _key, _elapsed, _value):
 	pass
 
 func _on_Main_finished():
+	if !is_instance_valid(main): return
 	main.pause_mode = PAUSE_MODE_INHERIT
 	print('[MusicPlayer] Finished playing')

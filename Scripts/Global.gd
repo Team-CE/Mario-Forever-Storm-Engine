@@ -307,10 +307,10 @@ func _unhandled_input(ev):
 
 		if ev.is_action_pressed('debug_straylist'):
 			if Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT) > 0:
-				print('[CE OUTPUT]: --- STRAY NODES LIST ---')
+				print('[SE OUTPUT]: --- STRAY NODES LIST ---')
 				print_stray_nodes()
 			else:
-				print('[CE OUTPUT]: No stray nodes yet, we\'re fine!')
+				print('[SE OUTPUT]: No stray nodes yet, we\'re fine!')
 
 
 		if !is_instance_valid(Mario): return

@@ -1,8 +1,10 @@
 extends Brain
 
 var approach_counter: float = 0
+var approach_final: float = 0
 var timer: float = 0
 var moving_up: bool = false
+var interpolated_position: Vector2
 var move_to: Vector2
 var limit_top: float = 0
 
@@ -52,17 +54,17 @@ func _ai_process(delta:float) -> void:
 	if approach_counter >= 0:
 		owner.animated_sprite.frame = 0
 	
-	if (owner.position.y > Global.Mario.position.y - 48 and owner.position.y > limit_top) and approach_counter == 0:
+	if (owner.position.y > Global.Mario.position.y - 48 and owner.position.y > limit_top) and \
+	approach_counter == 0:
 		moving_up = true
 		move_to = owner.position
-		tween.interpolate_property(owner, 'position',
-			owner.position, move_to + Vector2(72 * owner.dir, -96), 0.85,
+		interpolated_position = owner.global_position
+		approach_final = owner.vars['speed'] * 0.75
+		tween.interpolate_property(self, 'interpolated_position',
+			interpolated_position, move_to + Vector2(72 * owner.dir, -96), owner.vars['speed'] / 58.8,
 			Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 		tween.start()
-		tween.seek(0.1)
-	if owner.position.y < limit_top and moving_up:
-		approach_counter = 40
-		owner.position.y += 1
+		tween.seek(owner.vars['speed'] * 0.0025)
 	
 	if timer < 8:
 		timer += 1 * Global.get_delta(delta)
@@ -74,8 +76,9 @@ func _ai_process(delta:float) -> void:
 	
 	if moving_up:
 		approach_counter += 1 * Global.get_delta(delta)
+		owner.global_position = Vector2(interpolated_position.x, max(interpolated_position.y, limit_top))
 		
-		if approach_counter > 40:
+		if approach_counter > approach_final:
 			moving_up = false
 			owner.animated_sprite.frame = 1
 			approach_counter = -28
@@ -88,11 +91,13 @@ func _ai_process(delta:float) -> void:
 		elif approach_counter > 0 and approach_counter < 0.99:
 			approach_counter = 0
 	
-	if is_mario_collide('BottomDetector') and Global.Mario.velocity.y >= -1 and owner.vars['can_stomp']:
+	if is_mario_collide('BottomDetector') and owner.vars['can_stomp']:
 		owner.kill(AliveObject.DEATH_TYPE.FALL, 0, owner.sound)
+		owner.alive = false
 		owner.velocity.y = 0
 		Global.Mario.enemy_stomp()
-	elif on_mario_collide('InsideDetector'):
+		return
+	elif on_mario_collide('InsideDetector') and owner.alive:
 		Global._ppd()
 
 func calculate_dir() -> int:

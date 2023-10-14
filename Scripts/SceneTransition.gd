@@ -9,8 +9,9 @@ func _ready():
 
 func start_transition(trans_name: String, speed: float = 1.0, repeat_backwards: bool = true) -> void:
 	if $AnimationPlayer.is_playing():
-		push_error('[SceneTransition] Transition is already in process.')
-		return
+		$AnimationPlayer.stop(true)
+		#push_error('[SceneTransition] Transition is already in process.')
+		#return
 
 	if repeat_backwards:
 # warning-ignore:return_value_discarded

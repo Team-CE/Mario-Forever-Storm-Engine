@@ -85,7 +85,8 @@ func _ready() -> void:
 func is_over_backdrop(obj, ignore_hidden) -> bool:
 	var overlaps = obj.get_overlapping_bodies()
 
-	if overlaps.size() > 0 && (overlaps[0] is TileMap or overlaps[0].is_in_group('Solid')) and (overlaps[0].visible or ignore_hidden):
+	if overlaps.size() > 0 && (overlaps[0] is TileMap or overlaps[0].is_in_group('Solid')) \
+	and (overlaps[0].visible or ignore_hidden):
 		return true
 
 	return false
@@ -145,7 +146,9 @@ func _physics_process(delta) -> void:
 	
 	if inited_camera_addon and inited_camera_addon.has_method('_process_physics_camera'):
 		inited_camera_addon._process_physics_camera(self, delta)
-	if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_process_mixin_physics') and not dead:
+	
+	if Global.state in ready_powerup_scripts and \
+	ready_powerup_scripts[Global.state].has_method('_process_mixin_physics') and not dead:
 		ready_powerup_scripts[Global.state]._process_mixin_physics(self, delta)
 
 
@@ -157,7 +160,7 @@ func _process_alive(delta) -> void:
 			crouch = true
 			is_stuck = true
 		if not Global.state in powerup_animations:
-			printerr('[CE ERROR] Mario: Animations for state ' + str(Global.state) + ' don\'t exist!')
+			printerr('[SE ERROR] Mario: Animations for state ' + str(Global.state) + ' don\'t exist!')
 			return
 		if Global.state in ready_powerup_scripts and ready_powerup_scripts[Global.state].has_method('_ready_mixin'):
 			ready_powerup_scripts[Global.state]._ready_mixin(self)
@@ -242,7 +245,7 @@ func _process_alive(delta) -> void:
 	
 	var camera = Global.current_camera
 	
-	if camera and position.y > camera.limit_bottom + 64 and controls_enabled:
+	if camera and position.y >= camera.limit_bottom + 64 and controls_enabled:
 		if 'no_cliff' in Global.current_scene and Global.current_scene.no_cliff:
 			position.y -= 550
 		else:
@@ -252,7 +255,8 @@ func _process_alive(delta) -> void:
 				get_node('../StartWarp').active = true
 				get_node('../StartWarp').counter = 61
 			
-	if camera and position.y < camera.limit_top - 64 and controls_enabled and 'no_cliff' in Global.current_scene and Global.current_scene.no_cliff:
+	if camera and position.y < camera.limit_top - 64 and controls_enabled and \
+	'no_cliff' in Global.current_scene and Global.current_scene.no_cliff:
 		position.y += 570
 
 	if top_collider_counter > 0:
@@ -271,7 +275,14 @@ func _process_alive(delta) -> void:
 	horizontal_correction(10) # One tile gap runover ability
 	var old_velocity = Vector2.ZERO + velocity # Fix for slopes
 	if !motion_disabled:
-		velocity = move_and_slide_with_snap(velocity.rotated(rotation), Vector2(0, 1).rotated(rotation) * (8 if !(jump_counter or movement_type == Movement.CLIMBING) else 1), Vector2(0, -1).rotated(rotation), true, 4, 0.96, false).rotated(-rotation)
+		velocity = move_and_slide_with_snap(
+			velocity.rotated(rotation),
+			Vector2(0, 1).rotated(rotation) * (
+				8 if !(jump_counter or movement_type == Movement.CLIMBING) else 1
+			), Vector2(0, -1).rotated(rotation),
+			true, 4, 0.96, false
+		).rotated(-rotation)
+	
 	if !is_on_wall():
 		velocity.x = old_velocity.x
 	
@@ -519,9 +530,11 @@ func controls(delta) -> void:
 			is_stuck = false
 			velocity.y = 1
 			if velocity.x > 0:
-				velocity.x -= 6.25 * Global.get_delta(delta) if !Input.is_action_pressed('mario_right') else 2.5 * Global.get_delta(delta)
+				velocity.x -= 6.25 * Global.get_delta(delta) if \
+				!Input.is_action_pressed('mario_right') else 2.5 * Global.get_delta(delta)
 			if velocity.x < 0:
-				velocity.x += 6.25 * Global.get_delta(delta) if !Input.is_action_pressed('mario_left') else 2.5 * Global.get_delta(delta)
+				velocity.x += 6.25 * Global.get_delta(delta) if \
+				!Input.is_action_pressed('mario_left') else 2.5 * Global.get_delta(delta)
 		else:
 			if !test_move(global_transform, Vector2(0, -6).rotated(global_rotation)) or ignore_stuck:
 				crouch = false
@@ -530,7 +543,9 @@ func controls(delta) -> void:
 				is_stuck = true
 				velocity = Vector2.DOWN
 	else:
-		if !test_move(global_transform, Vector2(0, -6).rotated(global_rotation)):
+		if !test_move(Transform2D(global_rotation, global_position + Vector2(0, -12)),
+			Vector2(0, 6).rotated(global_rotation)
+		):
 			crouch = false
 			is_stuck = false
 		elif velocity.y >= 500 && !$InsideDetector/CollisionBig.disabled && !is_stuck:
@@ -546,16 +561,24 @@ func controls(delta) -> void:
 		is_stuck = false
 
 	
-	if is_stuck:
+	if (is_stuck or crouch) and is_on_floor():
 		var collisions = $TopWaterDetector.get_overlapping_bodies()
 		for collider in collisions:
 			if collider.has_method('hit'):
 				collider.hit()
-		
-		var left_collide: bool = test_move(Transform2D(rotation, position + Vector2(-12, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
-		var right_collide: bool = test_move(Transform2D(rotation, position + Vector2(12, 0).rotated(rotation)), Vector2(0, -6).rotated(rotation))
+	
+	if is_stuck:
+		var left_collide: bool = test_move(
+			Transform2D(rotation, position + Vector2(-12, 0).rotated(rotation)),
+			Vector2(0, -6).rotated(rotation)
+		)
+		var right_collide: bool = test_move(
+			Transform2D(rotation, position + Vector2(12, 0).rotated(rotation)),
+			Vector2(0, -6).rotated(rotation)
+		)
 		if left_collide and right_collide:
-			position += Vector2(1, 0).rotated(rotation) * Global.get_delta(delta) if $Sprite.flip_h else Vector2(-1, 0).rotated(rotation) * Global.get_delta(delta)
+			position += Vector2(1, 0).rotated(rotation) * Global.get_delta(delta) if \
+				$Sprite.flip_h else Vector2(-1, 0).rotated(rotation) * Global.get_delta(delta)
 		if left_collide and !right_collide:
 			position += Vector2(1, 0).rotated(rotation) * Global.get_delta(delta)
 		if right_collide and !left_collide:
@@ -566,9 +589,11 @@ func controls(delta) -> void:
 			velocity.x = 40
 		elif velocity.x <= -20:
 			velocity.x += 20 * Global.get_delta(delta)
-		elif velocity.x < 175 and (not Input.is_action_pressed('mario_fire') or movement_type == Movement.SWIMMING):
+		elif velocity.x < 175 and (not Input.is_action_pressed('mario_fire') \
+		or movement_type == Movement.SWIMMING):
 			velocity.x += 12.5 * Global.get_delta(delta)
-		elif velocity.x < 350 and Input.is_action_pressed('mario_fire') and movement_type != Movement.SWIMMING:
+		elif velocity.x < 350 and Input.is_action_pressed('mario_fire') \
+		and movement_type != Movement.SWIMMING:
 			velocity.x += 12.5 * Global.get_delta(delta)
 
 	if Input.is_action_pressed('mario_left') and not crouch:
@@ -651,7 +676,12 @@ func animate_swimming(delta, start) -> void:
 		bubble_delay = rand_range(0.4 * 50, 3.0 * 50)
 		var bub = bubble.instance()
 		Global.current_scene.add_child(bub)
-		bub.global_position = global_position.rotated(rotation) + Vector2(6, -12).rotated(rotation)
+		bub.global_position = (
+			global_position.rotated(rotation) + Vector2(
+				-8 if $Sprite.flip_h else 8,
+				-14 if Global.state == 0 else -28
+			).rotated(rotation)
+		)
 	else:
 		bubble_delay -= 1 * Global.get_delta(delta)
 
@@ -721,7 +751,8 @@ func animate_swimming(delta, start) -> void:
 		if (is_on_floor() or $Sprite.animation == 'Launching') and $Sprite.animation != 'Appearing':
 			animate_sprite('Walking')
 
-	if abs(velocity.x) < 0.08 and (is_on_floor() or is_over_platform()) and $Sprite.animation != 'Appearing' and $Sprite.animation != 'Launching':
+	if abs(velocity.x) < 0.08 and (is_on_floor() or is_over_platform()) and \
+	$Sprite.animation != 'Appearing' and $Sprite.animation != 'Launching':
 		animate_sprite('Stopped')
 
 func animate_climbing(delta) -> void:
@@ -823,7 +854,8 @@ func update_collisions() -> void:
 	$SmallLeftDetector/CollisionSmallLeft.disabled = is_small
 	
 	$CollisionBig.disabled = !is_small && !(Global.state == 0 && is_in_shoe)
-	$TopDetector/CollisionTopBig.disabled = !(Global.state > 0 && (!crouch || is_stuck)) && !(Global.state == 0 && is_in_shoe)
+	$TopDetector/CollisionTopBig.disabled = \
+		!(Global.state > 0 && (!crouch || is_stuck)) && !(Global.state == 0 && is_in_shoe)
 	$InsideDetector/CollisionBig.disabled = !is_small
 	$SmallRightDetector/CollisionSmallRightBig.disabled = !is_small
 	$SmallLeftDetector/CollisionSmallLeftBig.disabled = !is_small
@@ -948,10 +980,20 @@ func debug() -> void:
 	if Input.is_action_just_pressed('mouse_middle'):
 		$DebugText.visible = !$DebugText.visible
 
-	$DebugText.text = 'x = ' + str(position.x) + '\ny = ' + str(position.y) + '\nx speed = ' + str(velocity.x) + '\ny speed = ' + str(velocity.y) + '\nanimation: ' + str($Sprite.animation).to_lower() + '\nmovement: ' + str(Movement.keys()[movement_type].to_lower()) + '\nfps: ' + str(Engine.get_frames_per_second())
+	$DebugText.text = \
+	'x = ' + str(position.x) + \
+	'\ny = ' + str(position.y) + \
+	'\nx speed = ' + str(velocity.x) + \
+	'\ny speed = ' + str(velocity.y) + \
+	'\nanimation: ' + str($Sprite.animation).to_lower() + \
+	'\nmovement: ' + str(Movement.keys()[movement_type].to_lower()) + \
+	'\nfps: ' + str(Engine.get_frames_per_second()) 
 
 func _process_debug_fly(delta: float) -> void:
-	var debugspeed: int = 10 + (int(Input.is_action_pressed('mario_fire')) * 10) - (int( Input.is_action_pressed('debug_shift') ) * 9)
+	var debugspeed: int = 10 + (
+			int(Input.is_action_pressed('mario_fire')) * 10
+		) - (int( Input.is_action_pressed('debug_shift') ) * 9)
+	
 	if Input.is_action_pressed('mario_right'):
 		position += Vector2(debugspeed * Global.get_delta(delta), 0).rotated(rotation)
 	if Input.is_action_pressed('mario_left'):

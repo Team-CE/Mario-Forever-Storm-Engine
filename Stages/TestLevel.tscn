@@ -160,6 +160,38 @@ position = Vector2( 2544, 320 )
 Visible = 2
 Result = ExtResource( 5 )
 
+[node name="QBlock24" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2576, 192 )
+Visible = 2
+
+[node name="QBlock30" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2576, 160 )
+Visible = 2
+
+[node name="QBlock31" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2576, 128 )
+Visible = 2
+
+[node name="QBlock25" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2576, 224 )
+Visible = 2
+
+[node name="QBlock26" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2576, 256 )
+Visible = 2
+
+[node name="QBlock27" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2576, 288 )
+Visible = 2
+
+[node name="QBlock28" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2576, 320 )
+Visible = 2
+
+[node name="QBlock29" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2576, 352 )
+Visible = 2
+
 [node name="QBlock5" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1872, 96 )
 Result = ExtResource( 33 )

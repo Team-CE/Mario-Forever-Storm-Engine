@@ -1,11 +1,11 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Prefabs/world_env.tres" type="Environment" id=1]
 [ext_resource path="res://Prefabs/Tilesets/Generic.tres" type="TileSet" id=2]
 [ext_resource path="res://Sounds/Menu/lets_bg.wav" type="AudioStream" id=3]
 [ext_resource path="res://GFX/Scenery/Tree1.png" type="Texture" id=4]
 [ext_resource path="res://GFX/Scenery/Fence.png" type="Texture" id=5]
-[ext_resource path="res://GFX/Scenery/Grass.png" type="Texture" id=6]
+[ext_resource path="res://GFX/Scenery/Grass.tres" type="SpriteFrames" id=6]
 [ext_resource path="res://GFX/Scenery/Hill.png" type="Texture" id=7]
 [ext_resource path="res://GFX/Scenery/Tree2.png" type="Texture" id=8]
 [ext_resource path="res://GFX/Scenery/Cloud.tres" type="SpriteFrames" id=9]
@@ -20,26 +20,6 @@ colors = PoolColorArray( 0.372549, 0.501961, 0.713726, 1, 1, 1, 1, 1 )
 
 [sub_resource type="GradientTexture" id=122]
 gradient = SubResource( 121 )
-
-[sub_resource type="AtlasTexture" id=115]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 64, 32 )
-
-[sub_resource type="AtlasTexture" id=116]
-atlas = ExtResource( 6 )
-region = Rect2( 64, 0, 64, 32 )
-
-[sub_resource type="AtlasTexture" id=117]
-atlas = ExtResource( 6 )
-region = Rect2( 128, 0, 64, 32 )
-
-[sub_resource type="SpriteFrames" id=123]
-animations = [ {
-"frames": [ SubResource( 115 ), SubResource( 116 ), SubResource( 117 ) ],
-"loop": true,
-"name": "default",
-"speed": 7.0
-} ]
 
 [node name="CutsceneCave" type="Node2D"]
 script = ExtResource( 23 )
@@ -88,33 +68,34 @@ texture = SubResource( 122 )
 position = Vector2( 48, 208 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 2
 playing = true
 
 [node name="Cloud2" type="AnimatedSprite" parent="."]
 position = Vector2( 128, 48 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Cloud3" type="AnimatedSprite" parent="."]
 position = Vector2( 368, 32 )
 z_index = -1
 frames = ExtResource( 9 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Cloud4" type="AnimatedSprite" parent="."]
 position = Vector2( 272, 240 )
 z_index = -1
 frames = ExtResource( 9 )
+frame = 1
 playing = true
 
 [node name="Cloud5" type="AnimatedSprite" parent="."]
 position = Vector2( 512, 144 )
 z_index = -1
 frames = ExtResource( 9 )
+frame = 1
 playing = true
 
 [node name="Sprite2" type="Sprite" parent="."]
@@ -133,9 +114,10 @@ texture = ExtResource( 8 )
 
 [node name="AnimatedSprite3" type="AnimatedSprite" parent="."]
 modulate = Color( 0.498039, 1.14118, 0.670588, 1 )
-position = Vector2( 256, 400 )
+position = Vector2( 256, 401 )
 z_index = -1
-frames = SubResource( 123 )
+frames = ExtResource( 6 )
+frame = 1
 playing = true
 
 [node name="Zabor" type="Sprite" parent="."]
