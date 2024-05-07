@@ -23,7 +23,7 @@ collision_mask = 2
 script = ExtResource( 1 )
 vars = {
 "custom action": ExtResource( 4 ),
-"grow speed": 1.5,
+"grow speed": 1.0,
 "sgr behavior": false,
 "speed": 100.0
 }

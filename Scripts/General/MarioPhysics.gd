@@ -392,9 +392,10 @@ func movement_default(delta) -> void:
 	if is_on_floor() and jump_internal_counter > 3:
 		jump_counter = 0
 	
+	if !controls_enabled || crouch: return
 	# Start climbing
-	if Input.is_action_pressed('mario_up') || (Input.is_action_pressed('mario_crouch') && !is_on_floor()) and controls_enabled:
-		if crouch || !is_over_vine(): return
+	if Input.is_action_pressed('mario_up') || (Input.is_action_pressed('mario_crouch') && !is_on_floor()):
+		if !is_over_vine(): return
 		if movement_type == Movement.DEFAULT:
 			movement_type = Movement.CLIMBING
 
@@ -429,8 +430,7 @@ func movement_swimming(delta) -> void:
 		
 	# Start climbing
 	if Input.is_action_pressed('mario_up') || (Input.is_action_pressed('mario_crouch') && !is_on_floor()) and controls_enabled:
-		if crouch || !is_over_vine(): return
-		if movement_type == Movement.SWIMMING:
+		if !crouch && is_over_vine() && movement_type == Movement.SWIMMING:
 			movement_type = Movement.CLIMBING
 	
 	if !Global.is_mario_collide_area_group('InsideDetector', 'Water'):
@@ -500,15 +500,11 @@ func controls(delta) -> void:
 	if movement_type == Movement.CLIMBING:
 		if Input.is_action_pressed('mario_up'):
 			velocity.y = -125
-		if Input.is_action_pressed('mario_left'):
-			velocity.x = -125
-		if Input.is_action_pressed('mario_right'):
-			velocity.x = 125
+		
+		velocity.x = Input.get_axis('mario_left', 'mario_right') * 125
 		
 		if !Input.is_action_pressed('mario_crouch') and !Input.is_action_pressed('mario_up'):
 			velocity.y = 0
-		if !Input.is_action_pressed('mario_left') and !Input.is_action_pressed('mario_right'):
-			velocity.x = 0
 		if Input.is_action_pressed('mario_crouch'):
 			if is_on_floor():
 				movement_type = Movement.DEFAULT

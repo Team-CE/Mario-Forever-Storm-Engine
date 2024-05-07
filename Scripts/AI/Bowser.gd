@@ -216,7 +216,7 @@ func frozen_logic(delta: float) -> void:
 		freeze_counter = 0
 		create_ice_debris()
 		
-		if freeze_level > 2:
+		if freeze_level > 0:
 			freeze_level = 0
 			bowser_damage()
 		else:

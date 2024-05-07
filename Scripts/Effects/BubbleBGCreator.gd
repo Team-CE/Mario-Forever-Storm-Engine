@@ -4,8 +4,6 @@ export var bubble = preload('res://Objects/Effects/BubbleEffect.tscn')
 
 var timer: float
 
-func _ready():
-	pass
 
 func _physics_process(delta):
 	if !Global.is_getting_closer(-32, position):
@@ -18,4 +16,4 @@ func _physics_process(delta):
 			var bub = bubble.instance()
 			bub.type = 1
 			get_parent().add_child(bub)
-			bub.global_position = global_position + Vector2(0, round(rand_range(-10, 10)))
+			bub.global_position = global_position + Vector2(round(rand_range(-10, 10)), 0)

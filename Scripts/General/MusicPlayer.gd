@@ -9,11 +9,11 @@ onready var star: AudioStreamPlayer = $Star
 
 # Loading typical music used everywhere right after the game boots.
 # Reference these variables instead of loading them in scripts.
-var mus_win: Resource = preload('res://Music/complete-level.it')    #Level complete
-var mus_death: Resource = preload('res://Music/death.it')           #Mario death
-var mus_gameover: Resource = preload('res://Music/gameover.it')     #Game over
-var mus_starman: Resource = preload('res://Music/starman.it')       #Starman
-var mus_complete: Resource = preload('res://Music/stats.it')        #Map complete
+var mus_win: Resource = preload('res://Music/complete-level.ogg')      # Level complete
+var mus_death: Resource = preload('res://Music/death.ogg')             # Mario death
+var mus_gameover: Resource = preload('res://Music/gameover.it')        # Game over
+var mus_starman: Resource = preload('res://Music/starman.it')          # Starman
+var mus_complete: Resource = preload('res://Music/complete-world.ogg') # Map complete
 
 # List of every extension libopenmpt 6 can support.
 # Constant is unused for now, comments were left for reference.
@@ -55,10 +55,6 @@ alongside the game executable.
 
 The game will now continue to work without music.
 Reload the game to try again.""")
-
-#If you think this is an error, contact the game developer
-#on Discord: @Usered#6888, or use the Discord server
-#invite link: https://discord.gg/VwgV6GmwXv
 
 func play_file(file: Resource) -> void:
 	if !file:

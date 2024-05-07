@@ -15,6 +15,7 @@ var autopause: bool = true
 var overlay: bool = true
 var autosave: bool = true
 var framerate: bool = false
+var frame_limit: int = 0
 
 var toSaveInfo = {
 	"SoundVol": soundBar,
@@ -29,7 +30,8 @@ var toSaveInfo = {
 	"Autopause": autopause,
 	"Overlay": overlay,
 	"Autosave": autosave,
-	"Framerate": framerate
+	"Framerate": framerate,
+	"FrameLimit": frame_limit
 }
 var restartNeeded: bool = false
 var saveFileExists: bool = false
@@ -172,6 +174,7 @@ func _ready() -> void:
 	if toSaveInfo.has('Overlay') and typeof(toSaveInfo.Overlay) == TYPE_BOOL: overlay = toSaveInfo.Overlay
 	if toSaveInfo.has('Autosave') and typeof(toSaveInfo.Autosave) == TYPE_BOOL: autosave = toSaveInfo.Autosave
 	if toSaveInfo.has('Framerate') and typeof(toSaveInfo.Framerate) == TYPE_BOOL: framerate = toSaveInfo.Framerate
+	if toSaveInfo.has('FrameLimit') and typeof(toSaveInfo.FrameLimit) == TYPE_REAL: frame_limit = toSaveInfo.FrameLimit
 	
 	# Loading controls
 	for action in controls:
